@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/World_Street_Map"
+            android:title="StreetMapMenu"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/World_Topo"
+            android:title="TopoMenu"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/Gray"
+            android:title="GrayMenu"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/Ocean_Basemap"
+            android:title="OceanMenu"
+            app:showAsAction="never" />
+    </group>
+</menu>
