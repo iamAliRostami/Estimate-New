@@ -11,7 +11,6 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <!--    <color name="black">#FF000000</color>-->
-    <color name="white">#FFFFFFFF</color>
 
     <color name="milky">#464646</color>
     <color name="smoked">#CCCCCC</color>
@@ -30,5 +29,8 @@
     <color name="red_2">#ff3000</color>
     <color name="green_2">#06a106</color>
     <color name="yellow_2">#FF6D00</color>
+
+
+
 
 </resources>

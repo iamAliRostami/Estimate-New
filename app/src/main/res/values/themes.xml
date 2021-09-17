@@ -5,7 +5,7 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryVariant">@color/primary_variant</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnPrimary">@android:color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/secondary</item>
         <item name="colorSecondaryVariant">@color/secondary_variant</item>
@@ -32,8 +32,8 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_weight">1</item>
         <item name="android:textColor">@color/text_color_light</item>
-<!--        <item name="textColor">@color/text_color_light</item>-->
-<!--        <item name="textSize">@dimen/text_size_large</item>-->
+        <!--        <item name="textColor">@color/text_color_light</item>-->
+        <!--        <item name="textSize">@dimen/text_size_large</item>-->
         <item name="android:textSize">@dimen/text_size_large</item>
         <item name="android:layout_margin">@dimen/medium_dp</item>
     </style>
@@ -62,8 +62,38 @@
     <style name="Title">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
-<!--        <item name="textSize">@dimen/text_size_medium</item>-->
         <item name="android:textSize">@dimen/text_size_medium</item>
         <item name="android:padding">@dimen/medium_dp</item>
+    </style>
+
+
+    <style name="AlertDialogCustom" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:textColor">@color/red_2</item>
+        <item name="buttonBarNegativeButtonStyle">@style/DialogButton</item>
+        <item name="buttonBarPositiveButtonStyle">@style/DialogButton</item>
+    </style>
+
+    <style name="DialogButton">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:clickable">true</item>
+        <item name="android:background">?android:selectableItemBackground</item>
+        <item name="android:paddingTop">@dimen/medium_dp</item>
+        <item name="android:paddingBottom">@dimen/medium_dp</item>
+        <item name="android:paddingLeft">@dimen/large_dp</item>
+        <item name="android:paddingRight">@dimen/large_dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
+
+    <style name="NewDialog" parent="Theme.AppCompat">
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowTitleStyle">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:background">@android:color/transparent</item>
     </style>
 </resources>

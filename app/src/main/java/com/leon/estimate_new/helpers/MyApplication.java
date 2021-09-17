@@ -1,30 +1,66 @@
 package com.leon.estimate_new.helpers;
 
+import static com.leon.estimate_new.helpers.Constants.activityComponent;
+import static com.leon.estimate_new.helpers.Constants.appContext;
+import static com.leon.estimate_new.helpers.Constants.applicationComponent;
+
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
-import android.os.Bundle;
 
-import com.google.firebase.analytics.FirebaseAnalytics;
+import com.leon.estimate_new.di.component.ActivityComponent;
+import com.leon.estimate_new.di.component.ApplicationComponent;
+import com.leon.estimate_new.di.component.DaggerActivityComponent;
+import com.leon.estimate_new.di.component.DaggerApplicationComponent;
+import com.leon.estimate_new.di.module.CustomDialogModule;
+import com.leon.estimate_new.di.module.FlashModule;
+import com.leon.estimate_new.di.module.LocationTrackingModule;
+import com.leon.estimate_new.di.module.MyDatabaseModule;
+import com.leon.estimate_new.di.module.NetworkModule;
+import com.leon.estimate_new.di.module.SharedPreferenceModule;
+import com.leon.estimate_new.enums.SharedReferenceNames;
 
 public class MyApplication extends Application {
 
-    public static String getDBNAME() {
+    public static String getDBName() {
         return Constants.DATABASE_NAME;
     }
 
     public static Context getContext() {
-        return Constants.appContext;
+        return appContext;
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        Constants.appContext = getApplicationContext();
-        FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-        Bundle bundle = new Bundle();
-        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "id");
-        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "name");
-        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "image");
-        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+        appContext = getApplicationContext();
+        setApplicationComponent();
+    }
+
+    public void setApplicationComponent() {
+        applicationComponent = DaggerApplicationComponent
+                .builder()
+                .networkModule(new NetworkModule())
+                .flashModule(new FlashModule(appContext))
+                .myDatabaseModule(new MyDatabaseModule(appContext))
+                .sharedPreferenceModule(new SharedPreferenceModule(appContext, SharedReferenceNames.ACCOUNT))
+                .build();
+        applicationComponent.inject(this);
+    }
+
+    public static ApplicationComponent getApplicationComponent() {
+        return applicationComponent;
+    }
+
+    public void setActivityComponent(Activity activity) {
+        activityComponent = DaggerActivityComponent
+                .builder()
+                .customDialogModule(new CustomDialogModule(activity))
+                .locationTrackingModule(new LocationTrackingModule(activity))
+                .build();
+    }
+
+    public static ActivityComponent getActivityComponent() {
+        return activityComponent;
     }
 }

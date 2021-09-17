@@ -9,8 +9,6 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <!--    <color name="black">#FF000000</color>-->
-    <color name="white">#FFFFFFFF</color>
 
 
     <color name="milky">#CCCCCC</color>
@@ -35,4 +33,11 @@
 
     <color name="polygonViewCircleStrokeColor">#ff59a9ff</color>
     <color name="polygonViewCircleBackground">#90e5f8ff</color>
+
+
+    <color name="forrest">#2e4e16</color>
+    <color name="green">#172e17</color>
+    <color name="blue">#304FFE</color>
+    <color name="egyptian">#6200EA</color>
+    <color name="yellow">#FF6D00</color>
 </resources>

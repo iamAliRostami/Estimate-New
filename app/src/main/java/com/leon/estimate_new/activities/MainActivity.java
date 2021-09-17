@@ -1,9 +1,8 @@
 package com.leon.estimate_new.activities;
 
-import static com.leon.estimate_new.BuildConfig.API_KEY;
-
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,18 +10,22 @@ import android.view.MotionEvent;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.esri.arcgisruntime.ArcGISRuntimeEnvironment;
+import com.esri.arcgisruntime.data.ShapefileFeatureTable;
 import com.esri.arcgisruntime.geometry.Point;
 import com.esri.arcgisruntime.geometry.Polygon;
 import com.esri.arcgisruntime.layers.ArcGISTiledLayer;
+import com.esri.arcgisruntime.layers.FeatureLayer;
+import com.esri.arcgisruntime.loadable.LoadStatus;
 import com.esri.arcgisruntime.mapping.ArcGISMap;
 import com.esri.arcgisruntime.mapping.Basemap;
-import com.esri.arcgisruntime.mapping.BasemapStyle;
 import com.esri.arcgisruntime.mapping.Viewpoint;
 import com.esri.arcgisruntime.mapping.view.DefaultMapViewOnTouchListener;
 import com.esri.arcgisruntime.mapping.view.LocationDisplay;
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.databinding.ActivityMainBinding;
+import com.leon.estimate_new.utils.gis.CustomImageTiledLayer;
+import com.leon.estimate_new.utils.gis.GoogleMapLayer;
+import com.leon.estimate_new.utils.gis.LayerInfo;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
@@ -52,49 +55,49 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void initializeMap() {
-        ArcGISRuntimeEnvironment.setApiKey(API_KEY);
-        arcGISTiledLayer = new ArcGISTiledLayer("http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer");
-        basemap = new Basemap(arcGISTiledLayer);
-        map = new ArcGISMap(basemap);
-//        map = new ArcGISMap(BasemapStyle.OSM_STREETS);
+        map = new ArcGISMap();
         binding.mapView.setMap(map);
-        binding.mapView.setViewpoint(new Viewpoint(32.7030911, 51.7135289, 72000.0));
+        binding.mapView.setViewpoint(new Viewpoint(32.7030911, 51.7135289, 7200));
 
-        locationDisplay = binding.mapView.getLocationDisplay();
-        if (locationDisplay == null) {
-            Log.e("locationDisplay", " is null");
-        } else {
-            Log.e("locationDisplay", locationDisplay.getMapLocation().toString());
-        }
+        LayerInfo info = new LayerInfo();
+        CustomImageTiledLayer baseLayer = new CustomImageTiledLayer(info.getTianDiTuMLayerInfo(), info.getMFullExtent());
+        baseLayer.setMainURL(getString(R.string.local_base_map));
+//        baseLayer.setName("baseLayer");
+        binding.mapView.getMap().getBasemap().getBaseLayers().add(GoogleMapLayer.CreateGoogleLayer(GoogleMapLayer.MapType.IMAGE));
+        binding.mapView.getMap().getBasemap().getBaseLayers().add(baseLayer);
 
         binding.mapView.setMagnifierEnabled(true);
         binding.mapView.setCanMagnifierPanMap(true);
 
-//        ShapefileFeatureTable shapefileFeatureTable = new ShapefileFeatureTable(
-//                getExternalFilesDir(null) + "/Aurora_CO_shp");
+        loadShapeFile();
 
-//        ShapefileFeatureTable shapefileFeatureTable = new ShapefileFeatureTable(
-//                Environment.getExternalStorageDirectory() + "/Aurora_CO.shp");
-
-        // create a feature layer to display the shapefile
-//        FeatureLayer shapefileFeatureLayer = new FeatureLayer(shapefileFeatureTable);
-        // add the feature layer to the map
-//        binding.mapView.getMap().getOperationalLayers().add(shapefileFeatureLayer);
-//        shapefileFeatureTable.addDoneLoadingListener(() -> {
-//            if (shapefileFeatureTable.getLoadStatus() == LoadStatus.LOADED) {
-//                // zoom the map to the extent of the shapefile
-//                binding.mapView.setViewpointAsync(new Viewpoint(shapefileFeatureLayer.getFullExtent()));
-//            } else {
-//                String error = "Shapefile feature table failed to load: " + shapefileFeatureTable.getLoadError().toString();
-//                Log.e("reading", error);
-//            }
-//        });
-        onnMapTouchListener();
+        onMapTouchListener();
     }
 
+    void loadLocalMap() {
+
+    }
+
+    void loadShapeFile() {
+        ShapefileFeatureTable shapefileFeatureTable = new ShapefileFeatureTable(
+                Environment.getExternalStorageDirectory() + "/Pictures/Aurora_CO.shp");
+
+        // create a feature layer to display the shapefile
+        FeatureLayer shapefileFeatureLayer = new FeatureLayer(shapefileFeatureTable);
+        // add the feature layer to the map
+        binding.mapView.getMap().getOperationalLayers().add(shapefileFeatureLayer);
+        shapefileFeatureTable.addDoneLoadingListener(() -> {
+            if (shapefileFeatureTable.getLoadStatus() == LoadStatus.LOADED) {
+                // zoom the map to the extent of the shapefile
+                binding.mapView.setViewpointAsync(new Viewpoint(shapefileFeatureLayer.getFullExtent()));
+            } else {
+                Log.e("ReadShape", shapefileFeatureTable.getLoadError().toString());
+            }
+        });
+    }
 
     @SuppressLint("ClickableViewAccessibility")
-    private void onnMapTouchListener() {
+    private void onMapTouchListener() {
         try {
             binding.mapView.setOnTouchListener(new DefaultMapViewOnTouchListener(getApplicationContext(), binding.mapView) {
                 @Override
@@ -117,19 +120,19 @@ public class MainActivity extends AppCompatActivity {
         mCurrentMapExtent = binding.mapView.getVisibleArea();
         switch (item.getItemId()) {
             case R.id.World_Street_Map:
-                map = new ArcGISMap(BasemapStyle.ARCGIS_IMAGERY);
+//                map = new ArcGISMap(BasemapStyle.ARCGIS_IMAGERY);
                 mStreetsMenuItem.setChecked(true);
                 return true;
             case R.id.World_Topo:
-                map = new ArcGISMap(BasemapStyle.ARCGIS_IMAGERY_STANDARD);
+//                map = new ArcGISMap(BasemapStyle.ARCGIS_IMAGERY_STANDARD);
                 mTopoMenuItem.setChecked(true);
                 return true;
             case R.id.Gray:
-                map = new ArcGISMap(BasemapStyle.ARCGIS_IMAGERY_LABELS);
+//                map = new ArcGISMap(BasemapStyle.ARCGIS_IMAGERY_LABELS);
                 mGrayMenuItem.setChecked(true);
                 return true;
             case R.id.Ocean_Basemap:
-                map = new ArcGISMap(BasemapStyle.ARCGIS_LIGHT_GRAY);
+//                map = new ArcGISMap(BasemapStyle.ARCGIS_LIGHT_GRAY);
                 mOceansMenuItem.setChecked(true);
                 return true;
         }

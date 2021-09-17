@@ -4,9 +4,15 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
 
+import com.leon.estimate_new.di.component.ActivityComponent;
+import com.leon.estimate_new.di.component.ApplicationComponent;
+import com.leon.estimate_new.tables.CalculationUserInput;
+import com.leon.estimate_new.tables.ExaminerDuties;
+
 import java.util.ArrayList;
 
 public class Constants {
+    public static final String DATABASE_NAME = "MyDatabase_1";
     public static final String fontName = "font/font_1.ttf";
     public static final int TOAST_TEXT_SIZE = 20;
     public static final int GPS_CODE = 1231;
@@ -18,17 +24,18 @@ public class Constants {
     public static final int NAVIGATION = 1903;
     public static final int COUNTER_LOCATION = 1914;
     public static final int DESCRIPTION = 1909;
-    public static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10;
-    public static final long MIN_TIME_BW_UPDATES = 10000;
-    public static final long FASTEST_INTERVAL = 10000;
     public static final int REQUEST_LOCATION_CODE = 1236;
-    public final static int GALLERY_IMAGE_LOADED = 1001;
+    public static final int GALLERY_IMAGE_LOADED = 1001;
     public static final int IMAGE_CROP_REQUEST = 1234;
     public static final int IMAGE_BRIGHTNESS_CONTRAST_REQUEST = 1324;
     public static final int MAX_IMAGE_SIZE = 200000;
     public static final int CAMERA_REQUEST = 1888;
     public static final int GALLERY_REQUEST = 1889;
-    public static final String DATABASE_NAME = "MyDatabase";
+
+    public static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10;
+    public static final long MIN_TIME_BW_UPDATES = 10000;
+    public static final long FASTEST_INTERVAL = 10000;
+
     public static String karbari, noeVagozari, qotrEnsheab;
     public static ArrayList<Integer> valueInteger;
     public static Bitmap selectedImageBitmap;
@@ -37,4 +44,10 @@ public class Constants {
     public static String IMAGE_FILE_NAME;
 
     public static Context appContext;
+
+    public static CalculationUserInput calculationUserInput, calculationUserInputTemp;
+
+    public static ApplicationComponent applicationComponent;
+    public static ActivityComponent activityComponent;
+    public static ExaminerDuties examinerDuties;
 }

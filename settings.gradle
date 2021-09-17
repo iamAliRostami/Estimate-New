@@ -17,6 +17,11 @@ dependencyResolutionManagement {
             classpath 'com.google.gms:google-services:4.3.10'
         }
     }
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
 }
 rootProject.name = "Estimate"
 include ':app', ':openCVLibrary'
