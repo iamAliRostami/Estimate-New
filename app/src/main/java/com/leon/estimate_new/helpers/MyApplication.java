@@ -19,6 +19,8 @@ import com.leon.estimate_new.di.module.MyDatabaseModule;
 import com.leon.estimate_new.di.module.NetworkModule;
 import com.leon.estimate_new.di.module.SharedPreferenceModule;
 import com.leon.estimate_new.enums.SharedReferenceNames;
+import com.leon.estimate_new.infrastructure.ILocationTracking;
+import com.leon.estimate_new.utils.CheckSensor;
 
 public class MyApplication extends Application {
 
@@ -52,7 +54,7 @@ public class MyApplication extends Application {
         return applicationComponent;
     }
 
-    public void setActivityComponent(Activity activity) {
+    public static void setActivityComponent(Activity activity) {
         activityComponent = DaggerActivityComponent
                 .builder()
                 .customDialogModule(new CustomDialogModule(activity))
@@ -62,5 +64,11 @@ public class MyApplication extends Application {
 
     public static ActivityComponent getActivityComponent() {
         return activityComponent;
+    }
+
+    public static ILocationTracking getLocationTracker(Activity activity) {
+        return CheckSensor.checkSensor(activity) ?
+                activityComponent.LocationTrackingGoogle() :
+                activityComponent.LocationTrackingGps();
     }
 }

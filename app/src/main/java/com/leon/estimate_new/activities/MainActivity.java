@@ -20,19 +20,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.esri.arcgisruntime.data.ShapefileFeatureTable;
 import com.esri.arcgisruntime.geometry.Point;
 import com.esri.arcgisruntime.geometry.Polygon;
-import com.esri.arcgisruntime.layers.ArcGISTiledLayer;
 import com.esri.arcgisruntime.layers.FeatureLayer;
 import com.esri.arcgisruntime.loadable.LoadStatus;
 import com.esri.arcgisruntime.mapping.ArcGISMap;
-import com.esri.arcgisruntime.mapping.Basemap;
+import com.esri.arcgisruntime.mapping.BasemapStyle;
 import com.esri.arcgisruntime.mapping.Viewpoint;
 import com.esri.arcgisruntime.mapping.view.DefaultMapViewOnTouchListener;
-import com.esri.arcgisruntime.mapping.view.LocationDisplay;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.databinding.ActivityMainBinding;
 import com.leon.estimate_new.helpers.Constants;
+import com.leon.estimate_new.helpers.MyApplication;
 import com.leon.estimate_new.utils.CustomToast;
 import com.leon.estimate_new.utils.PermissionManager;
 import com.leon.estimate_new.utils.gis.CustomImageTiledLayer;
@@ -44,15 +43,10 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private Activity activity;
-    private Basemap basemap;
-    private ArcGISTiledLayer arcGISTiledLayer;
     private ArcGISMap map;
-    private LocationDisplay locationDisplay;
-
-    private Polygon mCurrentMapExtent = null;
 
     private MenuItem mStreetsMenuItem = null;
-    private MenuItem mTopoMenuItem = null;
+    private MenuItem mTopologyMenuItem = null;
     private MenuItem mGrayMenuItem = null;
     private MenuItem mOceansMenuItem = null;
 
@@ -74,12 +68,13 @@ public class MainActivity extends AppCompatActivity {
     void initializeMap() {
         map = new ArcGISMap();
         binding.mapView.setMap(map);
-        binding.mapView.setViewpoint(new Viewpoint(32.7030911, 51.7135289, 7200));
+        binding.mapView.setViewpoint(new Viewpoint(MyApplication.getLocationTracker(activity).getLatitude(),
+                MyApplication.getLocationTracker(activity).getLongitude(), 7200));
 
         LayerInfo info = new LayerInfo();
         CustomImageTiledLayer baseLayer = new CustomImageTiledLayer(info.getTianDiTuMLayerInfo(), info.getMFullExtent());
         baseLayer.setMainURL(getString(R.string.local_base_map));
-//        baseLayer.setName("baseLayer");
+
         binding.mapView.getMap().getBasemap().getBaseLayers().add(GoogleMapLayer.CreateGoogleLayer(GoogleMapLayer.MapType.IMAGE));
         binding.mapView.getMap().getBasemap().getBaseLayers().add(baseLayer);
 
@@ -97,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
     void loadShapeFile() {
         ShapefileFeatureTable shapefileFeatureTable = new ShapefileFeatureTable(
-                Environment.getExternalStorageDirectory() + "/Pictures/Aurora_CO.shp");
+                Environment.getExternalStorageDirectory() + "/Pictures/Aurora_CO_shp.zip");
 
         // create a feature layer to display the shapefile
         FeatureLayer shapefileFeatureLayer = new FeatureLayer(shapefileFeatureTable);
@@ -119,14 +114,13 @@ public class MainActivity extends AppCompatActivity {
             binding.mapView.setOnTouchListener(new DefaultMapViewOnTouchListener(getApplicationContext(), binding.mapView) {
                 @Override
                 public boolean onSingleTapConfirmed(MotionEvent e) {
-
                     Point screenCoordinate = new Point(Math.round(e.getX()), Math.round(e.getY()));
                     Log.e("point", String.valueOf(screenCoordinate.getX()));
                     return super.onSingleTapConfirmed(e);
                 }
             });
         } catch (Exception e) {
-            Log.e("error", e.toString());
+            e.printStackTrace();
         }
     }
 
@@ -134,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Save the current extent of the map before changing the map.
-        mCurrentMapExtent = binding.mapView.getVisibleArea();
+        Polygon mCurrentMapExtent = binding.mapView.getVisibleArea();
         switch (item.getItemId()) {
             case R.id.World_Street_Map:
 //                map = new ArcGISMap(BasemapStyle.ARCGIS_IMAGERY);
@@ -142,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.World_Topo:
 //                map = new ArcGISMap(BasemapStyle.ARCGIS_IMAGERY_STANDARD);
-                mTopoMenuItem.setChecked(true);
+                mTopologyMenuItem.setChecked(true);
                 return true;
             case R.id.Gray:
 //                map = new ArcGISMap(BasemapStyle.ARCGIS_IMAGERY_LABELS);
@@ -163,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.map_menu, menu);
 
         mStreetsMenuItem = menu.getItem(0);
-        mTopoMenuItem = menu.getItem(1);
+        mTopologyMenuItem = menu.getItem(1);
         mGrayMenuItem = menu.getItem(2);
         mOceansMenuItem = menu.getItem(3);
 

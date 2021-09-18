@@ -431,9 +431,9 @@
     <!--    <string name="COMPANY_NAME" />-->
 
 
-<!--    <string name="local_base_map">http://37.191.92.152:7080/PBS/rest/services/GoogleHybrid/MapServer</string>-->
-<!--    <string name="local_base_map">http://37.191.92.152:7080/PBS/rest/services/GoogleMapsRoad/MapServer</string>-->
-<!--    <string name="local_base_map">http://37.191.92.152:7080/PBS/rest/services/GoogleHybrid/MapServer</string>-->
-    <string name="local_base_map">http://37.191.92.152:7080/PBS/rest/services/GoogleTerrain/MapServer</string>
-<!--    <string name="local_base_map">http://37.191.92.152:7080/PBS/rest/services/OpenStreetMap/MapServer</string>-->
+    <!--    <string name="local_base_map">http://37.191.92.152:7080/PBS/rest/services/GoogleHybrid/MapServer</string>-->
+    <!--    <string name="local_base_map">http://37.191.92.152:7080/PBS/rest/services/GoogleMapsRoad/MapServer</string>-->
+    <!--    <string name="local_base_map">http://37.191.92.152:7080/PBS/rest/services/GoogleHybrid/MapServer</string>-->
+<!--    <string name="local_base_map">http://37.191.92.152:7080/PBS/rest/services/GoogleTerrain/MapServer</string>-->
+        <string name="local_base_map">http://37.191.92.152:7080/PBS/rest/services/OpenStreetMap/MapServer</string>
 </resources>
