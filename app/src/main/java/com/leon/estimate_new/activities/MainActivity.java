@@ -1,6 +1,12 @@
 package com.leon.estimate_new.activities;
 
+import static com.leon.estimate_new.utils.PermissionManager.isNetworkAvailable;
+
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -8,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.esri.arcgisruntime.data.ShapefileFeatureTable;
@@ -21,15 +28,22 @@ import com.esri.arcgisruntime.mapping.Basemap;
 import com.esri.arcgisruntime.mapping.Viewpoint;
 import com.esri.arcgisruntime.mapping.view.DefaultMapViewOnTouchListener;
 import com.esri.arcgisruntime.mapping.view.LocationDisplay;
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.databinding.ActivityMainBinding;
+import com.leon.estimate_new.helpers.Constants;
+import com.leon.estimate_new.utils.CustomToast;
+import com.leon.estimate_new.utils.PermissionManager;
 import com.leon.estimate_new.utils.gis.CustomImageTiledLayer;
 import com.leon.estimate_new.utils.gis.GoogleMapLayer;
 import com.leon.estimate_new.utils.gis.LayerInfo;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
-
+    private Activity activity;
     private Basemap basemap;
     private ArcGISTiledLayer arcGISTiledLayer;
     private ArcGISMap map;
@@ -47,7 +61,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        initialize();
+        activity = this;
+        if (isNetworkAvailable(activity))
+            checkPermissions();
+        else PermissionManager.enableNetwork(activity);
     }
 
     void initialize() {
@@ -143,19 +160,100 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.map_menu, menu);
 
-        // Get the basemap switching menu items.
         mStreetsMenuItem = menu.getItem(0);
         mTopoMenuItem = menu.getItem(1);
         mGrayMenuItem = menu.getItem(2);
         mOceansMenuItem = menu.getItem(3);
 
-        // Also set the topo basemap menu item to be checked, as this is the default.
         mStreetsMenuItem.setChecked(true);
 
         return true;
+    }
+
+    void checkPermissions() {
+        if (PermissionManager.gpsEnabled(this))
+            if (PermissionManager.checkLocationPermission(getApplicationContext())) {
+                askLocationPermission();
+            } else if (PermissionManager.checkCameraPermission(getApplicationContext())) {
+                askStoragePermission();
+            } else {
+                initialize();
+            }
+    }
+
+    void askStoragePermission() {
+        PermissionListener permissionlistener = new PermissionListener() {
+            @Override
+            public void onPermissionGranted() {
+                new CustomToast().info(getString(R.string.access_granted));
+                checkPermissions();
+            }
+
+            @Override
+            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+                PermissionManager.forceClose(activity);
+            }
+        };
+        new TedPermission(this)
+                .setPermissionListener(permissionlistener)
+                .setRationaleMessage(getString(R.string.confirm_permission))
+                .setRationaleConfirmText(getString(R.string.allow_permission))
+                .setDeniedMessage(getString(R.string.if_reject_permission))
+                .setDeniedCloseButtonText(getString(R.string.close))
+                .setGotoSettingButtonText(getString(R.string.allow_permission))
+                .setPermissions(
+                        Manifest.permission.CAMERA,
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ).check();
+    }
+
+    void askLocationPermission() {
+        PermissionListener permissionlistener = new PermissionListener() {
+            @Override
+            public void onPermissionGranted() {
+                new CustomToast().info(getString(R.string.access_granted));
+                checkPermissions();
+            }
+
+            @Override
+            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+
+                PermissionManager.forceClose(activity);
+            }
+        };
+        new TedPermission(this)
+                .setPermissionListener(permissionlistener)
+                .setRationaleMessage(getString(R.string.confirm_permission))
+                .setRationaleConfirmText(getString(R.string.allow_permission))
+                .setDeniedMessage(getString(R.string.if_reject_permission))
+                .setDeniedCloseButtonText(getString(R.string.close))
+                .setGotoSettingButtonText(getString(R.string.allow_permission))
+                .setPermissions(
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION
+                ).check();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == PackageManager.PERMISSION_GRANTED) {
+            if (requestCode == Constants.GPS_CODE)
+                checkPermissions();
+            if (requestCode == Constants.REQUEST_NETWORK_CODE) {
+                if (isNetworkAvailable(getApplicationContext()))
+                    checkPermissions();
+                else PermissionManager.setMobileWifiEnabled(this);
+            }
+            if (requestCode == Constants.REQUEST_WIFI_CODE) {
+                if (isNetworkAvailable(getApplicationContext()))
+                    checkPermissions();
+                else PermissionManager.enableNetwork(this);
+            }
+        }
     }
 
     @Override
