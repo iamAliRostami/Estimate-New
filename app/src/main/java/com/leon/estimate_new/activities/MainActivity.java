@@ -13,10 +13,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.esri.arcgisruntime.concurrent.Job;
+import com.esri.arcgisruntime.concurrent.ListenableFuture;
+import com.esri.arcgisruntime.data.ServiceFeatureTable;
 import com.esri.arcgisruntime.data.ShapefileFeatureTable;
 import com.esri.arcgisruntime.geometry.Point;
 import com.esri.arcgisruntime.geometry.Polygon;
@@ -26,6 +30,13 @@ import com.esri.arcgisruntime.mapping.ArcGISMap;
 import com.esri.arcgisruntime.mapping.BasemapStyle;
 import com.esri.arcgisruntime.mapping.Viewpoint;
 import com.esri.arcgisruntime.mapping.view.DefaultMapViewOnTouchListener;
+import com.esri.arcgisruntime.mapping.view.Graphic;
+import com.esri.arcgisruntime.mapping.view.GraphicsOverlay;
+import com.esri.arcgisruntime.mapping.view.MapView;
+import com.esri.arcgisruntime.tasks.offlinemap.GenerateOfflineMapJob;
+import com.esri.arcgisruntime.tasks.offlinemap.GenerateOfflineMapParameters;
+import com.esri.arcgisruntime.tasks.offlinemap.GenerateOfflineMapResult;
+import com.esri.arcgisruntime.tasks.offlinemap.OfflineMapTask;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.leon.estimate_new.R;
@@ -34,11 +45,12 @@ import com.leon.estimate_new.helpers.Constants;
 import com.leon.estimate_new.helpers.MyApplication;
 import com.leon.estimate_new.utils.CustomToast;
 import com.leon.estimate_new.utils.PermissionManager;
-import com.leon.estimate_new.utils.gis.CustomImageTiledLayer;
-import com.leon.estimate_new.utils.gis.GoogleMapLayer;
-import com.leon.estimate_new.utils.gis.LayerInfo;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
+
+;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
@@ -49,6 +61,15 @@ public class MainActivity extends AppCompatActivity {
     private MenuItem mTopologyMenuItem = null;
     private MenuItem mGrayMenuItem = null;
     private MenuItem mOceansMenuItem = null;
+
+
+    private GraphicsOverlay mGraphicsOverlay;
+    private Graphic mDownloadArea;
+
+    private GenerateOfflineMapJob mGenerateOfflineMapJob;
+    private GenerateOfflineMapParameters mGenerateOfflineMapParameters;
+    private String mLocalBasemapDirectory;
+    private OfflineMapTask mOfflineMapTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,39 +82,159 @@ public class MainActivity extends AppCompatActivity {
         else PermissionManager.enableNetwork(activity);
     }
 
-    void initialize() {
+    private void initialize() {
+        MapView mapView;
         initializeMap();
+//        generateOfflineMap();
+//        initializeMapOffline();
+        binding.buttonSave.setOnClickListener(view -> generateOfflineMap());
+        binding.buttonOffline.setOnClickListener(view -> initializeMapOffline());
     }
 
-    void initializeMap() {
+    private void initializeMap() {
         map = new ArcGISMap();
         binding.mapView.setMap(map);
+
         binding.mapView.setViewpoint(new Viewpoint(MyApplication.getLocationTracker(activity).getLatitude(),
-                MyApplication.getLocationTracker(activity).getLongitude(), 7200));
+                MyApplication.getLocationTracker(activity).getLongitude(), 1200));
 
-        LayerInfo info = new LayerInfo();
-        CustomImageTiledLayer baseLayer = new CustomImageTiledLayer(info.getTianDiTuMLayerInfo(), info.getMFullExtent());
-        baseLayer.setMainURL(getString(R.string.local_base_map));
+//    binding.mapView.addLayer(new ArcGISTiledMapServiceLayer("" +
+//            "http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer"));
 
-        binding.mapView.getMap().getBasemap().getBaseLayers().add(GoogleMapLayer.CreateGoogleLayer(GoogleMapLayer.MapType.IMAGE));
-        binding.mapView.getMap().getBasemap().getBaseLayers().add(baseLayer);
-
-        binding.mapView.setMagnifierEnabled(true);
-        binding.mapView.setCanMagnifierPanMap(true);
+//    LayerInfo info = new LayerInfo();
+//    CustomImageTiledLayer baseLayer = new CustomImageTiledLayer(info.getTianDiTuMLayerInfo(), info.getMFullExtent());
+//    baseLayer.setMainURL("");
+//
+//    binding.mapView.getMap().getBasemap().getBaseLayers().add(GoogleMapLayer.CreateGoogleLayer(GoogleMapLayer.MapType.IMAGE));
+//    binding.mapView.getMap().getBasemap().getBaseLayers().add(baseLayer);
+//
+//    binding.mapView.setMagnifierEnabled(true);
+//    binding.mapView.setCanMagnifierPanMap(true);
 
         loadShapeFile();
 
         onMapTouchListener();
     }
 
-    void loadLocalMap() {
+    private void initializeMap1() {
+        ArcGISMap map = new ArcGISMap(BasemapStyle.OSM_STREETS);
+
+        // create feature layer with its service feature table
+        // create the service feature table
+        ServiceFeatureTable serviceFeatureTable = new ServiceFeatureTable(
+                getResources().getString(R.string.local_base_map));
+
+        //explicitly set the mode to on interaction cache (which is also the default mode for service feature tables)
+        serviceFeatureTable.setFeatureRequestMode(ServiceFeatureTable.FeatureRequestMode.ON_INTERACTION_CACHE);
+
+        // create the feature layer using the service feature table
+        FeatureLayer featureLayer = new FeatureLayer(serviceFeatureTable);
+
+        // add the layer to the map
+        map.getOperationalLayers().add(featureLayer);
+
+        // set the map to be displayed in the mapview
+        binding.mapView.setMap(map);
+
+        // set an initial viewpoint
+    }
+
+    private void initializeMapOffline() {
+        // specify the extent, min scale, and max scale as parameters
+        double minScale = binding.mapView.getMapScale();
+        double maxScale = binding.mapView.getMap().getMaxScale();
+        // minScale must always be larger than maxScale
+        if (minScale <= maxScale) {
+            minScale = maxScale + 1;
+        }
+
+        // create an offline map task with the map
+        mOfflineMapTask = new OfflineMapTask(binding.mapView.getMap());
+
+        // create default generate offline map parameters
+        ListenableFuture<GenerateOfflineMapParameters> generateOfflineMapParametersFuture = mOfflineMapTask
+                .createDefaultGenerateOfflineMapParametersAsync(mDownloadArea.getGeometry(), minScale, maxScale);
+        generateOfflineMapParametersFuture.addDoneListener(() -> {
+            try {
+                mGenerateOfflineMapParameters = generateOfflineMapParametersFuture.get();
+                // name of local basemap file as supplied by the map's author
+                String localBasemapFileName = mGenerateOfflineMapParameters.getReferenceBasemapFilename();
+                // check if the offline map parameters include reference to a basemap file
+                if (!localBasemapFileName.isEmpty()) {
+                    // search for the given file name in the app's scoped storage
+                    File localBasemapFile = searchForFile(getExternalFilesDir(null), localBasemapFileName);
+                    // if a file of the given name was found
+                    if (localBasemapFile != null) {
+                        // get the file's directory
+                        mLocalBasemapDirectory = localBasemapFile.getParent();
+//                        showLocalBasemapAlertDialog(localBasemapFileName);
+                        if (mLocalBasemapDirectory != null)
+                            mGenerateOfflineMapParameters.setReferenceBasemapDirectory(mLocalBasemapDirectory);
+                        // call generate offline
+                    } else {
+                        String error = "Local basemap file " + localBasemapFileName + " not found!";
+                        Toast.makeText(this, error, Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    String message = "The map's author has not specified a local basemap";
+                    Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+                }
+            } catch (ExecutionException | InterruptedException e) {
+                String error = "Error creating generate offline map parameters: " + e.getMessage();
+                Toast.makeText(this, error, Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private File searchForFile(File file, String fileName) {
+        if (file.isDirectory()) {
+            File[] files = file.listFiles();
+            for (File f : files) {
+                File found = searchForFile(f, fileName);
+                if (found != null)
+                    return found;
+            }
+        } else {
+            if (file.getName().equals(fileName)) {
+                return file;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Use the generate offline map job to generate an offline map.
+     */
+    private void generateOfflineMap() {
+        // cancel previous job request
+        if (mGenerateOfflineMapJob != null) {
+            mGenerateOfflineMapJob.cancel();
+        }
+        String tempDirectoryPath = getCacheDir() + File.separator + getString(R.string.map_folder);
+        // create an offline map job with the download directory path and parameters and start the job
+        mGenerateOfflineMapJob = mOfflineMapTask.generateOfflineMap(mGenerateOfflineMapParameters, tempDirectoryPath);
+
+        // replace the current map with the result offline map when the job finishes
+        mGenerateOfflineMapJob.addJobDoneListener(() -> {
+            if (mGenerateOfflineMapJob.getStatus() == Job.Status.SUCCEEDED) {
+                GenerateOfflineMapResult result = mGenerateOfflineMapJob.getResult();
+                binding.mapView.setMap(result.getOfflineMap());
+                mGraphicsOverlay.getGraphics().clear();
+                Toast.makeText(this, "Now displaying offline map.", Toast.LENGTH_LONG).show();
+            } else {
+                Log.e("Error in generate offline map job", mGenerateOfflineMapJob.getError().getAdditionalMessage());
+            }
+        });
+        mGenerateOfflineMapJob.start();
+    }
+
+    private void loadLocalMap() {
 
     }
 
-    void loadShapeFile() {
+    private void loadShapeFile() {
         ShapefileFeatureTable shapefileFeatureTable = new ShapefileFeatureTable(
                 Environment.getExternalStorageDirectory() + "/Pictures/Aurora_CO_shp.zip");
-
         // create a feature layer to display the shapefile
         FeatureLayer shapefileFeatureLayer = new FeatureLayer(shapefileFeatureTable);
         // add the feature layer to the map
@@ -166,7 +307,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    void checkPermissions() {
+    private void checkPermissions() {
         if (PermissionManager.gpsEnabled(this))
             if (PermissionManager.checkLocationPermission(getApplicationContext())) {
                 askLocationPermission();
@@ -177,7 +318,7 @@ public class MainActivity extends AppCompatActivity {
             }
     }
 
-    void askStoragePermission() {
+    private void askStoragePermission() {
         PermissionListener permissionlistener = new PermissionListener() {
             @Override
             public void onPermissionGranted() {
@@ -204,7 +345,7 @@ public class MainActivity extends AppCompatActivity {
                 ).check();
     }
 
-    void askLocationPermission() {
+    private void askLocationPermission() {
         PermissionListener permissionlistener = new PermissionListener() {
             @Override
             public void onPermissionGranted() {

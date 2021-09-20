@@ -25,6 +25,7 @@
     <string name="camera">دوربین</string>
     <string name="camera_folder">/AbfaCamera/</string>
     <string name="audio_folder">/AbfaAudioRecord/</string>
+    <string name="map_folder">/OfflineMap/</string>
     <string name="save_format_name">yyyyMMdd_HHmmss</string>
     <string name="save_format_name_melli">yyyyMMdd_HHmmss_SSS</string>
 
