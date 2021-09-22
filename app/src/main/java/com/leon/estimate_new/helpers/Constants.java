@@ -29,7 +29,9 @@ public class Constants {
     public static final int GALLERY_IMAGE_LOADED = 1001;
     public static final int TOAST_TEXT_SIZE = 20;
     public static final String DATABASE_NAME = "MyDatabase_1";
-    public static final String FONT_NAME = "font/font_1.ttf";
+    public static final String PDF_FONT_NAME = "assets/fonts/pdf_font.ttf";
+    public static final String APP_FONT_NAME = "assets/fonts/font_1.ttf";
+//    public static final String FONT_NAME = "font/font_1.ttf";
 
     public static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10;
     public static final long MIN_TIME_BW_UPDATES = 10000;

@@ -6,8 +6,18 @@ import static com.leon.estimate_new.helpers.Constants.MAX_IMAGE_SIZE;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.pdf.PdfRenderer;
 import android.os.Environment;
+import android.os.ParcelFileDescriptor;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Paragraph;
 import com.leon.estimate_new.R;
 
 import java.io.ByteArrayOutputStream;
@@ -82,4 +92,6 @@ public class CustomFile {
         IMAGE_FILE_NAME = stringBuilder.append(image.getAbsolutePath()).toString();
         return image;
     }
+
+
 }

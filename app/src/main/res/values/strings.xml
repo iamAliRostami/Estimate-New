@@ -26,6 +26,7 @@
     <string name="camera_folder">/AbfaCamera/</string>
     <string name="audio_folder">/AbfaAudioRecord/</string>
     <string name="map_folder">/OfflineMap/</string>
+    <string name="pdf_folder">temp_pdf.pdf</string>
     <string name="save_format_name">yyyyMMdd_HHmmss</string>
     <string name="save_format_name_melli">yyyyMMdd_HHmmss_SSS</string>
 
@@ -435,6 +436,6 @@
     <!--    <string name="local_base_map">http://37.191.92.152:7080/PBS/rest/services/GoogleHybrid/MapServer</string>-->
     <!--    <string name="local_base_map">http://37.191.92.152:7080/PBS/rest/services/GoogleMapsRoad/MapServer</string>-->
     <!--    <string name="local_base_map">http://37.191.92.152:7080/PBS/rest/services/GoogleHybrid/MapServer</string>-->
-<!--    <string name="local_base_map">http://37.191.92.152:7080/PBS/rest/services/GoogleTerrain/MapServer</string>-->
-        <string name="local_base_map">http://37.191.92.152:7080/PBS/rest/services/OpenStreetMap/MapServer</string>
+    <!--    <string name="local_base_map">http://37.191.92.152:7080/PBS/rest/services/GoogleTerrain/MapServer</string>-->
+    <string name="local_base_map">http://37.191.92.152:7080/PBS/rest/services/OpenStreetMap/MapServer</string>
 </resources>
