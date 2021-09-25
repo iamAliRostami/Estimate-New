@@ -104,7 +104,8 @@ public class FinalReportActivity extends AppCompatActivity {
 
         List<String[]> temp = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            temp.add(new String[]{"C1-R" + (i + 1), "C2-R" + (i + 1)});
+            temp.add(new String[]{"ستون " + (i + 1), "ستون " + (i + 1),"ستون " + (i + 1),
+                    "ستون " + (i + 1),"ستون " + (i + 1), "ستون " + (i + 1)});
         }
         return temp;
     }
