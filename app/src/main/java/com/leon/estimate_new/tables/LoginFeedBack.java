@@ -1,12 +1,14 @@
 package com.leon.estimate_new.tables;
 
-/**
- * Created by Leon on 12/17/2017.
- */
-
 public class LoginFeedBack {
-    public String access_token;
-    public String refresh_token;
+    public final String access_token;
+    public final String refresh_token;
+    public String displayName;
+    public String userCode;
+    public String XSRFToken;
+    public String message;
+    public int status;
+    public boolean isValid;
 
     public LoginFeedBack(String access_token, String refresh_token) {
         this.access_token = access_token;

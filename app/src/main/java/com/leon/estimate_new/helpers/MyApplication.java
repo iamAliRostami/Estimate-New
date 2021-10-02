@@ -7,6 +7,7 @@ import static com.leon.estimate_new.helpers.Constants.applicationComponent;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.os.Build;
 
 import com.leon.estimate_new.di.component.ActivityComponent;
 import com.leon.estimate_new.di.component.ApplicationComponent;
@@ -37,6 +38,12 @@ public class MyApplication extends Application {
         super.onCreate();
         appContext = getApplicationContext();
         setApplicationComponent();
+    }
+
+    public static String getAndroidVersion() {
+        String release = Build.VERSION.RELEASE;
+        int sdkVersion = Build.VERSION.SDK_INT;
+        return "Android SDK: " + sdkVersion + " (" + release + ")";
     }
 
     public void setApplicationComponent() {
