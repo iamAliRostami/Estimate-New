@@ -70,7 +70,7 @@ public class CustomDialogModel {
 
     public void CustomRedDialogRedirect(String buttonText) {
         lovelyStandardDialog
-                .setTopColorRes(R.color.red_2)
+                .setTopColorRes(R.color.red)
                 .setTopTitleColor(ContextCompat.getColor(context, R.color.text_color_light))
                 .setButtonsBackground(R.drawable.border_red_1)
                 .setPositiveButton(buttonText, v -> lovelyStandardDialog.dismiss())
@@ -97,7 +97,7 @@ public class CustomDialogModel {
 
     public void CustomRedDialog(String buttonText) {
         lovelyStandardDialog
-                .setTopColorRes(R.color.red_2)
+                .setTopColorRes(R.color.red)
                 .setTopTitleColor(ContextCompat.getColor(context, R.color.text_color_light))
                 .setButtonsBackground(R.drawable.border_red_1)
                 .setPositiveButton(buttonText, v -> lovelyStandardDialog.dismiss())

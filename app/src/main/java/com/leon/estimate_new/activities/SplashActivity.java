@@ -1,5 +1,6 @@
 package com.leon.estimate_new.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Debug;
@@ -13,6 +14,7 @@ import com.leon.estimate_new.databinding.ActivitySplashBinding;
 import com.leon.estimate_new.helpers.Constants;
 import com.leon.estimate_new.helpers.MyApplication;
 
+@SuppressLint("CustomSplashScreen")
 public class SplashActivity extends AppCompatActivity {
     private ActivitySplashBinding binding;
     private boolean splashLoaded = false;
@@ -30,7 +32,7 @@ public class SplashActivity extends AppCompatActivity {
             initialize();
             startSplash();
         } else {
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(intent);
             finish();
@@ -51,7 +53,7 @@ public class SplashActivity extends AppCompatActivity {
                     e.printStackTrace();
                 } finally {
                     splashLoaded = true;
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                     startActivity(intent);
                     finish();
                 }

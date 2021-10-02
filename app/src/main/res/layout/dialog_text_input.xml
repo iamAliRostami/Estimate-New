@@ -115,7 +115,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/large_dp"
                 android:layout_marginRight="@dimen/large_dp"
-                android:textColor="@color/red_2"
+                android:textColor="@color/red"
                 android:visibility="gone" />
 
             <Space

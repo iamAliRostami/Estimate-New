@@ -55,8 +55,8 @@ public class PDFUtility {
     private static Font FONT_CELL;
     private static Font FONT_COLUMN;
     private static Font FONT_EN;
-    private static final float PAGE_MARGIN = 24f;
-    private static final float PADDING = 4f;
+    private static final float PAGE_MARGIN = 20f;
+    private static final float PADDING = 2f;
     private static final float BORDER = 1f;
 
     public interface OnDocumentClose {
@@ -69,10 +69,10 @@ public class PDFUtility {
         } catch (DocumentException | IOException e) {
             e.printStackTrace();
         }
-        FONT_TITLE = new Font(BASE_FONT, 12, Font.BOLD);
+        FONT_TITLE = new Font(BASE_FONT, 12, Font.NORMAL);
         FONT_SUBTITLE = new Font(BASE_FONT, 10, Font.NORMAL);
         FONT_CELL = new Font(BASE_FONT, 6, Font.NORMAL);
-        FONT_COLUMN = new Font(BASE_FONT, 7, Font.NORMAL);
+        FONT_COLUMN = new Font(BASE_FONT, 12, Font.NORMAL);
         FONT_EN = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL);
 
         File file = new File(PDF_ADDRESS);
@@ -318,53 +318,32 @@ public class PDFUtility {
         outerTable.getDefaultCell().setBorderWidth(BORDER);
 
         PdfPTable innerTable = new PdfPTable(2);
+        innerTable.setWidthPercentage(100);
+        innerTable.setWidths(new float[]{2, 3});
         {
-            innerTable.setWidthPercentage(100);
-            innerTable.setWidths(new float[]{1, 1});
-//            innerTable.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
-
-            //ROW-1 : EMPTY SPACE
             PdfPCell cell = new PdfPCell();
-//            cell.setBorder(PdfPCell.NO_BORDER);
-            cell.setFixedHeight(60);
-            innerTable.addCell(cell);
-
-            //ROW-2 : EMPTY SPACE
-            cell = new PdfPCell();
-//            cell.setBorder(PdfPCell.NO_BORDER);
-            cell.setFixedHeight(60);
-            innerTable.addCell(cell);
-
-            //ROW-3 : Content Left Aligned
-            cell = new PdfPCell();
-            Paragraph temp = new Paragraph(new Phrase("Signature of Supervisor", FONT_EN));
+            Paragraph temp = new Paragraph(new Phrase("Signature of Supervisor", FONT_COLUMN));
             cell.addElement(temp);
 
-            temp = new Paragraph(new Phrase("( RAVEESH G S )", FONT_EN));
-            temp.setPaddingTop(4f);
+            temp = new Paragraph(new Phrase("( RAVEESH G S )", FONT_COLUMN));
             temp.setAlignment(Element.ALIGN_LEFT);
             cell.addElement(temp);
 
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
 //            cell.setBorder(PdfPCell.NO_BORDER);
-            cell.setPadding(4f);
             innerTable.addCell(cell);
 
             //ROW-4 : Content Right Aligned
-            cell = new PdfPCell(new Phrase("Signature of Staff ", FONT_EN));
+            cell = new PdfPCell(new Phrase("Signature of Staff ", FONT_COLUMN));
             cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
 //            cell.setBorder(PdfPCell.NO_BORDER);
-            cell.setPadding(4f);
             innerTable.addCell(cell);
         }
 
         PdfPCell signRow = new PdfPCell(innerTable);
         signRow.setHorizontalAlignment(Element.ALIGN_LEFT);
 //        signRow.setBorder(PdfPCell.NO_BORDER);
-        signRow.setPadding(4f);
-
         outerTable.addCell(signRow);
-
         return outerTable;
     }
 //    private static PdfPTable createSignBox() throws DocumentException {

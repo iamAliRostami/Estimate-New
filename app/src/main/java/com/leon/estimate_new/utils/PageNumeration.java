@@ -20,6 +20,7 @@ import java.io.IOException;
 
 public class PageNumeration extends PdfPageEventHelper {
     private static Font FONT_FOOTER;
+    private static Font FONT_FOOTER_EN;
     private int pageNumber;
 
     PageNumeration(int pageNumber) {
@@ -30,6 +31,7 @@ public class PageNumeration extends PdfPageEventHelper {
         } catch (DocumentException | IOException e) {
             e.printStackTrace();
         }
+        FONT_FOOTER_EN = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL);
     }
 
     @Override
@@ -38,7 +40,6 @@ public class PageNumeration extends PdfPageEventHelper {
             PdfPCell cell;
             PdfPTable table = new PdfPTable(2);
             table.setWidthPercentage(100);
-//            table.setWidths(new float[]{1, 1});
 
             LanguageProcessor pe = new ArabicLigaturizer();
             //1st Column
