@@ -28,10 +28,8 @@ import com.leon.estimate_new.utils.login.AttemptLogin;
 
 public class LoginActivity extends AppCompatActivity {
     private ActivityLoginBinding binding;
-    private ISharedPreferenceManager sharedPreferenceManager;
     private Activity activity;
     private String username, password;
-    private int counter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,37 +130,17 @@ public class LoginActivity extends AppCompatActivity {
             cancel = true;
         }
         if (!cancel) {
-            if (counter > 0 && !username.equals(binding.editTextUsername.getText().toString())
-                    && !password.equals(binding.editTextPassword.getText().toString()))
-                counter = 0;
             username = binding.editTextUsername.getText().toString();
             password = binding.editTextPassword.getText().toString();
             if (isLogin && isNetworkAvailable(activity)) {
-                counter++;
-                if (counter < 4)
-                    new AttemptLogin(username, password, binding.checkBoxSave.isChecked()).execute(activity);
-                else
-                    offlineLogin();
+                new AttemptLogin(username, password, binding.checkBoxSave.isChecked()).execute(activity);
+
             }
         }
     }
 
-    void offlineLogin() {
-        if (sharedPreferenceManager.getStringData(SharedReferenceKeys.USERNAME.getValue()).equals(username) &&
-                Crypto.decrypt(sharedPreferenceManager.getStringData(SharedReferenceKeys.PASSWORD.getValue()))
-                        .equals(password)) {
-            new CustomToast().info(getString(R.string.check_connection), Toast.LENGTH_LONG);
-            Intent intent = new Intent(activity, MainActivity.class);
-            startActivity(intent);
-            finish();
-        } else {
-            new CustomToast().warning(getString(R.string.error_is_not_match), Toast.LENGTH_LONG);
-        }
-        counter = 0;
-    }
-
     void loadPreference() {
-        sharedPreferenceManager = MyApplication.getApplicationComponent().SharedPreferenceModel();
+        ISharedPreferenceManager sharedPreferenceManager = MyApplication.getApplicationComponent().SharedPreferenceModel();
         if (sharedPreferenceManager.checkIsNotEmpty(SharedReferenceKeys.USERNAME.getValue()) &&
                 sharedPreferenceManager.checkIsNotEmpty(SharedReferenceKeys.PASSWORD.getValue())) {
             binding.editTextUsername.setText(sharedPreferenceManager.getStringData(

@@ -8,6 +8,7 @@ import static com.leon.estimate_new.utils.PDFUtility.getImagesFromPDF;
 
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -49,6 +50,7 @@ public class FinalReportActivity extends AppCompatActivity {
             binding.imageViewPdf.setImageBitmap(getImagesFromPDF(new File(PDF_ADDRESS), this));
         } catch (Exception e) {
             e.printStackTrace();
+            Log.e("error", e.toString());
         }
     }
 
@@ -104,8 +106,8 @@ public class FinalReportActivity extends AppCompatActivity {
 
         List<String[]> temp = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            temp.add(new String[]{"ستون " + (i + 1), "ستون " + (i + 1),"ستون " + (i + 1),
-                    "ستون " + (i + 1),"ستون " + (i + 1), "ستون " + (i + 1)});
+            temp.add(new String[]{"ستون " + (i + 1), "ستون " + (i + 1), "ستون " + (i + 1),
+                    "ستون " + (i + 1), "ستون " + (i + 1), "ستون " + (i + 1)});
         }
         return temp;
     }

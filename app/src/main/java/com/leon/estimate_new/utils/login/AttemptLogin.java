@@ -42,7 +42,7 @@ public class AttemptLogin extends AsyncTask<Activity, Activity, Void> {
     protected Void doInBackground(Activity... activities) {
         Retrofit retrofit = MyApplication.getApplicationComponent().NetworkHelperModel().getInstance();
         final IAbfaService iAbfaService = retrofit.create(IAbfaService.class);
-        Call<LoginFeedBack> call = iAbfaService.login(new LoginInfo(username, password));
+        Call<LoginFeedBack> call = iAbfaService.login(username, password);
         activities[0].runOnUiThread(() ->
                 HttpClientWrapper.callHttpAsync(call, ProgressType.SHOW.getValue(), activities[0],
                         new LoginCompleted(activities[0], isChecked, username, password),
@@ -74,11 +74,11 @@ class LoginCompleted implements ICallback<LoginFeedBack> {
                 loginFeedBack.refresh_token.length() < 1) {
             new CustomToast().warning(activity.getString(R.string.error_is_not_match), Toast.LENGTH_LONG);
         } else {
-            List<String> cookieList = response.headers().values("Set-Cookie");
-            loginFeedBack.XSRFToken = (cookieList.get(1).split(";"))[0];
-            JWT jwt = new JWT(loginFeedBack.access_token);
-            loginFeedBack.displayName = jwt.getClaim("DisplayName").asString();
-            loginFeedBack.userCode = jwt.getClaim("UserCode").asString();
+//            List<String> cookieList = response.headers().values("Set-Cookie");
+//            loginFeedBack.XSRFToken = (cookieList.get(1).split(";"))[0];
+//            JWT jwt = new JWT(loginFeedBack.access_token);
+//            loginFeedBack.displayName = jwt.getClaim("DisplayName").asString();
+//            loginFeedBack.userCode = jwt.getClaim("UserCode").asString();
             savePreference(loginFeedBack, isChecked);
             Intent intent = new Intent(activity, MainActivity.class);
             activity.startActivity(intent);
@@ -88,10 +88,10 @@ class LoginCompleted implements ICallback<LoginFeedBack> {
 
     void savePreference(LoginFeedBack loginFeedBack, boolean isChecked) {
         ISharedPreferenceManager sharedPreferenceManager = MyApplication.getApplicationComponent().SharedPreferenceModel();
-        sharedPreferenceManager
-                .putData(SharedReferenceKeys.DISPLAY_NAME.getValue(), loginFeedBack.displayName);
-        sharedPreferenceManager
-                .putData(SharedReferenceKeys.USER_CODE.getValue(), loginFeedBack.userCode);
+//        sharedPreferenceManager
+//                .putData(SharedReferenceKeys.DISPLAY_NAME.getValue(), loginFeedBack.displayName);
+//        sharedPreferenceManager
+//                .putData(SharedReferenceKeys.USER_CODE.getValue(), loginFeedBack.userCode);
         sharedPreferenceManager
                 .putData(SharedReferenceKeys.TOKEN.getValue(), loginFeedBack.access_token);
         sharedPreferenceManager

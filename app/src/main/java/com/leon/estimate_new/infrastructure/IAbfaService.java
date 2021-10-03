@@ -149,11 +149,10 @@ public interface IAbfaService {
 //    @PUT("/Api1/ToziGhabsManager/Add")
 //    Call<SimpleMessage> toziGhabs(@Body LocationUpdateModel locationUpdateModel);
 
-    @POST("/Auth/Account/login")
-    Call<LoginFeedBack> login(@Body LoginInfo logininfo);
-
+//    @POST("/Auth/Account/login")
+//    Call<LoginFeedBack> login(@Body LoginInfo logininfo);
     @POST("MoshtarakinApi/SepanoDMS/V1/Auth/Login/{userName}/{password}")
-    Call<LoginFeedBack> login1(
+    Call<LoginFeedBack> login(
             @Path("userName") String username,
             @Path("password") String password);
 

@@ -9,6 +9,8 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Build;
 
+import androidx.multidex.MultiDex;
+
 import com.leon.estimate_new.di.component.ActivityComponent;
 import com.leon.estimate_new.di.component.ApplicationComponent;
 import com.leon.estimate_new.di.component.DaggerActivityComponent;
@@ -38,6 +40,12 @@ public class MyApplication extends Application {
         super.onCreate();
         appContext = getApplicationContext();
         setApplicationComponent();
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 
     public static String getAndroidVersion() {

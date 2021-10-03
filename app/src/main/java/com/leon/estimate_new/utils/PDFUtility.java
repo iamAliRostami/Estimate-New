@@ -47,7 +47,9 @@ import java.util.List;
 import java.util.Random;
 
 public class PDFUtility {
-    public static final String PDF_ADDRESS = Environment.getExternalStorageDirectory() + File.separator +
+//    public static final String PDF_ADDRESS = Environment.getExternalStorageDirectory() + File.separator +
+//            MyApplication.getContext().getString(R.string.pdf_folder);
+    public static final String PDF_ADDRESS = MyApplication.getContext().getExternalFilesDir(null) + File.separator +
             MyApplication.getContext().getString(R.string.pdf_folder);
     private static BaseFont BASE_FONT;
     private static Font FONT_TITLE;
@@ -83,7 +85,7 @@ public class PDFUtility {
         Document document = new Document();
         document.setMargins(PAGE_MARGIN, PAGE_MARGIN, PAGE_MARGIN, PAGE_MARGIN);
         document.setPageSize(isPortrait ? PageSize.A4 : PageSize.A4.rotate());
-
+        new FileOutputStream(PDF_ADDRESS);
         PdfWriter pdfWriter = PdfWriter.getInstance(document, new FileOutputStream(PDF_ADDRESS));
         pdfWriter.setFullCompression();
         pdfWriter.setPageEvent(new PageNumeration(1));
