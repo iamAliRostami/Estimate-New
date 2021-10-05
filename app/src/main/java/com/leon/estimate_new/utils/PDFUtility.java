@@ -354,61 +354,6 @@ public class PDFUtility {
         outerTable.addCell(signRow);
         return outerTable;
     }
-//    private static PdfPTable createSignBox() throws DocumentException {
-//        PdfPTable outerTable = new PdfPTable(1);
-//        outerTable.setWidthPercentage(100);
-//        outerTable.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
-//
-//        PdfPTable innerTable = new PdfPTable(2);
-//        {
-//            innerTable.setWidthPercentage(100);
-//            innerTable.setWidths(new float[]{1, 1});
-//            innerTable.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
-//
-//            //ROW-1 : EMPTY SPACE
-//            PdfPCell cell = new PdfPCell();
-//            cell.setBorder(PdfPCell.NO_BORDER);
-//            cell.setFixedHeight(60);
-//            innerTable.addCell(cell);
-//
-//            //ROW-2 : EMPTY SPACE
-//            cell = new PdfPCell();
-//            cell.setBorder(PdfPCell.NO_BORDER);
-//            cell.setFixedHeight(60);
-//            innerTable.addCell(cell);
-//
-//            //ROW-3 : Content Left Aligned
-//            cell = new PdfPCell();
-//            Paragraph temp = new Paragraph(new Phrase("Signature of Supervisor", FONT_EN));
-//            cell.addElement(temp);
-//
-//            temp = new Paragraph(new Phrase("( RAVEESH G S )", FONT_EN));
-//            temp.setPaddingTop(4f);
-//            temp.setAlignment(Element.ALIGN_LEFT);
-//            cell.addElement(temp);
-//
-//            cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-//            cell.setBorder(PdfPCell.NO_BORDER);
-//            cell.setPadding(4f);
-//            innerTable.addCell(cell);
-//
-//            //ROW-4 : Content Right Aligned
-//            cell = new PdfPCell(new Phrase("Signature of Staff ", FONT_EN));
-//            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-//            cell.setBorder(PdfPCell.NO_BORDER);
-//            cell.setPadding(4f);
-//            innerTable.addCell(cell);
-//        }
-//
-//        PdfPCell signRow = new PdfPCell(innerTable);
-//        signRow.setHorizontalAlignment(Element.ALIGN_LEFT);
-//        signRow.setBorder(PdfPCell.NO_BORDER);
-//        signRow.setPadding(4f);
-//
-//        outerTable.addCell(signRow);
-//
-//        return outerTable;
-//    }
 
     private static Image getImage(byte[] imageByte, boolean isTintingRequired) throws Exception {
         Paint paint = new Paint();
