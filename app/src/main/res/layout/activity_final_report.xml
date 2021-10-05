@@ -1,13 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/medium_dp"
     tools:context=".activities.FinalReportActivity">
 
     <ImageView
         android:id="@+id/image_view_pdf"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@id/linear_layout_refresh_sign"
         tools:ignore="ContentDescription" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_layout_sign"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/button_accepted"
+        android:orientation="horizontal">
+
+        <com.kyanogen.signatureview.SignatureView xmlns:sign="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/signature_view_2"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:layout_weight="1"
+            android:visibility="visible"
+            sign:enableSignature="true"
+            sign:penColor="@android:color/black"
+            sign:penSize="@dimen/small_dp" />
+
+        <View
+            android:layout_width="@dimen/small_dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/black" />
+
+        <com.kyanogen.signatureview.SignatureView xmlns:sign="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/signature_view_1"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:layout_weight="1"
+            android:visibility="visible"
+            sign:enableSignature="true"
+            sign:penColor="@android:color/black"
+            sign:penSize="@dimen/small_dp" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/linear_layout_refresh_sign"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/button_accepted"
+        android:padding="@dimen/medium_dp">
+
+        <ImageView
+            android:id="@+id/image_view_refresh_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/refresh"
+            android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/image_view_refresh_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/refresh"
+            android:visibility="visible" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/button_denial"
+        style="@style/Button.Positive"
+        android:layout_width="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/border_red_2"
+        android:text="@string/cancel" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="start"
+        android:layout_margin="@dimen/low_dp"
+        android:layout_toStartOf="@id/button_accepted"
+        android:gravity="start"
+        android:spinnerMode="dialog" />
+
+    <Button
+        android:id="@+id/button_accepted"
+        style="@style/Button.Positive"
+        android:layout_width="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:text="@string/accepted" />
+</RelativeLayout>

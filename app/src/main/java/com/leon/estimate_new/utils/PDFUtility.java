@@ -47,7 +47,7 @@ import java.util.List;
 import java.util.Random;
 
 public class PDFUtility {
-//    public static final String PDF_ADDRESS = Environment.getExternalStorageDirectory() + File.separator +
+    //    public static final String PDF_ADDRESS = Environment.getExternalStorageDirectory() + File.separator +
 //            MyApplication.getContext().getString(R.string.pdf_folder);
     public static final String PDF_ADDRESS = MyApplication.getContext().getExternalFilesDir(null) + File.separator +
             MyApplication.getContext().getString(R.string.pdf_folder);
@@ -65,7 +65,8 @@ public class PDFUtility {
         void onPDFDocumentClose(File file);
     }
 
-    public static void createPdf(Context context, OnDocumentClose mCallback, List<String[]> items, boolean isPortrait) throws Exception {
+    public static void createPdf(Context context, OnDocumentClose mCallback, List<String[]> items,
+                                 boolean isPortrait, Bitmap... bitmaps) throws Exception {
         try {
             BASE_FONT = BaseFont.createFont(Constants.PDF_FONT_NAME, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
         } catch (DocumentException | IOException e) {
@@ -97,7 +98,7 @@ public class PDFUtility {
 
         document.add(createDataTable(items));
 
-        document.add(createSignBox());
+        document.add(createSignBox(bitmaps));
 
         document.close();
 
@@ -189,7 +190,6 @@ public class PDFUtility {
 
         document.add(table);
     }
-
 
     public static PdfPTable createDataTable(List<String[]> dataTable) throws DocumentException {
         PdfPTable table = createTable(1, new float[]{1f});
@@ -314,7 +314,7 @@ public class PDFUtility {
         return cell;
     }
 
-    private static PdfPTable createSignBox() throws DocumentException {
+    private static PdfPTable createSignBox(Bitmap... bitmaps) throws DocumentException {
         PdfPTable outerTable = new PdfPTable(1);
         outerTable.setWidthPercentage(100);
         outerTable.getDefaultCell().setBorderWidth(BORDER);
@@ -324,6 +324,12 @@ public class PDFUtility {
         innerTable.setWidths(new float[]{2, 3});
         {
             PdfPCell cell = new PdfPCell();
+
+            if (bitmaps != null && bitmaps.length > 0) {
+                Image logo = getImageFromBitmap(bitmaps[0]);
+                cell.addElement(logo);
+            }
+
             Paragraph temp = new Paragraph(new Phrase("Signature of Supervisor", FONT_COLUMN));
             cell.addElement(temp);
 
@@ -343,7 +349,7 @@ public class PDFUtility {
         }
 
         PdfPCell signRow = new PdfPCell(innerTable);
-        signRow.setHorizontalAlignment(Element.ALIGN_LEFT);
+        signRow.setHorizontalAlignment(Element.ALIGN_RIGHT);
 //        signRow.setBorder(PdfPCell.NO_BORDER);
         outerTable.addCell(signRow);
         return outerTable;
@@ -444,6 +450,20 @@ public class PDFUtility {
             } catch (DocumentException | IOException e) {
                 e.printStackTrace();
             }
+        }
+        return null;
+    }
+
+    public static Image getImageFromBitmap(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        try {
+            Image image = Image.getInstance(stream.toByteArray());
+            image.setAlignment(Element.ALIGN_RIGHT);
+            image.scaleToFit(40, 40);
+            return image;
+        } catch (DocumentException | IOException e) {
+            e.printStackTrace();
         }
         return null;
     }
