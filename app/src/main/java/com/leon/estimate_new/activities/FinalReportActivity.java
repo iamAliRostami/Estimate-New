@@ -37,9 +37,6 @@ import java.util.List;
 
 public class FinalReportActivity extends AppCompatActivity {
     private ActivityFinalReportBinding binding;
-    private BaseFont baseFont;
-
-    private static Font catFont, redFont, subFont, smallBold;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,18 +54,6 @@ public class FinalReportActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         setOnAcceptedButtonClickListener();
-//        initializeFonts();
-//        try {
-//            Document document = new Document();
-//            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(PDF_ADDRESS));
-//            writer.setRunDirection(PdfWriter.RUN_DIRECTION_RTL);
-//            document.open();
-//            addTitlePage(document);
-//            document.close();
-//            binding.imageViewPdf.setImageBitmap(getImagesFromPDF(new File(PDF_ADDRESS), this));
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
     }
 
     private void setOnAcceptedButtonClickListener() {
@@ -93,42 +78,8 @@ public class FinalReportActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
-    private void initializeFonts() {
-        try {
-            baseFont = BaseFont.createFont(Constants.PDF_FONT_NAME, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-        } catch (DocumentException | IOException e) {
-            e.printStackTrace();
-        }
-
-        catFont = new Font(baseFont, 18, Font.BOLD);
-        redFont = new Font(baseFont, 12, Font.NORMAL, BaseColor.RED);
-        subFont = new Font(baseFont, 16, Font.BOLD);
-        smallBold = new Font(baseFont, 12, Font.BOLD);
-    }
-
-    private void addTitlePage(Document document)
-            throws DocumentException {
-        Paragraph preface = new Paragraph();
-        LanguageProcessor pe = new ArabicLigaturizer();
-        Paragraph paragraph = new Paragraph();
-        paragraph.setAlignment(Element.ALIGN_RIGHT);
-        paragraph.setFont(catFont);
-        paragraph.add(pe.process("آب و فاضلاب استان اصفهان پرچم"));
-        preface.add(paragraph);
-
-        preface.setAlignment(Element.ALIGN_RIGHT);
-        document.add(preface);
-        getImageFromDrawable(((BitmapDrawable) ContextCompat.getDrawable(this, R.drawable.img_menu_logo)));
-
-        document.add(createDataTable(getFormData()));
-
-        document.newPage();
-    }
-
     private List<String[]> getFormData() {
-        int row = 30, column = 10;
-
+        int row = 31, column = 10;
         List<String[]> temp = new ArrayList<>();
         for (int i = 0; i < row; i++) {
             String[] rowString = new String[column];

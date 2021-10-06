@@ -47,15 +47,13 @@ import java.util.List;
 import java.util.Random;
 
 public class PDFUtility {
-    //    public static final String PDF_ADDRESS = Environment.getExternalStorageDirectory() + File.separator +
-//            MyApplication.getContext().getString(R.string.pdf_folder);
     public static final String PDF_ADDRESS = MyApplication.getContext().getExternalFilesDir(null) + File.separator +
             MyApplication.getContext().getString(R.string.pdf_folder);
     private static BaseFont BASE_FONT;
     private static Font FONT_TITLE;
     private static Font FONT_SUBTITLE;
-    private static Font FONT_CELL;
-    private static Font FONT_COLUMN;
+    private static Font FONT_LOGO;
+    private static Font FONT_TITTER;
     private static Font FONT_EN;
     private static final float PAGE_MARGIN = 20f;
     private static final float PADDING = 2f;
@@ -68,14 +66,14 @@ public class PDFUtility {
     public static void createPdf(Context context, OnDocumentClose mCallback, List<String[]> items,
                                  boolean isPortrait, Bitmap... bitmaps) throws Exception {
         try {
-            BASE_FONT = BaseFont.createFont(Constants.PDF_FONT_NAME, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+            BASE_FONT = BaseFont.createFont(Constants.PDF_FONT_NAME_FA, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
         } catch (DocumentException | IOException e) {
             e.printStackTrace();
         }
         FONT_TITLE = new Font(BASE_FONT, 12, Font.NORMAL);
         FONT_SUBTITLE = new Font(BASE_FONT, 10, Font.NORMAL);
-        FONT_CELL = new Font(BASE_FONT, 6, Font.NORMAL);
-        FONT_COLUMN = new Font(BASE_FONT, 12, Font.NORMAL);
+        FONT_LOGO = new Font(BASE_FONT, 6, Font.NORMAL);
+        FONT_TITTER = new Font(BASE_FONT, 12, Font.NORMAL);
         FONT_EN = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL);
 
         File file = new File(PDF_ADDRESS);
@@ -172,7 +170,7 @@ public class PDFUtility {
 
             logoTable.addCell(logoCell);
 
-            logoCell = new PdfPCell(new Phrase("Logo Text", FONT_CELL));
+            logoCell = new PdfPCell(new Phrase("Logo Text", FONT_LOGO));
             logoCell.setHorizontalAlignment(Element.ALIGN_CENTER);
             logoCell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             logoCell.setBorder(PdfPCell.NO_BORDER);
@@ -264,15 +262,15 @@ public class PDFUtility {
 
     private static Phrase addPhrase(String s) {
         LanguageProcessor pe = new ArabicLigaturizer();
-        return new Phrase(pe.process(s), FONT_COLUMN);
+        return new Phrase(pe.process(s), FONT_TITTER);
     }
 
     private static PdfPTable createTable(int column, float[] width) throws DocumentException {
         PdfPTable table = new PdfPTable(column);
         table.setWidths(width);
         table.setWidthPercentage(100);
-        table.getDefaultCell().setVerticalAlignment(Element.ALIGN_RIGHT);
-        table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_RIGHT);
+        table.getDefaultCell().setVerticalAlignment(Element.ALIGN_CENTER);
         return table;
     }
 
@@ -282,6 +280,7 @@ public class PDFUtility {
         PdfPTable table = createTable(column, width);
         PdfPCell cell = createPdfCell();
         cell.setHorizontalAlignment(align);
+        cell.setVerticalAlignment(Element.ALIGN_CENTER);
         for (int i = 0; i < column; i++) {
             cell.setPhrase(addPhrase(items[i]));
             cell.setBorderWidthRight(border[i]);
@@ -322,12 +321,12 @@ public class PDFUtility {
         PdfPCell pdfPCell = new PdfPCell();
         {
             pdfPCell.addElement(createTableRow(1, PdfPCell.ALIGN_RIGHT, 1f,
-                    BaseColor.WHITE, new String[]{items.get(0)[0]}));
+                    BaseColor.WHITE, new String[]{items.get(30)[0]}));
 
             pdfPCell.addElement(createTableRow(3, PdfPCell.ALIGN_RIGHT, new float[]{2f, 1f, 1f},
                     new float[]{PdfPCell.NO_BORDER, PdfPCell.NO_BORDER, PdfPCell.NO_BORDER},
                     new BaseColor[]{BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE},
-                    new String[]{items.get(0)[0], items.get(0)[1], items.get(0)[2]}));
+                    new String[]{items.get(30)[1], items.get(30)[2], items.get(30)[3]}));
 
             if (bitmaps != null && bitmaps.length > 0) {
                 Image image = getImageFromBitmap(bitmaps[0]);
@@ -344,7 +343,7 @@ public class PDFUtility {
             pdfPCell.addElement(createTableRow(5, PdfPCell.ALIGN_RIGHT, new float[]{2f, 1f, 1f, 1f, 1f},
                     new float[]{PdfPCell.NO_BORDER, PdfPCell.NO_BORDER, PdfPCell.NO_BORDER, PdfPCell.NO_BORDER, PdfPCell.NO_BORDER},
                     new BaseColor[]{BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE},
-                    new String[]{items.get(1)[0], items.get(1)[1], items.get(1)[2], items.get(1)[3], items.get(1)[4]}));
+                    new String[]{items.get(30)[4], items.get(30)[5], items.get(30)[6], items.get(30)[7], items.get(30)[8]}));
 
             if (bitmaps != null && bitmaps.length > 1) {
                 Image image = getImageFromBitmap(bitmaps[1]);
@@ -421,7 +420,6 @@ public class PDFUtility {
     @SuppressLint("SimpleDateFormat")
     public static Bitmap getImagesFromPDF(File pdfFilePath, Context context) throws IOException {
         File destinationFolder = new File(Environment.getExternalStorageDirectory() + File.separator + Environment.DIRECTORY_PICTURES);
-//        File destinationFolder = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         if (!destinationFolder.exists()) {
             destinationFolder.mkdirs();
         }

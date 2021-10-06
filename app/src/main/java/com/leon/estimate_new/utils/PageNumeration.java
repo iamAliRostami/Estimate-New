@@ -21,6 +21,7 @@ import java.io.IOException;
 public class PageNumeration extends PdfPageEventHelper {
     private static Font FONT_FOOTER;
     private static Font FONT_FOOTER_EN;
+    private static Font FONT_FOOTER_FA;
     private int pageNumber;
 
     PageNumeration(int pageNumber) {
@@ -28,6 +29,9 @@ public class PageNumeration extends PdfPageEventHelper {
         try {
             BaseFont baseFont = BaseFont.createFont(Constants.PDF_FONT_NAME, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
             FONT_FOOTER = new Font(baseFont, 8, Font.NORMAL, BaseColor.DARK_GRAY);
+
+            baseFont = BaseFont.createFont(Constants.PDF_FONT_NAME_FA, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+            FONT_FOOTER_FA = new Font(baseFont, 8, Font.NORMAL, BaseColor.DARK_GRAY);
         } catch (DocumentException | IOException e) {
             e.printStackTrace();
         }
@@ -43,7 +47,7 @@ public class PageNumeration extends PdfPageEventHelper {
 
             LanguageProcessor pe = new ArabicLigaturizer();
             //1st Column
-            cell = new PdfPCell(new Phrase(pe.process("صفحه - ".concat(String.valueOf(writer.getPageNumber())).concat(" از 2")), FONT_FOOTER));
+            cell = new PdfPCell(new Phrase(pe.process("صفحه - ".concat(String.valueOf(writer.getPageNumber())).concat(" از 2")), FONT_FOOTER_FA));
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setBorder(0);
             table.addCell(cell);
