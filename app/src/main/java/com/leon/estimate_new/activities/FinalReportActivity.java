@@ -9,6 +9,7 @@ import static com.leon.estimate_new.utils.PDFUtility.getImagesFromPDF;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -83,6 +84,8 @@ public class FinalReportActivity extends AppCompatActivity {
     private void addImageSign() {
         Bitmap bitmap1 = binding.signatureView1.getSignatureBitmap();
         Bitmap bitmap2 = binding.signatureView2.getSignatureBitmap();
+        binding.signatureView1.setVisibility(View.GONE);
+        binding.signatureView2.setVisibility(View.GONE);
         try {
             PDFUtility.createPdf(this, null, getFormData(), true, bitmap1, bitmap2);
             binding.imageViewPdf.setImageBitmap(getImagesFromPDF(new File(PDF_ADDRESS), this));
@@ -124,12 +127,14 @@ public class FinalReportActivity extends AppCompatActivity {
     }
 
     private List<String[]> getFormData() {
-        int count = 20;
+        int row = 30, column = 10;
 
         List<String[]> temp = new ArrayList<>();
-        for (int i = 0; i < count; i++) {
-            temp.add(new String[]{"ستون " + (i + 1), "ستون " + (i + 1), "ستون " + (i + 1),
-                    "ستون " + (i + 1), "ستون " + (i + 1), "ستون " + (i + 1)});
+        for (int i = 0; i < row; i++) {
+            String[] rowString = new String[column];
+            for (int j = 0; j < column; j++)
+                rowString[j] = "ستون " + j + 1 + " سطر " + i + 1;
+            temp.add(rowString);
         }
         return temp;
     }
