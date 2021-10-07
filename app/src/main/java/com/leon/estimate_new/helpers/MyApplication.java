@@ -16,6 +16,7 @@ import com.leon.estimate_new.di.component.ApplicationComponent;
 import com.leon.estimate_new.di.component.DaggerActivityComponent;
 import com.leon.estimate_new.di.component.DaggerApplicationComponent;
 import com.leon.estimate_new.di.module.CustomDialogModule;
+import com.leon.estimate_new.di.module.CustomProgressModule;
 import com.leon.estimate_new.di.module.FlashModule;
 import com.leon.estimate_new.di.module.LocationTrackingModule;
 import com.leon.estimate_new.di.module.MyDatabaseModule;
@@ -61,6 +62,7 @@ public class MyApplication extends Application {
                 .flashModule(new FlashModule(appContext))
                 .myDatabaseModule(new MyDatabaseModule(appContext))
                 .sharedPreferenceModule(new SharedPreferenceModule(appContext, SharedReferenceNames.ACCOUNT))
+                .customProgressModule(new CustomProgressModule())
                 .build();
         applicationComponent.inject(this);
     }

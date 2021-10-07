@@ -10,10 +10,10 @@ import androidx.annotation.NonNull;
 
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.enums.ProgressType;
+import com.leon.estimate_new.helpers.MyApplication;
 import com.leon.estimate_new.infrastructure.ICallback;
 import com.leon.estimate_new.infrastructure.ICallbackError;
 import com.leon.estimate_new.infrastructure.ICallbackIncomplete;
-import com.leon.estimate_new.utils.CustomProgressBar;
 import com.leon.estimate_new.utils.CustomToast;
 
 import retrofit2.Call;
@@ -22,22 +22,23 @@ import retrofit2.Response;
 
 public class HttpClientWrapper {
     public static Call call;
-    public static CustomProgressBar progressBarCancelable;
+    public static CustomProgressModel progressCancelable;
+    public static boolean cancel;
 
-    public static <T> void callHttpAsync(Call<T> call, int progressType,
+    public static <T> void callHttpAsync(final Call<T> call, final int progressType,
                                          final Context context,
                                          final ICallback<T> callback,
                                          final ICallbackIncomplete<T> callbackIncomplete,
                                          final ICallbackError callbackError) {
-
-        CustomProgressBar progressBar = new CustomProgressBar();
+        cancel = false;
+        CustomProgressModel progress = MyApplication.getApplicationComponent().CustomProgressModel();
         try {
             if (progressType == ProgressType.SHOW.getValue()) {
-                progressBar.show(context, context.getString(R.string.waiting));
+                progress.show(context, context.getString(R.string.waiting));
             } else if (progressType == ProgressType.SHOW_CANCELABLE.getValue()) {
-                progressBar.show(context, context.getString(R.string.waiting), true);
+                progress.show(context, true, context.getString(R.string.waiting));
             } else if (progressType == ProgressType.SHOW_CANCELABLE_REDIRECT.getValue()) {
-                progressBar.show(context, context.getString(R.string.waiting), true);
+                progress.show(context, true, context.getString(R.string.waiting));
             }
         } catch (Exception e) {
             new CustomToast().error(e.getMessage(), Toast.LENGTH_LONG);
@@ -47,35 +48,39 @@ public class HttpClientWrapper {
             call.enqueue(new Callback<T>() {
                 @Override
                 public void onResponse(@NonNull Call<T> call, @NonNull Response<T> response) {
-                    if (response.isSuccessful()) {
-                        callback.execute(response);
-                    } else {
-                        ((Activity) context).runOnUiThread(() -> callbackIncomplete.executeIncomplete(response));
-                    }
-                    if (progressBar.getDialog() != null)
-                        try {
-                            progressBar.getDialog().dismiss();
-                        } catch (Exception e) {
-                            new CustomToast().error(e.getMessage(), Toast.LENGTH_LONG);
+                    if (!cancel) {
+                        if (progress.getDialog() != null)
+                            try {
+                                progress.getDialog().dismiss();
+                            } catch (Exception e) {
+                                new CustomToast().error(e.getMessage(), Toast.LENGTH_LONG);
+                            }
+                        if (response.isSuccessful()) {
+                            callback.execute(response);
+                        } else {
+                            ((Activity) context).runOnUiThread(() -> callbackIncomplete.executeIncomplete(response));
                         }
+                    }
                 }
 
                 @Override
                 public void onFailure(@NonNull Call<T> call, @NonNull Throwable t) {
-                    ((Activity) context).runOnUiThread(() -> callbackError.executeError(t));
-                    if (progressBar.getDialog() != null)
-                        try {
-                            progressBar.getDialog().dismiss();
-                        } catch (Exception e) {
-                            new CustomToast().error(e.getMessage(), Toast.LENGTH_LONG);
-                        }
+                    if (!cancel) {
+                        ((Activity) context).runOnUiThread(() -> callbackError.executeError(t));
+                        if (progress.getDialog() != null)
+                            try {
+                                progress.getDialog().dismiss();
+                            } catch (Exception e) {
+                                new CustomToast().error(e.getMessage(), Toast.LENGTH_LONG);
+                            }
+                    }
                 }
             });
             HttpClientWrapper.call = call;
         } else {
-            if (progressBar.getDialog() != null)
+            if (progress.getDialog() != null)
                 try {
-                    progressBar.getDialog().dismiss();
+                    progress.getDialog().dismiss();
                 } catch (Exception e) {
                     new CustomToast().error(e.getMessage(), Toast.LENGTH_LONG);
                 }
@@ -83,27 +88,26 @@ public class HttpClientWrapper {
         }
     }
 
-
     public static <T> void callHttpAsyncProgressDismiss(Call<T> call, int progressType,
                                                         final Context context,
                                                         final ICallback<T> callback,
                                                         final ICallbackIncomplete<T> callbackIncomplete,
                                                         final ICallbackError callbackError) {
 
-        progressBarCancelable = new CustomProgressBar();
+        progressCancelable = MyApplication.getApplicationComponent().CustomProgressModel();
         if (progressType == ProgressType.SHOW.getValue()) {
-            progressBarCancelable.show(context, context.getString(R.string.waiting));
+            progressCancelable.show(context, context.getString(R.string.waiting));
         } else if (progressType == ProgressType.SHOW_CANCELABLE.getValue()) {
-            progressBarCancelable.show(context, true, context.getString(R.string.waiting));
+            progressCancelable.show(context, true, context.getString(R.string.waiting));
         } else if (progressType == ProgressType.SHOW_CANCELABLE_REDIRECT.getValue()) {
-            progressBarCancelable.show(context, context.getString(R.string.waiting), true);
+            progressCancelable.show(context, true, context.getString(R.string.waiting));
         }
         if (isNetworkAvailable(context)) {
             call.enqueue(new Callback<T>() {
                 @Override
                 public void onResponse(@NonNull Call<T> call, @NonNull Response<T> response) {
-                    if (progressBarCancelable.getDialog() != null)
-                        progressBarCancelable.getDialog().dismiss();
+                    if (progressCancelable.getDialog() != null)
+                        progressCancelable.getDialog().dismiss();
                     if (response.isSuccessful()) {
                         callback.execute(response);
                     } else {
@@ -113,15 +117,15 @@ public class HttpClientWrapper {
 
                 @Override
                 public void onFailure(@NonNull Call<T> call, @NonNull Throwable t) {
-                    if (progressBarCancelable.getDialog() != null)
-                        progressBarCancelable.getDialog().dismiss();
+                    if (progressCancelable.getDialog() != null)
+                        progressCancelable.getDialog().dismiss();
                     ((Activity) context).runOnUiThread(() -> callbackError.executeError(t));
                 }
             });
             HttpClientWrapper.call = call;
         } else {
-            if (progressBarCancelable.getDialog() != null)
-                progressBarCancelable.getDialog().dismiss();
+            if (progressCancelable.getDialog() != null)
+                progressCancelable.getDialog().dismiss();
             new CustomToast().warning(context.getString(R.string.turn_internet_on));
         }
     }
