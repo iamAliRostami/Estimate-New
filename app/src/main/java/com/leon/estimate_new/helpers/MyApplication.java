@@ -60,9 +60,9 @@ public class MyApplication extends Application {
                 .builder()
                 .networkModule(new NetworkModule())
                 .flashModule(new FlashModule(appContext))
+                .customProgressModule(new CustomProgressModule())
                 .myDatabaseModule(new MyDatabaseModule(appContext))
                 .sharedPreferenceModule(new SharedPreferenceModule(appContext, SharedReferenceNames.ACCOUNT))
-                .customProgressModule(new CustomProgressModule())
                 .build();
         applicationComponent.inject(this);
     }
