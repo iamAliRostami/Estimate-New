@@ -55,8 +55,8 @@ public class PDFUtility {
     private static Font FONT_LOGO;
     private static Font FONT_TITTER;
     private static Font FONT_EN;
-    private static final float PAGE_MARGIN = 20f;
-    private static final float PADDING = 2f;
+    private static final float PAGE_MARGIN = 10f;
+    private static final float PADDING = 3f;
     private static final float BORDER = 1f;
 
     public interface OnDocumentClose {
@@ -305,7 +305,7 @@ public class PDFUtility {
 
     private static PdfPCell createPdfCell() {
         PdfPCell cell = new PdfPCell();
-        cell.setPaddingTop(PADDING);
+        cell.setPaddingTop(0);
         cell.setPaddingBottom(PADDING);
         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
         cell.setVerticalAlignment(Element.ALIGN_TOP);
@@ -409,7 +409,7 @@ public class PDFUtility {
         try {
             Image image = Image.getInstance(stream.toByteArray());
             image.setAlignment(Element.ALIGN_RIGHT);
-            image.scaleToFit(100, 100);
+            image.scaleToFit(200, 300);
             return image;
         } catch (DocumentException | IOException e) {
             e.printStackTrace();
