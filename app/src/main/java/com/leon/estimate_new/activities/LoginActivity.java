@@ -134,7 +134,6 @@ public class LoginActivity extends AppCompatActivity {
             password = binding.editTextPassword.getText().toString();
             if (isLogin && isNetworkAvailable(activity)) {
                 new AttemptLogin(username, password, binding.checkBoxSave.isChecked()).execute(activity);
-
             }
         }
     }

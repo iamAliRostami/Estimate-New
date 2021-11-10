@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.os.IBinder;
+import android.util.Log;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -20,11 +21,10 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.leon.estimate_new.infrastructure.ILocationTracking;
 
 import org.jetbrains.annotations.NotNull;
-
 public class LocationTrackingGoogle extends Service implements ILocationTracking {
     private static LocationTrackingGoogle instance;
     private static Location location;
-    private final LocationCallback locationCallback;
+    private static LocationCallback locationCallback;
     private final OnSuccessListener<Location> onSuccessListener = this::addLocation;
     private FusedLocationProviderClient fusedLocationClient;
     private LocationRequest locationRequest;
@@ -73,11 +73,12 @@ public class LocationTrackingGoogle extends Service implements ILocationTracking
     public void addLocation(Location location) {
         if (location != null) {
             LocationTrackingGoogle.location = location;
+            Log.e("google", String.valueOf(getAccuracy()));
         }
     }
 
     @Override
-    public Location getCurrentLocation(Context context) {
+    public Location getCurrentLocation(/*Context context*/) {
         return location;
     }
 
@@ -112,5 +113,13 @@ public class LocationTrackingGoogle extends Service implements ILocationTracking
     public void onDestroy() {
         super.onDestroy();
         stopFusedLocation();
+    }
+
+    public static LocationTrackingGoogle getInstance() {
+        return instance;
+    }
+
+    public static void setInstance(LocationTrackingGoogle instance) {
+        LocationTrackingGoogle.instance = instance;
     }
 }

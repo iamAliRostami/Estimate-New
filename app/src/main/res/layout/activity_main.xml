@@ -5,6 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".activities.MainActivity">
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <com.esri.arcgisruntime.mapping.view.MapView
         android:id="@+id/map_view"
@@ -15,12 +19,15 @@
         android:id="@+id/button_save"
         style="@style/Button.Neutral"
         android:layout_width="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
         android:text="@string/save" />
 
     <Button
         android:id="@+id/button_offline"
         style="@style/Button.Positive"
         android:layout_width="wrap_content"
-        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
         android:text="@string/off_line" />
 </RelativeLayout>

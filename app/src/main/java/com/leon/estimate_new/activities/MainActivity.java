@@ -7,12 +7,14 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -24,15 +26,16 @@ import com.esri.arcgisruntime.data.ServiceFeatureTable;
 import com.esri.arcgisruntime.data.ShapefileFeatureTable;
 import com.esri.arcgisruntime.geometry.Point;
 import com.esri.arcgisruntime.geometry.Polygon;
+import com.esri.arcgisruntime.layers.ArcGISTiledLayer;
 import com.esri.arcgisruntime.layers.FeatureLayer;
 import com.esri.arcgisruntime.loadable.LoadStatus;
 import com.esri.arcgisruntime.mapping.ArcGISMap;
+import com.esri.arcgisruntime.mapping.Basemap;
 import com.esri.arcgisruntime.mapping.BasemapStyle;
 import com.esri.arcgisruntime.mapping.Viewpoint;
 import com.esri.arcgisruntime.mapping.view.DefaultMapViewOnTouchListener;
 import com.esri.arcgisruntime.mapping.view.Graphic;
 import com.esri.arcgisruntime.mapping.view.GraphicsOverlay;
-import com.esri.arcgisruntime.mapping.view.MapView;
 import com.esri.arcgisruntime.tasks.offlinemap.GenerateOfflineMapJob;
 import com.esri.arcgisruntime.tasks.offlinemap.GenerateOfflineMapParameters;
 import com.esri.arcgisruntime.tasks.offlinemap.GenerateOfflineMapResult;
@@ -45,17 +48,20 @@ import com.leon.estimate_new.helpers.Constants;
 import com.leon.estimate_new.helpers.MyApplication;
 import com.leon.estimate_new.utils.CustomToast;
 import com.leon.estimate_new.utils.PermissionManager;
+import com.leon.estimate_new.utils.gis.CustomImageTiledLayer;
+import com.leon.estimate_new.utils.gis.GoogleMapLayer;
+import com.leon.estimate_new.utils.gis.LayerInfo;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-;
-
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private Activity activity;
     private ArcGISMap map;
+    private Basemap basemap;
+    private ArcGISTiledLayer arcGISTiledLayer;
 
     private MenuItem mStreetsMenuItem = null;
     private MenuItem mTopologyMenuItem = null;
@@ -76,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        MyApplication.setActivityComponent(this);
         activity = this;
         if (isNetworkAvailable(activity))
             checkPermissions();
@@ -83,37 +90,50 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initialize() {
-        MapView mapView;
         initializeMap();
-//        generateOfflineMap();
-//        initializeMapOffline();
         binding.buttonSave.setOnClickListener(view -> generateOfflineMap());
         binding.buttonOffline.setOnClickListener(view -> initializeMapOffline());
     }
 
     private void initializeMap() {
+
         map = new ArcGISMap();
         binding.mapView.setMap(map);
+        Log.e("here", "before location");
+//        binding.mapView.setViewpoint(new Viewpoint(32.7030911, 51.7135289, 7200));
 
-        binding.mapView.setViewpoint(new Viewpoint(MyApplication.getLocationTracker(activity).getLatitude(),
-                MyApplication.getLocationTracker(activity).getLongitude(), 1200));
+        LayerInfo info = new LayerInfo();
+        CustomImageTiledLayer baseLayer = new CustomImageTiledLayer(info.getTianDiTuMLayerInfo(), info.getMFullExtent());
+        baseLayer.setMainURL(getString(R.string.local_base_map));
+        binding.mapView.getMap().getBasemap().getBaseLayers().add(GoogleMapLayer.CreateGoogleLayer(GoogleMapLayer.MapType.IMAGE));
+        binding.mapView.getMap().getBasemap().getBaseLayers().add(baseLayer);
 
-//    binding.mapView.addLayer(new ArcGISTiledMapServiceLayer("" +
-//            "http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer"));
+        binding.mapView.setMagnifierEnabled(true);
+        binding.mapView.setCanMagnifierPanMap(true);
 
-//    LayerInfo info = new LayerInfo();
-//    CustomImageTiledLayer baseLayer = new CustomImageTiledLayer(info.getTianDiTuMLayerInfo(), info.getMFullExtent());
-//    baseLayer.setMainURL("");
-//
-//    binding.mapView.getMap().getBasemap().getBaseLayers().add(GoogleMapLayer.CreateGoogleLayer(GoogleMapLayer.MapType.IMAGE));
-//    binding.mapView.getMap().getBasemap().getBaseLayers().add(baseLayer);
-//
-//    binding.mapView.setMagnifierEnabled(true);
-//    binding.mapView.setCanMagnifierPanMap(true);
+        AsyncTask.execute(() -> {
+            while (MyApplication.getLocationTracker(activity).getLocation() == null)
+                binding.progressBar.setVisibility(View.VISIBLE);
+            binding.mapView.setViewpoint(new Viewpoint(MyApplication.getLocationTracker(activity).getLatitude()
+                    , MyApplication.getLocationTracker(activity).getLongitude(), 3600));
+            runOnUiThread(() -> binding.progressBar.setVisibility(View.GONE));
+        });
 
+
+        binding.mapView.addAttributionViewLayoutChangeListener(
+                (v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
+                    Log.e("info", "new bounds [" + left + ',' + top + ',' + right + ',' + bottom + ']' +
+                            " old bounds [" + oldLeft + ',' + oldTop + ',' + oldRight + ',' + oldBottom + ']');
+//                    int heightDelta = oldBottom - bottom;
+//                    Toast.makeText(MainActivity.this, "new bounds [" + left + ',' + top + ',' + right + ',' + bottom + ']' +
+//                            " old bounds [" + oldLeft + ',' + oldTop + ',' + oldRight + ',' + oldBottom + ']', Toast.LENGTH_SHORT)
+//                            .show();
+                });
+
+
+        Log.e("here", "after location");
         loadShapeFile();
 
-        onMapTouchListener();
     }
 
     private void initializeMap1() {
