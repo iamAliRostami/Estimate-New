@@ -60,8 +60,6 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private Activity activity;
     private ArcGISMap map;
-    private Basemap basemap;
-    private ArcGISTiledLayer arcGISTiledLayer;
 
     private MenuItem mStreetsMenuItem = null;
     private MenuItem mTopologyMenuItem = null;
@@ -99,13 +97,11 @@ public class MainActivity extends AppCompatActivity {
 
         map = new ArcGISMap();
         binding.mapView.setMap(map);
-        Log.e("here", "before location");
-//        binding.mapView.setViewpoint(new Viewpoint(32.7030911, 51.7135289, 7200));
 
         LayerInfo info = new LayerInfo();
         CustomImageTiledLayer baseLayer = new CustomImageTiledLayer(info.getTianDiTuMLayerInfo(), info.getMFullExtent());
         baseLayer.setMainURL(getString(R.string.local_base_map));
-        binding.mapView.getMap().getBasemap().getBaseLayers().add(GoogleMapLayer.CreateGoogleLayer(GoogleMapLayer.MapType.IMAGE));
+        binding.mapView.getMap().getBasemap().getBaseLayers().add(GoogleMapLayer.CreateGoogleLayer(GoogleMapLayer.MapType.VECTOR));
         binding.mapView.getMap().getBasemap().getBaseLayers().add(baseLayer);
 
         binding.mapView.setMagnifierEnabled(true);
@@ -119,19 +115,6 @@ public class MainActivity extends AppCompatActivity {
             runOnUiThread(() -> binding.progressBar.setVisibility(View.GONE));
         });
 
-
-        binding.mapView.addAttributionViewLayoutChangeListener(
-                (v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
-                    Log.e("info", "new bounds [" + left + ',' + top + ',' + right + ',' + bottom + ']' +
-                            " old bounds [" + oldLeft + ',' + oldTop + ',' + oldRight + ',' + oldBottom + ']');
-//                    int heightDelta = oldBottom - bottom;
-//                    Toast.makeText(MainActivity.this, "new bounds [" + left + ',' + top + ',' + right + ',' + bottom + ']' +
-//                            " old bounds [" + oldLeft + ',' + oldTop + ',' + oldRight + ',' + oldBottom + ']', Toast.LENGTH_SHORT)
-//                            .show();
-                });
-
-
-        Log.e("here", "after location");
         loadShapeFile();
 
     }
@@ -253,8 +236,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadShapeFile() {
+//        ShapefileFeatureTable shapefileFeatureTable = new ShapefileFeatureTable(
+//                Environment.getExternalStorageDirectory() + "/Pictures/Aurora_CO_shp.zip");
+
+
         ShapefileFeatureTable shapefileFeatureTable = new ShapefileFeatureTable(
-                Environment.getExternalStorageDirectory() + "/Pictures/Aurora_CO_shp.zip");
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/Aurora_CO.shp");
         // create a feature layer to display the shapefile
         FeatureLayer shapefileFeatureLayer = new FeatureLayer(shapefileFeatureTable);
         // add the feature layer to the map
