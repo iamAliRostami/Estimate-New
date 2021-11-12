@@ -52,6 +52,37 @@ import com.leon.estimate_new.utils.gis.CustomImageTiledLayer;
 import com.leon.estimate_new.utils.gis.GoogleMapLayer;
 import com.leon.estimate_new.utils.gis.LayerInfo;
 
+import com.esri.arcgisruntime.concurrent.Job;
+import com.esri.arcgisruntime.concurrent.ListenableFuture;
+import com.esri.arcgisruntime.data.ServiceFeatureTable;
+import com.esri.arcgisruntime.data.ShapefileFeatureTable;
+import com.esri.arcgisruntime.geometry.Point;
+import com.esri.arcgisruntime.geometry.Polygon;
+import com.esri.arcgisruntime.layers.FeatureLayer;
+import com.esri.arcgisruntime.loadable.LoadStatus;
+import com.esri.arcgisruntime.mapping.ArcGISMap;
+import com.esri.arcgisruntime.mapping.BasemapStyle;
+import com.esri.arcgisruntime.mapping.Viewpoint;
+import com.esri.arcgisruntime.mapping.view.DefaultMapViewOnTouchListener;
+import com.esri.arcgisruntime.mapping.view.Graphic;
+import com.esri.arcgisruntime.mapping.view.GraphicsOverlay;
+import com.esri.arcgisruntime.mapping.view.MapView;
+import com.esri.arcgisruntime.tasks.offlinemap.GenerateOfflineMapJob;
+import com.esri.arcgisruntime.tasks.offlinemap.GenerateOfflineMapParameters;
+import com.esri.arcgisruntime.tasks.offlinemap.GenerateOfflineMapResult;
+import com.esri.arcgisruntime.tasks.offlinemap.OfflineMapTask;
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
+import com.leon.estimate_new.R;
+import com.leon.estimate_new.databinding.ActivityMainBinding;
+import com.leon.estimate_new.helpers.Constants;
+import com.leon.estimate_new.helpers.MyApplication;
+import com.leon.estimate_new.utils.CustomToast;
+import com.leon.estimate_new.utils.PermissionManager;
+import com.leon.estimate_new.utils.gis.CustomImageTiledLayer;
+import com.leon.estimate_new.utils.gis.GoogleMapLayer;
+import com.leon.estimate_new.utils.gis.LayerInfo;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
@@ -89,20 +120,20 @@ public class MainActivity extends AppCompatActivity {
 
     private void initialize() {
         initializeMap();
-        binding.buttonSave.setOnClickListener(view -> generateOfflineMap());
-        binding.buttonOffline.setOnClickListener(view -> initializeMapOffline());
+//        binding.buttonSave.setOnClickListener(view -> generateOfflineMap());
+//        binding.buttonOffline.setOnClickListener(view -> initializeMapOffline());
     }
 
     private void initializeMap() {
-
-        map = new ArcGISMap();
+        ArcGISMap map = new ArcGISMap();
         binding.mapView.setMap(map);
 
         LayerInfo info = new LayerInfo();
         CustomImageTiledLayer baseLayer = new CustomImageTiledLayer(info.getTianDiTuMLayerInfo(), info.getMFullExtent());
         baseLayer.setMainURL(getString(R.string.local_base_map));
-        binding.mapView.getMap().getBasemap().getBaseLayers().add(GoogleMapLayer.CreateGoogleLayer(GoogleMapLayer.MapType.VECTOR));
         binding.mapView.getMap().getBasemap().getBaseLayers().add(baseLayer);
+        binding.mapView.getMap().getBasemap().getBaseLayers().add(GoogleMapLayer.CreateGoogleLayer(GoogleMapLayer.MapType.VECTOR));
+
 
         binding.mapView.setMagnifierEnabled(true);
         binding.mapView.setCanMagnifierPanMap(true);
@@ -114,9 +145,30 @@ public class MainActivity extends AppCompatActivity {
                     , MyApplication.getLocationTracker(activity).getLongitude(), 3600));
             runOnUiThread(() -> binding.progressBar.setVisibility(View.GONE));
         });
-
         loadShapeFile();
+    }
 
+    private void loadShapeFile() {
+//        ShapefileFeatureTable shapefileFeatureTable = new ShapefileFeatureTable(
+//                Environment.getExternalStorageDirectory() + "/Pictures/Aurora_CO_shp.zip");
+//        ShapefileFeatureTable shapefileFeatureTable = new ShapefileFeatureTable(
+//                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/Aurora_CO.shp");
+        ShapefileFeatureTable shapefileFeatureTable = new ShapefileFeatureTable(
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/block_sarmast.shp");
+        // create a feature layer to display the shapefile
+        Log.e("path", shapefileFeatureTable.getPath());
+        FeatureLayer shapefileFeatureLayer = new FeatureLayer(shapefileFeatureTable);
+        // add the feature layer to the map
+        binding.mapView.getMap().getOperationalLayers().add(shapefileFeatureLayer);
+
+        shapefileFeatureTable.addDoneLoadingListener(() -> {
+            if (shapefileFeatureTable.getLoadStatus() == LoadStatus.LOADED) {
+                // zoom the map to the extent of the shapefile
+                binding.mapView.setViewpointAsync(new Viewpoint(shapefileFeatureLayer.getFullExtent()));
+            } else {
+                Log.e("ReadShape", shapefileFeatureTable.getLoadError().toString());
+            }
+        });
     }
 
     private void initializeMap1() {
@@ -233,27 +285,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void loadLocalMap() {
 
-    }
-
-    private void loadShapeFile() {
-//        ShapefileFeatureTable shapefileFeatureTable = new ShapefileFeatureTable(
-//                Environment.getExternalStorageDirectory() + "/Pictures/Aurora_CO_shp.zip");
-
-
-        ShapefileFeatureTable shapefileFeatureTable = new ShapefileFeatureTable(
-                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/Aurora_CO.shp");
-        // create a feature layer to display the shapefile
-        FeatureLayer shapefileFeatureLayer = new FeatureLayer(shapefileFeatureTable);
-        // add the feature layer to the map
-        binding.mapView.getMap().getOperationalLayers().add(shapefileFeatureLayer);
-        shapefileFeatureTable.addDoneLoadingListener(() -> {
-            if (shapefileFeatureTable.getLoadStatus() == LoadStatus.LOADED) {
-                // zoom the map to the extent of the shapefile
-                binding.mapView.setViewpointAsync(new Viewpoint(shapefileFeatureLayer.getFullExtent()));
-            } else {
-                Log.e("ReadShape", shapefileFeatureTable.getLoadError().toString());
-            }
-        });
     }
 
     @SuppressLint("ClickableViewAccessibility")
