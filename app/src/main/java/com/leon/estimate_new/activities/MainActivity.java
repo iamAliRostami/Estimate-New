@@ -26,8 +26,8 @@ import com.esri.arcgisruntime.data.ServiceFeatureTable;
 import com.esri.arcgisruntime.data.ShapefileFeatureTable;
 import com.esri.arcgisruntime.geometry.Point;
 import com.esri.arcgisruntime.geometry.Polygon;
-import com.esri.arcgisruntime.layers.ArcGISTiledLayer;
 import com.esri.arcgisruntime.layers.FeatureLayer;
+import com.esri.arcgisruntime.layers.OpenStreetMapLayer;
 import com.esri.arcgisruntime.loadable.LoadStatus;
 import com.esri.arcgisruntime.mapping.ArcGISMap;
 import com.esri.arcgisruntime.mapping.Basemap;
@@ -44,44 +44,13 @@ import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.databinding.ActivityMainBinding;
+import com.leon.estimate_new.enums.MapType;
 import com.leon.estimate_new.helpers.Constants;
 import com.leon.estimate_new.helpers.MyApplication;
 import com.leon.estimate_new.utils.CustomToast;
 import com.leon.estimate_new.utils.PermissionManager;
-import com.leon.estimate_new.utils.gis.CustomImageTiledLayer;
 import com.leon.estimate_new.utils.gis.GoogleMapLayer;
-import com.leon.estimate_new.utils.gis.LayerInfo;
-
-import com.esri.arcgisruntime.concurrent.Job;
-import com.esri.arcgisruntime.concurrent.ListenableFuture;
-import com.esri.arcgisruntime.data.ServiceFeatureTable;
-import com.esri.arcgisruntime.data.ShapefileFeatureTable;
-import com.esri.arcgisruntime.geometry.Point;
-import com.esri.arcgisruntime.geometry.Polygon;
-import com.esri.arcgisruntime.layers.FeatureLayer;
-import com.esri.arcgisruntime.loadable.LoadStatus;
-import com.esri.arcgisruntime.mapping.ArcGISMap;
-import com.esri.arcgisruntime.mapping.BasemapStyle;
-import com.esri.arcgisruntime.mapping.Viewpoint;
-import com.esri.arcgisruntime.mapping.view.DefaultMapViewOnTouchListener;
-import com.esri.arcgisruntime.mapping.view.Graphic;
-import com.esri.arcgisruntime.mapping.view.GraphicsOverlay;
-import com.esri.arcgisruntime.mapping.view.MapView;
-import com.esri.arcgisruntime.tasks.offlinemap.GenerateOfflineMapJob;
-import com.esri.arcgisruntime.tasks.offlinemap.GenerateOfflineMapParameters;
-import com.esri.arcgisruntime.tasks.offlinemap.GenerateOfflineMapResult;
-import com.esri.arcgisruntime.tasks.offlinemap.OfflineMapTask;
-import com.gun0912.tedpermission.PermissionListener;
-import com.gun0912.tedpermission.TedPermission;
-import com.leon.estimate_new.R;
-import com.leon.estimate_new.databinding.ActivityMainBinding;
-import com.leon.estimate_new.helpers.Constants;
-import com.leon.estimate_new.helpers.MyApplication;
-import com.leon.estimate_new.utils.CustomToast;
-import com.leon.estimate_new.utils.PermissionManager;
-import com.leon.estimate_new.utils.gis.CustomImageTiledLayer;
-import com.leon.estimate_new.utils.gis.GoogleMapLayer;
-import com.leon.estimate_new.utils.gis.LayerInfo;
+import com.leon.estimate_new.utils.gis.OsmMapLayer;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -125,14 +94,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializeMap() {
+//         ArcGISMap map = new ArcGISMap(new Basemap(new OsmMapLayer().createLayer()));
         ArcGISMap map = new ArcGISMap();
         binding.mapView.setMap(map);
 
-        LayerInfo info = new LayerInfo();
-        CustomImageTiledLayer baseLayer = new CustomImageTiledLayer(info.getTianDiTuMLayerInfo(), info.getMFullExtent());
-        baseLayer.setMainURL(getString(R.string.local_base_map));
-        binding.mapView.getMap().getBasemap().getBaseLayers().add(baseLayer);
-        binding.mapView.getMap().getBasemap().getBaseLayers().add(GoogleMapLayer.CreateGoogleLayer(GoogleMapLayer.MapType.VECTOR));
+//        LayerInfo info = new LayerInfo();
+//        CustomImageTiledLayer baseLayer = new CustomImageTiledLayer(info.getTianDiTuMLayerInfo(), info.getMFullExtent());
+//        baseLayer.setMainURL(getString(R.string.local_base_map));
+//        binding.mapView.getMap().getBasemap().getBaseLayers().add(baseLayer);
+        binding.mapView.getMap().getBasemap().getBaseLayers().add(new GoogleMapLayer().createLayer(MapType.VECTOR));
+        binding.mapView.getMap().getBasemap().getBaseLayers().add(new OsmMapLayer().createLayer());
+        binding.mapView.getMap().getBasemap().getBaseLayers().add(new OpenStreetMapLayer());
 
 
         binding.mapView.setMagnifierEnabled(true);
