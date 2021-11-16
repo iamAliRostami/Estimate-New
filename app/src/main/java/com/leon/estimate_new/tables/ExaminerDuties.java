@@ -221,4 +221,10 @@ public class ExaminerDuties {
         examinerDuties.description = calculationUserInputTemp.description;
         examinerDuties.shenasname = calculationUserInputTemp.shenasname;
     }
+    public boolean isPeymayesh() {
+        return isPeymayesh;
+    }
+    public String getExaminationDay() {
+        return examinationDay;
+    }
 }

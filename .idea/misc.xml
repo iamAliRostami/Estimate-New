@@ -8,6 +8,7 @@
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/drawable/border_black_1.xml" value="0.2640625" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/drawable/border_black_2.xml" value="0.2640625" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/drawable/border_blue_1.xml" value="0.12604166666666666" />
+        <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/drawable/border_blue_2.xml" value="0.2828125" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/drawable/border_blue_3.xml" value="0.2640625" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/drawable/border_gray_1.xml" value="0.20885416666666667" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/drawable/border_gray_2.xml" value="0.20885416666666667" />
@@ -26,15 +27,23 @@
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/activity_crop_image.xml" value="0.24375" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/activity_document_form.xml" value="0.24375" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/activity_final_report.xml" value="0.264" />
+        <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/activity_form.xml" value="0.2625" />
+        <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/activity_list.xml" value="0.2625" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/activity_login.xml" value="0.2" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/activity_splash.xml" value="0.24375" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/dialog_choice.xml" value="0.24375" />
+        <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/dialog_info.xml" value="0.2625" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/dialog_text_input.xml" value="0.1" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/dialog_view_color_area.xml" value="0.1" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/footer.xml" value="0.24375" />
+        <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/item_address_1.xml" value="0.2625" />
+        <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/item_address_2.xml" value="0.17395833333333333" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/progress_bar.xml" value="0.264" />
+        <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/menu/add_document_menu.xml" value="0.2625" />
+        <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/menu/document_menu.xml" value="0.2625" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/menu/map_menu.xml" value="0.24375" />
+        <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/menu/search_menu.xml" value="0.2625" />
         <entry key="..\:/AndroidStudioProjects/Estimate/app/src/main/res/layout/create_image_activity.xml" value="0.1935185185185185" />
         <entry key="..\:/AndroidStudioProjects/Estimate/app/src/main/res/layout/dialog_choice.xml" value="0.2625" />
         <entry key="..\:/AndroidStudioProjects/Estimate/app/src/main/res/layout/dialog_custom.xml" value="0.2625" />

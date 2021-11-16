@@ -48,27 +48,37 @@
         android:theme="@style/Theme.EstimateNew.NoActionBar"
         tools:ignore="UnusedAttribute">
         <activity
+            android:name=".activities.ListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.FormActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.LoginActivity"
             android:exported="true" />
         <activity
             android:name=".activities.FinalReportActivity"
             android:exported="true"
             android:theme="@style/Theme.EstimateNew">
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.MAIN" />-->
 
-            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--            </intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".activities.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.EstimateNew.NoActionBar">
-<!--                        <intent-filter>-->
-<!--                            <action android:name="android.intent.action.MAIN" />-->
 
-<!--                            <category android:name="android.intent.category.LAUNCHER" />-->
-<!--                        </intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".activities.MainActivity"
