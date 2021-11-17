@@ -10,6 +10,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.databinding.ActivityListBinding;
+import com.leon.estimate_new.enums.SharedReferenceKeys;
+import com.leon.estimate_new.helpers.MyApplication;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -34,9 +36,8 @@ public class ListActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.search_menu, menu);
-        SharedPreferenceManager sharedPreferenceManager = new SharedPreferenceManager(context, SharedReferenceNames.ACCOUNT.getValue());
-        if (sharedPreferenceManager.getStringData(SharedReferenceKeys.TRACK_NUMBER.getValue()) == null ||
-                sharedPreferenceManager.getStringData(SharedReferenceKeys.TRACK_NUMBER.getValue()).length() < 1) {
+        if (MyApplication.getApplicationComponent().SharedPreferenceModel().getStringData(SharedReferenceKeys.TRACK_NUMBER.getValue()) == null ||
+                MyApplication.getApplicationComponent().SharedPreferenceModel().getStringData(SharedReferenceKeys.TRACK_NUMBER.getValue()).length() < 1) {
             menu.getItem(1).setVisible(false);
         }
         return true;
@@ -59,6 +60,7 @@ public class ListActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
     @Override
     protected void onStop() {
         super.onStop();
