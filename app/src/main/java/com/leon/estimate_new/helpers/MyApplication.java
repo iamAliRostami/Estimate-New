@@ -24,6 +24,7 @@ import com.leon.estimate_new.di.module.NetworkModule;
 import com.leon.estimate_new.di.module.SharedPreferenceModule;
 import com.leon.estimate_new.enums.SharedReferenceNames;
 import com.leon.estimate_new.infrastructure.ILocationTracking;
+import com.leon.estimate_new.infrastructure.ISharedPreferenceManager;
 import com.leon.estimate_new.utils.CheckSensor;
 
 public class MyApplication extends Application {
@@ -87,5 +88,9 @@ public class MyApplication extends Application {
         return CheckSensor.checkSensor(activity) ?
                 activityComponent.LocationTrackingGoogle() :
                 activityComponent.LocationTrackingGps();
+    }
+
+    public static ISharedPreferenceManager getPreferenceManager() {
+        return MyApplication.getApplicationComponent().SharedPreferenceModel();
     }
 }

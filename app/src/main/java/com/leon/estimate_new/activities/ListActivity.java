@@ -1,5 +1,7 @@
 package com.leon.estimate_new.activities;
 
+import static com.leon.estimate_new.helpers.MyApplication.getPreferenceManager;
+
 import android.os.Bundle;
 import android.os.Debug;
 import android.view.Menu;
@@ -36,8 +38,8 @@ public class ListActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.search_menu, menu);
-        if (MyApplication.getApplicationComponent().SharedPreferenceModel().getStringData(SharedReferenceKeys.TRACK_NUMBER.getValue()) == null ||
-                MyApplication.getApplicationComponent().SharedPreferenceModel().getStringData(SharedReferenceKeys.TRACK_NUMBER.getValue()).length() < 1) {
+        if (getPreferenceManager().getStringData(SharedReferenceKeys.TRACK_NUMBER.getValue()) == null ||
+                getPreferenceManager().getStringData(SharedReferenceKeys.TRACK_NUMBER.getValue()).length() < 1) {
             menu.getItem(1).setVisible(false);
         }
         return true;
@@ -53,9 +55,7 @@ public class ListActivity extends AppCompatActivity {
         } else if (id == R.id.menu_clear) {
             customAdapter.filter("", "", "", "", "", "", "");
         } else if (id == R.id.menu_last) {
-            SharedPreferenceManager sharedPreferenceManager = new SharedPreferenceManager(context,
-                    SharedReferenceNames.ACCOUNT.getValue());
-            customAdapter.filter("", sharedPreferenceManager.getStringData(
+            customAdapter.filter("", getPreferenceManager().getStringData(
                     SharedReferenceKeys.TRACK_NUMBER.getValue()), "", "", "", "", "");
         }
         return super.onOptionsItemSelected(item);

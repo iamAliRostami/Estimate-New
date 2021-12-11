@@ -1,9 +1,10 @@
 package com.leon.estimate_new.di.module;
 
+import static com.leon.estimate_new.helpers.MyApplication.getPreferenceManager;
+
 import com.google.gson.Gson;
 import com.leon.estimate_new.di.view_model.NetworkHelperModel;
 import com.leon.estimate_new.enums.SharedReferenceKeys;
-import com.leon.estimate_new.helpers.MyApplication;
 
 import javax.inject.Singleton;
 
@@ -29,8 +30,8 @@ public class NetworkModule {
     @Singleton
     @Provides
     public Retrofit providesRetrofit() {
-        return networkHelperModel.getInstance(MyApplication.getApplicationComponent()
-                .SharedPreferenceModel().getStringData(SharedReferenceKeys.TOKEN.getValue()));
+        return networkHelperModel.getInstance(getPreferenceManager()
+                .getStringData(SharedReferenceKeys.TOKEN.getValue()));
     }
 
     @Singleton

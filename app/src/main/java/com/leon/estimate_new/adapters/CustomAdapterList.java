@@ -1,5 +1,7 @@
 package com.leon.estimate_new.adapters;
 
+import static com.leon.estimate_new.helpers.MyApplication.getPreferenceManager;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -60,7 +62,7 @@ public class CustomAdapterList extends RecyclerView.Adapter<ViewHolderList> {
                 Intent intent = new Intent(context, FormActivity.class);
                 intent.putExtra(BundleEnum.TRACK_NUMBER.getValue(), examinerDutiesTemp.get(i).trackNumber);
                 intent.putExtra(BundleEnum.SERVICES.getValue(), examinerDutiesTemp.get(i).requestDictionaryString);
-                MyApplication.getApplicationComponent().SharedPreferenceModel().putData(SharedReferenceKeys.TRACK_NUMBER.getValue(), examinerDutiesTemp.get(i).trackNumber);
+                getPreferenceManager().putData(SharedReferenceKeys.TRACK_NUMBER.getValue(), examinerDutiesTemp.get(i).trackNumber);
                 context.startActivity(intent);
             }
         });

@@ -1,16 +1,15 @@
 package com.leon.estimate_new.activities;
 
 import static com.leon.estimate_new.helpers.MyApplication.getAndroidVersion;
+import static com.leon.estimate_new.helpers.MyApplication.getPreferenceManager;
 import static com.leon.estimate_new.utils.PermissionManager.isNetworkAvailable;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Debug;
 import android.text.InputType;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -19,10 +18,7 @@ import com.leon.estimate_new.BuildConfig;
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.databinding.ActivityLoginBinding;
 import com.leon.estimate_new.enums.SharedReferenceKeys;
-import com.leon.estimate_new.helpers.MyApplication;
-import com.leon.estimate_new.infrastructure.ISharedPreferenceManager;
 import com.leon.estimate_new.utils.Crypto;
-import com.leon.estimate_new.utils.CustomToast;
 import com.leon.estimate_new.utils.DifferentCompanyManager;
 import com.leon.estimate_new.utils.login.AttemptLogin;
 
@@ -139,12 +135,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     void loadPreference() {
-        ISharedPreferenceManager sharedPreferenceManager = MyApplication.getApplicationComponent().SharedPreferenceModel();
-        if (sharedPreferenceManager.checkIsNotEmpty(SharedReferenceKeys.USERNAME.getValue()) &&
-                sharedPreferenceManager.checkIsNotEmpty(SharedReferenceKeys.PASSWORD.getValue())) {
-            binding.editTextUsername.setText(sharedPreferenceManager.getStringData(
+        if (getPreferenceManager().checkIsNotEmpty(SharedReferenceKeys.USERNAME.getValue()) &&
+                getPreferenceManager().checkIsNotEmpty(SharedReferenceKeys.PASSWORD.getValue())) {
+            binding.editTextUsername.setText(getPreferenceManager().getStringData(
                     SharedReferenceKeys.USERNAME.getValue()));
-            binding.editTextPassword.setText(Crypto.decrypt(sharedPreferenceManager.getStringData(
+            binding.editTextPassword.setText(Crypto.decrypt(getPreferenceManager().getStringData(
                     SharedReferenceKeys.PASSWORD.getValue())));
         }
     }
