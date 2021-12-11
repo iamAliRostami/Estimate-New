@@ -19,7 +19,6 @@ import com.leon.estimate_new.activities.FormActivity;
 import com.leon.estimate_new.adapters.holders.ViewHolderList;
 import com.leon.estimate_new.enums.BundleEnum;
 import com.leon.estimate_new.enums.SharedReferenceKeys;
-import com.leon.estimate_new.helpers.MyApplication;
 import com.leon.estimate_new.tables.ExaminerDuties;
 import com.leon.estimate_new.utils.CustomToast;
 
@@ -27,18 +26,17 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
 import java.util.Locale;
 
 public class CustomAdapterList extends RecyclerView.Adapter<ViewHolderList> {
     private Context context;
     private int size = 0;
-    private final List<ExaminerDuties> examinerDuties = new ArrayList<>();
+    private final ArrayList<ExaminerDuties> examinerDuties = new ArrayList<>();
     private final ArrayList<ExaminerDuties> examinerDutiesTemp = new ArrayList<>();
 
     public CustomAdapterList(Context context, ArrayList<ExaminerDuties> examinerDuties) {
-        this.context = context;
         examinerDuties.sort(Comparator.comparing(ExaminerDuties::isPeymayesh).thenComparing(ExaminerDuties::getExaminationDay));
+        this.context = context;
         this.examinerDuties.addAll(examinerDuties);
         this.examinerDutiesTemp.addAll(examinerDuties);
     }

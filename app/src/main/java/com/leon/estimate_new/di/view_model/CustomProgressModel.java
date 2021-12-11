@@ -90,16 +90,19 @@ public final class CustomProgressModel {
                     HttpClientWrapper.call.cancel();
                     HttpClientWrapper.call = null;
                 }
-                if (dialog != null) {
-                    dialog.dismiss();
-                    dialog.cancel();
-                    dialog = null;
-                }
+                cancelDialog();
             });
         }
     }
 
     public Dialog getDialog() {
         return dialog;
+    }
+    public void cancelDialog() {
+        if (dialog != null) {
+            dialog.dismiss();
+            dialog.cancel();
+            dialog = null;
+        }
     }
 }

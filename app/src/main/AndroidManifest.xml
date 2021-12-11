@@ -48,26 +48,28 @@
         android:theme="@style/Theme.EstimateNew.NoActionBar"
         tools:ignore="UnusedAttribute">
         <activity
+            android:name=".helpers.TestActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".activities.ListActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.EstimateNew" />
         <activity
             android:name=".activities.FormActivity"
             android:exported="false" />
         <activity
             android:name=".activities.LoginActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".activities.FinalReportActivity"
-            android:exported="true"
-            android:theme="@style/Theme.EstimateNew">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
-        </activity>
+            android:exported="false"
+            android:theme="@style/Theme.EstimateNew" />
         <activity
             android:name=".activities.SplashActivity"
             android:exported="true"
@@ -82,13 +84,7 @@
         </activity>
         <activity
             android:name=".activities.MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="true" />
         <activity android:name=".activities.DocumentFormActivity" />
         <activity android:name=".activities.BrightnessContrastActivity" />
         <activity android:name=".activities.CropImageActivity" />
