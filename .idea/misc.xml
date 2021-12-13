@@ -17,12 +17,15 @@
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/drawable/border_green_1.xml" value="0.2640625" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/drawable/border_green_2.xml" value="0.2640625" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/drawable/border_green_3.xml" value="0.23205128205128206" />
+        <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/drawable/border_green_4.xml" value="0.23205128205128206" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/drawable/border_red_1.xml" value="0.2640625" />
+        <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/drawable/border_red_3.xml" value="0.23205128205128206" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/drawable/border_white_1.xml" value="0.1" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/drawable/border_white_3.xml" value="0.2640625" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/drawable/border_yellow_1.xml" value="0.2640625" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/drawable/border_yellow_2.xml" value="0.2640625" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/drawable/border_yellow_3.xml" value="0.2640625" />
+        <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/activity_base.xml" value="0.176" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/activity_brightness_contrast.xml" value="0.24375" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/activity_create_final_report.xml" value="0.24375" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/activity_crop_image.xml" value="0.24375" />
@@ -33,6 +36,8 @@
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/activity_login.xml" value="0.2" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/activity_splash.xml" value="0.24375" />
+        <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/base_app_bar.xml" value="0.2153846153846154" />
+        <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/base_content.xml" value="0.2153846153846154" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/dialog_choice.xml" value="0.24375" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/dialog_info.xml" value="0.2625" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/dialog_text_input.xml" value="0.1" />
@@ -41,7 +46,10 @@
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/fragment_search.xml" value="0.264" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/item_address_1.xml" value="0.2625" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/item_address_2.xml" value="0.17395833333333333" />
+        <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/item_navigation_drawer.xml" value="0.2" />
+        <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/item_navigation_drawer_profile.xml" value="0.2153846153846154" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/progress_bar.xml" value="0.264" />
+        <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/toolbar.xml" value="0.2153846153846154" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/menu/add_document_menu.xml" value="0.2625" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/menu/document_menu.xml" value="0.2625" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/menu/map_menu.xml" value="0.24375" />

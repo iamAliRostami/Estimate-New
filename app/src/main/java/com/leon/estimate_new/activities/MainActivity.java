@@ -1,5 +1,6 @@
 package com.leon.estimate_new.activities;
 
+import static com.leon.estimate_new.helpers.MyApplication.getLocationTracker;
 import static com.leon.estimate_new.utils.PermissionManager.isNetworkAvailable;
 
 import android.Manifest;
@@ -8,7 +9,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
@@ -18,7 +18,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.esri.arcgisruntime.concurrent.Job;
 import com.esri.arcgisruntime.concurrent.ListenableFuture;
@@ -30,7 +30,6 @@ import com.esri.arcgisruntime.layers.FeatureLayer;
 import com.esri.arcgisruntime.layers.OpenStreetMapLayer;
 import com.esri.arcgisruntime.loadable.LoadStatus;
 import com.esri.arcgisruntime.mapping.ArcGISMap;
-import com.esri.arcgisruntime.mapping.Basemap;
 import com.esri.arcgisruntime.mapping.BasemapStyle;
 import com.esri.arcgisruntime.mapping.Viewpoint;
 import com.esri.arcgisruntime.mapping.view.DefaultMapViewOnTouchListener;
@@ -43,10 +42,10 @@ import com.esri.arcgisruntime.tasks.offlinemap.OfflineMapTask;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.leon.estimate_new.R;
+import com.leon.estimate_new.base_items.BaseActivity;
 import com.leon.estimate_new.databinding.ActivityMainBinding;
 import com.leon.estimate_new.enums.MapType;
 import com.leon.estimate_new.helpers.Constants;
-import com.leon.estimate_new.helpers.MyApplication;
 import com.leon.estimate_new.utils.CustomToast;
 import com.leon.estimate_new.utils.PermissionManager;
 import com.leon.estimate_new.utils.gis.GoogleMapLayer;
@@ -56,7 +55,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
     private ActivityMainBinding binding;
     private Activity activity;
     private ArcGISMap map;
@@ -76,22 +75,38 @@ public class MainActivity extends AppCompatActivity {
     private OfflineMapTask mOfflineMapTask;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void initialize() {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-        MyApplication.setActivityComponent(this);
+        final View childLayout = binding.getRoot();
+        final ConstraintLayout parentLayout = findViewById(R.id.base_Content);
+        parentLayout.addView(childLayout);
+
+
         activity = this;
-        if (isNetworkAvailable(activity))
-            checkPermissions();
-        else PermissionManager.enableNetwork(activity);
+
+        initializeMap();
+
+//        new DownloadData(activity, binding.imageViewDownload).execute(this);
     }
 
-    private void initialize() {
-        initializeMap();
-//        binding.buttonSave.setOnClickListener(view -> generateOfflineMap());
-//        binding.buttonOffline.setOnClickListener(view -> initializeMapOffline());
-    }
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        binding = ActivityMainBinding.inflate(getLayoutInflater());
+//        setContentView(binding.getRoot());
+//        setActivityComponent(this);
+//        activity = this;
+//        if (isNetworkAvailable(activity))
+//            checkPermissions();
+//        else PermissionManager.enableNetwork(activity);
+//    }
+//    private void initialize() {
+//        initializeMap();
+//
+//        new DownloadData(activity,binding.imageViewDownload).execute(this);
+////        binding.buttonSave.setOnClickListener(view -> generateOfflineMap());
+////        binding.buttonOffline.setOnClickListener(view -> initializeMapOffline());
+//    }
 
     private void initializeMap() {
 //         ArcGISMap map = new ArcGISMap(new Basemap(new OsmMapLayer().createLayer()));
@@ -111,13 +126,13 @@ public class MainActivity extends AppCompatActivity {
         binding.mapView.setCanMagnifierPanMap(true);
 
         AsyncTask.execute(() -> {
-            while (MyApplication.getLocationTracker(activity).getLocation() == null)
+            while (getLocationTracker(activity).getLocation() == null)
                 binding.progressBar.setVisibility(View.VISIBLE);
-            binding.mapView.setViewpoint(new Viewpoint(MyApplication.getLocationTracker(activity).getLatitude()
-                    , MyApplication.getLocationTracker(activity).getLongitude(), 3600));
+            binding.mapView.setViewpoint(new Viewpoint(getLocationTracker(activity).getLatitude()
+                    , getLocationTracker(activity).getLongitude(), 3600));
             runOnUiThread(() -> binding.progressBar.setVisibility(View.GONE));
         });
-        loadShapeFile();
+//        loadShapeFile();
     }
 
     private void loadShapeFile() {
@@ -317,100 +332,102 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    private void checkPermissions() {
-        if (PermissionManager.gpsEnabled(this))
-            if (PermissionManager.checkLocationPermission(getApplicationContext())) {
-                askLocationPermission();
-            } else if (PermissionManager.checkCameraPermission(getApplicationContext())) {
-                askStoragePermission();
-            } else {
-                initialize();
-            }
-    }
-
-    private void askStoragePermission() {
-        PermissionListener permissionlistener = new PermissionListener() {
-            @Override
-            public void onPermissionGranted() {
-                new CustomToast().info(getString(R.string.access_granted));
-                checkPermissions();
-            }
-
-            @Override
-            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
-                PermissionManager.forceClose(activity);
-            }
-        };
-        new TedPermission(this)
-                .setPermissionListener(permissionlistener)
-                .setRationaleMessage(getString(R.string.confirm_permission))
-                .setRationaleConfirmText(getString(R.string.allow_permission))
-                .setDeniedMessage(getString(R.string.if_reject_permission))
-                .setDeniedCloseButtonText(getString(R.string.close))
-                .setGotoSettingButtonText(getString(R.string.allow_permission))
-                .setPermissions(
-                        Manifest.permission.CAMERA,
-                        Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE
-                ).check();
-    }
-
-    private void askLocationPermission() {
-        PermissionListener permissionlistener = new PermissionListener() {
-            @Override
-            public void onPermissionGranted() {
-                new CustomToast().info(getString(R.string.access_granted));
-                checkPermissions();
-            }
-
-            @Override
-            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
-
-                PermissionManager.forceClose(activity);
-            }
-        };
-        new TedPermission(this)
-                .setPermissionListener(permissionlistener)
-                .setRationaleMessage(getString(R.string.confirm_permission))
-                .setRationaleConfirmText(getString(R.string.allow_permission))
-                .setDeniedMessage(getString(R.string.if_reject_permission))
-                .setDeniedCloseButtonText(getString(R.string.close))
-                .setGotoSettingButtonText(getString(R.string.allow_permission))
-                .setPermissions(
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION
-                ).check();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == PackageManager.PERMISSION_GRANTED) {
-            if (requestCode == Constants.GPS_CODE)
-                checkPermissions();
-            if (requestCode == Constants.REQUEST_NETWORK_CODE) {
-                if (isNetworkAvailable(getApplicationContext()))
-                    checkPermissions();
-                else PermissionManager.setMobileWifiEnabled(this);
-            }
-            if (requestCode == Constants.REQUEST_WIFI_CODE) {
-                if (isNetworkAvailable(getApplicationContext()))
-                    checkPermissions();
-                else PermissionManager.enableNetwork(this);
-            }
-        }
-    }
+//    private void checkPermissions() {
+//        if (PermissionManager.gpsEnabled(this))
+//            if (PermissionManager.checkLocationPermission(getApplicationContext())) {
+//                askLocationPermission();
+//            } else if (PermissionManager.checkCameraPermission(getApplicationContext())) {
+//                askStoragePermission();
+//            } else {
+//                initialize();
+//            }
+//    }
+//
+//    private void askStoragePermission() {
+//        PermissionListener permissionlistener = new PermissionListener() {
+//            @Override
+//            public void onPermissionGranted() {
+//                new CustomToast().info(getString(R.string.access_granted));
+//                checkPermissions();
+//            }
+//
+//            @Override
+//            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+//                PermissionManager.forceClose(activity);
+//            }
+//        };
+//        new TedPermission(this)
+//                .setPermissionListener(permissionlistener)
+//                .setRationaleMessage(getString(R.string.confirm_permission))
+//                .setRationaleConfirmText(getString(R.string.allow_permission))
+//                .setDeniedMessage(getString(R.string.if_reject_permission))
+//                .setDeniedCloseButtonText(getString(R.string.close))
+//                .setGotoSettingButtonText(getString(R.string.allow_permission))
+//                .setPermissions(
+//                        Manifest.permission.CAMERA,
+//                        Manifest.permission.READ_EXTERNAL_STORAGE,
+//                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+//                ).check();
+//    }
+//
+//    private void askLocationPermission() {
+//        PermissionListener permissionlistener = new PermissionListener() {
+//            @Override
+//            public void onPermissionGranted() {
+//                new CustomToast().info(getString(R.string.access_granted));
+//                checkPermissions();
+//            }
+//
+//            @Override
+//            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+//
+//                PermissionManager.forceClose(activity);
+//            }
+//        };
+//        new TedPermission(this)
+//                .setPermissionListener(permissionlistener)
+//                .setRationaleMessage(getString(R.string.confirm_permission))
+//                .setRationaleConfirmText(getString(R.string.allow_permission))
+//                .setDeniedMessage(getString(R.string.if_reject_permission))
+//                .setDeniedCloseButtonText(getString(R.string.close))
+//                .setGotoSettingButtonText(getString(R.string.allow_permission))
+//                .setPermissions(
+//                        Manifest.permission.ACCESS_FINE_LOCATION,
+//                        Manifest.permission.ACCESS_COARSE_LOCATION
+//                ).check();
+//    }
+//
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (resultCode == PackageManager.PERMISSION_GRANTED) {
+//            if (requestCode == Constants.GPS_CODE)
+//                checkPermissions();
+//            if (requestCode == Constants.REQUEST_NETWORK_CODE) {
+//                if (isNetworkAvailable(getApplicationContext()))
+//                    checkPermissions();
+//                else PermissionManager.setMobileWifiEnabled(this);
+//            }
+//            if (requestCode == Constants.REQUEST_WIFI_CODE) {
+//                if (isNetworkAvailable(getApplicationContext()))
+//                    checkPermissions();
+//                else PermissionManager.enableNetwork(this);
+//            }
+//        }
+//    }
 
     @Override
     protected void onPause() {
-        binding.mapView.pause();
+        if (binding != null)
+            binding.mapView.pause();
         super.onPause();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        binding.mapView.resume();
+        if (binding != null)
+            binding.mapView.resume();
     }
 
     @Override

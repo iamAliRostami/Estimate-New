@@ -44,7 +44,7 @@ public class ListActivity extends AppCompatActivity {
 
     private void initialize() {
         context = this;
-        new PrepareListData(context).execute(this);
+        new PrepareListData(context, this).execute(this);
     }
 
     public void initializeRecyclerView(final ArrayList<ExaminerDuties> examinerDuties) {
@@ -70,7 +70,6 @@ public class ListActivity extends AppCompatActivity {
                     }
                 });
             });
-
         }
     }
 

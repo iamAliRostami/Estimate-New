@@ -1,5 +1,7 @@
 package com.leon.estimate_new.di.view_model;
 
+import static com.leon.estimate_new.helpers.MyApplication.getActivityComponent;
+
 import android.content.Context;
 import android.content.Intent;
 
@@ -24,8 +26,8 @@ public class CustomDialogModel {
 
     public CustomDialogModel(DialogType choose, Context context, String message, String title,
                              String top, String buttonText, Inline... inline) {
-        lovelyStandardDialog = MyApplication.getActivityComponent().LovelyStandardDialog();
         this.context = context;
+        lovelyStandardDialog = getActivityComponent().LovelyStandardDialog();
         lovelyStandardDialog.setTitle(title)
                 .setMessage(message)
                 .setTopTitle(top);

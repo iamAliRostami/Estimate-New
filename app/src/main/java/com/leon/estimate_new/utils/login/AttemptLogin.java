@@ -1,5 +1,6 @@
 package com.leon.estimate_new.utils.login;
 
+import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponent;
 import static com.leon.estimate_new.helpers.MyApplication.getPreferenceManager;
 
 import android.app.Activity;
@@ -37,7 +38,7 @@ public class AttemptLogin extends AsyncTask<Activity, Activity, Void> {
 
     @Override
     protected Void doInBackground(Activity... activities) {
-        Retrofit retrofit = MyApplication.getApplicationComponent().NetworkHelperModel().getInstance();
+        Retrofit retrofit = getApplicationComponent().NetworkHelperModel().getInstance();
         final IAbfaService iAbfaService = retrofit.create(IAbfaService.class);
         Call<LoginFeedBack> call = iAbfaService.login(username, password);
         activities[0].runOnUiThread(() ->

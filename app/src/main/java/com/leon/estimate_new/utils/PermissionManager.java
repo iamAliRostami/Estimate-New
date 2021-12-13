@@ -72,11 +72,11 @@ public class PermissionManager {
 
     public static boolean checkCameraPermission(Context context) {
         return ActivityCompat.checkSelfPermission(context,
-                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ||
+                Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED ||
                 ActivityCompat.checkSelfPermission(context,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED ||
                 ActivityCompat.checkSelfPermission(context,
-                        Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED;
+                        Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
     }
 
     public static void checkCameraPermission(Activity activity) {
@@ -127,7 +127,8 @@ public class PermissionManager {
     public static void checkStoragePermission(Activity activity) {
         if (ActivityCompat.checkSelfPermission(activity,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
-                ActivityCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.checkSelfPermission(activity,
+                        Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             askStoragePermission(activity);
         }
     }
@@ -160,9 +161,9 @@ public class PermissionManager {
 
     public static boolean checkLocationPermission(Context context) {
         return ActivityCompat.checkSelfPermission(context,
-                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
                 ActivityCompat.checkSelfPermission(context,
-                        Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED;
+                        Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
     }
 
     public static boolean checkLocationPermission(Activity activity) {
