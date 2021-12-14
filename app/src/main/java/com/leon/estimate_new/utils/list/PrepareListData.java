@@ -7,6 +7,7 @@ import android.content.Context;
 
 import com.leon.estimate_new.activities.ListActivity;
 import com.leon.estimate_new.base_items.BaseAsync;
+import com.leon.estimate_new.fragments.DutiesListFragment;
 import com.leon.estimate_new.tables.ExaminerDuties;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class PrepareListData extends BaseAsync {
 
     @Override
     public void backgroundTask(Activity activity) {
-        ((ListActivity) object).initializeRecyclerView((ArrayList<ExaminerDuties>)
+        ((DutiesListFragment) object).initializeRecyclerView((ArrayList<ExaminerDuties>)
                 getApplicationComponent().MyDatabase().examinerDutiesDao().ExaminerDuties());
     }
 }

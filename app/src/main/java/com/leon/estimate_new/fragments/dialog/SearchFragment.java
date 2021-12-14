@@ -1,4 +1,4 @@
-package com.leon.estimate_new.fragments;
+package com.leon.estimate_new.fragments.dialog;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,22 +10,23 @@ import androidx.fragment.app.DialogFragment;
 
 import com.leon.estimate_new.activities.ListActivity;
 import com.leon.estimate_new.databinding.FragmentSearchBinding;
+import com.leon.estimate_new.fragments.DutiesListFragment;
 
 import org.jetbrains.annotations.NotNull;
 
 public class SearchFragment extends DialogFragment {
     private FragmentSearchBinding binding;
-    private ListActivity listActivity;
+    private DutiesListFragment dutiesListFragment;
 
     public SearchFragment() {
     }
 
-    public SearchFragment(ListActivity listActivity) {
-        this.listActivity = listActivity;
+    public SearchFragment(DutiesListFragment dutiesListFragment) {
+        this.dutiesListFragment = dutiesListFragment;
     }
 
-    public static SearchFragment newInstance(ListActivity listActivity) {
-        return new SearchFragment(listActivity);
+    public static SearchFragment newInstance(DutiesListFragment dutiesListFragment) {
+        return new SearchFragment(dutiesListFragment);
     }
 
     @Override

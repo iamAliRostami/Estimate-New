@@ -1,4 +1,5 @@
-package com.leon.estimate_new.activities;
+
+package com.leon.estimate_new.fragments;
 
 import static com.leon.estimate_new.fragments.dialog.ShowFragmentDialog.ShowFragmentDialogOnce;
 import static com.leon.estimate_new.helpers.MyApplication.getPreferenceManager;
@@ -6,19 +7,21 @@ import static com.leon.estimate_new.helpers.MyApplication.getPreferenceManager;
 import android.content.Context;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.os.Debug;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.adapters.CustomAdapterList;
-import com.leon.estimate_new.databinding.ActivityListBinding;
+import com.leon.estimate_new.databinding.FragmentDutiesListBinding;
 import com.leon.estimate_new.enums.SharedReferenceKeys;
 import com.leon.estimate_new.fragments.dialog.SearchFragment;
 import com.leon.estimate_new.tables.ExaminerDuties;
@@ -28,28 +31,42 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-public class ListActivity extends AppCompatActivity {
-    private ActivityListBinding binding;
+public class DutiesListFragment extends Fragment {
+    private FragmentDutiesListBinding binding;
     private final ArrayList<ExaminerDuties> examinerDuties = new ArrayList<>();
     private CustomAdapterList adapter;
     private Context context;
 
+    public DutiesListFragment() {
+    }
+
+    public static DutiesListFragment newInstance() {
+        return new DutiesListFragment();
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityListBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+
+    }
+
+    @Override
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        binding = FragmentDutiesListBinding.inflate(inflater, container, false);
         initialize();
+        return binding.getRoot();
     }
 
     private void initialize() {
-        context = this;
-        new PrepareListData(context, this).execute(this);
+        setHasOptionsMenu(true);
+        context = requireContext();
+        new PrepareListData(context, this).execute(requireActivity());
     }
 
     public void initializeRecyclerView(final ArrayList<ExaminerDuties> examinerDuties) {
         if (examinerDuties.isEmpty()) {
-            runOnUiThread(() -> {
+            requireActivity().runOnUiThread(() -> {
                 binding.recyclerView.setVisibility(View.GONE);
                 binding.textViewEmpty.setVisibility(View.VISIBLE);
             });
@@ -57,7 +74,7 @@ public class ListActivity extends AppCompatActivity {
             this.examinerDuties.clear();
             this.examinerDuties.addAll(examinerDuties);
             adapter = new CustomAdapterList(context, this.examinerDuties);
-            runOnUiThread(() -> {
+            requireActivity().runOnUiThread(() -> {
                 binding.textViewEmpty.setVisibility(View.GONE);
                 binding.recyclerView.setVisibility(View.VISIBLE);
                 binding.recyclerView.setAdapter(adapter);
@@ -73,22 +90,23 @@ public class ListActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onPrepareOptionsMenu(@NotNull Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+    }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.search_menu, menu);
-        if (getPreferenceManager().getStringData(SharedReferenceKeys.TRACK_NUMBER.getValue()) == null ||
-                getPreferenceManager().getStringData(SharedReferenceKeys.TRACK_NUMBER.getValue()).length() < 1) {
-            menu.getItem(1).setVisible(false);
-        }
-        return true;
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.search_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+
     }
 
     @Override
     public boolean onOptionsItemSelected(@NotNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.menu_search) {
-//            ShowFragmentDialogOnce(context, "SEARCH_DIALOG", SearchFragment.newInstance(this));
+            ShowFragmentDialogOnce(context, "SEARCH_DIALOG", SearchFragment.newInstance(this));
         } else if (id == R.id.menu_clear) {
             adapter.filter("", "", "", "", "", "", "");
         } else if (id == R.id.menu_last) {
@@ -96,14 +114,5 @@ public class ListActivity extends AppCompatActivity {
                     SharedReferenceKeys.TRACK_NUMBER.getValue()), "", "", "", "", "");
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Runtime.getRuntime().totalMemory();
-        Runtime.getRuntime().freeMemory();
-        Runtime.getRuntime().maxMemory();
-        Debug.getNativeHeapAllocatedSize();
     }
 }

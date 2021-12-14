@@ -7,6 +7,7 @@ import static com.leon.estimate_new.helpers.Constants.PHOTO_PERMISSIONS;
 import static com.leon.estimate_new.helpers.Constants.POSITION;
 import static com.leon.estimate_new.helpers.Constants.REQUEST_NETWORK_CODE;
 import static com.leon.estimate_new.helpers.Constants.REQUEST_WIFI_CODE;
+import static com.leon.estimate_new.helpers.Constants.exit;
 import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponent;
 import static com.leon.estimate_new.helpers.MyApplication.getContext;
 import static com.leon.estimate_new.helpers.MyApplication.setActivityComponent;
@@ -61,7 +62,6 @@ public abstract class BaseActivity extends AppCompatActivity implements
     private Toolbar toolbar;
     private ActivityBaseBinding binding;
     private ISharedPreferenceManager sharedPreferenceManager;
-    private boolean exit = false;
 
     protected abstract void initialize();
 
@@ -153,33 +153,6 @@ public abstract class BaseActivity extends AppCompatActivity implements
         return true;
     }
 
-    private void setOnDrawerItemClick() {
-        binding.recyclerView.addOnItemTouchListener(
-                new RecyclerItemClickListener(getContext(),
-                        binding.recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View view, int position) {
-                        binding.drawerLayout.closeDrawer(GravityCompat.START);
-                        if (position == EXIT_POSITION) {
-                            POSITION = -1;
-                            exit = true;
-                            finishAffinity();
-                        } else if (POSITION != position) {
-                            POSITION = position;
-                            Intent intent = new Intent();
-                            startActivity(intent);
-                            finish();
-                        }
-                    }
-
-                    @Override
-                    public void onLongItemClick(View view, int position) {
-
-                    }
-                })
-        );
-    }
-
     @SuppressLint("RtlHardcoded")
     private void initializeBase() {
         activity = this;
@@ -193,7 +166,6 @@ public abstract class BaseActivity extends AppCompatActivity implements
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         fillDrawerListView();
-        setOnDrawerItemClick();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle
                 (this, binding.drawerLayout, toolbar, R.string.navigation_drawer_open,
                         R.string.navigation_drawer_close) {

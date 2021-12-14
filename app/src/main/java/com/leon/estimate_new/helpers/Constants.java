@@ -61,6 +61,7 @@ public class Constants {
     public static final int SETTING_REQUEST = 922;
 
 
+    public static boolean exit = false;
     public static int POSITION = -1;
     public static Bitmap BITMAP_SELECTED_IMAGE;
 

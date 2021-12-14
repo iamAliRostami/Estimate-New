@@ -5,16 +5,11 @@
     android:layout_height="match_parent"
     tools:context=".activities.MainActivity">
 
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <com.esri.arcgisruntime.mapping.view.MapView
-        android:id="@+id/map_view"
+    <FrameLayout
+        android:id="@+id/container_body"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
+        android:layout_height="match_parent"
+        android:layout_above="@+id/linear_layout_footer" />
 
     <include layout="@layout/footer" />
 </RelativeLayout>
