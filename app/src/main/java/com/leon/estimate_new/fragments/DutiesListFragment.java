@@ -32,8 +32,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 
 public class DutiesListFragment extends Fragment {
-    private FragmentDutiesListBinding binding;
     private final ArrayList<ExaminerDuties> examinerDuties = new ArrayList<>();
+    private FragmentDutiesListBinding binding;
     private CustomAdapterList adapter;
     private Context context;
 

@@ -13,7 +13,6 @@ import com.leon.estimate_new.tables.ExaminerDuties;
 import java.util.ArrayList;
 
 public class PrepareListData extends BaseAsync {
-
     private final Object object;
 
     public PrepareListData(Context context, Object o) {
@@ -21,12 +20,9 @@ public class PrepareListData extends BaseAsync {
         object = o;
     }
 
-
     @Override
     public void postTask(Object o) {
-
     }
-
     @Override
     public void preTask(Object o) {
 

@@ -34,25 +34,28 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:textColor">@color/text_color_light</item>
-        <item name="android:textSize">@dimen/text_size_large</item>
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:layout_margin">@dimen/medium_dp</item>
+        <item name="android:padding">@dimen/medium_dp</item>
     </style>
 
     <style name="Button.Positive">
-        <item name="colorPrimary">@color/green</item>
-        <item name="background">@drawable/border_green_2</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:background">@drawable/border_green_2</item>
+        <!--        <item name="colorPrimary">@color/green</item>-->
+        <!--        <item name="background">@drawable/border_green_2</item>-->
     </style>
 
     <style name="Button.Negative">
-        <item name="background">@drawable/border_yellow_2</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:background">@drawable/border_yellow_2</item>
-        <item name="android:layout_alignParentBottom">true</item>
+        <!--        <item name="background">@drawable/border_yellow_2</item>-->
+        <!--        <item name="android:layout_alignParentBottom">true</item>-->
     </style>
 
     <style name="Button.Neutral">
         <item name="background">@drawable/border_blue_3</item>
         <item name="android:background">@drawable/border_blue_3</item>
-        <item name="android:textSize">@dimen/text_size_large</item>
     </style>
 
     <style name="Image.Icon" parent="Theme.EstimateNew">
@@ -60,11 +63,39 @@
         <item name="android:layout_height">40dp</item>
     </style>
 
-    <style name="Title">
+    <style name="TitleSmall">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:textSize">@dimen/text_size_medium</item>
-        <item name="android:padding">@dimen/medium_dp</item>
+        <item name="android:padding">@dimen/low_dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="EditTextForm">
+        <item name="android:singleLine">true</item>
+        <item name="android:lines">1</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:background">@drawable/border_white_1</item>
+        <item name="android:paddingTop">@dimen/low_dp</item>
+        <item name="android:paddingBottom">@dimen/low_dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+
+    </style>
+
+    <style name="Title">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textSize">@dimen/text_size_huge</item>
+        <item name="android:layout_margin">@dimen/large_dp</item>
+        <item name="android:textColor">@color/blue</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_gravity">top|center_horizontal</item>
+        <item name="android:gravity">center</item>
     </style>
 
     <style name="AlertDialogCustom" parent="Theme.AppCompat.Light.Dialog.Alert">
@@ -213,11 +244,14 @@
     <style name="Spinner" parent="Widget.AppCompat.ListView.DropDown">
         <item name="android:dividerHeight">@dimen/large_dp</item>
         <item name="android:divider">#000</item>
+        <item name="android:layout_margin">@dimen/medium_dp</item>
+        <item name="android:padding">@dimen/medium_dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="popupMenuBackground">@drawable/border_gray_5</item>
         <item name="android:popupBackground">@drawable/border_gray_5</item>
         <item name="background">@drawable/background_spinner</item>
+        <item name="android:spinnerMode">dialog</item>
         <item name="android:background">@drawable/background_spinner</item>
     </style>
 
@@ -291,13 +325,14 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_weight">1</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@drawable/border_gray_1</item>
+        <item name="android:background">@drawable/border_gray_3</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:maxLines">1</item>
         <item name="android:lines">1</item>
         <item name="android:singleLine">true</item>
     </style>
+
     <style name="HomeIcons">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">0dp</item>

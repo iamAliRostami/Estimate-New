@@ -25,12 +25,14 @@ import com.leon.estimate_new.base_items.BaseActivity;
 import com.leon.estimate_new.databinding.ActivityMainBinding;
 import com.leon.estimate_new.fragments.DutiesListFragment;
 import com.leon.estimate_new.fragments.HomeFragment;
+import com.leon.estimate_new.fragments.SendRequestFragment;
 
 public class MainActivity extends BaseActivity {
     private ActivityMainBinding binding;
     private Activity activity;
 
     private final int HOME_FRAGMENT = 0;
+    private final int REQUEST_FRAGMENT = 1;
     private final int DUTIES_FRAGMENT = 3;
 
     @Override
@@ -40,7 +42,7 @@ public class MainActivity extends BaseActivity {
         final ConstraintLayout parentLayout = findViewById(R.id.base_Content);
         parentLayout.addView(childLayout);
         activity = this;
-        displayView(HOME_FRAGMENT);
+        displayView(REQUEST_FRAGMENT);
         setOnDrawerItemClick();
     }
 
@@ -54,6 +56,9 @@ public class MainActivity extends BaseActivity {
                 break;
             case DUTIES_FRAGMENT:
                 fragment = DutiesListFragment.newInstance();
+                break;
+            case REQUEST_FRAGMENT:
+                fragment = SendRequestFragment.newInstance();
                 break;
             default:
                 break;

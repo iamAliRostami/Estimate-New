@@ -55,7 +55,7 @@
         android:id="@+id/frame_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/linear_layout_confirm"
+        android:layout_above="@id/relative_layout"
         android:layout_below="@id/relative_layout_image_tools"
         android:layout_gravity="center"
         android:background="@drawable/border_2">
@@ -83,26 +83,25 @@
             android:visibility="gone" />
     </FrameLayout>
 
-    <LinearLayout
-        android:id="@+id/linear_layout_confirm"
+    <RelativeLayout
+        android:id="@+id/relative_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="@dimen/medium_dp"
-        android:layout_marginBottom="@dimen/medium_dp"
-        android:orientation="horizontal">
+        android:layout_marginBottom="@dimen/medium_dp">
 
         <Button
             android:id="@+id/button_crop"
             style="@style/Button.Positive"
-            android:text="@string/crop" />
+            android:text="@string/accepted" />
 
         <Button
             android:id="@+id/button_close"
             style="@style/Button.Negative"
+            android:layout_alignParentEnd="true"
             android:text="@string/close" />
-
-    </LinearLayout>
+    </RelativeLayout>
 
     <ProgressBar
         android:id="@+id/progress_bar"
