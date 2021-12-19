@@ -34,6 +34,8 @@ public class Constants {
     public static final int REQUEST_LOCATION_CODE = 1236;
     public static final int GALLERY_IMAGE_LOADED = 1001;
     public static final int TOAST_TEXT_SIZE = 20;
+
+    public static final String FONT_NAME = "fonts/font_1.ttf";
     public static final String DATABASE_NAME = "MyDatabase_1";
     public static final String PDF_FONT_NAME = "assets/fonts/pdf_font.ttf";
     public static final String PDF_FONT_NAME_FA = "assets/fonts/pdf_font_fa.ttf";

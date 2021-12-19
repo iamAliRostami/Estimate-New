@@ -33,6 +33,7 @@ public class MainActivity extends BaseActivity {
 
     private final int HOME_FRAGMENT = 0;
     private final int REQUEST_FRAGMENT = 1;
+    private final int DOWNLOAD_FRAGMENT = 1;
     private final int DUTIES_FRAGMENT = 3;
 
     @Override
@@ -42,7 +43,7 @@ public class MainActivity extends BaseActivity {
         final ConstraintLayout parentLayout = findViewById(R.id.base_Content);
         parentLayout.addView(childLayout);
         activity = this;
-        displayView(REQUEST_FRAGMENT);
+        displayView(HOME_FRAGMENT);
         setOnDrawerItemClick();
     }
 
@@ -104,7 +105,6 @@ public class MainActivity extends BaseActivity {
 
                     @Override
                     public void onLongItemClick(View view, int position) {
-
                     }
                 })
         );

@@ -1,5 +1,7 @@
 package com.leon.estimate_new.helpers;
 
+import static com.leon.estimate_new.helpers.Constants.FONT_NAME;
+import static com.leon.estimate_new.helpers.Constants.TOAST_TEXT_SIZE;
 import static com.leon.estimate_new.helpers.Constants.activityComponent;
 import static com.leon.estimate_new.helpers.Constants.appContext;
 import static com.leon.estimate_new.helpers.Constants.applicationComponent;
@@ -7,6 +9,7 @@ import static com.leon.estimate_new.helpers.Constants.applicationComponent;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Build;
 
 import androidx.multidex.MultiDex;
@@ -27,6 +30,8 @@ import com.leon.estimate_new.infrastructure.ILocationTracking;
 import com.leon.estimate_new.infrastructure.ISharedPreferenceManager;
 import com.leon.estimate_new.utils.CheckSensor;
 
+import es.dmoral.toasty.Toasty;
+
 public class MyApplication extends Application {
 
     public static String getDBName() {
@@ -41,6 +46,12 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         appContext = getApplicationContext();
+
+        Toasty.Config.getInstance()
+                .tintIcon(true)
+                .setToastTypeface(Typeface.createFromAsset(appContext.getAssets(), FONT_NAME))
+                .setTextSize(TOAST_TEXT_SIZE)
+                .allowQueue(true).apply();
         setApplicationComponent();
     }
 
