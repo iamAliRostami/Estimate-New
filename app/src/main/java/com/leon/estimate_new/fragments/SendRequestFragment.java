@@ -4,15 +4,19 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import androidx.fragment.app.Fragment;
 
+import com.leon.estimate_new.R;
 import com.leon.estimate_new.databinding.FragmentSendRequestBinding;
 
 import org.jetbrains.annotations.NotNull;
 
 public class SendRequestFragment extends Fragment {
     private FragmentSendRequestBinding binding;
+    private String billId, nationNumber, mobile;
+    private boolean isNew = true;
 
     public SendRequestFragment() {
     }
@@ -29,12 +33,81 @@ public class SendRequestFragment extends Fragment {
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         binding = FragmentSendRequestBinding.inflate(inflater, container, false);
         initialize();
         return binding.getRoot();
     }
 
     private void initialize() {
+        setOnRadioGroupClickListener();
+        setOnButtonClickListener();
+    }
+
+    private void setOnButtonClickListener() {
+        binding.buttonSendRequest.setOnClickListener(v -> {
+            boolean cancel = false;
+            billId = binding.editTextBillId.getText().toString();
+            nationNumber = binding.editTextNationNumber.getText().toString();
+            mobile = binding.editTextMobile.getText().toString();
+            if (billId.length() < 6) {
+                View focusView;
+                binding.editTextBillId.setError(getString(R.string.error_format));
+                focusView = binding.editTextBillId;
+                focusView.requestFocus();
+                cancel = true;
+            }
+            if (!cancel && mobile.length() < 11) {
+                View focusView;
+                binding.editTextNationNumber.setError(getString(R.string.error_format));
+                focusView = binding.editTextMobile;
+                focusView.requestFocus();
+                cancel = true;
+            }
+            if (!cancel && isNew) {
+                if ((checkIsNoEmpty(binding.editTextAddress) ||
+                        checkIsNoEmpty(binding.editTextFamily) ||
+                        checkIsNoEmpty(binding.editTextName))) {
+                    cancel = true;
+                }
+                if (!cancel && nationNumber.length() < 10) {
+                    final View focusView;
+                    binding.editTextNationNumber.setError(getString(R.string.error_format));
+                    focusView = binding.editTextNationNumber;
+                    focusView.requestFocus();
+                    cancel = true;
+                }
+            }
+            if (!cancel) {
+                if (isNew)
+                    sendNewRequest();
+                else
+                    sendAfterSaleRequest();
+            }
+        });
+    }
+
+    private void setOnRadioGroupClickListener() {
+        binding.radioGroupRequestType.setOnCheckedChangeListener((group, checkedId) -> {
+            if (checkedId == R.id.radio_button_new) {
+                isNew = true;
+                binding.linearLayout3.setVisibility(View.VISIBLE);
+                binding.linearLayoutNation.setVisibility(View.VISIBLE);
+            } else {
+                isNew = false;
+                binding.linearLayout3.setVisibility(View.GONE);
+                binding.linearLayoutNation.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    private boolean checkIsNoEmpty(EditText editText) {
+        View focusView;
+        if (editText.getText().toString().length() < 1) {
+            editText.setError(getString(R.string.error_empty));
+            focusView = editText;
+            focusView.requestFocus();
+            return true;
+        }
+        return false;
     }
 }

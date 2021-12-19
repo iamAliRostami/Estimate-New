@@ -13,8 +13,8 @@ public class Request {
     public String firstName;
     public String sureName;
 
-    public Request(String neighbourBillId, ArrayList<Integer> selectedServices, String firstName,
-                   String sureName, String mobile, String nationalId, String address) {
+    public Request(ArrayList<Integer> selectedServices, String neighbourBillId, String mobile,
+                   String firstName, String sureName, String nationalId, String address) {
         this.neighbourBillId = neighbourBillId;
         this.selectedServices = selectedServices;
         this.firstName = firstName;

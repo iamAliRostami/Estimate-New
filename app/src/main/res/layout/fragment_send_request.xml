@@ -35,7 +35,7 @@
                     android:text="@string/request_type" />
 
                 <RadioGroup
-                    android:id="@+id/radioGroupRequestType"
+                    android:id="@+id/radio_group_request_type"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/low_dp"
@@ -53,7 +53,7 @@
                         android:textStyle="bold" />
 
                     <RadioButton
-                        android:id="@+id/radioButtonAfterSale"
+                        android:id="@+id/radio_button_after_sale"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -78,7 +78,7 @@
                     android:text="@string/bill_id" />
 
                 <EditText
-                    android:id="@+id/editTextBillId"
+                    android:id="@+id/edit_text_bill_id"
                     style="@style/EditTextForm"
                     android:layout_width="0dp"
                     android:layout_weight="1"
@@ -103,12 +103,12 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginTop="@dimen/medium_dp"
-                android:layout_marginBottom="@dimen/medium_dp"
                 android:id="@+id/linear_layout_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/linear_layout_2">
+                android:layout_below="@id/linear_layout_2"
+                android:layout_marginTop="@dimen/medium_dp"
+                android:layout_marginBottom="@dimen/medium_dp">
 
                 <TextView
                     style="@style/TitleSmall"
