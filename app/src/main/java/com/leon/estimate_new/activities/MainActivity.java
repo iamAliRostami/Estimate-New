@@ -27,6 +27,7 @@ import com.leon.estimate_new.fragments.DownloadFragment;
 import com.leon.estimate_new.fragments.DutiesListFragment;
 import com.leon.estimate_new.fragments.HomeFragment;
 import com.leon.estimate_new.fragments.SendRequestFragment;
+import com.leon.estimate_new.fragments.UploadFragment;
 
 public class MainActivity extends BaseActivity {
     private ActivityMainBinding binding;
@@ -36,6 +37,7 @@ public class MainActivity extends BaseActivity {
     private final int REQUEST_FRAGMENT = 1;
     private final int DOWNLOAD_FRAGMENT = 2;
     private final int DUTIES_FRAGMENT = 3;
+    private final int UPLOAD_FRAGMENT = 4;
 
     @Override
     protected void initialize() {
@@ -50,12 +52,8 @@ public class MainActivity extends BaseActivity {
 
 
     private void displayView(int position) {
-        Fragment fragment = null;
-
+        final Fragment fragment;
         switch (position) {
-            case HOME_FRAGMENT:
-                fragment = HomeFragment.newInstance();
-                break;
             case DUTIES_FRAGMENT:
                 fragment = DutiesListFragment.newInstance();
                 break;
@@ -65,27 +63,29 @@ public class MainActivity extends BaseActivity {
             case REQUEST_FRAGMENT:
                 fragment = SendRequestFragment.newInstance();
                 break;
+            case UPLOAD_FRAGMENT:
+                fragment = UploadFragment.newInstance();
+                break;
+            case HOME_FRAGMENT:
             default:
+                fragment = HomeFragment.newInstance();
                 break;
         }
         final String tag = Integer.toString(position);
         if (getFragmentManager().findFragmentByTag(tag) != null && getFragmentManager().findFragmentByTag(tag).isVisible()) {
             return;
         }
-        if (fragment != null) {
-            final FragmentManager fragmentManager = getSupportFragmentManager();
-            final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.setCustomAnimations(R.animator.enter, R.animator.exit,
-                    R.animator.pop_enter, R.animator.pop_exit);
-            fragmentTransaction.replace(R.id.container_body, fragment, tag);
-            // Home fragment is not added to the stack
-            if (position != HOME_FRAGMENT) {
-                fragmentTransaction.addToBackStack(null);
-            }
-            fragmentTransaction.commitAllowingStateLoss();
-            getFragmentManager().executePendingTransactions();
+        final FragmentManager fragmentManager = getSupportFragmentManager();
+        final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.animator.enter, R.animator.exit,
+                R.animator.pop_enter, R.animator.pop_exit);
+        fragmentTransaction.replace(R.id.container_body, fragment, tag);
+        // Home fragment is not added to the stack
+        if (position != HOME_FRAGMENT) {
+            fragmentTransaction.addToBackStack(null);
         }
-
+        fragmentTransaction.commitAllowingStateLoss();
+        getFragmentManager().executePendingTransactions();
     }
 
     private void setOnDrawerItemClick() {
@@ -133,7 +133,6 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.map_menu, menu);
-
         return true;
     }
 

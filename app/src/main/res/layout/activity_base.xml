@@ -16,6 +16,7 @@
         android:layout_width="150dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:background="@drawable/border_white_3"
         android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -30,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textColor="?android:textColorSecondary"
-            android:text="@string/version" />
+            android:text="@string/version"
+            android:textColor="?android:textColor" />
     </LinearLayout>
 </androidx.drawerlayout.widget.DrawerLayout>

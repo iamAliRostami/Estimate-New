@@ -82,10 +82,10 @@ public class CustomAdapterList extends RecyclerView.Adapter<ViewHolderList> {
         }
         viewHolder.textViewExaminationDay.setText(examinerDuties.getExaminationDay());
         viewHolder.textViewServiceGroup.setText(examinerDuties.serviceGroup);
-        viewHolder.textViewAddress.setText(examinerDuties.address.trim());
-//        viewHolder.textViewRadif.setText(examinerDuties.getZoneId());
-        viewHolder.textViewRadif.setText(examinerDuties.address);
-        viewHolder.textViewTrackNumber.setText(examinerDuties.trackingId);
+        viewHolder.textViewAddress.setText(examinerDuties.address != null && !examinerDuties.address.isEmpty() ?
+                examinerDuties.address.trim() : "-");
+        viewHolder.textViewRadif.setText(examinerDuties.radif);
+        viewHolder.textViewTrackNumber.setText(examinerDuties.trackNumber);
         viewHolder.textViewNotificationMobile.setText(examinerDuties.notificationMobile);
         viewHolder.textViewMoshtarakMobile.setText(examinerDuties.moshtarakMobile);
         if (examinerDuties.billId != null)

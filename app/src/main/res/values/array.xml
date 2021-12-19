@@ -5,8 +5,8 @@
         <item>@string/send_request</item>
         <item>@string/download_information</item>
         <item>@string/form1</item>
-        <item>@string/help</item>
         <item>@string/upload_information</item>
+        <item>@string/help</item>
         <item>@string/exit</item>
     </string-array>
 
@@ -15,8 +15,8 @@
         <item>@drawable/image_request</item>
         <item>@drawable/image_download_menu</item>
         <item>@drawable/image_form</item>
-        <item>@drawable/image_help</item>
         <item>@drawable/image_upload_menu</item>
+        <item>@drawable/image_help</item>
         <item>@drawable/image_exit</item>
     </array>
     <string-array name="search_option">

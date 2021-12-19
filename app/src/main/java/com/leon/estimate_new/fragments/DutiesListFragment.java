@@ -69,6 +69,7 @@ public class DutiesListFragment extends Fragment {
             requireActivity().runOnUiThread(() -> {
                 binding.recyclerView.setVisibility(View.GONE);
                 binding.textViewEmpty.setVisibility(View.VISIBLE);
+                requireActivity().invalidateOptionsMenu();
             });
         } else {
             this.examinerDuties.clear();
@@ -93,6 +94,9 @@ public class DutiesListFragment extends Fragment {
     @Override
     public void onPrepareOptionsMenu(@NotNull Menu menu) {
         super.onPrepareOptionsMenu(menu);
+        menu.removeItem(R.id.menu_last);
+        menu.removeItem(R.id.menu_search);
+        menu.removeItem(R.id.menu_clear);
     }
 
     @Override
