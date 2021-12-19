@@ -13,10 +13,10 @@
     <array name="icons">
         <item>@drawable/image_home</item>
         <item>@drawable/image_request</item>
-        <item>@drawable/image_download</item>
+        <item>@drawable/image_download_menu</item>
         <item>@drawable/image_form</item>
         <item>@drawable/image_help</item>
-        <item>@drawable/image_upload</item>
+        <item>@drawable/image_upload_menu</item>
         <item>@drawable/image_exit</item>
     </array>
     <string-array name="search_option">

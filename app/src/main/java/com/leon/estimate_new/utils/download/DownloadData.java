@@ -6,8 +6,7 @@ import static com.leon.estimate_new.helpers.MyApplication.getContext;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
-import android.widget.TextView;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -42,12 +41,12 @@ public class DownloadData extends BaseAsync {
 
     @Override
     public void postTask(Object o) {
-//        ((TextView) object).setEnabled(true);
+        ((Button) object).setEnabled(true);
     }
 
     @Override
     public void preTask(Object o) {
-//        ((TextView) object).setEnabled(false);
+        ((Button) object).setEnabled(false);
     }
 
     @Override

@@ -23,6 +23,7 @@ import com.leon.estimate_new.R;
 import com.leon.estimate_new.adapters.RecyclerItemClickListener;
 import com.leon.estimate_new.base_items.BaseActivity;
 import com.leon.estimate_new.databinding.ActivityMainBinding;
+import com.leon.estimate_new.fragments.DownloadFragment;
 import com.leon.estimate_new.fragments.DutiesListFragment;
 import com.leon.estimate_new.fragments.HomeFragment;
 import com.leon.estimate_new.fragments.SendRequestFragment;
@@ -33,7 +34,7 @@ public class MainActivity extends BaseActivity {
 
     private final int HOME_FRAGMENT = 0;
     private final int REQUEST_FRAGMENT = 1;
-    private final int DOWNLOAD_FRAGMENT = 1;
+    private final int DOWNLOAD_FRAGMENT = 2;
     private final int DUTIES_FRAGMENT = 3;
 
     @Override
@@ -57,6 +58,9 @@ public class MainActivity extends BaseActivity {
                 break;
             case DUTIES_FRAGMENT:
                 fragment = DutiesListFragment.newInstance();
+                break;
+            case DOWNLOAD_FRAGMENT:
+                fragment = DownloadFragment.newInstance();
                 break;
             case REQUEST_FRAGMENT:
                 fragment = SendRequestFragment.newInstance();

@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.leon.estimate_new.databinding.FragmentDownloadBinding;
+import com.leon.estimate_new.utils.download.DownloadData;
 
 public class DownloadFragment extends Fragment {
     private FragmentDownloadBinding binding;
@@ -28,7 +29,6 @@ public class DownloadFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         binding = FragmentDownloadBinding.inflate(inflater, container, false);
         initialize();
         return binding.getRoot();
@@ -39,11 +39,7 @@ public class DownloadFragment extends Fragment {
     }
 
     private void initializeDownloadButton() {
-        binding.buttonDownload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+        binding.buttonDownload.setOnClickListener(v ->
+                new DownloadData(requireContext(), binding.buttonDownload).execute(requireActivity()));
     }
 }

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/huge_dp"
     tools:context=".fragments.DownloadFragment">
 
 
@@ -16,11 +17,10 @@
 
     <Button
         android:id="@+id/button_download"
-        style="@style/Button.Negative"
+        style="@style/Button.Positive"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:text="@string/download"
-        android:textColor="@color/text_color_light" />
+        android:text="@string/download"/>
 
 </FrameLayout>
