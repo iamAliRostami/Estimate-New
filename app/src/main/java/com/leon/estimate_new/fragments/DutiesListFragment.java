@@ -55,11 +55,12 @@ public class DutiesListFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentDutiesListBinding.inflate(inflater, container, false);
         initialize();
+        setHasOptionsMenu(false);
         return binding.getRoot();
     }
 
     private void initialize() {
-        setHasOptionsMenu(true);
+        setHasOptionsMenu(false);
         context = requireContext();
         new PrepareListData(context, this).execute(requireActivity());
     }
@@ -69,9 +70,10 @@ public class DutiesListFragment extends Fragment {
             requireActivity().runOnUiThread(() -> {
                 binding.recyclerView.setVisibility(View.GONE);
                 binding.textViewEmpty.setVisibility(View.VISIBLE);
-                requireActivity().invalidateOptionsMenu();
+//                requireActivity().invalidateOptionsMenu();
             });
         } else {
+            setHasOptionsMenu(true);
             this.examinerDuties.clear();
             this.examinerDuties.addAll(examinerDuties);
             adapter = new CustomAdapterList(context, this.examinerDuties);
@@ -91,19 +93,19 @@ public class DutiesListFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onPrepareOptionsMenu(@NotNull Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-        menu.removeItem(R.id.menu_last);
-        menu.removeItem(R.id.menu_search);
-        menu.removeItem(R.id.menu_clear);
-    }
+//    @Override
+//    public void onPrepareOptionsMenu(@NotNull Menu menu) {
+//        super.onPrepareOptionsMenu(menu);
+//        menu.removeItem(R.id.menu_last);
+//        menu.removeItem(R.id.menu_search);
+//        menu.removeItem(R.id.menu_clear);
+//
+//    }
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.search_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
-
     }
 
     @Override
