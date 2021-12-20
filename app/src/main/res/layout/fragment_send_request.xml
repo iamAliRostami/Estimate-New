@@ -186,7 +186,9 @@
                 style="@style/Button.Positive"
                 android:layout_below="@id/linear_layout_nation"
                 android:layout_alignParentEnd="true"
+                android:layout_marginTop="@dimen/medium_dp"
                 android:layout_margin="0dp"
+
                 android:text="@string/send_request" />
         </RelativeLayout>
     </ScrollView>

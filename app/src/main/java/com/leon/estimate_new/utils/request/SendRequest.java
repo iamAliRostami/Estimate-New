@@ -6,7 +6,6 @@ import static com.leon.estimate_new.helpers.MyApplication.getContext;
 
 import android.app.Activity;
 import android.content.Context;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.leon.estimate_new.R;
@@ -15,6 +14,7 @@ import com.leon.estimate_new.di.view_model.CustomDialogModel;
 import com.leon.estimate_new.di.view_model.HttpClientWrapper;
 import com.leon.estimate_new.enums.DialogType;
 import com.leon.estimate_new.enums.ProgressType;
+import com.leon.estimate_new.fragments.SendRequestFragment;
 import com.leon.estimate_new.infrastructure.IAbfaService;
 import com.leon.estimate_new.infrastructure.ICallback;
 import com.leon.estimate_new.infrastructure.ICallbackError;
@@ -23,6 +23,8 @@ import com.leon.estimate_new.utils.CustomErrorHandling;
 import com.leon.estimate_new.utils.CustomToast;
 import com.leon.estimate_new.utils.SimpleMessage;
 import com.leon.estimate_new.utils.download.DownloadData;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -53,12 +55,12 @@ public class SendRequest extends BaseAsync {
 
     @Override
     public void postTask(Object o) {
-        ((Button) object).setEnabled(true);
+        ((SendRequestFragment) object).getButton().setEnabled(true);
     }
 
     @Override
     public void preTask(Object o) {
-        ((Button) object).setEnabled(false);
+        ((SendRequestFragment) object).getButton().setEnabled(false);
     }
 
     @Override
@@ -68,35 +70,30 @@ public class SendRequest extends BaseAsync {
                         .getStringData(TOKEN.getValue()));
         final IAbfaService sendRequest = retrofit.create(IAbfaService.class);
         final Call<SimpleMessage> call;
-        if (request.address.isEmpty())
-            call = sendRequest.sendRequestNew(request);
-        else call = sendRequest.sendRequestAfterSale(request);
+        if (request.selectedServices.size() > 1) call = sendRequest.sendRequestAfterSale(request);
+        else call = sendRequest.sendRequestNew(request);
         HttpClientWrapper.callHttpAsync(call, ProgressType.NOT_SHOW.getValue(), activity,
-                new Request(activity), new RequestIncomplete(activity), new GetError());
+                new Request(activity, object), new RequestIncomplete(activity), new GetError());
     }
 }
 
 class Request implements ICallback<SimpleMessage> {
     private final Context context;
+    private final Object object;
 
-    public Request(Context context) {
+    public Request(Context context, Object object) {
         this.context = context;
+        this.object = object;
     }
 
     @Override
     public void execute(Response<SimpleMessage> response) {
-        binding.editTextAddress.setText("");
-        binding.editTextFamily.setText("");
-        binding.editTextName.setText("");
-        binding.editTextMobile.setText("");
-        binding.editTextNationNumber.setText("");
-        binding.editTextBillId.setText("");
+        ((SendRequestFragment) object).afterRequest();
         new CustomDialogModel(DialogType.Green, context, response.message(),
                 context.getString(R.string.dear_user), context.getString(R.string.request),
                 context.getString(R.string.accepted));
-        new DownloadData().execute();
+        new DownloadData(context, ((SendRequestFragment) object).getButton()).execute();
     }
-
 }
 
 class RequestIncomplete implements ICallbackIncomplete<SimpleMessage> {
@@ -109,8 +106,21 @@ class RequestIncomplete implements ICallbackIncomplete<SimpleMessage> {
 
     @Override
     public void executeIncomplete(Response<SimpleMessage> response) {
-        new CustomDialogModel(DialogType.Yellow, context,
-                context.getString(R.string.error_on_download),
+        String message = "";
+        if (response.code() == 400) {
+            if (response.errorBody() != null) {
+                try {
+                    final JSONObject jObjError = new JSONObject(response.errorBody().string());
+                    message = jObjError.getString("message");
+                } catch (Exception e) {
+                    message = e.getMessage();
+                }
+            }
+        } else {
+            final CustomErrorHandling customErrorHandling = new CustomErrorHandling(context);
+            message = customErrorHandling.getErrorMessageDefault(response);
+        }
+        new CustomDialogModel(DialogType.Yellow, context, message,
                 context.getString(R.string.dear_user),
                 context.getString(R.string.request),
                 context.getString(R.string.accepted));

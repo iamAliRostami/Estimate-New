@@ -4,12 +4,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.fragment.app.Fragment;
 
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.databinding.FragmentSendRequestBinding;
+import com.leon.estimate_new.utils.request.SendRequest;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -79,9 +81,13 @@ public class SendRequestFragment extends Fragment {
             }
             if (!cancel) {
                 if (isNew)
-                    sendNewRequest();
+                    new SendRequest(requireContext(), this, billId, mobile,
+                            binding.editTextName.getText().toString(),
+                            binding.editTextFamily.getText().toString(),
+                            binding.editTextNationNumber.getText().toString(),
+                            binding.editTextAddress.getText().toString()).execute(requireActivity());
                 else
-                    sendAfterSaleRequest();
+                    new SendRequest(requireContext(), this, billId, mobile).execute(requireActivity());
             }
         });
     }
@@ -109,5 +115,20 @@ public class SendRequestFragment extends Fragment {
             return true;
         }
         return false;
+    }
+
+    public Button getButton() {
+        return binding.buttonSendRequest;
+    }
+
+    public void afterRequest() {
+        requireActivity().runOnUiThread(() -> {
+            binding.editTextName.setText("");
+            binding.editTextFamily.setText("");
+            binding.editTextMobile.setText("");
+            binding.editTextBillId.setText("");
+            binding.editTextAddress.setText("");
+            binding.editTextNationNumber.setText("");
+        });
     }
 }
