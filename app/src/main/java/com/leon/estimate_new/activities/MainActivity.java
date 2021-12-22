@@ -25,19 +25,20 @@ import com.leon.estimate_new.base_items.BaseActivity;
 import com.leon.estimate_new.databinding.ActivityMainBinding;
 import com.leon.estimate_new.fragments.DownloadFragment;
 import com.leon.estimate_new.fragments.DutiesListFragment;
+import com.leon.estimate_new.fragments.HelpFragment;
 import com.leon.estimate_new.fragments.HomeFragment;
 import com.leon.estimate_new.fragments.SendRequestFragment;
 import com.leon.estimate_new.fragments.UploadFragment;
 
 public class MainActivity extends BaseActivity {
     private ActivityMainBinding binding;
-    private Activity activity;
 
     private final int HOME_FRAGMENT = 0;
     private final int REQUEST_FRAGMENT = 1;
     private final int DOWNLOAD_FRAGMENT = 2;
     private final int DUTIES_FRAGMENT = 3;
     private final int UPLOAD_FRAGMENT = 4;
+    private final int HELP_FRAGMENT = 5;
 
     @Override
     protected void initialize() {
@@ -45,7 +46,6 @@ public class MainActivity extends BaseActivity {
         final View childLayout = binding.getRoot();
         final ConstraintLayout parentLayout = findViewById(R.id.base_Content);
         parentLayout.addView(childLayout);
-        activity = this;
         displayView(HOME_FRAGMENT);
         setOnDrawerItemClick();
     }
@@ -65,6 +65,9 @@ public class MainActivity extends BaseActivity {
                 break;
             case UPLOAD_FRAGMENT:
                 fragment = UploadFragment.newInstance();
+                break;
+            case HELP_FRAGMENT:
+                fragment = HelpFragment.newInstance();
                 break;
             case HOME_FRAGMENT:
             default:
