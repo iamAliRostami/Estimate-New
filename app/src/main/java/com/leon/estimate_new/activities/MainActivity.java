@@ -6,7 +6,6 @@ import static com.leon.estimate_new.helpers.Constants.exit;
 import static com.leon.estimate_new.helpers.MyApplication.getContext;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;

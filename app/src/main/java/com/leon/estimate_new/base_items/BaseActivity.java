@@ -138,20 +138,6 @@ public abstract class BaseActivity extends AppCompatActivity implements
                 .setPermissions(LOCATION_PERMISSIONS).check();
     }
 
-    @Override
-    public void onBackPressed() {
-        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            binding.drawerLayout.closeDrawer(GravityCompat.START);
-        } else {
-            new CustomToast().info(getString(R.string.how_to_exit));
-        }
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        binding.drawerLayout.closeDrawer(GravityCompat.START);
-        return true;
-    }
 
     @SuppressLint("RtlHardcoded")
     private void initializeBase() {
@@ -190,6 +176,20 @@ public abstract class BaseActivity extends AppCompatActivity implements
         binding.recyclerView.setNestedScrollingEnabled(true);
     }
 
+    @Override
+    public void onBackPressed() {
+        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            binding.drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            new CustomToast().info(getString(R.string.how_to_exit));
+        }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        binding.drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

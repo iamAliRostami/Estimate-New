@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.activities.FormActivity;
 import com.leon.estimate_new.adapters.holders.ViewHolderList;
@@ -45,21 +46,21 @@ public class CustomAdapterList extends RecyclerView.Adapter<ViewHolderList> {
     @NotNull
     public ViewHolderList onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         context = viewGroup.getContext();
-        LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View view;
+        final LayoutInflater layoutInflater = LayoutInflater.from(context);
+        final View view;
         if (size % 2 == 0)
             view = layoutInflater.inflate(R.layout.item_address_1, viewGroup, false);
         else
             view = layoutInflater.inflate(R.layout.item_address_2, viewGroup, false);
-        ViewHolderList holder = new ViewHolderList(view);
+        final ViewHolderList holder = new ViewHolderList(view);
 
         holder.itemView.setOnClickListener(view1 -> {
             if (examinerDutiesTemp.get(i).isPeymayesh()) {
                 new CustomToast().success(context.getString(R.string.is_peymayesh), Toast.LENGTH_LONG);
             } else {
-                Intent intent = new Intent(context, FormActivity.class);
-                intent.putExtra(BundleEnum.TRACK_NUMBER.getValue(), examinerDutiesTemp.get(i).trackNumber);
-                intent.putExtra(BundleEnum.SERVICES.getValue(), examinerDutiesTemp.get(i).requestDictionaryString);
+                final Intent intent = new Intent(context, FormActivity.class);
+                final String json = new Gson().toJson(examinerDutiesTemp.get(i));
+                intent.putExtra(BundleEnum.EXAMINER_DUTY.getValue(), json);
                 getPreferenceManager().putData(SharedReferenceKeys.TRACK_NUMBER.getValue(), examinerDutiesTemp.get(i).trackNumber);
                 context.startActivity(intent);
             }

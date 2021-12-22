@@ -45,7 +45,7 @@
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.EstimateNew.NoActionBar"
+        android:theme="@style/Theme.EstimateNew"
         tools:ignore="UnusedAttribute">
         <activity
             android:name=".helpers.TestActivity"
@@ -58,8 +58,7 @@
         </activity>
         <activity
             android:name=".activities.ListActivity"
-            android:exported="false"
-            android:theme="@style/Theme.EstimateNew" />
+            android:exported="false" />
         <activity
             android:name=".activities.FormActivity"
             android:exported="false" />

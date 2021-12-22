@@ -52,8 +52,8 @@ public class HomeFragment extends Fragment {
     private void initializeMap() {
         final ArcGISMap map = new ArcGISMap();
         binding.mapView.setMap(map);
-        binding.mapView.getMap().getBasemap().getBaseLayers().add(new OpenStreetMapLayer());
-        binding.mapView.getMap().getBasemap().getBaseLayers().add(new OsmMapLayer().createLayer());
+//        binding.mapView.getMap().getBasemap().getBaseLayers().add(new OpenStreetMapLayer());
+//        binding.mapView.getMap().getBasemap().getBaseLayers().add(new OsmMapLayer().createLayer());
         binding.mapView.getMap().getBasemap().getBaseLayers().add(new GoogleMapLayer().createLayer(MapType.VECTOR));
 
         binding.mapView.setMagnifierEnabled(true);
