@@ -33,7 +33,7 @@
 
             <TextView
                 android:id="@+id/text_view_track_number"
-                style="@style/BaseTitleForm"
+                style="@style/BaseForm"
                 android:layout_below="@id/text_view_track_number_title" />
         </RelativeLayout>
 
@@ -51,7 +51,7 @@
 
             <TextView
                 android:id="@+id/text_view_bill_id"
-                style="@style/BaseTitleForm"
+                style="@style/BaseForm"
                 android:layout_below="@id/text_view_bill_id_title" />
         </RelativeLayout>
 
@@ -69,12 +69,13 @@
 
             <TextView
                 android:id="@+id/text_view_zone"
-                style="@style/BaseTitleForm"
+                style="@style/BaseForm"
                 android:layout_below="@id/text_view_zone_title" />
         </RelativeLayout>
     </LinearLayout>
 
     <ScrollView
+        android:id="@+id/scroll_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/linear_layout_title"
@@ -111,6 +112,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="2"
                         android:inputType="text"
+                        android:nextFocusDown="@id/edit_text_family"
                         tools:ignore="Autofill,LabelFor" />
 
                     <TextView
@@ -125,6 +127,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="2"
                         android:inputType="text"
+                        android:nextFocusDown="@id/edit_text_father_name"
                         tools:ignore="Autofill,LabelFor" />
                 </LinearLayout>
 
@@ -146,6 +149,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="2"
                         android:inputType="text"
+                        android:nextFocusDown="@id/edit_text_shenasname"
                         tools:ignore="Autofill,LabelFor" />
 
                     <TextView
@@ -160,6 +164,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="2"
                         android:inputType="number"
+                        android:nextFocusDown="@id/edit_text_nation_number"
                         tools:ignore="Autofill,LabelFor" />
 
                 </LinearLayout>
@@ -182,6 +187,7 @@
                         android:layout_weight="2"
                         android:inputType="number"
                         android:maxLength="10"
+                        android:nextFocusDown="@id/edit_text_postal_code"
                         android:text="@string/ten_zero"
                         tools:ignore="Autofill,LabelFor" />
 
@@ -197,6 +203,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="2"
                         android:inputType="number"
+                        android:nextFocusDown="@id/edit_text_mobile"
                         tools:ignore="Autofill,LabelFor" />
 
                 </LinearLayout>
@@ -222,12 +229,13 @@
                         android:text="@string/radif" />
 
                     <EditText
-                        android:enabled="false"
-                        android:id="@+id/text_view_radif"
+                        android:id="@+id/edit_text_radif"
                         style="@style/EditTextForm"
                         android:layout_width="0dp"
-                        android:inputType="number"
                         android:layout_weight="2"
+                        android:enabled="false"
+                        android:inputType="number"
+                        android:textColor="?android:textColor"
                         tools:ignore="Autofill,LabelFor" />
 
                     <TextView
@@ -237,11 +245,13 @@
                         android:text="@string/eshterak" />
 
                     <EditText
-                        android:inputType="number"
-                        android:id="@+id/text_view_eshterak"
+                        android:id="@+id/edit_text_eshterak"
                         style="@style/EditTextForm"
                         android:layout_width="0dp"
                         android:layout_weight="2"
+                        android:enabled="false"
+                        android:inputType="number"
+                        android:textColor="?android:textColor"
                         tools:ignore="Autofill,LabelFor" />
 
                 </LinearLayout>
@@ -265,6 +275,7 @@
                         android:layout_weight="2"
                         android:inputType="phone"
                         android:maxLength="11"
+                        android:nextFocusDown="@id/edit_text_phone"
                         tools:ignore="Autofill,LabelFor" />
 
                     <TextView
@@ -280,6 +291,7 @@
                         android:layout_weight="2"
                         android:inputType="phone"
                         android:maxLength="8"
+                        android:nextFocusDown="@id/edit_text_address"
                         tools:ignore="Autofill,LabelFor" />
 
                 </LinearLayout>
@@ -287,7 +299,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/linear_layout_5">
+                    android:layout_below="@id/linear_layout_5"
+                    android:layout_marginTop="@dimen/small_dp">
 
                     <TextView
                         style="@style/TitleSmall"
@@ -304,6 +317,7 @@
                         android:gravity="start|top"
                         android:inputType="textMultiLine"
                         android:lines="7"
+                        android:nextFocusDown="@id/edit_text_description"
                         tools:ignore="Autofill,LabelFor" />
 
                     <TextView
@@ -326,4 +340,31 @@
             </RelativeLayout>
         </RelativeLayout>
     </ScrollView>
+
+    <Space
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/relative_layout"
+        android:layout_below="@id/scroll_view" />
+
+    <RelativeLayout
+        android:id="@+id/relative_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/medium_dp"
+        android:layout_marginBottom="@dimen/medium_dp">
+
+        <Button
+            android:id="@+id/button_close"
+            style="@style/Button.Negative"
+            android:text="@string/close" />
+
+        <Button
+            android:id="@+id/button_submit"
+            style="@style/Button.Positive"
+            android:layout_alignParentEnd="true"
+            android:text="@string/next" />
+    </RelativeLayout>
 </RelativeLayout>

@@ -116,10 +116,20 @@
     <style name="BaseTitleForm">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+
+    </style>
+
+    <style name="BaseForm">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:textSize">@dimen/text_size_large</item>
         <item name="android:gravity">center</item>
 
     </style>
+
     <style name="AlertDialogCustom" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:textColor">@color/red</item>
         <item name="buttonBarNegativeButtonStyle">@style/DialogButton</item>

@@ -135,7 +135,7 @@
     <string name="noe_vagozari">نوع واگذاری</string>
     <string name="arse_kol">عرصه کل</string>
     <string name="bill_id">شناسه قبض</string>
-    <string name="neighbour_bill_id">شناسه قبض همسایه</string>
+    <string name="neighbour_bill_id">ش. قبض همسایه</string>
     <string name="other_number">تعداد واحد سایر</string>
     <string name="postal_code">کد پستی</string>
     <string name="canceled">عملیات متوقف شد.</string>

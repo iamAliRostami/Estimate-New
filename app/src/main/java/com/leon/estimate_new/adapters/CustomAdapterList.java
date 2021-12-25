@@ -72,7 +72,8 @@ public class CustomAdapterList extends RecyclerView.Adapter<ViewHolderList> {
     public void onBindViewHolder(@NonNull ViewHolderList viewHolder, int i) {
         ExaminerDuties examinerDuties = getItem(i);
 
-        viewHolder.textViewName.setText(examinerDuties.nameAndFamily);
+        viewHolder.textViewName.setText(examinerDuties.nameAndFamily != null && examinerDuties.nameAndFamily.trim().length() > 0 ?
+                examinerDuties.nameAndFamily.trim() : "-");
         if (examinerDuties.isPeymayesh()) {
             viewHolder.textViewPeymayesh.setText("پیمایش شده");
             viewHolder.textViewPeymayesh.setBackground(ContextCompat.getDrawable(context, R.drawable.border_green_2));
@@ -85,7 +86,8 @@ public class CustomAdapterList extends RecyclerView.Adapter<ViewHolderList> {
         viewHolder.textViewServiceGroup.setText(examinerDuties.serviceGroup);
         viewHolder.textViewAddress.setText(examinerDuties.address != null && !examinerDuties.address.isEmpty() ?
                 examinerDuties.address.trim() : "-");
-        viewHolder.textViewRadif.setText(examinerDuties.radif);
+        viewHolder.textViewRadif.setText(examinerDuties.radif != null && examinerDuties.radif.trim().length() > 0 ?
+                examinerDuties.radif : "-");
         viewHolder.textViewTrackNumber.setText(examinerDuties.trackNumber);
         viewHolder.textViewNotificationMobile.setText(examinerDuties.notificationMobile);
         viewHolder.textViewMoshtarakMobile.setText(examinerDuties.moshtarakMobile);
