@@ -88,6 +88,38 @@ public class HttpClientWrapper {
         }
     }
 
+    public static <T> void callHttpAsync(final Call<T> call,
+                                         final Context context,
+                                         final ICallback<T> callback,
+                                         final ICallbackIncomplete<T> callbackIncomplete,
+                                         final ICallbackError callbackError) {
+        cancel = false;
+
+        if (isNetworkAvailable(context)) {
+            call.enqueue(new Callback<T>() {
+                @Override
+                public void onResponse(@NonNull Call<T> call, @NonNull Response<T> response) {
+                    if (!cancel) {
+                        if (response.isSuccessful()) {
+                            callback.execute(response);
+                        } else {
+                            ((Activity) context).runOnUiThread(() -> callbackIncomplete.executeIncomplete(response));
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(@NonNull Call<T> call, @NonNull Throwable t) {
+                    if (!cancel) {
+                        ((Activity) context).runOnUiThread(() -> callbackError.executeError(t));
+                    }
+                }
+            });
+            HttpClientWrapper.call = call;
+        } else {
+            new CustomToast().warning(context.getString(R.string.turn_internet_on));
+        }
+    }
     public static <T> void callHttpAsyncProgressDismiss(Call<T> call, int progressType,
                                                         final Context context,
                                                         final ICallback<T> callback,

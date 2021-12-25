@@ -5,9 +5,8 @@ import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponen
 import android.app.Activity;
 import android.content.Context;
 
-import com.leon.estimate_new.activities.ListActivity;
 import com.leon.estimate_new.base_items.BaseAsync;
-import com.leon.estimate_new.fragments.DutiesListFragment;
+import com.leon.estimate_new.fragments.main_items.DutiesListFragment;
 import com.leon.estimate_new.tables.ExaminerDuties;
 
 import java.util.ArrayList;

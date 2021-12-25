@@ -22,12 +22,12 @@ import com.leon.estimate_new.R;
 import com.leon.estimate_new.adapters.RecyclerItemClickListener;
 import com.leon.estimate_new.base_items.BaseActivity;
 import com.leon.estimate_new.databinding.ActivityMainBinding;
-import com.leon.estimate_new.fragments.DownloadFragment;
-import com.leon.estimate_new.fragments.DutiesListFragment;
-import com.leon.estimate_new.fragments.HelpFragment;
-import com.leon.estimate_new.fragments.HomeFragment;
-import com.leon.estimate_new.fragments.SendRequestFragment;
-import com.leon.estimate_new.fragments.UploadFragment;
+import com.leon.estimate_new.fragments.main_items.DownloadFragment;
+import com.leon.estimate_new.fragments.main_items.DutiesListFragment;
+import com.leon.estimate_new.fragments.main_items.HelpFragment;
+import com.leon.estimate_new.fragments.main_items.HomeFragment;
+import com.leon.estimate_new.fragments.main_items.SendRequestFragment;
+import com.leon.estimate_new.fragments.main_items.UploadFragment;
 
 public class MainActivity extends BaseActivity {
     private ActivityMainBinding binding;

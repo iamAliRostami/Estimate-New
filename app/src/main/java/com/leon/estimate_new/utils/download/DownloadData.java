@@ -35,7 +35,7 @@ public class DownloadData extends BaseAsync {
     private final Object object;
 
     public DownloadData(Context context, Object o) {
-        super(context, o);
+        super(context, o, false);
         object = o;
     }
 
@@ -56,8 +56,9 @@ public class DownloadData extends BaseAsync {
                         .getStringData(TOKEN.getValue()));
         final IAbfaService getKardex = retrofit.create(IAbfaService.class);
         final Call<Input> call = getKardex.getMyWorks();
-        HttpClientWrapper.callHttpAsync(call, ProgressType.NOT_SHOW.getValue(), activity,
-                new Download(activity), new DownloadIncomplete(activity), new GetError());
+        HttpClientWrapper.callHttpAsync(call,  ProgressType.NOT_SHOW.getValue(),activity,
+                new Download(activity),
+                new DownloadIncomplete(activity), new GetError());
     }
 }
 
@@ -114,7 +115,7 @@ class Download implements ICallback<Input> {
         final Gson gson = new Gson();
         for (int i = 0; i < examinerDutiesList.size(); i++) {
             examinerDutiesList.get(i).requestDictionaryString =
-                    gson.toJson(examinerDutiesList.get(i).requestDictionaryString);
+                    gson.toJson(examinerDutiesList.get(i).requestDictionary);
             if (examinerDutiesList.get(i).zoneId == null || examinerDutiesList.get(i).zoneId.equals("0")) {
                 examinerDutiesList.remove(i);
                 i--;

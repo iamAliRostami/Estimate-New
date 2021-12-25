@@ -1,5 +1,7 @@
 package com.leon.estimate_new.adapters;
 
+import static com.leon.estimate_new.enums.BundleEnum.EXAMINER_DUTY;
+import static com.leon.estimate_new.enums.SharedReferenceKeys.TRACK_NUMBER;
 import static com.leon.estimate_new.helpers.MyApplication.getPreferenceManager;
 
 import android.annotation.SuppressLint;
@@ -21,6 +23,7 @@ import com.leon.estimate_new.adapters.holders.ViewHolderList;
 import com.leon.estimate_new.enums.BundleEnum;
 import com.leon.estimate_new.enums.SharedReferenceKeys;
 import com.leon.estimate_new.tables.ExaminerDuties;
+import com.leon.estimate_new.tables.RequestDictionary;
 import com.leon.estimate_new.utils.CustomToast;
 
 import org.jetbrains.annotations.NotNull;
@@ -60,8 +63,9 @@ public class CustomAdapterList extends RecyclerView.Adapter<ViewHolderList> {
             } else {
                 final Intent intent = new Intent(context, FormActivity.class);
                 final String json = new Gson().toJson(examinerDutiesTemp.get(i));
-                intent.putExtra(BundleEnum.EXAMINER_DUTY.getValue(), json);
-                getPreferenceManager().putData(SharedReferenceKeys.TRACK_NUMBER.getValue(), examinerDutiesTemp.get(i).trackNumber);
+                intent.putExtra(EXAMINER_DUTY.getValue(), json);
+
+                getPreferenceManager().putData(TRACK_NUMBER.getValue(), examinerDutiesTemp.get(i).trackNumber);
                 context.startActivity(intent);
             }
         });

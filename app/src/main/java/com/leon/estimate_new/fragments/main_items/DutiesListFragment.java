@@ -1,5 +1,5 @@
 
-package com.leon.estimate_new.fragments;
+package com.leon.estimate_new.fragments.main_items;
 
 import static com.leon.estimate_new.fragments.dialog.ShowFragmentDialog.ShowFragmentDialogOnce;
 import static com.leon.estimate_new.helpers.MyApplication.getPreferenceManager;

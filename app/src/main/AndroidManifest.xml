@@ -64,11 +64,11 @@
             android:exported="false" />
         <activity
             android:name=".activities.LoginActivity"
+            android:theme="@style/Theme.EstimateNew.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".activities.FinalReportActivity"
-            android:exported="false"
-            android:theme="@style/Theme.EstimateNew" />
+            android:exported="false" />
         <activity
             android:name=".activities.SplashActivity"
             android:exported="true"

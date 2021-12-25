@@ -1,5 +1,8 @@
 package com.leon.estimate_new.activities;
 
+import static com.leon.estimate_new.helpers.Constants.PERSONAL_FRAGMENT;
+import static com.leon.estimate_new.helpers.Constants.SERVICES_FRAGMENT;
+
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,16 +11,24 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.databinding.ActivityFormBinding;
 import com.leon.estimate_new.enums.BundleEnum;
-import com.leon.estimate_new.fragments.PersonalFragment;
+import com.leon.estimate_new.fragments.forms.PersonalFragment;
+import com.leon.estimate_new.fragments.forms.ServicesFragment;
+import com.leon.estimate_new.tables.CalculationUserInput;
 import com.leon.estimate_new.tables.ExaminerDuties;
+import com.leon.estimate_new.tables.RequestDictionary;
 
-public class FormActivity extends AppCompatActivity implements PersonalFragment.Callback {
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class FormActivity extends AppCompatActivity implements PersonalFragment.Callback, ServicesFragment.Callback {
     private ActivityFormBinding binding;
     private ExaminerDuties examinerDuties;
-    private final int PERSONAL_FRAGMENT = 0;
+    private final ArrayList<RequestDictionary> requestDictionaries = new ArrayList<>();
+    private final CalculationUserInput calculationUserInput = new CalculationUserInput();
 
 
     @Override
@@ -32,6 +43,8 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
         if (getIntent().getExtras() != null) {
             final String json = getIntent().getExtras().getString(BundleEnum.EXAMINER_DUTY.getValue());
             examinerDuties = new Gson().fromJson(json, ExaminerDuties.class);
+            requestDictionaries.addAll(Arrays.asList(new GsonBuilder().create()
+                    .fromJson(examinerDuties.requestDictionaryString, RequestDictionary[].class)));
         }
         displayView(PERSONAL_FRAGMENT);
     }
@@ -46,8 +59,8 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
     }
 
     @Override
-    public void setOnNextClickListener() {
-
+    public void setOnPreClickListener(int position) {
+        displayView(position);
     }
 
     public void setTitle(String title, boolean showMenu) {
@@ -59,12 +72,13 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
         getSupportActionBar().setIcon(R.mipmap.ic_launcher);
     }
 
+
     private void displayView(int position) {
         final Fragment fragment;
         switch (position) {
-//            case PERSONAL_FRAGMENT:
-//                fragment = HelpFragment.newInstance();
-//                break;
+            case SERVICES_FRAGMENT:
+                fragment = ServicesFragment.newInstance();
+                break;
             case PERSONAL_FRAGMENT:
             default:
                 fragment = PersonalFragment.newInstance();
@@ -88,12 +102,34 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
     }
 
     @Override
-    public void setExaminerDuty(final ExaminerDuties examinerDuties) {
-        this.examinerDuties = examinerDuties;
+    public void setPersonalInfo(final CalculationUserInput calculationUserInputTemp) {
+        examinerDuties.preparePersonal(calculationUserInputTemp);
+        calculationUserInput.preparePersonal(calculationUserInputTemp, examinerDuties.zoneId);
+        displayView(SERVICES_FRAGMENT);
     }
 
     @Override
+    public void setServices(CalculationUserInput calculationUserInputTemp) {
+        calculationUserInput.selectedServicesObject = new ArrayList<>(calculationUserInputTemp.selectedServicesObject);
+        examinerDuties.requestDictionary = new ArrayList<>(calculationUserInputTemp.selectedServicesObject);
+//        ArrayList<String> jsonArrayList = new ArrayList<>();
+//        for (int i = 0; i < calculationUserInputTemp.selectedServicesObject.size(); i++) {
+//            final String json = new GsonBuilder().create().toJson(calculationUserInputTemp.selectedServicesObject.get(i));
+//            jsonArrayList.add(json);
+//        }
+        calculationUserInput.selectedServicesString = new GsonBuilder().create().toJson(calculationUserInputTemp.selectedServicesObject);
+        examinerDuties.requestDictionaryString = new GsonBuilder().create().toJson(calculationUserInputTemp.selectedServicesObject);
+
+        displayView();
+
+    }
+    @Override
     public ExaminerDuties getExaminerDuty() {
         return examinerDuties;
+    }
+
+    @Override
+    public ArrayList<RequestDictionary> getServiceDictionaries() {
+        return requestDictionaries;
     }
 }

@@ -14,7 +14,7 @@ import com.leon.estimate_new.di.view_model.CustomDialogModel;
 import com.leon.estimate_new.di.view_model.HttpClientWrapper;
 import com.leon.estimate_new.enums.DialogType;
 import com.leon.estimate_new.enums.ProgressType;
-import com.leon.estimate_new.fragments.SendRequestFragment;
+import com.leon.estimate_new.fragments.main_items.SendRequestFragment;
 import com.leon.estimate_new.infrastructure.IAbfaService;
 import com.leon.estimate_new.infrastructure.ICallback;
 import com.leon.estimate_new.infrastructure.ICallbackError;

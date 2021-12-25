@@ -1,9 +1,5 @@
 package com.leon.estimate_new.tables;
 
-import static com.leon.estimate_new.helpers.Constants.calculationUserInput;
-import static com.leon.estimate_new.helpers.Constants.calculationUserInputTemp;
-import static com.leon.estimate_new.helpers.Constants.examinerDuties;
-
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.Index;
@@ -73,7 +69,7 @@ public class CalculationUserInput {
     public int karbariId;
 
     @Ignore
-    public List<RequestDictionary> selectedServicesObject;
+    public ArrayList<RequestDictionary> selectedServicesObject;
     @Ignore
     int pelak;
     @Ignore
@@ -96,55 +92,55 @@ public class CalculationUserInput {
         return gson.fromJson(json, userListType);
     }
 
-    public void prepareCalculationFromPersonal() {
-        calculationUserInput.nationalId = calculationUserInputTemp.nationalId;
-        calculationUserInput.firstName = calculationUserInputTemp.firstName;
-        calculationUserInput.sureName = calculationUserInputTemp.sureName;
-        calculationUserInput.fatherName = calculationUserInputTemp.fatherName;
-        calculationUserInput.postalCode = calculationUserInputTemp.postalCode;
-        calculationUserInput.radif = calculationUserInputTemp.radif;
-        calculationUserInput.phoneNumber = calculationUserInputTemp.phoneNumber;
-        calculationUserInput.mobile = calculationUserInputTemp.mobile;
-        calculationUserInput.address = calculationUserInputTemp.address;
-        calculationUserInput.description = calculationUserInputTemp.description;
-        calculationUserInput.shenasname = calculationUserInputTemp.shenasname;
-        calculationUserInput.zoneId = Integer.parseInt(examinerDuties.zoneId);
+    public void preparePersonal(CalculationUserInput calculationUserInput, String zoneId) {
+        nationalId = calculationUserInput.nationalId;
+        firstName = calculationUserInput.firstName;
+        sureName = calculationUserInput.sureName;
+        fatherName = calculationUserInput.fatherName;
+        postalCode = calculationUserInput.postalCode;
+        radif = calculationUserInput.radif;
+        phoneNumber = calculationUserInput.phoneNumber;
+        mobile = calculationUserInput.mobile;
+        address = calculationUserInput.address;
+        description = calculationUserInput.description;
+        shenasname = calculationUserInput.shenasname;
+        this.zoneId = Integer.parseInt(zoneId);
     }
 
-    public void fillCalculationUserInput() {
-        calculationUserInput.trackingId = examinerDuties.trackingId;
-        calculationUserInput.requestType = Integer.parseInt(examinerDuties.requestType);
-        calculationUserInput.parNumber = examinerDuties.parNumber;
-        calculationUserInput.billId = examinerDuties.billId;
-        calculationUserInput.neighbourBillId = examinerDuties.neighbourBillId;
-        calculationUserInput.notificationMobile = examinerDuties.notificationMobile;
-        calculationUserInput.identityCode = examinerDuties.identityCode;
-        calculationUserInput.trackNumber = examinerDuties.trackNumber;
-        calculationUserInput.sent = false;
+    public void fillCalculationUserInput(ExaminerDuties examinerDuties) {
+        trackingId = examinerDuties.trackingId;
+        requestType = Integer.parseInt(examinerDuties.requestType);
+        parNumber = examinerDuties.parNumber;
+        billId = examinerDuties.billId;
+        neighbourBillId = examinerDuties.neighbourBillId;
+        notificationMobile = examinerDuties.notificationMobile;
+        identityCode = examinerDuties.identityCode;
+        trackNumber = examinerDuties.trackNumber;
+        sent = false;
     }
 
-    public void prepareCalculationUserInputFromForm() {
-        calculationUserInput.sifoon100 = calculationUserInputTemp.sifoon100;
-        calculationUserInput.sifoon125 = calculationUserInputTemp.sifoon125;
-        calculationUserInput.sifoon150 = calculationUserInputTemp.sifoon150;
-        calculationUserInput.sifoon200 = calculationUserInputTemp.sifoon200;
-        calculationUserInput.arse = calculationUserInputTemp.arse;
-        calculationUserInput.aianKol = calculationUserInputTemp.aianKol;
-        calculationUserInput.aianMaskooni = calculationUserInputTemp.aianMaskooni;
-        calculationUserInput.aianTejari = calculationUserInputTemp.aianTejari;
-        calculationUserInput.tedadMaskooni = calculationUserInputTemp.tedadMaskooni;
-        calculationUserInput.tedadTejari = calculationUserInputTemp.tedadTejari;
-        calculationUserInput.tedadSaier = calculationUserInputTemp.tedadSaier;
-        calculationUserInput.arzeshMelk = calculationUserInputTemp.arzeshMelk;
-        calculationUserInput.tedadTaxfif = calculationUserInputTemp.tedadTaxfif;
-        calculationUserInput.zarfiatQarardadi = calculationUserInputTemp.zarfiatQarardadi;
-        calculationUserInput.parNumber = calculationUserInputTemp.parNumber;
-        calculationUserInput.karbariId = calculationUserInputTemp.karbariId;
-        calculationUserInput.noeVagozariId = calculationUserInputTemp.noeVagozariId;
-        calculationUserInput.qotrEnsheabId = calculationUserInputTemp.qotrEnsheabId;
-        calculationUserInput.taxfifId = calculationUserInputTemp.taxfifId;
-        calculationUserInput.adamTaxfifAb = calculationUserInputTemp.adamTaxfifAb;
-        calculationUserInput.adamTaxfifFazelab = calculationUserInputTemp.adamTaxfifFazelab;
-        calculationUserInput.ensheabQeireDaem = calculationUserInputTemp.ensheabQeireDaem;
+    public void prepareCalculationUserInputFromForm(CalculationUserInput calculationUserInput) {
+        sifoon100 = calculationUserInput.sifoon100;
+        sifoon125 = calculationUserInput.sifoon125;
+        sifoon150 = calculationUserInput.sifoon150;
+        sifoon200 = calculationUserInput.sifoon200;
+        arse = calculationUserInput.arse;
+        aianKol = calculationUserInput.aianKol;
+        aianMaskooni = calculationUserInput.aianMaskooni;
+        aianTejari = calculationUserInput.aianTejari;
+        tedadMaskooni = calculationUserInput.tedadMaskooni;
+        tedadTejari = calculationUserInput.tedadTejari;
+        tedadSaier = calculationUserInput.tedadSaier;
+        arzeshMelk = calculationUserInput.arzeshMelk;
+        tedadTaxfif = calculationUserInput.tedadTaxfif;
+        zarfiatQarardadi = calculationUserInput.zarfiatQarardadi;
+        parNumber = calculationUserInput.parNumber;
+        karbariId = calculationUserInput.karbariId;
+        noeVagozariId = calculationUserInput.noeVagozariId;
+        qotrEnsheabId = calculationUserInput.qotrEnsheabId;
+        taxfifId = calculationUserInput.taxfifId;
+        adamTaxfifAb = calculationUserInput.adamTaxfifAb;
+        adamTaxfifFazelab = calculationUserInput.adamTaxfifFazelab;
+        ensheabQeireDaem = calculationUserInput.ensheabQeireDaem;
     }
 }

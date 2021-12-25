@@ -1,9 +1,5 @@
 package com.leon.estimate_new.tables;
 
-import static com.leon.estimate_new.helpers.Constants.calculationUserInput;
-import static com.leon.estimate_new.helpers.Constants.calculationUserInputTemp;
-import static com.leon.estimate_new.helpers.Constants.examinerDuties;
-
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.Index;
@@ -106,7 +102,7 @@ public class ExaminerDuties {
     public boolean chahAbBaran;
 
     @Ignore
-    ArrayList<RequestDictionary> requestDictionary;
+    public ArrayList<RequestDictionary> requestDictionary;
 
     public ExaminerDuties updateExaminerDuties(SecondForm secondForm) {
         faseleKhakiA = secondForm.khakiAb;
@@ -183,47 +179,48 @@ public class ExaminerDuties {
         return this;
     }
 
-    public void prepareExaminerDutiesFromForm ()
-    {
-        examinerDuties.sifoon100 = calculationUserInputTemp.sifoon100;
-        examinerDuties.sifoon125 = calculationUserInputTemp.sifoon125;
-        examinerDuties.sifoon150 = calculationUserInputTemp.sifoon150;
-        examinerDuties.sifoon200 = calculationUserInputTemp.sifoon200;
-        examinerDuties.arse = calculationUserInputTemp.arse;
-        examinerDuties.aianMaskooni = calculationUserInputTemp.aianMaskooni;
-        examinerDuties.aianNonMaskooni = calculationUserInputTemp.aianTejari;
-        examinerDuties.aianKol = calculationUserInputTemp.aianKol;
-        examinerDuties.tedadMaskooni = calculationUserInputTemp.tedadMaskooni;
-        examinerDuties.tedadTejari = calculationUserInputTemp.tedadTejari;
-        examinerDuties.tedadSaier = calculationUserInputTemp.tedadSaier;
-        examinerDuties.tedadTaxfif = calculationUserInputTemp.tedadTaxfif;
-        examinerDuties.zarfiatQarardadi = calculationUserInputTemp.zarfiatQarardadi;
-        examinerDuties.arzeshMelk = calculationUserInputTemp.arzeshMelk;
-        examinerDuties.parNumber = calculationUserInputTemp.parNumber;
-        examinerDuties.karbariId = calculationUserInputTemp.karbariId;
-        examinerDuties.qotrEnsheabId = calculationUserInputTemp.qotrEnsheabId;
-        examinerDuties.taxfifId = calculationUserInputTemp.taxfifId;
-        examinerDuties.isEnsheabQeirDaem = calculationUserInputTemp.ensheabQeireDaem;
-        examinerDuties.noeVagozariId = calculationUserInputTemp.noeVagozariId;
+    public void prepareExaminerDutiesFromForm(CalculationUserInput calculationUserInput) {
+        this.sifoon100 = calculationUserInput.sifoon100;
+        this.sifoon125 = calculationUserInput.sifoon125;
+        this.sifoon150 = calculationUserInput.sifoon150;
+        this.sifoon200 = calculationUserInput.sifoon200;
+        this.arse = calculationUserInput.arse;
+        this.aianMaskooni = calculationUserInput.aianMaskooni;
+        this.aianNonMaskooni = calculationUserInput.aianTejari;
+        this.aianKol = calculationUserInput.aianKol;
+        this.tedadMaskooni = calculationUserInput.tedadMaskooni;
+        this.tedadTejari = calculationUserInput.tedadTejari;
+        this.tedadSaier = calculationUserInput.tedadSaier;
+        this.tedadTaxfif = calculationUserInput.tedadTaxfif;
+        this.zarfiatQarardadi = calculationUserInput.zarfiatQarardadi;
+        this.arzeshMelk = calculationUserInput.arzeshMelk;
+        this.parNumber = calculationUserInput.parNumber;
+        this.karbariId = calculationUserInput.karbariId;
+        this.qotrEnsheabId = calculationUserInput.qotrEnsheabId;
+        this.taxfifId = calculationUserInput.taxfifId;
+        this.isEnsheabQeirDaem = calculationUserInput.ensheabQeireDaem;
+        this.noeVagozariId = calculationUserInput.noeVagozariId;
     }
 
-    public void prepareExaminerDutiesFromPersonal() {
-        examinerDuties.nationalId = calculationUserInputTemp.nationalId;
-        examinerDuties.firstName = calculationUserInputTemp.firstName;
-        examinerDuties.sureName = calculationUserInputTemp.sureName;
-        examinerDuties.nameAndFamily = calculationUserInputTemp.firstName.concat(" ")
-                .concat(calculationUserInputTemp.sureName);
-        examinerDuties.fatherName = calculationUserInputTemp.fatherName;
-        examinerDuties.postalCode = calculationUserInput.postalCode;
-        examinerDuties.phoneNumber = calculationUserInput.phoneNumber;
-        examinerDuties.mobile = calculationUserInputTemp.mobile;
-        examinerDuties.address = calculationUserInputTemp.address;
-        examinerDuties.description = calculationUserInputTemp.description;
-        examinerDuties.shenasname = calculationUserInputTemp.shenasname;
+    public void preparePersonal(CalculationUserInput calculationUserInput) {
+        this.nationalId = calculationUserInput.nationalId;
+        this.firstName = calculationUserInput.firstName;
+        this.sureName = calculationUserInput.sureName;
+        this.nameAndFamily = calculationUserInput.firstName.concat(" ")
+                .concat(calculationUserInput.sureName);
+        this.fatherName = calculationUserInput.fatherName;
+        this.postalCode = calculationUserInput.postalCode;
+        this.phoneNumber = calculationUserInput.phoneNumber;
+        this.mobile = calculationUserInput.mobile;
+        this.address = calculationUserInput.address;
+        this.description = calculationUserInput.description;
+        this.shenasname = calculationUserInput.shenasname;
     }
+
     public boolean isPeymayesh() {
         return isPeymayesh;
     }
+
     public String getExaminationDay() {
         return examinationDay;
     }

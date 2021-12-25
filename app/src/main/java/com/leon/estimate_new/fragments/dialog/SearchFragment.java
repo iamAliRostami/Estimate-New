@@ -8,9 +8,8 @@ import android.view.WindowManager;
 
 import androidx.fragment.app.DialogFragment;
 
-import com.leon.estimate_new.activities.ListActivity;
 import com.leon.estimate_new.databinding.FragmentSearchBinding;
-import com.leon.estimate_new.fragments.DutiesListFragment;
+import com.leon.estimate_new.fragments.main_items.DutiesListFragment;
 
 import org.jetbrains.annotations.NotNull;
 

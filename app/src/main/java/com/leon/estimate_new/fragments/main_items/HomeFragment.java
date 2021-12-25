@@ -1,4 +1,4 @@
-package com.leon.estimate_new.fragments;
+package com.leon.estimate_new.fragments.main_items;
 
 import static com.leon.estimate_new.helpers.MyApplication.getLocationTracker;
 
@@ -11,13 +11,11 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-import com.esri.arcgisruntime.layers.OpenStreetMapLayer;
 import com.esri.arcgisruntime.mapping.ArcGISMap;
 import com.esri.arcgisruntime.mapping.Viewpoint;
 import com.leon.estimate_new.databinding.FragmentHomeBinding;
 import com.leon.estimate_new.enums.MapType;
 import com.leon.estimate_new.utils.gis.GoogleMapLayer;
-import com.leon.estimate_new.utils.gis.OsmMapLayer;
 
 import org.jetbrains.annotations.NotNull;
 
