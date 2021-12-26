@@ -1,5 +1,6 @@
 package com.leon.estimate_new.activities;
 
+import static com.leon.estimate_new.helpers.Constants.BASE_FRAGMENT;
 import static com.leon.estimate_new.helpers.Constants.PERSONAL_FRAGMENT;
 import static com.leon.estimate_new.helpers.Constants.SERVICES_FRAGMENT;
 
@@ -15,6 +16,7 @@ import com.google.gson.GsonBuilder;
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.databinding.ActivityFormBinding;
 import com.leon.estimate_new.enums.BundleEnum;
+import com.leon.estimate_new.fragments.forms.BaseInfoFragment;
 import com.leon.estimate_new.fragments.forms.PersonalFragment;
 import com.leon.estimate_new.fragments.forms.ServicesFragment;
 import com.leon.estimate_new.tables.CalculationUserInput;
@@ -79,6 +81,9 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
             case SERVICES_FRAGMENT:
                 fragment = ServicesFragment.newInstance();
                 break;
+            case BASE_FRAGMENT:
+                fragment = BaseInfoFragment.newInstance();
+                break;
             case PERSONAL_FRAGMENT:
             default:
                 fragment = PersonalFragment.newInstance();
@@ -112,17 +117,12 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
     public void setServices(CalculationUserInput calculationUserInputTemp) {
         calculationUserInput.selectedServicesObject = new ArrayList<>(calculationUserInputTemp.selectedServicesObject);
         examinerDuties.requestDictionary = new ArrayList<>(calculationUserInputTemp.selectedServicesObject);
-//        ArrayList<String> jsonArrayList = new ArrayList<>();
-//        for (int i = 0; i < calculationUserInputTemp.selectedServicesObject.size(); i++) {
-//            final String json = new GsonBuilder().create().toJson(calculationUserInputTemp.selectedServicesObject.get(i));
-//            jsonArrayList.add(json);
-//        }
         calculationUserInput.selectedServicesString = new GsonBuilder().create().toJson(calculationUserInputTemp.selectedServicesObject);
         examinerDuties.requestDictionaryString = new GsonBuilder().create().toJson(calculationUserInputTemp.selectedServicesObject);
-
-        displayView();
+        displayView(BASE_FRAGMENT);
 
     }
+
     @Override
     public ExaminerDuties getExaminerDuty() {
         return examinerDuties;
