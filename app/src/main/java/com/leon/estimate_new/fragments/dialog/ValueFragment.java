@@ -21,6 +21,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.databinding.FragmentValueBinding;
+import com.leon.estimate_new.fragments.forms.BaseInfoFragment;
 import com.leon.estimate_new.tables.Arzeshdaraei;
 import com.leon.estimate_new.tables.Block;
 import com.leon.estimate_new.tables.Formula;
