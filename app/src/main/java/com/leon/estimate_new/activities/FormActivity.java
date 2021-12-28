@@ -26,7 +26,8 @@ import com.leon.estimate_new.tables.RequestDictionary;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class FormActivity extends AppCompatActivity implements PersonalFragment.Callback, ServicesFragment.Callback {
+public class FormActivity extends AppCompatActivity implements PersonalFragment.Callback,
+        ServicesFragment.Callback, BaseInfoFragment.Callback {
     private ActivityFormBinding binding;
     private ExaminerDuties examinerDuties;
     private final ArrayList<RequestDictionary> requestDictionaries = new ArrayList<>();
@@ -58,20 +59,6 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
             getFragmentManager().popBackStack();
         } else super.onBackPressed();
 
-    }
-
-    @Override
-    public void setOnPreClickListener(int position) {
-        displayView(position);
-    }
-
-    public void setTitle(String title, boolean showMenu) {
-        if (getSupportActionBar() != null)
-            getSupportActionBar().setTitle(title);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(showMenu);
-        // Set logo
-        getSupportActionBar().setDisplayShowHomeEnabled(false);
-        getSupportActionBar().setIcon(R.mipmap.ic_launcher);
     }
 
 
@@ -107,6 +94,21 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
     }
 
     @Override
+    public void setOnPreClickListener(int position) {
+        displayView(position);
+    }
+
+    @Override
+    public void setTitle(String title, boolean showMenu) {
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setTitle(title);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(showMenu);
+        // Set logo
+        getSupportActionBar().setDisplayShowHomeEnabled(false);
+        getSupportActionBar().setIcon(R.mipmap.ic_launcher);
+    }
+
+    @Override
     public void setPersonalInfo(final CalculationUserInput calculationUserInputTemp) {
         examinerDuties.preparePersonal(calculationUserInputTemp);
         calculationUserInput.preparePersonal(calculationUserInputTemp, examinerDuties.zoneId);
@@ -120,6 +122,11 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
         calculationUserInput.selectedServicesString = new GsonBuilder().create().toJson(calculationUserInputTemp.selectedServicesObject);
         examinerDuties.requestDictionaryString = new GsonBuilder().create().toJson(calculationUserInputTemp.selectedServicesObject);
         displayView(BASE_FRAGMENT);
+
+    }
+
+    @Override
+    public void setBaseInfo(CalculationUserInput calculationUserInput) {
 
     }
 

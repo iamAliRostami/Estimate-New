@@ -439,4 +439,6 @@
     <!--    <string name="local_base_map">http://37.191.92.152:7080/PBS/rest/services/GoogleTerrain/MapServer</string>-->
     <string name="local_base_map">http://37.191.92.152:7080/PBS/rest/services/OpenStreetMap/MapServer</string>
     <string name="error_on_download">به بخش بارگیری رفته و بارگیری نمایید.</string>
+    <string name="at_least_enter_one">حداقل یکی از مقادیر را بزرگتر از صفر وارد کنید.</string>
+    <string name="there_is_nothing_for_download">داده ای  برای بارگیری وجود ندارد</string>
 </resources>

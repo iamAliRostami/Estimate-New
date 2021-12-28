@@ -43,15 +43,12 @@
                         android:text="@string/user_type" />
 
                     <Spinner
-                        android:id="@+id/spinner1"
+                        android:id="@+id/spinner_1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:paddingTop="@dimen/medium_dp"
-                        android:paddingBottom="@dimen/medium_dp"
-                        android:spinnerMode="dialog"
-                        android:textStyle="bold" />
+                        android:spinnerMode="dialog" />
 
                     <TextView
                         style="@style/TitleSmall"
@@ -59,15 +56,13 @@
                         android:layout_weight="1"
                         android:text="@string/noe_vagozari" />
 
+
                     <Spinner
                         android:id="@+id/spinner_2"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:gravity="center"
-                        android:paddingTop="@dimen/medium_dp"
-                        android:paddingBottom="@dimen/medium_dp"
                         android:spinnerMode="dialog" />
                 </LinearLayout>
 
@@ -159,11 +154,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_margin="@dimen/medium_dp"
                         android:layout_weight="1"
-                        android:gravity="center"
-                        android:paddingTop="@dimen/medium_dp"
-                        android:paddingBottom="@dimen/medium_dp"
                         android:spinnerMode="dialog" />
 
                     <TextView
@@ -208,12 +199,12 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_weight="1" />
+                        android:layout_weight="0.5" />
 
                     <TextView
                         style="@style/TitleSmall"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
+                        android:layout_weight="1.5"
                         android:text="@string/parvane_number" />
 
                     <EditText
@@ -243,12 +234,12 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_weight="1" />
+                        android:layout_weight="0.5" />
 
                     <TextView
                         style="@style/TitleSmall"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
+                        android:layout_weight="1.5"
                         android:text="@string/sodur_date" />
 
                     <EditText
@@ -256,11 +247,11 @@
                         style="@style/EditTextForm"
                         android:layout_width="0dp"
                         android:layout_weight="1"
-                        android:enabled="false"
+                        android:editable="false"
                         android:gravity="center"
-                        android:inputType="datetime"
+                        android:inputType="none"
                         android:maxLength="10"
-                        tools:ignore="Autofill,LabelFor" />
+                        tools:ignore="Autofill,LabelFor,TextFields" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -281,13 +272,13 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_weight="1" />
+                        android:layout_weight="0.5" />
 
                     <TextView
                         style="@style/TitleSmall"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="1.5"
                         android:text="@string/pelak" />
 
                     <EditText
@@ -317,13 +308,13 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_weight="1" />
+                        android:layout_weight="0.5" />
 
                     <TextView
                         style="@style/TitleSmall"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="1.5"
                         android:text="@string/document" />
 
                     <CheckBox
@@ -359,14 +350,14 @@
                         android:id="@+id/edit_text_arse"
                         style="@style/EditTextForm"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
+                        android:layout_weight="0.75"
                         android:inputType="number"
                         tools:ignore="Autofill,LabelFor" />
 
                     <TextView
                         style="@style/TitleSmall"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
+                        android:layout_weight="1.25"
                         android:text="@string/number_maskooni" />
 
                     <EditText
@@ -394,14 +385,14 @@
                         android:id="@+id/edit_text_tedad_saier"
                         style="@style/EditTextForm"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
+                        android:layout_weight="0.75"
                         android:inputType="numberSigned"
                         tools:ignore="Autofill,LabelFor" />
 
                     <TextView
                         style="@style/TitleSmall"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
+                        android:layout_weight="1.25"
                         android:text="@string/tedad_tejari" />
 
                     <EditText
@@ -447,7 +438,7 @@
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="2.5"
-                                    android:gravity="center"
+                                    android:layout_gravity="center"
                                     android:spinnerMode="dialog"
                                     tools:ignore="NestedWeights" />
 
@@ -486,7 +477,7 @@
                                 <EditText
                                     android:id="@+id/edit_text_a2"
                                     style="@style/EditTextForm"
-                                    android:layout_width="0dp"
+                                    android:layout_width="wrap_content"
                                     android:layout_marginStart="@dimen/low_dp"
                                     android:layout_weight="1"
                                     android:hint="@string/a_2"
@@ -563,8 +554,8 @@
                         style="@style/EditTextForm"
                         android:layout_width="0dp"
                         android:layout_weight="1"
-                        android:enabled="false"
-                        android:inputType="text"
+                        android:editable="false"
+                        android:inputType="none"
                         tools:ignore="Autofill,LabelFor" />
 
                     <TextView
@@ -593,16 +584,13 @@
                         android:layout_weight="1"
                         android:text="@string/noe_takhfif" />
 
+
                     <Spinner
-                        android:id="@+id/spinner4"
+                        android:id="@+id/spinner_4"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_margin="@dimen/medium_dp"
                         android:layout_weight="1"
-                        android:gravity="center"
-                        android:paddingTop="@dimen/medium_dp"
-                        android:paddingBottom="@dimen/medium_dp"
                         android:spinnerMode="dialog" />
 
                     <TextView
@@ -633,9 +621,9 @@
         android:layout_marginBottom="@dimen/medium_dp">
 
         <Button
-            android:id="@+id/button_close"
+            android:id="@+id/button_pre"
             style="@style/Button.Negative"
-            android:text="@string/close" />
+            android:text="@string/previous" />
 
         <Button
             android:id="@+id/button_submit"

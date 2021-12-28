@@ -1,5 +1,6 @@
 package com.leon.estimate_new.utils.download;
 
+import static com.leon.estimate_new.enums.ProgressType.NOT_SHOW;
 import static com.leon.estimate_new.enums.SharedReferenceKeys.TOKEN;
 import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponent;
 import static com.leon.estimate_new.helpers.MyApplication.getContext;
@@ -15,7 +16,6 @@ import com.leon.estimate_new.base_items.BaseAsync;
 import com.leon.estimate_new.di.view_model.CustomDialogModel;
 import com.leon.estimate_new.di.view_model.HttpClientWrapper;
 import com.leon.estimate_new.enums.DialogType;
-import com.leon.estimate_new.enums.ProgressType;
 import com.leon.estimate_new.infrastructure.IAbfaService;
 import com.leon.estimate_new.infrastructure.ICallback;
 import com.leon.estimate_new.infrastructure.ICallbackError;
@@ -56,8 +56,7 @@ public class DownloadData extends BaseAsync {
                         .getStringData(TOKEN.getValue()));
         final IAbfaService getKardex = retrofit.create(IAbfaService.class);
         final Call<Input> call = getKardex.getMyWorks();
-        HttpClientWrapper.callHttpAsync(call,  ProgressType.NOT_SHOW.getValue(),activity,
-                new Download(activity),
+        HttpClientWrapper.callHttpAsync(call, NOT_SHOW.getValue(), activity, new Download(activity),
                 new DownloadIncomplete(activity), new GetError());
     }
 }
@@ -137,7 +136,7 @@ class DownloadIncomplete implements ICallbackIncomplete<Input> {
     public void executeIncomplete(Response<Input> response) {
         final String error;
         if (response.code() == 400) {
-            error = "داده ای  برای بارگیری وجود ندارد";
+            error = context.getString(R.string.there_is_nothing_for_download);
         } else {
             final CustomErrorHandling customErrorHandlingNew = new CustomErrorHandling(context);
             error = customErrorHandlingNew.getErrorMessageDefault(response);

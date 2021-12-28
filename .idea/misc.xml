@@ -44,7 +44,7 @@
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/dialog_text_input.xml" value="0.1" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/dialog_view_color_area.xml" value="0.1" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/footer.xml" value="0.24375" />
-        <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/fragment_base_info.xml" value="0.30601092896174864" />
+        <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/fragment_base_info.xml" value="0.4" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/fragment_download.xml" value="0.2153846153846154" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/fragment_duties_list.xml" value="0.2153846153846154" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/fragment_help.xml" value="0.9972972972972973" />
@@ -54,9 +54,12 @@
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/fragment_send_request.xml" value="0.264" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/fragment_services.xml" value="0.2153846153846154" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/fragment_upload.xml" value="0.2012820512820513" />
+        <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/fragment_value.xml" value="0.264" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/item_address_1.xml" value="0.2625" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/item_address_2.xml" value="0.17395833333333333" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/item_check_box.xml" value="0.2153846153846154" />
+        <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/item_dropdown_menu_popup.xml" value="0.10683760683760683" />
+        <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/item_dropdown_popup.xml" value="0.2153846153846154" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/item_navigation_drawer.xml" value="0.2" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/item_navigation_drawer_profile.xml" value="0.2153846153846154" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/item_tejari.xml" value="0.536" />
