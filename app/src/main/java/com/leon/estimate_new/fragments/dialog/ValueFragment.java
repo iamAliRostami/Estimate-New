@@ -1,11 +1,8 @@
 package com.leon.estimate_new.fragments.dialog;
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,19 +31,16 @@ import java.util.List;
 
 public class ValueFragment extends DialogFragment {
     private FragmentValueBinding binding;
-    private Callback formActivity;
-    private Arzeshdaraei arzeshdaraei;
+    private final Arzeshdaraei arzeshdaraei;
+    private final Callback formActivity;
     private final ArrayList<Integer> value = new ArrayList<>();
-    private int maskooni = 0, tejari = 0, omoomi = 0, sanati = 0, edari = 0, hotel = 0;
     private final TextWatcher textWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
         }
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-
         }
 
         @Override
@@ -54,18 +48,30 @@ public class ValueFragment extends DialogFragment {
             counting(false);
         }
     };
+    private final AdapterView.OnItemSelectedListener onItemSelectedListener = new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            counting(false);
+        }
 
-    public ValueFragment() {
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+        }
+    };
+
+    public ValueFragment(final BaseInfoFragment baseInfoFragment) {
+        formActivity = (Callback) baseInfoFragment;
+        arzeshdaraei = formActivity.getArzeshdaraei();
+        value.addAll(formActivity.getValue());
     }
 
-    public static ValueFragment newInstance() {
-        return new ValueFragment();
+    public static ValueFragment newInstance(final BaseInfoFragment baseInfoFragment) {
+        return new ValueFragment(baseInfoFragment);
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -76,12 +82,9 @@ public class ValueFragment extends DialogFragment {
     }
 
     private void initialize() {
-        arzeshdaraei = formActivity.getArzeshdaraei();
-        value.clear();
-        value.addAll(formActivity.getValue());
         initializeSpinners();
         initializeEditText();
-        addEditTextsChangedListener();
+        editTextsChangedListener();
         onButtonCountingClickListener();
     }
 
@@ -90,14 +93,6 @@ public class ValueFragment extends DialogFragment {
             if (checkIsNoEmpty(binding.editTextMaskooni) || checkIsNoEmpty(binding.editTextEdari)
                     || checkIsNoEmpty(binding.editTextHotel) || checkIsNoEmpty(binding.editTextOmumi)
                     || checkIsNoEmpty(binding.editTextSanati) || checkIsNoEmpty(binding.editTextTejari)) {
-                value.set(0, maskooni);
-                value.set(1, tejari);
-                value.set(2, edari);
-                value.set(3, omoomi);
-                value.set(4, sanati);
-                value.set(5, hotel);
-                value.set(6, binding.spinner1.getSelectedItemPosition());
-                value.set(7, binding.spinner2.getSelectedItemPosition());
                 counting(true);
             } else
                 new CustomToast().warning(getString(R.string.at_least_enter_one));
@@ -106,17 +101,15 @@ public class ValueFragment extends DialogFragment {
     }
 
     private boolean checkIsNoEmpty(EditText editText) {
-        View focusView;
         if (editText.getText().toString().length() < 1) {
             editText.setError(getString(R.string.error_empty));
-            focusView = editText;
-            focusView.requestFocus();
+            editText.requestFocus();
             return false;
         }
         return true;
     }
 
-    private void addEditTextsChangedListener() {
+    private void editTextsChangedListener() {
         binding.editTextMaskooni.addTextChangedListener(textWatcher);
         binding.editTextTejari.addTextChangedListener(textWatcher);
         binding.editTextEdari.addTextChangedListener(textWatcher);
@@ -126,24 +119,26 @@ public class ValueFragment extends DialogFragment {
     }
 
     private void counting(boolean dis) {
-        if (binding.editTextHotel.getText().toString().length() > 0)
-            hotel = Integer.parseInt(binding.editTextHotel.getText().toString());
         if (binding.editTextMaskooni.getText().toString().length() > 0)
-            maskooni = Integer.parseInt(binding.editTextMaskooni.getText().toString());
+            value.set(0, Integer.parseInt(binding.editTextMaskooni.getText().toString()));
         if (binding.editTextTejari.getText().toString().length() > 0)
-            tejari = Integer.parseInt(binding.editTextTejari.getText().toString());
-        if (binding.editTextSanati.getText().toString().length() > 0)
-            sanati = Integer.parseInt(binding.editTextSanati.getText().toString());
+            value.set(1, Integer.parseInt(binding.editTextTejari.getText().toString()));
         if (binding.editTextEdari.getText().toString().length() > 0)
-            edari = Integer.parseInt(binding.editTextEdari.getText().toString());
+            value.set(2, Integer.parseInt(binding.editTextEdari.getText().toString()));
         if (binding.editTextOmumi.getText().toString().length() > 0)
-            omoomi = Integer.parseInt(binding.editTextOmumi.getText().toString());
-
-        if (maskooni > 0 || hotel > 0 || tejari > 0 || sanati > 0 || edari > 0 || omoomi > 0) {
+            value.set(3, Integer.parseInt(binding.editTextOmumi.getText().toString()));
+        if (binding.editTextSanati.getText().toString().length() > 0)
+            value.set(4, Integer.parseInt(binding.editTextSanati.getText().toString()));
+        if (binding.editTextHotel.getText().toString().length() > 0)
+            value.set(5, Integer.parseInt(binding.editTextHotel.getText().toString()));
+        if (value.get(0) > 0 || value.get(1) > 0 || value.get(2) > 0 || value.get(3) > 0 ||
+                value.get(4) > 0 || value.get(5) > 0) {
             double countMaskooni = 20000, countEdariDolati = 20000, countTejari = 20000,
                     countSanati = 20000, countKhadamati = 20000, countSayer = 20000;
-            final Block block = arzeshdaraei.blocks.get(binding.spinner1.getSelectedItemPosition());
-            final Formula formula = arzeshdaraei.formulas.get(binding.spinner2.getSelectedItemPosition());
+            value.set(6, binding.spinner1.getSelectedItemPosition());
+            value.set(7, binding.spinner2.getSelectedItemPosition());
+            final Block block = arzeshdaraei.blocks.get(value.get(6));
+            final Formula formula = arzeshdaraei.formulas.get(value.get(7));
 
             if ((block.maskooni * formula.maskooniZ) > 20000)
                 countMaskooni = (block.maskooni * formula.maskooniZ);
@@ -158,20 +153,20 @@ public class ValueFragment extends DialogFragment {
             if ((block.sayer * formula.sayerZ) > 20000)
                 countSayer = (block.sayer * formula.sayerZ);
 
-            countMaskooni = (countMaskooni * maskooni);
-            countEdariDolati = (countEdariDolati * edari);
-            countTejari = (countTejari * tejari);
-            countSanati = (countSanati * sanati);
-            countKhadamati = (countKhadamati * omoomi);
-            countSayer = (countSayer * hotel);
+            countMaskooni = (countMaskooni * value.get(0));
+            countTejari = (countTejari * value.get(1));
+            countEdariDolati = (countEdariDolati * value.get(2));
+            countKhadamati = (countKhadamati * value.get(3));
+            countSanati = (countSanati * value.get(4));
+            countSayer = (countSayer * value.get(5));
             int count = (int) ((countMaskooni + countEdariDolati + countTejari + countSanati
                     + countKhadamati + countSayer)
-                    / (maskooni + tejari + omoomi + sanati + edari + hotel));
+                    / (value.subList(0, 5).stream().mapToInt(i -> i).sum()));
             count = count / 1000;
             count = count * 1000;
             binding.textViewCount.setText(String.valueOf(count));
-            Log.e("value", String.valueOf(count));
             if (dis) {
+                formActivity.setValue(value);
                 formActivity.setValue(count);
                 dismiss();
             }
@@ -195,29 +190,12 @@ public class ValueFragment extends DialogFragment {
     private void initializeSpinners() {
         initializeSpinnerBlock();
         initializeSpinnerGozar();
-        binding.spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                counting(false);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-        binding.spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                counting(false);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
+        binding.spinner1.setOnItemSelectedListener(onItemSelectedListener);
+        binding.spinner2.setOnItemSelectedListener(onItemSelectedListener);
     }
 
-    void initializeSpinnerGozar() {
+
+    private void initializeSpinnerGozar() {
         List<String> arrayListSpinner = new ArrayList<>();
         for (Formula formula : arzeshdaraei.formulas) {
             arrayListSpinner.add(formula.gozarTitle);
@@ -226,19 +204,18 @@ public class ValueFragment extends DialogFragment {
         binding.spinner2.setSelection(value.get(7));
     }
 
-    void initializeSpinnerBlock() {
+    private void initializeSpinnerBlock() {
         List<String> arrayListSpinner = new ArrayList<>();
         for (Block block : arzeshdaraei.blocks) {
             arrayListSpinner.add(block.blockId);
         }
-
         binding.spinner1.setAdapter(createArrayAdapter(arrayListSpinner));
         binding.spinner1.setSelection(value.get(6));
     }
 
-    private ArrayAdapter<String> createArrayAdapter(List<String> arrayListSpinner) {
+    private ArrayAdapter<String> createArrayAdapter(final List<String> arrayListSpinner) {
         return new ArrayAdapter<String>(requireContext(),
-                R.layout.item_dropdown_menu, arrayListSpinner) {
+                R.layout.item_dropdown_popup, arrayListSpinner) {
             @NotNull
             @Override
             public View getView(int position, View convertView, @NotNull ViewGroup parent) {
@@ -250,14 +227,6 @@ public class ValueFragment extends DialogFragment {
                 return view;
             }
         };
-    }
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        if (context instanceof Activity) {
-            formActivity = (Callback) context;
-        }
     }
 
     @Override

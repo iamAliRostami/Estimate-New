@@ -79,7 +79,7 @@ class Arzeshdaraei implements ICallback<com.leon.estimate_new.tables.Arzeshdarae
                 getApplicationComponent().MyDatabase().zaribDao().insertZarib(arzeshdaraei.zaribs.get(i));
             ((BaseInfoFragment) object).setArzeshdaraei(arzeshdaraei);
             ShowFragmentDialog.ShowFragmentDialogOnce(context, "VALUE_FRAGMENT",
-                    ValueFragment.newInstance());
+                    ValueFragment.newInstance(((BaseInfoFragment) object)));
         } else {
             new CustomDialogModel(Yellow, context, context.getString(R.string.error_value),
                     context.getString(R.string.dear_user),

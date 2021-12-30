@@ -42,6 +42,7 @@ import com.sardari.daterangepicker.dialog.DatePickerDialog;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class BaseInfoFragment extends Fragment implements ValueFragment.Callback {
@@ -49,10 +50,10 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
     private final ArrayList<QotrEnsheabDictionary> qotrEnsheabDictionaries = new ArrayList<>();
     private final ArrayList<KarbariDictionary> karbariDictionaries = new ArrayList<>();
     private final ArrayList<TaxfifDictionary> taxfifDictionaries = new ArrayList<>();
-    private final ArrayList<Integer> value = new ArrayList<>();
     private final ArrayList<Tejariha> others = new ArrayList<>();
     private FragmentBaseInfoBinding binding;
     private ExaminerDuties examinerDuties;
+    private final ArrayList<Integer> value = new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0, 0, 0, 0));
     private Arzeshdaraei arzeshdaraei;
     private Callback formActivity;
     private int saier, tejari;
@@ -187,7 +188,7 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
                     && arzeshdaraei.zaribs != null
                     && arzeshdaraei.zaribs.size() > 0) {
                 ShowFragmentDialog.ShowFragmentDialogOnce(requireContext(), "VALUE_FRAGMENT",
-                        ValueFragment.newInstance());
+                        ValueFragment.newInstance(this));
             } else {
                 new GetArzeshdaraei(requireContext(), this, examinerDuties.zoneId).execute(requireActivity());
             }
