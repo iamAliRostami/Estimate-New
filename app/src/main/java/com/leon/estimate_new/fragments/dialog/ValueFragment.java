@@ -33,7 +33,7 @@ public class ValueFragment extends DialogFragment {
     private FragmentValueBinding binding;
     private final Arzeshdaraei arzeshdaraei;
     private final Callback formActivity;
-    private final ArrayList<Integer> value = new ArrayList<>();
+    private final ArrayList<Integer> values = new ArrayList<>();
     private final TextWatcher textWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -62,7 +62,7 @@ public class ValueFragment extends DialogFragment {
     public ValueFragment(final BaseInfoFragment baseInfoFragment) {
         formActivity = (Callback) baseInfoFragment;
         arzeshdaraei = formActivity.getArzeshdaraei();
-        value.addAll(formActivity.getValue());
+        values.addAll(formActivity.getValue());
     }
 
     public static ValueFragment newInstance(final BaseInfoFragment baseInfoFragment) {
@@ -120,25 +120,25 @@ public class ValueFragment extends DialogFragment {
 
     private void counting(boolean dis) {
         if (binding.editTextMaskooni.getText().toString().length() > 0)
-            value.set(0, Integer.parseInt(binding.editTextMaskooni.getText().toString()));
+            values.set(0, Integer.parseInt(binding.editTextMaskooni.getText().toString()));
         if (binding.editTextTejari.getText().toString().length() > 0)
-            value.set(1, Integer.parseInt(binding.editTextTejari.getText().toString()));
+            values.set(1, Integer.parseInt(binding.editTextTejari.getText().toString()));
         if (binding.editTextEdari.getText().toString().length() > 0)
-            value.set(2, Integer.parseInt(binding.editTextEdari.getText().toString()));
+            values.set(2, Integer.parseInt(binding.editTextEdari.getText().toString()));
         if (binding.editTextOmumi.getText().toString().length() > 0)
-            value.set(3, Integer.parseInt(binding.editTextOmumi.getText().toString()));
+            values.set(3, Integer.parseInt(binding.editTextOmumi.getText().toString()));
         if (binding.editTextSanati.getText().toString().length() > 0)
-            value.set(4, Integer.parseInt(binding.editTextSanati.getText().toString()));
+            values.set(4, Integer.parseInt(binding.editTextSanati.getText().toString()));
         if (binding.editTextHotel.getText().toString().length() > 0)
-            value.set(5, Integer.parseInt(binding.editTextHotel.getText().toString()));
-        if (value.get(0) > 0 || value.get(1) > 0 || value.get(2) > 0 || value.get(3) > 0 ||
-                value.get(4) > 0 || value.get(5) > 0) {
+            values.set(5, Integer.parseInt(binding.editTextHotel.getText().toString()));
+        if (values.get(0) > 0 || values.get(1) > 0 || values.get(2) > 0 || values.get(3) > 0 ||
+                values.get(4) > 0 || values.get(5) > 0) {
             double countMaskooni = 20000, countEdariDolati = 20000, countTejari = 20000,
                     countSanati = 20000, countKhadamati = 20000, countSayer = 20000;
-            value.set(6, binding.spinner1.getSelectedItemPosition());
-            value.set(7, binding.spinner2.getSelectedItemPosition());
-            final Block block = arzeshdaraei.blocks.get(value.get(6));
-            final Formula formula = arzeshdaraei.formulas.get(value.get(7));
+            values.set(6, binding.spinner1.getSelectedItemPosition());
+            values.set(7, binding.spinner2.getSelectedItemPosition());
+            final Block block = arzeshdaraei.blocks.get(values.get(6));
+            final Formula formula = arzeshdaraei.formulas.get(values.get(7));
 
             if ((block.maskooni * formula.maskooniZ) > 20000)
                 countMaskooni = (block.maskooni * formula.maskooniZ);
@@ -153,21 +153,20 @@ public class ValueFragment extends DialogFragment {
             if ((block.sayer * formula.sayerZ) > 20000)
                 countSayer = (block.sayer * formula.sayerZ);
 
-            countMaskooni = (countMaskooni * value.get(0));
-            countTejari = (countTejari * value.get(1));
-            countEdariDolati = (countEdariDolati * value.get(2));
-            countKhadamati = (countKhadamati * value.get(3));
-            countSanati = (countSanati * value.get(4));
-            countSayer = (countSayer * value.get(5));
+            countMaskooni = (countMaskooni * values.get(0));
+            countTejari = (countTejari * values.get(1));
+            countEdariDolati = (countEdariDolati * values.get(2));
+            countKhadamati = (countKhadamati * values.get(3));
+            countSanati = (countSanati * values.get(4));
+            countSayer = (countSayer * values.get(5));
             int count = (int) ((countMaskooni + countEdariDolati + countTejari + countSanati
                     + countKhadamati + countSayer)
-                    / (value.subList(0, 5).stream().mapToInt(i -> i).sum()));
+                    / (values.subList(0, 5).stream().mapToInt(i -> i).sum()));
             count = count / 1000;
             count = count * 1000;
             binding.textViewCount.setText(String.valueOf(count));
             if (dis) {
-                formActivity.setValue(value);
-                formActivity.setValue(count);
+                formActivity.setValue(values,count);
                 dismiss();
             }
         } else {
@@ -179,12 +178,12 @@ public class ValueFragment extends DialogFragment {
     }
 
     private void initializeEditText() {
-        binding.editTextMaskooni.setText(String.valueOf(value.get(0)));
-        binding.editTextTejari.setText(String.valueOf(value.get(1)));
-        binding.editTextEdari.setText(String.valueOf(value.get(2)));
-        binding.editTextOmumi.setText(String.valueOf(value.get(3)));
-        binding.editTextSanati.setText(String.valueOf(value.get(4)));
-        binding.editTextHotel.setText(String.valueOf(value.get(5)));
+        binding.editTextMaskooni.setText(String.valueOf(values.get(0)));
+        binding.editTextTejari.setText(String.valueOf(values.get(1)));
+        binding.editTextEdari.setText(String.valueOf(values.get(2)));
+        binding.editTextOmumi.setText(String.valueOf(values.get(3)));
+        binding.editTextSanati.setText(String.valueOf(values.get(4)));
+        binding.editTextHotel.setText(String.valueOf(values.get(5)));
     }
 
     private void initializeSpinners() {
@@ -201,7 +200,7 @@ public class ValueFragment extends DialogFragment {
             arrayListSpinner.add(formula.gozarTitle);
         }
         binding.spinner2.setAdapter(createArrayAdapter(arrayListSpinner));
-        binding.spinner2.setSelection(value.get(7));
+        binding.spinner2.setSelection(values.get(7));
     }
 
     private void initializeSpinnerBlock() {
@@ -210,7 +209,7 @@ public class ValueFragment extends DialogFragment {
             arrayListSpinner.add(block.blockId);
         }
         binding.spinner1.setAdapter(createArrayAdapter(arrayListSpinner));
-        binding.spinner1.setSelection(value.get(6));
+        binding.spinner1.setSelection(values.get(6));
     }
 
     private ArrayAdapter<String> createArrayAdapter(final List<String> arrayListSpinner) {
@@ -241,11 +240,9 @@ public class ValueFragment extends DialogFragment {
     }
 
     public interface Callback {
-        void setValue(int value);
+        void setValue(ArrayList<Integer> values, int value);
 
         Arzeshdaraei getArzeshdaraei();
-
-        void setValue(ArrayList<Integer> value);
 
         ArrayList<Integer> getValue();
     }

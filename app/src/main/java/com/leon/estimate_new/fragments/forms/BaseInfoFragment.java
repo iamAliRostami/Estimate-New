@@ -1,8 +1,6 @@
 package com.leon.estimate_new.fragments.forms;
 
 import static com.leon.estimate_new.helpers.Constants.SERVICES_FRAGMENT;
-import static com.leon.estimate_new.helpers.Constants.applicationComponent;
-import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponent;
 
 import android.app.Activity;
 import android.content.Context;
@@ -25,16 +23,13 @@ import com.leon.estimate_new.databinding.FragmentBaseInfoBinding;
 import com.leon.estimate_new.fragments.dialog.ShowFragmentDialog;
 import com.leon.estimate_new.fragments.dialog.ValueFragment;
 import com.leon.estimate_new.tables.Arzeshdaraei;
-import com.leon.estimate_new.tables.Block;
 import com.leon.estimate_new.tables.CalculationUserInput;
 import com.leon.estimate_new.tables.ExaminerDuties;
-import com.leon.estimate_new.tables.Formula;
 import com.leon.estimate_new.tables.KarbariDictionary;
 import com.leon.estimate_new.tables.NoeVagozariDictionary;
 import com.leon.estimate_new.tables.QotrEnsheabDictionary;
 import com.leon.estimate_new.tables.TaxfifDictionary;
 import com.leon.estimate_new.tables.Tejariha;
-import com.leon.estimate_new.tables.Zarib;
 import com.leon.estimate_new.utils.estimating.GetArzeshdaraei;
 import com.sardari.daterangepicker.customviews.DateRangeCalendarView;
 import com.sardari.daterangepicker.dialog.DatePickerDialog;
@@ -42,18 +37,12 @@ import com.sardari.daterangepicker.dialog.DatePickerDialog;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class BaseInfoFragment extends Fragment implements ValueFragment.Callback {
-    private final ArrayList<NoeVagozariDictionary> noeVagozariDictionaries = new ArrayList<>();
-    private final ArrayList<QotrEnsheabDictionary> qotrEnsheabDictionaries = new ArrayList<>();
-    private final ArrayList<KarbariDictionary> karbariDictionaries = new ArrayList<>();
-    private final ArrayList<TaxfifDictionary> taxfifDictionaries = new ArrayList<>();
-    private final ArrayList<Tejariha> others = new ArrayList<>();
+    private final ArrayList<Tejariha> tejariha = new ArrayList<>();
     private FragmentBaseInfoBinding binding;
     private ExaminerDuties examinerDuties;
-    private final ArrayList<Integer> value = new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0, 0, 0, 0));
     private Arzeshdaraei arzeshdaraei;
     private Callback formActivity;
     private int saier, tejari;
@@ -81,7 +70,8 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
 
     private void initialize() {
         examinerDuties = formActivity.getExaminerDuty();
-        setDBData();
+        arzeshdaraei = formActivity.getArzeshdaraei();
+        tejariha.addAll(formActivity.getTejariha());
         initializeSpinner();
         initializeField();
         setOnButtonsClickListener();
@@ -95,7 +85,6 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
     private void setOnButtonsClickListener() {
         binding.buttonPre.setOnClickListener(v -> formActivity.setOnPreClickListener(SERVICES_FRAGMENT));
         binding.buttonSubmit.setOnClickListener(v -> {
-
         });
     }
 
@@ -161,21 +150,6 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
                 }
             }
         });
-    }
-
-    private void setDBData() {
-        others.clear();
-        others.addAll(getApplicationComponent().MyDatabase().tejarihaDao()
-                .getTejarihaByTrackNumber(examinerDuties.trackNumber));
-        final ArrayList<Formula> formulas = new ArrayList<>(getApplicationComponent().MyDatabase().formulaDao()
-                .getFormulaByZoneId(Integer.parseInt(examinerDuties.zoneId)));
-        final ArrayList<Block> blocks = new ArrayList<>(getApplicationComponent().MyDatabase().blockDao()
-                .getBlockByZoneId(Integer.parseInt(examinerDuties.zoneId)));
-        final ArrayList<Zarib> zaribs = new ArrayList<>(getApplicationComponent().MyDatabase()
-                .zaribDao().getZaribByZoneId(Integer.parseInt(examinerDuties.zoneId)));
-        if (formulas.size() > 0 && blocks.size() > 0 && zaribs.size() > 0) {
-            arzeshdaraei = new Arzeshdaraei(blocks, formulas, zaribs);
-        }
     }
 
     private void setOnTextViewArzeshDaraeiClickListener() {
@@ -272,11 +246,9 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
     }
 
     private void initializeKarbariSpinner() {
-        karbariDictionaries.clear();
-        karbariDictionaries.addAll(getApplicationComponent().MyDatabase().karbariDictionaryDao().getKarbariDictionary());
         final List<String> arrayListSpinner = new ArrayList<>();
         int selected = 0, counter = 0;
-        for (KarbariDictionary karbariDictionary : karbariDictionaries) {
+        for (KarbariDictionary karbariDictionary : formActivity.getKarbariDictionary()) {
             arrayListSpinner.add(karbariDictionary.title);
             if (karbariDictionary.id == examinerDuties.karbariId) {
                 selected = counter;
@@ -288,27 +260,10 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
         binding.spinner1.setSelection(selected);
     }
 
-    private void initializeTaxfifSpinner() {
-        taxfifDictionaries.clear();
-        taxfifDictionaries.addAll(applicationComponent.MyDatabase().taxfifDictionaryDao().getTaxfifDictionaries());
-        final List<String> arrayListSpinner = new ArrayList<>();
-        int selected = 0, counter = 0;
-        for (TaxfifDictionary taxfifDictionary : taxfifDictionaries) {
-            arrayListSpinner.add(taxfifDictionary.title);
-            if (taxfifDictionary.id == examinerDuties.taxfifId) {
-                selected = counter;
-            }
-            counter = counter + 1;
-        }
-        binding.spinner4.setAdapter(createArrayAdapter(arrayListSpinner));
-        binding.spinner4.setSelection(selected);
-    }
 
     private void initializeNoeVagozariSpinner() {
-        noeVagozariDictionaries.clear();
-        noeVagozariDictionaries.addAll(applicationComponent.MyDatabase().noeVagozariDictionaryDao().getNoeVagozariDictionaries());
         final List<String> arrayListSpinner = new ArrayList<>();
-        for (NoeVagozariDictionary noeVagozariDictionary : noeVagozariDictionaries) {
+        for (NoeVagozariDictionary noeVagozariDictionary : formActivity.getNoeVagozariDictionaries()) {
             arrayListSpinner.add(noeVagozariDictionary.title);
         }
         binding.spinner2.setAdapter(createArrayAdapter(arrayListSpinner));
@@ -316,11 +271,9 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
     }
 
     private void initializeQotrEnsheabSpinner() {
-        qotrEnsheabDictionaries.clear();
-        qotrEnsheabDictionaries.addAll(applicationComponent.MyDatabase().qotrEnsheabDictionaryDao().getQotrEnsheabDictionaries());
         final List<String> arrayListSpinner = new ArrayList<>();
         int counter = 0, selected = 0;
-        for (QotrEnsheabDictionary qotrEnsheabDictionary : qotrEnsheabDictionaries) {
+        for (QotrEnsheabDictionary qotrEnsheabDictionary : formActivity.getQotrEnsheabDictionary()) {
             arrayListSpinner.add(qotrEnsheabDictionary.title);
             if (examinerDuties.qotrEnsheabId == qotrEnsheabDictionary.id) {
                 selected = counter;
@@ -329,6 +282,20 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
         }
         binding.spinner3.setAdapter(createArrayAdapter(arrayListSpinner));
         binding.spinner3.setSelection(selected);
+    }
+
+    private void initializeTaxfifSpinner() {
+        final List<String> arrayListSpinner = new ArrayList<>();
+        int selected = 0, counter = 0;
+        for (TaxfifDictionary taxfifDictionary : formActivity.getTaxfifDictionary()) {
+            arrayListSpinner.add(taxfifDictionary.title);
+            if (taxfifDictionary.id == examinerDuties.taxfifId) {
+                selected = counter;
+            }
+            counter = counter + 1;
+        }
+        binding.spinner4.setAdapter(createArrayAdapter(arrayListSpinner));
+        binding.spinner4.setSelection(selected);
     }
 
     private ArrayAdapter<String> createArrayAdapter(List<String> arrayListSpinner) {
@@ -360,24 +327,19 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
     }
 
     @Override
-    public void setValue(int value) {
-        binding.textViewArzeshMelk.setText(String.valueOf(value));
-    }
-
-    @Override
     public Arzeshdaraei getArzeshdaraei() {
         return arzeshdaraei;
     }
 
     @Override
-    public void setValue(ArrayList<Integer> value) {
-        this.value.clear();
-        this.value.addAll(value);
+    public void setValue(ArrayList<Integer> values, int value) {
+        binding.textViewArzeshMelk.setText(String.valueOf(value));
+        formActivity.setValues(values);
     }
 
     @Override
     public ArrayList<Integer> getValue() {
-        return value;
+        return formActivity.getValues();
     }
 
     public interface Callback {
@@ -388,5 +350,21 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
         void setBaseInfo(CalculationUserInput calculationUserInput);
 
         ExaminerDuties getExaminerDuty();
+
+        ArrayList<NoeVagozariDictionary> getNoeVagozariDictionaries();
+
+        ArrayList<QotrEnsheabDictionary> getQotrEnsheabDictionary();
+
+        ArrayList<KarbariDictionary> getKarbariDictionary();
+
+        ArrayList<TaxfifDictionary> getTaxfifDictionary();
+
+        ArrayList<Tejariha> getTejariha();
+
+        Arzeshdaraei getArzeshdaraei();
+
+        void setValues(ArrayList<Integer> values);
+
+        ArrayList<Integer> getValues();
     }
 }

@@ -32,21 +32,19 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class DownloadData extends BaseAsync {
-    private final Object object;
 
     public DownloadData(Context context, Object o) {
         super(context, o, false);
-        object = o;
     }
 
     @Override
     public void postTask(Object o) {
-        ((Button) object).setEnabled(true);
+        ((Button) o).setEnabled(true);
     }
 
     @Override
     public void preTask(Object o) {
-        ((Button) object).setEnabled(false);
+        ((Button) o).setEnabled(false);
     }
 
     @Override
