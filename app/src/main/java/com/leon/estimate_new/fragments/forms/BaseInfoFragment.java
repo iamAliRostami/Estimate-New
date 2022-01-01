@@ -10,7 +10,6 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -19,6 +18,7 @@ import com.leon.estimate_new.R;
 import com.leon.estimate_new.adapters.SpinnerCustomAdapter;
 import com.leon.estimate_new.databinding.FragmentBaseInfoBinding;
 import com.leon.estimate_new.fragments.dialog.ShowFragmentDialog;
+import com.leon.estimate_new.fragments.dialog.TejarihaSayerFragment;
 import com.leon.estimate_new.fragments.dialog.ValueFragment;
 import com.leon.estimate_new.tables.Arzeshdaraei;
 import com.leon.estimate_new.tables.CalculationUserInput;
@@ -34,13 +34,42 @@ import com.sardari.daterangepicker.dialog.DatePickerDialog;
 
 import java.util.ArrayList;
 
-public class BaseInfoFragment extends Fragment implements ValueFragment.Callback {
-    private final ArrayList<Tejariha> tejariha = new ArrayList<>();
+public class BaseInfoFragment extends Fragment implements ValueFragment.Callback, TejarihaSayerFragment.Callback {
+    //    private final ArrayList<Tejariha> tejariha = new ArrayList<>();
     private FragmentBaseInfoBinding binding;
     private ExaminerDuties examinerDuties;
     private Arzeshdaraei arzeshdaraei;
     private Callback formActivity;
     private int saier, tejari;
+    private final View.OnClickListener onClickListener = v ->
+            ShowFragmentDialog.ShowFragmentDialogOnce(requireContext(), "TEJARI_SAYER_FRAGMENT",
+                    TejarihaSayerFragment.newInstance(this));
+    private final TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            if (s.length() > 0) {
+                if (s == binding.editTextTedadSaier.getEditableText())
+                    saier = Integer.parseInt(s.toString());
+                else if (s == binding.editTextTedadTejari.getEditableText())
+                    tejari = Integer.parseInt(s.toString());
+            } else {
+                if (s == binding.editTextTedadSaier.getEditableText())
+                    saier = 0;
+                else if (s == binding.editTextTedadTejari.getEditableText())
+                    tejari = 0;
+            }
+            binding.textViewTedadSaier.setEnabled(saier > 0 || tejari > 0);
+            binding.textViewTedadTejari.setEnabled(saier > 0 || tejari > 0);
+        }
+    };
 
     public BaseInfoFragment() {
     }
@@ -66,15 +95,14 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
     private void initialize() {
         examinerDuties = formActivity.getExaminerDuty();
         arzeshdaraei = formActivity.getArzeshdaraei();
-        tejariha.addAll(formActivity.getTejariha());
+//        tejariha.addAll(formActivity.getTejariha());
         initializeSpinner();
         initializeField();
         setOnButtonsClickListener();
         setOnEditTextSodurDateClickListener();
-        setOnEditTextTedadTejariTextChangeListener();
-        setOnEditTextTedadSaierTextChangeListener();
         setOnTextViewArzeshDaraeiClickListener();
-        setOnImageViewPlusClickListener();
+        setOnEditTextSayerTejariChangeListener();
+        setOnTextViewSayerTejariClickListener();
     }
 
     private void setOnButtonsClickListener() {
@@ -98,53 +126,14 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
         });
     }
 
-    private void setOnEditTextTedadSaierTextChangeListener() {
-        binding.editTextTedadSaier.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() > 0)
-                    saier = Integer.parseInt(s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (tejari < 1) {
-                    binding.linearLayoutTejari.setVisibility(View.GONE);
-                }
-                if (saier > 0) {
-                    binding.linearLayoutTejari.setVisibility(View.VISIBLE);
-                }
-            }
-        });
+    private void setOnEditTextSayerTejariChangeListener() {
+        binding.editTextTedadSaier.addTextChangedListener(textWatcher);
+        binding.editTextTedadTejari.addTextChangedListener(textWatcher);
     }
 
-    private void setOnEditTextTedadTejariTextChangeListener() {
-        binding.editTextTedadTejari.addTextChangedListener(new TextWatcher() {
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() > 0)
-                    tejari = Integer.parseInt(s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (saier < 1) {
-                    binding.linearLayoutTejari.setVisibility(View.GONE);
-                }
-                if (tejari > 0) {
-                    binding.linearLayoutTejari.setVisibility(View.VISIBLE);
-                }
-            }
-        });
+    private void setOnTextViewSayerTejariClickListener() {
+        binding.textViewTedadTejari.setOnClickListener(onClickListener);
+        binding.textViewTedadSaier.setOnClickListener(onClickListener);
     }
 
     private void setOnTextViewArzeshDaraeiClickListener() {
@@ -162,48 +151,6 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
                 new GetArzeshdaraei(requireContext(), this, examinerDuties.zoneId).execute(requireActivity());
             }
         });
-    }
-
-    private void setOnImageViewPlusClickListener() {
-//        binding.imageViewPlus.setOnClickListener(v -> {
-//            if (checkIsNoEmpty(binding.editTextVahed) && checkIsNoEmpty(binding.editTextNoeShoql)
-//                    && checkIsNoEmpty(binding.editTextVahedMohasebe)
-//                    && checkIsNoEmpty(binding.editTextA2)) {
-//                if (others.size() == 8) {
-//                    new CustomDialogModel(Yellow, requireContext(),
-//                            getString(R.string.tejari_over_flow),
-//                            getString(R.string.dear_user),
-//                            getString(R.string.tejari),
-//                            getString(R.string.accepted));
-//                    return;
-//                }
-//                String karbari = karbariDictionaries.get(
-//                        binding.spinner5.getSelectedItemPosition()).title;
-//                String noeShoql = binding.editTextNoeShoql.getText().toString();
-//                int tedadVahed = Integer.parseInt(binding.editTextVahed.getText().toString());
-//                String vahedMohasebe = binding.editTextVahedMohasebe.getText().toString();
-//                String a = binding.editTextA2.getText().toString();
-//                Tejariha tejariha = new Tejariha(karbari, noeShoql, tedadVahed, vahedMohasebe, a,
-//                        examinerDuties.getTrackNumber());
-//                others.add(tejariha);
-//                othersAdapter.notifyDataSetChanged();
-//                binding.editTextA2.setText("");
-//                binding.editTextNoeShoql.setText("");
-//                binding.editTextVahed.setText("");
-//                binding.editTextVahedMohasebe.setText("");
-//            }
-//        });
-    }
-
-    private boolean checkIsNoEmpty(EditText editText) {
-        View focusView;
-        if (editText.getText().toString().length() < 1) {
-            editText.setError(getString(R.string.error_empty));
-            focusView = editText;
-            focusView.requestFocus();
-            return false;
-        }
-        return true;
     }
 
     private void initializeField() {
@@ -252,7 +199,6 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
         }
         binding.spinner1.setAdapter(new SpinnerCustomAdapter(requireContext(), arrayListSpinner));
         binding.spinner1.setSelection(selected);
-        binding.spinner5.setAdapter(new SpinnerCustomAdapter(requireContext(), arrayListSpinner));
     }
 
 
@@ -319,6 +265,21 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
     @Override
     public ArrayList<Integer> getValue() {
         return formActivity.getValues();
+    }
+
+    @Override
+    public ArrayList<KarbariDictionary> getKarbariDictionary() {
+        return formActivity.getKarbariDictionary();
+    }
+
+    @Override
+    public ArrayList<Tejariha> getTejariha() {
+        return formActivity.getTejariha();
+    }
+
+    @Override
+    public ExaminerDuties getExaminerDuty() {
+        return examinerDuties;
     }
 
     public interface Callback {

@@ -8,12 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.CheckedTextView;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 
 import com.leon.estimate_new.R;
@@ -25,15 +22,12 @@ import com.leon.estimate_new.tables.Block;
 import com.leon.estimate_new.tables.Formula;
 import com.leon.estimate_new.utils.CustomToast;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public class ValueFragment extends DialogFragment {
     private FragmentValueBinding binding;
     private final Arzeshdaraei arzeshdaraei;
-    private final Callback formActivity;
+    private final Callback baseInfoFragment;
     private final ArrayList<Integer> values = new ArrayList<>();
     private final TextWatcher textWatcher = new TextWatcher() {
         @Override
@@ -61,9 +55,9 @@ public class ValueFragment extends DialogFragment {
     };
 
     public ValueFragment(final BaseInfoFragment baseInfoFragment) {
-        formActivity = (Callback) baseInfoFragment;
-        arzeshdaraei = formActivity.getArzeshdaraei();
-        values.addAll(formActivity.getValue());
+        this.baseInfoFragment = baseInfoFragment;
+        arzeshdaraei = this.baseInfoFragment.getArzeshdaraei();
+        values.addAll(this.baseInfoFragment.getValue());
     }
 
     public static ValueFragment newInstance(final BaseInfoFragment baseInfoFragment) {
@@ -167,7 +161,7 @@ public class ValueFragment extends DialogFragment {
             count = count * 1000;
             binding.textViewCount.setText(String.valueOf(count));
             if (dis) {
-                formActivity.setValue(values, count);
+                baseInfoFragment.setValue(values, count);
                 dismiss();
             }
         } else {

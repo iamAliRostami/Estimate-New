@@ -4,7 +4,6 @@ import static com.leon.estimate_new.helpers.Constants.BASE_FRAGMENT;
 import static com.leon.estimate_new.helpers.Constants.PERSONAL_FRAGMENT;
 import static com.leon.estimate_new.helpers.Constants.SERVICES_FRAGMENT;
 
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -66,7 +65,7 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
             requestDictionaries.addAll(Arrays.asList(new GsonBuilder().create()
                     .fromJson(examinerDuties.requestDictionaryString, RequestDictionary[].class)));
         }
-        new GetDBData((Context) this, examinerDuties.zoneId, examinerDuties.trackNumber, this).execute(this);
+        new GetDBData(this, examinerDuties.zoneId, examinerDuties.trackNumber, this).execute(this);
         displayView(PERSONAL_FRAGMENT);
     }
 

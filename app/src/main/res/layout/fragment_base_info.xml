@@ -369,6 +369,7 @@
                     android:layout_below="@id/linear_layout_9">
 
                     <TextView
+                        android:id="@+id/text_view_tedad_saier"
                         style="@style/TitleSmall"
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -383,6 +384,7 @@
                         tools:ignore="Autofill,LabelFor" />
 
                     <TextView
+                        android:id="@+id/text_view_tedad_tejari"
                         style="@style/TitleSmall"
                         android:layout_width="0dp"
                         android:layout_weight="1.25"
@@ -396,94 +398,6 @@
                         android:inputType="number"
                         tools:ignore="Autofill,LabelFor" />
                 </LinearLayout>
-
-                <androidx.core.widget.NestedScrollView
-                    android:id="@+id/linear_layout_tejari"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/linear_layout_10"
-                    android:visibility="visible">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/border_gray_2"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <ImageView
-                                android:id="@+id/imageViewPlus"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:src="@drawable/image_plus"
-                                tools:ignore="ContentDescription" />
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
-
-
-                                <Spinner
-                                    android:id="@+id/spinner_5"
-                                    style="@style/Spinner"
-                                    android:layout_width="0dp"
-                                    android:layout_weight="2.5" />
-
-                                <EditText
-                                    android:id="@+id/edit_text_noe_shoql"
-                                    style="@style/EditTextForm"
-                                    android:layout_width="0dp"
-                                    android:layout_marginStart="@dimen/small_dp"
-                                    android:layout_weight="1.5"
-                                    android:hint="@string/noe_shoql"
-                                    android:nextFocusDown="@id/edit_text_vahed"
-                                    tools:ignore="Autofill,TextFields" />
-
-                                <EditText
-                                    android:id="@+id/edit_text_vahed"
-                                    style="@style/EditTextForm"
-                                    android:layout_width="0dp"
-                                    android:layout_marginStart="@dimen/low_dp"
-                                    android:layout_weight="1"
-                                    android:hint="@string/tedad_vahed"
-                                    android:inputType="numberSigned"
-                                    android:nextFocusDown="@id/edit_text_vahed_mohasebe"
-                                    tools:ignore="Autofill,TextFields" />
-
-                                <EditText
-                                    android:id="@+id/edit_text_vahed_mohasebe"
-                                    style="@style/EditTextForm"
-                                    android:layout_width="0dp"
-                                    android:layout_marginStart="@dimen/low_dp"
-                                    android:layout_weight="1"
-                                    android:hint="@string/vahed_mohasebe"
-                                    android:inputType="text"
-                                    android:nextFocusDown="@id/edit_text_a2"
-                                    tools:ignore="Autofill,TextFields" />
-
-                                <EditText
-                                    android:id="@+id/edit_text_a2"
-                                    style="@style/EditTextForm"
-                                    android:layout_width="wrap_content"
-                                    android:layout_marginStart="@dimen/low_dp"
-                                    android:layout_weight="1"
-                                    android:hint="@string/a_2"
-                                    android:inputType="text"
-                                    tools:ignore="Autofill,TextFields" />
-                            </LinearLayout>
-                        </LinearLayout>
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recycler_view_tejariha"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            tools:listitem="@layout/item_tejari" />
-                    </LinearLayout>
-                </androidx.core.widget.NestedScrollView>
             </RelativeLayout>
 
             <RelativeLayout
