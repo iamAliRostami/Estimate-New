@@ -296,13 +296,15 @@
     </style>
 
     <style name="Spinner" parent="Widget.AppCompat.ListView.DropDown">
-        <item name="android:layout_marginBottom">@dimen/medium_dp</item>
-        <item name="android:layout_marginTop">@dimen/medium_dp</item>
+        <item name="android:paddingTop">@dimen/low_dp</item>
+        <item name="android:paddingBottom">@dimen/low_dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:spinnerMode">dialog</item>
         <item name="android:background">@drawable/background_spinner</item>
         <item name="android:layout_gravity">center</item>
+        <!--        <item name="android:layout_marginBottom">@dimen/medium_dp</item>-->
+        <!--        <item name="android:layout_marginTop">@dimen/medium_dp</item>-->
         <!--        <item name="android:dividerHeight">@dimen/large_dp</item>-->
         <!--        <item name="android:divider">#000</item>-->
         <!--        <item name="android:background">@drawable/border_blue_3</item>-->
