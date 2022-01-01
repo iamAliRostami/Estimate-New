@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/drawable/background_spinner.xml" value="0.23205128205128206" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/drawable/border.xml" value="0.2640625" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/drawable/border_1.xml" value="0.1" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/drawable/border_black_1.xml" value="0.2640625" />
@@ -54,10 +55,11 @@
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/fragment_send_request.xml" value="0.264" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/fragment_services.xml" value="0.2153846153846154" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/fragment_upload.xml" value="0.2012820512820513" />
-        <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/fragment_value.xml" value="0.264" />
+        <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/fragment_value.xml" value="0.536" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/item_address_1.xml" value="0.2625" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/item_address_2.xml" value="0.17395833333333333" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/item_check_box.xml" value="0.2153846153846154" />
+        <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/item_dropdown_menu.xml" value="0.2153846153846154" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/item_dropdown_menu_popup.xml" value="0.10683760683760683" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/item_dropdown_popup.xml" value="0.2153846153846154" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/item_navigation_drawer.xml" value="0.2" />

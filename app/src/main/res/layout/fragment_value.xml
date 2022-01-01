@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/border_white_1"
     android:padding="@dimen/medium_dp"
     tools:context=".fragments.dialog.ValueFragment">
@@ -29,30 +30,26 @@
             <TextView
                 style="@style/TitleSmall"
                 android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_weight="0.5"
                 android:text="@string/block" />
 
             <Spinner
                 android:id="@+id/spinner_1"
+                style="@style/Spinner"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:spinnerMode="dialog" />
+                android:layout_weight="1" />
 
             <TextView
                 style="@style/TitleSmall"
                 android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_weight="0.5"
                 android:text="@string/gozar" />
 
             <Spinner
                 android:id="@+id/spinner_2"
+                style="@style/Spinner"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:spinnerMode="dialog" />
+                android:layout_weight="1" />
         </LinearLayout>
 
         <LinearLayout

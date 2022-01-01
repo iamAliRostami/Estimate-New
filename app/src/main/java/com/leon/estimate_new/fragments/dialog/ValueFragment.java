@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 
 import com.leon.estimate_new.R;
+import com.leon.estimate_new.adapters.SpinnerCustomAdapter;
 import com.leon.estimate_new.databinding.FragmentValueBinding;
 import com.leon.estimate_new.fragments.forms.BaseInfoFragment;
 import com.leon.estimate_new.tables.Arzeshdaraei;
@@ -166,7 +167,7 @@ public class ValueFragment extends DialogFragment {
             count = count * 1000;
             binding.textViewCount.setText(String.valueOf(count));
             if (dis) {
-                formActivity.setValue(values,count);
+                formActivity.setValue(values, count);
                 dismiss();
             }
         } else {
@@ -195,37 +196,21 @@ public class ValueFragment extends DialogFragment {
 
 
     private void initializeSpinnerGozar() {
-        List<String> arrayListSpinner = new ArrayList<>();
+        final ArrayList<String> arrayListSpinner = new ArrayList<>();
         for (Formula formula : arzeshdaraei.formulas) {
             arrayListSpinner.add(formula.gozarTitle);
         }
-        binding.spinner2.setAdapter(createArrayAdapter(arrayListSpinner));
+        binding.spinner2.setAdapter(new SpinnerCustomAdapter(requireContext(), arrayListSpinner));
         binding.spinner2.setSelection(values.get(7));
     }
 
     private void initializeSpinnerBlock() {
-        List<String> arrayListSpinner = new ArrayList<>();
+        final ArrayList<String> arrayListSpinner = new ArrayList<>();
         for (Block block : arzeshdaraei.blocks) {
             arrayListSpinner.add(block.blockId);
         }
-        binding.spinner1.setAdapter(createArrayAdapter(arrayListSpinner));
+        binding.spinner1.setAdapter(new SpinnerCustomAdapter(requireContext(), arrayListSpinner));
         binding.spinner1.setSelection(values.get(6));
-    }
-
-    private ArrayAdapter<String> createArrayAdapter(final List<String> arrayListSpinner) {
-        return new ArrayAdapter<String>(requireContext(),
-                R.layout.item_dropdown_popup, arrayListSpinner) {
-            @NotNull
-            @Override
-            public View getView(int position, View convertView, @NotNull ViewGroup parent) {
-                final View view = super.getView(position, convertView, parent);
-                final CheckedTextView textView = view.findViewById(android.R.id.text1);
-                textView.setChecked(true);
-                textView.setTextSize(getResources().getDimension(R.dimen.text_size_small));
-                textView.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.black));
-                return view;
-            }
-        };
     }
 
     @Override

@@ -10,15 +10,13 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.CheckedTextView;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.leon.estimate_new.R;
+import com.leon.estimate_new.adapters.SpinnerCustomAdapter;
 import com.leon.estimate_new.databinding.FragmentBaseInfoBinding;
 import com.leon.estimate_new.fragments.dialog.ShowFragmentDialog;
 import com.leon.estimate_new.fragments.dialog.ValueFragment;
@@ -34,10 +32,7 @@ import com.leon.estimate_new.utils.estimating.GetArzeshdaraei;
 import com.sardari.daterangepicker.customviews.DateRangeCalendarView;
 import com.sardari.daterangepicker.dialog.DatePickerDialog;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public class BaseInfoFragment extends Fragment implements ValueFragment.Callback {
     private final ArrayList<Tejariha> tejariha = new ArrayList<>();
@@ -246,7 +241,7 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
     }
 
     private void initializeKarbariSpinner() {
-        final List<String> arrayListSpinner = new ArrayList<>();
+        final ArrayList<String> arrayListSpinner = new ArrayList<>();
         int selected = 0, counter = 0;
         for (KarbariDictionary karbariDictionary : formActivity.getKarbariDictionary()) {
             arrayListSpinner.add(karbariDictionary.title);
@@ -255,23 +250,23 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
             }
             counter = counter + 1;
         }
-        binding.spinner1.setAdapter(createArrayAdapter(arrayListSpinner));
-        binding.spinner5.setAdapter(createArrayAdapter(arrayListSpinner));
+        binding.spinner1.setAdapter(new SpinnerCustomAdapter(requireContext(), arrayListSpinner));
         binding.spinner1.setSelection(selected);
+        binding.spinner5.setAdapter(new SpinnerCustomAdapter(requireContext(), arrayListSpinner));
     }
 
 
     private void initializeNoeVagozariSpinner() {
-        final List<String> arrayListSpinner = new ArrayList<>();
+        final ArrayList<String> arrayListSpinner = new ArrayList<>();
         for (NoeVagozariDictionary noeVagozariDictionary : formActivity.getNoeVagozariDictionaries()) {
             arrayListSpinner.add(noeVagozariDictionary.title);
         }
-        binding.spinner2.setAdapter(createArrayAdapter(arrayListSpinner));
+        binding.spinner2.setAdapter(new SpinnerCustomAdapter(requireContext(), arrayListSpinner));
         binding.spinner2.setSelection(examinerDuties.noeVagozariId);
     }
 
     private void initializeQotrEnsheabSpinner() {
-        final List<String> arrayListSpinner = new ArrayList<>();
+        final ArrayList<String> arrayListSpinner = new ArrayList<>();
         int counter = 0, selected = 0;
         for (QotrEnsheabDictionary qotrEnsheabDictionary : formActivity.getQotrEnsheabDictionary()) {
             arrayListSpinner.add(qotrEnsheabDictionary.title);
@@ -280,12 +275,12 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
             }
             counter = counter + 1;
         }
-        binding.spinner3.setAdapter(createArrayAdapter(arrayListSpinner));
+        binding.spinner3.setAdapter(new SpinnerCustomAdapter(requireContext(), arrayListSpinner));
         binding.spinner3.setSelection(selected);
     }
 
     private void initializeTaxfifSpinner() {
-        final List<String> arrayListSpinner = new ArrayList<>();
+        final ArrayList<String> arrayListSpinner = new ArrayList<>();
         int selected = 0, counter = 0;
         for (TaxfifDictionary taxfifDictionary : formActivity.getTaxfifDictionary()) {
             arrayListSpinner.add(taxfifDictionary.title);
@@ -294,24 +289,8 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
             }
             counter = counter + 1;
         }
-        binding.spinner4.setAdapter(createArrayAdapter(arrayListSpinner));
+        binding.spinner4.setAdapter(new SpinnerCustomAdapter(requireContext(), arrayListSpinner));
         binding.spinner4.setSelection(selected);
-    }
-
-    private ArrayAdapter<String> createArrayAdapter(List<String> arrayListSpinner) {
-        return new ArrayAdapter<String>(requireContext(),
-                R.layout.item_dropdown_popup, arrayListSpinner) {
-            @NotNull
-            @Override
-            public View getView(int position, View convertView, @NotNull ViewGroup parent) {
-                final View view = super.getView(position, convertView, parent);
-                final CheckedTextView textView = view.findViewById(android.R.id.text1);
-                textView.setChecked(true);
-                textView.setTextSize(getResources().getDimension(R.dimen.text_size_small));
-                textView.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.black));
-                return view;
-            }
-        };
     }
 
     public void setArzeshdaraei(Arzeshdaraei arzeshdaraei) {

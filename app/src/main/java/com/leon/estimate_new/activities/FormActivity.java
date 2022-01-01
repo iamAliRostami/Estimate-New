@@ -93,7 +93,6 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
         fragmentTransaction.setCustomAnimations(R.animator.enter, R.animator.exit,
                 R.animator.pop_enter, R.animator.pop_exit);
         fragmentTransaction.replace(binding.containerBody.getId(), fragment, tag);
-        // Home fragment is not added to the stack
         if (position != PERSONAL_FRAGMENT) {
             fragmentTransaction.addToBackStack(null);
         }

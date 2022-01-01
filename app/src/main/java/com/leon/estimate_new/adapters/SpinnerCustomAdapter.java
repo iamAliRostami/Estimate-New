@@ -1,32 +1,38 @@
 package com.leon.estimate_new.adapters;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.CheckedTextView;
 
+import androidx.core.content.ContextCompat;
+
 import com.leon.estimate_new.R;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class SpinnerCustomAdapter extends BaseAdapter {
     private final ArrayList<String> items;
     private final LayoutInflater inflater;
 
-    public SpinnerCustomAdapter(Activity activity, ArrayList<String> items) {
+    public SpinnerCustomAdapter(Context context, ArrayList<String> items) {
         super();
         this.items = items;
-        inflater = (LayoutInflater.from(activity));
+        inflater = (LayoutInflater.from(context));
     }
 
     @SuppressLint({"ViewHolder", "InflateParams"})
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
         view = inflater.inflate(R.layout.item_dropdown_menu, null);
-        CheckedTextView item = view.findViewById(R.id.checked_text_view);
+        final CheckedTextView item = view.findViewById(R.id.checked_text_view);
         item.setText(items.get(position));
         return view;
     }
@@ -34,8 +40,8 @@ public class SpinnerCustomAdapter extends BaseAdapter {
     @SuppressLint("InflateParams")
     @Override
     public View getDropDownView(int position, View view, ViewGroup parent) {
-        view = inflater.inflate(R.layout.item_dropdown_menu_popup, null);
-        CheckedTextView item = view.findViewById(R.id.checked_text_view);
+        view = inflater.inflate(R.layout.item_dropdown_popup, null);
+        final CheckedTextView item = view.findViewById(R.id.checked_text_view);
         item.setText(items.get(position));
         return view;
     }
@@ -53,5 +59,21 @@ public class SpinnerCustomAdapter extends BaseAdapter {
     @Override
     public long getItemId(int position) {
         return position;
+    }
+
+    private ArrayAdapter<String> createArrayAdapter(final List<String> arrayListSpinner,Context context) {
+        return new ArrayAdapter<String>(context,
+                R.layout.item_dropdown_menu_popup, arrayListSpinner) {
+            @NotNull
+            @Override
+            public View getView(int position, View convertView, @NotNull ViewGroup parent) {
+                final View view = super.getView(position, convertView, parent);
+                final CheckedTextView textView = view.findViewById(android.R.id.text1);
+                textView.setChecked(true);
+                textView.setTextSize(context.getResources().getDimension(R.dimen.text_size_small));
+                textView.setTextColor(ContextCompat.getColor(context, android.R.color.black));
+                return view;
+            }
+        };
     }
 }
