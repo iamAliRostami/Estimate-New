@@ -1,6 +1,5 @@
 package com.leon.estimate_new.fragments.dialog;
 
-import static com.leon.estimate_new.enums.DialogType.Yellow;
 import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponent;
 
 import android.annotation.SuppressLint;
@@ -11,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
@@ -21,11 +21,11 @@ import com.leon.estimate_new.R;
 import com.leon.estimate_new.adapters.SpinnerCustomAdapter;
 import com.leon.estimate_new.adapters.TejariSayerAdapter;
 import com.leon.estimate_new.databinding.FragmentTejarihaSayerBinding;
-import com.leon.estimate_new.di.view_model.CustomDialogModel;
 import com.leon.estimate_new.fragments.forms.BaseInfoFragment;
 import com.leon.estimate_new.tables.ExaminerDuties;
 import com.leon.estimate_new.tables.KarbariDictionary;
 import com.leon.estimate_new.tables.Tejariha;
+import com.leon.estimate_new.utils.CustomToast;
 
 import java.util.ArrayList;
 
@@ -93,11 +93,7 @@ public class TejarihaSayerFragment extends DialogFragment {
             if (checkIsNoEmpty(binding.editTextVahed) && checkIsNoEmpty(binding.editTextNoeShoql)
                     && checkIsNoEmpty(binding.editTextVahedMohasebe) && checkIsNoEmpty(binding.editTextA2)) {
                 if (tejariha.size() == 8) {
-                    new CustomDialogModel(Yellow, requireContext(),
-                            getString(R.string.tejari_over_flow),
-                            getString(R.string.dear_user),
-                            getString(R.string.tejari),
-                            getString(R.string.accepted));
+                    new CustomToast().warning(getString(R.string.tejari_over_flow), Toast.LENGTH_LONG);
                     return;
                 }
                 addItem();

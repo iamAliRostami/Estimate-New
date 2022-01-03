@@ -19,6 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/text_view_title"
         android:background="@drawable/border_gray_1"
+        android:layout_marginBottom="@dimen/medium_dp"
         android:padding="@dimen/medium_dp">
 
         <LinearLayout
