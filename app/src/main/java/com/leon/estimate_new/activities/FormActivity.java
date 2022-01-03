@@ -48,7 +48,7 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
     private final ArrayList<QotrEnsheabDictionary> qotrEnsheabDictionaries = new ArrayList<>();
     private final ArrayList<KarbariDictionary> karbariDictionaries = new ArrayList<>();
     private final ArrayList<TaxfifDictionary> taxfifDictionaries = new ArrayList<>();
-    private final ArrayList<Tejariha> tejariha = new ArrayList<>();
+    private final ArrayList<Tejariha> tejarihas = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,7 +147,7 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
         this.qotrEnsheabDictionaries.addAll(qotrEnsheabDictionaries);
         this.karbariDictionaries.addAll(karbariDictionaries);
         this.taxfifDictionaries.addAll(taxfifDictionaries);
-        this.tejariha.addAll(tejariha);
+        this.tejarihas.addAll(tejariha);
         this.arzeshdaraei = arzeshdaraei;
     }
 
@@ -182,8 +182,8 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
     }
 
     @Override
-    public ArrayList<Tejariha> getTejariha() {
-        return tejariha;
+    public ArrayList<Tejariha> getTejarihas() {
+        return tejarihas;
     }
 
     @Override
@@ -192,9 +192,15 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
     }
 
     @Override
-    public void setValues(ArrayList<Integer> values) {
+    public void setValues(final ArrayList<Integer> values) {
         this.values.clear();
         this.values.addAll(values);
+    }
+
+    @Override
+    public void setTejarihas(final ArrayList<Tejariha> tejarihas) {
+        this.tejarihas.clear();
+        this.tejarihas.addAll(tejarihas);
     }
 
     @Override

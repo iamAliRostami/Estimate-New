@@ -35,7 +35,6 @@ import com.sardari.daterangepicker.dialog.DatePickerDialog;
 import java.util.ArrayList;
 
 public class BaseInfoFragment extends Fragment implements ValueFragment.Callback, TejarihaSayerFragment.Callback {
-    //    private final ArrayList<Tejariha> tejariha = new ArrayList<>();
     private FragmentBaseInfoBinding binding;
     private ExaminerDuties examinerDuties;
     private Arzeshdaraei arzeshdaraei;
@@ -95,7 +94,6 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
     private void initialize() {
         examinerDuties = formActivity.getExaminerDuty();
         arzeshdaraei = formActivity.getArzeshdaraei();
-//        tejariha.addAll(formActivity.getTejariha());
         initializeSpinner();
         initializeField();
         setOnButtonsClickListener();
@@ -165,19 +163,19 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
         binding.editTextTedadMaskooni.setText(String.valueOf(examinerDuties.tedadMaskooni));
         binding.editTextTedadTejari.setText(String.valueOf(examinerDuties.tedadTejari));
         binding.editTextTedadSaier.setText(String.valueOf(examinerDuties.tedadSaier));
-        binding.textViewArzeshMelk.setText(String.valueOf(examinerDuties.arzeshMelk));
         binding.editTextTedadTakhfif.setText(String.valueOf(examinerDuties.tedadTaxfif));
         binding.editTextZarfiatQaradadi.setText(String.valueOf(examinerDuties.zarfiatQarardadi));
         binding.editTextPariNumber.setText(examinerDuties.parNumber);
         binding.editTextSodurDate.setText(examinerDuties.getExaminationDay());
         binding.editTextPelak.setText(String.valueOf(examinerDuties.pelak));
 
+        binding.textViewArzeshMelk.setText(String.valueOf(examinerDuties.arzeshMelk));
+
         binding.checkbox1.setChecked(examinerDuties.isEnsheabQeirDaem);
         binding.checkbox2.setChecked(examinerDuties.motaqazi);
         binding.checkbox3.setChecked(examinerDuties.estelamShahrdari);
         binding.checkbox4.setChecked(examinerDuties.parvane);
         binding.checkbox5.setChecked(examinerDuties.sanad);
-
     }
 
     private void initializeSpinner() {
@@ -274,7 +272,12 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
 
     @Override
     public ArrayList<Tejariha> getTejariha() {
-        return formActivity.getTejariha();
+        return formActivity.getTejarihas();
+    }
+
+    @Override
+    public void setTejariha(ArrayList<Tejariha> tejarihas) {
+        formActivity.setTejarihas(tejarihas);
     }
 
     @Override
@@ -299,12 +302,14 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
 
         ArrayList<TaxfifDictionary> getTaxfifDictionary();
 
-        ArrayList<Tejariha> getTejariha();
+        ArrayList<Tejariha> getTejarihas();
+
+        ArrayList<Integer> getValues();
 
         Arzeshdaraei getArzeshdaraei();
 
         void setValues(ArrayList<Integer> values);
 
-        ArrayList<Integer> getValues();
+        void setTejarihas(ArrayList<Tejariha> tejarihas);
     }
 }

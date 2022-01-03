@@ -33,12 +33,8 @@ public class TejariSayerAdapter extends RecyclerView.Adapter<ViewHolderTejariha>
         final View view = layoutInflater.inflate(R.layout.item_tejari, parent, false);
         final ViewHolderTejariha holder = new ViewHolderTejariha(view);
         holder.imageViewMinus.setOnClickListener(v -> {
-//            Tejariha tejariha = tejarihas.get(viewType);
-//            DaoTejariha daoTejariha = dataBase.daoTejariha();
-//            daoTejariha.delete(tejariha.id);
             tejarihas.remove(viewType);
             notifyDataSetChanged();
-
         });
         return holder;
     }
@@ -68,4 +64,7 @@ public class TejariSayerAdapter extends RecyclerView.Adapter<ViewHolderTejariha>
         return position;
     }
 
+    public ArrayList<Tejariha> getTejarihas() {
+        return tejarihas;
+    }
 }

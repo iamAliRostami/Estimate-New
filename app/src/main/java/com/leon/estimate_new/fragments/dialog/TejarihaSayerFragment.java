@@ -1,6 +1,7 @@
 package com.leon.estimate_new.fragments.dialog;
 
 import static com.leon.estimate_new.enums.DialogType.Yellow;
+import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponent;
 
 import android.annotation.SuppressLint;
 import android.graphics.Rect;
@@ -29,11 +30,10 @@ import com.leon.estimate_new.tables.Tejariha;
 import java.util.ArrayList;
 
 public class TejarihaSayerFragment extends DialogFragment {
+    private TejariSayerAdapter adapter;
     private FragmentTejarihaSayerBinding binding;
     private final Callback baseInfoFragment;
-    private TejariSayerAdapter adapter;
     private final ArrayList<Tejariha> tejariha = new ArrayList<>();
-
 
     public TejarihaSayerFragment(final BaseInfoFragment baseInfoFragment) {
         this.baseInfoFragment = baseInfoFragment;
@@ -41,13 +41,14 @@ public class TejarihaSayerFragment extends DialogFragment {
     }
 
     public static TejarihaSayerFragment newInstance(final BaseInfoFragment baseInfoFragment) {
-        return new TejarihaSayerFragment(baseInfoFragment);
+        TejarihaSayerFragment fragment = new TejarihaSayerFragment(baseInfoFragment);
+        fragment.setCancelable(false);
+        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -62,6 +63,16 @@ public class TejarihaSayerFragment extends DialogFragment {
         setOnImageViewPlusClickListener();
         initializeKarbariSpinner();
         initializeRecyclerView();
+        setOnSubmitButtonClickListener();
+    }
+
+    private void setOnSubmitButtonClickListener() {
+        binding.buttonSubmit.setOnClickListener(v -> {
+            getApplicationComponent().MyDatabase().tejarihaDao().delete();
+            getApplicationComponent().MyDatabase().tejarihaDao().insertTejariha(adapter.getTejarihas());
+            baseInfoFragment.setTejariha(adapter.getTejarihas());
+            dismiss();
+        });
     }
 
     private void initializeRecyclerView() {
@@ -77,12 +88,10 @@ public class TejarihaSayerFragment extends DialogFragment {
         });
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     private void setOnImageViewPlusClickListener() {
         binding.imageViewPlus.setOnClickListener(v -> {
             if (checkIsNoEmpty(binding.editTextVahed) && checkIsNoEmpty(binding.editTextNoeShoql)
-                    && checkIsNoEmpty(binding.editTextVahedMohasebe)
-                    && checkIsNoEmpty(binding.editTextA2)) {
+                    && checkIsNoEmpty(binding.editTextVahedMohasebe) && checkIsNoEmpty(binding.editTextA2)) {
                 if (tejariha.size() == 8) {
                     new CustomDialogModel(Yellow, requireContext(),
                             getString(R.string.tejari_over_flow),
@@ -91,21 +100,29 @@ public class TejarihaSayerFragment extends DialogFragment {
                             getString(R.string.accepted));
                     return;
                 }
-                final String karbari = baseInfoFragment.getKarbariDictionary().get(
-                        binding.spinner1.getSelectedItemPosition()).title;
-                final String noeShoql = binding.editTextNoeShoql.getText().toString();
-                final int tedadVahed = Integer.parseInt(binding.editTextVahed.getText().toString());
-                final String vahedMohasebe = binding.editTextVahedMohasebe.getText().toString();
-                final String a = binding.editTextA2.getText().toString();
-                tejariha.add(new Tejariha(karbari, noeShoql, tedadVahed, vahedMohasebe, a,
-                        baseInfoFragment.getExaminerDuty().trackNumber));
-                adapter.notifyDataSetChanged();
-                binding.editTextA2.setText("");
-                binding.editTextNoeShoql.setText("");
-                binding.editTextVahed.setText("");
-                binding.editTextVahedMohasebe.setText("");
+                addItem();
+                emptyForm();
             }
         });
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private void addItem() {
+        tejariha.add(new Tejariha(baseInfoFragment.getKarbariDictionary()
+                .get(binding.spinner1.getSelectedItemPosition()).title,
+                binding.editTextNoeShoql.getText().toString(),
+                Integer.parseInt(binding.editTextVahed.getText().toString()),
+                binding.editTextVahedMohasebe.getText().toString(),
+                binding.editTextA2.getText().toString(),
+                baseInfoFragment.getExaminerDuty().trackNumber));
+        adapter.notifyDataSetChanged();
+    }
+
+    private void emptyForm() {
+        binding.editTextA2.setText("");
+        binding.editTextNoeShoql.setText("");
+        binding.editTextVahed.setText("");
+        binding.editTextVahedMohasebe.setText("");
     }
 
     private boolean checkIsNoEmpty(EditText editText) {
@@ -148,6 +165,8 @@ public class TejarihaSayerFragment extends DialogFragment {
         ArrayList<KarbariDictionary> getKarbariDictionary();
 
         ArrayList<Tejariha> getTejariha();
+
+        void setTejariha(ArrayList<Tejariha> tejarihas);
 
         ExaminerDuties getExaminerDuty();
     }
