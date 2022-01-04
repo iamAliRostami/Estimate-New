@@ -99,7 +99,7 @@ public class PersonalFragment extends Fragment {
     }
 
     private boolean checkIsNoEmpty(EditText editText) {
-        View focusView;
+        final View focusView;
         if (editText.getText().toString().length() < 1) {
             editText.setError(getString(R.string.error_empty));
             focusView = editText;

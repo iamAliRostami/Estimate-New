@@ -96,12 +96,14 @@
         <TextView
             android:id="@+id/text_view_start_date"
             style="@style/SearchTextView"
+            android:padding="@dimen/low_dp"
             android:background="@drawable/border_gray_3" />
 
         <Button
             android:id="@+id/button_search"
             style="@style/ButtonSubmit.Fragment"
             android:layout_margin="0dp"
+            android:layout_gravity="center"
             android:background="@drawable/border_green_2"
             android:text="@string/search"
             android:textSize="@dimen/text_size_medium" />

@@ -2,13 +2,13 @@ package com.leon.estimate_new.activities;
 
 import static com.leon.estimate_new.helpers.Constants.BASE_FRAGMENT;
 import static com.leon.estimate_new.helpers.Constants.PERSONAL_FRAGMENT;
+import static com.leon.estimate_new.helpers.Constants.SECOND_FRAGMENT;
 import static com.leon.estimate_new.helpers.Constants.SERVICES_FRAGMENT;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.gson.Gson;
@@ -18,6 +18,7 @@ import com.leon.estimate_new.databinding.ActivityFormBinding;
 import com.leon.estimate_new.enums.BundleEnum;
 import com.leon.estimate_new.fragments.forms.BaseInfoFragment;
 import com.leon.estimate_new.fragments.forms.PersonalFragment;
+import com.leon.estimate_new.fragments.forms.SecondFormFragment;
 import com.leon.estimate_new.fragments.forms.ServicesFragment;
 import com.leon.estimate_new.tables.Arzeshdaraei;
 import com.leon.estimate_new.tables.CalculationUserInput;
@@ -36,14 +37,13 @@ import java.util.Arrays;
 public class FormActivity extends AppCompatActivity implements PersonalFragment.Callback,
         ServicesFragment.Callback, BaseInfoFragment.Callback {
     private ActivityFormBinding binding;
-    private ExaminerDuties examinerDuties;
     private Arzeshdaraei arzeshdaraei;
+    private ExaminerDuties examinerDuty;
 
-    private final ArrayList<Integer> values = new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0, 0, 0, 0));
-
-    private final ArrayList<RequestDictionary> requestDictionaries = new ArrayList<>();
     private final CalculationUserInput calculationUserInput = new CalculationUserInput();
 
+    private final ArrayList<Integer> values = new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0, 0, 0, 0));
+    private final ArrayList<RequestDictionary> requestDictionaries = new ArrayList<>();
     private final ArrayList<NoeVagozariDictionary> noeVagozariDictionaries = new ArrayList<>();
     private final ArrayList<QotrEnsheabDictionary> qotrEnsheabDictionaries = new ArrayList<>();
     private final ArrayList<KarbariDictionary> karbariDictionaries = new ArrayList<>();
@@ -61,42 +61,42 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
     private void initialize() {
         if (getIntent().getExtras() != null) {
             final String json = getIntent().getExtras().getString(BundleEnum.EXAMINER_DUTY.getValue());
-            examinerDuties = new Gson().fromJson(json, ExaminerDuties.class);
+            examinerDuty = new Gson().fromJson(json, ExaminerDuties.class);
             requestDictionaries.addAll(Arrays.asList(new GsonBuilder().create()
-                    .fromJson(examinerDuties.requestDictionaryString, RequestDictionary[].class)));
+                    .fromJson(examinerDuty.requestDictionaryString, RequestDictionary[].class)));
         }
-        new GetDBData(this, examinerDuties.zoneId, examinerDuties.trackNumber, this).execute(this);
+        new GetDBData(this, examinerDuty.zoneId, examinerDuty.trackNumber, this).execute(this);
         displayView(PERSONAL_FRAGMENT);
     }
 
     private void displayView(int position) {
-        final Fragment fragment;
-        switch (position) {
-            case SERVICES_FRAGMENT:
-                fragment = ServicesFragment.newInstance();
-                break;
-            case BASE_FRAGMENT:
-                fragment = BaseInfoFragment.newInstance();
-                break;
-            case PERSONAL_FRAGMENT:
-            default:
-                fragment = PersonalFragment.newInstance();
-                break;
-        }
         final String tag = Integer.toString(position);
         if (getFragmentManager().findFragmentByTag(tag) != null && getFragmentManager().findFragmentByTag(tag).isVisible()) {
             return;
         }
-        final FragmentManager fragmentManager = getSupportFragmentManager();
-        final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.animator.enter, R.animator.exit,
                 R.animator.pop_enter, R.animator.pop_exit);
-        fragmentTransaction.replace(binding.containerBody.getId(), fragment, tag);
+        fragmentTransaction.replace(binding.containerBody.getId(), getFragment(position), tag);
         if (position != PERSONAL_FRAGMENT) {
             fragmentTransaction.addToBackStack(null);
         }
         fragmentTransaction.commitAllowingStateLoss();
         getFragmentManager().executePendingTransactions();
+    }
+
+    private Fragment getFragment(int position) {
+        switch (position) {
+            case SERVICES_FRAGMENT:
+                return ServicesFragment.newInstance();
+            case BASE_FRAGMENT:
+                return BaseInfoFragment.newInstance();
+            case SECOND_FRAGMENT:
+                return SecondFormFragment.newInstance();
+            case PERSONAL_FRAGMENT:
+            default:
+                return PersonalFragment.newInstance();
+        }
     }
 
     @Override
@@ -123,17 +123,18 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
 
     @Override
     public void setPersonalInfo(final CalculationUserInput calculationUserInputTemp) {
-        examinerDuties.preparePersonal(calculationUserInputTemp);
-        calculationUserInput.preparePersonal(calculationUserInputTemp, examinerDuties.zoneId);
+        examinerDuty.preparePersonal(calculationUserInputTemp);
+        calculationUserInputTemp.zoneId = Integer.parseInt(examinerDuty.zoneId);
+        calculationUserInput.preparePersonal(calculationUserInputTemp);
         displayView(SERVICES_FRAGMENT);
     }
 
     @Override
     public void setServices(CalculationUserInput calculationUserInputTemp) {
         calculationUserInput.selectedServicesObject = new ArrayList<>(calculationUserInputTemp.selectedServicesObject);
-        examinerDuties.requestDictionary = new ArrayList<>(calculationUserInputTemp.selectedServicesObject);
+        examinerDuty.requestDictionary = new ArrayList<>(calculationUserInputTemp.selectedServicesObject);
         calculationUserInput.selectedServicesString = new GsonBuilder().create().toJson(calculationUserInputTemp.selectedServicesObject);
-        examinerDuties.requestDictionaryString = new GsonBuilder().create().toJson(calculationUserInputTemp.selectedServicesObject);
+        examinerDuty.requestDictionaryString = new GsonBuilder().create().toJson(calculationUserInputTemp.selectedServicesObject);
         displayView(BASE_FRAGMENT);
     }
 
@@ -152,13 +153,16 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
     }
 
     @Override
-    public void setBaseInfo(CalculationUserInput calculationUserInput) {
+    public void setBaseInfo(ExaminerDuties examinerDuty) {
         //TODO
+        this.examinerDuty = examinerDuty;
+        this.calculationUserInput.updateCalculationUserInput(examinerDuty);
+        displayView(SECOND_FRAGMENT);
     }
 
     @Override
     public ExaminerDuties getExaminerDuty() {
-        return examinerDuties;
+        return examinerDuty;
     }
 
     @Override

@@ -33,6 +33,7 @@ public class Constants {
     public static final int PERSONAL_FRAGMENT = 0;
     public static final int SERVICES_FRAGMENT = 1;
     public static final int BASE_FRAGMENT = 2;
+    public static final int SECOND_FRAGMENT = 3;
 
     public static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10;
     public static final long MIN_TIME_BW_UPDATES = 10000;

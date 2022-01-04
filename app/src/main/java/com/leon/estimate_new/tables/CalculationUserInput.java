@@ -11,7 +11,6 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
 
 @Entity(tableName = "CalculationUserInput", indices = @Index(value = {"trackNumber"}, unique = true))
 
@@ -92,7 +91,7 @@ public class CalculationUserInput {
         return gson.fromJson(json, userListType);
     }
 
-    public void preparePersonal(CalculationUserInput calculationUserInput, String zoneId) {
+    public void preparePersonal(CalculationUserInput calculationUserInput) {
         nationalId = calculationUserInput.nationalId;
         firstName = calculationUserInput.firstName;
         sureName = calculationUserInput.sureName;
@@ -104,7 +103,7 @@ public class CalculationUserInput {
         address = calculationUserInput.address;
         description = calculationUserInput.description;
         shenasname = calculationUserInput.shenasname;
-        this.zoneId = Integer.parseInt(zoneId);
+        zoneId = calculationUserInput.zoneId;
     }
 
     public void fillCalculationUserInput(ExaminerDuties examinerDuties) {
@@ -142,5 +141,29 @@ public class CalculationUserInput {
         adamTaxfifAb = calculationUserInput.adamTaxfifAb;
         adamTaxfifFazelab = calculationUserInput.adamTaxfifFazelab;
         ensheabQeireDaem = calculationUserInput.ensheabQeireDaem;
+    }
+    public void updateCalculationUserInput(ExaminerDuties examinerDuty) {
+        sifoon100 = examinerDuty.sifoon100;
+        sifoon125 = examinerDuty.sifoon125;
+        sifoon150 = examinerDuty.sifoon150;
+        sifoon200 = examinerDuty.sifoon200;
+        arse = examinerDuty.arse;
+        aianKol = examinerDuty.aianKol;
+        aianMaskooni = examinerDuty.aianMaskooni;
+        aianTejari = examinerDuty.aianNonMaskooni;
+        tedadMaskooni = examinerDuty.tedadMaskooni;
+        tedadTejari = examinerDuty.tedadTejari;
+        tedadSaier = examinerDuty.tedadSaier;
+        arzeshMelk = examinerDuty.arzeshMelk;
+        tedadTaxfif = examinerDuty.tedadTaxfif;
+        zarfiatQarardadi = examinerDuty.zarfiatQarardadi;
+        parNumber = examinerDuty.parNumber;
+        karbariId = examinerDuty.karbariId;
+        noeVagozariId = examinerDuty.noeVagozariId;
+        qotrEnsheabId = examinerDuty.qotrEnsheabId;
+        taxfifId = examinerDuty.taxfifId;
+        ensheabQeireDaem = examinerDuty.isEnsheabQeirDaem;
+        adamTaxfifAb = examinerDuty.adamTaxfifAb;
+        adamTaxfifFazelab = examinerDuty.adamTaxfifFazelab;
     }
 }

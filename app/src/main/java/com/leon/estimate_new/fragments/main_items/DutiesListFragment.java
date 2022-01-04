@@ -122,8 +122,7 @@ public class DutiesListFragment extends Fragment implements SearchFragment.Callb
 
     @SuppressLint("NotifyDataSetChanged")
     @Override
-    public void filter(String... s/*String billId, String trackingNumber, String name, String family,
-//                       String nationId, String mobile, String date*/) {
+    public void filter(String... s) {
         examinerDutiesTemp.clear();
         examinerDutiesTemp.addAll(examinerDuties);
         if (s[0].length() > 0)
