@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/border_white_1"
     tools:context=".fragments.dialog.SearchFragment">
 
     <LinearLayout
@@ -12,24 +13,12 @@
         <TextView
             style="@style/SearchTextView"
             android:text="@string/bill_id" />
+
         <EditText
             android:id="@+id/edit_text_bill_id"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:background="@drawable/border_gray_3"
-            android:gravity="center"
+            style="@style/SearchEditText"
             android:inputType="number"
-            android:lines="1"
-            android:maxLines="1"
-            android:singleLine="true"
             tools:ignore="Autofill,LabelFor" />
-        <!--        <EditText-->
-        <!--            android:id="@+id/edit_text_bill_id"-->
-        <!--            style="@style/SearchEditText"-->
-        <!--            android:inputType="number"-->
-        <!--            tools:ignore="Autofill,LabelFor" />-->
 
         <TextView
             style="@style/SearchTextView"
@@ -111,13 +100,10 @@
 
         <Button
             android:id="@+id/button_search"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            style="@style/ButtonSubmit.Fragment"
+            android:layout_margin="0dp"
             android:background="@drawable/border_green_2"
             android:text="@string/search"
-            android:textColor="@color/text_color_light"
             android:textSize="@dimen/text_size_medium" />
-
     </LinearLayout>
 </RelativeLayout>

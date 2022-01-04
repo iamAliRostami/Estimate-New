@@ -10,15 +10,14 @@ import androidx.fragment.app.DialogFragment;
 
 import com.leon.estimate_new.databinding.FragmentSearchBinding;
 import com.leon.estimate_new.fragments.main_items.DutiesListFragment;
+import com.sardari.daterangepicker.customviews.DateRangeCalendarView;
+import com.sardari.daterangepicker.dialog.DatePickerDialog;
 
 import org.jetbrains.annotations.NotNull;
 
 public class SearchFragment extends DialogFragment {
     private FragmentSearchBinding binding;
-    private DutiesListFragment dutiesListFragment;
-
-    public SearchFragment() {
-    }
+    private final Callback dutiesListFragment;
 
     public SearchFragment(DutiesListFragment dutiesListFragment) {
         this.dutiesListFragment = dutiesListFragment;
@@ -31,21 +30,52 @@ public class SearchFragment extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentSearchBinding.inflate(inflater,container,false);
+        binding = FragmentSearchBinding.inflate(inflater, container, false);
         initialize();
         return binding.getRoot();
     }
 
     private void initialize() {
+        setOnButtonSearchClickListener();
+        setOnTextViewStartDateClickListener();
+    }
+
+    private void setOnButtonSearchClickListener() {
+        binding.buttonSearch.setOnClickListener(v -> {
+            dutiesListFragment.filter(binding.editTextBillId.getText().toString(),
+                    binding.editTextTrackNumber.getText().toString(),
+                    binding.editTextName.getText().toString(),
+                    binding.editTextFamily.getText().toString(),
+                    binding.editTextNationNumber.getText().toString(),
+                    binding.editTextMobile.getText().toString(),
+                    binding.textViewStartDate.getText().toString());
+            dismiss();
+        });
+    }
+
+    private void setOnTextViewStartDateClickListener() {
+        binding.textViewStartDate.setOnClickListener(v -> {
+            DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity());
+            datePickerDialog.setSelectionMode(DateRangeCalendarView.SelectionMode.Single);
+            datePickerDialog.setDisableDaysAgo(false);
+            datePickerDialog.setTextSizeTitle(10.0f);
+            datePickerDialog.setTextSizeWeek(12.0f);
+            datePickerDialog.setTextSizeDate(14.0f);
+            datePickerDialog.setCanceledOnTouchOutside(true);
+            datePickerDialog.setOnSingleDateSelectedListener(date ->
+                    binding.textViewStartDate.setText(date.getPersianShortDate()));
+            datePickerDialog.showDialog();
+        });
+    }
+
+    public interface Callback {
+        void filter(String... s /*String billId, String trackingNumber, String name, String family,
+                    String nationId, String mobile, String date*/);
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.leon.estimate_new.activities;
 
-import static com.leon.estimate_new.fragments.dialog.ShowFragmentDialog.ShowFragmentDialogOnce;
 import static com.leon.estimate_new.helpers.MyApplication.getPreferenceManager;
 
 import android.content.Context;
@@ -20,7 +19,6 @@ import com.leon.estimate_new.R;
 import com.leon.estimate_new.adapters.CustomAdapterList;
 import com.leon.estimate_new.databinding.ActivityListBinding;
 import com.leon.estimate_new.enums.SharedReferenceKeys;
-import com.leon.estimate_new.fragments.dialog.SearchFragment;
 import com.leon.estimate_new.tables.ExaminerDuties;
 import com.leon.estimate_new.utils.list.PrepareListData;
 

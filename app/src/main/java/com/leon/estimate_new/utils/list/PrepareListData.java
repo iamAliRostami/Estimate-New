@@ -29,7 +29,7 @@ public class PrepareListData extends BaseAsync {
 
     @Override
     public void backgroundTask(Activity activity) {
-        ((DutiesListFragment) object).initializeRecyclerView((ArrayList<ExaminerDuties>)
+        ((DutiesListFragment) object).initializeData((ArrayList<ExaminerDuties>)
                 getApplicationComponent().MyDatabase().examinerDutiesDao().ExaminerDuties());
     }
 }
