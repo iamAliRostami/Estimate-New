@@ -1,14 +1,609 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.forms.SecondFormFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@id/text_view_title"
+        style="@style/Title"
+        android:layout_centerHorizontal="true"
+        android:text="@string/second_form" />
 
-</FrameLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/relative_layout"
+        android:layout_below="@id/text_view_title"
+        android:background="@drawable/border_white_1">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@id/relative_layout_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/medium_dp"
+                android:background="@drawable/border_gray_1"
+                android:padding="@dimen/low_dp">
+
+                <TextView
+                    android:id="@+id/text_view_title_1"
+                    style="@style/BaseTitleForm"
+                    android:layout_margin="@dimen/low_dp"
+                    android:text="@string/distance_water_network" />
+
+                <LinearLayout
+                    android:id="@+id/linear_layout_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/text_view_title_1">
+
+                    <TextView
+                        style="@style/TitleSmall"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/khaki" />
+
+                    <EditText
+                        android:id="@+id/edit_text_khaki"
+                        style="@style/EditTextForm"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:inputType="numberSigned"
+                        android:text="@string/zero"
+                        tools:ignore="Autofill,LabelFor" />
+
+                    <TextView
+                        style="@style/TitleSmall"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/asphalt" />
+
+                    <EditText
+                        android:id="@+id/edit_text_asphalt"
+                        style="@style/EditTextForm"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:inputType="numberSigned"
+                        android:text="@string/zero"
+                        tools:ignore="Autofill,LabelFor" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linear_layout_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/linear_layout_1">
+
+                    <TextView
+                        style="@style/TitleSmall"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/sang" />
+
+                    <EditText
+                        android:id="@+id/edit_text_sange"
+                        style="@style/EditTextForm"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:inputType="numberSigned"
+                        android:text="@string/zero"
+                        tools:ignore="Autofill,LabelFor" />
+
+                    <TextView
+                        style="@style/TitleSmall"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/other" />
+
+                    <EditText
+                        android:id="@+id/edit_text_other"
+                        style="@style/EditTextForm"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:inputType="numberSigned"
+                        android:text="@string/zero"
+                        tools:ignore="Autofill,LabelFor" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linear_layout_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/linear_layout_2">
+
+                    <TextView
+                        style="@style/TitleSmall"
+                        android:layout_width="0dp"
+                        android:layout_weight="1.5"
+                        android:text="@string/ezhar_ab" />
+
+                    <CheckBox
+                        android:id="@+id/check_box_vahed_ab"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5" />
+
+                    <TextView
+                        style="@style/TitleSmall"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/omq_shabake_fazelab" />
+
+                    <EditText
+                        android:id="@+id/edit_text_fazelab"
+                        style="@style/EditTextForm"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:inputType="numberSigned"
+                        android:text="@string/zero"
+                        tools:ignore="Autofill,LabelFor" />
+
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@id/relative_layout_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/relative_layout_1"
+                android:layout_margin="@dimen/medium_dp"
+                android:background="@drawable/border_gray_1"
+                android:padding="@dimen/medium_dp">
+
+                <TextView
+                    android:id="@+id/text_view_title_2"
+                    style="@style/BaseTitleForm"
+                    android:layout_margin="@dimen/low_dp"
+                    android:text="@string/distance_fazelab_network" />
+
+                <LinearLayout
+                    android:id="@+id/linear_layout_221"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/text_view_title_2">
+
+                    <TextView
+                        style="@style/TitleSmall"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/khaki" />
+
+                    <EditText
+                        android:id="@+id/edit_text_khaki_fazelab"
+                        style="@style/EditTextForm"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:inputType="numberSigned"
+                        android:text="@string/zero"
+                        tools:ignore="Autofill,LabelFor" />
+
+                    <TextView
+                        style="@style/TitleSmall"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/asphalt" />
+
+                    <EditText
+                        android:id="@+id/edit_text_asphalt_fazelab"
+                        style="@style/EditTextForm"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:inputType="numberSigned"
+                        android:text="@string/zero"
+                        tools:ignore="Autofill,LabelFor" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linear_layout_222"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/linear_layout_221">
+
+                    <TextView
+                        style="@style/TitleSmall"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/sang" />
+
+                    <EditText
+                        android:id="@+id/edit_text_sang_fazelab"
+                        style="@style/EditTextForm"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:inputType="numberSigned"
+                        android:text="@string/zero"
+                        tools:ignore="Autofill,LabelFor" />
+
+                    <TextView
+                        style="@style/TitleSmall"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/other" />
+
+                    <EditText
+                        android:id="@+id/edit_text_other_fazelab"
+                        style="@style/EditTextForm"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:inputType="numberSigned"
+                        android:text="@string/zero"
+                        tools:ignore="Autofill,LabelFor" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linear_layout_223"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/linear_layout_222">
+
+                    <TextView
+                        style="@style/TitleSmall"
+                        android:text="@string/ezhar_fazelab" />
+
+                    <CheckBox
+                        android:id="@+id/check_box_vahed_fazelab"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center" />
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@id/relative_layout_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/relative_layout_2"
+                android:layout_margin="@dimen/medium_dp"
+                android:background="@drawable/border_gray_1"
+                android:padding="@dimen/medium_dp">
+
+                <TextView
+                    android:id="@+id/text_view_title_3"
+                    style="@style/BaseTitleForm"
+                    android:layout_margin="@dimen/low_dp"
+                    android:text="@string/loole" />
+
+                <LinearLayout
+                    android:id="@+id/linear_layout_41"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/text_view_title_3">
+
+                    <TextView
+                        style="@style/TitleSmall"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/qotr_loole" />
+
+                    <Spinner
+                        android:id="@+id/spinner_loole"
+                        style="@style/Spinner"
+                        android:layout_width="0dp"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        style="@style/TitleSmall"
+                        android:layout_width="wrap_content"
+                        android:text="@string/jens_loole" />
+
+                    <Spinner
+                        android:id="@+id/spinner_loole_jens"
+                        style="@style/Spinner"
+                        android:layout_width="0dp"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linear_layout_42"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/linear_layout_41">
+
+                    <TextView
+                        style="@style/TitleSmall"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/loole_ab" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxLooleAb"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5" />
+
+                    <TextView
+                        style="@style/TitleSmall"
+                        android:layout_width="0dp"
+                        android:layout_weight="1.5"
+                        android:text="@string/loole_fazelab" />
+
+                    <CheckBox
+                        android:id="@+id/check_box_loole_fazelab"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relative_layout_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/relative_layout_3"
+                android:layout_margin="@dimen/medium_dp"
+                android:background="@drawable/border_gray_1"
+                android:padding="@dimen/medium_dp">
+
+                <TextView
+                    android:id="@+id/text_view_title_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/low_dp"
+                    android:text="@string/noe_masraf" />
+
+                <RadioGroup
+                    android:id="@+id/radio_group_masraf"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/text_view_title_4"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/radioButtonNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/low_dp"
+                        android:paddingRight="@dimen/low_dp"
+                        android:text="@string/normal" />
+
+                    <RadioButton
+                        android:id="@+id/radioButtonSakht"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/low_dp"
+                        android:paddingRight="@dimen/low_dp"
+                        android:text="@string/sakht" />
+
+                    <RadioButton
+                        android:id="@+id/radioButtonService"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/low_dp"
+                        android:paddingRight="@dimen/low_dp"
+                        android:text="@string/services" />
+
+                    <RadioButton
+                        android:id="@+id/radioButtonMedical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/low_dp"
+                        android:paddingRight="@dimen/low_dp"
+                        android:text="@string/shorb_o_behdasht" />
+                </RadioGroup>
+
+                <EditText
+                    android:id="@+id/editTextNoeMasrafDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/medium_dp"
+                    android:background="@drawable/border_white_1"
+                    android:gravity="top|right"
+                    android:hint="@string/description"
+                    android:inputType="textMultiLine"
+                    android:lines="4"
+                    android:padding="@dimen/medium_dp"
+                    tools:ignore="Autofill,RtlHardcoded" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relative_layout_5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/relative_layout_4"
+                android:layout_margin="@dimen/medium_dp"
+                android:background="@drawable/border_gray_1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/low_dp"
+                    android:text="@string/eshterak" />
+
+                <EditText
+                    android:id="@+id/editTextEshterak"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_white_1"
+                    android:gravity="center"
+                    android:inputType="numberSigned"
+                    android:maxLength="12"
+                    android:paddingTop="@dimen/medium_dp"
+                    android:paddingBottom="@dimen/medium_dp"
+                    tools:ignore="Autofill,LabelFor" />
+            </RelativeLayout>
+
+            <RelativeLayout
+
+                android:id="@+id/relative_layout_6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/relative_layout_5"
+                android:layout_margin="@dimen/medium_dp"
+                android:background="@drawable/border_gray_1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/low_dp"
+                    android:text="@string/vaziat_nasb_pomp" />
+
+                <RadioGroup
+                    android:id="@+id/radioGroupVaziatPomp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:checkedButton="@id/radioButtonNormalPomp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/radioButtonNormalPomp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingLeft="@dimen/low_dp"
+                        android:paddingRight="@dimen/low_dp"
+                        android:text="@string/monaseb" />
+
+                    <RadioButton
+                        android:id="@+id/radioButtonANormalPomp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingLeft="@dimen/low_dp"
+                        android:paddingRight="@dimen/low_dp"
+                        android:text="@string/namonaseb" />
+
+                    <RadioButton
+                        android:id="@+id/radioButtonDontHave"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingLeft="@dimen/low_dp"
+                        android:paddingRight="@dimen/low_dp"
+                        android:text="@string/have_n" />
+                </RadioGroup>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relative_layout_7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/relative_layout_6"
+                android:layout_margin="@dimen/medium_dp"
+                android:background="@drawable/border_gray_1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/low_dp"
+                    android:text="@string/omq_zirzamin"
+                    tools:ignore="TooManyViews" />
+
+                <EditText
+                    android:id="@+id/editTextOmqZirzamin"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_white_1"
+                    android:gravity="center"
+                    android:inputType="numberSigned"
+                    android:paddingTop="@dimen/medium_dp"
+                    android:paddingBottom="@dimen/medium_dp"
+                    android:text="@string/zero"
+                    tools:ignore="Autofill,LabelFor" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|center_vertical"
+                    android:layout_margin="@dimen/low_dp"
+                    android:gravity="left|center_vertical"
+                    android:text="@string/etesal_shabake_zirzamin"
+                    tools:ignore="RtlHardcoded" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxEtesalZirzamin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:padding="@dimen/medium_dp"
+                    android:text="@string/have" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relative_layout_8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/relative_layout_7"
+                android:layout_margin="@dimen/medium_dp"
+                android:background="@drawable/border_gray_1"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/medium_dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/low_dp"
+                        android:text="@string/chah_ab_baran"
+                        tools:ignore="RtlHardcoded" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxChahAbBaran"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:padding="@dimen/medium_dp"
+                        android:text="@string/have" />
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/editTextDescriptionChahAbBaran"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/medium_dp"
+                    android:background="@drawable/border_white_1"
+                    android:gravity="top|right"
+                    android:hint="@string/description"
+                    android:inputType="textMultiLine"
+                    android:lines="4"
+                    android:padding="@dimen/medium_dp"
+                    tools:ignore="Autofill,RtlHardcoded" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/relative_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/medium_dp"
+        android:layout_marginBottom="@dimen/medium_dp">
+
+        <Button
+            android:id="@+id/button_pre"
+            style="@style/Button.Negative"
+            android:text="@string/previous" />
+
+        <Button
+            android:id="@+id/button_submit"
+            style="@style/Button.Positive"
+            android:layout_alignParentEnd="true"
+            android:text="@string/next" />
+    </RelativeLayout>
+</RelativeLayout>

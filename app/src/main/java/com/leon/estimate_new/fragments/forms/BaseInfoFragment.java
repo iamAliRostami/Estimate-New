@@ -181,7 +181,7 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
         examinerDuty.parvane = binding.checkbox4.isChecked();
         examinerDuty.sanad = binding.checkbox5.isChecked();
         examinerDuty.pelak = Integer.parseInt(binding.editTextPelak.getText().toString());
-        //TODO
+//TODO
 //        karbari = karbariDictionaries.get(binding.spinner1.getSelectedItemPosition()).getTitle();
 //        noeVagozari =
 //                noeVagozariDictionaries.get(binding.spinner2.getSelectedItemPosition()).getTitle();
