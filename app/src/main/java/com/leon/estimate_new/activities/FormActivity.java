@@ -1,6 +1,7 @@
 package com.leon.estimate_new.activities;
 
 import static com.leon.estimate_new.helpers.Constants.BASE_FRAGMENT;
+import static com.leon.estimate_new.helpers.Constants.MAP_DESCRIPTION_FRAGMENT;
 import static com.leon.estimate_new.helpers.Constants.PERSONAL_FRAGMENT;
 import static com.leon.estimate_new.helpers.Constants.SECOND_FRAGMENT;
 import static com.leon.estimate_new.helpers.Constants.SERVICES_FRAGMENT;
@@ -17,6 +18,7 @@ import com.leon.estimate_new.R;
 import com.leon.estimate_new.databinding.ActivityFormBinding;
 import com.leon.estimate_new.enums.BundleEnum;
 import com.leon.estimate_new.fragments.forms.BaseInfoFragment;
+import com.leon.estimate_new.fragments.forms.MapDescriptionFragment;
 import com.leon.estimate_new.fragments.forms.PersonalFragment;
 import com.leon.estimate_new.fragments.forms.SecondFormFragment;
 import com.leon.estimate_new.fragments.forms.ServicesFragment;
@@ -35,7 +37,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class FormActivity extends AppCompatActivity implements PersonalFragment.Callback,
-        ServicesFragment.Callback, BaseInfoFragment.Callback {
+        ServicesFragment.Callback, BaseInfoFragment.Callback, SecondFormFragment.Callback,
+        MapDescriptionFragment.Callback {
     private ActivityFormBinding binding;
     private Arzeshdaraei arzeshdaraei;
     private ExaminerDuties examinerDuty;
@@ -93,6 +96,8 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
                 return BaseInfoFragment.newInstance();
             case SECOND_FRAGMENT:
                 return SecondFormFragment.newInstance();
+            case MAP_DESCRIPTION_FRAGMENT:
+                return MapDescriptionFragment.newInstance();
             case PERSONAL_FRAGMENT:
             default:
                 return PersonalFragment.newInstance();
@@ -119,6 +124,14 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
         // Set logo
         getSupportActionBar().setDisplayShowHomeEnabled(false);
         getSupportActionBar().setIcon(R.mipmap.ic_launcher);
+    }
+
+    @Override
+    public void setSecondForm(ExaminerDuties examinerDuty) {
+        this.examinerDuty = examinerDuty;
+
+        displayView(MAP_DESCRIPTION_FRAGMENT);
+
     }
 
     @Override

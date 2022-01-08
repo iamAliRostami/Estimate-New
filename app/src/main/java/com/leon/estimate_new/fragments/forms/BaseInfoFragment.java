@@ -188,64 +188,8 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
 //        qotrEnsheab =
 //                qotrEnsheabDictionaries.get(binding.spinner3.getSelectedItemPosition()).getTitle();
 
-//        final CalculationUserInput calculationUserInput = new CalculationUserInput();
-//        return calculationUserInput;
         return examinerDuty;
     }
-
-//    private CalculationUserInput prepareOutput() {
-//        final CalculationUserInput calculationUserInput = new CalculationUserInput();
-//        calculationUserInput.sifoon100 =
-//                Integer.parseInt(binding.editTextSifoon100.getText().toString());
-//        calculationUserInput.sifoon125 =
-//                Integer.parseInt(binding.editTextSifoon125.getText().toString());
-//        calculationUserInput.sifoon150 =
-//                Integer.parseInt(binding.editTextSifoon150.getText().toString());
-//        calculationUserInput.sifoon200 =
-//                Integer.parseInt(binding.editTextSifoon200.getText().toString());
-//        calculationUserInput.arse = Integer.parseInt(binding.editTextArse.getText().toString());
-//        calculationUserInput.aianMaskooni =
-//                Integer.parseInt(binding.editTextAianMaskooni.getText().toString());
-//        calculationUserInput.aianTejari =
-//                Integer.parseInt(binding.editTextAianNonMaskooni.getText().toString());
-//        calculationUserInput.aianKol = Integer.parseInt(binding.editTextAianKol.getText().toString());
-//        calculationUserInput.tedadMaskooni =
-//                Integer.parseInt(binding.editTextTedadMaskooni.getText().toString());
-//        calculationUserInput.tedadTejari =
-//                Integer.parseInt(binding.editTextTedadTejari.getText().toString());
-//        calculationUserInput.tedadSaier =
-//                Integer.parseInt(binding.editTextTedadSaier.getText().toString());
-//        calculationUserInput.tedadTaxfif =
-//                Integer.parseInt(binding.editTextTedadTakhfif.getText().toString());
-//        calculationUserInput.zarfiatQarardadi =
-//                Integer.parseInt(binding.editTextZarfiatQaradadi.getText().toString());
-//        calculationUserInput.arzeshMelk =
-//                Integer.parseInt(binding.textViewArzeshMelk.getText().toString());
-//        calculationUserInput.parNumber = binding.editTextPariNumber.getText().toString();
-//        calculationUserInput.karbariId =
-//                formActivity.getKarbariDictionary().get(binding.spinner1.getSelectedItemPosition()).id;
-//        calculationUserInput.noeVagozariId =
-//                formActivity.getNoeVagozariDictionaries().get(binding.spinner2.getSelectedItemPosition()).id;
-//        calculationUserInput.qotrEnsheabId =
-//                formActivity.getQotrEnsheabDictionary().get(binding.spinner3.getSelectedItemPosition()).id;
-//        calculationUserInput.taxfifId =
-//                formActivity.getTaxfifDictionary().get(binding.spinner4.getSelectedItemPosition()).id;
-//        calculationUserInput.ensheabQeireDaem = binding.checkbox1.isChecked();
-//
-//        examinerDuties.motaqazi = binding.checkbox2.isChecked();
-//        examinerDuties.estelamShahrdari = binding.checkbox3.isChecked();
-//        examinerDuties.parvane = binding.checkbox4.isChecked();
-//        examinerDuties.sanad = binding.checkbox5.isChecked();
-//        examinerDuties.pelak = Integer.parseInt(binding.editTextPelak.getText().toString());
-//        //TODO
-////        karbari = karbariDictionaries.get(binding.spinner1.getSelectedItemPosition()).getTitle();
-////        noeVagozari =
-////                noeVagozariDictionaries.get(binding.spinner2.getSelectedItemPosition()).getTitle();
-////        qotrEnsheab =
-////                qotrEnsheabDictionaries.get(binding.spinner3.getSelectedItemPosition()).getTitle();
-//
-//        return calculationUserInput;
-//    }
 
     private void setOnEditTextSodurDateClickListener() {
         binding.editTextSodurDate.setOnClickListener(v -> {
