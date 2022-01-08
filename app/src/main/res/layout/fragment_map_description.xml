@@ -72,13 +72,16 @@
             android:id="@+id/map_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/low_dp"
             android:layout_below="@id/linearLayoutAttribute"
-            android:layout_margin="@dimen/low_dp"
-            android:background="@drawable/border_gray_3" />
+            android:layout_marginStart="@dimen/low_dp"
+            android:layout_marginTop="@dimen/low_dp"
+            android:layout_marginEnd="@dimen/low_dp"
+            android:layout_marginBottom="@dimen/low_dp"
+            android:background="@drawable/border_gray_3"
+            android:padding="@dimen/low_dp" />
 
         <ImageView
-            android:id="@+id/image_view_refresh_1"
+            android:id="@+id/image_view_refresh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/linearLayoutAttribute"

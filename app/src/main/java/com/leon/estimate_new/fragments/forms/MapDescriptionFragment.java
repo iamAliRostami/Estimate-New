@@ -33,8 +33,7 @@ public class MapDescriptionFragment extends Fragment {
     }
 
     public static MapDescriptionFragment newInstance() {
-        MapDescriptionFragment fragment = new MapDescriptionFragment();
-        return fragment;
+        return new MapDescriptionFragment();
     }
 
     @Override
