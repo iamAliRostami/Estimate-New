@@ -39,6 +39,6 @@
             android:id="@+id/button_submit"
             style="@style/Button.Positive"
             android:layout_alignParentEnd="true"
-            android:text="@string/next" />
+            android:text="@string/moshakhasat_melk" />
     </RelativeLayout>
 </RelativeLayout>

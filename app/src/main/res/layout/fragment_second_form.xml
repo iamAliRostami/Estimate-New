@@ -411,10 +411,10 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/relative_layout_4"
                 android:layout_margin="@dimen/medium_dp"
-                android:weightSum="2"
-                android:gravity="center"
                 android:background="@drawable/border_gray_1"
-                android:padding="@dimen/medium_dp">
+                android:gravity="center"
+                android:padding="@dimen/medium_dp"
+                android:weightSum="2">
 
                 <TextView
                     style="@style/TitleSmall"
@@ -578,6 +578,6 @@
             android:id="@+id/button_submit"
             style="@style/Button.Positive"
             android:layout_alignParentEnd="true"
-            android:text="@string/next" />
+            android:text="@string/location" />
     </RelativeLayout>
 </RelativeLayout>

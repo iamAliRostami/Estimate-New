@@ -1,6 +1,7 @@
 package com.leon.estimate_new.activities;
 
 import static com.leon.estimate_new.helpers.Constants.BASE_FRAGMENT;
+import static com.leon.estimate_new.helpers.Constants.EDIT_MAP_FRAGMENT;
 import static com.leon.estimate_new.helpers.Constants.MAP_DESCRIPTION_FRAGMENT;
 import static com.leon.estimate_new.helpers.Constants.PERSONAL_FRAGMENT;
 import static com.leon.estimate_new.helpers.Constants.SECOND_FRAGMENT;
@@ -22,6 +23,7 @@ import com.leon.estimate_new.fragments.forms.MapDescriptionFragment;
 import com.leon.estimate_new.fragments.forms.PersonalFragment;
 import com.leon.estimate_new.fragments.forms.SecondFormFragment;
 import com.leon.estimate_new.fragments.forms.ServicesFragment;
+import com.leon.estimate_new.fragments.main_items.EditMapFragment;
 import com.leon.estimate_new.tables.Arzeshdaraei;
 import com.leon.estimate_new.tables.CalculationUserInput;
 import com.leon.estimate_new.tables.ExaminerDuties;
@@ -98,6 +100,8 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
                 return SecondFormFragment.newInstance();
             case MAP_DESCRIPTION_FRAGMENT:
                 return MapDescriptionFragment.newInstance();
+            case EDIT_MAP_FRAGMENT:
+                return EditMapFragment.newInstance();
             case PERSONAL_FRAGMENT:
             default:
                 return PersonalFragment.newInstance();
@@ -176,6 +180,11 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
     @Override
     public ExaminerDuties getExaminerDuty() {
         return examinerDuty;
+    }
+
+    @Override
+    public void setMapDescription() {
+        displayView(EDIT_MAP_FRAGMENT);
     }
 
     @Override

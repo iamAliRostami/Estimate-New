@@ -530,6 +530,6 @@
             android:id="@+id/button_submit"
             style="@style/Button.Positive"
             android:layout_alignParentEnd="true"
-            android:text="@string/next" />
+            android:text="@string/second_info" />
     </RelativeLayout>
 </RelativeLayout>
