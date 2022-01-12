@@ -7,20 +7,19 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.esri.arcgisruntime.geometry.GeodeticCurveType;
-import com.esri.arcgisruntime.geometry.Geometry;
 import com.esri.arcgisruntime.geometry.GeometryEngine;
 import com.esri.arcgisruntime.geometry.LinearUnit;
 import com.esri.arcgisruntime.geometry.LinearUnitId;
@@ -30,24 +29,24 @@ import com.esri.arcgisruntime.geometry.Polyline;
 import com.esri.arcgisruntime.geometry.SpatialReferences;
 import com.esri.arcgisruntime.mapping.ArcGISMap;
 import com.esri.arcgisruntime.mapping.Viewpoint;
-import com.esri.arcgisruntime.mapping.view.Callout;
 import com.esri.arcgisruntime.mapping.view.DefaultMapViewOnTouchListener;
 import com.esri.arcgisruntime.mapping.view.Graphic;
 import com.esri.arcgisruntime.mapping.view.GraphicsOverlay;
+import com.esri.arcgisruntime.symbology.PictureMarkerSymbol;
 import com.esri.arcgisruntime.symbology.SimpleLineSymbol;
-import com.esri.arcgisruntime.symbology.SimpleMarkerSymbol;
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.databinding.FragmentMapDescriptionBinding;
+import com.leon.estimate_new.tables.CalculationUserInput;
 import com.leon.estimate_new.tables.ExaminerDuties;
 import com.leon.estimate_new.utils.gis.OsmMapLayer;
 
-import java.util.Arrays;
-
 public class MapDescriptionFragment extends Fragment {
-    private FragmentMapDescriptionBinding binding;
+    private final PointCollection points = new PointCollection(SpatialReferences.getWgs84());
+    private final GraphicsOverlay graphicsOverlay = new GraphicsOverlay();
+    private final Graphic path = new Graphic();
     private Callback formActivity;
-    private int pointIndex;
-
+    private int pointWater = -1, pointSiphon = -1;
+    private FragmentMapDescriptionBinding binding;
 
     public MapDescriptionFragment() {
     }
@@ -71,24 +70,37 @@ public class MapDescriptionFragment extends Fragment {
     }
 
     private void initialize() {
-        setOnClickListener();
         initializeMap();
+        setOnClickListener();
+        binding.editTextDescription.setText(formActivity.getExaminerDuty().mapDescription);
     }
 
     private void setOnClickListener() {
+        binding.imageViewRefresh.setOnClickListener(v -> {
+            clearMap();
+            initializeMap();
+        });
         binding.buttonPre.setOnClickListener(v -> formActivity.setOnPreClickListener(SECOND_FRAGMENT));
         binding.buttonEditCrooki.setOnClickListener(v -> {
-            formActivity.setMapDescription();
+            clearMap();
+            formActivity.setMapDescription(binding.editTextDescription.getText().toString());
         });
     }
 
+    private void clearMap() {
+        points.clear();
+        addPolygon(new Point(0, 0));
+        points.clear();
+        binding.mapView.getGraphicsOverlays().clear();
+        pointWater = pointSiphon = -1;
+    }
+
     private void initializeMap() {
-        final ArcGISMap map = new ArcGISMap();
 //        final ArcGISMap map = new ArcGISMap(BasemapStyle.ARCGIS_IMAGERY);
-        binding.mapView.setMap(map);
 //        binding.mapView.getMap().getBasemap().getBaseLayers().add(new OpenStreetMapLayer());
-        binding.mapView.getMap().getBasemap().getBaseLayers().add(new OsmMapLayer().createLayer());
 //        binding.mapView.getMap().getBasemap().getBaseLayers().add(new GoogleMapLayer().createLayer(MapType.VECTOR));
+        binding.mapView.setMap(new ArcGISMap());
+        binding.mapView.getMap().getBasemap().getBaseLayers().add(new OsmMapLayer().createLayer());
 
         binding.mapView.setMagnifierEnabled(true);
         binding.mapView.setCanMagnifierPanMap(true);
@@ -98,83 +110,92 @@ public class MapDescriptionFragment extends Fragment {
                 binding.progressBar.setVisibility(View.VISIBLE);
             binding.mapView.setViewpoint(new Viewpoint(getLocationTracker(requireActivity()).getLatitude()
                     , getLocationTracker(requireActivity()).getLongitude(), 3600));
-            Log.e("long 1", String.valueOf(getLocationTracker(requireActivity()).getLongitude()));
             requireActivity().runOnUiThread(() -> binding.progressBar.setVisibility(View.GONE));
         });
+        initializeOverlays();
         onMapClickListener();
+    }
+
+    private void initializeOverlays() {
+        try {
+            binding.mapView.getGraphicsOverlays().add(graphicsOverlay);
+            path.setSymbol(new SimpleLineSymbol(SimpleLineSymbol.Style.DASH_DOT, Color.YELLOW, 5));
+            graphicsOverlay.getGraphics().add(path);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (formActivity.getCalculationUserInput().x3 != 0)
+            addPoint(new Point(formActivity.getCalculationUserInput().x3,
+                    formActivity.getCalculationUserInput().y3, SpatialReferences.getWgs84()));
     }
 
     @SuppressLint("ClickableViewAccessibility")
     private void onMapClickListener() {
         binding.mapView.setOnTouchListener(new DefaultMapViewOnTouchListener(requireContext(), binding.mapView) {
             @Override
-            public boolean onSingleTapConfirmed(MotionEvent event) {
-                android.graphics.Point point = new android.graphics.Point((int) event.getX(), (int) event.getY());
-                final Point mapPoint = mMapView.screenToLocation(point);
-                addPolygon(mapPoint);
-                return super.onSingleTapConfirmed(event);
+            public void onLongPress(MotionEvent event) {
+                if (pointSiphon > 0) {
+                    binding.mapView.getGraphicsOverlays().remove(pointWater);
+                    binding.mapView.getGraphicsOverlays().remove(pointSiphon);
+                    pointWater = pointSiphon = -1;
+                }
+                addPoint(mMapView.screenToLocation(new android.graphics.Point((int) event.getX(),
+                        (int) event.getY())));
+                super.onLongPress(event);
             }
 
             @Override
-            public void onLongPress(MotionEvent event) {
-                if (pointIndex % 2 == 0)
-                    binding.mapView.getGraphicsOverlays().clear();
-                addPoint(mMapView.screenToLocation(new android.graphics.Point((int) event.getX(),
-                        (int) event.getY())));
-                pointIndex++;
-                super.onLongPress(event);
+            public boolean onSingleTapConfirmed(MotionEvent event) {
+                android.graphics.Point clickLocation = new android.graphics.Point(Math.round(event.getX()),
+                        Math.round(event.getY()));
+                addPolygon(mMapView.screenToLocation(clickLocation));
+
+                // calculate the path distance
+//                double distance = GeometryEngine.lengthGeodetic(pathGeometry, mUnitOfMeasurement, GeodeticCurveType.GEODESIC);
+
+//                // create a textview for the callout
+//                TextView calloutContent = new TextView(requireContext());
+//                calloutContent.setTextColor(Color.BLACK);
+//                calloutContent.setSingleLine();
+//                // format coordinates to 2 decimal places
+//                calloutContent.setText("Distance: " + String.format("%.2f", distance) + mUnits);
+//                final Callout callout = mMapView.getCallout();
+//                callout.setLocation(mapPoint);
+//                callout.setContent(calloutContent);
+//                callout.show();
+
+                return super.onSingleTapConfirmed(event);
             }
         });
     }
 
+    @SuppressLint({"SetTextI18n", "DefaultLocale"})
+    private void addPolygon(Point mapPoint) {
+        final Point destination = (Point) GeometryEngine.project(mapPoint, SpatialReferences.getWgs84());
+        points.add(destination);
+        final Polyline polyline = new Polyline(points);
+        path.setGeometry(GeometryEngine.densifyGeodetic(polyline, 1,
+                new LinearUnit(LinearUnitId.KILOMETERS), GeodeticCurveType.GEODESIC));
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
     private void addPoint(Point graphicPoint) {
         final GraphicsOverlay graphicsOverlay = new GraphicsOverlay();
         binding.mapView.getGraphicsOverlays().add(graphicsOverlay);
-        final SimpleMarkerSymbol symbol = new SimpleMarkerSymbol(SimpleMarkerSymbol.Style.CIRCLE,
-                pointIndex % 2 == 0 ? Color.RED : Color.BLUE, 12);
-        final Graphic graphic = new Graphic(graphicPoint, symbol);
+//        final SimpleMarkerSymbol symbol = new SimpleMarkerSymbol(SimpleMarkerSymbol.Style.CIRCLE,
+//                pointWater < 0 ? Color.BLUE : Color.RED, 12);
+        final BitmapDrawable drawable = (BitmapDrawable) ContextCompat.getDrawable(requireContext(),
+                pointWater < 0 ? R.drawable.map_water_drop_point : R.drawable.map_siphon_drop_point);
+        PictureMarkerSymbol pictureMarkerSymbol = new PictureMarkerSymbol(drawable);
+        final Graphic graphic = new Graphic(graphicPoint, pictureMarkerSymbol);
         graphicsOverlay.getGraphics().add(graphic);
+        if (pointWater == -1) {
+            pointWater = binding.mapView.getGraphicsOverlays().size() - 1;
+            formActivity.setWaterLocation(((Point) GeometryEngine.project(graphicPoint, SpatialReferences.getWgs84())));
+        } else pointSiphon = binding.mapView.getGraphicsOverlays().size() - 2;
     }
 
-    @SuppressLint({"SetTextI18n", "DefaultLocale"})
-    private void addPolygon(Point mapPoint) {
-        final GraphicsOverlay graphicsOverlay = new GraphicsOverlay();
-        final Graphic path = new Graphic(mapPoint);
-        path.setSymbol(new SimpleLineSymbol(SimpleLineSymbol.Style.DASH, Color.YELLOW, 500));
-        graphicsOverlay.getGraphics().add(path);
 
-
-        final Graphic endLocation = new Graphic();
-
-
-        final Point destination = (Point) GeometryEngine.project(mapPoint, SpatialReferences.getWgs84());
-
-
-        Point point = new Point(getLocationTracker(requireActivity()).getLatitude()
-                , getLocationTracker(requireActivity()).getLongitude(),SpatialReferences.getWgs84());
-        endLocation.setGeometry(destination);
-        // create a straight line path between the start and end locations
-        PointCollection points = new PointCollection(Arrays.asList(point, destination), SpatialReferences.getWgs84());
-        Polyline polyline = new Polyline(points);
-        // densify the path as a geodesic curve and show it with the path graphic
-        Geometry pathGeometry = GeometryEngine
-                .densifyGeodetic(polyline, 1, new LinearUnit(LinearUnitId.KILOMETERS), GeodeticCurveType.GEODESIC);
-        path.setGeometry(pathGeometry);
-        // calculate the path distance
-        double distance = GeometryEngine.lengthGeodetic(pathGeometry, new LinearUnit(LinearUnitId.KILOMETERS), GeodeticCurveType.GEODESIC);
-
-
-        final TextView contentTextView = new TextView(requireContext());
-        contentTextView.setTextColor(Color.BLACK);
-        contentTextView.setSingleLine();
-        // format coordinates to 2 decimal places
-        contentTextView.setText("Distance: " + String.format("%.2f", distance));
-        final Callout callout = binding.mapView.getCallout();
-        callout.setLocation(mapPoint);
-        callout.setContent(contentTextView);
-        callout.show();
-
-    }
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -208,6 +229,10 @@ public class MapDescriptionFragment extends Fragment {
 
         ExaminerDuties getExaminerDuty();
 
-        void setMapDescription();
+        void setMapDescription(String description);
+
+        void setWaterLocation(Point point);
+
+        CalculationUserInput getCalculationUserInput();
     }
 }

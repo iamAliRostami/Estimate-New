@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.esri.arcgisruntime.geometry.Point;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.leon.estimate_new.R;
@@ -71,7 +72,7 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
                     .fromJson(examinerDuty.requestDictionaryString, RequestDictionary[].class)));
         }
         new GetDBData(this, examinerDuty.zoneId, examinerDuty.trackNumber, this).execute(this);
-        displayView(PERSONAL_FRAGMENT);
+        displayView(MAP_DESCRIPTION_FRAGMENT/*PERSONAL_FRAGMENT*/);
     }
 
     private void displayView(int position) {
@@ -183,8 +184,20 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
     }
 
     @Override
-    public void setMapDescription() {
+    public void setMapDescription(String description) {
+        examinerDuty.mapDescription = description;
         displayView(EDIT_MAP_FRAGMENT);
+    }
+
+    @Override
+    public void setWaterLocation(Point point) {
+        calculationUserInput.x3 = point.getX();
+        calculationUserInput.y3 = point.getY();
+    }
+
+    @Override
+    public CalculationUserInput getCalculationUserInput() {
+        return calculationUserInput;
     }
 
     @Override
