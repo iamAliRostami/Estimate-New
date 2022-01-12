@@ -186,8 +186,8 @@ public class MapDescriptionFragment extends Fragment {
 //                pointWater < 0 ? Color.BLUE : Color.RED, 12);
         final BitmapDrawable drawable = (BitmapDrawable) ContextCompat.getDrawable(requireContext(),
                 pointWater < 0 ? R.drawable.map_water_drop_point : R.drawable.map_siphon_drop_point);
-        PictureMarkerSymbol pictureMarkerSymbol = new PictureMarkerSymbol(drawable);
-        final Graphic graphic = new Graphic(graphicPoint, pictureMarkerSymbol);
+        final PictureMarkerSymbol symbol = new PictureMarkerSymbol(drawable);
+        final Graphic graphic = new Graphic(graphicPoint, symbol);
         graphicsOverlay.getGraphics().add(graphic);
         if (pointWater == -1) {
             pointWater = binding.mapView.getGraphicsOverlays().size() - 1;
