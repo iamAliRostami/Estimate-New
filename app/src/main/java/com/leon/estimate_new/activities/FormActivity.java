@@ -6,7 +6,9 @@ import static com.leon.estimate_new.helpers.Constants.MAP_DESCRIPTION_FRAGMENT;
 import static com.leon.estimate_new.helpers.Constants.PERSONAL_FRAGMENT;
 import static com.leon.estimate_new.helpers.Constants.SECOND_FRAGMENT;
 import static com.leon.estimate_new.helpers.Constants.SERVICES_FRAGMENT;
+import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponent;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -41,7 +43,7 @@ import java.util.Arrays;
 
 public class FormActivity extends AppCompatActivity implements PersonalFragment.Callback,
         ServicesFragment.Callback, BaseInfoFragment.Callback, SecondFormFragment.Callback,
-        MapDescriptionFragment.Callback {
+        MapDescriptionFragment.Callback, EditMapFragment.Callback {
     private ActivityFormBinding binding;
     private Arzeshdaraei arzeshdaraei;
     private ExaminerDuties examinerDuty;
@@ -72,7 +74,7 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
                     .fromJson(examinerDuty.requestDictionaryString, RequestDictionary[].class)));
         }
         new GetDBData(this, examinerDuty.zoneId, examinerDuty.trackNumber, this).execute(this);
-        displayView(MAP_DESCRIPTION_FRAGMENT/*PERSONAL_FRAGMENT*/);
+        displayView(PERSONAL_FRAGMENT);
     }
 
     private void displayView(int position) {
@@ -181,6 +183,24 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
     @Override
     public ExaminerDuties getExaminerDuty() {
         return examinerDuty;
+    }
+
+    @Override
+    public void setEditMap() {
+        final Intent intent = new Intent(getApplicationContext(), DocumentFormActivity.class);
+        intent.putExtra(BundleEnum.TRACK_NUMBER.getValue(), examinerDuty.trackNumber);
+        intent.putExtra(BundleEnum.BILL_ID.getValue(), examinerDuty.billId != null ?
+                examinerDuty.billId : examinerDuty.neighbourBillId);
+        intent.putExtra(BundleEnum.NEW_ENSHEAB.getValue(), examinerDuty.isNewEnsheab);
+        prepareToSend();
+        startActivity(intent);
+    }
+
+    private void prepareToSend() {
+        calculationUserInput.fillCalculationUserInput();
+        getApplicationComponent().MyDatabase().calculationUserInputDao().deleteByTrackNumber(examinerDuty.trackNumber);
+        getApplicationComponent().MyDatabase().calculationUserInputDao().insertCalculationUserInput(calculationUserInput);
+        getApplicationComponent().MyDatabase().examinerDutiesDao().insert();
     }
 
     @Override

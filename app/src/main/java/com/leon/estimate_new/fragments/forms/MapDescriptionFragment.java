@@ -195,7 +195,6 @@ public class MapDescriptionFragment extends Fragment {
         } else pointSiphon = binding.mapView.getGraphicsOverlays().size() - 2;
     }
 
-
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);

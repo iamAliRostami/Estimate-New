@@ -25,6 +25,7 @@ public class OsmMapLayer implements IMapLayer {
     public WebTiledLayer createLayer() {
         // build the web tiled layer from stamen
         // use web tiled layer as Basemap
-        return new WebTiledLayer("http://{subDomain}.tile.openstreetmap.org/{level}/{col}/{row}.png", SUB_DOMAINS);
+//        return new WebTiledLayer("http://{subDomain}.tile.openstreetmap.org/{level}/{col}/{row}.png", SUB_DOMAINS);
+        return new WebTiledLayer("http://37.191.92.152:7080/PBS/rest/services/GoogleMapsRoad/MapServer/");
     }
 }
