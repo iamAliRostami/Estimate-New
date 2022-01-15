@@ -117,31 +117,6 @@ public class CalculationUserInput {
         trackNumber = examinerDuties.trackNumber;
         sent = false;
     }
-
-    public void prepareCalculationUserInputFromForm(CalculationUserInput calculationUserInput) {
-        sifoon100 = calculationUserInput.sifoon100;
-        sifoon125 = calculationUserInput.sifoon125;
-        sifoon150 = calculationUserInput.sifoon150;
-        sifoon200 = calculationUserInput.sifoon200;
-        arse = calculationUserInput.arse;
-        aianKol = calculationUserInput.aianKol;
-        aianMaskooni = calculationUserInput.aianMaskooni;
-        aianTejari = calculationUserInput.aianTejari;
-        tedadMaskooni = calculationUserInput.tedadMaskooni;
-        tedadTejari = calculationUserInput.tedadTejari;
-        tedadSaier = calculationUserInput.tedadSaier;
-        arzeshMelk = calculationUserInput.arzeshMelk;
-        tedadTaxfif = calculationUserInput.tedadTaxfif;
-        zarfiatQarardadi = calculationUserInput.zarfiatQarardadi;
-        parNumber = calculationUserInput.parNumber;
-        karbariId = calculationUserInput.karbariId;
-        noeVagozariId = calculationUserInput.noeVagozariId;
-        qotrEnsheabId = calculationUserInput.qotrEnsheabId;
-        taxfifId = calculationUserInput.taxfifId;
-        adamTaxfifAb = calculationUserInput.adamTaxfifAb;
-        adamTaxfifFazelab = calculationUserInput.adamTaxfifFazelab;
-        ensheabQeireDaem = calculationUserInput.ensheabQeireDaem;
-    }
     public void updateCalculationUserInput(ExaminerDuties examinerDuty) {
         sifoon100 = examinerDuty.sifoon100;
         sifoon125 = examinerDuty.sifoon125;

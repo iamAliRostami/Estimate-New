@@ -1,5 +1,8 @@
 package com.leon.estimate_new.activities;
 
+import static com.leon.estimate_new.enums.BundleEnum.BILL_ID;
+import static com.leon.estimate_new.enums.BundleEnum.NEW_ENSHEAB;
+import static com.leon.estimate_new.enums.BundleEnum.TRACK_NUMBER;
 import static com.leon.estimate_new.helpers.Constants.BASE_FRAGMENT;
 import static com.leon.estimate_new.helpers.Constants.EDIT_MAP_FRAGMENT;
 import static com.leon.estimate_new.helpers.Constants.MAP_DESCRIPTION_FRAGMENT;
@@ -136,9 +139,8 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
     @Override
     public void setSecondForm(ExaminerDuties examinerDuty) {
         this.examinerDuty = examinerDuty;
-
+        //TODO
         displayView(MAP_DESCRIPTION_FRAGMENT);
-
     }
 
     @Override
@@ -188,19 +190,19 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
     @Override
     public void setEditMap() {
         final Intent intent = new Intent(getApplicationContext(), DocumentFormActivity.class);
-        intent.putExtra(BundleEnum.TRACK_NUMBER.getValue(), examinerDuty.trackNumber);
-        intent.putExtra(BundleEnum.BILL_ID.getValue(), examinerDuty.billId != null ?
+        intent.putExtra(TRACK_NUMBER.getValue(), examinerDuty.trackNumber);
+        intent.putExtra(BILL_ID.getValue(), examinerDuty.billId != null ?
                 examinerDuty.billId : examinerDuty.neighbourBillId);
-        intent.putExtra(BundleEnum.NEW_ENSHEAB.getValue(), examinerDuty.isNewEnsheab);
+        intent.putExtra(NEW_ENSHEAB.getValue(), examinerDuty.isNewEnsheab);
         prepareToSend();
         startActivity(intent);
     }
 
     private void prepareToSend() {
-        calculationUserInput.fillCalculationUserInput();
+        calculationUserInput.fillCalculationUserInput(examinerDuty);
         getApplicationComponent().MyDatabase().calculationUserInputDao().deleteByTrackNumber(examinerDuty.trackNumber);
         getApplicationComponent().MyDatabase().calculationUserInputDao().insertCalculationUserInput(calculationUserInput);
-        getApplicationComponent().MyDatabase().examinerDutiesDao().insert();
+        getApplicationComponent().MyDatabase().examinerDutiesDao().insert(examinerDuty);//TODO
     }
 
     @Override

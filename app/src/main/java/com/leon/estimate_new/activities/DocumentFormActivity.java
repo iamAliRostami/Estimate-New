@@ -167,8 +167,7 @@ public class DocumentFormActivity extends AppCompatActivity {
                         "لطفا با فشار دادن دکمه اعطای دسترسی و سپس در بخش دسترسی ها با این مجوز ها موافقت نمایید")
                 .setPermissions(Manifest.permission.CAMERA,
                         Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE
-                ).check();
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE).check();
     }
 
     @Override

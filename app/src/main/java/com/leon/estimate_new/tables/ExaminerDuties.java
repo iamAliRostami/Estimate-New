@@ -134,72 +134,12 @@ public class ExaminerDuties {
         return this;
     }
 
-    public ExaminerDuties updateExaminerDuties(CalculationUserInput calculationUserInput) {
-        trackNumber = calculationUserInput.trackNumber;
-        karbariId = calculationUserInput.karbariId;
-        radif = calculationUserInput.radif;
-        billId = calculationUserInput.billId;
-        nameAndFamily = calculationUserInput.firstName.trim().concat(" ".concat(calculationUserInput.sureName.trim()));
-        notificationMobile = calculationUserInput.notificationMobile;
-        address = calculationUserInput.address;
-        neighbourBillId = calculationUserInput.neighbourBillId;
-        trackingId = calculationUserInput.trackingId;
-        requestType = String.valueOf(calculationUserInput.requestType);
-        parNumber = calculationUserInput.parNumber;
-        phoneNumber = calculationUserInput.phoneNumber;
-        mobile = calculationUserInput.mobile;
-        firstName = calculationUserInput.firstName;
-        sureName = calculationUserInput.sureName;
-        arse = calculationUserInput.arse;
-        aianKol = calculationUserInput.aianKol;
-        aianMaskooni = calculationUserInput.aianMaskooni;
-        aianNonMaskooni = calculationUserInput.aianTejari;
-        qotrEnsheabId = calculationUserInput.qotrEnsheabId;
-        sifoon100 = calculationUserInput.sifoon100;
-        sifoon125 = calculationUserInput.sifoon125;
-        sifoon150 = calculationUserInput.sifoon150;
-        sifoon200 = calculationUserInput.sifoon200;
-        zarfiatQarardadi = calculationUserInput.zarfiatQarardadi;
-        arzeshMelk = calculationUserInput.arzeshMelk;
-        tedadMaskooni = calculationUserInput.tedadMaskooni;
-        tedadTejari = calculationUserInput.tedadTejari;
-        tedadSaier = calculationUserInput.tedadSaier;
-        taxfifId = calculationUserInput.taxfifId;
-        tedadTaxfif = calculationUserInput.tedadTaxfif;
-        nationalId = calculationUserInput.nationalId;
-        identityCode = calculationUserInput.identityCode;
-        fatherName = calculationUserInput.fatherName;
-        postalCode = calculationUserInput.postalCode;
-        description = calculationUserInput.description;
-        adamTaxfifAb = calculationUserInput.adamTaxfifAb;
-        adamTaxfifFazelab = calculationUserInput.adamTaxfifFazelab;
-        isEnsheabQeirDaem = calculationUserInput.ensheabQeireDaem;
-        requestDictionaryString = calculationUserInput.selectedServicesString;
-        shenasname = calculationUserInput.shenasname;
-        return this;
+    public boolean isPeymayesh() {
+        return isPeymayesh;
     }
 
-    public void prepareExaminerDutiesFromForm(CalculationUserInput calculationUserInput) {
-        this.sifoon100 = calculationUserInput.sifoon100;
-        this.sifoon125 = calculationUserInput.sifoon125;
-        this.sifoon150 = calculationUserInput.sifoon150;
-        this.sifoon200 = calculationUserInput.sifoon200;
-        this.arse = calculationUserInput.arse;
-        this.aianMaskooni = calculationUserInput.aianMaskooni;
-        this.aianNonMaskooni = calculationUserInput.aianTejari;
-        this.aianKol = calculationUserInput.aianKol;
-        this.tedadMaskooni = calculationUserInput.tedadMaskooni;
-        this.tedadTejari = calculationUserInput.tedadTejari;
-        this.tedadSaier = calculationUserInput.tedadSaier;
-        this.tedadTaxfif = calculationUserInput.tedadTaxfif;
-        this.zarfiatQarardadi = calculationUserInput.zarfiatQarardadi;
-        this.arzeshMelk = calculationUserInput.arzeshMelk;
-        this.parNumber = calculationUserInput.parNumber;
-        this.karbariId = calculationUserInput.karbariId;
-        this.qotrEnsheabId = calculationUserInput.qotrEnsheabId;
-        this.taxfifId = calculationUserInput.taxfifId;
-        this.isEnsheabQeirDaem = calculationUserInput.ensheabQeireDaem;
-        this.noeVagozariId = calculationUserInput.noeVagozariId;
+    public String getExaminationDay() {
+        return examinationDay;
     }
 
     public void preparePersonal(CalculationUserInput calculationUserInput) {
@@ -215,13 +155,5 @@ public class ExaminerDuties {
         this.address = calculationUserInput.address;
         this.description = calculationUserInput.description;
         this.shenasname = calculationUserInput.shenasname;
-    }
-
-    public boolean isPeymayesh() {
-        return isPeymayesh;
-    }
-
-    public String getExaminationDay() {
-        return examinationDay;
     }
 }
