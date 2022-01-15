@@ -189,7 +189,7 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
 
     @Override
     public void setEditMap() {
-        final Intent intent = new Intent(getApplicationContext(), DocumentFormActivity.class);
+        final Intent intent = new Intent(getApplicationContext(), DocumentActivity/*DocumentFormActivity*/.class);
         intent.putExtra(TRACK_NUMBER.getValue(), examinerDuty.trackNumber);
         intent.putExtra(BILL_ID.getValue(), examinerDuty.billId != null ?
                 examinerDuty.billId : examinerDuty.neighbourBillId);
