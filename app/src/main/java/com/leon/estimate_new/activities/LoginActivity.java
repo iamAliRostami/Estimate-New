@@ -1,5 +1,7 @@
 package com.leon.estimate_new.activities;
 
+import static com.leon.estimate_new.enums.SharedReferenceKeys.PASSWORD;
+import static com.leon.estimate_new.enums.SharedReferenceKeys.USERNAME;
 import static com.leon.estimate_new.helpers.MyApplication.getAndroidVersion;
 import static com.leon.estimate_new.helpers.MyApplication.getPreferenceManager;
 import static com.leon.estimate_new.utils.PermissionManager.isNetworkAvailable;
@@ -135,12 +137,12 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     void loadPreference() {
-        if (getPreferenceManager().checkIsNotEmpty(SharedReferenceKeys.USERNAME.getValue()) &&
-                getPreferenceManager().checkIsNotEmpty(SharedReferenceKeys.PASSWORD.getValue())) {
+        if (getPreferenceManager().checkIsNotEmpty(USERNAME.getValue()) &&
+                getPreferenceManager().checkIsNotEmpty(PASSWORD.getValue())) {
             binding.editTextUsername.setText(getPreferenceManager().getStringData(
-                    SharedReferenceKeys.USERNAME.getValue()));
+                    USERNAME.getValue()));
             binding.editTextPassword.setText(Crypto.decrypt(getPreferenceManager().getStringData(
-                    SharedReferenceKeys.PASSWORD.getValue())));
+                    PASSWORD.getValue())));
         }
     }
 

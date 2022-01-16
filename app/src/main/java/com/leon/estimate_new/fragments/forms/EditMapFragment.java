@@ -1,7 +1,11 @@
-package com.leon.estimate_new.fragments.main_items;
+package com.leon.estimate_new.fragments.forms;
 
+import static android.graphics.Color.BLUE;
+import static android.graphics.Color.RED;
+import static android.graphics.Color.YELLOW;
 import static com.leon.estimate_new.helpers.Constants.MAP_DESCRIPTION_FRAGMENT;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -21,6 +25,29 @@ import com.leon.estimate_new.tables.ExaminerDuties;
 public class EditMapFragment extends Fragment {
     private FragmentEditMapBinding binding;
     private Callback formActivity;
+    View.OnClickListener onClickListener = new View.OnClickListener() {
+        @SuppressLint("NonConstantResourceId")
+        @Override
+        public void onClick(View v) {
+            int id = v.getId();
+            switch (id) {
+                case R.id.image_view_refresh:
+                    binding.signatureView.clearCanvas();
+                    //TODO
+//                    binding.signatureView.setBitmap();
+                    break;
+                case R.id.image_view_color_blue:
+                    binding.signatureView.setPenColor(BLUE);
+                    break;
+                case R.id.image_view_color_red:
+                    binding.signatureView.setPenColor(RED);
+                    break;
+                case R.id.image_view_color_yellow:
+                    binding.signatureView.setPenColor(YELLOW);
+                    break;
+            }
+        }
+    };
 
     public EditMapFragment() {
     }
@@ -45,6 +72,11 @@ public class EditMapFragment extends Fragment {
 
     private void initialize() {
         setOnButtonClickListener();
+        binding.signatureView.setPenColor(YELLOW);
+        binding.imageViewRefresh.setOnClickListener(onClickListener);
+        binding.imageViewColorYellow.setOnClickListener(onClickListener);
+        binding.imageViewColorBlue.setOnClickListener(onClickListener);
+        binding.imageViewColorRed.setOnClickListener(onClickListener);
     }
 
     private void setOnButtonClickListener() {

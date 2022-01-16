@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.main_items.EditMapFragment">
+    tools:context=".fragments.forms.EditMapFragment">
 
     <TextView
         android:id="@id/text_view_title"
@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/relative_layout"
-        android:layout_below="@id/imageViewColorBlue"
+        android:layout_below="@id/image_view_color_blue"
         android:layout_margin="@dimen/medium_dp"
         android:padding="@dimen/low_dp"
         sign:penColor="#000000" />
@@ -48,7 +48,7 @@
         tools:ignore="ContentDescription" />
 
     <ImageView
-        android:id="@+id/imageViewColorBlue"
+        android:id="@+id/image_view_color_blue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/text_view_title"
@@ -68,7 +68,7 @@
         android:layout_below="@id/text_view_title"
         android:layout_marginStart="@dimen/medium_dp"
         android:layout_marginEnd="@dimen/medium_dp"
-        android:layout_toEndOf="@id/imageViewColorBlue"
+        android:layout_toEndOf="@id/image_view_color_blue"
         android:paddingStart="@dimen/medium_dp"
         android:paddingEnd="@dimen/medium_dp"
         android:src="@drawable/color_red"

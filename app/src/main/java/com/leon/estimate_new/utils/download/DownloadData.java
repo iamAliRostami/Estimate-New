@@ -68,7 +68,7 @@ class Download implements ICallback<Input> {
 
     @Override
     public void execute(Response<Input> response) {
-        Input input = response.body();
+        final Input input = response.body();
         if (input != null) {
             getApplicationComponent().MyDatabase().noeVagozariDictionaryDao().insertAll(input.noeVagozariDictionary);
             getApplicationComponent().MyDatabase().qotrEnsheabDictionaryDao().insertAll(input.qotrEnsheabDictionary);

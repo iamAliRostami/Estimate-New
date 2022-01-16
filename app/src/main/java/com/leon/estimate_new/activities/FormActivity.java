@@ -29,7 +29,7 @@ import com.leon.estimate_new.fragments.forms.MapDescriptionFragment;
 import com.leon.estimate_new.fragments.forms.PersonalFragment;
 import com.leon.estimate_new.fragments.forms.SecondFormFragment;
 import com.leon.estimate_new.fragments.forms.ServicesFragment;
-import com.leon.estimate_new.fragments.main_items.EditMapFragment;
+import com.leon.estimate_new.fragments.forms.EditMapFragment;
 import com.leon.estimate_new.tables.Arzeshdaraei;
 import com.leon.estimate_new.tables.CalculationUserInput;
 import com.leon.estimate_new.tables.ExaminerDuties;
@@ -50,9 +50,7 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
     private ActivityFormBinding binding;
     private Arzeshdaraei arzeshdaraei;
     private ExaminerDuties examinerDuty;
-
     private final CalculationUserInput calculationUserInput = new CalculationUserInput();
-
     private final ArrayList<Integer> values = new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0, 0, 0, 0));
     private final ArrayList<RequestDictionary> requestDictionaries = new ArrayList<>();
     private final ArrayList<NoeVagozariDictionary> noeVagozariDictionaries = new ArrayList<>();
@@ -189,6 +187,7 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
 
     @Override
     public void setEditMap() {
+        //TODO
         final Intent intent = new Intent(getApplicationContext(), DocumentActivity/*DocumentFormActivity*/.class);
         intent.putExtra(TRACK_NUMBER.getValue(), examinerDuty.trackNumber);
         intent.putExtra(BILL_ID.getValue(), examinerDuty.billId != null ?

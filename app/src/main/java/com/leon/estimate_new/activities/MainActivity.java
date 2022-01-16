@@ -51,28 +51,6 @@ public class MainActivity extends BaseActivity {
 
 
     private void displayView(int position) {
-        final Fragment fragment;
-        switch (position) {
-            case DUTIES_FRAGMENT:
-                fragment = DutiesListFragment.newInstance();
-                break;
-            case DOWNLOAD_FRAGMENT:
-                fragment = DownloadFragment.newInstance();
-                break;
-            case REQUEST_FRAGMENT:
-                fragment = SendRequestFragment.newInstance();
-                break;
-            case UPLOAD_FRAGMENT:
-                fragment = UploadFragment.newInstance();
-                break;
-            case HELP_FRAGMENT:
-                fragment = HelpFragment.newInstance();
-                break;
-            case HOME_FRAGMENT:
-            default:
-                fragment = HomeFragment.newInstance();
-                break;
-        }
         final String tag = Integer.toString(position);
         if (getFragmentManager().findFragmentByTag(tag) != null && getFragmentManager().findFragmentByTag(tag).isVisible()) {
             return;
@@ -81,13 +59,31 @@ public class MainActivity extends BaseActivity {
         final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.setCustomAnimations(R.animator.enter, R.animator.exit,
                 R.animator.pop_enter, R.animator.pop_exit);
-        fragmentTransaction.replace(R.id.container_body, fragment, tag);
+        fragmentTransaction.replace(R.id.container_body, getFragment(position), tag);
         // Home fragment is not added to the stack
         if (position != HOME_FRAGMENT) {
             fragmentTransaction.addToBackStack(null);
         }
         fragmentTransaction.commitAllowingStateLoss();
         getFragmentManager().executePendingTransactions();
+    }
+
+    private Fragment getFragment(int position) {
+        switch (position) {
+            case DUTIES_FRAGMENT:
+                return DutiesListFragment.newInstance();
+            case DOWNLOAD_FRAGMENT:
+                return DownloadFragment.newInstance();
+            case REQUEST_FRAGMENT:
+                return SendRequestFragment.newInstance();
+            case UPLOAD_FRAGMENT:
+                return UploadFragment.newInstance();
+            case HELP_FRAGMENT:
+                return HelpFragment.newInstance();
+            case HOME_FRAGMENT:
+            default:
+                return HomeFragment.newInstance();
+        }
     }
 
     private void setOnDrawerItemClick() {

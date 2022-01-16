@@ -19,6 +19,7 @@ import com.leon.estimate_new.infrastructure.IAbfaService;
 import com.leon.estimate_new.infrastructure.ICallback;
 import com.leon.estimate_new.infrastructure.ICallbackError;
 import com.leon.estimate_new.infrastructure.ICallbackIncomplete;
+import com.leon.estimate_new.tables.Request;
 import com.leon.estimate_new.utils.CustomErrorHandling;
 import com.leon.estimate_new.utils.CustomToast;
 import com.leon.estimate_new.utils.SimpleMessage;
@@ -35,13 +36,13 @@ import retrofit2.Retrofit;
 
 public class SendRequest extends BaseAsync {
     private final Object object;
-    private final com.leon.estimate_new.tables.Request request;
+    private final Request request;
 
     public SendRequest(Context context, Object o, String neighbourBillId, String mobile) {
         super(context, o);
         object = o;
         final ArrayList<Integer> selectedServices = new ArrayList<>(Arrays.asList(1, 2));
-        request = new com.leon.estimate_new.tables.Request(selectedServices, neighbourBillId, mobile);
+        request = new Request(selectedServices, neighbourBillId, mobile);
     }
 
     public SendRequest(Context context, Object o, String neighbourBillId, String mobile,
@@ -49,8 +50,8 @@ public class SendRequest extends BaseAsync {
         super(context, o);
         object = o;
         final ArrayList<Integer> selectedServices = new ArrayList<>(7);
-        request = new com.leon.estimate_new.tables.Request(selectedServices, neighbourBillId, mobile,
-                firstName, sureName, nationalId, address);
+        request = new Request(selectedServices, neighbourBillId, mobile, firstName, sureName,
+                nationalId, address);
     }
 
     @Override
@@ -73,15 +74,15 @@ public class SendRequest extends BaseAsync {
         if (request.selectedServices.size() > 1) call = sendRequest.sendRequestAfterSale(request);
         else call = sendRequest.sendRequestNew(request);
         HttpClientWrapper.callHttpAsync(call, ProgressType.NOT_SHOW.getValue(), activity,
-                new Request(activity, object), new RequestIncomplete(activity), new GetError());
+                new RequestSuccess(activity, object), new RequestIncomplete(activity), new GetError());
     }
 }
 
-class Request implements ICallback<SimpleMessage> {
+class RequestSuccess implements ICallback<SimpleMessage> {
     private final Context context;
     private final Object object;
 
-    public Request(Context context, Object object) {
+    public RequestSuccess(Context context, Object object) {
         this.context = context;
         this.object = object;
     }

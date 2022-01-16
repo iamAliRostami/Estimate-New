@@ -36,8 +36,10 @@ import com.esri.arcgisruntime.symbology.PictureMarkerSymbol;
 import com.esri.arcgisruntime.symbology.SimpleLineSymbol;
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.databinding.FragmentMapDescriptionBinding;
+import com.leon.estimate_new.enums.MapType;
 import com.leon.estimate_new.tables.CalculationUserInput;
 import com.leon.estimate_new.tables.ExaminerDuties;
+import com.leon.estimate_new.utils.gis.GoogleMapLayer;
 import com.leon.estimate_new.utils.gis.OsmMapLayer;
 
 public class MapDescriptionFragment extends Fragment {
@@ -98,9 +100,9 @@ public class MapDescriptionFragment extends Fragment {
     private void initializeMap() {
 //        final ArcGISMap map = new ArcGISMap(BasemapStyle.ARCGIS_IMAGERY);
 //        binding.mapView.getMap().getBasemap().getBaseLayers().add(new OpenStreetMapLayer());
-//        binding.mapView.getMap().getBasemap().getBaseLayers().add(new GoogleMapLayer().createLayer(MapType.VECTOR));
         binding.mapView.setMap(new ArcGISMap());
-        binding.mapView.getMap().getBasemap().getBaseLayers().add(new OsmMapLayer().createLayer());
+        binding.mapView.getMap().getBasemap().getBaseLayers().add(new GoogleMapLayer().createLayer(MapType.VECTOR));
+//        binding.mapView.getMap().getBasemap().getBaseLayers().add(new OsmMapLayer().createLayer());
 
         binding.mapView.setMagnifierEnabled(true);
         binding.mapView.setCanMagnifierPanMap(true);

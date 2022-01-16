@@ -17,7 +17,7 @@ public class Constants {
     public static final int REQUEST_WIFI_CODE = 1233;
     public static final int IMAGE_CROP_REQUEST = 1234;
     public static final int IMAGE_BRIGHTNESS_CONTRAST_REQUEST = 1324;
-    public static final int MAX_IMAGE_SIZE = 200000;
+    public static final int MAX_IMAGE_SIZE = 150000;
     public static final int CAMERA_REQUEST = 1888;
     public static final int GALLERY_REQUEST = 1889;
     public static final int SPLASH_DURATION = 1000;
@@ -54,7 +54,6 @@ public class Constants {
 
     public static boolean exit = false;
     public static int POSITION = -1;
-    public static Bitmap BITMAP_SELECTED_IMAGE;
 
     public static final ArrayList<Integer> IS_MANE = new ArrayList<>();
 
