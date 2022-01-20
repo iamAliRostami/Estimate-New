@@ -228,7 +228,7 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
                 ShowFragmentDialog.ShowFragmentDialogOnce(requireContext(), "VALUE_FRAGMENT",
                         ValueFragment.newInstance(this));
             } else {
-                new GetArzeshdaraei(requireContext(), this, examinerDuty.zoneId).execute(requireActivity());
+                new GetArzeshdaraei(requireContext(), examinerDuty.zoneId, this).execute(requireActivity());
             }
         });
     }

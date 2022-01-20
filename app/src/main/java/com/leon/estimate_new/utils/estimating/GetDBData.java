@@ -38,8 +38,8 @@ public class GetDBData extends BaseAsync {
 
     @Override
     public void postTask(Object o) {
-        ((FormActivity)o).setData(arzeshdaraei,noeVagozariDictionaries,qotrEnsheabDictionaries,
-                karbariDictionaries,taxfifDictionaries, tejariha);
+        ((FormActivity) o).setData(arzeshdaraei, noeVagozariDictionaries, qotrEnsheabDictionaries,
+                karbariDictionaries, taxfifDictionaries, tejariha);
     }
 
     @Override
@@ -56,10 +56,15 @@ public class GetDBData extends BaseAsync {
         tejariha.addAll(getApplicationComponent().MyDatabase().tejarihaDao().getTejarihaByTrackNumber(trackNumber));
         final ArrayList<Formula> formulas = new ArrayList<>(getApplicationComponent().MyDatabase().formulaDao()
                 .getFormulaByZoneId(zoneId));
-        final ArrayList<Block> blocks = new ArrayList<>(getApplicationComponent().MyDatabase().blockDao()
-                .getBlockByZoneId(zoneId));
+        final ArrayList<Block> blocks = new ArrayList<>(getApplicationComponent().MyDatabase()
+                .blockDao().getBlockByZoneId(zoneId));
         final ArrayList<Zarib> zaribs = new ArrayList<>(getApplicationComponent().MyDatabase()
                 .zaribDao().getZaribByZoneId(zoneId));
         arzeshdaraei = new Arzeshdaraei(blocks, formulas, zaribs);
+    }
+
+    @Override
+    public void backgroundTask(Context context) {
+
     }
 }

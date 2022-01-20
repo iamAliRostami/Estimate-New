@@ -22,6 +22,7 @@ public class PrepareListData extends BaseAsync {
     @Override
     public void postTask(Object o) {
     }
+
     @Override
     public void preTask(Object o) {
 
@@ -31,5 +32,10 @@ public class PrepareListData extends BaseAsync {
     public void backgroundTask(Activity activity) {
         ((DutiesListFragment) object).initializeData((ArrayList<ExaminerDuties>)
                 getApplicationComponent().MyDatabase().examinerDutiesDao().ExaminerDuties());
+    }
+
+    @Override
+    public void backgroundTask(Context context) {
+
     }
 }

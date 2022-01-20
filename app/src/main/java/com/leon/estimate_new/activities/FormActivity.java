@@ -25,11 +25,11 @@ import com.leon.estimate_new.R;
 import com.leon.estimate_new.databinding.ActivityFormBinding;
 import com.leon.estimate_new.enums.BundleEnum;
 import com.leon.estimate_new.fragments.forms.BaseInfoFragment;
+import com.leon.estimate_new.fragments.forms.EditMapFragment;
 import com.leon.estimate_new.fragments.forms.MapDescriptionFragment;
 import com.leon.estimate_new.fragments.forms.PersonalFragment;
 import com.leon.estimate_new.fragments.forms.SecondFormFragment;
 import com.leon.estimate_new.fragments.forms.ServicesFragment;
-import com.leon.estimate_new.fragments.forms.EditMapFragment;
 import com.leon.estimate_new.tables.Arzeshdaraei;
 import com.leon.estimate_new.tables.CalculationUserInput;
 import com.leon.estimate_new.tables.ExaminerDuties;
@@ -75,7 +75,7 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
                     .fromJson(examinerDuty.requestDictionaryString, RequestDictionary[].class)));
         }
         new GetDBData(this, examinerDuty.zoneId, examinerDuty.trackNumber, this).execute(this);
-        displayView(PERSONAL_FRAGMENT);
+        displayView(EDIT_MAP_FRAGMENT/*PERSONAL_FRAGMENT*/);
     }
 
     private void displayView(int position) {
@@ -114,9 +114,9 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
 
     @Override
     public void onBackPressed() {
-        if (getFragmentManager().getBackStackEntryCount() > 0) {
-            getFragmentManager().popBackStack();
-        } else super.onBackPressed();
+//        if (getFragmentManager().getBackStackEntryCount() > 0) {
+//            getFragmentManager().popBackStack();
+//        } else super.onBackPressed();
     }
 
     @Override

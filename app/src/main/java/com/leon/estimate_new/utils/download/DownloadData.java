@@ -1,6 +1,7 @@
 package com.leon.estimate_new.utils.download;
 
 import static com.leon.estimate_new.enums.ProgressType.NOT_SHOW;
+import static com.leon.estimate_new.enums.ProgressType.SHOW;
 import static com.leon.estimate_new.enums.SharedReferenceKeys.TOKEN;
 import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponent;
 import static com.leon.estimate_new.helpers.MyApplication.getContext;
@@ -33,8 +34,8 @@ import retrofit2.Retrofit;
 
 public class DownloadData extends BaseAsync {
 
-    public DownloadData(Context context, Object o) {
-        super(context, o, false);
+    public DownloadData(Context context, Object... o) {
+        super(context, false, o);
     }
 
     @Override
@@ -56,6 +57,11 @@ public class DownloadData extends BaseAsync {
         final Call<Input> call = getKardex.getMyWorks();
         HttpClientWrapper.callHttpAsync(call, NOT_SHOW.getValue(), activity, new Download(activity),
                 new DownloadIncomplete(activity), new GetError());
+    }
+
+    @Override
+    public void backgroundTask(Context context) {
+
     }
 }
 

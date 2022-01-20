@@ -1,5 +1,6 @@
 package com.leon.estimate_new.di.view_model;
 
+import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponent;
 import static com.leon.estimate_new.utils.PermissionManager.isNetworkAvailable;
 
 import android.app.Activity;
@@ -31,7 +32,7 @@ public class HttpClientWrapper {
                                          final ICallbackIncomplete<T> callbackIncomplete,
                                          final ICallbackError callbackError) {
         cancel = false;
-        CustomProgressModel progress = MyApplication.getApplicationComponent().CustomProgressModel();
+        CustomProgressModel progress = getApplicationComponent().CustomProgressModel();
         try {
             if (progressType == ProgressType.SHOW.getValue()) {
                 progress.show(context, context.getString(R.string.waiting));
@@ -41,6 +42,7 @@ public class HttpClientWrapper {
                 progress.show(context, true, context.getString(R.string.waiting));
             }
         } catch (Exception e) {
+            e.printStackTrace();
             new CustomToast().error(e.getMessage(), Toast.LENGTH_LONG);
         }
 
@@ -126,7 +128,7 @@ public class HttpClientWrapper {
                                                         final ICallbackIncomplete<T> callbackIncomplete,
                                                         final ICallbackError callbackError) {
 
-        progressCancelable = MyApplication.getApplicationComponent().CustomProgressModel();
+        progressCancelable = getApplicationComponent().CustomProgressModel();
         if (progressType == ProgressType.SHOW.getValue()) {
             progressCancelable.show(context, context.getString(R.string.waiting));
         } else if (progressType == ProgressType.SHOW_CANCELABLE.getValue()) {

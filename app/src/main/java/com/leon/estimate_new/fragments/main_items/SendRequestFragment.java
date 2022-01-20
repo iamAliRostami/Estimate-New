@@ -81,13 +81,13 @@ public class SendRequestFragment extends Fragment {
             }
             if (!cancel) {
                 if (isNew)
-                    new SendRequest(requireContext(), this, billId, mobile,
+                    new SendRequest(requireContext(), billId, mobile,
                             binding.editTextName.getText().toString(),
                             binding.editTextFamily.getText().toString(),
                             binding.editTextNationNumber.getText().toString(),
-                            binding.editTextAddress.getText().toString()).execute(requireActivity());
+                            binding.editTextAddress.getText().toString(), this).execute(requireActivity());
                 else
-                    new SendRequest(requireContext(), this, billId, mobile).execute(requireActivity());
+                    new SendRequest(requireContext(), billId, mobile, this).execute(requireActivity());
             }
         });
     }

@@ -2,6 +2,7 @@ package com.leon.estimate_new.utils.estimating;
 
 import static com.leon.estimate_new.enums.DialogType.Yellow;
 import static com.leon.estimate_new.enums.ProgressType.NOT_SHOW;
+import static com.leon.estimate_new.enums.ProgressType.SHOW;
 import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponent;
 import static com.leon.estimate_new.helpers.MyApplication.getContext;
 
@@ -21,6 +22,7 @@ import com.leon.estimate_new.infrastructure.IAbfaService;
 import com.leon.estimate_new.infrastructure.ICallback;
 import com.leon.estimate_new.infrastructure.ICallbackError;
 import com.leon.estimate_new.infrastructure.ICallbackIncomplete;
+import com.leon.estimate_new.tables.Arzeshdaraei;
 import com.leon.estimate_new.utils.CustomErrorHandling;
 import com.leon.estimate_new.utils.CustomToast;
 
@@ -32,9 +34,9 @@ public class GetArzeshdaraei extends BaseAsync {
     private final Object object;
     private final String zoneId;
 
-    public GetArzeshdaraei(Context context, Object object, String zoneId) {
-        super(context, object, false);
-        this.object = object;
+    public GetArzeshdaraei(Context context, String zoneId, Object... o) {
+        super(context,false, o);
+        this.object = o;
         this.zoneId = zoneId;
     }
 
@@ -50,24 +52,29 @@ public class GetArzeshdaraei extends BaseAsync {
     public void backgroundTask(Activity activity) {
         final Retrofit retrofit = NetworkHelperModel.getInstance(activity);
         final IAbfaService arzeshdaraei = retrofit.create(IAbfaService.class);
-        Call<com.leon.estimate_new.tables.Arzeshdaraei> call = arzeshdaraei.getArzeshDaraii(Integer.parseInt(zoneId));
+        Call<Arzeshdaraei> call = arzeshdaraei.getArzeshDaraii(Integer.parseInt(zoneId));
         HttpClientWrapper.callHttpAsync(call, NOT_SHOW.getValue(), activity,
-                new Arzeshdaraei(activity, object), new ArzeshdaraeiIncomplete(activity), new GetError());
+                new ArzeshdaraeiSucceed(activity, object), new ArzeshdaraeiIncomplete(activity), new GetError());
+    }
+
+    @Override
+    public void backgroundTask(Context context) {
+
     }
 }
 
-class Arzeshdaraei implements ICallback<com.leon.estimate_new.tables.Arzeshdaraei> {
+class ArzeshdaraeiSucceed implements ICallback<com.leon.estimate_new.tables.Arzeshdaraei> {
     private final Context context;
     private final Object object;
 
-    public Arzeshdaraei(Context context, Object object) {
+    public ArzeshdaraeiSucceed(Context context, Object object) {
         this.context = context;
         this.object = object;
     }
 
     @Override
-    public void execute(Response<com.leon.estimate_new.tables.Arzeshdaraei> response) {
-        com.leon.estimate_new.tables.Arzeshdaraei arzeshdaraei = response.body();
+    public void execute(Response<Arzeshdaraei> response) {
+        Arzeshdaraei arzeshdaraei = response.body();
         if (arzeshdaraei != null && arzeshdaraei.formulas != null &&
                 arzeshdaraei.formulas.size() > 0 && arzeshdaraei.blocks != null
                 && arzeshdaraei.blocks.size() > 0) {

@@ -11,16 +11,33 @@ import com.leon.estimate_new.di.view_model.CustomProgressModel;
 public abstract class BaseAsync extends AsyncTask<Activity, Void, Void> {
     private final CustomProgressModel progress;
     private final Object view;
-    private final boolean aBoolean;
+    private final boolean showProgress;
+
+    public BaseAsync(Context context, boolean showProgress, Object... view) {
+        super();
+        if (view != null && view.length > 0)
+            this.view = view[0];
+        else this.view = null;
+        this.progress = getApplicationComponent().CustomProgressModel();
+        this.showProgress = showProgress;
+        progress.show(context);
+    }
 
     public BaseAsync(Context context, Object... view) {
         super();
-        progress = getApplicationComponent().CustomProgressModel();
+        if (view != null && view.length > 0)
+            this.view = view[0];
+        else this.view = null;
+        this.progress = getApplicationComponent().CustomProgressModel();
+        this.showProgress = true;
         progress.show(context);
-        this.view = view[0];
-        if (view.length > 1)
-            this.aBoolean = (Boolean) view[1];
-        else this.aBoolean = true;
+    }
+
+    public BaseAsync(boolean showProgress) {
+        super();
+        this.view = null;
+        this.progress = getApplicationComponent().CustomProgressModel();
+        this.showProgress = showProgress;
     }
 
     @Override
@@ -31,7 +48,8 @@ public abstract class BaseAsync extends AsyncTask<Activity, Void, Void> {
 
     @Override
     protected Void doInBackground(Activity... activities) {
-        backgroundTask(activities[0]);
+        activities[0].runOnUiThread(() -> backgroundTask(activities[0]));
+        backgroundTask((Context) activities[0]);
         return null;
     }
 
@@ -39,8 +57,12 @@ public abstract class BaseAsync extends AsyncTask<Activity, Void, Void> {
     protected void onPostExecute(Void unused) {
         super.onPostExecute(unused);
         postTask(view);
-        if (aBoolean)
+        if (showProgress)
             progress.cancelDialog();
+    }
+
+    public CustomProgressModel getProgress() {
+        return progress;
     }
 
     public abstract void postTask(Object o);
@@ -48,4 +70,6 @@ public abstract class BaseAsync extends AsyncTask<Activity, Void, Void> {
     public abstract void preTask(Object o);
 
     public abstract void backgroundTask(Activity activity);
+
+    public abstract void backgroundTask(Context context);
 }

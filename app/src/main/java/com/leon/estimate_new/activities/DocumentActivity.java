@@ -1,5 +1,8 @@
 package com.leon.estimate_new.activities;
 
+import static com.leon.estimate_new.enums.BundleEnum.BILL_ID;
+import static com.leon.estimate_new.enums.BundleEnum.NEW_ENSHEAB;
+import static com.leon.estimate_new.enums.BundleEnum.TRACK_NUMBER;
 import static com.leon.estimate_new.helpers.Constants.BITMAP_SELECTED;
 import static com.leon.estimate_new.helpers.Constants.PERSONAL_FRAGMENT;
 
@@ -17,10 +20,13 @@ import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.databinding.ActivityDocumentBinding;
+import com.leon.estimate_new.di.view_model.HttpClientWrapper;
 import com.leon.estimate_new.fragments.documents.BrightnessContrastFragment;
 import com.leon.estimate_new.fragments.documents.CropFragment;
 import com.leon.estimate_new.fragments.documents.TakePhotoFragment;
+import com.leon.estimate_new.tables.ImageDataTitle;
 import com.leon.estimate_new.utils.CustomToast;
+import com.leon.estimate_new.utils.document.ImageTitles;
 import com.leon.estimate_new.utils.document.LoginDocument;
 
 import java.util.ArrayList;
@@ -28,7 +34,13 @@ import java.util.ArrayList;
 public class DocumentActivity extends AppCompatActivity implements TakePhotoFragment.Callback,
         CropFragment.Callback, BrightnessContrastFragment.Callback {
     private ActivityDocumentBinding binding;
+    private final ArrayList<String> titles = new ArrayList<>();
+    private ImageDataTitle imageDataTitle;
+    private String trackNumber, billId;
     private Bitmap bitmap;
+    private boolean isNew;
+    private int selected;
+
     private final int TAKE_PHOTO_FRAGMENT = 0;
     private final int CROP_FRAGMENT = 1;
     private final int BRIGHTNESS_CONTRAST_FRAGMENT = 2;
@@ -50,7 +62,16 @@ public class DocumentActivity extends AppCompatActivity implements TakePhotoFrag
         }
     }
 
+    private void getExtra() {
+        if (getIntent().getExtras() != null) {
+            billId = getIntent().getExtras().getString(BILL_ID.getValue());
+            trackNumber = getIntent().getExtras().getString(TRACK_NUMBER.getValue());
+            isNew = getIntent().getExtras().getBoolean(NEW_ENSHEAB.getValue());
+        }
+    }
+
     private void initialize() {
+        getExtra();
         new LoginDocument(this, this).execute(this);
         if (BITMAP_SELECTED != null) {
             bitmap = BITMAP_SELECTED;
@@ -58,8 +79,18 @@ public class DocumentActivity extends AppCompatActivity implements TakePhotoFrag
         }
     }
 
-    public void successLogin() {
+    public void setTitles(ImageDataTitle body) {
+        imageDataTitle = body;
+        for (int i = 0; i < imageDataTitle.data.size(); i++) {
+            if (imageDataTitle.data.get(i).title.equals("کروکی"))
+                selected = i;
+            titles.add(imageDataTitle.data.get(i).title);
+        }
         displayView(TAKE_PHOTO_FRAGMENT);
+    }
+
+    public void successLogin() {
+        new ImageTitles(this, this).execute(this);
     }
 
     private void displayView(int position) {
@@ -116,11 +147,31 @@ public class DocumentActivity extends AppCompatActivity implements TakePhotoFrag
                         Manifest.permission.READ_EXTERNAL_STORAGE,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE).check();
     }
-
+    @Override
+    public void onBackPressed() {
+        HttpClientWrapper.call.cancel();
+        HttpClientWrapper.call = null;
+        super.onBackPressed();
+    }
     @Override
     public void setTakenBitmap(Bitmap bitmap) {
         this.bitmap = bitmap;
         displayView(CROP_FRAGMENT);
+    }
+
+    @Override
+    public ArrayList<String> getTitles() {
+        return titles;
+    }
+
+    @Override
+    public int getSelected() {
+        return selected;
+    }
+
+    @Override
+    public String getKey() {
+        return isNew ? trackNumber : billId;
     }
 
     @Override

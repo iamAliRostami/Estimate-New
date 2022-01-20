@@ -1,6 +1,7 @@
 package com.leon.estimate_new.utils.document;
 
 import static com.leon.estimate_new.enums.ProgressType.NOT_SHOW;
+import static com.leon.estimate_new.enums.ProgressType.SHOW;
 import static com.leon.estimate_new.enums.SharedReferenceKeys.PASSWORD_TEMP;
 import static com.leon.estimate_new.enums.SharedReferenceKeys.TOKEN_FOR_FILE;
 import static com.leon.estimate_new.enums.SharedReferenceKeys.USERNAME_TEMP;
@@ -16,7 +17,6 @@ import com.leon.estimate_new.base_items.BaseAsync;
 import com.leon.estimate_new.di.view_model.HttpClientWrapper;
 import com.leon.estimate_new.infrastructure.IAbfaService;
 import com.leon.estimate_new.infrastructure.ICallback;
-import com.leon.estimate_new.infrastructure.ICallbackError;
 import com.leon.estimate_new.infrastructure.ICallbackIncomplete;
 import com.leon.estimate_new.tables.Login;
 import com.leon.estimate_new.utils.Crypto;
@@ -31,7 +31,7 @@ public class LoginDocument extends BaseAsync {
     private final Object object;
 
     public LoginDocument(Context context, Object... view) {
-        super(context, view);
+        super(context,false,  view);
         object = view[0];
     }
 
@@ -55,12 +55,16 @@ public class LoginDocument extends BaseAsync {
         HttpClientWrapper.callHttpAsync(call, NOT_SHOW.getValue(), activity,
                 new LoginSuccess(activity, object), new LoginIncomplete(activity), new GetErrorRedirect(activity));
     }
+
+    @Override
+    public void backgroundTask(Context context) {
+
+    }
 }
 
 class LoginSuccess implements ICallback<Login> {
     private final Activity activity;
     private final Object object;
-
 
     LoginSuccess(Activity activity, Object object) {
         this.activity = activity;
@@ -69,12 +73,10 @@ class LoginSuccess implements ICallback<Login> {
 
     @Override
     public void execute(Response<Login> response) {
-        final Login loginFeedBack = response.body();
-        if (loginFeedBack != null && loginFeedBack.success) {
+        if (response.body() != null && response.body().success) {
             getApplicationComponent().SharedPreferenceModel().putData(TOKEN_FOR_FILE.getValue(),
-                    loginFeedBack.data.token);
+                    response.body().data.token);
             ((DocumentActivity) object).successLogin();
-
         } else {
             new CustomToast().warning(activity.getString(R.string.error_not_auth), Toast.LENGTH_LONG);
             activity.finish();
@@ -97,4 +99,3 @@ class LoginIncomplete implements ICallbackIncomplete<Login> {
         activity.finish();
     }
 }
-
