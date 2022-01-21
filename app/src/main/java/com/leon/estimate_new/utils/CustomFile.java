@@ -2,20 +2,28 @@ package com.leon.estimate_new.utils;
 
 import static com.leon.estimate_new.helpers.Constants.IMAGE_FILE_NAME;
 import static com.leon.estimate_new.helpers.Constants.MAX_IMAGE_SIZE;
+import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponent;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.MediaScannerConnection;
 import android.os.Environment;
 import android.widget.Toast;
 
 import com.leon.estimate_new.R;
+import com.leon.estimate_new.tables.DataTitle;
+import com.leon.estimate_new.tables.Images;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
@@ -26,15 +34,15 @@ import okhttp3.RequestBody;
 public class CustomFile {
     @SuppressLint("SimpleDateFormat")
     public static MultipartBody.Part bitmapToFile(Bitmap bitmap, Context context) {
-        final String timeStamp = (new SimpleDateFormat(context.getString(R.string.save_format_name))).format(new Date());
-        final String fileNameToSave = "JPEG_" + new Random().nextInt() + "_" + timeStamp + ".jpg";
+        final String fileNameToSave = "JPEG_" + new Random().nextInt() + "_" +
+                (new SimpleDateFormat(context.getString(R.string.save_format_name)))
+                        .format(new Date()) + ".jpg";
         final File f = new File(context.getCacheDir(), fileNameToSave);
         try {
             f.createNewFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         final byte[] bitmapData = compressBitmapToByte(bitmap);
         FileOutputStream fos;
         try {
@@ -97,5 +105,70 @@ public class CustomFile {
             new CustomToast().error(e.getMessage(), Toast.LENGTH_LONG);
         }
         return null;
+    }
+
+    public static void saveTempBitmap(Bitmap bitmap, Context context, String billId,
+                                      String trackNumber, int docId, String docTitle,
+                                      boolean isNew) {
+        if (isExternalStorageWritable()) {
+            saveImage(bitmap, context, billId, trackNumber, docId, docTitle, isNew);
+        } else {
+            new CustomToast().error(context.getString(R.string.error_external_storage_is_not_writable), Toast.LENGTH_LONG);
+        }
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    static void saveImage(Bitmap bitmapImage, Context context, String billId, String trackNumber,
+                          int docId, String docTitle, boolean isNew) {
+        final File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES) + context.getString(R.string.camera_folder));
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                return;
+            }
+        }
+        IMAGE_FILE_NAME = "JPEG_" + (new SimpleDateFormat(context.getString(R.string.save_format_name)))
+                .format(new Date()) + ".jpg";
+        final File file = new File(mediaStorageDir, IMAGE_FILE_NAME);
+        if (file.exists()) file.delete();
+        try {
+            FileOutputStream out = new FileOutputStream(file);
+            bitmapImage.compress(Bitmap.CompressFormat.JPEG, 100, out);
+            out.flush();
+            out.close();
+            final Images image = new Images(IMAGE_FILE_NAME, billId, trackNumber, docId, docTitle,
+                    bitmapImage, true);
+            if (isNew)
+                image.billId = "";
+            else image.trackingNumber = "";
+            getApplicationComponent().MyDatabase().imagesDao().insertImage(image);
+        } catch (Exception e) {
+            e.printStackTrace();
+            new CustomToast().error(e.getMessage());
+        }
+        MediaScannerConnection.scanFile(context, new String[]{file.getPath()}, new String[]{"image/jpeg"}, null);
+    }
+
+    public static ArrayList<Images> loadImage(String trackNumber, String billId,
+                                              ArrayList<DataTitle> dataTitles, Context context) {
+        final ArrayList<Images> images = new ArrayList<>(getApplicationComponent().MyDatabase()
+                .imagesDao().getImagesByTrackingNumberOrBillId(trackNumber, billId));
+        for (int i = 0; i < images.size(); i++) {
+            try {
+                File f = new File(Environment.getExternalStoragePublicDirectory(
+                        Environment.DIRECTORY_PICTURES), context.getString(R.string.camera_folder));
+                f = new File(f, images.get(i).address);
+                images.get(i).bitmap = BitmapFactory.decodeStream(new FileInputStream(f));
+                if (dataTitles != null) {
+                    for (int j = 0; j < dataTitles.size(); j++) {
+                        if (images.get(i).docId.equals(String.valueOf(dataTitles.get(j).id)))
+                            images.get(i).docTitle = dataTitles.get(j).title;
+                    }
+                }
+            } catch (FileNotFoundException e) {
+                new CustomToast().error(e.getMessage());
+            }
+        }
+        return images;
     }
 }

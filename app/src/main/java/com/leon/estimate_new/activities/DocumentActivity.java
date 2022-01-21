@@ -24,7 +24,12 @@ import com.leon.estimate_new.di.view_model.HttpClientWrapper;
 import com.leon.estimate_new.fragments.documents.BrightnessContrastFragment;
 import com.leon.estimate_new.fragments.documents.CropFragment;
 import com.leon.estimate_new.fragments.documents.TakePhotoFragment;
+import com.leon.estimate_new.tables.DataTitle;
+import com.leon.estimate_new.tables.ImageData;
+import com.leon.estimate_new.tables.ImageDataThumbnail;
 import com.leon.estimate_new.tables.ImageDataTitle;
+import com.leon.estimate_new.tables.Images;
+import com.leon.estimate_new.utils.CustomFile;
 import com.leon.estimate_new.utils.CustomToast;
 import com.leon.estimate_new.utils.document.ImageTitles;
 import com.leon.estimate_new.utils.document.LoginDocument;
@@ -34,7 +39,10 @@ import java.util.ArrayList;
 public class DocumentActivity extends AppCompatActivity implements TakePhotoFragment.Callback,
         CropFragment.Callback, BrightnessContrastFragment.Callback {
     private ActivityDocumentBinding binding;
+    private final ArrayList<ImageData> dataThumbnail = new ArrayList<>();
+    private final ArrayList<String> dataThumbnailUri = new ArrayList<>();
     private final ArrayList<String> titles = new ArrayList<>();
+    private final ArrayList<Images> images = new ArrayList<>();
     private ImageDataTitle imageDataTitle;
     private String trackNumber, billId;
     private Bitmap bitmap;
@@ -147,12 +155,14 @@ public class DocumentActivity extends AppCompatActivity implements TakePhotoFrag
                         Manifest.permission.READ_EXTERNAL_STORAGE,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE).check();
     }
+
     @Override
     public void onBackPressed() {
         HttpClientWrapper.call.cancel();
         HttpClientWrapper.call = null;
         super.onBackPressed();
     }
+
     @Override
     public void setTakenBitmap(Bitmap bitmap) {
         this.bitmap = bitmap;
@@ -172,6 +182,60 @@ public class DocumentActivity extends AppCompatActivity implements TakePhotoFrag
     @Override
     public String getKey() {
         return isNew ? trackNumber : billId;
+    }
+
+    @Override
+    public String getTrackNumber() {
+        return trackNumber;
+    }
+
+    @Override
+    public String getBillId() {
+        return billId;
+    }
+
+    @Override
+    public boolean isNew() {
+        return isNew;
+    }
+
+    @Override
+    public DataTitle getDataTitle(int position) {
+        return imageDataTitle.data.get(position);
+    }
+
+    @Override
+    public void setDataThumbnail(final ImageDataThumbnail thumbnails) {
+        dataThumbnail.addAll(thumbnails.data);
+        for (ImageData data : dataThumbnail) {
+            dataThumbnailUri.add(data.img);
+        }
+    }
+
+    @Override
+    public ArrayList<String> getDataThumbnailUri() {
+        return dataThumbnailUri;
+    }
+
+    @Override
+    public ArrayList<ImageData> getDataThumbnail() {
+        return dataThumbnail;
+    }
+
+    @Override
+    public void setImages() {
+        images.addAll(CustomFile.loadImage(trackNumber, billId, imageDataTitle.data,
+                getApplicationContext()));
+    }
+
+    @Override
+    public void addImage(Images image) {
+        images.add(image);
+    }
+
+    @Override
+    public ArrayList<Images> getImages() {
+        return images;
     }
 
     @Override

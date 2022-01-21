@@ -20,6 +20,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
@@ -28,11 +29,13 @@ import com.leon.estimate_new.R;
 import com.leon.estimate_new.adapters.ImageViewAdapter;
 import com.leon.estimate_new.adapters.SpinnerCustomAdapter;
 import com.leon.estimate_new.databinding.FragmentTakePhotoBinding;
+import com.leon.estimate_new.tables.DataTitle;
 import com.leon.estimate_new.tables.ImageData;
 import com.leon.estimate_new.tables.ImageDataThumbnail;
 import com.leon.estimate_new.tables.Images;
 import com.leon.estimate_new.utils.document.ImageThumbnail;
 import com.leon.estimate_new.utils.document.ImageThumbnailList;
+import com.leon.estimate_new.utils.document.UploadImages;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -43,15 +46,12 @@ import java.util.ArrayList;
 import okhttp3.ResponseBody;
 
 public class TakePhotoFragment extends Fragment {
-
-    private final ArrayList<ImageData> dataThumbnail = new ArrayList<>();
-    private final ArrayList<String> dataThumbnailUri = new ArrayList<>();
     private FragmentTakePhotoBinding binding;
     private String path;
-    private Callback documentActivity;
     private int position = 0;
-    private final ArrayList<Images> images = new ArrayList<>();
-    private ImageViewAdapter imageViewAdapter;
+//    private final ArrayList<Images> images = new ArrayList<>();
+
+    public Callback documentActivity;
 
     public static TakePhotoFragment newInstance() {
         return new TakePhotoFragment();
@@ -71,41 +71,59 @@ public class TakePhotoFragment extends Fragment {
     }
 
     private void initialize() {
-        if (documentActivity.getBitmap() != null)
+        if (documentActivity.getBitmap() != null) {
             binding.imageView.setImageBitmap(documentActivity.getBitmap());
-        imageViewAdapter = new ImageViewAdapter(requireContext(), images);
-        binding.gridViewImage.setAdapter(imageViewAdapter);
+            binding.buttonUpload.setVisibility(View.VISIBLE);
+        }
+        //TODO
+//        images.addAll(CustomFile.loadImage(documentActivity.getTrackNumber(),
+//                documentActivity.getBillId(), documentActivity.getDataTitle(), requireContext()));
 
         binding.buttonPick.setOnClickListener(onPickClickListener);
+        binding.buttonUpload.setOnClickListener(onUploadClickListener);
         binding.spinnerTitle.setAdapter(new SpinnerCustomAdapter(requireContext(),
                 documentActivity.getTitles()));
         binding.spinnerTitle.setSelection(documentActivity.getSelected());
-        new ImageThumbnailList(requireContext(), documentActivity.getKey(), this).execute(requireActivity());
+        if (documentActivity.getDataThumbnail().size() == 0) {
+            documentActivity.setImages();
+            new ImageThumbnailList(requireContext(), documentActivity.getKey(), this).execute(requireActivity());
+        } else binding.progressBar.setVisibility(View.GONE);
+        prepareImageAdapter();
     }
 
-    public void setThumbnails(ImageDataThumbnail thumbnails) {
-        dataThumbnail.addAll(thumbnails.data);
-        for (ImageData data : dataThumbnail) {
-            dataThumbnailUri.add(data.img);
-        }
+    public void setThumbnails(final ImageDataThumbnail thumbnails) {
+        documentActivity.setDataThumbnail(thumbnails);
         getImage();
     }
 
     public void getImage(ResponseBody... body) {
         //TODO
         if (body.length > 0) {
-            final Bitmap bitmap = BitmapFactory.decodeStream(body[0].byteStream());
-            images.add(new Images(documentActivity.getKey(), documentActivity.getKey(),
-                    dataThumbnail.get(position - 1).title_name,
-                    dataThumbnailUri.get(position - 1), bitmap, false));
-            imageViewAdapter.notifyDataSetChanged();
+            documentActivity.addImage(new Images(documentActivity.getBillId(), documentActivity.getTrackNumber(),
+                    documentActivity.getDataThumbnail().get(position - 1).title_name,
+                    documentActivity.getDataThumbnailUri().get(position - 1),
+                    BitmapFactory.decodeStream(body[0].byteStream()), false));
         }
-        imageViewAdapter = new ImageViewAdapter(requireContext(), images);
-        binding.gridViewImage.setAdapter(imageViewAdapter);
-        if (dataThumbnailUri.size() > position)
-            new ImageThumbnail(dataThumbnail.get(position).img, this).execute(requireActivity());
+        prepareImageAdapter();
+        if (documentActivity.getDataThumbnail().size() > position)
+            new ImageThumbnail(documentActivity.getDataThumbnail().get(position).img, this).execute(requireActivity());
         else binding.progressBar.setVisibility(View.GONE);
         position++;
+    }
+
+    public DataTitle getTitle() {
+        return documentActivity.getDataTitle(binding.spinnerTitle.getSelectedItemPosition());
+    }
+
+    public void addImage(Images image) {
+        documentActivity.addImage(image);
+        prepareImageAdapter();
+    }
+
+    private void prepareImageAdapter() {
+        final ImageViewAdapter imageViewAdapter = new ImageViewAdapter(requireContext(),
+                documentActivity.getImages());
+        binding.gridViewImage.setAdapter(imageViewAdapter);
     }
 
     public ProgressBar getProgressBar() {
@@ -174,6 +192,16 @@ public class TakePhotoFragment extends Fragment {
         });
         builder.create().show();
     };
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private final View.OnClickListener onUploadClickListener = v -> {
+        if (documentActivity.getBitmap() != null) {
+            binding.buttonUpload.setVisibility(View.GONE);
+            binding.imageView.setImageDrawable(ContextCompat.getDrawable(requireContext(),
+                    R.drawable.icon_finder_camera));
+            new UploadImages(this).execute(requireActivity());
+        }
+        //TODO
+    };
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -193,5 +221,25 @@ public class TakePhotoFragment extends Fragment {
         int getSelected();
 
         String getKey();
+
+        String getTrackNumber();
+
+        String getBillId();
+
+        boolean isNew();
+
+        DataTitle getDataTitle(int position);
+
+        void setDataThumbnail(ImageDataThumbnail thumbnails);
+
+        ArrayList<String> getDataThumbnailUri();
+
+        ArrayList<ImageData> getDataThumbnail();
+
+        void setImages();
+
+        void addImage(Images images);
+
+        ArrayList<Images> getImages();
     }
 }

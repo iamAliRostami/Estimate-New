@@ -53,4 +53,15 @@ public class Images {
         this.bitmap = bitmap;
         this.needSave = needSave;
     }
+
+    public Images(String address, String billId, String trackingNumber, int docId,
+                  String docTitle, Bitmap bitmap, Boolean needSave) {
+        this.address = address;
+        this.billId = billId;
+        this.trackingNumber = trackingNumber;
+        this.docId = String.valueOf(docId);
+        this.docTitle = docTitle;
+        this.bitmap = bitmap;
+        this.needSave = needSave;
+    }
 }

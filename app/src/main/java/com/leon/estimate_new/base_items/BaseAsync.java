@@ -20,7 +20,7 @@ public abstract class BaseAsync extends AsyncTask<Activity, Void, Void> {
         else this.view = null;
         this.progress = getApplicationComponent().CustomProgressModel();
         this.showProgress = showProgress;
-        progress.show(context);
+        this.progress.show(context);
     }
 
     public BaseAsync(Context context, Object... view) {
@@ -30,7 +30,7 @@ public abstract class BaseAsync extends AsyncTask<Activity, Void, Void> {
         else this.view = null;
         this.progress = getApplicationComponent().CustomProgressModel();
         this.showProgress = true;
-        progress.show(context);
+        this.progress.show(context);
     }
 
     public BaseAsync(boolean showProgress) {
