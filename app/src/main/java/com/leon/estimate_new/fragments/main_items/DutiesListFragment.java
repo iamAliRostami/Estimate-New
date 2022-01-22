@@ -1,6 +1,7 @@
 
 package com.leon.estimate_new.fragments.main_items;
 
+import static com.leon.estimate_new.enums.DialogType.Yellow;
 import static com.leon.estimate_new.enums.SharedReferenceKeys.TRACK_NUMBER;
 import static com.leon.estimate_new.fragments.dialog.ShowFragmentDialog.ShowFragmentDialogOnce;
 import static com.leon.estimate_new.helpers.MyApplication.getPreferenceManager;
@@ -24,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.adapters.CustomAdapterList;
 import com.leon.estimate_new.databinding.FragmentDutiesListBinding;
+import com.leon.estimate_new.di.view_model.CustomDialogModel;
 import com.leon.estimate_new.fragments.dialog.SearchFragment;
 import com.leon.estimate_new.tables.ExaminerDuties;
 import com.leon.estimate_new.utils.list.PrepareListData;

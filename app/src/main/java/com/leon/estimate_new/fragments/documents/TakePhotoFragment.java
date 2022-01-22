@@ -1,5 +1,8 @@
 package com.leon.estimate_new.fragments.documents;
 
+import static com.leon.estimate_new.enums.BundleEnum.OTHER_TITLE;
+import static com.leon.estimate_new.enums.BundleEnum.TITLE;
+import static com.leon.estimate_new.enums.DialogType.YellowRedirect;
 import static com.leon.estimate_new.utils.CustomFile.compressBitmap;
 import static com.leon.estimate_new.utils.CustomFile.createImageFile;
 
@@ -12,6 +15,9 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -26,9 +32,14 @@ import androidx.fragment.app.Fragment;
 
 import com.leon.estimate_new.BuildConfig;
 import com.leon.estimate_new.R;
+import com.leon.estimate_new.activities.FinalReportActivity;
+import com.leon.estimate_new.activities.FormActivity;
 import com.leon.estimate_new.adapters.ImageViewAdapter;
 import com.leon.estimate_new.adapters.SpinnerCustomAdapter;
 import com.leon.estimate_new.databinding.FragmentTakePhotoBinding;
+import com.leon.estimate_new.di.view_model.CustomDialogModel;
+import com.leon.estimate_new.di.view_model.HttpClientWrapper;
+import com.leon.estimate_new.enums.BundleEnum;
 import com.leon.estimate_new.tables.DataTitle;
 import com.leon.estimate_new.tables.ImageData;
 import com.leon.estimate_new.tables.ImageDataThumbnail;
@@ -36,6 +47,8 @@ import com.leon.estimate_new.tables.Images;
 import com.leon.estimate_new.utils.document.ImageThumbnail;
 import com.leon.estimate_new.utils.document.ImageThumbnailList;
 import com.leon.estimate_new.utils.document.UploadImages;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -49,7 +62,6 @@ public class TakePhotoFragment extends Fragment {
     private FragmentTakePhotoBinding binding;
     private String path;
     private int position = 0;
-//    private final ArrayList<Images> images = new ArrayList<>();
 
     public Callback documentActivity;
 
@@ -67,6 +79,7 @@ public class TakePhotoFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentTakePhotoBinding.inflate(inflater, container, false);
         initialize();
+        setHasOptionsMenu(true);
         return binding.getRoot();
     }
 
@@ -76,11 +89,13 @@ public class TakePhotoFragment extends Fragment {
             binding.buttonUpload.setVisibility(View.VISIBLE);
         }
         //TODO
-//        images.addAll(CustomFile.loadImage(documentActivity.getTrackNumber(),
-//                documentActivity.getBillId(), documentActivity.getDataTitle(), requireContext()));
-
         binding.buttonPick.setOnClickListener(onPickClickListener);
         binding.buttonUpload.setOnClickListener(onUploadClickListener);
+        binding.buttonAccepted.setOnClickListener(v -> {
+            new ShowDialogue(getString(R.string.accepted_question), getString(R.string.dear_user),
+                    getString(R.string.final_accepted), getString(R.string.yes));
+        });
+
         binding.spinnerTitle.setAdapter(new SpinnerCustomAdapter(requireContext(),
                 documentActivity.getTitles()));
         binding.spinnerTitle.setSelection(documentActivity.getSelected());
@@ -93,10 +108,10 @@ public class TakePhotoFragment extends Fragment {
 
     public void setThumbnails(final ImageDataThumbnail thumbnails) {
         documentActivity.setDataThumbnail(thumbnails);
-        getImage();
+        setImage();
     }
 
-    public void getImage(ResponseBody... body) {
+    public void setImage(ResponseBody... body) {
         //TODO
         if (body.length > 0) {
             documentActivity.addImage(new Images(documentActivity.getBillId(), documentActivity.getTrackNumber(),
@@ -204,10 +219,59 @@ public class TakePhotoFragment extends Fragment {
     };
 
     @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        if (documentActivity.isNew())
+            inflater.inflate(R.menu.add_document_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NotNull MenuItem item) {
+        if (item.getItemId() == R.id.add_document_menu) {
+//            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//            AddDocumentFragment addDocumentFragment = AddDocumentFragment.newInstance();
+//            addDocumentFragment.show(fragmentTransaction, "");
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         if (context instanceof Activity) {
             documentActivity = (Callback) context;
+        }
+    }
+
+    class ShowDialogue implements CustomDialogModel.Inline {
+        ShowDialogue(String message, String title, String top, String positiveButtonText) {
+            new CustomDialogModel(YellowRedirect, requireContext(), message,
+                    title, top, positiveButtonText, this);
+        }
+
+        @Override
+        public void inline() {
+            if (HttpClientWrapper.call != null) {
+                HttpClientWrapper.call.cancel();
+                HttpClientWrapper.call = null;
+            }
+            final Intent intent = new Intent(requireContext(), FinalReportActivity.class);
+            intent.putExtra(BundleEnum.TRACK_NUMBER.getValue(), documentActivity.getTrackNumber());
+            intent.putExtra(BundleEnum.BILL_ID.getValue(), documentActivity.getBillId());
+            intent.putExtra(BundleEnum.NEW_ENSHEAB.getValue(), documentActivity.isNew());
+            int tempTitleId = 0, tempDescriptionTitleId = 0;
+            for (DataTitle imageDataTitleTemp : documentActivity.getDataTitle()) {
+                if (imageDataTitleTemp.title.equals("ارزیابی"))
+                    tempTitleId = imageDataTitleTemp.id;
+                if (imageDataTitleTemp.title.equals("سایر"))
+                    tempDescriptionTitleId = imageDataTitleTemp.id;
+            }
+            intent.putExtra(TITLE.getValue(), tempTitleId);
+            intent.putExtra(OTHER_TITLE.getValue(), tempDescriptionTitleId);
+            startActivity(intent);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            requireActivity().finish();
         }
     }
 
@@ -229,6 +293,8 @@ public class TakePhotoFragment extends Fragment {
         boolean isNew();
 
         DataTitle getDataTitle(int position);
+
+        ArrayList<DataTitle> getDataTitle();
 
         void setDataThumbnail(ImageDataThumbnail thumbnails);
 

@@ -1,5 +1,6 @@
 package com.leon.estimate_new.activities;
 
+import static com.leon.estimate_new.enums.DialogType.Yellow;
 import static com.leon.estimate_new.utils.PDFUtility.PDF_ADDRESS;
 import static com.leon.estimate_new.utils.PDFUtility.getImagesFromPDF;
 
@@ -13,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.databinding.ActivityFinalReportBinding;
+import com.leon.estimate_new.di.view_model.CustomDialogModel;
 import com.leon.estimate_new.utils.CustomToast;
 import com.leon.estimate_new.utils.Images.PrepareOutputImage;
 import com.leon.estimate_new.utils.PDFUtility;

@@ -1,5 +1,6 @@
 package com.leon.estimate_new.utils.download;
 
+import static com.leon.estimate_new.enums.DialogType.Yellow;
 import static com.leon.estimate_new.enums.ProgressType.NOT_SHOW;
 import static com.leon.estimate_new.enums.ProgressType.SHOW;
 import static com.leon.estimate_new.enums.SharedReferenceKeys.TOKEN;
@@ -129,7 +130,6 @@ class Download implements ICallback<Input> {
 }
 
 class DownloadIncomplete implements ICallbackIncomplete<Input> {
-
     private final Context context;
 
     public DownloadIncomplete(Context context) {
@@ -145,7 +145,7 @@ class DownloadIncomplete implements ICallbackIncomplete<Input> {
             final CustomErrorHandling customErrorHandlingNew = new CustomErrorHandling(context);
             error = customErrorHandlingNew.getErrorMessageDefault(response);
         }
-        new CustomDialogModel(DialogType.Yellow, context, error,
+        new CustomDialogModel(Yellow, context, error,
                 context.getString(R.string.dear_user),
                 context.getString(R.string.download),
                 context.getString(R.string.accepted));

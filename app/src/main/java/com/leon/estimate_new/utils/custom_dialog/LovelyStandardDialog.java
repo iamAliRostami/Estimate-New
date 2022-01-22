@@ -139,7 +139,7 @@ public class LovelyStandardDialog extends AbsLovelyDialog<LovelyStandardDialog> 
         return setPositiveButton(text, null);
     }
 
-    private LovelyStandardDialog setPositiveButtonColor(@ColorInt int color) {
+    public LovelyStandardDialog setPositiveButtonColor(@ColorInt int color) {
         positiveButton.setTextColor(color);
         return this;
     }

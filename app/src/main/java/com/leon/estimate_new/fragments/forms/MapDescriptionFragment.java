@@ -1,7 +1,10 @@
 package com.leon.estimate_new.fragments.forms;
 
+import static com.leon.estimate_new.enums.SharedReferenceKeys.TRACK_NUMBER;
+import static com.leon.estimate_new.fragments.dialog.ShowFragmentDialog.ShowFragmentDialogOnce;
 import static com.leon.estimate_new.helpers.Constants.SECOND_FRAGMENT;
 import static com.leon.estimate_new.helpers.MyApplication.getLocationTracker;
+import static com.leon.estimate_new.helpers.MyApplication.getPreferenceManager;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -11,6 +14,9 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,10 +43,13 @@ import com.esri.arcgisruntime.symbology.SimpleLineSymbol;
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.databinding.FragmentMapDescriptionBinding;
 import com.leon.estimate_new.enums.MapType;
+import com.leon.estimate_new.fragments.dialog.SearchFragment;
 import com.leon.estimate_new.tables.CalculationUserInput;
 import com.leon.estimate_new.tables.ExaminerDuties;
 import com.leon.estimate_new.utils.gis.GoogleMapLayer;
 import com.leon.estimate_new.utils.gis.OsmMapLayer;
+
+import org.jetbrains.annotations.NotNull;
 
 public class MapDescriptionFragment extends Fragment {
     private final PointCollection points = new PointCollection(SpatialReferences.getWgs84());
@@ -68,6 +77,7 @@ public class MapDescriptionFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentMapDescriptionBinding.inflate(inflater, container, false);
         initialize();
+        setHasOptionsMenu(true);
         return binding.getRoot();
     }
 
@@ -196,7 +206,27 @@ public class MapDescriptionFragment extends Fragment {
             formActivity.setWaterLocation(((Point) GeometryEngine.project(graphicPoint, SpatialReferences.getWgs84())));
         } else pointSiphon = binding.mapView.getGraphicsOverlays().size() - 2;
     }
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.map_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
 
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public boolean onOptionsItemSelected(@NotNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.World_Street_Map:
+                return true;
+            case R.id.World_Topo:
+                return true;
+            case R.id.Gray:
+                return true;
+            case R.id.Ocean_Basemap:
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);

@@ -4,6 +4,7 @@ import static com.leon.estimate_new.enums.DialogType.Yellow;
 import static com.leon.estimate_new.enums.ProgressType.NOT_SHOW;
 import static com.leon.estimate_new.enums.SharedReferenceKeys.TOKEN_FOR_FILE;
 import static com.leon.estimate_new.fragments.dialog.ShowFragmentDialog.ShowFragmentDialogOnce;
+import static com.leon.estimate_new.helpers.MyApplication.getActivityComponent;
 import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponent;
 
 import android.app.Activity;

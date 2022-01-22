@@ -10,9 +10,12 @@ import static com.leon.estimate_new.helpers.Constants.PERSONAL_FRAGMENT;
 import static com.leon.estimate_new.helpers.Constants.SECOND_FRAGMENT;
 import static com.leon.estimate_new.helpers.Constants.SERVICES_FRAGMENT;
 import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponent;
+import static com.leon.estimate_new.helpers.MyApplication.setActivityComponent;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -41,6 +44,8 @@ import com.leon.estimate_new.tables.TaxfifDictionary;
 import com.leon.estimate_new.tables.Tejariha;
 import com.leon.estimate_new.utils.estimating.GetDBData;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -64,6 +69,7 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
         super.onCreate(savedInstanceState);
         binding = ActivityFormBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        setActivityComponent(this);
         initialize();
     }
 
@@ -87,7 +93,7 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
         fragmentTransaction.setCustomAnimations(R.animator.enter, R.animator.exit,
                 R.animator.pop_enter, R.animator.pop_exit);
         fragmentTransaction.replace(binding.containerBody.getId(), getFragment(position), tag);
-        if (position != PERSONAL_FRAGMENT) {
+        if (position != 0) {
             fragmentTransaction.addToBackStack(null);
         }
         fragmentTransaction.commitAllowingStateLoss();
@@ -117,6 +123,39 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
 //        if (getFragmentManager().getBackStackEntryCount() > 0) {
 //            getFragmentManager().popBackStack();
 //        } else super.onBackPressed();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.document_menu, menu);
+        if (!examinerDuty.isNewEnsheab) {
+            menu.getItem(1).setVisible(false);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NotNull MenuItem item) {
+        int id = item.getItemId();
+//        Intent intent = new Intent(getApplicationContext(), DocumentActivity.class);
+//        intent.putExtra(BundleEnum.TRACK_NUMBER.getValue(), trackNumber);
+//        if (examinerDuties.getBillId() != null)
+//            intent.putExtra(BundleEnum.BILL_ID.getValue(), examinerDuties.getBillId());
+//        else
+//            intent.putExtra(BundleEnum.BILL_ID.getValue(), examinerDuties.getNeighbourBillId());
+//        intent.putExtra(BundleEnum.NEW_ENSHEAB.getValue(), examinerDuties.isNewEnsheab());
+//        if (id == R.id.menu_document) {
+//            intent.putExtra(BundleEnum.IS_NEIGHBOUR.getValue(), false);
+//            startActivity(intent);
+//        } else if (id == R.id.menu_neighbour_document) {
+//            intent.putExtra(BundleEnum.IS_NEIGHBOUR.getValue(), true);
+//            startActivity(intent);
+//        } else if (id == R.id.menu_other_document) {
+//            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//            EnterBillIdFragment enterBillIdFragment = EnterBillIdFragment.newInstance();
+//            enterBillIdFragment.show(fragmentTransaction, "bill Id");
+//        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
