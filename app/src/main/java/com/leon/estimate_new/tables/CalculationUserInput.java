@@ -5,11 +5,6 @@ import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 @Entity(tableName = "CalculationUserInput", indices = @Index(value = {"trackNumber"}, unique = true))
@@ -30,6 +25,8 @@ public class CalculationUserInput {
     public String notificationMobile;
     public String selectedServicesString;
     public int qotrEnsheabId;
+    @Ignore
+    public int qotrEnsheabS;
     public int noeVagozariId;
     public int taxfifId;
     public int arse;
@@ -66,29 +63,14 @@ public class CalculationUserInput {
 
     public int arzeshMelk;
     public int karbariId;
-
-    @Ignore
-    public ArrayList<RequestDictionary> selectedServicesObject;
-    @Ignore
-    int pelak;
+    public int pelak;
     @Ignore
     public double x3, y3;
 
+    @Ignore
+    public ArrayList<RequestDictionary> selectedServicesObject;
+
     public CalculationUserInput() {
-    }
-
-    public void setSelectedServicesString(CalculationUserInputSend calculationUserInput) {
-        for (int s : calculationUserInput.selectedServices) {
-            selectedServicesString = selectedServicesString.concat(String.valueOf(s)).concat(",");
-        }
-    }
-
-    public ArrayList<RequestDictionary> setSelectedServices(CalculationUserInput calculationUserInput) {
-        String json = calculationUserInput.selectedServicesString;
-        Gson gson = new GsonBuilder().create();
-        Type userListType = new TypeToken<ArrayList<RequestDictionary>>() {
-        }.getType();
-        return gson.fromJson(json, userListType);
     }
 
     public void preparePersonal(CalculationUserInput calculationUserInput) {
@@ -117,6 +99,7 @@ public class CalculationUserInput {
         trackNumber = examinerDuties.trackNumber;
         sent = false;
     }
+
     public void updateCalculationUserInput(ExaminerDuties examinerDuty) {
         sifoon100 = examinerDuty.sifoon100;
         sifoon125 = examinerDuty.sifoon125;
@@ -140,5 +123,6 @@ public class CalculationUserInput {
         ensheabQeireDaem = examinerDuty.isEnsheabQeirDaem;
         adamTaxfifAb = examinerDuty.adamTaxfifAb;
         adamTaxfifFazelab = examinerDuty.adamTaxfifFazelab;
+        pelak = examinerDuty.pelak;
     }
 }

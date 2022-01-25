@@ -1,5 +1,6 @@
 package com.leon.estimate_new.helpers;
 
+import static com.leon.estimate_new.helpers.Constants.DATABASE_NAME;
 import static com.leon.estimate_new.helpers.Constants.FONT_NAME;
 import static com.leon.estimate_new.helpers.Constants.TOAST_TEXT_SIZE;
 import static com.leon.estimate_new.helpers.Constants.activityComponent;
@@ -35,7 +36,7 @@ import es.dmoral.toasty.Toasty;
 public class MyApplication extends Application {
 
     public static String getDBName() {
-        return Constants.DATABASE_NAME;
+        return DATABASE_NAME;
     }
 
     public static Context getContext() {

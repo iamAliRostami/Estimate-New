@@ -14,6 +14,8 @@ public class ExaminerDuties {
     public String trackNumber;
     public String examinationId;
     public int karbariId;
+    @Ignore
+    public String karbariS;
     public String radif;
     public String billId;
     public String examinationDay;
@@ -43,6 +45,8 @@ public class ExaminerDuties {
     public int aianMaskooni;
     public int aianNonMaskooni;
     public int qotrEnsheabId;
+    @Ignore
+    public String qotrEnsheabS;
     public int sifoon100;
     public int sifoon125;
     public int sifoon150;
@@ -66,8 +70,8 @@ public class ExaminerDuties {
     public String requestDictionaryString;
     public String shenasname;
 
-    public boolean ezhaNazarA;
-    public boolean ezhaNazarF;
+    public boolean ezharNazarA;
+    public boolean ezharNazarF;
     public int qotrLooleI;
     public int jensLooleI;
     public String qotrLooleS;
@@ -80,6 +84,8 @@ public class ExaminerDuties {
     public boolean etesalZirzamin;
     public int omqFazelab;
     public int noeVagozariId;
+    @Ignore
+    public String noeVagozariS;
     public int pelak;
     public boolean sanad;
     public String examinerName;
@@ -87,13 +93,14 @@ public class ExaminerDuties {
     public String masrafDescription;
     public String chahDescription;
     public String mapDescription;
-
+    public String codeNew;
+    public String codeKaf;
     public String eshterak;
 
     public int faseleKhakiA;
     public int faseleKhakiF;
-    public int faseleAsphaultA;
-    public int faseleAsphaultF;
+    public int faseleAsphaltA;
+    public int faseleAsphaltF;
     public int faseleSangA;
     public int faseleSangF;
     public int faseleOtherA;
@@ -101,38 +108,10 @@ public class ExaminerDuties {
     public int omqeZirzamin;
     public boolean chahAbBaran;
 
+    public String sodurDate;
+
     @Ignore
     public ArrayList<RequestDictionary> requestDictionary;
-
-    public ExaminerDuties updateExaminerDuties(SecondForm secondForm) {
-        faseleKhakiA = secondForm.khakiAb;
-        faseleKhakiF = secondForm.khakiFazelab;
-        faseleAsphaultA = secondForm.asphalutAb;
-        faseleAsphaultF = secondForm.asphalutFazelab;
-        faseleSangA = secondForm.sangFarshAb;
-        faseleSangF = secondForm.sangFarshFazelab;
-        faseleOtherA = secondForm.otherAb;
-        faseleOtherF = secondForm.otherFazelab;
-        ezhaNazarA = secondForm.ezhaNazarA;
-        ezhaNazarF = secondForm.ezhaNazarF;
-        qotrLooleI = secondForm.qotreLooleI;
-        jensLooleI = secondForm.jenseLooleI;
-        qotrLooleS = secondForm.qotreLoole;
-        jensLooleS = secondForm.jenseLoole;
-        looleA = secondForm.looleA;
-        looleF = secondForm.looleF;
-        noeMasrafI = secondForm.noeMasraf;
-        noeMasrafS = secondForm.noeMasrafString;
-        vaziatNasbPompI = secondForm.vaziatNasbePomp;
-        omqeZirzamin = secondForm.omqeZirzamin;
-        omqFazelab = secondForm.omqFazelab;
-        etesalZirzamin = secondForm.etesalZirzamin;
-        chahAbBaran = secondForm.chahAbBaran;
-        chahDescription = secondForm.chahDescription;
-        masrafDescription = secondForm.masrafDescription;
-        eshterak = secondForm.eshterak;
-        return this;
-    }
 
     public boolean isPeymayesh() {
         return isPeymayesh;

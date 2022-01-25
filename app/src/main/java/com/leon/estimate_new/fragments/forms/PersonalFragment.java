@@ -94,6 +94,8 @@ public class PersonalFragment extends Fragment {
     private boolean checkForm() {
         return checkIsNoEmpty(binding.editTextName)
                 && checkIsNoEmpty(binding.editTextFamily)
+                && checkIsNoEmpty(binding.editTextFatherName)
+                && checkIsNoEmpty(binding.editTextNationNumber)
                 && checkIsNoEmpty(binding.editTextAddress)
                 && checkOtherIsNoEmpty();
     }

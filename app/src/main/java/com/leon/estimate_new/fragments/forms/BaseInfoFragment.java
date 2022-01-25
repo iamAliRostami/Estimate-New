@@ -1,5 +1,6 @@
 package com.leon.estimate_new.fragments.forms;
 
+import static com.leon.estimate_new.fragments.dialog.ShowFragmentDialog.ShowFragmentDialogOnce;
 import static com.leon.estimate_new.helpers.Constants.SERVICES_FRAGMENT;
 
 import android.app.Activity;
@@ -18,7 +19,6 @@ import androidx.fragment.app.Fragment;
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.adapters.SpinnerCustomAdapter;
 import com.leon.estimate_new.databinding.FragmentBaseInfoBinding;
-import com.leon.estimate_new.fragments.dialog.ShowFragmentDialog;
 import com.leon.estimate_new.fragments.dialog.TejarihaSayerFragment;
 import com.leon.estimate_new.fragments.dialog.ValueFragment;
 import com.leon.estimate_new.tables.Arzeshdaraei;
@@ -41,7 +41,7 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
     private Callback formActivity;
     private int saier, tejari;
     private final View.OnClickListener onClickListener = v ->
-            ShowFragmentDialog.ShowFragmentDialogOnce(requireContext(), "TEJARI_SAYER_FRAGMENT",
+            ShowFragmentDialogOnce(requireContext(), "TEJARI_SAYER_FRAGMENT",
                     TejarihaSayerFragment.newInstance(this));
     private final TextWatcher textWatcher = new TextWatcher() {
         @Override
@@ -122,6 +122,7 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
                 && checkIsNoEmpty(binding.editTextTedadTejari)
                 && checkIsNoEmpty(binding.editTextTedadSaier)
                 && checkIsNoEmpty(binding.editTextTedadTakhfif)
+                && checkIsNoEmpty(binding.editTextSodurDate)
                 && checkIsNoEmpty(binding.editTextZarfiatQaradadi)
                 && checkIsNoEmpty(binding.editTextPariNumber)
                 && checkIsNoEmpty(binding.textViewArzeshMelk);
@@ -139,41 +140,35 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
     }
 
     private ExaminerDuties prepareOutput() {
-        examinerDuty.sifoon100 =
-                Integer.parseInt(binding.editTextSifoon100.getText().toString());
-        examinerDuty.sifoon125 =
-                Integer.parseInt(binding.editTextSifoon125.getText().toString());
-        examinerDuty.sifoon150 =
-                Integer.parseInt(binding.editTextSifoon150.getText().toString());
-        examinerDuty.sifoon200 =
-                Integer.parseInt(binding.editTextSifoon200.getText().toString());
+        examinerDuty.sifoon100 = Integer.parseInt(binding.editTextSifoon100.getText().toString());
+        examinerDuty.sifoon125 = Integer.parseInt(binding.editTextSifoon125.getText().toString());
+        examinerDuty.sifoon150 = Integer.parseInt(binding.editTextSifoon150.getText().toString());
+        examinerDuty.sifoon200 = Integer.parseInt(binding.editTextSifoon200.getText().toString());
         examinerDuty.arse = Integer.parseInt(binding.editTextArse.getText().toString());
-        examinerDuty.aianMaskooni =
-                Integer.parseInt(binding.editTextAianMaskooni.getText().toString());
-        examinerDuty.aianNonMaskooni =
-                Integer.parseInt(binding.editTextAianNonMaskooni.getText().toString());
+        examinerDuty.aianMaskooni = Integer.parseInt(binding.editTextAianMaskooni.getText().toString());
+        examinerDuty.aianNonMaskooni = Integer.parseInt(binding.editTextAianNonMaskooni.getText().toString());
         examinerDuty.aianKol = Integer.parseInt(binding.editTextAianKol.getText().toString());
-        examinerDuty.tedadMaskooni =
-                Integer.parseInt(binding.editTextTedadMaskooni.getText().toString());
-        examinerDuty.tedadTejari =
-                Integer.parseInt(binding.editTextTedadTejari.getText().toString());
-        examinerDuty.tedadSaier =
-                Integer.parseInt(binding.editTextTedadSaier.getText().toString());
-        examinerDuty.arzeshMelk =
-                Integer.parseInt(binding.textViewArzeshMelk.getText().toString());
-        examinerDuty.tedadTaxfif =
-                Integer.parseInt(binding.editTextTedadTakhfif.getText().toString());
-        examinerDuty.zarfiatQarardadi =
-                Integer.parseInt(binding.editTextZarfiatQaradadi.getText().toString());
+        examinerDuty.tedadMaskooni = Integer.parseInt(binding.editTextTedadMaskooni.getText().toString());
+        examinerDuty.tedadTejari = Integer.parseInt(binding.editTextTedadTejari.getText().toString());
+        examinerDuty.tedadSaier = Integer.parseInt(binding.editTextTedadSaier.getText().toString());
+        examinerDuty.arzeshMelk = Integer.parseInt(binding.textViewArzeshMelk.getText().toString());
+        examinerDuty.tedadTaxfif = Integer.parseInt(binding.editTextTedadTakhfif.getText().toString());
+        examinerDuty.zarfiatQarardadi = Integer.parseInt(binding.editTextZarfiatQaradadi.getText().toString());
         examinerDuty.parNumber = binding.editTextPariNumber.getText().toString();
-        examinerDuty.karbariId =
-                formActivity.getKarbariDictionary().get(binding.spinner1.getSelectedItemPosition()).id;
-        examinerDuty.noeVagozariId =
-                formActivity.getNoeVagozariDictionaries().get(binding.spinner2.getSelectedItemPosition()).id;
-        examinerDuty.qotrEnsheabId =
-                formActivity.getQotrEnsheabDictionary().get(binding.spinner3.getSelectedItemPosition()).id;
-        examinerDuty.taxfifId =
-                formActivity.getTaxfifDictionary().get(binding.spinner4.getSelectedItemPosition()).id;
+        examinerDuty.karbariId = formActivity.getKarbariDictionary()
+                .get(binding.spinner1.getSelectedItemPosition()).id;
+        examinerDuty.karbariS = formActivity.getKarbariDictionary()
+                .get(binding.spinner1.getSelectedItemPosition()).title;
+        examinerDuty.noeVagozariId = formActivity.getNoeVagozariDictionaries()
+                .get(binding.spinner2.getSelectedItemPosition()).id;
+        examinerDuty.noeVagozariS = formActivity.getNoeVagozariDictionaries()
+                .get(binding.spinner2.getSelectedItemPosition()).title;
+        examinerDuty.qotrEnsheabId = formActivity.getQotrEnsheabDictionary()
+                .get(binding.spinner3.getSelectedItemPosition()).id;
+        examinerDuty.qotrEnsheabS = formActivity.getQotrEnsheabDictionary()
+                .get(binding.spinner3.getSelectedItemPosition()).title;
+        examinerDuty.taxfifId = formActivity.getTaxfifDictionary()
+                .get(binding.spinner4.getSelectedItemPosition()).id;
         examinerDuty.isEnsheabQeirDaem = binding.checkbox1.isChecked();
 
         examinerDuty.motaqazi = binding.checkbox2.isChecked();
@@ -181,13 +176,9 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
         examinerDuty.parvane = binding.checkbox4.isChecked();
         examinerDuty.sanad = binding.checkbox5.isChecked();
         examinerDuty.pelak = Integer.parseInt(binding.editTextPelak.getText().toString());
-//TODO
-//        karbari = karbariDictionaries.get(binding.spinner1.getSelectedItemPosition()).getTitle();
-//        noeVagozari =
-//                noeVagozariDictionaries.get(binding.spinner2.getSelectedItemPosition()).getTitle();
-//        qotrEnsheab =
-//                qotrEnsheabDictionaries.get(binding.spinner3.getSelectedItemPosition()).getTitle();
-
+        examinerDuty.codeNew = binding.editTextCodeNew.getText().toString();
+        examinerDuty.codeKaf = binding.editTextCodeKaf.getText().toString();
+        examinerDuty.sodurDate = binding.editTextSodurDate.getText().toString();
         return examinerDuty;
     }
 
@@ -225,8 +216,7 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
                     && arzeshdaraei.formulas.size() > 0
                     && arzeshdaraei.zaribs != null
                     && arzeshdaraei.zaribs.size() > 0) {
-                ShowFragmentDialog.ShowFragmentDialogOnce(requireContext(), "VALUE_FRAGMENT",
-                        ValueFragment.newInstance(this));
+                ShowFragmentDialogOnce(requireContext(), "VALUE_FRAGMENT", ValueFragment.newInstance(this));
             } else {
                 new GetArzeshdaraei(requireContext(), examinerDuty.zoneId, this).execute(requireActivity());
             }

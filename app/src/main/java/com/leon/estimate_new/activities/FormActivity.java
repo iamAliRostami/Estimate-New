@@ -213,7 +213,6 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
 
     @Override
     public void setBaseInfo(ExaminerDuties examinerDuty) {
-        //TODO
         this.examinerDuty = examinerDuty;
         this.calculationUserInput.updateCalculationUserInput(examinerDuty);
         displayView(SECOND_FRAGMENT);

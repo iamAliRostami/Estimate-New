@@ -286,6 +286,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@id/linear_layout_8"
                     android:layout_below="@id/linear_layout_7">
 
                     <TextView
@@ -307,6 +308,26 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1.5"
+                        android:text="@string/code_new" />
+
+                    <EditText
+                        android:id="@+id/edit_text_code_new"
+                        style="@style/EditTextForm"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:inputType="number"
+                        tools:ignore="Autofill,LabelFor" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/linear_layout_8">
+
+                    <TextView
+                        style="@style/TitleSmall"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:text="@string/document" />
 
                     <CheckBox
@@ -314,7 +335,22 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_weight="1" />
+                        android:layout_weight="0.5" />
+
+                    <TextView
+                        style="@style/TitleSmall"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.5"
+                        android:text="@string/code_kaf" />
+
+                    <EditText
+                        android:id="@+id/edit_text_code_kaf"
+                        style="@style/EditTextForm"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:inputType="number"
+                        tools:ignore="Autofill,LabelFor" />
                 </LinearLayout>
             </RelativeLayout>
 

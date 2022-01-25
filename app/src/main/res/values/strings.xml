@@ -443,4 +443,6 @@
     <string name="there_is_nothing_for_download">داده ای  برای بارگیری وجود ندارد</string>
     <string name="tejari_sayer">تجاری ها و سایر</string>
     <string name="second_info">اطلاعات فنی</string>
+    <string name="code_new">کد نوسازی</string>
+    <string name="code_kaf">کد کف و بر</string>
 </resources>

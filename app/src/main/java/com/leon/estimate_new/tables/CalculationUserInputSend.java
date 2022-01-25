@@ -75,8 +75,8 @@ public class CalculationUserInputSend {
         this.faseleOtherA = examinerDuties.faseleOtherA;
         this.faseleSangF = examinerDuties.faseleSangF;
         this.faseleSangA = examinerDuties.faseleSangA;
-        this.faseleAsphaultF = examinerDuties.faseleAsphaultF;
-        this.faseleAsphaultA = examinerDuties.faseleAsphaultA;
+        this.faseleAsphaultF = examinerDuties.faseleAsphaltF;
+        this.faseleAsphaultA = examinerDuties.faseleAsphaltA;
         this.faseleKhakiF = examinerDuties.faseleKhakiF;
         this.faseleKhakiA = examinerDuties.faseleKhakiA;
 

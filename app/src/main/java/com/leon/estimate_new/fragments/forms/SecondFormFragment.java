@@ -99,8 +99,8 @@ public class SecondFormFragment extends Fragment {
 
         examinerDuty.faseleKhakiA = Integer.parseInt(binding.editTextKhaki.getText().toString());
         examinerDuty.faseleKhakiF = Integer.parseInt(binding.editTextKhakiFazelab.getText().toString());
-        examinerDuty.faseleAsphaultA = Integer.parseInt(binding.editTextAsphalt.getText().toString());
-        examinerDuty.faseleAsphaultF = Integer.parseInt(binding.editTextAsphaltFazelab.getText().toString());
+        examinerDuty.faseleAsphaltA = Integer.parseInt(binding.editTextAsphalt.getText().toString());
+        examinerDuty.faseleAsphaltF = Integer.parseInt(binding.editTextAsphaltFazelab.getText().toString());
 
         examinerDuty.faseleSangA = Integer.parseInt(binding.editTextSang.getText().toString());
         examinerDuty.faseleSangF = Integer.parseInt(binding.editTextSangFazelab.getText().toString());
@@ -112,8 +112,8 @@ public class SecondFormFragment extends Fragment {
 
         examinerDuty.etesalZirzamin = binding.checkBoxEtesalZirzamin.isChecked();
         examinerDuty.chahAbBaran = binding.checkBoxChahAbBaran.isChecked();
-        examinerDuty.ezhaNazarA = binding.checkBoxVahedAb.isChecked();
-        examinerDuty.ezhaNazarF = binding.checkBoxVahedFazelab.isChecked();
+        examinerDuty.ezharNazarA = binding.checkBoxVahedAb.isChecked();
+        examinerDuty.ezharNazarF = binding.checkBoxVahedFazelab.isChecked();
 
         examinerDuty.looleA = binding.checkBoxLooleAb.isChecked();
         examinerDuty.looleF = binding.checkBoxLooleFazelab.isChecked();
@@ -152,12 +152,12 @@ public class SecondFormFragment extends Fragment {
 
     private void initializeTextField() {
         binding.editTextKhaki.setText(String.valueOf(examinerDuty.faseleKhakiA));
-        binding.editTextAsphalt.setText(String.valueOf(examinerDuty.faseleAsphaultA));
+        binding.editTextAsphalt.setText(String.valueOf(examinerDuty.faseleAsphaltA));
         binding.editTextSang.setText(String.valueOf(examinerDuty.faseleSangA));
         binding.editTextOther.setText(String.valueOf(examinerDuty.faseleOtherA));
 
         binding.editTextKhakiFazelab.setText(String.valueOf(examinerDuty.faseleKhakiF));
-        binding.editTextAsphaltFazelab.setText(String.valueOf(examinerDuty.faseleAsphaultF));
+        binding.editTextAsphaltFazelab.setText(String.valueOf(examinerDuty.faseleAsphaltF));
         binding.editTextSangFazelab.setText(String.valueOf(examinerDuty.faseleSangF));
         binding.editTextOtherFazelab.setText(String.valueOf(examinerDuty.faseleOtherF));
         binding.editTextOmqFazelab.setText(String.valueOf(examinerDuty.omqFazelab));
@@ -188,8 +188,8 @@ public class SecondFormFragment extends Fragment {
     }
 
     private void initializeCheckBoxField() {
-        binding.checkBoxVahedAb.setChecked(examinerDuty.ezhaNazarA);
-        binding.checkBoxVahedFazelab.setChecked(examinerDuty.ezhaNazarF);
+        binding.checkBoxVahedAb.setChecked(examinerDuty.ezharNazarA);
+        binding.checkBoxVahedFazelab.setChecked(examinerDuty.ezharNazarF);
         binding.checkBoxLooleAb.setChecked(examinerDuty.looleA);
         binding.checkBoxLooleFazelab.setChecked(examinerDuty.looleF);
         binding.checkBoxEtesalZirzamin.setChecked(examinerDuty.etesalZirzamin);

@@ -51,9 +51,10 @@ public class PDFUtility {
             MyApplication.getContext().getString(R.string.pdf_folder);
     private static BaseFont BASE_FONT;
     private static Font FONT_TITLE;
-    private static Font FONT_SUBTITLE;
-    private static Font FONT_LOGO;
     private static Font FONT_TITTER;
+    private static Font FONT_TEXT_ITALIC;
+    private static Font FONT_TEXT;
+    private static Font FONT_LOGO;
     private static Font FONT_EN;
     private static final float PAGE_MARGIN = 10f;
     private static final float PADDING = 3f;
@@ -63,22 +64,21 @@ public class PDFUtility {
         void onPDFDocumentClose(File file);
     }
 
-    public static void createPdf(Context context, OnDocumentClose mCallback, List<String[]> items,
-                                 boolean isPortrait, Bitmap... bitmaps) throws Exception {
+    public static void createPdfOriginalForm(Context context, OnDocumentClose mCallback, List<String[]> items,
+                                             boolean isPortrait, Bitmap... bitmaps) throws Exception {
         try {
             BASE_FONT = BaseFont.createFont(Constants.PDF_FONT_NAME_FA, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
         } catch (DocumentException | IOException e) {
             e.printStackTrace();
         }
-        FONT_TITLE = new Font(BASE_FONT, 12, Font.NORMAL);
-        FONT_SUBTITLE = new Font(BASE_FONT, 10, Font.NORMAL);
+        FONT_TITLE = new Font(BASE_FONT, 12, Font.BOLD);
+        FONT_TEXT = new Font(BASE_FONT, 12, Font.NORMAL);
         FONT_LOGO = new Font(BASE_FONT, 6, Font.NORMAL);
-        FONT_TITTER = new Font(BASE_FONT, 12, Font.NORMAL);
         FONT_EN = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL);
 
         File file = new File(PDF_ADDRESS);
         if (file.exists()) {
-            file.delete();
+            if (!file.delete()) return;
         }
 
         Document document = new Document();
@@ -111,6 +111,55 @@ public class PDFUtility {
         }
     }
 
+    public static void createPdfPrivilegeForm(Context context, OnDocumentClose mCallback, List<String[]> items,
+                                              boolean isPortrait, Bitmap... bitmaps) throws Exception {
+        try {
+            BASE_FONT = BaseFont.createFont(Constants.PDF_FONT_NAME_FA, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+        } catch (DocumentException | IOException e) {
+            e.printStackTrace();
+        }
+        FONT_TITLE = new Font(BASE_FONT, 13, Font.NORMAL);
+        FONT_TITTER = new Font(BASE_FONT, 14, Font.BOLD);
+        FONT_TEXT = new Font(BASE_FONT, 14, Font.NORMAL);
+        FONT_TEXT_ITALIC = new Font(BASE_FONT, 13, Font.ITALIC);
+        FONT_LOGO = new Font(BASE_FONT, 10, Font.NORMAL);
+        FONT_EN = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL);
+
+        File file = new File(PDF_ADDRESS);
+        if (file.exists()) {
+            if (!file.delete()) return;
+        }
+
+        Document document = new Document();
+        document.setMargins(PAGE_MARGIN, PAGE_MARGIN, PAGE_MARGIN, PAGE_MARGIN);
+        document.setPageSize(isPortrait ? PageSize.A4 : PageSize.A4.rotate());
+        new FileOutputStream(PDF_ADDRESS);
+        PdfWriter pdfWriter = PdfWriter.getInstance(document, new FileOutputStream(PDF_ADDRESS));
+        pdfWriter.setFullCompression();
+        pdfWriter.setPageEvent(new PageNumeration(1));
+        pdfWriter.setRunDirection(PdfWriter.RUN_DIRECTION_RTL);
+
+        document.open();
+
+        document.add(createHeaderPrivilege(context, items.get(0)[0]));
+
+        document.add(createPrivilegeDataTable(items));
+
+//        document.add(createSignBox(items, bitmaps));
+
+        document.close();
+
+        try {
+            pdfWriter.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        if (mCallback != null) {
+            mCallback.onPDFDocumentClose(file);
+        }
+    }
+
     private static void addEmptyLine(Document document, int number) throws DocumentException {
         for (int i = 0; i < number; i++) {
             document.add(new Paragraph(" "));
@@ -122,6 +171,70 @@ public class PDFUtility {
         document.addAuthor("RAVEESH G S");
         document.addCreator("RAVEESH G S");
         document.addHeader("DEVELOPER", "RAVEESH G S");
+    }
+
+    private static PdfPTable createHeaderPrivilege(Context context, String date) throws Exception {
+        final PdfPTable table = new PdfPTable(3);
+        LanguageProcessor pe = new ArabicLigaturizer();
+        table.setWidthPercentage(100);
+        table.setWidths(new float[]{4, 5, 4});
+        table.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
+        table.getDefaultCell().setVerticalAlignment(Element.ALIGN_CENTER);
+        table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+
+        PdfPCell cell = new PdfPCell();
+        { /* LEFT TOP */
+            cell.setBorder(PdfPCell.NO_BORDER);
+            final PdfPTable pdfPTable = new PdfPTable(2);
+            pdfPTable.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
+
+            Paragraph temp = new Paragraph(pe.process(".............................."), FONT_TITLE);
+            pdfPTable.addCell(temp);
+
+            temp = new Paragraph(pe.process("شماره: "), FONT_TITLE);
+            pdfPTable.addCell(temp);
+
+            temp = new Paragraph(pe.process(date), FONT_TITLE);
+            pdfPTable.addCell(temp);
+
+            temp = new Paragraph(pe.process("تاریخ درخواست: "), FONT_TITLE);
+            pdfPTable.addCell(temp);
+
+            cell.addElement(pdfPTable);
+
+            table.addCell(cell);
+        }
+        { /* MIDDLE TEXT */
+            final PdfPTable logoTable = new PdfPTable(1);
+            logoTable.setWidthPercentage(100);
+            logoTable.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
+
+            final Image logo = getImageFromDrawable(((BitmapDrawable) ContextCompat.getDrawable(context, R.drawable.form_icon)));
+            PdfPCell logoCell = new PdfPCell(logo);
+            logoCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            logoCell.setBorder(PdfPCell.NO_BORDER);
+            logoTable.addCell(logoCell);
+
+            final Paragraph temp = new Paragraph(pe.process("درخواست صدور مجوز واگذاری و حفاری انشعاب"), FONT_TITLE);
+            logoCell = new PdfPCell(temp);
+            logoCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+            logoCell.setBorder(PdfPCell.NO_BORDER);
+            logoCell.setPadding(10f);
+            logoTable.addCell(logoCell);
+
+            cell = new PdfPCell(logoTable);
+            cell.setUseAscender(true);
+            cell.setBorder(PdfPCell.NO_BORDER);
+            cell.setPadding(4f);
+            table.addCell(cell);
+        }
+        {/* RIGHT TOP LOGO*/
+            cell = new PdfPCell(new PdfPCell());
+            cell.setBorder(PdfPCell.NO_BORDER);
+            table.addCell(cell);
+        }
+        return table;
     }
 
     private static PdfPTable createHeader(Context context) throws Exception {
@@ -147,7 +260,7 @@ public class PDFUtility {
             temp.setAlignment(Element.ALIGN_CENTER);
             cell.addElement(temp);
 
-            temp = new Paragraph(pe.process("ارزیابی"), FONT_SUBTITLE);
+            temp = new Paragraph(pe.process("ارزیابی"), FONT_TEXT);
             temp.setAlignment(Element.ALIGN_CENTER);
             cell.addElement(temp);
 
@@ -161,7 +274,7 @@ public class PDFUtility {
             logoTable.setHorizontalAlignment(Element.ALIGN_CENTER);
             logoTable.getDefaultCell().setVerticalAlignment(Element.ALIGN_CENTER);
 
-            Image logo = getImageFromDrawable(((BitmapDrawable) ContextCompat.getDrawable(context, R.drawable.img_menu_logo)));
+            Image logo = getImageFromDrawable(((BitmapDrawable) ContextCompat.getDrawable(context, R.drawable.form_icon)));
 
             PdfPCell logoCell = new PdfPCell(logo);
             logoCell.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -171,6 +284,11 @@ public class PDFUtility {
             logoTable.addCell(logoCell);
 
             logoCell = new PdfPCell(new Phrase("Logo Text", FONT_LOGO));
+
+            Paragraph temp = new Paragraph(pe.process("شرکت آب و فاضلاب استان اصفهان"), FONT_TITLE);
+            temp.setAlignment(Element.ALIGN_CENTER);
+            logoCell.addElement(temp);
+
             logoCell.setHorizontalAlignment(Element.ALIGN_CENTER);
             logoCell.setVerticalAlignment(Element.ALIGN_MIDDLE);
             logoCell.setBorder(PdfPCell.NO_BORDER);
@@ -185,6 +303,167 @@ public class PDFUtility {
             cell.setPadding(2f);
             table.addCell(cell);
         }
+        return table;
+    }
+
+    public static PdfPTable createPrivilegeDataTable(List<String[]> dataTable) throws DocumentException {
+        PdfPTable table = createTable(1, new float[]{1f});
+        table.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
+
+        PdfPTable row = new PdfPTable(2);
+        LanguageProcessor pe = new ArabicLigaturizer();
+        row.setWidthPercentage(100);
+        row.setWidths(new float[]{1, 2});
+        row.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
+
+        PdfPTable pdfPTable = new PdfPTable(1);
+        row.setWidthPercentage(100);
+
+        PdfPTable pdfPTableTemp = new PdfPTable(2);
+        pdfPTableTemp.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
+
+        Paragraph temp = new Paragraph(pe.process(dataTable.get(2)[0]), FONT_TEXT_ITALIC);
+        PdfPCell pdfPCellTemp = new PdfPCell(temp);
+        pdfPCellTemp.setHorizontalAlignment(Element.ALIGN_CENTER);
+        pdfPCellTemp.setBorder(PdfPCell.NO_BORDER);
+        pdfPTableTemp.addCell(pdfPCellTemp);
+
+
+        temp = new Paragraph(pe.process("منطقه: "), FONT_TITLE);
+        pdfPCellTemp = new PdfPCell(temp);
+        pdfPCellTemp.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        pdfPCellTemp.setBorder(PdfPCell.NO_BORDER);
+        pdfPTableTemp.addCell(pdfPCellTemp);
+
+        PdfPCell pdfPCell = new PdfPCell(pdfPTableTemp);
+        pdfPCell.setPadding(10f);
+
+        temp = new Paragraph(pe.process(dataTable.get(2)[1]), FONT_TEXT_ITALIC);
+        pdfPCellTemp = new PdfPCell(temp);
+        pdfPCellTemp.setHorizontalAlignment(Element.ALIGN_CENTER);
+        pdfPCellTemp.setBorder(PdfPCell.NO_BORDER);
+        pdfPTableTemp.addCell(pdfPCellTemp);
+
+        temp = new Paragraph(pe.process("شناسه قبض: "), FONT_TITLE);
+        pdfPCellTemp = new PdfPCell(temp);
+        pdfPCellTemp.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        pdfPCellTemp.setBorder(PdfPCell.NO_BORDER);
+        pdfPTableTemp.addCell(pdfPCellTemp);
+        pdfPCell = new PdfPCell(pdfPTableTemp);
+        pdfPCell.setPadding(10f);
+
+        temp = new Paragraph(pe.process(dataTable.get(2)[2].trim()), FONT_TEXT_ITALIC);
+        pdfPCellTemp = new PdfPCell(temp);
+        pdfPCellTemp.setHorizontalAlignment(Element.ALIGN_CENTER);
+        pdfPCellTemp.setBorder(PdfPCell.NO_BORDER);
+        pdfPTableTemp.addCell(pdfPCellTemp);
+
+        temp = new Paragraph(pe.process("شماره پیگیری: "), FONT_TITLE);
+        pdfPCellTemp = new PdfPCell(temp);
+        pdfPCellTemp.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        pdfPCellTemp.setBorder(PdfPCell.NO_BORDER);
+        pdfPTableTemp.addCell(pdfPCellTemp);
+        pdfPCell = new PdfPCell(pdfPTableTemp);
+
+        pdfPTable.addCell(pdfPCell);
+        row.addCell(pdfPTable);
+
+
+        String text = "مدیر محترم / شهردار محترم شهرداری ".concat(dataTable.get(1)[0]);
+        temp = new Paragraph(pe.process(text), FONT_TITTER);
+//        pdfPCellTemp = new PdfPCell(addEmptyLine(temp,2));
+        pdfPCellTemp = new PdfPCell(temp);
+        pdfPCellTemp.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        pdfPCellTemp.setBorder(PdfPCell.NO_BORDER);
+        PdfPTable pdfPTable1 = new PdfPTable(1);
+        pdfPTable1.addCell(pdfPCellTemp);
+
+
+        text = "آقای / خانم ".concat(dataTable.get(3)[0]).concat(" فرزند ").concat(dataTable.get(3)[1])
+                .concat(" کد ملی ").concat(dataTable.get(3)[2])
+                .concat(" به شماره همراه ").concat(dataTable.get(3)[3]).concat("ٔ در خصوص انجام عملیات ").concat(dataTable.get(3)[4])
+                .concat(" با مشخصات زیر معرفی می شوند. خواهشمند است ضمن اعلام بلامانع بودن واگذاری انشعاب ملک به شماره پروانه  ")
+                .concat(dataTable.get(3)[5]).concat(" تاریخ صدور ").concat(dataTable.get(3)[6])
+                .concat("نسبت به صدور مجوز حفاری و اعلام بر و کف معبر در مسیر مورد نظر دستور اقدام را مبذول فرمایید.");
+        temp = new Paragraph(pe.process(text), FONT_TEXT);
+        pdfPCellTemp = new PdfPCell(temp);
+        pdfPCellTemp.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        pdfPCellTemp.setBorder(PdfPCell.NO_BORDER);
+
+        pdfPTable1.addCell(pdfPCellTemp);
+
+
+        row.addCell(pdfPTable1);
+
+
+        table.addCell(row);
+
+//        table.addCell(createTableRow(5, PdfPCell.ALIGN_CENTER, 1f, BaseColor.WHITE,
+//                dataTable.get(0)));
+//
+//        table.addCell(createTableRow(5, PdfPCell.ALIGN_CENTER, 1f, BaseColor.LIGHT_GRAY,
+//                dataTable.get(1)));
+//
+//        table.addCell(createTableRow(5, PdfPCell.ALIGN_RIGHT, 1f, BaseColor.WHITE,
+//                dataTable.get(2)));
+//
+//        table.addCell(createTableRow(3, PdfPCell.ALIGN_RIGHT, new float[]{1f, 1f, 3f},
+//                new float[]{BORDER, BORDER, PdfPCell.NO_BORDER},
+//                new BaseColor[]{BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE},
+//                dataTable.get(3)));
+//
+//        table.addCell(createTableRow(1, PdfPCell.ALIGN_RIGHT, 1, BaseColor.WHITE,
+//                dataTable.get(4)));
+//
+//        table.addCell(createTableRow(2, PdfPCell.ALIGN_CENTER, 1f,
+//                BaseColor.LIGHT_GRAY,
+//                dataTable.get(5)));
+//        for (int i = 0; i < 8; i++)
+//            table.addCell(createTableRow(4, PdfPCell.ALIGN_CENTER, new float[]{1f, 1f, 1f, 1f},
+//                    new float[]{BORDER, BORDER, BORDER, PdfPCell.NO_BORDER},
+//                    new BaseColor[]{BaseColor.WHITE, BaseColor.WHITE, BaseColor.LIGHT_GRAY, BaseColor.WHITE},
+//                    dataTable.get(6 + i)));
+//
+//        table.addCell(createTableRow(3, PdfPCell.ALIGN_RIGHT, new float[]{2f, 1f, 1f},
+//                new float[]{BORDER, BORDER, PdfPCell.NO_BORDER},
+//                new BaseColor[]{BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE},
+//                dataTable.get(14)));
+//
+//        for (int i = 0; i < 8; i++)
+//            table.addCell(createTableRow(5, PdfPCell.ALIGN_CENTER, 1f, BaseColor.WHITE,
+//                    dataTable.get(15 + i)));
+//
+//        table.addCell(createTableRow(5, PdfPCell.ALIGN_CENTER, new float[]{1f, 1f, 1f, 1f, 1f},
+//                new float[]{PdfPCell.NO_BORDER, PdfPCell.NO_BORDER, BORDER, BORDER, PdfPCell.NO_BORDER},
+//                new BaseColor[]{BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE},
+//                dataTable.get(23)));
+//        table.addCell(createTableRow(5, PdfPCell.ALIGN_CENTER, new float[]{1f, 1f, 1f, 1f, 1f},
+//                new float[]{PdfPCell.NO_BORDER, PdfPCell.NO_BORDER, BORDER, BORDER, PdfPCell.NO_BORDER},
+//                new BaseColor[]{BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE},
+//                dataTable.get(24)));
+//
+//        table.addCell(createTableRow(9, PdfPCell.ALIGN_CENTER, new float[]{1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 2f},
+//                new float[]{BORDER, BORDER, BORDER, BORDER, BORDER, BORDER, BORDER, BORDER, PdfPCell.NO_BORDER},
+//                new BaseColor[]{BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE},
+//                dataTable.get(25)));
+//
+//        table.addCell(createTableRow(9, PdfPCell.ALIGN_CENTER, new float[]{1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 2f},
+//                new float[]{BORDER, BORDER, BORDER, BORDER, BORDER, BORDER, BORDER, BORDER, PdfPCell.NO_BORDER},
+//                new BaseColor[]{BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE},
+//                dataTable.get(26)));
+//
+//        table.addCell(createTableRow(3, PdfPCell.ALIGN_RIGHT, new float[]{1f, 1f, 3f},
+//                new float[]{PdfPCell.NO_BORDER, PdfPCell.NO_BORDER, PdfPCell.NO_BORDER},
+//                new BaseColor[]{BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE},
+//                dataTable.get(27)));
+//
+//        table.addCell(createTableRow(3, PdfPCell.ALIGN_RIGHT, new float[]{1f, 1f, 3f},
+//                new float[]{PdfPCell.NO_BORDER, PdfPCell.NO_BORDER, PdfPCell.NO_BORDER},
+//                new BaseColor[]{BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE},
+//                dataTable.get(28)));
+//
+//        table.addCell(createTableRow(1, PdfPCell.ALIGN_RIGHT, 1, BaseColor.WHITE,
+//                dataTable.get(29)));
         return table;
     }
 
@@ -262,7 +541,7 @@ public class PDFUtility {
 
     private static Phrase addPhrase(String s) {
         LanguageProcessor pe = new ArabicLigaturizer();
-        return new Phrase(pe.process(s), FONT_TITTER);
+        return new Phrase(pe.process(s), FONT_TITLE);
     }
 
     private static PdfPTable createTable(int column, float[] width) throws DocumentException {
@@ -421,7 +700,7 @@ public class PDFUtility {
     public static Bitmap getImagesFromPDF(File pdfFilePath, Context context) throws IOException {
         File destinationFolder = new File(Environment.getExternalStorageDirectory() + File.separator + Environment.DIRECTORY_PICTURES);
         if (!destinationFolder.exists()) {
-            destinationFolder.mkdirs();
+            if (!destinationFolder.mkdirs()) return null;
         }
         ParcelFileDescriptor fileDescriptor = ParcelFileDescriptor.open(pdfFilePath, ParcelFileDescriptor.MODE_READ_ONLY);
         PdfRenderer renderer = new PdfRenderer(fileDescriptor);
@@ -451,9 +730,10 @@ public class PDFUtility {
         return null;
     }
 
-    public static void addEmptyLine(Paragraph paragraph, int number) {
+    public static Paragraph addEmptyLine(Paragraph paragraph, int number) {
         for (int i = 0; i < number; i++) {
-            paragraph.add(new Paragraph(" "));
+            paragraph.add(new Paragraph("\n"));
         }
+        return paragraph;
     }
 }

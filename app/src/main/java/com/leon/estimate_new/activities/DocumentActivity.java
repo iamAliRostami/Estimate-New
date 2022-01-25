@@ -3,21 +3,16 @@ package com.leon.estimate_new.activities;
 import static com.leon.estimate_new.enums.BundleEnum.BILL_ID;
 import static com.leon.estimate_new.enums.BundleEnum.NEW_ENSHEAB;
 import static com.leon.estimate_new.enums.BundleEnum.TRACK_NUMBER;
-import static com.leon.estimate_new.enums.DialogType.Yellow;
 import static com.leon.estimate_new.helpers.Constants.BITMAP_SELECTED;
 import static com.leon.estimate_new.helpers.MyApplication.setActivityComponent;
 
 import android.Manifest;
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -25,9 +20,7 @@ import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.databinding.ActivityDocumentBinding;
-import com.leon.estimate_new.di.view_model.CustomDialogModel;
 import com.leon.estimate_new.di.view_model.HttpClientWrapper;
-import com.leon.estimate_new.enums.BundleEnum;
 import com.leon.estimate_new.fragments.documents.BrightnessContrastFragment;
 import com.leon.estimate_new.fragments.documents.CropFragment;
 import com.leon.estimate_new.fragments.documents.TakePhotoFragment;
@@ -38,7 +31,6 @@ import com.leon.estimate_new.tables.ImageDataTitle;
 import com.leon.estimate_new.tables.Images;
 import com.leon.estimate_new.utils.CustomFile;
 import com.leon.estimate_new.utils.CustomToast;
-import com.leon.estimate_new.utils.custom_dialog.LovelyStandardDialog;
 import com.leon.estimate_new.utils.document.ImageTitles;
 import com.leon.estimate_new.utils.document.LoginDocument;
 
@@ -165,7 +157,6 @@ public class DocumentActivity extends AppCompatActivity implements TakePhotoFrag
                         Manifest.permission.READ_EXTERNAL_STORAGE,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE).check();
     }
-
 
 
     @Override
