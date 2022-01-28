@@ -21,7 +21,7 @@ public class PrepareOutputImage extends BaseAsync {
     private Bitmap bitmap;
 
     public PrepareOutputImage(Context context, Object... view) {
-        super(context, view);
+        super(context,/*false ,*/view);
         if (view.length == 3) {
             bitmaps = new Bitmap[2];
             bitmaps[0] = (Bitmap) view[1];
@@ -43,7 +43,8 @@ public class PrepareOutputImage extends BaseAsync {
 
     @Override
     public void postTask(Object o) {
-        ((FinalReportActivity) o).setImageView(bitmap);
+//        ((FinalReportActivity) o).setLicenceImageView(bitmap);
+        ((FinalReportActivity) o).setFormImageView(new Bitmap[]{bitmap, bitmap});
     }
 
     @Override

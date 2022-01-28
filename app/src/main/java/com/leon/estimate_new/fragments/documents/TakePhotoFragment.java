@@ -39,7 +39,6 @@ import com.leon.estimate_new.adapters.SpinnerCustomAdapter;
 import com.leon.estimate_new.databinding.FragmentTakePhotoBinding;
 import com.leon.estimate_new.di.view_model.CustomDialogModel;
 import com.leon.estimate_new.di.view_model.HttpClientWrapper;
-import com.leon.estimate_new.enums.BundleEnum;
 import com.leon.estimate_new.fragments.dialog.AddDocumentFragment;
 import com.leon.estimate_new.fragments.dialog.ShowFragmentDialog;
 import com.leon.estimate_new.tables.DataTitle;
@@ -138,9 +137,13 @@ public class TakePhotoFragment extends Fragment {
     }
 
     private void prepareImageAdapter() {
-        final ImageViewAdapter imageViewAdapter = new ImageViewAdapter(requireContext(),
-                documentActivity.getImages());
-        binding.gridViewImage.setAdapter(imageViewAdapter);
+        try {
+            final ImageViewAdapter imageViewAdapter = new ImageViewAdapter(requireContext(),
+                    documentActivity.getImages());
+            binding.gridViewImage.setAdapter(imageViewAdapter);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public ProgressBar getProgressBar() {

@@ -1,16 +1,17 @@
 package com.leon.estimate_new.fragments.forms;
 
-import static com.leon.estimate_new.enums.SharedReferenceKeys.TRACK_NUMBER;
-import static com.leon.estimate_new.fragments.dialog.ShowFragmentDialog.ShowFragmentDialogOnce;
+import static com.leon.estimate_new.helpers.Constants.BITMAP_SELECTED;
+import static com.leon.estimate_new.helpers.Constants.MAP_SELECTED;
 import static com.leon.estimate_new.helpers.Constants.SECOND_FRAGMENT;
 import static com.leon.estimate_new.helpers.MyApplication.getLocationTracker;
-import static com.leon.estimate_new.helpers.MyApplication.getPreferenceManager;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.media.MediaActionSound;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,11 +21,13 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.esri.arcgisruntime.concurrent.ListenableFuture;
 import com.esri.arcgisruntime.geometry.GeodeticCurveType;
 import com.esri.arcgisruntime.geometry.GeometryEngine;
 import com.esri.arcgisruntime.geometry.LinearUnit;
@@ -43,11 +46,10 @@ import com.esri.arcgisruntime.symbology.SimpleLineSymbol;
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.databinding.FragmentMapDescriptionBinding;
 import com.leon.estimate_new.enums.MapType;
-import com.leon.estimate_new.fragments.dialog.SearchFragment;
 import com.leon.estimate_new.tables.CalculationUserInput;
 import com.leon.estimate_new.tables.ExaminerDuties;
+import com.leon.estimate_new.utils.CustomToast;
 import com.leon.estimate_new.utils.gis.GoogleMapLayer;
-import com.leon.estimate_new.utils.gis.OsmMapLayer;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -95,7 +97,7 @@ public class MapDescriptionFragment extends Fragment {
         binding.buttonPre.setOnClickListener(v -> formActivity.setOnPreClickListener(SECOND_FRAGMENT));
         binding.buttonEditCrooki.setOnClickListener(v -> {
             clearMap();
-            formActivity.setMapDescription(binding.editTextDescription.getText().toString());
+            captureScreenshotAsync();
         });
     }
 
@@ -105,6 +107,26 @@ public class MapDescriptionFragment extends Fragment {
         points.clear();
         binding.mapView.getGraphicsOverlays().clear();
         pointWater = pointSiphon = -1;
+    }
+
+    private void captureScreenshotAsync() {
+//        binding.mapView.setDrawingCacheEnabled(true);
+//        BITMAP_SELECTED = binding.mapView.getDrawingCache(true);
+//        BITMAP_SELECTED = BITMAP_SELECTED.copy(Bitmap.Config.ARGB_8888, true);
+//        binding.mapView.setDrawingCacheEnabled(false);
+//        formActivity.setMapDescription(binding.editTextDescription.getText().toString());
+        final ListenableFuture<Bitmap> export = binding.mapView.exportImageAsync();
+        export.addDoneListener(() -> {
+            try {
+                BITMAP_SELECTED = export.get().copy(Bitmap.Config.ARGB_8888, true);
+                final MediaActionSound sound = new MediaActionSound();
+                sound.play(MediaActionSound.SHUTTER_CLICK);
+            } catch (Exception e) {
+                new CustomToast().error(e.getMessage(), Toast.LENGTH_LONG);
+            } finally {
+                formActivity.setMapDescription(binding.editTextDescription.getText().toString());
+            }
+        });
     }
 
     private void initializeMap() {
@@ -206,6 +228,7 @@ public class MapDescriptionFragment extends Fragment {
             formActivity.setWaterLocation(((Point) GeometryEngine.project(graphicPoint, SpatialReferences.getWgs84())));
         } else pointSiphon = binding.mapView.getGraphicsOverlays().size() - 2;
     }
+
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.map_menu, menu);
@@ -227,6 +250,7 @@ public class MapDescriptionFragment extends Fragment {
         }
         return super.onOptionsItemSelected(item);
     }
+
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);

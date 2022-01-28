@@ -32,7 +32,7 @@
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/activity_crop_image.xml" value="0.24375" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/activity_document.xml" value="0.2" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/activity_document_form.xml" value="0.1" />
-        <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/activity_final_report.xml" value="0.264" />
+        <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/activity_final_report.xml" value="0.4" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/activity_form.xml" value="0.2625" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/activity_list.xml" value="0.2625" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/activity_login.xml" value="0.2" />
@@ -53,7 +53,7 @@
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/fragment_download.xml" value="0.2153846153846154" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/fragment_duties_list.xml" value="0.2153846153846154" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/fragment_edit_map.xml" value="0.2153846153846154" />
-        <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/fragment_help.xml" value="0.9972972972972973" />
+        <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/fragment_help.xml" value="0.176" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/fragment_high_quality.xml" value="0.2" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/fragment_home.xml" value="0.2153846153846154" />
         <entry key="..\:/AndroidStudioProjects/Estimate-New/app/src/main/res/layout/fragment_map_describtion.xml" value="0.2153846153846154" />

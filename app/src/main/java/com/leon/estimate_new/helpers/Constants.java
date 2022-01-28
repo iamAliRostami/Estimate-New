@@ -43,6 +43,7 @@ public class Constants {
 
     public static Uri PHOTO_URI;
     public static Bitmap BITMAP_SELECTED;
+    public static Bitmap MAP_SELECTED;
     public static String IMAGE_FILE_NAME;
 
     public static Context appContext;

@@ -1,5 +1,7 @@
 package com.leon.estimate_new.utils;
 
+import static com.leon.estimate_new.helpers.Constants.MAP_SELECTED;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -35,6 +37,7 @@ import com.itextpdf.text.pdf.languages.LanguageProcessor;
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.helpers.Constants;
 import com.leon.estimate_new.helpers.MyApplication;
+import com.sardari.daterangepicker.utils.PersianCalendar;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -143,9 +146,9 @@ public class PDFUtility {
 
         document.add(createHeaderPrivilege(context, items.get(0)[0]));
 
-        document.add(createPrivilegeDataTable(items));
+        document.add(createPrivilegeDataTable(items, bitmaps));
 
-//        document.add(createSignBox(items, bitmaps));
+//        document.add(createPrivilegeSignBox(bitmaps));
 
         document.close();
 
@@ -306,8 +309,8 @@ public class PDFUtility {
         return table;
     }
 
-    public static PdfPTable createPrivilegeDataTable(List<String[]> dataTable) throws DocumentException {
-        PdfPTable table = createTable(1, new float[]{1f});
+    public static PdfPTable createPrivilegeDataTable(List<String[]> dataTable, Bitmap... bitmaps) throws DocumentException {
+        final PdfPTable table = createTable(1, new float[]{1f});
         table.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
 
         PdfPTable row = new PdfPTable(2);
@@ -315,8 +318,6 @@ public class PDFUtility {
         row.setWidthPercentage(100);
         row.setWidths(new float[]{1, 2});
         row.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
-
-        PdfPTable pdfPTable = new PdfPTable(1);
         row.setWidthPercentage(100);
 
         PdfPTable pdfPTableTemp = new PdfPTable(2);
@@ -364,106 +365,130 @@ public class PDFUtility {
         pdfPCellTemp.setBorder(PdfPCell.NO_BORDER);
         pdfPTableTemp.addCell(pdfPCellTemp);
         pdfPCell = new PdfPCell(pdfPTableTemp);
-
-        pdfPTable.addCell(pdfPCell);
-        row.addCell(pdfPTable);
-
+        row.addCell(pdfPCell);
 
         String text = "مدیر محترم / شهردار محترم شهرداری ".concat(dataTable.get(1)[0]);
         temp = new Paragraph(pe.process(text), FONT_TITTER);
-//        pdfPCellTemp = new PdfPCell(addEmptyLine(temp,2));
-        pdfPCellTemp = new PdfPCell(temp);
+        pdfPCellTemp = new PdfPCell(addEmptyLine(temp, 1));
         pdfPCellTemp.setHorizontalAlignment(Element.ALIGN_RIGHT);
         pdfPCellTemp.setBorder(PdfPCell.NO_BORDER);
-        PdfPTable pdfPTable1 = new PdfPTable(1);
-        pdfPTable1.addCell(pdfPCellTemp);
+        pdfPTableTemp = new PdfPTable(1);
+        pdfPTableTemp.addCell(pdfPCellTemp);
 
 
-        text = "آقای / خانم ".concat(dataTable.get(3)[0]).concat(" فرزند ").concat(dataTable.get(3)[1])
-                .concat(" کد ملی ").concat(dataTable.get(3)[2])
-                .concat(" به شماره همراه ").concat(dataTable.get(3)[3]).concat("ٔ در خصوص انجام عملیات ").concat(dataTable.get(3)[4])
-                .concat(" با مشخصات زیر معرفی می شوند. خواهشمند است ضمن اعلام بلامانع بودن واگذاری انشعاب ملک به شماره پروانه  ")
-                .concat(dataTable.get(3)[5]).concat(" تاریخ صدور ").concat(dataTable.get(3)[6])
-                .concat("نسبت به صدور مجوز حفاری و اعلام بر و کف معبر در مسیر مورد نظر دستور اقدام را مبذول فرمایید.");
+        text = "آقای / خانم ".concat(dataTable.get(3)[0]).concat(" فرزند ").concat(dataTable.get(3)[1]);
         temp = new Paragraph(pe.process(text), FONT_TEXT);
         pdfPCellTemp = new PdfPCell(temp);
         pdfPCellTemp.setHorizontalAlignment(Element.ALIGN_RIGHT);
         pdfPCellTemp.setBorder(PdfPCell.NO_BORDER);
+        pdfPTableTemp.addCell(pdfPCellTemp);
 
-        pdfPTable1.addCell(pdfPCellTemp);
+        text = " کد ملی ".concat(dataTable.get(3)[2]).concat(" به شماره همراه ").concat(dataTable.get(3)[3]);
+        temp = new Paragraph(pe.process(text), FONT_TEXT);
+        pdfPCellTemp = new PdfPCell(temp);
+        pdfPCellTemp.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        pdfPCellTemp.setBorder(PdfPCell.NO_BORDER);
+        pdfPTableTemp.addCell(pdfPCellTemp);
 
-
-        row.addCell(pdfPTable1);
-
+        row.addCell(pdfPTableTemp);
 
         table.addCell(row);
 
-//        table.addCell(createTableRow(5, PdfPCell.ALIGN_CENTER, 1f, BaseColor.WHITE,
-//                dataTable.get(0)));
-//
-//        table.addCell(createTableRow(5, PdfPCell.ALIGN_CENTER, 1f, BaseColor.LIGHT_GRAY,
-//                dataTable.get(1)));
-//
-//        table.addCell(createTableRow(5, PdfPCell.ALIGN_RIGHT, 1f, BaseColor.WHITE,
-//                dataTable.get(2)));
-//
-//        table.addCell(createTableRow(3, PdfPCell.ALIGN_RIGHT, new float[]{1f, 1f, 3f},
-//                new float[]{BORDER, BORDER, PdfPCell.NO_BORDER},
-//                new BaseColor[]{BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE},
-//                dataTable.get(3)));
-//
-//        table.addCell(createTableRow(1, PdfPCell.ALIGN_RIGHT, 1, BaseColor.WHITE,
-//                dataTable.get(4)));
-//
-//        table.addCell(createTableRow(2, PdfPCell.ALIGN_CENTER, 1f,
-//                BaseColor.LIGHT_GRAY,
-//                dataTable.get(5)));
-//        for (int i = 0; i < 8; i++)
-//            table.addCell(createTableRow(4, PdfPCell.ALIGN_CENTER, new float[]{1f, 1f, 1f, 1f},
-//                    new float[]{BORDER, BORDER, BORDER, PdfPCell.NO_BORDER},
-//                    new BaseColor[]{BaseColor.WHITE, BaseColor.WHITE, BaseColor.LIGHT_GRAY, BaseColor.WHITE},
-//                    dataTable.get(6 + i)));
-//
-//        table.addCell(createTableRow(3, PdfPCell.ALIGN_RIGHT, new float[]{2f, 1f, 1f},
-//                new float[]{BORDER, BORDER, PdfPCell.NO_BORDER},
-//                new BaseColor[]{BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE},
-//                dataTable.get(14)));
-//
-//        for (int i = 0; i < 8; i++)
-//            table.addCell(createTableRow(5, PdfPCell.ALIGN_CENTER, 1f, BaseColor.WHITE,
-//                    dataTable.get(15 + i)));
-//
-//        table.addCell(createTableRow(5, PdfPCell.ALIGN_CENTER, new float[]{1f, 1f, 1f, 1f, 1f},
-//                new float[]{PdfPCell.NO_BORDER, PdfPCell.NO_BORDER, BORDER, BORDER, PdfPCell.NO_BORDER},
-//                new BaseColor[]{BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE},
-//                dataTable.get(23)));
-//        table.addCell(createTableRow(5, PdfPCell.ALIGN_CENTER, new float[]{1f, 1f, 1f, 1f, 1f},
-//                new float[]{PdfPCell.NO_BORDER, PdfPCell.NO_BORDER, BORDER, BORDER, PdfPCell.NO_BORDER},
-//                new BaseColor[]{BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE},
-//                dataTable.get(24)));
-//
-//        table.addCell(createTableRow(9, PdfPCell.ALIGN_CENTER, new float[]{1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 2f},
-//                new float[]{BORDER, BORDER, BORDER, BORDER, BORDER, BORDER, BORDER, BORDER, PdfPCell.NO_BORDER},
-//                new BaseColor[]{BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE},
-//                dataTable.get(25)));
-//
-//        table.addCell(createTableRow(9, PdfPCell.ALIGN_CENTER, new float[]{1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 2f},
-//                new float[]{BORDER, BORDER, BORDER, BORDER, BORDER, BORDER, BORDER, BORDER, PdfPCell.NO_BORDER},
-//                new BaseColor[]{BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE},
-//                dataTable.get(26)));
-//
-//        table.addCell(createTableRow(3, PdfPCell.ALIGN_RIGHT, new float[]{1f, 1f, 3f},
-//                new float[]{PdfPCell.NO_BORDER, PdfPCell.NO_BORDER, PdfPCell.NO_BORDER},
-//                new BaseColor[]{BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE},
-//                dataTable.get(27)));
-//
-//        table.addCell(createTableRow(3, PdfPCell.ALIGN_RIGHT, new float[]{1f, 1f, 3f},
-//                new float[]{PdfPCell.NO_BORDER, PdfPCell.NO_BORDER, PdfPCell.NO_BORDER},
-//                new BaseColor[]{BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE},
-//                dataTable.get(28)));
-//
-//        table.addCell(createTableRow(1, PdfPCell.ALIGN_RIGHT, 1, BaseColor.WHITE,
-//                dataTable.get(29)));
+        row = new PdfPTable(1);
+        text = "ٔدر خصوص انجام عملیات ".concat(dataTable.get(3)[4])
+                .concat(" با مشخصات زیر معرفی می شوند.  ");
+        temp = new Paragraph(pe.process(text), FONT_TEXT);
+        pdfPCellTemp = new PdfPCell(temp);
+        pdfPCellTemp.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        pdfPCellTemp.setBorder(PdfPCell.NO_BORDER);
+        row.addCell(pdfPCellTemp);
+
+        text = "خواهشمند است ضمن اعلام بلامانع بودن واگذاری انشعاب ملک به شماره پروانه "
+                .concat(dataTable.get(3)[5]).concat(" تاریخ صدور ").concat(dataTable.get(3)[6]);
+        temp = new Paragraph(pe.process(text), FONT_TEXT);
+        pdfPCellTemp = new PdfPCell(temp);
+        pdfPCellTemp.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        pdfPCellTemp.setBorder(PdfPCell.NO_BORDER);
+        row.addCell(pdfPCellTemp);
+
+        text = "نسبت به صدور مجوز حفاری و اعلام بر و کف معبر در مسیر مورد نظر دستور اقدام را مبذول فرمایید.";
+        temp = new Paragraph(pe.process(text), FONT_TEXT);
+//        pdfPCellTemp = new PdfPCell(temp);
+        pdfPCellTemp = new PdfPCell(addEmptyLine(temp, 2));
+        pdfPCellTemp.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        pdfPCellTemp.setBorder(PdfPCell.NO_BORDER);
+        row.addCell(pdfPCellTemp);
+
+
+        text = "آدرس محل: شهر".concat(dataTable.get(4)[0]).concat(" خیابان / کوچه / بن بست: ")
+                .concat(dataTable.get(4)[1]).concat(" پلاک ").concat(dataTable.get(4)[2]);
+        temp = new Paragraph(pe.process(text), FONT_TEXT);
+//        pdfPCellTemp = new PdfPCell(temp);
+        pdfPCellTemp = new PdfPCell(addEmptyLine(temp, 2));
+        pdfPCellTemp.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        pdfPCellTemp.setBorder(PdfPCell.NO_BORDER);
+        row.addCell(pdfPCellTemp);
+
+
+        text = "کل حفاری انشعاب آب ".concat(dataTable.get(5)[0]).concat(" متر ");
+        temp = new Paragraph(pe.process(text), FONT_TEXT);
+        pdfPCellTemp = new PdfPCell(addEmptyLine(temp, 1));
+        pdfPCellTemp.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        pdfPCellTemp.setBorder(PdfPCell.NO_BORDER);
+        row.addCell(pdfPCellTemp);
+
+        text = "(طول حفاری در آسفالت ".concat(dataTable.get(5)[1]).concat(" متر، حفاری در مسیر خاکی ")
+                .concat(dataTable.get(5)[2]).concat(" متر، حفاری در موزاییک با سنگ فرش  ")
+                .concat(dataTable.get(5)[3]).concat(" متر )");
+        temp = new Paragraph(pe.process(text), FONT_TEXT);
+        pdfPCellTemp = new PdfPCell(temp);
+        pdfPCellTemp.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        pdfPCellTemp.setBorder(PdfPCell.NO_BORDER);
+        row.addCell(pdfPCellTemp);
+
+
+        text = "کل حفاری انشعاب فاضلاب ".concat(dataTable.get(6)[0]).concat(" متر ");
+        temp = new Paragraph(pe.process(text), FONT_TEXT);
+        pdfPCellTemp = new PdfPCell(addEmptyLine(temp, 1));
+        pdfPCellTemp.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        pdfPCellTemp.setBorder(PdfPCell.NO_BORDER);
+        row.addCell(pdfPCellTemp);
+
+        text = "(طول حفاری در آسفالت ".concat(dataTable.get(6)[1]).concat(" متر، حفاری در مسیر خاکی ")
+                .concat(dataTable.get(6)[2]).concat(" متر، حفاری در موزاییک با سنگ فرش  ")
+                .concat(dataTable.get(6)[3]).concat(" متر )");
+        temp = new Paragraph(pe.process(text), FONT_TEXT);
+        pdfPCellTemp = new PdfPCell(addEmptyLine(temp, 2));
+        pdfPCellTemp.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        pdfPCellTemp.setBorder(PdfPCell.NO_BORDER);
+        row.addCell(pdfPCellTemp);
+
+        final PdfPTable mapTable = new PdfPTable(1);
+        mapTable.setWidthPercentage(100);
+        mapTable.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
+
+        text = "کروکی محل (در صورت نامشخص بودن موقعیت محل کروکی ترسیم گردد.)";
+        temp = new Paragraph(pe.process(text), FONT_TEXT);
+        pdfPCellTemp = new PdfPCell(addEmptyLine(temp, 2));
+        pdfPCellTemp.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        pdfPCellTemp.setBorder(PdfPCell.NO_BORDER);
+        mapTable.addCell(pdfPCellTemp);
+
+        final Image map = getImageFromBitmap(MAP_SELECTED);
+        PdfPCell mapCell = new PdfPCell(map);
+        mapCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        mapCell.setBorder(PdfPCell.NO_BORDER);
+        mapTable.addCell(mapCell);
+
+        PdfPCell cell = new PdfPCell(mapTable);
+        cell.setUseAscender(true);
+        cell.setPadding(4f);
+        row.addCell(cell);
+
+        row.addCell(createPrivilegeSignBox(dataTable.get(8)[0], bitmaps));
+
+
+        table.addCell(row);
         return table;
     }
 
@@ -590,6 +615,53 @@ public class PDFUtility {
         cell.setVerticalAlignment(Element.ALIGN_TOP);
         cell.setBorder(PdfPCell.NO_BORDER);
         return cell;
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    private static PdfPTable createPrivilegeSignBox(String name, Bitmap... bitmaps) {
+        final LanguageProcessor pe = new ArabicLigaturizer();
+
+        final PdfPTable signTable = new PdfPTable(1);
+        signTable.setWidthPercentage(100);
+
+        String text = "ارزیاب / رئیس مشترکین منطقه: ".concat(name);
+        Paragraph temp = new Paragraph(pe.process(text), FONT_TEXT);
+        PdfPCell pdfPCellTemp = new PdfPCell(addEmptyLine(temp, 2));
+        pdfPCellTemp.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        pdfPCellTemp.setBorder(PdfPCell.NO_BORDER);
+        pdfPCellTemp.setPadding(4f);
+        signTable.addCell(pdfPCellTemp);
+
+        if (bitmaps != null && bitmaps.length > 0) {
+            final Image sign = getImageFromBitmap(bitmaps[0]);
+            if (sign != null) sign.setAlignment(Element.ALIGN_CENTER);
+            final PdfPCell signCell = new PdfPCell(sign);
+            signCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            signCell.setBorder(PdfPCell.NO_BORDER);
+            signTable.addCell(signCell);
+        }
+
+
+        final PersianCalendar persianCalendar = new PersianCalendar();
+        text = persianCalendar.getPersianLongDate();
+        text = text.concat(" - ").concat((new SimpleDateFormat("HH:mm:ss")).format(new Date()));
+
+        temp = new Paragraph(pe.process(text), FONT_TEXT);
+        pdfPCellTemp = new PdfPCell(addEmptyLine(temp, 2));
+        pdfPCellTemp.setHorizontalAlignment(Element.ALIGN_CENTER);
+        pdfPCellTemp.setBorder(PdfPCell.NO_BORDER);
+        signTable.addCell(pdfPCellTemp);
+
+
+        text = "توجه: متقاضیانی که دارای پروانه ساختمانی یا پایان ساخت میباشند در هنگام مراجعه به شهرداری همراه داشته باشند.";
+        temp = new Paragraph(pe.process(text), FONT_TEXT);
+        pdfPCellTemp = new PdfPCell(addEmptyLine(temp, 2));
+        pdfPCellTemp.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        pdfPCellTemp.setBorder(PdfPCell.NO_BORDER);
+        pdfPCellTemp.setPadding(4f);
+
+        signTable.addCell(pdfPCellTemp);
+        return signTable;
     }
 
     private static PdfPTable createSignBox(List<String[]> items, Bitmap... bitmaps) throws DocumentException {

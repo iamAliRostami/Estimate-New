@@ -4,11 +4,13 @@ import static com.leon.estimate_new.enums.BundleEnum.BILL_ID;
 import static com.leon.estimate_new.enums.BundleEnum.NEW_ENSHEAB;
 import static com.leon.estimate_new.enums.BundleEnum.TRACK_NUMBER;
 import static com.leon.estimate_new.helpers.Constants.BITMAP_SELECTED;
+import static com.leon.estimate_new.helpers.Constants.MAP_SELECTED;
 import static com.leon.estimate_new.helpers.MyApplication.setActivityComponent;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -83,8 +85,14 @@ public class DocumentActivity extends AppCompatActivity implements TakePhotoFrag
         getExtra();
         new LoginDocument(this, this).execute(this);
         if (BITMAP_SELECTED != null) {
-            bitmap = BITMAP_SELECTED;
+            bitmap = BITMAP_SELECTED.copy(Bitmap.Config.ARGB_8888, true);
             BITMAP_SELECTED = null;
+//            final Matrix matrix = new Matrix();
+//            matrix.postRotate(90);
+//            MAP_SELECTED = Bitmap.createScaledBitmap(BITMAP_SELECTED, BITMAP_SELECTED.getWidth(), BITMAP_SELECTED.getHeight(), true);
+//            MAP_SELECTED = Bitmap.createBitmap(bitmap.copy(Bitmap.Config.ARGB_8888, true),
+//                    0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+            MAP_SELECTED = bitmap.copy(Bitmap.Config.ARGB_8888, true);
         }
     }
 

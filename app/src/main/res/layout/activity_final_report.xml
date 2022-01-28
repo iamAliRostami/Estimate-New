@@ -5,11 +5,32 @@
     android:layout_height="match_parent"
     android:padding="@dimen/medium_dp"
     tools:context=".activities.FinalReportActivity">
+
+
     <com.github.chrisbanes.photoview.PhotoView
         android:id="@+id/image_view_pdf"
-        android:layout_above="@id/linear_layout_refresh_sign"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_above="@id/linear_layout_refresh_sign" />
+    <ImageView
+        android:id="@+id/image_button_previous"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/medium_dp"
+        android:padding="@dimen/medium_dp"
+        android:src="@drawable/img_next"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/image_button_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="@dimen/medium_dp"
+        android:padding="@dimen/medium_dp"
+        android:src="@drawable/img_previous"
+        tools:ignore="ContentDescription" />
+
 
     <LinearLayout
         android:id="@+id/linear_layout_sign"

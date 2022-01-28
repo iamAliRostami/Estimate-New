@@ -98,6 +98,7 @@ public final class CustomProgressModel {
     public Dialog getDialog() {
         return dialog;
     }
+
     public void cancelDialog() {
         if (dialog != null) {
             dialog.dismiss();

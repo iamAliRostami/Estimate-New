@@ -3,11 +3,14 @@ package com.leon.estimate_new.fragments.forms;
 import static android.graphics.Color.BLUE;
 import static android.graphics.Color.RED;
 import static android.graphics.Color.YELLOW;
+import static com.leon.estimate_new.helpers.Constants.BITMAP_SELECTED;
 import static com.leon.estimate_new.helpers.Constants.MAP_DESCRIPTION_FRAGMENT;
+import static com.leon.estimate_new.helpers.Constants.MAP_SELECTED;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,14 +21,15 @@ import androidx.fragment.app.Fragment;
 
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.databinding.FragmentEditMapBinding;
-import com.leon.estimate_new.helpers.Constants;
+import com.leon.estimate_new.fragments.dialog.HighQualityFragment;
+import com.leon.estimate_new.fragments.dialog.ShowFragmentDialog;
 import com.leon.estimate_new.tables.ExaminerDuties;
 
 
 public class EditMapFragment extends Fragment {
     private FragmentEditMapBinding binding;
     private Callback formActivity;
-    View.OnClickListener onClickListener = new View.OnClickListener() {
+    private final View.OnClickListener onClickListener = new View.OnClickListener() {
         @SuppressLint("NonConstantResourceId")
         @Override
         public void onClick(View v) {
@@ -34,7 +38,8 @@ public class EditMapFragment extends Fragment {
                 case R.id.image_view_refresh:
                     binding.signatureView.clearCanvas();
                     //TODO
-//                    binding.signatureView.setBitmap();
+                    if (BITMAP_SELECTED != null)
+                        binding.signatureView.setBitmap(BITMAP_SELECTED);
                     break;
                 case R.id.image_view_color_blue:
                     binding.signatureView.setPenColor(BLUE);
@@ -77,12 +82,16 @@ public class EditMapFragment extends Fragment {
         binding.imageViewColorYellow.setOnClickListener(onClickListener);
         binding.imageViewColorBlue.setOnClickListener(onClickListener);
         binding.imageViewColorRed.setOnClickListener(onClickListener);
+        if (BITMAP_SELECTED != null) {
+            binding.signatureView.setBitmap(BITMAP_SELECTED);
+        }
     }
 
     private void setOnButtonClickListener() {
         binding.buttonPre.setOnClickListener(v -> formActivity.setOnPreClickListener(MAP_DESCRIPTION_FRAGMENT));
         binding.buttonSubmit.setOnClickListener(v -> {
-            Constants.BITMAP_SELECTED = binding.signatureView.getSignatureBitmap();
+            BITMAP_SELECTED = binding.signatureView.getSignatureBitmap();
+            MAP_SELECTED = binding.signatureView.getSignatureBitmap();
             formActivity.setEditMap();
         });
     }
