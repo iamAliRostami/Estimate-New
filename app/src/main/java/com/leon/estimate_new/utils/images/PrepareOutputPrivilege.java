@@ -12,7 +12,6 @@ import com.leon.estimate_new.activities.FinalReportActivity;
 import com.leon.estimate_new.base_items.BaseAsync;
 import com.leon.estimate_new.tables.ExaminerDuties;
 import com.leon.estimate_new.utils.CustomToast;
-import com.leon.estimate_new.utils.PDFUtility;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -20,7 +19,7 @@ import java.util.List;
 
 public class PrepareOutputPrivilege extends BaseAsync {
     private Bitmap[] bitmaps;
-    private Bitmap bitmap;
+    private Bitmap licenceBitmap;
     private List<String[]> licenceRows;
     private final ExaminerDuties examinerDuty;
 
@@ -46,7 +45,7 @@ public class PrepareOutputPrivilege extends BaseAsync {
         }
     }
 
-    private List<String[]> getFormData() {
+    private List<String[]> getLicenceData() {
         if (licenceRows == null) {
             licenceRows = new ArrayList<>();
             String[] rowString = new String[]{examinerDuty.examinationDay};
@@ -92,7 +91,7 @@ public class PrepareOutputPrivilege extends BaseAsync {
 
     @Override
     public void postTask(Object o) {
-        ((FinalReportActivity) o).setLicenceImageView(bitmap, licenceRows);
+        ((FinalReportActivity) o).setLicenceImageView(licenceBitmap, licenceRows);
     }
 
     @Override
@@ -104,10 +103,10 @@ public class PrepareOutputPrivilege extends BaseAsync {
     public void backgroundTask(Activity activity) {
         try {
             if (bitmaps != null && bitmaps.length > 0)
-                createPdfPrivilegeForm(activity, null, getFormData(), true, bitmaps);
+                createPdfPrivilegeForm(activity, null, getLicenceData(), true, bitmaps);
             else
-                createPdfPrivilegeForm(activity, null, getFormData(), true);
-            bitmap = getImagesFromPDF(new File(PDF_ADDRESS), activity);
+                createPdfPrivilegeForm(activity, null, getLicenceData(), true);
+            licenceBitmap = getImagesFromPDF(new File(PDF_ADDRESS), activity);
         } catch (Exception e) {
             e.printStackTrace();
             new CustomToast().error(e.getMessage());

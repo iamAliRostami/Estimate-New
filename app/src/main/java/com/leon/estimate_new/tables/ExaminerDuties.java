@@ -14,7 +14,7 @@ public class ExaminerDuties {
     public String trackNumber;
     public String examinationId;
     public int karbariId;
-    @Ignore
+//    @Ignore
     public String karbariS;
     public String radif;
     public String billId;
@@ -45,7 +45,7 @@ public class ExaminerDuties {
     public int aianMaskooni;
     public int aianNonMaskooni;
     public int qotrEnsheabId;
-    @Ignore
+//    @Ignore
     public String qotrEnsheabS;
     public int sifoon100;
     public int sifoon125;
@@ -84,7 +84,7 @@ public class ExaminerDuties {
     public boolean etesalZirzamin;
     public int omqFazelab;
     public int noeVagozariId;
-    @Ignore
+//    @Ignore
     public String noeVagozariS;
     public int pelak;
     public boolean sanad;
@@ -108,6 +108,7 @@ public class ExaminerDuties {
     public int omqeZirzamin;
     public boolean chahAbBaran;
 
+    public double x1, x2, y1, y2;
     public String sodurDate;
 
     @Ignore

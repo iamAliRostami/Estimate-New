@@ -1,16 +1,20 @@
 package com.leon.estimate_new.utils.images;
 
 import static com.leon.estimate_new.utils.PDFUtility.PDF_ADDRESS;
+import static com.leon.estimate_new.utils.PDFUtility.createPdfCrooki;
+import static com.leon.estimate_new.utils.PDFUtility.createPdfOriginalForm;
+import static com.leon.estimate_new.utils.PDFUtility.createPdfPrivilegeForm;
 import static com.leon.estimate_new.utils.PDFUtility.getImagesFromPDF;
 
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.widget.Toast;
 
 import com.leon.estimate_new.activities.FinalReportActivity;
 import com.leon.estimate_new.base_items.BaseAsync;
+import com.leon.estimate_new.tables.ExaminerDuties;
 import com.leon.estimate_new.utils.CustomToast;
-import com.leon.estimate_new.utils.PDFUtility;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -18,10 +22,17 @@ import java.util.List;
 
 public class PrepareOutputImage extends BaseAsync {
     private Bitmap[] bitmaps;
-    private Bitmap bitmap;
+    private Bitmap bitmapOutput;
+    private Bitmap bitmapCrooki;
+    private Bitmap licenceBitmap;
+    private List<String[]> licenceRows;
+    private final ExaminerDuties examinerDuty;
+    private final boolean licence;
 
-    public PrepareOutputImage(Context context, Object... view) {
-        super(context,/*false ,*/view);
+    public PrepareOutputImage(Context context, ExaminerDuties examinerDuties, boolean licence, Object... view) {
+        super(context, view);
+        examinerDuty = examinerDuties;
+        this.licence = licence;
         if (view.length == 3) {
             bitmaps = new Bitmap[2];
             bitmaps[0] = (Bitmap) view[1];
@@ -29,22 +40,25 @@ public class PrepareOutputImage extends BaseAsync {
         }
     }
 
-    private List<String[]> getFormData() {
-        int row = 31, column = 10;
-        List<String[]> temp = new ArrayList<>();
-        for (int i = 0; i < row; i++) {
-            String[] rowString = new String[column];
-            for (int j = 0; j < column; j++)
-                rowString[j] = "ستون " + j + 1 + " سطر " + i + 1;
-            temp.add(rowString);
+    public PrepareOutputImage(Context context, ExaminerDuties examinerDuties,
+                              boolean licence, List<String[]> licenceRows, Object... view) {
+        super(context, view);
+        examinerDuty = examinerDuties;
+        this.licence = licence;
+        this.licenceRows = licenceRows;
+        if (view.length == 3) {
+            bitmaps = new Bitmap[2];
+            bitmaps[0] = (Bitmap) view[1];
+            bitmaps[1] = (Bitmap) view[2];
         }
-        return temp;
     }
+
 
     @Override
     public void postTask(Object o) {
-//        ((FinalReportActivity) o).setLicenceImageView(bitmap);
-        ((FinalReportActivity) o).setFormImageView(new Bitmap[]{bitmap, bitmap});
+        ((FinalReportActivity) o).setFormImageView(new Bitmap[]{bitmapOutput, bitmapCrooki});
+        if (licence)
+            ((FinalReportActivity) o).setLicenceImageView(licenceBitmap, licenceRows);
     }
 
     @Override
@@ -56,14 +70,197 @@ public class PrepareOutputImage extends BaseAsync {
     public void backgroundTask(Activity activity) {
         try {
             if (bitmaps != null && bitmaps.length > 0)
-                PDFUtility.createPdfOriginalForm(activity, null, getFormData(), true, bitmaps);
+                createPdfOriginalForm(activity, null, getFormData(), true, bitmaps);
             else
-                PDFUtility.createPdfOriginalForm(activity, null, getFormData(), true);
-            bitmap = getImagesFromPDF(new File(PDF_ADDRESS), activity);
+                createPdfOriginalForm(activity, null, getFormData(), true);
+            bitmapOutput = getImagesFromPDF(new File(PDF_ADDRESS), activity);
         } catch (Exception e) {
             e.printStackTrace();
-            new CustomToast().error(e.getMessage());
+            new CustomToast().error(e.getMessage(), Toast.LENGTH_LONG);
         }
+        try {
+            if (bitmaps != null && bitmaps.length > 0)
+                createPdfCrooki(activity, null, getCrookiData(), true, bitmaps);
+            else
+                createPdfCrooki(activity, null, getCrookiData(), true);
+            bitmapCrooki = getImagesFromPDF(new File(PDF_ADDRESS), activity);
+        } catch (Exception e) {
+            new CustomToast().error(e.getMessage(), Toast.LENGTH_LONG);
+        }
+        if (licence)
+            try {
+                if (bitmaps != null && bitmaps.length > 0)
+                    createPdfPrivilegeForm(activity, null, getLicenceData(), true, bitmaps);
+                else
+                    createPdfPrivilegeForm(activity, null, getLicenceData(), true);
+                licenceBitmap = getImagesFromPDF(new File(PDF_ADDRESS), activity);
+            } catch (Exception e) {
+                new CustomToast().error(e.getMessage(), Toast.LENGTH_LONG);
+            }
+    }
+
+    private List<String[]> getFormData() {
+        List<String[]> temp = new ArrayList<>();
+
+        String[] rowString = new String[]{examinerDuty.billId, "شناسه قبض", examinerDuty.eshterak,
+                "اشتراک", examinerDuty.radif, "ردیف"};
+        temp.add(rowString);
+        //TODO
+        rowString = new String[]{String.valueOf(examinerDuty.sanad), "شماره سند", examinerDuty.parNumber,
+                "شماره پروانه", examinerDuty.trackNumber, "شماره پیگیری"};
+        temp.add(rowString);
+
+        rowString = new String[]{examinerDuty.fatherName, "نام پدر", examinerDuty.sureName,
+                "نام خانوادگی", examinerDuty.firstName, "نام"};
+        temp.add(rowString);
+
+        rowString = new String[]{examinerDuty.phoneNumber, "تلفن ثابت", examinerDuty.mobile != null ?
+                examinerDuty.mobile : examinerDuty.moshtarakMobile,
+                "تلفن همراه", examinerDuty.nationalId, "کدملی"};
+        temp.add(rowString);
+
+        rowString = new String[]{examinerDuty.postalCode, "کد پستی", examinerDuty.address, "آدرس"};
+        temp.add(rowString);
+
+        rowString = new String[]{examinerDuty.noeVagozariS, "نوع واگذاری", examinerDuty.karbariS, "کاربری"};
+        temp.add(rowString);
+
+        rowString = new String[]{String.valueOf(examinerDuty.sifoon200), "سیفون 200:",
+                String.valueOf(examinerDuty.sifoon150), "سیفون 150:",
+                String.valueOf(examinerDuty.sifoon125), "سیفون 125:",
+                String.valueOf(examinerDuty.sifoon100), "سیفون :100",
+                String.valueOf(examinerDuty.arse), "عرصه کل:",
+                String.valueOf(examinerDuty.qotrEnsheabS), "قطر انشعاب:"};
+        temp.add(rowString);
+
+        rowString = new String[]{String.valueOf(examinerDuty.zarfiatQarardadi), "ظرفیت قراردادی:",
+                String.valueOf(examinerDuty.tedadTejari), "تعداد واحد تجاری",
+                String.valueOf(examinerDuty.aianMaskooni), "اعیان مسکونی"};
+        temp.add(rowString);
+
+        rowString = new String[]{String.valueOf(examinerDuty.arzeshMelk), "ارزش منطقی:",
+                String.valueOf(examinerDuty.tedadMaskooni), "تعداد واحد مسکونی:",
+                String.valueOf(examinerDuty.aianNonMaskooni), "اعیان غیرمسکونی:"
+        };
+        temp.add(rowString);
+
+        rowString = new String[]{"", "", String.valueOf(examinerDuty.aianKol), "تعدد واحد سایر:"
+                , String.valueOf(examinerDuty.tedadSaier), "اعیان کل:"};
+        temp.add(rowString);
+
+
+        rowString = new String[]{"مقدار", "واحد محاسبه", "تعداد واحد", "نوع شغل", "کاربری",};
+//        temp.add(rowString);
+
+        for (int i = 0; i < 9; i++)
+            temp.add(rowString);
+
+
+        rowString = new String[]{String.valueOf(examinerDuty.faseleOtherA), "دیگر:",
+                String.valueOf(examinerDuty.faseleSangA), "سنگ فرش:",
+                String.valueOf(examinerDuty.faseleAsphaltA), "آسفالت:",
+                String.valueOf(examinerDuty.faseleKhakiA), "خاکی:", "فاصله تا شبکه آب"};
+        temp.add(rowString);
+
+        rowString = new String[]{String.valueOf(examinerDuty.faseleOtherF), "دیگر:",
+                String.valueOf(examinerDuty.faseleSangF), "سنگ فرش:",
+                String.valueOf(examinerDuty.faseleAsphaltF), "آسفالت:",
+                String.valueOf(examinerDuty.faseleKhakiF), "خاکی:", "تا شبکه فاضلاب"};
+        temp.add(rowString);
+
+        //TODO
+        rowString = new String[]{String.valueOf(examinerDuty.omqFazelab), "عمق شبکه فاضلاب:",
+                String.valueOf(examinerDuty.vaziatNasbPompI), "وضعیت نصب پمپ:",
+                examinerDuty.jensLooleS, "جنس لوله:", examinerDuty.qotrLooleS, "قطر لوله:"};
+        temp.add(rowString);
+
+        rowString = new String[]{examinerDuty.noeVagozariS, "نوع مصرف:",
+                examinerDuty.etesalZirzamin ? "دارد" : "ندارد", "اتصال به زیرزمین:",
+                String.valueOf(examinerDuty.omqeZirzamin), "عمق زیرزمین:"};
+        temp.add(rowString);
+
+        //TODO
+        rowString = new String[]{examinerDuty.looleF ? "دارد" : "ندارد", "لوله فاضلاب:",
+                examinerDuty.looleA ? "دارد" : "ندارد", "لوله آب:", examinerDuty.looleF ? "دارد" : "ندارد",
+                "نظرواحد بهره برداری آب:", examinerDuty.qotrLooleS, "نظرواحد بهره برداری فاضلاب:"};
+        temp.add(rowString);
+
+        //TODO
+        rowString = new String[]{examinerDuty.chahAbBaran ? "دارد" : "ندارد", "چاه آب باران:",
+                examinerDuty.parvane ? "دارد" : "ندارد", "استعلام شهرداری:",
+                examinerDuty.estelamShahrdari ? "دارد" : "ندارد", "پروانه:"
+                , examinerDuty.qotrLooleS, "اظهارات متقاضی:"};
+        temp.add(rowString);
+
+        rowString = new String[]{examinerDuty.examinerName};
+        temp.add(rowString);
+        return temp;
+    }
+
+    private List<String[]> getCrookiData() {
+        final List<String[]> temp = new ArrayList<>();
+        String[] rowString = new String[]{examinerDuty.zoneTitle};
+        temp.add(rowString);
+        //TODO
+        rowString = new String[]{"12.34", "63.21"};
+        temp.add(rowString);
+
+        rowString = new String[]{examinerDuty.address};
+        temp.add(rowString);
+
+        rowString = new String[]{examinerDuty.nameAndFamily, examinerDuty.radif, examinerDuty.eshterak,
+                examinerDuty.phoneNumber, examinerDuty.mobile != null ? examinerDuty.mobile :
+                examinerDuty.moshtarakMobile, examinerDuty.postalCode};
+        temp.add(rowString);
+
+
+        rowString = new String[]{examinerDuty.examinerName};
+        temp.add(rowString);
+
+        return temp;
+    }
+
+    private List<String[]> getLicenceData() {
+        if (licenceRows == null) {
+            licenceRows = new ArrayList<>();
+            String[] rowString = new String[]{examinerDuty.examinationDay};
+            licenceRows.add(rowString);
+
+            rowString = new String[]{examinerDuty.zoneTitle};
+            licenceRows.add(rowString);
+
+            rowString = new String[]{examinerDuty.zoneTitle, examinerDuty.billId != null ?
+                    examinerDuty.billId : examinerDuty.neighbourBillId, examinerDuty.trackNumber};
+            licenceRows.add(rowString);
+            //TODO
+            rowString = new String[]{examinerDuty.nameAndFamily, examinerDuty.fatherName,
+                    examinerDuty.nationalId, examinerDuty.mobile != null ? examinerDuty.mobile :
+                    examinerDuty.moshtarakMobile, "تست", examinerDuty.parNumber, examinerDuty.sodurDate};
+            licenceRows.add(rowString);
+
+            rowString = new String[]{examinerDuty.zoneTitle, examinerDuty.address, String.valueOf(examinerDuty.pelak)};
+            licenceRows.add(rowString);
+
+            rowString = new String[]{String.valueOf(examinerDuty.faseleAsphaltA +
+                    examinerDuty.faseleKhakiA + examinerDuty.faseleSangA), String.valueOf(examinerDuty.faseleAsphaltA),
+                    String.valueOf(examinerDuty.faseleKhakiA), String.valueOf(examinerDuty.faseleSangA)};
+            licenceRows.add(rowString);
+
+            rowString = new String[]{String.valueOf(examinerDuty.faseleAsphaltF +
+                    examinerDuty.faseleKhakiF + examinerDuty.faseleSangF), String.valueOf(examinerDuty.faseleAsphaltF),
+                    String.valueOf(examinerDuty.faseleKhakiF), String.valueOf(examinerDuty.faseleSangF)};
+            licenceRows.add(rowString);
+
+            rowString = new String[]{String.valueOf(examinerDuty.faseleAsphaltF +
+                    examinerDuty.faseleKhakiF + examinerDuty.faseleSangF + examinerDuty.faseleAsphaltF +
+                    examinerDuty.faseleKhakiF + examinerDuty.faseleSangF)};
+            licenceRows.add(rowString);
+
+            rowString = new String[]{examinerDuty.examinerName};
+
+            licenceRows.add(rowString);
+        }
+        return licenceRows;
     }
 
     @Override

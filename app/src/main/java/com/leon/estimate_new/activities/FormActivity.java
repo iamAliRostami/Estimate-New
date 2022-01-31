@@ -1,6 +1,7 @@
 package com.leon.estimate_new.activities;
 
 import static com.leon.estimate_new.enums.BundleEnum.BILL_ID;
+import static com.leon.estimate_new.enums.BundleEnum.EXAMINER_DUTY;
 import static com.leon.estimate_new.enums.BundleEnum.NEW_ENSHEAB;
 import static com.leon.estimate_new.enums.BundleEnum.TRACK_NUMBER;
 import static com.leon.estimate_new.helpers.Constants.BASE_FRAGMENT;
@@ -75,7 +76,7 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
 
     private void initialize() {
         if (getIntent().getExtras() != null) {
-            final String json = getIntent().getExtras().getString(BundleEnum.EXAMINER_DUTY.getValue());
+            final String json = getIntent().getExtras().getString(EXAMINER_DUTY.getValue());
             examinerDuty = new Gson().fromJson(json, ExaminerDuties.class);
             requestDictionaries.addAll(Arrays.asList(new GsonBuilder().create()
                     .fromJson(examinerDuty.requestDictionaryString, RequestDictionary[].class)));
