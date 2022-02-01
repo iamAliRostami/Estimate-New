@@ -1,7 +1,8 @@
 package com.leon.estimate_new.utils.request;
 
+import static com.leon.estimate_new.enums.DialogType.Green;
+import static com.leon.estimate_new.enums.DialogType.Yellow;
 import static com.leon.estimate_new.enums.ProgressType.NOT_SHOW;
-import static com.leon.estimate_new.enums.ProgressType.SHOW;
 import static com.leon.estimate_new.enums.SharedReferenceKeys.TOKEN;
 import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponent;
 import static com.leon.estimate_new.helpers.MyApplication.getContext;
@@ -14,7 +15,6 @@ import com.leon.estimate_new.R;
 import com.leon.estimate_new.base_items.BaseAsync;
 import com.leon.estimate_new.di.view_model.CustomDialogModel;
 import com.leon.estimate_new.di.view_model.HttpClientWrapper;
-import com.leon.estimate_new.enums.DialogType;
 import com.leon.estimate_new.fragments.main_items.SendRequestFragment;
 import com.leon.estimate_new.infrastructure.IAbfaService;
 import com.leon.estimate_new.infrastructure.ICallback;
@@ -96,8 +96,7 @@ class RequestSuccess implements ICallback<SimpleMessage> {
     @Override
     public void execute(Response<SimpleMessage> response) {
         ((SendRequestFragment) object).afterRequest();
-        new CustomDialogModel(DialogType.Green, context, response.message(),
-                context.getString(R.string.dear_user), context.getString(R.string.request),
+        new CustomDialogModel(Green, context, response.message(), context.getString(R.string.dear_user), context.getString(R.string.request),
                 context.getString(R.string.accepted));
         new DownloadData(context, ((SendRequestFragment) object).getButton()).execute();
     }
@@ -124,20 +123,17 @@ class RequestIncomplete implements ICallbackIncomplete<SimpleMessage> {
                 }
             }
         } else {
-            final CustomErrorHandling customErrorHandling = new CustomErrorHandling(context);
-            message = customErrorHandling.getErrorMessageDefault(response);
+            final CustomErrorHandling errorHandling = new CustomErrorHandling(context);
+            message = errorHandling.getErrorMessageDefault(response);
         }
-        new CustomDialogModel(DialogType.Yellow, context, message,
-                context.getString(R.string.dear_user),
-                context.getString(R.string.request),
-                context.getString(R.string.accepted));
+        new CustomDialogModel(Yellow, context, message, context.getString(R.string.dear_user), context.getString(R.string.request), context.getString(R.string.accepted));
     }
 }
 
 class GetError implements ICallbackError {
     @Override
     public void executeError(Throwable t) {
-        final CustomErrorHandling customErrorHandlingNew = new CustomErrorHandling(getContext());
-        new CustomToast().error(customErrorHandlingNew.getErrorMessageTotal(t), Toast.LENGTH_LONG);
+        final CustomErrorHandling errorHandling = new CustomErrorHandling(getContext());
+        new CustomToast().error(errorHandling.getErrorMessageTotal(t), Toast.LENGTH_LONG);
     }
 }

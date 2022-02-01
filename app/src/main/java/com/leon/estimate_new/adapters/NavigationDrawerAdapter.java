@@ -1,20 +1,13 @@
 package com.leon.estimate_new.adapters;
 
 
-import static com.leon.estimate_new.helpers.Constants.EXIT_POSITION;
-import static com.leon.estimate_new.helpers.Constants.POSITION;
-
 import android.content.Context;
-import android.content.res.Resources;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
-
 
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.adapters.holders.DrawerItemHolder;
@@ -43,15 +36,15 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<DrawerItemHold
     @Override
     public void onBindViewHolder(@NonNull DrawerItemHolder holder, int position) {
         final DrawerItem drawerItem = drawerItemList.get(position);
-        if (position == EXIT_POSITION) {
-            holder.textViewTitle.setTextColor(ContextCompat.getColor(context, R.color.red));
-        } else if (position == POSITION) {
-            final TypedValue typedValue = new TypedValue();
-            final Resources.Theme theme = context.getTheme();
-            theme.resolveAttribute(android.R.attr.textColorSecondary, typedValue, true);
-            holder.textViewTitle.setTextColor(typedValue.data);
-            holder.relativeLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.border_red_3));
-        }
+//        if (position == EXIT_POSITION) {
+//            holder.textViewTitle.setTextColor(ContextCompat.getColor(context, R.color.red));
+//        } else if (position == POSITION) {
+//            final TypedValue typedValue = new TypedValue();
+//            final Resources.Theme theme = context.getTheme();
+//            theme.resolveAttribute(android.R.attr.textColorSecondary, typedValue, true);
+//            holder.textViewTitle.setTextColor(typedValue.data);
+//            holder.relativeLayout.setBackground(ContextCompat.getDrawable(context, R.drawable.border_red_3));
+//        }
         holder.imageViewIcon.setImageDrawable(drawerItem.getDrawable());
         holder.textViewTitle.setText(drawerItem.getItemName());
     }

@@ -23,8 +23,8 @@ import java.io.InputStream;
 
 public class HelpFragment extends Fragment {
     private FragmentHelpBinding binding;
-    private int pageNumber = 0;
     private final int maxNumber = 21;
+    private int pageNumber = 0;
 
     public HelpFragment() {
     }
@@ -85,36 +85,28 @@ public class HelpFragment extends Fragment {
     }
 
     private void openPdfFromRaw() throws IOException {
-        // Copy sample.pdf from 'res/raw' folder into cache so PdfRenderer can handle it
         final File fileCopy = new File(requireContext().getCacheDir(), "HELP_" + BuildConfig.VERSION_CODE + "_PAGE_".concat(String.valueOf(pageNumber)));
         copyToCache(fileCopy, R.raw.estimate);
-        // We get a page from the PDF doc by calling 'open'
         final ParcelFileDescriptor fileDescriptor =
                 ParcelFileDescriptor.open(fileCopy,
                         ParcelFileDescriptor.MODE_READ_ONLY);
         final PdfRenderer mPdfRenderer = new PdfRenderer(fileDescriptor);
         PdfRenderer.Page mPdfPage = mPdfRenderer.openPage(pageNumber);
-        // Create a new bitmap and render the page contents into it
-        final Bitmap bitmap = Bitmap.createBitmap(mPdfPage.getWidth(),
-                mPdfPage.getHeight(),
+        final Bitmap bitmap = Bitmap.createBitmap(mPdfPage.getWidth(), mPdfPage.getHeight(),
                 Bitmap.Config.ARGB_8888);
         mPdfPage.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);
-        // Set the bitmap in the ImageView
         binding.imageView.setImageBitmap(bitmap);
     }
 
     private void copyToCache(File file, @RawRes int pdfResource) throws IOException {
         if (!file.exists()) {
-            //Get input stream object to read the pdf
             final InputStream input = getResources().openRawResource(pdfResource);
             final FileOutputStream output = new FileOutputStream(file);
             final byte[] buffer = new byte[1024];
             int size;
-            // Copy the entire contents of the file
             while ((size = input.read(buffer)) != -1) {
                 output.write(buffer, 0, size);
             }
-            //Close the buffer
             input.close();
             output.close();
         }

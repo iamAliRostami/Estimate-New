@@ -1,15 +1,12 @@
 package com.leon.estimate_new.base_items;
 
-import static com.leon.estimate_new.helpers.Constants.EXIT_POSITION;
 import static com.leon.estimate_new.helpers.Constants.GPS_CODE;
 import static com.leon.estimate_new.helpers.Constants.LOCATION_PERMISSIONS;
 import static com.leon.estimate_new.helpers.Constants.PHOTO_PERMISSIONS;
-import static com.leon.estimate_new.helpers.Constants.POSITION;
 import static com.leon.estimate_new.helpers.Constants.REQUEST_NETWORK_CODE;
 import static com.leon.estimate_new.helpers.Constants.REQUEST_WIFI_CODE;
 import static com.leon.estimate_new.helpers.Constants.exit;
 import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponent;
-import static com.leon.estimate_new.helpers.MyApplication.getContext;
 import static com.leon.estimate_new.helpers.MyApplication.setActivityComponent;
 import static com.leon.estimate_new.utils.PermissionManager.checkCameraPermission;
 import static com.leon.estimate_new.utils.PermissionManager.checkLocationPermission;
@@ -41,7 +38,6 @@ import com.gun0912.tedpermission.TedPermission;
 import com.leon.estimate_new.BuildConfig;
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.adapters.NavigationDrawerAdapter;
-import com.leon.estimate_new.adapters.RecyclerItemClickListener;
 import com.leon.estimate_new.adapters.items.DrawerItem;
 import com.leon.estimate_new.databinding.ActivityBaseBinding;
 import com.leon.estimate_new.di.view_model.LocationTrackingGoogle;
@@ -190,6 +186,7 @@ public abstract class BaseActivity extends AppCompatActivity implements
         binding.drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

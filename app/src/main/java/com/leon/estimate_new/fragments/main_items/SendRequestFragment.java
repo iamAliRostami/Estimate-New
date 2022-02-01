@@ -51,33 +51,16 @@ public class SendRequestFragment extends Fragment {
             billId = binding.editTextBillId.getText().toString();
             nationNumber = binding.editTextNationNumber.getText().toString();
             mobile = binding.editTextMobile.getText().toString();
-            if (billId.length() < 6) {
-                View focusView;
-                binding.editTextBillId.setError(getString(R.string.error_format));
-                focusView = binding.editTextBillId;
-                focusView.requestFocus();
-                cancel = true;
-            }
-            if (!cancel && mobile.length() < 11) {
-                View focusView;
-                binding.editTextNationNumber.setError(getString(R.string.error_format));
-                focusView = binding.editTextMobile;
-                focusView.requestFocus();
-                cancel = true;
-            }
+            if (billId.length() < 6) cancel = cancelForm(binding.editTextBillId);
+            if (!cancel && mobile.length() < 11) cancel = cancelForm(binding.editTextMobile);
             if (!cancel && isNew) {
                 if ((checkIsNoEmpty(binding.editTextAddress) ||
                         checkIsNoEmpty(binding.editTextFamily) ||
                         checkIsNoEmpty(binding.editTextName))) {
                     cancel = true;
                 }
-                if (!cancel && nationNumber.length() < 10) {
-                    final View focusView;
-                    binding.editTextNationNumber.setError(getString(R.string.error_format));
-                    focusView = binding.editTextNationNumber;
-                    focusView.requestFocus();
-                    cancel = true;
-                }
+                if (!cancel && nationNumber.length() < 10)
+                    cancel = cancelForm(binding.editTextNationNumber);
             }
             if (!cancel) {
                 if (isNew)
@@ -90,6 +73,12 @@ public class SendRequestFragment extends Fragment {
                     new SendRequest(requireContext(), billId, mobile, this).execute(requireActivity());
             }
         });
+    }
+
+    private boolean cancelForm(final EditText editText) {
+        editText.setError(getString(R.string.error_format));
+        editText.requestFocus();
+        return true;
     }
 
     private void setOnRadioGroupClickListener() {
@@ -107,11 +96,9 @@ public class SendRequestFragment extends Fragment {
     }
 
     private boolean checkIsNoEmpty(EditText editText) {
-        View focusView;
         if (editText.getText().toString().length() < 1) {
             editText.setError(getString(R.string.error_empty));
-            focusView = editText;
-            focusView.requestFocus();
+            editText.requestFocus();
             return true;
         }
         return false;

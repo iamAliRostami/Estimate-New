@@ -45,10 +45,9 @@ public class MainActivity extends BaseActivity {
         final View childLayout = binding.getRoot();
         final ConstraintLayout parentLayout = findViewById(R.id.base_Content);
         parentLayout.addView(childLayout);
-        displayView(DUTIES_FRAGMENT);
+        displayView(HOME_FRAGMENT/*DUTIES_FRAGMENT*/);
         setOnDrawerItemClick();
     }
-
 
     private void displayView(int position) {
         final String tag = Integer.toString(position);
@@ -59,7 +58,7 @@ public class MainActivity extends BaseActivity {
         final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.setCustomAnimations(R.animator.enter, R.animator.exit,
                 R.animator.pop_enter, R.animator.pop_exit);
-        fragmentTransaction.replace(R.id.container_body, getFragment(position), tag);
+        fragmentTransaction.replace(binding.containerBody.getId(), getFragment(position), tag);
         // Home fragment is not added to the stack
         if (position != HOME_FRAGMENT) {
             fragmentTransaction.addToBackStack(null);
@@ -96,7 +95,6 @@ public class MainActivity extends BaseActivity {
                     public void onItemClick(View view, int position) {
                         drawerLayout.closeDrawer(GravityCompat.START);
                         if (position == EXIT_POSITION) {
-                            POSITION = -1;
                             exit = true;
                             finishAffinity();
                         } else if (POSITION != position) {

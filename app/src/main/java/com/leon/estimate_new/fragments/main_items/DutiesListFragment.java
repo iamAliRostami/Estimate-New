@@ -1,13 +1,11 @@
 
 package com.leon.estimate_new.fragments.main_items;
 
-import static com.leon.estimate_new.enums.DialogType.Yellow;
 import static com.leon.estimate_new.enums.SharedReferenceKeys.TRACK_NUMBER;
 import static com.leon.estimate_new.fragments.dialog.ShowFragmentDialog.ShowFragmentDialogOnce;
 import static com.leon.estimate_new.helpers.MyApplication.getPreferenceManager;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -25,7 +23,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.adapters.CustomAdapterList;
 import com.leon.estimate_new.databinding.FragmentDutiesListBinding;
-import com.leon.estimate_new.di.view_model.CustomDialogModel;
 import com.leon.estimate_new.fragments.dialog.SearchFragment;
 import com.leon.estimate_new.tables.ExaminerDuties;
 import com.leon.estimate_new.utils.list.PrepareListData;
@@ -39,7 +36,6 @@ public class DutiesListFragment extends Fragment implements SearchFragment.Callb
     private final ArrayList<ExaminerDuties> examinerDutiesTemp = new ArrayList<>();
     private FragmentDutiesListBinding binding;
     private CustomAdapterList adapter;
-    private Context context;
 
     public DutiesListFragment() {
     }
@@ -65,8 +61,7 @@ public class DutiesListFragment extends Fragment implements SearchFragment.Callb
 
     private void initialize() {
         setHasOptionsMenu(false);
-        context = requireContext();
-        new PrepareListData(context, this).execute(requireActivity());
+        new PrepareListData(requireContext(), this).execute(requireActivity());
     }
 
     public void initializeData(final ArrayList<ExaminerDuties> examinerDuties) {
@@ -86,12 +81,12 @@ public class DutiesListFragment extends Fragment implements SearchFragment.Callb
         this.examinerDuties.addAll(examinerDuties);
         this.examinerDutiesTemp.clear();
         this.examinerDutiesTemp.addAll(examinerDuties);
-        adapter = new CustomAdapterList(context, this.examinerDutiesTemp);
+        adapter = new CustomAdapterList(requireContext(), this.examinerDutiesTemp);
         requireActivity().runOnUiThread(() -> {
             binding.textViewEmpty.setVisibility(View.GONE);
             binding.recyclerView.setVisibility(View.VISIBLE);
             binding.recyclerView.setAdapter(adapter);
-            binding.recyclerView.setLayoutManager(new LinearLayoutManager(context) {
+            binding.recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()) {
                 @Override
                 public boolean requestChildRectangleOnScreen(@NonNull RecyclerView parent,
                                                              @NonNull View child,
@@ -112,7 +107,7 @@ public class DutiesListFragment extends Fragment implements SearchFragment.Callb
     public boolean onOptionsItemSelected(@NotNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.menu_search) {
-            ShowFragmentDialogOnce(context, "SEARCH_DIALOG", SearchFragment.newInstance(this));
+            ShowFragmentDialogOnce(requireContext(), "SEARCH_DIALOG", SearchFragment.newInstance(this));
         } else if (id == R.id.menu_clear) {
             filter("", "", "", "", "", "", "");
         } else if (id == R.id.menu_last) {
@@ -127,22 +122,15 @@ public class DutiesListFragment extends Fragment implements SearchFragment.Callb
     public void filter(String... s) {
         examinerDutiesTemp.clear();
         examinerDutiesTemp.addAll(examinerDuties);
-        if (s[0].length() > 0)
-            filterByBillId(s[0]);
-        if (s[1].length() > 0)
-            filterByTrackNumber(s[1]);
-        if (s[2].length() > 0)
-            filterByName(s[2]);
-        if (s[3].length() > 0)
-            filterByFamily(s[3]);
-        if (s[4].length() > 0)
-            filterByNationId(s[4]);
-        if (s[5].length() > 0)
-            filterByMobile(s[5]);
-        if (s[6].length() > 0)
-            filterByDate(s[6]);
+        if (s[0].length() > 0) filterByBillId(s[0]);
+        if (s[1].length() > 0) filterByTrackNumber(s[1]);
+        if (s[2].length() > 0) filterByName(s[2]);
+        if (s[3].length() > 0) filterByFamily(s[3]);
+        if (s[4].length() > 0) filterByNationId(s[4]);
+        if (s[5].length() > 0) filterByMobile(s[5]);
+        if (s[6].length() > 0) filterByDate(s[6]);
         requireActivity().runOnUiThread(() -> {
-            adapter = new CustomAdapterList(context, this.examinerDutiesTemp);
+            adapter = new CustomAdapterList(requireContext(), this.examinerDutiesTemp);
             binding.recyclerView.setAdapter(adapter);
         });
     }
@@ -180,7 +168,6 @@ public class DutiesListFragment extends Fragment implements SearchFragment.Callb
     }
 
     private void filterByFamily(String s) {
-
         final ArrayList<ExaminerDuties> examinerDutiesSearch = new ArrayList<>();
         for (ExaminerDuties examinerDuty : examinerDutiesTemp) {
             if ((examinerDuty.sureName != null && examinerDuty.sureName.contains(s)) ||

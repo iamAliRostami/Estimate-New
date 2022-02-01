@@ -6,11 +6,11 @@ import static com.leon.estimate_new.enums.BundleEnum.TRACK_NUMBER;
 import static com.leon.estimate_new.helpers.Constants.BITMAP_SELECTED;
 import static com.leon.estimate_new.helpers.Constants.MAP_SELECTED;
 import static com.leon.estimate_new.helpers.MyApplication.setActivityComponent;
+import static com.leon.estimate_new.utils.CustomFile.loadImage;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.Matrix;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -31,7 +31,6 @@ import com.leon.estimate_new.tables.ImageData;
 import com.leon.estimate_new.tables.ImageDataThumbnail;
 import com.leon.estimate_new.tables.ImageDataTitle;
 import com.leon.estimate_new.tables.Images;
-import com.leon.estimate_new.utils.CustomFile;
 import com.leon.estimate_new.utils.CustomToast;
 import com.leon.estimate_new.utils.document.ImageTitles;
 import com.leon.estimate_new.utils.document.LoginDocument;
@@ -47,8 +46,8 @@ public class DocumentActivity extends AppCompatActivity implements TakePhotoFrag
     private final ArrayList<Images> images = new ArrayList<>();
     private ImageDataTitle imageDataTitle;
     private String trackNumber, billId;
-    private Bitmap bitmap;
     private boolean isNew, close;
+    private Bitmap bitmap;
     private int selected;
 
     private final int TAKE_PHOTO_FRAGMENT = 0;
@@ -87,11 +86,6 @@ public class DocumentActivity extends AppCompatActivity implements TakePhotoFrag
         if (BITMAP_SELECTED != null) {
             bitmap = BITMAP_SELECTED.copy(Bitmap.Config.ARGB_8888, true);
             BITMAP_SELECTED = null;
-//            final Matrix matrix = new Matrix();
-//            matrix.postRotate(90);
-//            MAP_SELECTED = Bitmap.createScaledBitmap(BITMAP_SELECTED, BITMAP_SELECTED.getWidth(), BITMAP_SELECTED.getHeight(), true);
-//            MAP_SELECTED = Bitmap.createBitmap(bitmap.copy(Bitmap.Config.ARGB_8888, true),
-//                    0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
             MAP_SELECTED = bitmap.copy(Bitmap.Config.ARGB_8888, true);
         }
     }
@@ -168,16 +162,6 @@ public class DocumentActivity extends AppCompatActivity implements TakePhotoFrag
 
 
     @Override
-    public void onBackPressed() {
-        if (HttpClientWrapper.call != null) {
-            HttpClientWrapper.call.cancel();
-            HttpClientWrapper.call = null;
-        }
-        if (close)
-            finish();
-    }
-
-    @Override
     public void setTakenBitmap(Bitmap bitmap) {
         this.bitmap = bitmap;
         displayView(CROP_FRAGMENT);
@@ -243,8 +227,7 @@ public class DocumentActivity extends AppCompatActivity implements TakePhotoFrag
 
     @Override
     public void setImages() {
-        images.addAll(CustomFile.loadImage(trackNumber, billId, imageDataTitle.data,
-                getApplicationContext()));
+        images.addAll(loadImage(trackNumber, billId, imageDataTitle.data, getApplicationContext()));
     }
 
     @Override
@@ -284,5 +267,15 @@ public class DocumentActivity extends AppCompatActivity implements TakePhotoFrag
     public void cancelEditing() {
         bitmap = null;
         displayView(TAKE_PHOTO_FRAGMENT);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (HttpClientWrapper.call != null) {
+            HttpClientWrapper.call.cancel();
+            HttpClientWrapper.call = null;
+        }
+        if (close)
+            finish();
     }
 }

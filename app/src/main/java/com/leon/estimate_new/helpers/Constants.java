@@ -54,7 +54,7 @@ public class Constants {
 
 
     public static boolean exit = false;
-    public static int POSITION = -1;
+    public static int POSITION = 0;
 
     public static final ArrayList<Integer> IS_MANE = new ArrayList<>();
 

@@ -812,6 +812,11 @@ public class PDFUtility {
                         BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE},
                 dataTable.get(24)));
 
+        final PdfPCell pdfPCellTemp = new PdfPCell(createOriginalSignBox(/*"تست تست زاده"*/dataTable.get(25)[0], bitmaps));
+        pdfPCellTemp.setPadding(4f);
+        PdfPTable pdfPTableTemp = new PdfPTable(1);
+        pdfPTableTemp.addCell(pdfPCellTemp);
+        table.addCell(pdfPCellTemp);
 //        table.addCell(createTableRow(6, PdfPCell.ALIGN_CENTER, 1f, BaseColor.WHITE,
 //                dataTable.get(1)));
 //
@@ -879,11 +884,7 @@ public class PDFUtility {
 //        table.addCell(createTableRow(1, PdfPCell.ALIGN_RIGHT, 1, BaseColor.WHITE,
 //                dataTable.get(29)));
 //TODO
-        PdfPCell pdfPCellTemp = new PdfPCell(createOriginalSignBox("تست تست زاده"/*dataTable.get(30)[0]*/, bitmaps));
-        pdfPCellTemp.setPadding(4f);
-        PdfPTable pdfPTableTemp = new PdfPTable(1);
-        pdfPTableTemp.addCell(pdfPCellTemp);
-        table.addCell(pdfPCellTemp);
+
 
         return table;
     }
