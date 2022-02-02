@@ -1,9 +1,8 @@
-package com.leon.estimate_new.utils.download;
+package com.leon.estimate_new.utils.downloading;
 
+import static com.leon.estimate_new.enums.DialogType.Green;
 import static com.leon.estimate_new.enums.DialogType.Yellow;
 import static com.leon.estimate_new.enums.ProgressType.NOT_SHOW;
-import static com.leon.estimate_new.enums.ProgressType.SHOW;
-import static com.leon.estimate_new.enums.SharedReferenceKeys.TOKEN;
 import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponent;
 import static com.leon.estimate_new.helpers.MyApplication.getContext;
 
@@ -17,7 +16,6 @@ import com.leon.estimate_new.R;
 import com.leon.estimate_new.base_items.BaseAsync;
 import com.leon.estimate_new.di.view_model.CustomDialogModel;
 import com.leon.estimate_new.di.view_model.HttpClientWrapper;
-import com.leon.estimate_new.enums.DialogType;
 import com.leon.estimate_new.infrastructure.IAbfaService;
 import com.leon.estimate_new.infrastructure.ICallback;
 import com.leon.estimate_new.infrastructure.ICallbackError;
@@ -51,9 +49,7 @@ public class DownloadData extends BaseAsync {
 
     @Override
     public void backgroundTask(Activity activity) {
-        final Retrofit retrofit = getApplicationComponent().NetworkHelperModel()
-                .getInstance(getApplicationComponent().SharedPreferenceModel()
-                        .getStringData(TOKEN.getValue()));
+        final Retrofit retrofit = getApplicationComponent().Retrofit();
         final IAbfaService getKardex = retrofit.create(IAbfaService.class);
         final Call<Input> call = getKardex.getMyWorks();
         HttpClientWrapper.callHttpAsync(call, NOT_SHOW.getValue(), activity, new Download(activity),
@@ -84,10 +80,9 @@ class Download implements ICallback<Input> {
             getApplicationComponent().MyDatabase().karbariDictionaryDao().insertAll(input.karbariDictionary);
             getApplicationComponent().MyDatabase().resultDictionaryDao().insertAll(input.resultDictionary);
 
-            new CustomDialogModel(DialogType.Green, context, "تعداد ".concat(String
-                    .valueOf(removeExaminerDuties(prepareExaminerDuties(input.examinerDuties))))
-                    .concat(" مسیر بارگیری شد."), context.getString(R.string.dear_user),
-                    context.getString(R.string.receive), context.getString(R.string.accepted));
+            new CustomDialogModel(Green, context, "تعداد ".concat(String.valueOf(
+                    removeExaminerDuties(prepareExaminerDuties(input.examinerDuties))))
+                    .concat(" مسیر بارگیری شد."), context.getString(R.string.dear_user), context.getString(R.string.receive), context.getString(R.string.accepted));
         } else {
             new CustomToast().warning(context.getString(R.string.empty_download), Toast.LENGTH_LONG);
         }

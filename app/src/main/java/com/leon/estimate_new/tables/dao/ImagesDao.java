@@ -16,8 +16,11 @@ public interface ImagesDao {
     Long insertImage(Images images);
 
 
-    @Query("SELECT * FROM Images")
-    List<Images> getImages();
+    @Query("SELECT * FROM Images LIMIT 1")
+    Images getImage();
+
+    @Query("SELECT COUNT(*) FROM Images")
+    int getUnsentImage();
 
     @Query("SELECT * FROM Images WHERE peygiri =:peygiri And docId=:imageCode")
     List<Images> getImagesByPeygiriAndImageCode(String peygiri, String imageCode);

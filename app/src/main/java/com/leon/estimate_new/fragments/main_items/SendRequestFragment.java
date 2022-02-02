@@ -56,23 +56,25 @@ public class SendRequestFragment extends Fragment {
             if (!cancel && isNew) {
                 if ((checkIsNoEmpty(binding.editTextAddress) ||
                         checkIsNoEmpty(binding.editTextFamily) ||
-                        checkIsNoEmpty(binding.editTextName))) {
-                    cancel = true;
-                }
+                        checkIsNoEmpty(binding.editTextName))) cancel = true;
                 if (!cancel && nationNumber.length() < 10)
                     cancel = cancelForm(binding.editTextNationNumber);
             }
             if (!cancel) {
-                if (isNew)
-                    new SendRequest(requireContext(), billId, mobile,
-                            binding.editTextName.getText().toString(),
-                            binding.editTextFamily.getText().toString(),
-                            binding.editTextNationNumber.getText().toString(),
-                            binding.editTextAddress.getText().toString(), this).execute(requireActivity());
-                else
-                    new SendRequest(requireContext(), billId, mobile, this).execute(requireActivity());
+                sendRequest(isNew, billId, mobile);
             }
         });
+    }
+
+    private void sendRequest(boolean isNew, String billId, String mobile) {
+        if (isNew)
+            new SendRequest(requireContext(), billId, mobile,
+                    binding.editTextName.getText().toString(),
+                    binding.editTextFamily.getText().toString(),
+                    binding.editTextNationNumber.getText().toString(),
+                    binding.editTextAddress.getText().toString(), this).execute(requireActivity());
+        else
+            new SendRequest(requireContext(), billId, mobile, this).execute(requireActivity());
     }
 
     private boolean cancelForm(final EditText editText) {

@@ -19,7 +19,7 @@ import com.leon.estimate_new.tables.ExaminerDuties;
 import com.leon.estimate_new.tables.RequestDictionary;
 import com.leon.estimate_new.tables.ResultDictionary;
 import com.leon.estimate_new.utils.CustomToast;
-import com.leon.estimate_new.utils.images.PrepareOutputImage;
+import com.leon.estimate_new.utils.document.PrepareOutputImage;
 
 import java.util.ArrayList;
 import java.util.Arrays;

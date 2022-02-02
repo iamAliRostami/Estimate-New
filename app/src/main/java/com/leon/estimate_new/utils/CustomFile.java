@@ -171,4 +171,17 @@ public class CustomFile {
         }
         return images;
     }
+
+    public static Images getImage(Images images, Context context) {
+        try {
+            File f = new File(Environment.getExternalStoragePublicDirectory(
+                    Environment.DIRECTORY_PICTURES), context.getString(R.string.camera_folder));
+            f = new File(f, images.address);
+            images.bitmap = BitmapFactory.decodeStream(new FileInputStream(f));
+            return images;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

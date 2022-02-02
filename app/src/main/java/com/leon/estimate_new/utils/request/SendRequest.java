@@ -24,7 +24,7 @@ import com.leon.estimate_new.tables.Request;
 import com.leon.estimate_new.utils.CustomErrorHandling;
 import com.leon.estimate_new.utils.CustomToast;
 import com.leon.estimate_new.utils.SimpleMessage;
-import com.leon.estimate_new.utils.download.DownloadData;
+import com.leon.estimate_new.utils.downloading.DownloadData;
 
 import org.json.JSONObject;
 
@@ -41,7 +41,7 @@ public class SendRequest extends BaseAsync {
 
     public SendRequest(Context context, String neighbourBillId, String mobile, Object... o) {
         super(context, false, o);
-        object = o;
+        object = o[0];
         final ArrayList<Integer> selectedServices = new ArrayList<>(Arrays.asList(1, 2));
         request = new Request(selectedServices, neighbourBillId, mobile);
     }
@@ -49,7 +49,7 @@ public class SendRequest extends BaseAsync {
     public SendRequest(Context context, String neighbourBillId, String mobile, String firstName,
                        String sureName, String nationalId, String address, Object... o) {
         super(context, false, o);
-        object = o;
+        object = o[0];
         final ArrayList<Integer> selectedServices = new ArrayList<>(7);
         request = new Request(selectedServices, neighbourBillId, mobile, firstName, sureName,
                 nationalId, address);
@@ -57,19 +57,17 @@ public class SendRequest extends BaseAsync {
 
     @Override
     public void postTask(Object o) {
-        ((SendRequestFragment) object).getButton().setEnabled(true);
+        ((SendRequestFragment) o).getButton().setEnabled(true);
     }
 
     @Override
     public void preTask(Object o) {
-        ((SendRequestFragment) object).getButton().setEnabled(false);
+        ((SendRequestFragment) o).getButton().setEnabled(false);
     }
 
     @Override
     public void backgroundTask(Activity activity) {
-        final Retrofit retrofit = getApplicationComponent().NetworkHelperModel()
-                .getInstance(getApplicationComponent().SharedPreferenceModel()
-                        .getStringData(TOKEN.getValue()));
+        final Retrofit retrofit = getApplicationComponent().Retrofit();
         final IAbfaService sendRequest = retrofit.create(IAbfaService.class);
         final Call<SimpleMessage> call;
         if (request.selectedServices.size() > 1) call = sendRequest.sendRequestAfterSale(request);

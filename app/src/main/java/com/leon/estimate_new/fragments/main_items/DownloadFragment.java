@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.leon.estimate_new.databinding.FragmentDownloadBinding;
-import com.leon.estimate_new.utils.download.DownloadData;
+import com.leon.estimate_new.utils.downloading.DownloadData;
 
 public class DownloadFragment extends Fragment {
     private FragmentDownloadBinding binding;

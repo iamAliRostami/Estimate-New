@@ -1,7 +1,6 @@
-package com.leon.estimate_new.utils.document;
+package com.leon.estimate_new.utils.uploading;
 
 import static com.leon.estimate_new.enums.ProgressType.NOT_SHOW;
-import static com.leon.estimate_new.enums.ProgressType.SHOW;
 import static com.leon.estimate_new.enums.SharedReferenceKeys.PASSWORD_TEMP;
 import static com.leon.estimate_new.enums.SharedReferenceKeys.TOKEN_FOR_FILE;
 import static com.leon.estimate_new.enums.SharedReferenceKeys.USERNAME_TEMP;
@@ -12,7 +11,6 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.leon.estimate_new.R;
-import com.leon.estimate_new.activities.DocumentActivity;
 import com.leon.estimate_new.base_items.BaseAsync;
 import com.leon.estimate_new.di.view_model.HttpClientWrapper;
 import com.leon.estimate_new.infrastructure.IAbfaService;
@@ -28,21 +26,17 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class LoginDocument extends BaseAsync {
-    private final Object object;
 
     public LoginDocument(Context context, Object... view) {
-        super(context,false,  view);
-        object = view[0];
+        super(context, false, view);
     }
 
     @Override
     public void postTask(Object o) {
-
     }
 
     @Override
     public void preTask(Object o) {
-
     }
 
     @Override
@@ -53,22 +47,19 @@ public class LoginDocument extends BaseAsync {
                 .getStringData(USERNAME_TEMP.getValue()), Crypto.decrypt(getApplicationComponent()
                 .SharedPreferenceModel().getStringData(PASSWORD_TEMP.getValue())));
         HttpClientWrapper.callHttpAsync(call, NOT_SHOW.getValue(), activity,
-                new LoginSuccess(activity, object), new LoginIncomplete(activity), new GetErrorRedirect(activity));
+                new LoginSuccess(activity), new LoginIncomplete(activity), new GetError());
     }
 
     @Override
     public void backgroundTask(Context context) {
-
     }
 }
 
 class LoginSuccess implements ICallback<Login> {
     private final Activity activity;
-    private final Object object;
 
-    LoginSuccess(Activity activity, Object object) {
+    LoginSuccess(Activity activity) {
         this.activity = activity;
-        this.object = object;
     }
 
     @Override
@@ -76,26 +67,24 @@ class LoginSuccess implements ICallback<Login> {
         if (response.body() != null && response.body().success) {
             getApplicationComponent().SharedPreferenceModel().putData(TOKEN_FOR_FILE.getValue(),
                     response.body().data.token);
-            ((DocumentActivity) object).successLogin();
-        } else {
+            //TODO send images
+            new UploadDocuments(activity).execute(activity);
+        } else
             new CustomToast().warning(activity.getString(R.string.error_not_auth), Toast.LENGTH_LONG);
-            activity.finish();
-        }
     }
 }
 
 class LoginIncomplete implements ICallbackIncomplete<Login> {
-    private final Activity activity;
+    private final Context context;
 
-    LoginIncomplete(Activity activity) {
-        this.activity = activity;
+    LoginIncomplete(Context context) {
+        this.context = context;
     }
 
     @Override
     public void executeIncomplete(Response<Login> response) {
-        final CustomErrorHandling errorHandling = new CustomErrorHandling(activity);
+        final CustomErrorHandling errorHandling = new CustomErrorHandling(context);
         final String error = errorHandling.getErrorMessageDefault(response);
         new CustomToast().error(error, Toast.LENGTH_LONG);
-        activity.finish();
     }
 }
