@@ -105,9 +105,9 @@ public class PrepareOutputImage extends BaseAsync {
         String[] rowString = new String[]{examinerDuty.billId, "شناسه قبض", examinerDuty.eshterak,
                 "اشتراک", examinerDuty.radif, "ردیف"};
         temp.add(rowString);
-        //TODO
-        rowString = new String[]{String.valueOf(examinerDuty.sanad), "شماره سند", examinerDuty.parNumber,
-                "شماره پروانه", examinerDuty.trackNumber, "شماره پیگیری"};
+
+        rowString = new String[]{String.valueOf(examinerDuty.sanadNumber), "شماره سند",
+                examinerDuty.parNumber, "شماره پروانه", examinerDuty.trackNumber, "شماره پیگیری"};
         temp.add(rowString);
 
         rowString = new String[]{examinerDuty.fatherName, "نام پدر", examinerDuty.sureName,
@@ -149,7 +149,7 @@ public class PrepareOutputImage extends BaseAsync {
         temp.add(rowString);
 
 
-        rowString = new String[]{"مقدار", "واحد محاسبه", "تعداد واحد", "نوع شغل", "کاربری",};
+        rowString = new String[]{"ظرفیت","مقدار", "واحد محاسبه", "تعداد واحد", "نوع شغل", "کاربری",};
 //        temp.add(rowString);
 
         for (int i = 0; i < 9; i++)
@@ -179,17 +179,16 @@ public class PrepareOutputImage extends BaseAsync {
                 String.valueOf(examinerDuty.omqeZirzamin), "عمق زیرزمین:"};
         temp.add(rowString);
 
-        //TODO
         rowString = new String[]{examinerDuty.looleF ? "دارد" : "ندارد", "لوله فاضلاب:",
-                examinerDuty.looleA ? "دارد" : "ندارد", "لوله آب:", examinerDuty.looleF ? "دارد" : "ندارد",
-                "نظرواحد بهره برداری آب:", examinerDuty.qotrLooleS, "نظرواحد بهره برداری فاضلاب:"};
+                examinerDuty.looleA ? "دارد" : "ندارد", "لوله آب:",
+                examinerDuty.ezharNazarA ? "دارد" : "ندارد", "نظرواحد بهره برداری آب:",
+                examinerDuty.ezharNazarF ? "دارد" : "ندارد", "نظرواحد بهره برداری فاضلاب:"};
         temp.add(rowString);
 
-        //TODO
         rowString = new String[]{examinerDuty.chahAbBaran ? "دارد" : "ندارد", "چاه آب باران:",
-                examinerDuty.parvane ? "دارد" : "ندارد", "استعلام شهرداری:",
-                examinerDuty.estelamShahrdari ? "دارد" : "ندارد", "پروانه:"
-                , examinerDuty.qotrLooleS, "اظهارات متقاضی:"};
+                examinerDuty.estelamShahrdari ? "دارد" : "ندارد", "استعلام شهرداری:",
+                examinerDuty.parvane ? "دارد" : "ندارد", "پروانه:",
+                examinerDuty.motaqazi ? "دارد" : "ندارد", "اظهارات متقاضی:"};
         temp.add(rowString);
 
         rowString = new String[]{examinerDuty.examinerName};
@@ -201,8 +200,8 @@ public class PrepareOutputImage extends BaseAsync {
         final List<String[]> temp = new ArrayList<>();
         String[] rowString = new String[]{examinerDuty.zoneTitle};
         temp.add(rowString);
-        //TODO
-        rowString = new String[]{"12.34", "63.21"};
+
+        rowString = new String[]{String.valueOf(examinerDuty.x1), String.valueOf(examinerDuty.y1)};
         temp.add(rowString);
 
         rowString = new String[]{examinerDuty.address};
@@ -232,10 +231,11 @@ public class PrepareOutputImage extends BaseAsync {
             rowString = new String[]{examinerDuty.zoneTitle, examinerDuty.billId != null ?
                     examinerDuty.billId : examinerDuty.neighbourBillId, examinerDuty.trackNumber};
             licenceRows.add(rowString);
-            //TODO
+
             rowString = new String[]{examinerDuty.nameAndFamily, examinerDuty.fatherName,
                     examinerDuty.nationalId, examinerDuty.mobile != null ? examinerDuty.mobile :
-                    examinerDuty.moshtarakMobile, "تست", examinerDuty.parNumber, examinerDuty.sodurDate};
+                    examinerDuty.moshtarakMobile, examinerDuty.operation, examinerDuty.parNumber,
+                    examinerDuty.sodurDate};
             licenceRows.add(rowString);
 
             rowString = new String[]{examinerDuty.zoneTitle, examinerDuty.address, String.valueOf(examinerDuty.pelak)};
@@ -265,6 +265,5 @@ public class PrepareOutputImage extends BaseAsync {
 
     @Override
     public void backgroundTask(Context context) {
-
     }
 }

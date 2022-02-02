@@ -1,5 +1,6 @@
 package com.leon.estimate_new.fragments.documents;
 
+import static com.leon.estimate_new.enums.BundleEnum.LICENCE_TITLE;
 import static com.leon.estimate_new.enums.BundleEnum.OTHER_TITLE;
 import static com.leon.estimate_new.enums.BundleEnum.TITLE;
 import static com.leon.estimate_new.enums.BundleEnum.TRACK_NUMBER;
@@ -61,8 +62,8 @@ import okhttp3.ResponseBody;
 
 public class TakePhotoFragment extends Fragment {
     private FragmentTakePhotoBinding binding;
-    private String path;
     private int position = 0;
+    private String path;
 
     public Callback documentActivity;
 
@@ -89,14 +90,11 @@ public class TakePhotoFragment extends Fragment {
             binding.imageView.setImageBitmap(documentActivity.getBitmap());
             binding.buttonUpload.setVisibility(View.VISIBLE);
         }
-        //TODO
         binding.buttonPick.setOnClickListener(onPickClickListener);
         binding.buttonUpload.setOnClickListener(onUploadClickListener);
-        binding.buttonAccepted.setOnClickListener(v -> {
-            new ShowDialogue(getString(R.string.accepted_question), getString(R.string.dear_user),
-                    getString(R.string.final_accepted), getString(R.string.yes));
-        });
-
+        binding.buttonAccepted.setOnClickListener(v ->
+                new ShowDialogue(getString(R.string.accepted_question), getString(R.string.dear_user),
+                        getString(R.string.final_accepted), getString(R.string.yes)));
         binding.spinnerTitle.setAdapter(new SpinnerCustomAdapter(requireContext(),
                 documentActivity.getTitles()));
         binding.spinnerTitle.setSelection(documentActivity.getSelected());
@@ -113,7 +111,6 @@ public class TakePhotoFragment extends Fragment {
     }
 
     public void setImage(ResponseBody... body) {
-        //TODO
         if (body.length > 0) {
             documentActivity.addImage(new Images(documentActivity.getBillId(), documentActivity.getTrackNumber(),
                     documentActivity.getDataThumbnail().get(position - 1).title_name,
@@ -191,7 +188,8 @@ public class TakePhotoFragment extends Fragment {
                     try {
                         final InputStream inputStream = requireContext().getContentResolver()
                                 .openInputStream(result.getData().getData());
-                        documentActivity.setTakenBitmap(compressBitmap(BitmapFactory.decodeStream(inputStream)));
+                        final Bitmap bitmap = compressBitmap(BitmapFactory.decodeStream(inputStream));
+                        documentActivity.setTakenBitmap(bitmap);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
@@ -220,7 +218,6 @@ public class TakePhotoFragment extends Fragment {
                     R.drawable.icon_finder_camera));
             new UploadImages(this).execute(requireActivity());
         }
-        //TODO
     };
 
     @Override
@@ -260,18 +257,22 @@ public class TakePhotoFragment extends Fragment {
                 HttpClientWrapper.call = null;
             }
             final Intent intent = new Intent(requireContext(), FinalReportActivity.class);
-            intent.putExtra(TRACK_NUMBER.getValue(), documentActivity.getTrackNumber());
-            int tempTitleId = 0, tempDescriptionTitleId = 0;
-            for (DataTitle imageDataTitleTemp : documentActivity.getDataTitle()) {
-                if (imageDataTitleTemp.title.equals("ارزیابی"))
-                    tempTitleId = imageDataTitleTemp.id;
-                if (imageDataTitleTemp.title.equals("سایر"))
-                    tempDescriptionTitleId = imageDataTitleTemp.id;
+            int titleId = 0, crookiTitleId = 0, licenceTitleId = 0;
+            //TODO
+            for (DataTitle dataTitle : documentActivity.getDataTitle()) {
+                if (dataTitle.title.equals("فرم ارزیابی"))
+                    titleId = dataTitle.id;
+                if (dataTitle.title.equals("کروکی"))
+                    crookiTitleId = dataTitle.id;
+                if (dataTitle.title.equals("مجوز حفاری"))
+                    licenceTitleId = dataTitle.id;
             }
-            intent.putExtra(TITLE.getValue(), tempTitleId);
-            intent.putExtra(OTHER_TITLE.getValue(), tempDescriptionTitleId);
+            intent.putExtra(TITLE.getValue(), titleId);
+            intent.putExtra(OTHER_TITLE.getValue(), crookiTitleId);
+            intent.putExtra(LICENCE_TITLE.getValue(), licenceTitleId);
+            intent.putExtra(TRACK_NUMBER.getValue(), documentActivity.getTrackNumber());
             startActivity(intent);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+//            intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 //            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             requireActivity().finish();
         }

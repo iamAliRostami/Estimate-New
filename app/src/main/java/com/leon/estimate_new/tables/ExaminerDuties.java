@@ -53,6 +53,9 @@ public class ExaminerDuties {
     public int sifoon200;
     public int zarfiatQarardadi;
     public int arzeshMelk;
+
+    public String block;
+    public String arz;
     public int tedadMaskooni;
     public int tedadTejari;
     public int tedadSaier;
@@ -88,6 +91,7 @@ public class ExaminerDuties {
     public String noeVagozariS;
     public int pelak;
     public boolean sanad;
+    public int sanadNumber;
     public String examinerName;
     public boolean estelamShahrdari, parvane, motaqazi;
     public String masrafDescription;
@@ -96,6 +100,10 @@ public class ExaminerDuties {
     public String codeNew;
     public String codeKaf;
     public String eshterak;
+
+    public String adamLicence;
+    public String qaradad;
+    public String qaradadNumber;
 
     public int faseleKhakiA;
     public int faseleKhakiF;
@@ -111,6 +119,8 @@ public class ExaminerDuties {
     public double x1, x2, y1, y2;
     public String sodurDate;
 
+    @Ignore
+    public String operation;
     @Ignore
     public ArrayList<RequestDictionary> requestDictionary;
 

@@ -2,7 +2,6 @@ package com.leon.estimate_new.utils.estimating;
 
 import static com.leon.estimate_new.enums.DialogType.Yellow;
 import static com.leon.estimate_new.enums.ProgressType.NOT_SHOW;
-import static com.leon.estimate_new.enums.ProgressType.SHOW;
 import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponent;
 import static com.leon.estimate_new.helpers.MyApplication.getContext;
 
@@ -35,8 +34,8 @@ public class GetArzeshdaraei extends BaseAsync {
     private final String zoneId;
 
     public GetArzeshdaraei(Context context, String zoneId, Object... o) {
-        super(context,false, o);
-        this.object = o;
+        super(context, false, o);
+        this.object = o[0];
         this.zoneId = zoneId;
     }
 

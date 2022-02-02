@@ -41,6 +41,7 @@ public class CalculationUserInputSend {
     public int zarfiatQarardadi;
     public int tedadMaskooni;
     public int tedadTejari;
+
     public int tedadSaier;
     public int tedadTaxfif;
     public int resultId;
@@ -53,19 +54,18 @@ public class CalculationUserInputSend {
     public int karbariId;
     public int arzeshMelk;
     public double accuracy;
-    //TODO
-    String eshterak;
-    int omqeZirzamin;
-    boolean chahAbBaran;
-    boolean hasMap;
-    int faseleKhakiA;
-    int faseleKhakiF;
-    int faseleAsphaultA;
-    int faseleAsphaultF;
-    int faseleSangA;
-    int faseleSangF;
-    int faseleOtherA;
-    int faseleOtherF;
+    public String eshterak;
+    public int omqeZirzamin;
+    public boolean chahAbBaran;
+    public boolean hasMap;
+    public int faseleKhakiA;
+    public int faseleKhakiF;
+    public int faseleAsphaultA;
+    public int faseleAsphaultF;
+    public int faseleSangA;
+    public int faseleSangF;
+    public int faseleOtherA;
+    public int faseleOtherF;
 
     public CalculationUserInputSend(CalculationUserInput calculationUserInput, ExaminerDuties examinerDuties) {
         this.eshterak = examinerDuties.eshterak;

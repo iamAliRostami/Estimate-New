@@ -12,6 +12,7 @@ public enum BundleEnum {
     TYPE("type"),
     TITLE("title"),
     OTHER_TITLE("other_title"),
+    LICENCE_TITLE("licence_title"),
     ON_OFFLOAD("ON_OFFLOAD"),
     POSITION("position"),
     SPINNER_POSITION("spinner_position"),

@@ -1,5 +1,8 @@
 package com.leon.estimate_new.activities;
 
+import static com.leon.estimate_new.enums.BundleEnum.LICENCE_TITLE;
+import static com.leon.estimate_new.enums.BundleEnum.OTHER_TITLE;
+import static com.leon.estimate_new.enums.BundleEnum.TITLE;
 import static com.leon.estimate_new.enums.BundleEnum.TRACK_NUMBER;
 import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponent;
 import static com.leon.estimate_new.helpers.MyApplication.setActivityComponent;
@@ -30,6 +33,7 @@ public class FinalReportActivity extends AppCompatActivity {
     private ExaminerDuties examinerDuty;
     private int pageNumber = 0, maxNumber = 2;
     private boolean licence = false;
+    private int licenceTitle, estimateTitle, CrookiTitle;
     private List<String[]> licenceRows;
     private final ArrayList<Bitmap> bitmaps = new ArrayList<>();
 
@@ -39,21 +43,28 @@ public class FinalReportActivity extends AppCompatActivity {
         binding = ActivityFinalReportBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setActivityComponent(this);
-        if (getIntent().getExtras() != null)
+        if (getIntent().getExtras() != null) {
             examinerDuty = getApplicationComponent().MyDatabase().examinerDutiesDao()
                     .examinerDutiesByTrackNumber(getIntent().getExtras().getString(TRACK_NUMBER.getValue()));
+            CrookiTitle = getIntent().getExtras().getInt(OTHER_TITLE.getValue());
+            licenceTitle = getIntent().getExtras().getInt(LICENCE_TITLE.getValue());
+            estimateTitle = getIntent().getExtras().getInt(TITLE.getValue());
+        }
         initialize();
     }
 
     private void initialize() {
         examinerDuty.requestDictionary = new ArrayList<>(Arrays.asList(new GsonBuilder().create()
                 .fromJson(examinerDuty.requestDictionaryString, RequestDictionary[].class)));
-        for (int i = 0; i < examinerDuty.requestDictionary.size() && !licence; i++)
-            if (examinerDuty.requestDictionary.get(i).title.equals("آب") ||
-                    examinerDuty.requestDictionary.get(i).title.equals("فاضلاب")) {
+        for (int i = 0; i < examinerDuty.requestDictionary.size() && !licence; i++) {
+            if ((examinerDuty.requestDictionary.get(i).title.trim().equals("انشعاب آب") ||
+                    examinerDuty.requestDictionary.get(i).title.trim().equals("انشعاب فاضلاب")) &
+                    examinerDuty.requestDictionary.get(i).isSelected) {
+                examinerDuty.operation = examinerDuty.requestDictionary.get(i).title;
                 licence = true;
                 maxNumber++;
             }
+        }
         createOutputImage();
         setOnAcceptedButtonClickListener();
         initializeArrowButton();

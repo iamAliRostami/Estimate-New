@@ -11,18 +11,21 @@ public class Tejariha {
     public String karbari;
     public String noeShoql;
     public int tedadVahed;
+    public int capacity;
     public String vahedMohasebe;
     public String tozihat;
     public String a;
     public String trackNumber;
 
+
     public Tejariha(String karbari, String noeShoql, int tedadVahed, String vahedMohasebe, String a,
-                    String trackNumber) {
-        this.karbari = karbari;
-        this.noeShoql = noeShoql;
-        this.tedadVahed = tedadVahed;
+                    int capacity, String trackNumber) {
         this.vahedMohasebe = vahedMohasebe;
-        this.a = a;
         this.trackNumber = trackNumber;
+        this.tedadVahed = tedadVahed;
+        this.capacity = capacity;
+        this.noeShoql = noeShoql;
+        this.karbari = karbari;
+        this.a = a;
     }
 }

@@ -34,12 +34,14 @@ import com.sardari.daterangepicker.dialog.DatePickerDialog;
 
 import java.util.ArrayList;
 
-public class BaseInfoFragment extends Fragment implements ValueFragment.Callback, TejarihaSayerFragment.Callback {
+public class BaseInfoFragment extends Fragment implements ValueFragment.Callback,
+        TejarihaSayerFragment.Callback {
     private FragmentBaseInfoBinding binding;
     private ExaminerDuties examinerDuty;
     private Arzeshdaraei arzeshdaraei;
     private Callback formActivity;
     private int saier, tejari;
+    private String block, arz;
     private final View.OnClickListener onClickListener = v ->
             ShowFragmentDialogOnce(requireContext(), "TEJARI_SAYER_FRAGMENT",
                     TejarihaSayerFragment.newInstance(this));
@@ -103,9 +105,7 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
     private void setOnButtonsClickListener() {
         binding.buttonPre.setOnClickListener(v -> formActivity.setOnPreClickListener(SERVICES_FRAGMENT));
         binding.buttonSubmit.setOnClickListener(v -> {
-            if (checkForm()) {
-                formActivity.setBaseInfo(prepareOutput());
-            }
+            if (checkForm()) formActivity.setBaseInfo(prepareOutput());
         });
     }
 
@@ -129,17 +129,17 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
     }
 
     private boolean checkIsNoEmpty(EditText editText) {
-        final View focusView;
         if (editText.getText().toString().length() < 1) {
             editText.setError(getString(R.string.error_empty));
-            focusView = editText;
-            focusView.requestFocus();
+            editText.requestFocus();
             return false;
         }
         return true;
     }
 
     private ExaminerDuties prepareOutput() {
+        examinerDuty.block = block;
+        examinerDuty.arz = arz;
         examinerDuty.sifoon100 = Integer.parseInt(binding.editTextSifoon100.getText().toString());
         examinerDuty.sifoon125 = Integer.parseInt(binding.editTextSifoon125.getText().toString());
         examinerDuty.sifoon150 = Integer.parseInt(binding.editTextSifoon150.getText().toString());
@@ -327,8 +327,10 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
     }
 
     @Override
-    public void setValue(ArrayList<Integer> values, int value) {
+    public void setValue(ArrayList<Integer> values, int value, String block, String arz) {
         binding.textViewArzeshMelk.setText(String.valueOf(value));
+        this.arz = arz;
+        this.block = block;
         formActivity.setValues(values);
     }
 

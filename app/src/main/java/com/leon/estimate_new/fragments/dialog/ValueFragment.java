@@ -28,6 +28,7 @@ public class ValueFragment extends DialogFragment {
     private FragmentValueBinding binding;
     private final Arzeshdaraei arzeshdaraei;
     private final Callback baseInfoFragment;
+    final ArrayList<String> blockTitles = new ArrayList<>(), gozarTitles = new ArrayList<>();
     private final ArrayList<Integer> values = new ArrayList<>();
     private final TextWatcher textWatcher = new TextWatcher() {
         @Override
@@ -161,7 +162,9 @@ public class ValueFragment extends DialogFragment {
             count = count * 1000;
             binding.textViewCount.setText(String.valueOf(count));
             if (dis) {
-                baseInfoFragment.setValue(values, count);
+                baseInfoFragment.setValue(values, count,
+                        blockTitles.get(binding.spinner1.getSelectedItemPosition()),
+                        gozarTitles.get(binding.spinner2.getSelectedItemPosition()));
                 dismiss();
             }
         } else {
@@ -190,20 +193,20 @@ public class ValueFragment extends DialogFragment {
 
 
     private void initializeSpinnerGozar() {
-        final ArrayList<String> arrayListSpinner = new ArrayList<>();
+        gozarTitles.clear();
         for (Formula formula : arzeshdaraei.formulas) {
-            arrayListSpinner.add(formula.gozarTitle);
+            gozarTitles.add(formula.gozarTitle);
         }
-        binding.spinner2.setAdapter(new SpinnerCustomAdapter(requireContext(), arrayListSpinner));
+        binding.spinner2.setAdapter(new SpinnerCustomAdapter(requireContext(), gozarTitles));
         binding.spinner2.setSelection(values.get(7));
     }
 
     private void initializeSpinnerBlock() {
-        final ArrayList<String> arrayListSpinner = new ArrayList<>();
+        blockTitles.clear();
         for (Block block : arzeshdaraei.blocks) {
-            arrayListSpinner.add(block.blockId);
+            blockTitles.add(block.blockId);
         }
-        binding.spinner1.setAdapter(new SpinnerCustomAdapter(requireContext(), arrayListSpinner));
+        binding.spinner1.setAdapter(new SpinnerCustomAdapter(requireContext(), blockTitles));
         binding.spinner1.setSelection(values.get(6));
     }
 
@@ -219,7 +222,7 @@ public class ValueFragment extends DialogFragment {
     }
 
     public interface Callback {
-        void setValue(ArrayList<Integer> values, int value);
+        void setValue(ArrayList<Integer> values, int value, String block, String arz);
 
         Arzeshdaraei getArzeshdaraei();
 

@@ -27,7 +27,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.databinding.ActivityFormBinding;
-import com.leon.estimate_new.enums.BundleEnum;
 import com.leon.estimate_new.fragments.forms.BaseInfoFragment;
 import com.leon.estimate_new.fragments.forms.EditMapFragment;
 import com.leon.estimate_new.fragments.forms.MapDescriptionFragment;
@@ -82,7 +81,7 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
                     .fromJson(examinerDuty.requestDictionaryString, RequestDictionary[].class)));
         }
         new GetDBData(this, examinerDuty.zoneId, examinerDuty.trackNumber, this).execute(this);
-        displayView(/*EDIT_MAP_FRAGMENT*/PERSONAL_FRAGMENT);
+        displayView(EDIT_MAP_FRAGMENT/*PERSONAL_FRAGMENT*/);
     }
 
     private void displayView(int position) {
@@ -227,13 +226,14 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
     @Override
     public void setEditMap() {
         //TODO
-        final Intent intent = new Intent(getApplicationContext(), DocumentActivity/*DocumentFormActivity*/.class);
+        final Intent intent = new Intent(getApplicationContext(), DocumentActivity.class);
 //        final Intent intent = new Intent(getApplicationContext(), FinalReportActivity.class);
         intent.putExtra(TRACK_NUMBER.getValue(), examinerDuty.trackNumber);
         intent.putExtra(BILL_ID.getValue(), examinerDuty.billId != null ?
                 examinerDuty.billId : examinerDuty.neighbourBillId);
         intent.putExtra(NEW_ENSHEAB.getValue(), examinerDuty.isNewEnsheab);
         prepareToSend();
+        finish();
         startActivity(intent);
     }
 
@@ -252,8 +252,8 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
 
     @Override
     public void setWaterLocation(Point point) {
-        calculationUserInput.x3 = point.getX();
-        calculationUserInput.y3 = point.getY();
+        examinerDuty.x1 = calculationUserInput.x3 = point.getX();
+        examinerDuty.y1 = calculationUserInput.y3 = point.getY();
     }
 
     @Override

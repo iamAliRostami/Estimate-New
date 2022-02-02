@@ -720,7 +720,6 @@ public class PDFUtility {
                         BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE},
                 dataTable.get(5)));
 
-
         table.addCell(createTableRow(12, PdfPCell.ALIGN_CENTER,
                 new float[]{1f, 2f, 1f, 2f, 1f, 2f, 1f, 2f, 1f, 2f, 1f, 2f},
                 new float[]{PdfPCell.NO_BORDER, BORDER, PdfPCell.NO_BORDER, BORDER,
@@ -757,11 +756,11 @@ public class PDFUtility {
 
 
         for (int i = 0; i < 9; i++)
-            table.addCell(createTableRow(5, PdfPCell.ALIGN_CENTER,
-                    new float[]{3f, 3f, 2f, 1f, 3f},
-                    new float[]{BORDER, BORDER, BORDER, BORDER, PdfPCell.NO_BORDER},
-                    new BaseColor[]{BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE,
-                            BaseColor.WHITE},
+            table.addCell(createTableRow(6, PdfPCell.ALIGN_CENTER,
+                    new float[]{1f, 1f, 2f, 1f, 2f, 2f},
+                    new float[]{BORDER, BORDER, BORDER, BORDER, BORDER, PdfPCell.NO_BORDER},
+                    new BaseColor[]{BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE,
+                            BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE},
                     dataTable.get(10 + i)));
 
         table.addCell(createTableRow(9, PdfPCell.ALIGN_CENTER,

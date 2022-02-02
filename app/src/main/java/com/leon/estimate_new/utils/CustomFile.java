@@ -89,12 +89,15 @@ public class CustomFile {
             original.compress(Bitmap.CompressFormat.JPEG, 100, stream);
             if (stream.toByteArray().length > MAX_IMAGE_SIZE) {
                 final int width, height;
-                if (original.getHeight() > original.getWidth()) {
+                if (original.getHeight() > original.getWidth() && original.getHeight() > 1200) {
                     height = 1200;
                     width = original.getWidth() / (original.getHeight() / height);
-                } else {
+                } else if (original.getWidth() > 1200) {
                     width = 1200;
                     height = original.getHeight() / (original.getWidth() / width);
+                } else {
+                    height = original.getHeight();
+                    width = original.getWidth();
                 }
                 original = Bitmap.createScaledBitmap(original, width, height, false);
                 stream = new ByteArrayOutputStream();

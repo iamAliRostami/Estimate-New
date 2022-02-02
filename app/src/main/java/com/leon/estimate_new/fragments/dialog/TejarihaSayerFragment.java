@@ -90,8 +90,9 @@ public class TejarihaSayerFragment extends DialogFragment {
 
     private void setOnImageViewPlusClickListener() {
         binding.imageViewPlus.setOnClickListener(v -> {
-            if (checkIsNoEmpty(binding.editTextVahed) && checkIsNoEmpty(binding.editTextNoeShoql)
-                    && checkIsNoEmpty(binding.editTextVahedMohasebe) && checkIsNoEmpty(binding.editTextA2)) {
+            if (checkIsNoEmpty(binding.editTextNoeShoql) && checkIsNoEmpty(binding.editTextCapacity)
+                    && checkIsNoEmpty(binding.editTextVahed) && checkIsNoEmpty(binding.editTextA2)
+                    && checkIsNoEmpty(binding.editTextVahedMohasebe)) {
                 if (tejariha.size() == 8) {
                     new CustomToast().warning(getString(R.string.tejari_over_flow), Toast.LENGTH_LONG);
                     return;
@@ -104,45 +105,45 @@ public class TejarihaSayerFragment extends DialogFragment {
 
     @SuppressLint("NotifyDataSetChanged")
     private void addItem() {
+        //TODO
         tejariha.add(new Tejariha(baseInfoFragment.getKarbariDictionary()
                 .get(binding.spinner1.getSelectedItemPosition()).title,
                 binding.editTextNoeShoql.getText().toString(),
                 Integer.parseInt(binding.editTextVahed.getText().toString()),
                 binding.editTextVahedMohasebe.getText().toString(),
                 binding.editTextA2.getText().toString(),
+                Integer.parseInt(binding.editTextCapacity.getText().toString()),
                 baseInfoFragment.getExaminerDuty().trackNumber));
         adapter.notifyDataSetChanged();
     }
 
     private void emptyForm() {
         binding.editTextA2.setText("");
-        binding.editTextNoeShoql.setText("");
         binding.editTextVahed.setText("");
+        binding.editTextNoeShoql.setText("");
+        binding.editTextCapacity.setText("");
         binding.editTextVahedMohasebe.setText("");
     }
 
     private boolean checkIsNoEmpty(EditText editText) {
-        View focusView;
         if (editText.getText().toString().length() < 1) {
             editText.setError(getString(R.string.error_empty));
-            focusView = editText;
-            focusView.requestFocus();
+            editText.requestFocus();
             return false;
         }
         return true;
     }
 
     private void initializeKarbariSpinner() {
-        final ArrayList<String> arrayListSpinner = new ArrayList<>();
+        final ArrayList<String> spinnerItems = new ArrayList<>();
         int selected = 0, counter = 0;
         for (KarbariDictionary karbariDictionary : baseInfoFragment.getKarbariDictionary()) {
-            arrayListSpinner.add(karbariDictionary.title);
-            if (karbariDictionary.id == baseInfoFragment.getExaminerDuty().karbariId) {
+            spinnerItems.add(karbariDictionary.title);
+            if (karbariDictionary.id == baseInfoFragment.getExaminerDuty().karbariId)
                 selected = counter;
-            }
             counter = counter + 1;
         }
-        binding.spinner1.setAdapter(new SpinnerCustomAdapter(requireContext(), arrayListSpinner));
+        binding.spinner1.setAdapter(new SpinnerCustomAdapter(requireContext(), spinnerItems));
         binding.spinner1.setSelection(selected);
     }
 
