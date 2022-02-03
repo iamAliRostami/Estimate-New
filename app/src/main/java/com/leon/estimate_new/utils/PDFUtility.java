@@ -73,9 +73,9 @@ public class PDFUtility {
         } catch (DocumentException | IOException e) {
             e.printStackTrace();
         }
-        FONT_TITLE = new Font(BASE_FONT, 13, Font.NORMAL);
-        FONT_TITTER = new Font(BASE_FONT, 14, Font.BOLD);
-        FONT_TEXT = new Font(BASE_FONT, 14, Font.NORMAL);
+        FONT_TITLE = new Font(BASE_FONT, 11, Font.BOLD);
+        FONT_TITTER = new Font(BASE_FONT, 12, Font.BOLD);
+        FONT_TEXT = new Font(BASE_FONT, 12, Font.NORMAL);
         FONT_TEXT_ITALIC = new Font(BASE_FONT, 13, Font.ITALIC);
         FONT_EN = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL);
 
@@ -96,7 +96,6 @@ public class PDFUtility {
         document.open();
         document.add(createHeaderOriginal(context));
         document.add(createDataTable(items, bitmaps));
-//        document.add(createOriginalSignBox(items, bitmaps));
         document.close();
 
         try {
@@ -117,9 +116,9 @@ public class PDFUtility {
         } catch (DocumentException | IOException e) {
             e.printStackTrace();
         }
-        FONT_TITLE = new Font(BASE_FONT, 13, Font.NORMAL);
+        FONT_TITLE = new Font(BASE_FONT, 13, Font.BOLD);
         FONT_TITTER = new Font(BASE_FONT, 14, Font.BOLD);
-        FONT_TEXT = new Font(BASE_FONT, 14, Font.NORMAL);
+        FONT_TEXT = new Font(BASE_FONT, 13, Font.NORMAL);
         FONT_TEXT_ITALIC = new Font(BASE_FONT, 13, Font.ITALIC);
         FONT_EN = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL);
         File file = new File(PDF_ADDRESS);
@@ -708,6 +707,83 @@ public class PDFUtility {
             table.addCell(createTableRow(6, PdfPCell.ALIGN_CENTER, new float[]{3f, 2f, 3f, 2f, 3f, 2f},
                     new float[]{BORDER, BORDER, BORDER, BORDER, BORDER, PdfPCell.NO_BORDER},
                     new BaseColor[]{BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE,
+                            BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE}, dataTable.get(i),
+                    FONT_TEXT, FONT_TITLE, FONT_TEXT, FONT_TITLE, FONT_TEXT, FONT_TITLE));
+
+        table.addCell(createTableRow(4, PdfPCell.ALIGN_CENTER, new float[]{3f, 2f, 9f, 1f},
+                new float[]{BORDER, BORDER, BORDER, PdfPCell.NO_BORDER}, new BaseColor[]{
+                        BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE},
+                dataTable.get(4), FONT_TEXT, FONT_TITLE, FONT_TEXT, FONT_TITLE));
+
+
+        table.addCell(createTableRow(5, PdfPCell.ALIGN_CENTER, new float[]{2f, 2f, 1f, 2f, 2f},
+                new float[]{BORDER, BORDER, BORDER, BORDER, PdfPCell.NO_BORDER},
+                new BaseColor[]{BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE,
+                        BaseColor.WHITE, BaseColor.WHITE}, dataTable.get(5),
+                FONT_TEXT, FONT_TITLE, FONT_TITLE, FONT_TITLE, FONT_TITLE));
+
+        for (int i = 1; i < 9; i++)
+            table.addCell(createTableRow(5, PdfPCell.ALIGN_CENTER, new float[]{1f, 2f, 1f, 2f, 2f},
+                    new float[]{BORDER, BORDER, BORDER, BORDER, PdfPCell.NO_BORDER},
+                    new BaseColor[]{BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE,
+                            BaseColor.WHITE, BaseColor.WHITE}, dataTable.get(5 + i),
+                    FONT_TEXT, FONT_TITLE, FONT_TEXT, FONT_TITLE, FONT_TITLE));
+
+        table.addCell(createTableRow(6, PdfPCell.ALIGN_CENTER,
+                new float[]{1f, 1f, 2f, 1f, 2f, 2f},
+                new float[]{BORDER, BORDER, BORDER, BORDER, BORDER, PdfPCell.NO_BORDER},
+                new BaseColor[]{BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE,
+                        BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE},
+                dataTable.get(14), FONT_TITLE, FONT_TITLE, FONT_TITLE, FONT_TITLE, FONT_TITLE, FONT_TITLE));
+        for (int i = 1; i < 9; i++)
+            table.addCell(createTableRow(6, PdfPCell.ALIGN_CENTER,
+                    new float[]{1f, 1f, 2f, 1f, 2f, 2f},
+                    new float[]{BORDER, BORDER, BORDER, BORDER, BORDER, PdfPCell.NO_BORDER},
+                    new BaseColor[]{BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE,
+                            BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE},
+                    dataTable.get(14 + i)));
+
+
+        table.addCell(createTableRow(8, PdfPCell.ALIGN_CENTER,
+                new float[]{1f, 2f, 1f, 2f, 1f, 2f, 1f, 2f},
+                new float[]{BORDER, BORDER, BORDER, BORDER, BORDER, BORDER, BORDER, PdfPCell.NO_BORDER},
+                new BaseColor[]{BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE,
+                        BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE},
+                dataTable.get(23), FONT_TEXT, FONT_TITLE, FONT_TEXT, FONT_TITLE, FONT_TEXT, FONT_TITLE, FONT_TEXT, FONT_TITLE));
+
+        table.addCell(createTableRow(9, PdfPCell.ALIGN_CENTER,
+                new float[]{1f, 2f, 1f, 2f, 1f, 2f, 1f, 2f, 3f},
+                new float[]{BORDER, BORDER, BORDER, BORDER, BORDER, BORDER, BORDER, BORDER, PdfPCell.NO_BORDER},
+                new BaseColor[]{BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE,
+                        BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE},
+                dataTable.get(24), FONT_TEXT, FONT_TITLE, FONT_TEXT, FONT_TITLE, FONT_TEXT, FONT_TITLE, FONT_TEXT, FONT_TITLE, FONT_TITLE));
+        table.addCell(createTableRow(9, PdfPCell.ALIGN_CENTER,
+                new float[]{1f, 2f, 1f, 2f, 1f, 2f, 1f, 2f, 3f},
+                new float[]{BORDER, BORDER, BORDER, BORDER, BORDER, BORDER, BORDER, BORDER, PdfPCell.NO_BORDER},
+                new BaseColor[]{BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE,
+                        BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE},
+                dataTable.get(25), FONT_TEXT, FONT_TITLE, FONT_TEXT, FONT_TITLE, FONT_TEXT, FONT_TITLE, FONT_TEXT, FONT_TITLE, FONT_TITLE));
+
+
+        for (int i = 26; i < dataTable.size() - 1; i++)
+            table.addCell(createTableRow(1, PdfPCell.ALIGN_RIGHT, 1, BaseColor.WHITE,
+                    dataTable.get(i)));
+
+        final PdfPCell pdfPCellTemp = new PdfPCell(createOriginalSignBox(dataTable.get(dataTable.size() - 1)[0], bitmaps));
+        pdfPCellTemp.setPadding(4f);
+        PdfPTable pdfPTableTemp = new PdfPTable(1);
+        pdfPTableTemp.addCell(pdfPCellTemp);
+        table.addCell(pdfPCellTemp);
+
+        return table;
+    }
+
+    public static PdfPTable createDataTableOld(List<String[]> dataTable, Bitmap... bitmaps) throws DocumentException {
+        PdfPTable table = createTable(1, new float[]{1f});
+        for (int i = 0; i < 4; i++)
+            table.addCell(createTableRow(6, PdfPCell.ALIGN_CENTER, new float[]{3f, 2f, 3f, 2f, 3f, 2f},
+                    new float[]{BORDER, BORDER, BORDER, BORDER, BORDER, PdfPCell.NO_BORDER},
+                    new BaseColor[]{BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE,
                             BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE}, dataTable.get(i)));
 
         table.addCell(createTableRow(4, PdfPCell.ALIGN_CENTER, new float[]{3f, 2f, 9f, 1f},
@@ -898,14 +974,14 @@ public class PDFUtility {
     }
 
     private static PdfPTable createTableRow(int column, int align, float[] width, float[] border,
-                                            BaseColor[] baseColors, String[] items)
+                                            BaseColor[] baseColors, String[] items, Font... fonts)
             throws DocumentException {
         PdfPTable table = createTable(column, width);
         PdfPCell cell = createPdfCell();
         cell.setHorizontalAlignment(align);
         cell.setVerticalAlignment(Element.ALIGN_CENTER);
         for (int i = 0; i < column; i++) {
-            cell.setPhrase(addPhrase(items[i]));
+            cell.setPhrase((fonts != null && fonts.length > 0) ? addPhrase(items[i], fonts[i]) : addPhrase(items[i]));
             cell.setBorderWidthRight(border[i]);
             cell.setBackgroundColor(baseColors[i]);
             table.addCell(cell);
@@ -1048,7 +1124,7 @@ public class PDFUtility {
         final PdfPTable tableTemp = new PdfPTable(3);
         tableTemp.setWidths(new float[]{1, 2, 2});
 
-        String text = "امضا: ";
+        String text = "امضا متقاضی: ";
         Paragraph temp = new Paragraph(pe.process(text), FONT_TEXT);
         PdfPCell pdfPCellTemp = new PdfPCell(addEmptyLine(temp, 2));
         pdfPCellTemp.setHorizontalAlignment(Element.ALIGN_RIGHT);
@@ -1079,11 +1155,25 @@ public class PDFUtility {
         signTable.addCell(tableTemp);
 
         if (bitmaps != null && bitmaps.length > 0) {
-            final Image sign = getImageFromBitmap(bitmaps[0]);
+            Image sign = getImageFromBitmap(bitmaps[0]);
+            if (sign != null) sign.scaleToFit(50, 50);
 
-            final PdfPCell signCell = new PdfPCell(sign);
+            PdfPCell signCell = new PdfPCell(sign);
+            final PdfPTable table = new PdfPTable(2);
+            table.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
             signCell.setBorder(PdfPCell.NO_BORDER);
-            signTable.addCell(signCell);
+            signCell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            table.addCell(signCell);
+
+            sign = getImageFromBitmap(bitmaps[1]);
+            if (sign != null) sign.scaleToFit(80, 80);
+            signCell = new PdfPCell(sign);
+            signCell.setBorder(PdfPCell.NO_BORDER);
+            signCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+
+            table.addCell(signCell);
+
+            signTable.addCell(table);
         }
 
 //        signTable.addCell(pdfPCellTemp);
@@ -1160,9 +1250,9 @@ public class PDFUtility {
         return paragraph;
     }
 
-    private static Phrase addPhrase(String s) {
+    private static Phrase addPhrase(String s, Font... fonts) {
         LanguageProcessor pe = new ArabicLigaturizer();
-        return new Phrase(pe.process(s), FONT_TITLE);
+        return new Phrase(pe.process(s), (fonts != null && fonts.length > 0) ? fonts[0] : FONT_TEXT);
     }
 
     private static void addEmptyLine(Document document, int number) throws DocumentException {

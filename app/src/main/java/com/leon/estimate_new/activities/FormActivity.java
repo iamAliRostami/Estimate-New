@@ -81,7 +81,7 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
                     .fromJson(examinerDuty.requestDictionaryString, RequestDictionary[].class)));
         }
         new GetDBData(this, examinerDuty.zoneId, examinerDuty.trackNumber, this).execute(this);
-        displayView(/*EDIT_MAP_FRAGMENT*/PERSONAL_FRAGMENT);
+        displayView(EDIT_MAP_FRAGMENT/*PERSONAL_FRAGMENT*/);
     }
 
     private void displayView(int position) {
@@ -226,8 +226,8 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
     @Override
     public void setEditMap() {
         //TODO
-        final Intent intent = new Intent(getApplicationContext(), DocumentActivity.class);
-//        final Intent intent = new Intent(getApplicationContext(), FinalReportActivity.class);
+//        final Intent intent = new Intent(getApplicationContext(), DocumentActivity.class);
+        final Intent intent = new Intent(getApplicationContext(), FinalReportActivity.class);
         intent.putExtra(TRACK_NUMBER.getValue(), examinerDuty.trackNumber);
         intent.putExtra(BILL_ID.getValue(), examinerDuty.billId != null ?
                 examinerDuty.billId : examinerDuty.neighbourBillId);
