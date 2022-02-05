@@ -225,7 +225,8 @@ public class MapDescriptionFragment extends Fragment {
         graphicsOverlay.getGraphics().add(graphic);
         if (pointWater == -1) {
             pointWater = binding.mapView.getGraphicsOverlays().size() - 1;
-            formActivity.setWaterLocation(((Point) GeometryEngine.project(graphicPoint, SpatialReferences.getWgs84())));
+//            formActivity.setWaterLocation(((Point) GeometryEngine.project(graphicPoint, SpatialReferences.getWgs84())));
+            formActivity.setWaterLocation(graphicPoint);
         } else pointSiphon = binding.mapView.getGraphicsOverlays().size() - 2;
     }
 

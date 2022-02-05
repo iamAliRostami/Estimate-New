@@ -14,7 +14,7 @@ public class ExaminerDuties {
     public String trackNumber;
     public String examinationId;
     public int karbariId;
-//    @Ignore
+    //    @Ignore
     public String karbariS;
     public String radif;
     public String billId;
@@ -41,25 +41,36 @@ public class ExaminerDuties {
     public String fazelabInstallDate;
     public boolean isFinished;
     public int arse;
+    public Integer arseNew;
     public int aianKol;
+    public Integer aianKolNew;
     public int aianMaskooni;
+    public Integer aianMaskooniNew;
     public int aianNonMaskooni;
+    public Integer aianNonMaskooniNew;
     public int qotrEnsheabId;
-//    @Ignore
     public String qotrEnsheabS;
+
+    public int qotrEnsheabFId;
+    public String qotrEnsheabFS;
     public int sifoon100;
     public int sifoon125;
     public int sifoon150;
     public int sifoon200;
     public int zarfiatQarardadi;
+    public Integer zarfiatQarardadiNew;
     public int arzeshMelk;
 
     public String block;
     public String arz;
     public int tedadMaskooni;
+    public Integer tedadMaskooniNew;
     public int tedadTejari;
+    public Integer tedadTejariNew;
     public int tedadSaier;
+    public Integer tedadSaierNew;
     public int taxfifId;
+    public String taxfifS;
     public int tedadTaxfif;
     public String nationalId;
     public String identityCode;
@@ -87,7 +98,6 @@ public class ExaminerDuties {
     public boolean etesalZirzamin;
     public int omqFazelab;
     public int noeVagozariId;
-//    @Ignore
     public String noeVagozariS;
     public int pelak;
     public boolean sanad;
@@ -101,8 +111,8 @@ public class ExaminerDuties {
     public String codeKaf;
     public String eshterak;
 
-    public String adamLicence;
-    public String qaradad;
+    public boolean adamLicence;
+    public boolean qaradad;
     public String qaradadNumber;
 
     public int faseleKhakiA;

@@ -446,4 +446,7 @@
     <string name="code_new">کد نوسازی</string>
     <string name="code_kaf">کد کف و بر</string>
     <string name="capacity">ظرفیت</string>
+    <string name="qotr_fazelab">قطر فاضلاب</string>
+    <string name="sanad_number">شماره سند</string>
+    <string name="qarardad">شماره فرارداد</string>
 </resources>

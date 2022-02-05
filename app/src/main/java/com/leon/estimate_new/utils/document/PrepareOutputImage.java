@@ -117,8 +117,8 @@ public class PrepareOutputImage extends BaseAsync {
         temp.add(rowString);
 
         rowString = new String[]{examinerDuty.phoneNumber, "تلفن ثابت", examinerDuty.mobile != null ?
-                examinerDuty.mobile : examinerDuty.moshtarakMobile,
-                "تلفن همراه", examinerDuty.nationalId, "کدملی"};
+                examinerDuty.mobile : examinerDuty.moshtarakMobile, "تلفن همراه",
+                examinerDuty.nationalId, "کدملی"};
         temp.add(rowString);
 
         rowString = new String[]{examinerDuty.postalCode, "کد پستی", examinerDuty.address, "آدرس"};
@@ -127,45 +127,47 @@ public class PrepareOutputImage extends BaseAsync {
         rowString = new String[]{examinerDuty.noeVagozariS, "نوع واگذاری", "اطلاعات فعلی",
                 "اطلاعات قبلی", "شرح"};
         temp.add(rowString);
-        //TODO
-        rowString = new String[]{"block", "بلوک", "examinerDuty.arseNew",
+
+        rowString = new String[]{examinerDuty.block, "بلوک", String.valueOf(examinerDuty.arseNew),
                 String.valueOf(examinerDuty.arse), "عرصه"};
         temp.add(rowString);
 
-        rowString = new String[]{"arz", "عرض گذر", "examinerDuty.aianKolNew",
+        rowString = new String[]{examinerDuty.arz, "عرض گذر", String.valueOf(examinerDuty.aianKolNew),
                 String.valueOf(examinerDuty.aianKol), "اعیانی کل"};
         temp.add(rowString);
 
 
         rowString = new String[]{String.valueOf(examinerDuty.arzeshMelk), "ارزش معاملاتی",
-                "examinerDuty.aianMaskooniNew", String.valueOf(examinerDuty.aianMaskooni), "اعیانی مسکونی"};
+                String.valueOf(examinerDuty.aianMaskooniNew),
+                String.valueOf(examinerDuty.aianMaskooni), "اعیانی مسکونی"};
         temp.add(rowString);
 
-        //TODO
-        rowString = new String[]{String.valueOf(examinerDuty.taxfifId), "نوع تخفیف",
-                "aianNonMaskooniNew", String.valueOf(examinerDuty.aianNonMaskooni), "اعیانی تجاری"};
+        rowString = new String[]{String.valueOf(examinerDuty.taxfifS), "نوع تخفیف",
+                String.valueOf(examinerDuty.aianNonMaskooniNew),
+                String.valueOf(examinerDuty.aianNonMaskooni), "اعیانی تجاری"};
         temp.add(rowString);
 
         rowString = new String[]{String.valueOf(examinerDuty.tedadTaxfif), "تعداد واحد تخفیف",
-                "tedadMaskooniNew", String.valueOf(examinerDuty.tedadMaskooni), "تعداد واحد مسکونی"};
+                String.valueOf(examinerDuty.tedadMaskooniNew),
+                String.valueOf(examinerDuty.tedadMaskooni), "تعداد واحد مسکونی"};
         temp.add(rowString);
 
-        //TODO
-        rowString = new String[]{String.valueOf(examinerDuty.tedadTaxfif), "مجوز عدم تولی",
-                "tedadTejariNew", String.valueOf(examinerDuty.tedadTejari), "تعداد واحد تجاری"};
+        rowString = new String[]{examinerDuty.adamLicence ? "دارد" : "ندارد", "مجوز عدم تولی",
+                String.valueOf(examinerDuty.tedadTejariNew),
+                String.valueOf(examinerDuty.tedadTejari), "تعداد واحد تجاری"};
         temp.add(rowString);
 
-        //TODO
-        rowString = new String[]{"qaradad", "قرارداد آماده سازی",
-                "tedadSaierNew", String.valueOf(examinerDuty.tedadSaier), "تعداد واحد سایر"};
+        rowString = new String[]{examinerDuty.qaradad ? "دارد" : "ندارد", "قرارداد آماده سازی",
+                String.valueOf(examinerDuty.tedadSaierNew), String.valueOf(examinerDuty.tedadSaier),
+                "تعداد واحد سایر"};
         temp.add(rowString);
 
-        //TODO
-        rowString = new String[]{"qaradad", "شماره قرارداد", "zarfiatQarardadiNew",
+        rowString = new String[]{examinerDuty.qaradadNumber, "شماره قرارداد",
+                String.valueOf(examinerDuty.zarfiatQarardadiNew),
                 String.valueOf(examinerDuty.zarfiatQarardadi), "ظرفیت قراردادی"};
         temp.add(rowString);
 
-        rowString = new String[]{"ظرفیت", "مقدار", "واحد محاسبه", "تعداد واحد", "نوع شغل", "کاربری",};
+        rowString = new String[]{"ظرفیت", "مقدار", "واحد محاسبه", "تعداد واحد", "نوع شغل", "کاربری"};
         temp.add(rowString);
 
         final ArrayList<Tejariha> tejarihas = new ArrayList<>(getApplicationComponent().MyDatabase().tejarihaDao().getTejarihaByTrackNumber(examinerDuty.trackNumber));
@@ -180,12 +182,10 @@ public class PrepareOutputImage extends BaseAsync {
             temp.add(rowString);
         }
 
-        //TODO
-        rowString = new String[]{
-                examinerDuty.qotrEnsheabS, "قطر انشعاب فاضلاب", examinerDuty.qotrEnsheabS, "قطر انشعاب آب",
+        rowString = new String[]{examinerDuty.qotrEnsheabFS, "قطر انشعاب فاضلاب",
+                examinerDuty.qotrEnsheabS, "قطر انشعاب آب",
                 examinerDuty.ezharNazarF ? "دارد" : "ندارد", "امکان فنی فاضلاب:",
-                examinerDuty.ezharNazarA ? "دارد" : "ندارد", "امکان فنی آب:",
-        };
+                examinerDuty.ezharNazarA ? "دارد" : "ندارد", "امکان فنی آب:"};
         temp.add(rowString);
 
         rowString = new String[]{String.valueOf(examinerDuty.faseleOtherA), "دیگر:",
@@ -200,110 +200,18 @@ public class PrepareOutputImage extends BaseAsync {
                 String.valueOf(examinerDuty.faseleKhakiF), "خاکی:", "تا شبکه فاضلاب"};
         temp.add(rowString);
 
+        final int charPerLine = 110;
+        String description = examinerDuty.description.concat(" *** ").concat(examinerDuty.masrafDescription)
+                .concat(" *** ").concat(examinerDuty.chahDescription).concat(" *** ").concat(examinerDuty.mapDescription);
 
-        //TODO
-        rowString = new String[]{"توضیحات".concat("\nتست 1")
-                .concat(examinerDuty.mapDescription).concat("\n تست 2".concat(examinerDuty.chahDescription)
-                .concat("\n").concat(examinerDuty.masrafDescription))};
+        rowString = new String[]{description.substring(0, Math.min(description.length(), charPerLine)), "توضیحات: "};
         temp.add(rowString);
 
-        rowString = new String[]{examinerDuty.examinerName};
-        temp.add(rowString);
-        return temp;
-    }
-
-    private List<String[]> getFormDataOld() {
-        List<String[]> temp = new ArrayList<>();
-
-        String[] rowString = new String[]{examinerDuty.billId, "شناسه قبض", examinerDuty.eshterak,
-                "اشتراک", examinerDuty.radif, "ردیف"};
-        temp.add(rowString);
-
-        rowString = new String[]{String.valueOf(examinerDuty.sanadNumber), "شماره سند",
-                examinerDuty.parNumber, "شماره پروانه", examinerDuty.trackNumber, "شماره پیگیری"};
-        temp.add(rowString);
-
-        rowString = new String[]{examinerDuty.fatherName, "نام پدر", examinerDuty.sureName,
-                "نام خانوادگی", examinerDuty.firstName, "نام"};
-        temp.add(rowString);
-
-        rowString = new String[]{examinerDuty.phoneNumber, "تلفن ثابت", examinerDuty.mobile != null ?
-                examinerDuty.mobile : examinerDuty.moshtarakMobile,
-                "تلفن همراه", examinerDuty.nationalId, "کدملی"};
-        temp.add(rowString);
-
-        rowString = new String[]{examinerDuty.postalCode, "کد پستی", examinerDuty.address, "آدرس"};
-        temp.add(rowString);
-
-        rowString = new String[]{examinerDuty.noeVagozariS, "نوع واگذاری", examinerDuty.karbariS, "کاربری"};
-        temp.add(rowString);
-
-        rowString = new String[]{String.valueOf(examinerDuty.sifoon200), "سیفون 200:",
-                String.valueOf(examinerDuty.sifoon150), "سیفون 150:",
-                String.valueOf(examinerDuty.sifoon125), "سیفون 125:",
-                String.valueOf(examinerDuty.sifoon100), "سیفون :100",
-                String.valueOf(examinerDuty.arse), "عرصه کل:",
-                String.valueOf(examinerDuty.qotrEnsheabS), "قطر انشعاب:"};
-        temp.add(rowString);
-
-        rowString = new String[]{String.valueOf(examinerDuty.zarfiatQarardadi), "ظرفیت قراردادی:",
-                String.valueOf(examinerDuty.tedadTejari), "تعداد واحد تجاری",
-                String.valueOf(examinerDuty.aianMaskooni), "اعیان مسکونی"};
-        temp.add(rowString);
-
-        rowString = new String[]{String.valueOf(examinerDuty.arzeshMelk), "ارزش منطقی:",
-                String.valueOf(examinerDuty.tedadMaskooni), "تعداد واحد مسکونی:",
-                String.valueOf(examinerDuty.aianNonMaskooni), "اعیان غیرمسکونی:"
-        };
-        temp.add(rowString);
-
-        rowString = new String[]{"", "", String.valueOf(examinerDuty.aianKol), "تعدد واحد سایر:"
-                , String.valueOf(examinerDuty.tedadSaier), "اعیان کل:"};
-        temp.add(rowString);
-
-
-        rowString = new String[]{"ظرفیت", "مقدار", "واحد محاسبه", "تعداد واحد", "نوع شغل", "کاربری",};
-//        temp.add(rowString);
-
-        for (int i = 0; i < 9; i++)
+        while (description.length() > charPerLine && temp.size() < 35) {
+            description = description.substring(charPerLine);
+            rowString = new String[]{description.substring(0, Math.min(description.length(), charPerLine)), " "};
             temp.add(rowString);
-
-
-        rowString = new String[]{String.valueOf(examinerDuty.faseleOtherA), "دیگر:",
-                String.valueOf(examinerDuty.faseleSangA), "سنگ فرش:",
-                String.valueOf(examinerDuty.faseleAsphaltA), "آسفالت:",
-                String.valueOf(examinerDuty.faseleKhakiA), "خاکی:", "فاصله تا شبکه آب"};
-        temp.add(rowString);
-
-        rowString = new String[]{String.valueOf(examinerDuty.faseleOtherF), "دیگر:",
-                String.valueOf(examinerDuty.faseleSangF), "سنگ فرش:",
-                String.valueOf(examinerDuty.faseleAsphaltF), "آسفالت:",
-                String.valueOf(examinerDuty.faseleKhakiF), "خاکی:", "تا شبکه فاضلاب"};
-        temp.add(rowString);
-
-        //TODO
-        rowString = new String[]{String.valueOf(examinerDuty.omqFazelab), "عمق شبکه فاضلاب:",
-                String.valueOf(examinerDuty.vaziatNasbPompI), "وضعیت نصب پمپ:",
-                examinerDuty.jensLooleS, "جنس لوله:", examinerDuty.qotrLooleS, "قطر لوله:"};
-        temp.add(rowString);
-
-        rowString = new String[]{examinerDuty.noeVagozariS, "نوع مصرف:",
-                examinerDuty.etesalZirzamin ? "دارد" : "ندارد", "اتصال به زیرزمین:",
-                String.valueOf(examinerDuty.omqeZirzamin), "عمق زیرزمین:"};
-        temp.add(rowString);
-
-        rowString = new String[]{examinerDuty.looleF ? "دارد" : "ندارد", "لوله فاضلاب:",
-                examinerDuty.looleA ? "دارد" : "ندارد", "لوله آب:",
-                examinerDuty.ezharNazarA ? "دارد" : "ندارد", "نظرواحد بهره برداری آب:",
-                examinerDuty.ezharNazarF ? "دارد" : "ندارد", "نظرواحد بهره برداری فاضلاب:"};
-        temp.add(rowString);
-
-        rowString = new String[]{examinerDuty.chahAbBaran ? "دارد" : "ندارد", "چاه آب باران:",
-                examinerDuty.estelamShahrdari ? "دارد" : "ندارد", "استعلام شهرداری:",
-                examinerDuty.parvane ? "دارد" : "ندارد", "پروانه:",
-                examinerDuty.motaqazi ? "دارد" : "ندارد", "اظهارات متقاضی:"};
-        temp.add(rowString);
-
+        }
         rowString = new String[]{examinerDuty.examinerName};
         temp.add(rowString);
         return temp;
