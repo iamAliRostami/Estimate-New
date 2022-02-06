@@ -58,9 +58,11 @@ public class PrepareOutputImage extends BaseAsync {
 
     @Override
     public void postTask(Object o) {
-        ((FinalReportActivity) o).setFormImageView(new Bitmap[]{bitmapOutput, bitmapCrooki});
         if (licence)
-            ((FinalReportActivity) o).setLicenceImageView(licenceBitmap, licenceRows);
+            ((FinalReportActivity) o).setFormImageView(new Bitmap[]{bitmapOutput, bitmapCrooki},
+                    licenceBitmap, licenceRows);
+        else ((FinalReportActivity) o).setFormImageView(new Bitmap[]{bitmapOutput, bitmapCrooki});
+
     }
 
     @Override
@@ -102,7 +104,7 @@ public class PrepareOutputImage extends BaseAsync {
     }
 
     private List<String[]> getFormData() {
-        List<String[]> temp = new ArrayList<>();
+        final List<String[]> temp = new ArrayList<>();
 
         String[] rowString = new String[]{examinerDuty.billId, "شناسه قبض", examinerDuty.eshterak,
                 "اشتراک", examinerDuty.radif, "ردیف"};
@@ -135,7 +137,6 @@ public class PrepareOutputImage extends BaseAsync {
         rowString = new String[]{examinerDuty.arz, "عرض گذر", String.valueOf(examinerDuty.aianKolNew),
                 String.valueOf(examinerDuty.aianKol), "اعیانی کل"};
         temp.add(rowString);
-
 
         rowString = new String[]{String.valueOf(examinerDuty.arzeshMelk), "ارزش معاملاتی",
                 String.valueOf(examinerDuty.aianMaskooniNew),
@@ -203,7 +204,6 @@ public class PrepareOutputImage extends BaseAsync {
         final int charPerLine = 110;
         String description = examinerDuty.description.concat(" *** ").concat(examinerDuty.masrafDescription)
                 .concat(" *** ").concat(examinerDuty.chahDescription).concat(" *** ").concat(examinerDuty.mapDescription);
-
         rowString = new String[]{description.substring(0, Math.min(description.length(), charPerLine)), "توضیحات: "};
         temp.add(rowString);
 
@@ -212,11 +212,11 @@ public class PrepareOutputImage extends BaseAsync {
             rowString = new String[]{description.substring(0, Math.min(description.length(), charPerLine)), " "};
             temp.add(rowString);
         }
+
         rowString = new String[]{examinerDuty.examinerName};
         temp.add(rowString);
         return temp;
     }
-
 
     private List<String[]> getCrookiData() {
         final List<String[]> temp = new ArrayList<>();
@@ -233,7 +233,6 @@ public class PrepareOutputImage extends BaseAsync {
                 examinerDuty.phoneNumber, examinerDuty.mobile != null ? examinerDuty.mobile :
                 examinerDuty.moshtarakMobile, examinerDuty.postalCode};
         temp.add(rowString);
-
 
         rowString = new String[]{examinerDuty.examinerName};
         temp.add(rowString);

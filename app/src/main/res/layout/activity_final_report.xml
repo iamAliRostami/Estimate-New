@@ -8,7 +8,7 @@
 
 
     <com.github.chrisbanes.photoview.PhotoView
-        android:id="@+id/image_view_pdf"
+        android:id="@+id/image_view_output"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/linear_layout_refresh_sign" />

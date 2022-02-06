@@ -1,7 +1,6 @@
 package com.leon.estimate_new.fragments.forms;
 
 import static com.leon.estimate_new.helpers.Constants.BITMAP_SELECTED;
-import static com.leon.estimate_new.helpers.Constants.MAP_SELECTED;
 import static com.leon.estimate_new.helpers.Constants.SECOND_FRAGMENT;
 import static com.leon.estimate_new.helpers.MyApplication.getLocationTracker;
 

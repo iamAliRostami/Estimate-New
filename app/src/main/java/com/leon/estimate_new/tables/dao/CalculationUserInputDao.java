@@ -18,7 +18,7 @@ public interface CalculationUserInputDao {
     List<CalculationUserInput> getCalculationUserInput();
 
     @Query("SELECT * FROM CalculationUserInput WHERE trackNumber =:trackingNumber")
-    List<CalculationUserInput> getCalculationUserInput(String trackingNumber);
+    CalculationUserInput getCalculationUserInput(String trackingNumber);
 
     @Query("UPDATE CalculationUserInput SET sent = :sent  WHERE trackNumber = :trackNumber")
     int updateCalculationUserInput(boolean sent, String trackNumber);

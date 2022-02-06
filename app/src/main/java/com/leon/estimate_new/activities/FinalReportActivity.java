@@ -23,6 +23,8 @@ import com.leon.estimate_new.tables.RequestDictionary;
 import com.leon.estimate_new.tables.ResultDictionary;
 import com.leon.estimate_new.utils.CustomToast;
 import com.leon.estimate_new.utils.document.PrepareOutputImage;
+import com.leon.estimate_new.utils.estimating.UploadImages;
+import com.leon.estimate_new.utils.estimating.UploadNavigated;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,10 +33,12 @@ import java.util.List;
 public class FinalReportActivity extends AppCompatActivity {
     private ActivityFinalReportBinding binding;
     private ExaminerDuties examinerDuty;
-    private int pageNumber = 0, maxNumber = 2;
-    private boolean licence = false;
-    private int licenceTitle, estimateTitle, CrookiTitle;
+    private int pageNumber = 0, maxNumber = 2, imageNumber = 0;
+    private boolean licence = false, finalSubmit = false;
+    private int licenceTitle, estimateTitle, crookiTitle;
     private List<String[]> licenceRows;
+    private final ArrayList<ResultDictionary> resultDictionaries = new ArrayList<>();
+
     private final ArrayList<Bitmap> bitmaps = new ArrayList<>();
 
     @Override
@@ -46,7 +50,7 @@ public class FinalReportActivity extends AppCompatActivity {
         if (getIntent().getExtras() != null) {
             examinerDuty = getApplicationComponent().MyDatabase().examinerDutiesDao()
                     .examinerDutiesByTrackNumber(getIntent().getExtras().getString(TRACK_NUMBER.getValue()));
-            CrookiTitle = getIntent().getExtras().getInt(OTHER_TITLE.getValue());
+            crookiTitle = getIntent().getExtras().getInt(OTHER_TITLE.getValue());
             licenceTitle = getIntent().getExtras().getInt(LICENCE_TITLE.getValue());
             estimateTitle = getIntent().getExtras().getInt(TITLE.getValue());
         }
@@ -66,17 +70,21 @@ public class FinalReportActivity extends AppCompatActivity {
             }
         }
         createOutputImage();
-        setOnAcceptedButtonClickListener();
-        initializeArrowButton();
         initializeSpinner();
+        setOnClickListeners();
+    }
+
+    private void setOnClickListeners() {
         binding.imageViewRefresh1.setOnClickListener(v -> binding.signatureView1.clearCanvas());
         binding.imageViewRefresh2.setOnClickListener(v -> binding.signatureView2.clearCanvas());
+        binding.buttonDenial.setOnClickListener(v -> finish());
+        setOnAcceptClickListener();
+        initializeArrowButton();
     }
 
     private void initializeSpinner() {
         final ArrayList<String> items = new ArrayList<>();
-        final ArrayList<ResultDictionary> resultDictionaries =
-                new ArrayList<>(getApplicationComponent().MyDatabase().resultDictionaryDao().getResults());
+        resultDictionaries.addAll(getApplicationComponent().MyDatabase().resultDictionaryDao().getResults());
         for (ResultDictionary resultDictionary : resultDictionaries)
             items.add(resultDictionary.title);
         binding.spinner.setAdapter(new SpinnerCustomAdapter(getApplicationContext(), items));
@@ -88,17 +96,17 @@ public class FinalReportActivity extends AppCompatActivity {
             binding.imageButtonPrevious.setVisibility(View.VISIBLE);
             pageNumber++;
             if (pageNumber + 1 == maxNumber) binding.imageButtonNext.setVisibility(View.GONE);
-            binding.imageViewPdf.setImageBitmap(bitmaps.get(pageNumber));
+            binding.imageViewOutput.setImageBitmap(bitmaps.get(pageNumber));
         });
         binding.imageButtonPrevious.setOnClickListener(v -> {
             binding.imageButtonNext.setVisibility(View.VISIBLE);
             pageNumber--;
             if (pageNumber == 0) binding.imageButtonPrevious.setVisibility(View.GONE);
-            binding.imageViewPdf.setImageBitmap(bitmaps.get(pageNumber));
+            binding.imageViewOutput.setImageBitmap(bitmaps.get(pageNumber));
         });
     }
 
-    private void setOnAcceptedButtonClickListener() {
+    private void setOnAcceptClickListener() {
         binding.buttonAccepted.setOnClickListener(v -> {
             if (binding.signatureView1.isBitmapEmpty() || binding.signatureView2.isBitmapEmpty())
                 new CustomToast().warning(getString(R.string.request_sign), Toast.LENGTH_LONG);
@@ -111,6 +119,7 @@ public class FinalReportActivity extends AppCompatActivity {
         final Bitmap bitmap2 = binding.signatureView2.getSignatureBitmap();
         binding.signatureView1.setVisibility(View.GONE);
         binding.signatureView2.setVisibility(View.GONE);
+        finalSubmit = true;
         createOutputImage(bitmap1, bitmap2);
     }
 
@@ -128,18 +137,55 @@ public class FinalReportActivity extends AppCompatActivity {
         }
     }
 
-    public void setLicenceImageView(Bitmap bitmap, Object... objects) {
-        bitmaps.add(2, bitmap);
-        licenceRows = (List<String[]>) objects[0];
-    }
-
-    public void setFormImageView(Bitmap[] bitmap) {
+    public void setFormImageView(Bitmap[] bitmap, Object... objects) {
         bitmaps.addAll(Arrays.asList(bitmap));
         pageNumber = 0;
         runOnUiThread(() -> {
-            binding.imageViewPdf.setImageBitmap(bitmap[0]);
+            binding.imageViewOutput.setImageBitmap(bitmap[0]);
             binding.imageButtonPrevious.setVisibility(View.GONE);
             binding.imageButtonNext.setVisibility(View.VISIBLE);
         });
+        if (licence) {
+            bitmaps.add(2, (Bitmap) objects[0]);
+            licenceRows = (List<String[]>) objects[1];
+        }
+        if (finalSubmit) finalSubmit();
+    }
+
+    private void finalSubmit() {
+        new UploadNavigated(this, examinerDuty,
+                resultDictionaries.get(binding.spinner.getSelectedItemPosition()).id, this).execute(this);
+    }
+
+    public void sendImages() {
+        if (imageNumber == bitmaps.size())
+            finish();
+        else {
+            final int id;
+            switch (imageNumber) {
+                case 2:
+                    id = crookiTitle;
+                    break;
+                case 3:
+                    id = licenceTitle;
+                    break;
+                case 1:
+                default:
+                    id = estimateTitle;
+                    break;
+            }
+            new UploadImages(this, id, examinerDuty.trackNumber, examinerDuty.billId != null ?
+                    examinerDuty.billId : examinerDuty.neighbourBillId, examinerDuty.isNewEnsheab,
+                    this).execute(this);
+        }
+        setImageNumber();
+    }
+
+    private void setImageNumber() {
+        imageNumber++;
+    }
+
+    public Bitmap getBitmap() {
+        return bitmaps.get(imageNumber - 1);
     }
 }

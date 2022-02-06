@@ -1,26 +1,25 @@
-package com.leon.estimate_new.utils.document;
+package com.leon.estimate_new.utils.estimating;
 
 import static com.leon.estimate_new.enums.DialogType.Yellow;
 import static com.leon.estimate_new.enums.ProgressType.SHOW_CANCELABLE;
 import static com.leon.estimate_new.enums.SharedReferenceKeys.TOKEN_FOR_FILE;
-import static com.leon.estimate_new.helpers.Constants.IMAGE_FILE_NAME;
 import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponent;
 import static com.leon.estimate_new.utils.CustomFile.bitmapToFile;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.leon.estimate_new.R;
+import com.leon.estimate_new.activities.FinalReportActivity;
 import com.leon.estimate_new.base_items.BaseAsync;
 import com.leon.estimate_new.di.view_model.CustomDialogModel;
 import com.leon.estimate_new.di.view_model.HttpClientWrapper;
-import com.leon.estimate_new.fragments.documents.TakePhotoFragment;
 import com.leon.estimate_new.infrastructure.IAbfaService;
 import com.leon.estimate_new.infrastructure.ICallback;
 import com.leon.estimate_new.infrastructure.ICallbackError;
 import com.leon.estimate_new.infrastructure.ICallbackIncomplete;
-import com.leon.estimate_new.tables.Images;
 import com.leon.estimate_new.tables.UploadImage;
 import com.leon.estimate_new.utils.CustomErrorHandling;
 import com.leon.estimate_new.utils.CustomFile;
@@ -33,14 +32,23 @@ import retrofit2.Retrofit;
 
 public class UploadImages extends BaseAsync {
     private final Object object;
+    private final int docId;
+    private final String trackNumber, billId;
+    private final boolean isNew;
 
-    public UploadImages(Object... view) {
-        super(false);
+    public UploadImages(Context context, int docId, String trackNumber, String billId,
+                        boolean isNew, Object... view) {
+        super(context, false, view);
+        this.docId = docId;
+        this.trackNumber = trackNumber;
+        this.billId = billId;
+        this.isNew = isNew;
         this.object = view[0];
     }
 
     @Override
     public void postTask(Object o) {
+        Log.e("here","postTask");
 
     }
 
@@ -53,22 +61,17 @@ public class UploadImages extends BaseAsync {
     public void backgroundTask(Activity activity) {
         final Retrofit retrofit = getApplicationComponent().Retrofit();
         final IAbfaService abfaService = retrofit.create(IAbfaService.class);
-        final MultipartBody.Part body = bitmapToFile(((TakePhotoFragment) object)
-                .documentActivity.getBitmap(), activity);
+        final MultipartBody.Part body = bitmapToFile(((FinalReportActivity) object).getBitmap(), activity);
         final Call<UploadImage> call;
-        if (((TakePhotoFragment) object).documentActivity.isNew())
+        if (isNew)
             call = abfaService.uploadDocNew(getApplicationComponent().SharedPreferenceModel()
-                            .getStringData(TOKEN_FOR_FILE.getValue()), body,
-                    ((TakePhotoFragment) object).getTitle().id, ((TakePhotoFragment) object)
-                            .documentActivity.getTrackNumber());
+                    .getStringData(TOKEN_FOR_FILE.getValue()), body, docId, trackNumber);
         else
             call = abfaService.uploadDoc(getApplicationComponent().SharedPreferenceModel()
-                            .getStringData(TOKEN_FOR_FILE.getValue()), body,
-                    ((TakePhotoFragment) object).getTitle().id,
-                    ((TakePhotoFragment) object).documentActivity.getBillId());
+                    .getStringData(TOKEN_FOR_FILE.getValue()), body, docId, billId);
         HttpClientWrapper.callHttpAsync(call, SHOW_CANCELABLE.getValue(), activity,
-                new UploadImageDoc(object, activity), new UploadImageIncomplete(object, activity),
-                new UploadImageError(activity, object));
+                new UploadImageDoc(object, activity, docId, trackNumber, billId, isNew), new UploadImageIncomplete(object, docId, trackNumber, billId, isNew, activity),
+                new UploadImageError(activity, object, docId, trackNumber, billId, isNew));
     }
 
     @Override
@@ -78,45 +81,51 @@ public class UploadImages extends BaseAsync {
 }
 
 class UploadImageDoc implements ICallback<UploadImage> {
+    private final int docId;
     private final Object object;
+    private final boolean isNew;
     private final Context context;
+    private final String trackNumber, billId;
 
-    UploadImageDoc(Object object, Context context) {
+    UploadImageDoc(Object object, Context context, int docId, String trackNumber, String billId,
+                   boolean isNew) {
         this.object = object;
         this.context = context;
+        this.docId = docId;
+        this.trackNumber = trackNumber;
+        this.billId = billId;
+        this.isNew = isNew;
     }
 
     @Override
     public void execute(Response<UploadImage> response) {
+        Log.e("here","postTask");
         if (response.body() != null && response.body().success) {
             new CustomToast().success(context.getString(R.string.upload_success), Toast.LENGTH_LONG);
-            final Images image = new Images(IMAGE_FILE_NAME,
-                    ((TakePhotoFragment) object).documentActivity.getBillId(),
-                    ((TakePhotoFragment) object).documentActivity.getTrackNumber(),
-                    ((TakePhotoFragment) object).getTitle().id,
-                    ((TakePhotoFragment) object).getTitle().title,
-                    ((TakePhotoFragment) object).documentActivity.getBitmap(), true);
-            ((TakePhotoFragment) object).addImage(image);
         } else {
             new CustomDialogModel(Yellow, context, context.getString(R.string.error_upload)
                     .concat("\n").concat(response.body().error), context.getString(R.string.dear_user),
                     context.getString(R.string.upload_image), context.getString(R.string.accepted));
-            CustomFile.saveTempBitmap(((TakePhotoFragment) object).documentActivity.getBitmap(),
-                    context, ((TakePhotoFragment) object).documentActivity.getBillId(),
-                    ((TakePhotoFragment) object).documentActivity.getTrackNumber(),
-                    ((TakePhotoFragment) object).getTitle().id,
-                    ((TakePhotoFragment) object).getTitle().title,
-                    ((TakePhotoFragment) object).documentActivity.isNew());
+            CustomFile.saveTempBitmap(((FinalReportActivity) object).getBitmap(),
+                    context, billId, trackNumber, docId, "فرم ارزیابی", isNew);
         }
     }
 }
 
 class UploadImageIncomplete implements ICallbackIncomplete<UploadImage> {
+    private final int docId;
     private final Object object;
+    private final boolean isNew;
     private final Context context;
+    private final String trackNumber, billId;
 
-    UploadImageIncomplete(Object object, Context context) {
+    UploadImageIncomplete(Object object, int docId, String trackNumber, String billId,
+                          boolean isNew, Context context) {
         this.object = object;
+        this.docId = docId;
+        this.trackNumber = trackNumber;
+        this.billId = billId;
+        this.isNew = isNew;
         this.context = context;
     }
 
@@ -126,22 +135,25 @@ class UploadImageIncomplete implements ICallbackIncomplete<UploadImage> {
         final String error = errorHandling.getErrorMessageDefault(response);
         new CustomDialogModel(Yellow, context, error, context.getString(R.string.dear_user),
                 context.getString(R.string.upload_image), context.getString(R.string.accepted));
-        CustomFile.saveTempBitmap(((TakePhotoFragment) object).documentActivity.getBitmap(),
-                context, ((TakePhotoFragment) object).documentActivity.getBillId(),
-                ((TakePhotoFragment) object).documentActivity.getTrackNumber(),
-                ((TakePhotoFragment) object).getTitle().id,
-                ((TakePhotoFragment) object).getTitle().title,
-                ((TakePhotoFragment) object).documentActivity.isNew());
+        CustomFile.saveTempBitmap(((FinalReportActivity) object).getBitmap(), context, billId,
+                trackNumber, docId, "فرم ارزیابی", isNew);
     }
 }
 
 class UploadImageError implements ICallbackError {
-    private final Context context;
+    private final int docId;
     private final Object object;
+    private final boolean isNew;
+    private final Context context;
+    private final String trackNumber, billId;
 
-    public UploadImageError(Context context, Object object) {
+    public UploadImageError(Context context, Object object, int docId, String trackNumber, String billId, boolean isNew) {
         this.context = context;
         this.object = object;
+        this.docId = docId;
+        this.trackNumber = trackNumber;
+        this.billId = billId;
+        this.isNew = isNew;
     }
 
     @Override
@@ -149,13 +161,7 @@ class UploadImageError implements ICallbackError {
         final CustomErrorHandling errorHandling = new CustomErrorHandling(context);
         final String error = errorHandling.getErrorMessageTotal(t);
         new CustomToast().error(error, Toast.LENGTH_LONG);
-
-        CustomFile.saveTempBitmap(((TakePhotoFragment) object).documentActivity.getBitmap(),
-                context, ((TakePhotoFragment) object).documentActivity.getBillId(),
-                ((TakePhotoFragment) object).documentActivity.getTrackNumber(),
-                ((TakePhotoFragment) object).getTitle().id,
-                ((TakePhotoFragment) object).getTitle().title,
-                ((TakePhotoFragment) object).documentActivity.isNew());
-
+        CustomFile.saveTempBitmap(((FinalReportActivity) object).getBitmap(), context, billId,
+                trackNumber, docId, "فرم ارزیابی", isNew);
     }
 }

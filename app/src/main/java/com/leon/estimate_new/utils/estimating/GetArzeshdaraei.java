@@ -111,10 +111,3 @@ class ArzeshdaraeiIncomplete implements ICallbackIncomplete<com.leon.estimate_ne
     }
 }
 
-class GetError implements ICallbackError {
-    @Override
-    public void executeError(Throwable t) {
-        CustomErrorHandling customErrorHandlingNew = new CustomErrorHandling(getContext());
-        new CustomToast().error(customErrorHandlingNew.getErrorMessageTotal(t), Toast.LENGTH_LONG);
-    }
-}

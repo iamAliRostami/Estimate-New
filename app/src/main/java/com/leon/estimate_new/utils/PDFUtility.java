@@ -778,32 +778,19 @@ public class PDFUtility {
 
     public static PdfPTable createDataTableDescription(List<String[]> dataTable, int column, int align, float[] width, float[] border,
                                                        BaseColor[] baseColors, Font... fonts) throws DocumentException {
-
-
-        PdfPTable table = createTable(column, width);
+        final PdfPTable table = createTable(column, width);
         table.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
-        PdfPCell cell = createPdfCell();
+        final PdfPCell cell = createPdfCell();
         cell.setHorizontalAlignment(align);
         cell.setVerticalAlignment(Element.ALIGN_CENTER);
-
-
         for (int i = 26; i < dataTable.size() - 1; i++) {
-
             for (int j = 0; j < column; j++) {
-//                cell.setPhrase((fonts != null && fonts.length > 0) ? addPhrase(items[j], fonts[j]) : addPhrase(items[j]));
                 cell.setPhrase((fonts != null && fonts.length > 0) ? addPhrase(dataTable.get(i)[j], fonts[j]) : addPhrase(dataTable.get(i)[j]));
                 cell.setBorderWidthRight(border[j]);
                 cell.setBackgroundColor(baseColors[j]);
                 table.addCell(cell);
             }
-
-//            table.addCell(createTableRow(2, PdfPCell.ALIGN_RIGHT, new float[]{13f, 1f},
-//                    new float[]{PdfPCell.NO_BORDER, PdfPCell.NO_BORDER},
-//                    new BaseColor[]{BaseColor.WHITE, BaseColor.WHITE},
-//                    dataTable.get(i), FONT_TEXT, FONT_TITLE));
         }
-
-
         return table;
     }
 
