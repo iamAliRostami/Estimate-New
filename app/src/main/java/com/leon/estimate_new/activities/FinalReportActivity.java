@@ -34,7 +34,7 @@ public class FinalReportActivity extends AppCompatActivity {
     private ActivityFinalReportBinding binding;
     private ExaminerDuties examinerDuty;
     private int pageNumber = 0, maxNumber = 2, imageNumber = 0;
-    private boolean licence = false, finalSubmit = false;
+    private boolean licence = false, finalSubmit = false, sent = true;
     private int licenceTitle, estimateTitle, crookiTitle;
     private List<String[]> licenceRows;
     private final ArrayList<ResultDictionary> resultDictionaries = new ArrayList<>();
@@ -149,17 +149,21 @@ public class FinalReportActivity extends AppCompatActivity {
             bitmaps.add(2, (Bitmap) objects[0]);
             licenceRows = (List<String[]>) objects[1];
         }
-        if (finalSubmit) finalSubmit();
+        if (finalSubmit) sendImages();
     }
 
     private void finalSubmit() {
-        new UploadNavigated(this, examinerDuty,
-                resultDictionaries.get(binding.spinner.getSelectedItemPosition()).id, this).execute(this);
+        if (sent)
+            new UploadNavigated(examinerDuty,
+                    resultDictionaries.get(binding.spinner.getSelectedItemPosition()).id, this).execute(this);
+        else
+            getApplicationComponent().MyDatabase().examinerDutiesDao().updateExamination(true, examinerDuty.trackNumber);
+        finish();
     }
 
     public void sendImages() {
         if (imageNumber == bitmaps.size())
-            finish();
+            finalSubmit();
         else {
             final int id;
             switch (imageNumber) {
@@ -174,7 +178,7 @@ public class FinalReportActivity extends AppCompatActivity {
                     id = estimateTitle;
                     break;
             }
-            new UploadImages(this, id, examinerDuty.trackNumber, examinerDuty.billId != null ?
+            new UploadImages(id, examinerDuty.trackNumber, examinerDuty.billId != null ?
                     examinerDuty.billId : examinerDuty.neighbourBillId, examinerDuty.isNewEnsheab,
                     this).execute(this);
         }
@@ -187,5 +191,9 @@ public class FinalReportActivity extends AppCompatActivity {
 
     public Bitmap getBitmap() {
         return bitmaps.get(imageNumber - 1);
+    }
+
+    public void setSent(boolean b) {
+        sent = b;
     }
 }

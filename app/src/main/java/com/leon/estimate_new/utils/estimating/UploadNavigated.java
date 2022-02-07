@@ -1,12 +1,12 @@
 package com.leon.estimate_new.utils.estimating;
 
-import static com.leon.estimate_new.enums.ProgressType.NOT_SHOW;
+import static com.leon.estimate_new.enums.DialogType.Yellow;
+import static com.leon.estimate_new.enums.ProgressType.SHOW;
 import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponent;
 import static com.leon.estimate_new.helpers.MyApplication.getLocationTracker;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.leon.estimate_new.R;
@@ -15,7 +15,6 @@ import com.leon.estimate_new.base_items.BaseAsync;
 import com.leon.estimate_new.di.view_model.CustomDialogModel;
 import com.leon.estimate_new.di.view_model.HttpClientWrapper;
 import com.leon.estimate_new.di.view_model.NetworkHelperModel;
-import com.leon.estimate_new.enums.DialogType;
 import com.leon.estimate_new.infrastructure.IAbfaService;
 import com.leon.estimate_new.infrastructure.ICallback;
 import com.leon.estimate_new.infrastructure.ICallbackIncomplete;
@@ -34,19 +33,18 @@ import retrofit2.Retrofit;
 
 public class UploadNavigated extends BaseAsync {
     final ExaminerDuties examinerDuty;
+    private final Object object;
     final int resultId;
 
-    public UploadNavigated(Context context, ExaminerDuties examinerDuty, int resultId,
-                           Object... view) {
-        super(context, false, view);
+    public UploadNavigated(ExaminerDuties examinerDuty, int resultId, Object... view) {
+        super(false);
         this.examinerDuty = examinerDuty;
         this.resultId = resultId;
+        this.object = view[0];
     }
 
     @Override
     public void postTask(Object o) {
-        Log.e("here", "postTaskN");
-        ((FinalReportActivity) o).sendImages();
     }
 
     @Override
@@ -56,7 +54,7 @@ public class UploadNavigated extends BaseAsync {
     @Override
     public void backgroundTask(Activity activity) {
         //TODO
-//        getApplicationComponent().MyDatabase().examinerDutiesDao().updateExamination(true, examinerDuty.trackNumber);
+        getApplicationComponent().MyDatabase().examinerDutiesDao().updateExamination(true, examinerDuty.trackNumber);
         final CalculationUserInput calculationUserInput = getApplicationComponent().MyDatabase().calculationUserInputDao().getCalculationUserInput(examinerDuty.trackNumber);
         calculationUserInput.accuracy = getLocationTracker(activity).getAccuracy();
         calculationUserInput.y2 = getLocationTracker(activity).getLatitude();
@@ -73,8 +71,8 @@ public class UploadNavigated extends BaseAsync {
         final Retrofit retrofit = NetworkHelperModel.getInstance(activity);
         final IAbfaService abfaService = retrofit.create(IAbfaService.class);
         Call<SimpleMessage> call = abfaService.setExaminationInfo(calculationUserInputSends);
-        HttpClientWrapper.callHttpAsync(call, NOT_SHOW.getValue(), activity,
-                new Calculation(examinerDuty.trackNumber), new CalculationIncomplete(activity), new GetError());
+        HttpClientWrapper.callHttpAsync(call, SHOW.getValue(), activity,
+                new Calculation(examinerDuty.trackNumber, object), new CalculationIncomplete(activity), new GetError());
     }
 
     @Override
@@ -84,18 +82,20 @@ public class UploadNavigated extends BaseAsync {
 
 class Calculation implements ICallback<SimpleMessage> {
     private final String trackNumber;
+    private final Object object;
 
-    Calculation(String trackNumber) {
+    Calculation(String trackNumber, Object object) {
         this.trackNumber = trackNumber;
+        this.object = object;
     }
 
     @Override
     public void execute(Response<SimpleMessage> response) {
-        Log.e("here", "Calculation");
         if (response.body() != null) {
-            new CustomToast().error(response.body().message, Toast.LENGTH_LONG);
+            new CustomToast().success(response.body().message, Toast.LENGTH_LONG);
         }
         getApplicationComponent().MyDatabase().calculationUserInputDao().updateCalculationUserInput(true, trackNumber);
+        ((FinalReportActivity) object).finish();
     }
 }
 
@@ -108,10 +108,10 @@ class CalculationIncomplete implements ICallbackIncomplete<SimpleMessage> {
 
     @Override
     public void executeIncomplete(Response<SimpleMessage> response) {
-        Log.e("here", "executeIncomplete");
         final CustomErrorHandling errorHandling = new CustomErrorHandling(context);
-        new CustomDialogModel(DialogType.Yellow, context, errorHandling.getErrorMessageDefault(response),
-                context.getString(R.string.dear_user), context.getString(R.string.login),
-                context.getString(R.string.accepted));
+        new CustomToast().error(errorHandling.getErrorMessageDefault(response), Toast.LENGTH_LONG);
+//        new CustomDialogModel(Yellow, context, errorHandling.getErrorMessageDefault(response),
+//                context.getString(R.string.dear_user), context.getString(R.string.login),
+//                context.getString(R.string.accepted));
     }
 }

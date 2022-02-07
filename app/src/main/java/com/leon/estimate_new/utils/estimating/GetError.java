@@ -11,7 +11,7 @@ import com.leon.estimate_new.utils.CustomToast;
 class GetError implements ICallbackError {
     @Override
     public void executeError(Throwable t) {
-        CustomErrorHandling customErrorHandlingNew = new CustomErrorHandling(getContext());
-        new CustomToast().error(customErrorHandlingNew.getErrorMessageTotal(t), Toast.LENGTH_LONG);
+        CustomErrorHandling errorHandling = new CustomErrorHandling(getContext());
+        new CustomToast().error(errorHandling.getErrorMessageTotal(t), Toast.LENGTH_LONG);
     }
 }

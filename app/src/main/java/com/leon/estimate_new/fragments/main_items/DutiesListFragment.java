@@ -36,6 +36,7 @@ public class DutiesListFragment extends Fragment implements SearchFragment.Callb
     private final ArrayList<ExaminerDuties> examinerDutiesTemp = new ArrayList<>();
     private FragmentDutiesListBinding binding;
     private CustomAdapterList adapter;
+    private boolean resume = false;
 
     public DutiesListFragment() {
     }
@@ -95,6 +96,7 @@ public class DutiesListFragment extends Fragment implements SearchFragment.Callb
                 }
             });
         });
+        resume = true;
     }
 
     @Override
@@ -209,5 +211,11 @@ public class DutiesListFragment extends Fragment implements SearchFragment.Callb
         }
         examinerDutiesTemp.clear();
         examinerDutiesTemp.addAll(examinerDutiesSearch);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (resume) new PrepareListData(requireContext(), this).execute(requireActivity());
     }
 }

@@ -1,14 +1,13 @@
 package com.leon.estimate_new.utils.estimating;
 
 import static com.leon.estimate_new.enums.DialogType.Yellow;
-import static com.leon.estimate_new.enums.ProgressType.SHOW_CANCELABLE;
+import static com.leon.estimate_new.enums.ProgressType.SHOW;
 import static com.leon.estimate_new.enums.SharedReferenceKeys.TOKEN_FOR_FILE;
 import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponent;
 import static com.leon.estimate_new.utils.CustomFile.bitmapToFile;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.leon.estimate_new.R;
@@ -31,14 +30,13 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class UploadImages extends BaseAsync {
-    private final Object object;
-    private final int docId;
     private final String trackNumber, billId;
     private final boolean isNew;
+    private final Object object;
+    private final int docId;
 
-    public UploadImages(Context context, int docId, String trackNumber, String billId,
-                        boolean isNew, Object... view) {
-        super(context, false, view);
+    public UploadImages(int docId, String trackNumber, String billId, boolean isNew, Object... view) {
+        super(false);
         this.docId = docId;
         this.trackNumber = trackNumber;
         this.billId = billId;
@@ -48,13 +46,10 @@ public class UploadImages extends BaseAsync {
 
     @Override
     public void postTask(Object o) {
-        Log.e("here","postTask");
-
     }
 
     @Override
     public void preTask(Object o) {
-
     }
 
     @Override
@@ -69,8 +64,9 @@ public class UploadImages extends BaseAsync {
         else
             call = abfaService.uploadDoc(getApplicationComponent().SharedPreferenceModel()
                     .getStringData(TOKEN_FOR_FILE.getValue()), body, docId, billId);
-        HttpClientWrapper.callHttpAsync(call, SHOW_CANCELABLE.getValue(), activity,
-                new UploadImageDoc(object, activity, docId, trackNumber, billId, isNew), new UploadImageIncomplete(object, docId, trackNumber, billId, isNew, activity),
+        HttpClientWrapper.callHttpAsync(call, SHOW.getValue(), activity,
+                new UploadImageDoc(object, activity, docId, trackNumber, billId, isNew),
+                new UploadImageIncomplete(object, docId, trackNumber, billId, isNew, activity),
                 new UploadImageError(activity, object, docId, trackNumber, billId, isNew));
     }
 
@@ -99,7 +95,6 @@ class UploadImageDoc implements ICallback<UploadImage> {
 
     @Override
     public void execute(Response<UploadImage> response) {
-        Log.e("here","postTask");
         if (response.body() != null && response.body().success) {
             new CustomToast().success(context.getString(R.string.upload_success), Toast.LENGTH_LONG);
         } else {
@@ -109,6 +104,7 @@ class UploadImageDoc implements ICallback<UploadImage> {
             CustomFile.saveTempBitmap(((FinalReportActivity) object).getBitmap(),
                     context, billId, trackNumber, docId, "فرم ارزیابی", isNew);
         }
+        ((FinalReportActivity) object).sendImages();
     }
 }
 
@@ -137,6 +133,8 @@ class UploadImageIncomplete implements ICallbackIncomplete<UploadImage> {
                 context.getString(R.string.upload_image), context.getString(R.string.accepted));
         CustomFile.saveTempBitmap(((FinalReportActivity) object).getBitmap(), context, billId,
                 trackNumber, docId, "فرم ارزیابی", isNew);
+        ((FinalReportActivity) object).setSent(false);
+        ((FinalReportActivity) object).sendImages();
     }
 }
 
@@ -147,7 +145,8 @@ class UploadImageError implements ICallbackError {
     private final Context context;
     private final String trackNumber, billId;
 
-    public UploadImageError(Context context, Object object, int docId, String trackNumber, String billId, boolean isNew) {
+    public UploadImageError(Context context, Object object, int docId, String trackNumber,
+                            String billId, boolean isNew) {
         this.context = context;
         this.object = object;
         this.docId = docId;
@@ -163,5 +162,7 @@ class UploadImageError implements ICallbackError {
         new CustomToast().error(error, Toast.LENGTH_LONG);
         CustomFile.saveTempBitmap(((FinalReportActivity) object).getBitmap(), context, billId,
                 trackNumber, docId, "فرم ارزیابی", isNew);
+        ((FinalReportActivity) object).setSent(false);
+        ((FinalReportActivity) object).sendImages();
     }
 }

@@ -51,8 +51,8 @@ public class HighQualityFragment extends DialogFragment {
     public void onResume() {
         if (getDialog() != null) {
             WindowManager.LayoutParams params = getDialog().getWindow().getAttributes();
-            params.width = ViewGroup.LayoutParams.WRAP_CONTENT;
-            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+            params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            params.height = ViewGroup.LayoutParams.MATCH_PARENT;
             getDialog().getWindow().setAttributes(params);
         }
         super.onResume();
