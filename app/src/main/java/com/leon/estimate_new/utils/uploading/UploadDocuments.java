@@ -80,7 +80,7 @@ class DocumentsSuccess implements ICallback<UploadImage> {
 
     @Override
     public void execute(Response<UploadImage> response) {
-        if (response.body() != null && response.body().success) {//TODO send images
+        if (response.body() != null && response.body().success) {
             getApplicationComponent().MyDatabase().imagesDao().deleteByID(imageId);
             if (getApplicationComponent().MyDatabase().imagesDao().getUnsentImage() > 0)
                 new UploadDocuments(activity).execute(activity);

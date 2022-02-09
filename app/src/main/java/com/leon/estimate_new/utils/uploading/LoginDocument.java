@@ -67,7 +67,6 @@ class LoginSuccess implements ICallback<Login> {
         if (response.body() != null && response.body().success) {
             getApplicationComponent().SharedPreferenceModel().putData(TOKEN_FOR_FILE.getValue(),
                     response.body().data.token);
-            //TODO send images
             new UploadDocuments(activity).execute(activity);
         } else
             new CustomToast().warning(activity.getString(R.string.error_not_auth), Toast.LENGTH_LONG);

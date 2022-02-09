@@ -73,7 +73,6 @@ public class LocationTrackingGoogle extends Service implements ILocationTracking
     public void addLocation(Location location) {
         if (location != null) {
             LocationTrackingGoogle.location = location;
-            Log.e("google", String.valueOf(getAccuracy()));
         }
     }
 

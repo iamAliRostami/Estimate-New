@@ -5,6 +5,7 @@ import static com.leon.estimate_new.enums.BundleEnum.OTHER_TITLE;
 import static com.leon.estimate_new.enums.BundleEnum.TITLE;
 import static com.leon.estimate_new.enums.BundleEnum.TRACK_NUMBER;
 import static com.leon.estimate_new.enums.DialogType.YellowRedirect;
+import static com.leon.estimate_new.fragments.dialog.ShowFragmentDialog.ShowFragmentDialogOnce;
 import static com.leon.estimate_new.utils.CustomFile.compressBitmap;
 import static com.leon.estimate_new.utils.CustomFile.createImageFile;
 
@@ -41,7 +42,6 @@ import com.leon.estimate_new.databinding.FragmentTakePhotoBinding;
 import com.leon.estimate_new.di.view_model.CustomDialogModel;
 import com.leon.estimate_new.di.view_model.HttpClientWrapper;
 import com.leon.estimate_new.fragments.dialog.AddDocumentFragment;
-import com.leon.estimate_new.fragments.dialog.ShowFragmentDialog;
 import com.leon.estimate_new.tables.DataTitle;
 import com.leon.estimate_new.tables.ImageData;
 import com.leon.estimate_new.tables.ImageDataThumbnail;
@@ -230,8 +230,7 @@ public class TakePhotoFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NotNull MenuItem item) {
         if (item.getItemId() == R.id.add_document_menu) {
-            ShowFragmentDialog.ShowFragmentDialogOnce(requireContext(), "ADD_DOCUMENT",
-                    AddDocumentFragment.newInstance());
+            ShowFragmentDialogOnce(requireContext(), "ADD_DOCUMENT", AddDocumentFragment.newInstance(documentActivity.getTrackNumber()));
         }
         return super.onOptionsItemSelected(item);
     }

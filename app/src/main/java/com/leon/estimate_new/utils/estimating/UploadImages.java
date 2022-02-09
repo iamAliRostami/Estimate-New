@@ -5,6 +5,7 @@ import static com.leon.estimate_new.enums.ProgressType.SHOW;
 import static com.leon.estimate_new.enums.SharedReferenceKeys.TOKEN_FOR_FILE;
 import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponent;
 import static com.leon.estimate_new.utils.CustomFile.bitmapToFile;
+import static com.leon.estimate_new.utils.CustomFile.saveTempBitmap;
 
 import android.app.Activity;
 import android.content.Context;
@@ -21,7 +22,6 @@ import com.leon.estimate_new.infrastructure.ICallbackError;
 import com.leon.estimate_new.infrastructure.ICallbackIncomplete;
 import com.leon.estimate_new.tables.UploadImage;
 import com.leon.estimate_new.utils.CustomErrorHandling;
-import com.leon.estimate_new.utils.CustomFile;
 import com.leon.estimate_new.utils.CustomToast;
 
 import okhttp3.MultipartBody;
@@ -98,10 +98,11 @@ class UploadImageDoc implements ICallback<UploadImage> {
         if (response.body() != null && response.body().success) {
             new CustomToast().success(context.getString(R.string.upload_success), Toast.LENGTH_LONG);
         } else {
+            //TODO
             new CustomDialogModel(Yellow, context, context.getString(R.string.error_upload)
                     .concat("\n").concat(response.body().error), context.getString(R.string.dear_user),
                     context.getString(R.string.upload_image), context.getString(R.string.accepted));
-            CustomFile.saveTempBitmap(((FinalReportActivity) object).getBitmap(),
+            saveTempBitmap(((FinalReportActivity) object).getBitmap(),
                     context, billId, trackNumber, docId, "فرم ارزیابی", isNew);
         }
         ((FinalReportActivity) object).sendImages();
@@ -127,12 +128,13 @@ class UploadImageIncomplete implements ICallbackIncomplete<UploadImage> {
 
     @Override
     public void executeIncomplete(Response<UploadImage> response) {
+        //TODO
         final CustomErrorHandling errorHandling = new CustomErrorHandling(context);
         final String error = errorHandling.getErrorMessageDefault(response);
         new CustomDialogModel(Yellow, context, error, context.getString(R.string.dear_user),
                 context.getString(R.string.upload_image), context.getString(R.string.accepted));
-        CustomFile.saveTempBitmap(((FinalReportActivity) object).getBitmap(), context, billId,
-                trackNumber, docId, "فرم ارزیابی", isNew);
+        saveTempBitmap(((FinalReportActivity) object).getBitmap(), context, billId, trackNumber,
+                docId, "فرم ارزیابی", isNew);
         ((FinalReportActivity) object).setSent(false);
         ((FinalReportActivity) object).sendImages();
     }
@@ -160,7 +162,7 @@ class UploadImageError implements ICallbackError {
         final CustomErrorHandling errorHandling = new CustomErrorHandling(context);
         final String error = errorHandling.getErrorMessageTotal(t);
         new CustomToast().error(error, Toast.LENGTH_LONG);
-        CustomFile.saveTempBitmap(((FinalReportActivity) object).getBitmap(), context, billId,
+        saveTempBitmap(((FinalReportActivity) object).getBitmap(), context, billId,
                 trackNumber, docId, "فرم ارزیابی", isNew);
         ((FinalReportActivity) object).setSent(false);
         ((FinalReportActivity) object).sendImages();

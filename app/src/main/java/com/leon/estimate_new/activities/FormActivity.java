@@ -4,6 +4,7 @@ import static com.leon.estimate_new.enums.BundleEnum.BILL_ID;
 import static com.leon.estimate_new.enums.BundleEnum.EXAMINER_DUTY;
 import static com.leon.estimate_new.enums.BundleEnum.NEW_ENSHEAB;
 import static com.leon.estimate_new.enums.BundleEnum.TRACK_NUMBER;
+import static com.leon.estimate_new.fragments.dialog.ShowFragmentDialog.ShowFragmentDialogOnce;
 import static com.leon.estimate_new.helpers.Constants.BASE_FRAGMENT;
 import static com.leon.estimate_new.helpers.Constants.EDIT_MAP_FRAGMENT;
 import static com.leon.estimate_new.helpers.Constants.MAP_DESCRIPTION_FRAGMENT;
@@ -27,6 +28,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.databinding.ActivityFormBinding;
+import com.leon.estimate_new.fragments.dialog.EnterBillFragment;
+import com.leon.estimate_new.fragments.dialog.ShowDocumentFragment;
 import com.leon.estimate_new.fragments.forms.BaseInfoFragment;
 import com.leon.estimate_new.fragments.forms.EditMapFragment;
 import com.leon.estimate_new.fragments.forms.MapDescriptionFragment;
@@ -120,9 +123,6 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
 
     @Override
     public void onBackPressed() {
-//        if (getFragmentManager().getBackStackEntryCount() > 0) {
-//            getFragmentManager().popBackStack();
-//        } else super.onBackPressed();
     }
 
     @Override
@@ -136,25 +136,17 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
 
     @Override
     public boolean onOptionsItemSelected(@NotNull MenuItem item) {
-        int id = item.getItemId();
-//        Intent intent = new Intent(getApplicationContext(), DocumentActivity.class);
-//        intent.putExtra(BundleEnum.TRACK_NUMBER.getValue(), trackNumber);
-//        if (examinerDuties.getBillId() != null)
-//            intent.putExtra(BundleEnum.BILL_ID.getValue(), examinerDuties.getBillId());
-//        else
-//            intent.putExtra(BundleEnum.BILL_ID.getValue(), examinerDuties.getNeighbourBillId());
-//        intent.putExtra(BundleEnum.NEW_ENSHEAB.getValue(), examinerDuties.isNewEnsheab());
-//        if (id == R.id.menu_document) {
-//            intent.putExtra(BundleEnum.IS_NEIGHBOUR.getValue(), false);
-//            startActivity(intent);
-//        } else if (id == R.id.menu_neighbour_document) {
-//            intent.putExtra(BundleEnum.IS_NEIGHBOUR.getValue(), true);
-//            startActivity(intent);
-//        } else if (id == R.id.menu_other_document) {
-//            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//            EnterBillIdFragment enterBillIdFragment = EnterBillIdFragment.newInstance();
-//            enterBillIdFragment.show(fragmentTransaction, "bill Id");
-//        }
+        if (item.getItemId() == R.id.menu_document) {
+            ShowFragmentDialogOnce(this, "DOCUMENT_FRAGMENT",
+                    ShowDocumentFragment.newInstance(examinerDuty.billId, examinerDuty.isNewEnsheab,
+                            false, examinerDuty.trackNumber));
+        } else if (item.getItemId() == R.id.menu_neighbour_document) {
+            ShowFragmentDialogOnce(this, "DOCUMENT_FRAGMENT",
+                    ShowDocumentFragment.newInstance(examinerDuty.neighbourBillId,
+                            examinerDuty.isNewEnsheab, true, examinerDuty.trackNumber));
+        } else if (item.getItemId() == R.id.menu_other_document) {
+            ShowFragmentDialogOnce(this, "BILL_FRAGMENT", EnterBillFragment.newInstance());
+        }
         return super.onOptionsItemSelected(item);
     }
 

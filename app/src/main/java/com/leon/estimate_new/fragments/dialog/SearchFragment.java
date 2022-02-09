@@ -74,15 +74,14 @@ public class SearchFragment extends DialogFragment {
     }
 
     public interface Callback {
-        void filter(String... s /*String billId, String trackingNumber, String name, String family,
-                    String nationId, String mobile, String date*/);
+        void filter(String... s);
     }
 
     @Override
     public void onResume() {
         if (getDialog() != null) {
             WindowManager.LayoutParams params = getDialog().getWindow().getAttributes();
-            params.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+            params.width = ViewGroup.LayoutParams.MATCH_PARENT;
             params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
             getDialog().getWindow().setAttributes(params);
         }

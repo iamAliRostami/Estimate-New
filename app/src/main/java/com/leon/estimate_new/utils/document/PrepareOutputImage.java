@@ -106,8 +106,9 @@ public class PrepareOutputImage extends BaseAsync {
     private List<String[]> getFormData() {
         final List<String[]> temp = new ArrayList<>();
 
-        String[] rowString = new String[]{examinerDuty.billId, "شناسه قبض", examinerDuty.eshterak,
-                "اشتراک", examinerDuty.radif, "ردیف"};
+        String[] rowString = new String[]{examinerDuty.billId != null ? examinerDuty.billId :
+                examinerDuty.neighbourBillId, "شناسه قبض", examinerDuty.eshterak, "اشتراک",
+                examinerDuty.radif, "ردیف"};
         temp.add(rowString);
 
         rowString = new String[]{String.valueOf(examinerDuty.sanadNumber), "شماره سند",
