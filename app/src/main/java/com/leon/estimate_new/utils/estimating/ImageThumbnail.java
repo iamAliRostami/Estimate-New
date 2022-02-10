@@ -1,4 +1,4 @@
-package com.leon.estimate_new.utils.document;
+package com.leon.estimate_new.utils.estimating;
 
 import static com.leon.estimate_new.enums.DialogType.Yellow;
 import static com.leon.estimate_new.enums.ProgressType.NOT_SHOW;
@@ -13,12 +13,13 @@ import com.leon.estimate_new.R;
 import com.leon.estimate_new.base_items.BaseAsync;
 import com.leon.estimate_new.di.view_model.CustomDialogModel;
 import com.leon.estimate_new.di.view_model.HttpClientWrapper;
-import com.leon.estimate_new.fragments.documents.TakePhotoFragment;
+import com.leon.estimate_new.fragments.dialog.ShowDocumentFragment;
 import com.leon.estimate_new.infrastructure.IAbfaService;
 import com.leon.estimate_new.infrastructure.ICallback;
 import com.leon.estimate_new.infrastructure.ICallbackIncomplete;
 import com.leon.estimate_new.tables.Uri;
 import com.leon.estimate_new.utils.CustomErrorHandling;
+import com.leon.estimate_new.utils.document.GetError;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -70,7 +71,7 @@ class GetImageDoc implements ICallback<ResponseBody> {
 
     @Override
     public void execute(Response<ResponseBody> response) {
-        ((TakePhotoFragment) object).setImage(response.body());
+        ((ShowDocumentFragment) object).setImage(response.body());
     }
 }
 
@@ -83,12 +84,12 @@ class GetImageDocIncomplete implements ICallbackIncomplete<ResponseBody> {
 
     @Override
     public void executeIncomplete(Response<ResponseBody> response) {
-        final CustomErrorHandling errorHandling = new CustomErrorHandling(((TakePhotoFragment) object).requireContext());
+        final CustomErrorHandling errorHandling = new CustomErrorHandling(((ShowDocumentFragment) object).requireContext());
         final String error = errorHandling.getErrorMessageDefault(response);
-        new CustomDialogModel(Yellow, ((TakePhotoFragment) object).requireContext(), error,
-                ((TakePhotoFragment) object).requireContext().getString(R.string.dear_user),
-                ((TakePhotoFragment) object).requireContext().getString(R.string.download_document),
-                ((TakePhotoFragment) object).requireContext().getString(R.string.accepted));
-        ((TakePhotoFragment) object).getProgressBar().setVisibility(View.GONE);
+        new CustomDialogModel(Yellow, ((ShowDocumentFragment) object).requireContext(), error,
+                ((ShowDocumentFragment) object).requireContext().getString(R.string.dear_user),
+                ((ShowDocumentFragment) object).requireContext().getString(R.string.download_document),
+                ((ShowDocumentFragment) object).requireContext().getString(R.string.accepted));
+        ((ShowDocumentFragment) object).getProgressBar().setVisibility(View.GONE);
     }
 }

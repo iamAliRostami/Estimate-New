@@ -1,4 +1,4 @@
-package com.leon.estimate_new.utils.document;
+package com.leon.estimate_new.utils.estimating;
 
 import static com.leon.estimate_new.enums.DialogType.Yellow;
 import static com.leon.estimate_new.enums.ProgressType.NOT_SHOW;
@@ -13,7 +13,7 @@ import com.leon.estimate_new.R;
 import com.leon.estimate_new.base_items.BaseAsync;
 import com.leon.estimate_new.di.view_model.CustomDialogModel;
 import com.leon.estimate_new.di.view_model.HttpClientWrapper;
-import com.leon.estimate_new.fragments.documents.TakePhotoFragment;
+import com.leon.estimate_new.fragments.dialog.ShowDocumentFragment;
 import com.leon.estimate_new.infrastructure.IAbfaService;
 import com.leon.estimate_new.infrastructure.ICallback;
 import com.leon.estimate_new.infrastructure.ICallbackIncomplete;
@@ -50,8 +50,7 @@ public class ImageThumbnailList extends BaseAsync {
                 .getDocsListThumbnail(getApplicationComponent().SharedPreferenceModel()
                         .getStringData(TOKEN_FOR_FILE.getValue()), key);
         HttpClientWrapper.callHttpAsync(call, NOT_SHOW.getValue(), activity,
-                new GetList(object), new GetListIncomplete(object),
-                new GetError(activity, object));
+                new GetList(object), new GetListIncomplete(object), new GetError());
     }
 
     @Override
@@ -70,15 +69,15 @@ class GetList implements ICallback<ImageDataThumbnail> {
     @Override
     public void execute(Response<ImageDataThumbnail> response) {
         if (response.body() != null && response.body().success) {
-            ((TakePhotoFragment) object).setThumbnails(response.body());
+            ((ShowDocumentFragment) object).setThumbnails(response.body());
         } else {
-            new CustomDialogModel(Yellow, ((TakePhotoFragment) object).requireContext(),
-                    ((TakePhotoFragment) object).requireContext().getString(R.string.download_document)
+            new CustomDialogModel(Yellow, ((ShowDocumentFragment) object).requireContext(),
+                    ((ShowDocumentFragment) object).requireContext().getString(R.string.download_document)
                             .concat("\n").concat(response.body().error),
-                    ((TakePhotoFragment) object).requireContext().getString(R.string.dear_user),
-                    ((TakePhotoFragment) object).requireContext().getString(R.string.download_document),
-                    ((TakePhotoFragment) object).requireContext().getString(R.string.accepted));
-            ((TakePhotoFragment) object).getProgressBar().setVisibility(View.GONE);
+                    ((ShowDocumentFragment) object).requireContext().getString(R.string.dear_user),
+                    ((ShowDocumentFragment) object).requireContext().getString(R.string.download_document),
+                    ((ShowDocumentFragment) object).requireContext().getString(R.string.accepted));
+            ((ShowDocumentFragment) object).getProgressBar().setVisibility(View.GONE);
         }
     }
 }
@@ -92,13 +91,13 @@ class GetListIncomplete implements ICallbackIncomplete<ImageDataThumbnail> {
 
     @Override
     public void executeIncomplete(Response<ImageDataThumbnail> response) {
-        final CustomErrorHandling errorHandling = new CustomErrorHandling(((TakePhotoFragment) object).requireContext());
+        final CustomErrorHandling errorHandling = new CustomErrorHandling(((ShowDocumentFragment) object).requireContext());
         final String error = errorHandling.getErrorMessageDefault(response);
-        new CustomDialogModel(Yellow, ((TakePhotoFragment) object).requireContext(), error,
-                ((TakePhotoFragment) object).requireContext().getString(R.string.dear_user),
-                ((TakePhotoFragment) object).requireContext().getString(R.string.download_document),
-                ((TakePhotoFragment) object).requireContext().getString(R.string.accepted));
-        ((TakePhotoFragment) object).getProgressBar().setVisibility(View.GONE);
+        new CustomDialogModel(Yellow, ((ShowDocumentFragment) object).requireContext(), error,
+                ((ShowDocumentFragment) object).requireContext().getString(R.string.dear_user),
+                ((ShowDocumentFragment) object).requireContext().getString(R.string.download_document),
+                ((ShowDocumentFragment) object).requireContext().getString(R.string.accepted));
+        ((ShowDocumentFragment) object).getProgressBar().setVisibility(View.GONE);
     }
 }
 
