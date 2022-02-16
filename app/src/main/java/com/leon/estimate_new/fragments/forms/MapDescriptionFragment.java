@@ -1,13 +1,16 @@
 package com.leon.estimate_new.fragments.forms;
 
+import static com.leon.estimate_new.enums.SharedReferenceKeys.MAP_TYPE;
 import static com.leon.estimate_new.helpers.Constants.BITMAP_SELECTED;
 import static com.leon.estimate_new.helpers.Constants.SECOND_FRAGMENT;
+import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponent;
 import static com.leon.estimate_new.helpers.MyApplication.getLocationTracker;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaActionSound;
@@ -49,6 +52,7 @@ import com.leon.estimate_new.tables.CalculationUserInput;
 import com.leon.estimate_new.tables.ExaminerDuties;
 import com.leon.estimate_new.utils.CustomToast;
 import com.leon.estimate_new.utils.gis.GoogleMapLayer;
+import com.leon.estimate_new.utils.gis.OsmMapLayer;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -95,8 +99,8 @@ public class MapDescriptionFragment extends Fragment {
         });
         binding.buttonPre.setOnClickListener(v -> formActivity.setOnPreClickListener(SECOND_FRAGMENT));
         binding.buttonEditCrooki.setOnClickListener(v -> {
-            clearMap();
             captureScreenshotAsync();
+            clearMap();
         });
     }
 
@@ -109,11 +113,15 @@ public class MapDescriptionFragment extends Fragment {
     }
 
     private void captureScreenshotAsync() {
-//        binding.mapView.setDrawingCacheEnabled(true);
-//        BITMAP_SELECTED = binding.mapView.getDrawingCache(true);
-//        BITMAP_SELECTED = BITMAP_SELECTED.copy(Bitmap.Config.ARGB_8888, true);
-//        binding.mapView.setDrawingCacheEnabled(false);
-//        formActivity.setMapDescription(binding.editTextDescription.getText().toString());
+//        binding.linearLayoutMap.setDrawingCacheEnabled(true);
+//        binding.linearLayoutMap.buildDrawingCache();
+//        // Copy the drawing cache before the system recycles it
+//        final Bitmap cachedImage = Bitmap.createBitmap(binding.linearLayoutMap.getDrawingCache());
+//        BITMAP_SELECTED = Bitmap.createBitmap(binding.linearLayoutMap.getWidth(), binding.linearLayoutMap.getHeight(),
+//                Bitmap.Config.ARGB_8888);
+//        final Canvas offscreenCanvas = new Canvas(BITMAP_SELECTED);
+//        offscreenCanvas.drawBitmap(cachedImage, 0, 0, null);
+
         final ListenableFuture<Bitmap> export = binding.mapView.exportImageAsync();
         export.addDoneListener(() -> {
             try {
@@ -128,16 +136,23 @@ public class MapDescriptionFragment extends Fragment {
         });
     }
 
-    private void initializeMap() {
-//        final ArcGISMap map = new ArcGISMap(BasemapStyle.ARCGIS_IMAGERY);
-//        binding.mapView.getMap().getBasemap().getBaseLayers().add(new OpenStreetMapLayer());
+    private void initializeBaseMap(int mapType) {
+        getApplicationComponent().SharedPreferenceModel().putData(MAP_TYPE.getValue(), mapType);
         binding.mapView.setMap(new ArcGISMap());
-        binding.mapView.getMap().getBasemap().getBaseLayers().add(new GoogleMapLayer().createLayer(MapType.VECTOR));
-//        binding.mapView.getMap().getBasemap().getBaseLayers().add(new OsmMapLayer().createLayer());
-
-        binding.mapView.setMagnifierEnabled(true);
-        binding.mapView.setCanMagnifierPanMap(true);
-
+        switch (mapType) {
+            case 3:
+                binding.mapView.getMap().getBasemap().getBaseLayers().add(new OsmMapLayer().createLayer());
+                break;
+            case 2:
+                binding.mapView.getMap().getBasemap().getBaseLayers().add(new GoogleMapLayer().createLayer(MapType.SATELLITE));
+                break;
+            case 1:
+                binding.mapView.getMap().getBasemap().getBaseLayers().add(new GoogleMapLayer().createLayer(MapType.ROAD));
+                break;
+            case 0:
+            default:
+                binding.mapView.getMap().getBasemap().getBaseLayers().add(new GoogleMapLayer().createLayer(MapType.VECTOR));
+        }
         AsyncTask.execute(() -> {
             while (getLocationTracker(requireActivity()).getLocation() == null)
                 binding.progressBar.setVisibility(View.VISIBLE);
@@ -145,6 +160,12 @@ public class MapDescriptionFragment extends Fragment {
                     , getLocationTracker(requireActivity()).getLongitude(), 3600));
             requireActivity().runOnUiThread(() -> binding.progressBar.setVisibility(View.GONE));
         });
+    }
+
+    private void initializeMap() {
+        initializeBaseMap(getApplicationComponent().SharedPreferenceModel().getIntData(MAP_TYPE.getValue()));
+        binding.mapView.setMagnifierEnabled(true);
+        binding.mapView.setCanMagnifierPanMap(true);
         initializeOverlays();
         onMapClickListener();
     }
@@ -179,30 +200,14 @@ public class MapDescriptionFragment extends Fragment {
 
             @Override
             public boolean onSingleTapConfirmed(MotionEvent event) {
-                android.graphics.Point clickLocation = new android.graphics.Point(Math.round(event.getX()),
+                final android.graphics.Point clickLocation = new android.graphics.Point(Math.round(event.getX()),
                         Math.round(event.getY()));
                 addPolygon(mMapView.screenToLocation(clickLocation));
-
-                // calculate the path distance
-//                double distance = GeometryEngine.lengthGeodetic(pathGeometry, mUnitOfMeasurement, GeodeticCurveType.GEODESIC);
-
-//                // create a textview for the callout
-//                TextView calloutContent = new TextView(requireContext());
-//                calloutContent.setTextColor(Color.BLACK);
-//                calloutContent.setSingleLine();
-//                // format coordinates to 2 decimal places
-//                calloutContent.setText("Distance: " + String.format("%.2f", distance) + mUnits);
-//                final Callout callout = mMapView.getCallout();
-//                callout.setLocation(mapPoint);
-//                callout.setContent(calloutContent);
-//                callout.show();
-
                 return super.onSingleTapConfirmed(event);
             }
         });
     }
 
-    @SuppressLint({"SetTextI18n", "DefaultLocale"})
     private void addPolygon(Point mapPoint) {
         final Point destination = (Point) GeometryEngine.project(mapPoint, SpatialReferences.getWgs84());
         points.add(destination);
@@ -232,20 +237,27 @@ public class MapDescriptionFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.map_menu, menu);
+        menu.getItem(getApplicationComponent().SharedPreferenceModel()
+                .getIntData(MAP_TYPE.getValue())).setChecked(true);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(@NotNull MenuItem item) {
+        item.setChecked(!item.isChecked());
         switch (item.getItemId()) {
-            case R.id.World_Street_Map:
+            case R.id.vector:
+                initializeBaseMap(0);
                 return true;
-            case R.id.World_Topo:
+            case R.id.roads:
+                initializeBaseMap(1);
                 return true;
-            case R.id.Gray:
+            case R.id.satellite:
+                initializeBaseMap(2);
                 return true;
-            case R.id.Ocean_Basemap:
+            case R.id.osm:
+                initializeBaseMap(3);
                 return true;
         }
         return super.onOptionsItemSelected(item);

@@ -3,20 +3,20 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/World_Street_Map"
-            android:title="StreetMapMenu"
+            android:id="@+id/vector"
+            android:title="نقشه وکتور"
             app:showAsAction="never" />
         <item
-            android:id="@+id/World_Topo"
-            android:title="TopoMenu"
+            android:id="@+id/roads"
+            android:title="نقشه راه ها"
             app:showAsAction="never" />
         <item
-            android:id="@+id/Gray"
-            android:title="GrayMenu"
+            android:id="@+id/satellite"
+            android:title="نقشه ماهواره ای"
             app:showAsAction="never" />
         <item
-            android:id="@+id/Ocean_Basemap"
-            android:title="OceanMenu"
+            android:id="@+id/osm"
+            android:title="نقشه osm"
             app:showAsAction="never" />
     </group>
 </menu>

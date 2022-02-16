@@ -5,9 +5,6 @@ import static com.leon.estimate_new.helpers.Constants.POSITION;
 import static com.leon.estimate_new.helpers.Constants.exit;
 import static com.leon.estimate_new.helpers.MyApplication.getContext;
 
-import android.annotation.SuppressLint;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -45,7 +42,7 @@ public class MainActivity extends BaseActivity {
         final View childLayout = binding.getRoot();
         final ConstraintLayout parentLayout = findViewById(R.id.base_Content);
         parentLayout.addView(childLayout);
-        displayView(/*HOME_FRAGMENT*/DUTIES_FRAGMENT);
+        displayView(HOME_FRAGMENT/*DUTIES_FRAGMENT*/);
         setOnDrawerItemClick();
     }
 
@@ -108,28 +105,6 @@ public class MainActivity extends BaseActivity {
                     }
                 })
         );
-    }
-
-    @SuppressLint("NonConstantResourceId")
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.World_Street_Map:
-                return true;
-            case R.id.World_Topo:
-                return true;
-            case R.id.Gray:
-                return true;
-            case R.id.Ocean_Basemap:
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.map_menu, menu);
-        return true;
     }
 
     @Override

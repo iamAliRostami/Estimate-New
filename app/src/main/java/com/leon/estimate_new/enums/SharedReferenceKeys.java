@@ -31,6 +31,7 @@ public enum SharedReferenceKeys {
     DATE("date"),
     POINT("point"),
     SORT_TYPE("sort_type"),
+    MAP_TYPE("map_type"),
     THEME_TEMPORARY("theme_temporary");
 
     private final String value;
