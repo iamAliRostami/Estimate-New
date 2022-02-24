@@ -113,15 +113,6 @@ public class MapDescriptionFragment extends Fragment {
     }
 
     private void captureScreenshotAsync() {
-//        binding.linearLayoutMap.setDrawingCacheEnabled(true);
-//        binding.linearLayoutMap.buildDrawingCache();
-//        // Copy the drawing cache before the system recycles it
-//        final Bitmap cachedImage = Bitmap.createBitmap(binding.linearLayoutMap.getDrawingCache());
-//        BITMAP_SELECTED = Bitmap.createBitmap(binding.linearLayoutMap.getWidth(), binding.linearLayoutMap.getHeight(),
-//                Bitmap.Config.ARGB_8888);
-//        final Canvas offscreenCanvas = new Canvas(BITMAP_SELECTED);
-//        offscreenCanvas.drawBitmap(cachedImage, 0, 0, null);
-
         final ListenableFuture<Bitmap> export = binding.mapView.exportImageAsync();
         export.addDoneListener(() -> {
             try {

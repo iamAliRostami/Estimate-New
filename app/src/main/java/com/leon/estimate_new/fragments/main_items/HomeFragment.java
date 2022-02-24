@@ -1,8 +1,11 @@
 package com.leon.estimate_new.fragments.main_items;
 
+import static com.leon.estimate_new.helpers.Constants.BITMAP_SELECTED;
 import static com.leon.estimate_new.helpers.MyApplication.getLocationTracker;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
