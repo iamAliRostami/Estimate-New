@@ -163,7 +163,6 @@ dependencies {
     implementation 'com.cocoahero.android:geojson:1.0.1@jar'
 
 //    implementation 'com.esri.arcgis.android:arcgis-android:10.2.9'
-//    implementation 'com.esri.arcgisruntime:arcgis-android:100.12.0'
     implementation 'com.esri.arcgisruntime:arcgis-android-toolkit:100.11.0'
     implementation 'com.esri.arcgisruntime:arcgis-android:100.11.0'
 
