@@ -7,6 +7,7 @@ import static com.leon.estimate_new.helpers.MyApplication.getPreferenceManager;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ import com.leon.estimate_new.utils.CustomToast;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 
 public class CustomAdapterList extends RecyclerView.Adapter<ViewHolderList> {
@@ -33,7 +35,12 @@ public class CustomAdapterList extends RecyclerView.Adapter<ViewHolderList> {
     private final ArrayList<ExaminerDuties> examinerDutiesTemp = new ArrayList<>();
 
     public CustomAdapterList(Context context, ArrayList<ExaminerDuties> examinerDuties) {
-        examinerDuties.sort(Comparator.comparing(ExaminerDuties::isPeymayesh).thenComparing(ExaminerDuties::getExaminationDay));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            examinerDuties.sort(Comparator.comparing(ExaminerDuties::isPeymayesh).thenComparing(ExaminerDuties::getExaminationDay));
+        } else {
+            Collections.sort(examinerDuties, (obj1, obj2) ->
+                    obj1.getExaminationDay().compareTo(obj2.getExaminationDay()));
+        }
         this.context = context;
         this.examinerDutiesTemp.addAll(examinerDuties);
     }

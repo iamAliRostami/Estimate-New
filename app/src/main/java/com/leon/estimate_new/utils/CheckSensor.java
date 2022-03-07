@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.leon.estimate_new.R;
 
 public class CheckSensor {
 
@@ -13,16 +12,16 @@ public class CheckSensor {
     }
 
     public static boolean checkGooglePlayServices(Context context) {
-        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
-        String message;
-        int resultCode = apiAvailability.isGooglePlayServicesAvailable(context);
+        final GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
+        final int resultCode = apiAvailability.isGooglePlayServicesAvailable(context);
         if (resultCode != ConnectionResult.SUCCESS) {
-            if (apiAvailability.isUserResolvableError(resultCode)) {
-                message = context.getString(R.string.google_is_available_but_not_installed);
-            } else {
-                message = context.getString(R.string.google_is_not_available);
-            }
-            new CustomToast().warning(message);
+//            final String message;
+//            if (apiAvailability.isUserResolvableError(resultCode)) {
+//                message = context.getString(R.string.google_is_available_but_not_installed);
+//            } else {
+//                message = context.getString(R.string.google_is_not_available);
+//            }
+//            new CustomToast().warning(message);
             return false;
         }
         return true;
