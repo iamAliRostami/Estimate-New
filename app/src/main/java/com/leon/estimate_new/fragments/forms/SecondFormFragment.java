@@ -135,7 +135,7 @@ public class SecondFormFragment extends Fragment {
                 checkIsNoEmpty(binding.editTextSangFazelab) &&
                 checkIsNoEmpty(binding.editTextOtherFazelab) &&
                 checkIsNoEmpty(binding.editTextOmqZirzamin) &&
-//                checkIsNoEmpty(binding.editTextEshterak) &&
+//                (checkIsNoEmpty(binding.editTextEshterak) && examinerDuty.isNewEnsheab) &&
                 checkIsNoEmpty(binding.editTextOmqFazelab);
     }
 
@@ -167,6 +167,8 @@ public class SecondFormFragment extends Fragment {
         binding.editTextDescriptionChahAbBaran.setText(examinerDuty.chahDescription);
         binding.editTextNoeMasrafDescription.setText(examinerDuty.masrafDescription);
         binding.editTextEshterak.setText(examinerDuty.eshterak.trim());
+        if (!examinerDuty.isNewEnsheab)
+            binding.editTextEshterak.setEnabled(false);
     }
 
     private void initializeRadioButtonField() {

@@ -198,7 +198,7 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
 
     private void setOnEditTextSodurDateClickListener() {
         binding.editTextSodurDate.setOnClickListener(v -> {
-            DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext());
+            final DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext());
             datePickerDialog.setSelectionMode(DateRangeCalendarView.SelectionMode.Single);
             datePickerDialog.setDisableDaysAgo(false);
             datePickerDialog.setTextSizeTitle(10.0f);
@@ -263,7 +263,7 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
         binding.editTextCodeKaf.setText(examinerDuty.codeKaf);
         binding.editTextSanadNumber.setText(String.valueOf(examinerDuty.sanadNumber));
         binding.editTextQarardad.setText(examinerDuty.qaradadNumber);
-        binding.editTextSodurDate.setText(examinerDuty.getExaminationDay());
+//        binding.editTextSodurDate.setText(examinerDuty.getExaminationDay());
         binding.editTextPelak.setText(String.valueOf(examinerDuty.pelak));
 
         binding.textViewArzeshMelk.setText(String.valueOf(examinerDuty.arzeshMelk));

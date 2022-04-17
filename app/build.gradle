@@ -105,8 +105,8 @@ android {
         applicationId "com.leon.estimate_new"
         minSdk 23
         targetSdk 31
-        versionCode 1
-        versionName "2.00.11.24"
+        versionCode 2
+        versionName "2.01.01.14"
         buildConfigField 'String', 'API_KEY', "\"AAPKb1b8015052da49dd8ab1cf892e4854c6pEeEpW7CQfo1M06LueX_IJV1YSDUuqWO3pD9vM9lN0ewtLWs4f7mW6zEZm9gXYzC\""
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true

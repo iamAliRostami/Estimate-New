@@ -10,7 +10,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Debug;
 import android.text.InputType;
-import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,8 +18,8 @@ import androidx.core.content.ContextCompat;
 import com.leon.estimate_new.BuildConfig;
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.databinding.ActivityLoginBinding;
-import com.leon.estimate_new.enums.SharedReferenceKeys;
 import com.leon.estimate_new.utils.Crypto;
+import com.leon.estimate_new.utils.CustomToast;
 import com.leon.estimate_new.utils.DifferentCompanyManager;
 import com.leon.estimate_new.utils.login.AttemptLogin;
 
@@ -56,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
         setEditTextPasswordOnFocusChangeListener();
     }
 
-    void setEditTextUsernameOnFocusChangeListener() {
+    private void setEditTextUsernameOnFocusChangeListener() {
         binding.editTextUsername.setOnFocusChangeListener((view, b) -> {
             binding.editTextUsername.setHint("");
             if (b) {
@@ -72,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    void setEditTextPasswordOnFocusChangeListener() {
+    private void setEditTextPasswordOnFocusChangeListener() {
         binding.editTextPassword.setOnFocusChangeListener((view, b) -> {
             binding.editTextPassword.setHint("");
             if (b) {
@@ -89,7 +88,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    void setOnImageViewPasswordClickListener() {
+    private void setOnImageViewPasswordClickListener() {
         binding.imageViewPassword.setOnClickListener(v ->
                 binding.imageViewPassword.setOnClickListener(view -> {
                     if (binding.editTextPassword.getInputType() != InputType.TYPE_CLASS_TEXT) {
@@ -101,30 +100,27 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    void setOnButtonLongCLickListener() {
+    private void setOnButtonLongCLickListener() {
         binding.buttonLogin.setOnLongClickListener(v -> {
             attempt(false);
             return false;
         });
     }
 
-    void setOnButtonLoginClickListener() {
+    private void setOnButtonLoginClickListener() {
         binding.buttonLogin.setOnClickListener(v -> attempt(true));
     }
 
-    void attempt(boolean isLogin) {
-        View view;
+    private void attempt(boolean isLogin) {
         boolean cancel = false;
         if (binding.editTextUsername.getText().length() < 1) {
             binding.editTextUsername.setError(getString(R.string.error_empty));
-            view = binding.editTextUsername;
-            view.requestFocus();
+            binding.editTextUsername.requestFocus();
             cancel = true;
         }
         if (!cancel && binding.editTextPassword.getText().length() < 1) {
             binding.editTextPassword.setError(getString(R.string.error_empty));
-            view = binding.editTextPassword;
-            view.requestFocus();
+            binding.editTextPassword.requestFocus();
             cancel = true;
         }
         if (!cancel) {
@@ -132,11 +128,13 @@ public class LoginActivity extends AppCompatActivity {
             password = binding.editTextPassword.getText().toString();
             if (isLogin && isNetworkAvailable(activity)) {
                 new AttemptLogin(username, password, binding.checkBoxSave.isChecked()).execute(activity);
+            } else {
+                new CustomToast().warning(getString(R.string.turn_internet_on));
             }
         }
     }
 
-    void loadPreference() {
+    private void loadPreference() {
         if (getPreferenceManager().checkIsNotEmpty(USERNAME.getValue()) &&
                 getPreferenceManager().checkIsNotEmpty(PASSWORD.getValue())) {
             binding.editTextUsername.setText(getPreferenceManager().getStringData(
@@ -153,13 +151,6 @@ public class LoginActivity extends AppCompatActivity {
         binding.imageViewLogo.setImageDrawable(null);
         binding.imageViewUsername.setImageDrawable(null);
         binding = null;
-        Debug.getNativeHeapAllocatedSize();
-        System.runFinalization();
-        Runtime.getRuntime().totalMemory();
-        Runtime.getRuntime().freeMemory();
-        Runtime.getRuntime().maxMemory();
-        Runtime.getRuntime().gc();
-        System.gc();
         super.onDestroy();
     }
 
