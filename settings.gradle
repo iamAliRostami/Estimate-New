@@ -1,0 +1,33 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+        jcenter()
+        maven { url 'https://esri.jfrog.io/artifactory/arcgis' }
+        maven { url 'https://esri.bintray.com/arcgis' }
+        maven { url "https://www.jitpack.io" }
+        maven {
+            url 'https://oss.sonatype.org/content/repositories/snapshots/'
+            name 'OSS-Sonatype'
+        }
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        jcenter()
+        maven { url 'https://esri.jfrog.io/artifactory/arcgis' }
+        maven { url 'https://esri.bintray.com/arcgis' }
+        maven { url "https://www.jitpack.io" }
+        maven {
+            url 'https://oss.sonatype.org/content/repositories/snapshots/'
+            name 'OSS-Sonatype'
+        }
+    }
+}
+rootProject.name = "Estimate"
+include ':app'
+include ':openCVLibrary'

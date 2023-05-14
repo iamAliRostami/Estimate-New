@@ -1,0 +1,36 @@
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/AndroidStudioProjects/EstimateNew/app/src/main/res/drawable/border_blue_1.xml" value="0.178" />
+        <entry key="..\:/AndroidStudioProjects/EstimateNew/app/src/main/res/layout/activity_base.xml" value="0.24375" />
+        <entry key="..\:/AndroidStudioProjects/EstimateNew/app/src/main/res/layout/activity_document.xml" value="0.2625" />
+        <entry key="..\:/AndroidStudioProjects/EstimateNew/app/src/main/res/layout/activity_final_report.xml" value="0.24375" />
+        <entry key="..\:/AndroidStudioProjects/EstimateNew/app/src/main/res/layout/activity_login.xml" value="0.24375" />
+        <entry key="..\:/AndroidStudioProjects/EstimateNew/app/src/main/res/layout/activity_main.xml" value="0.1358695652173913" />
+        <entry key="..\:/AndroidStudioProjects/EstimateNew/app/src/main/res/layout/base_app_bar.xml" value="0.24375" />
+        <entry key="..\:/AndroidStudioProjects/EstimateNew/app/src/main/res/layout/base_content.xml" value="0.24375" />
+        <entry key="..\:/AndroidStudioProjects/EstimateNew/app/src/main/res/layout/dialog_text_input.xml" value="0.24375" />
+        <entry key="..\:/AndroidStudioProjects/EstimateNew/app/src/main/res/layout/fragment_base_info.xml" value="0.24375" />
+        <entry key="..\:/AndroidStudioProjects/EstimateNew/app/src/main/res/layout/fragment_download.xml" value="0.24375" />
+        <entry key="..\:/AndroidStudioProjects/EstimateNew/app/src/main/res/layout/fragment_edit_map.xml" value="0.264" />
+        <entry key="..\:/AndroidStudioProjects/EstimateNew/app/src/main/res/layout/fragment_home.xml" value="0.2625" />
+        <entry key="..\:/AndroidStudioProjects/EstimateNew/app/src/main/res/layout/fragment_map_description.xml" value="0.264" />
+        <entry key="..\:/AndroidStudioProjects/EstimateNew/app/src/main/res/layout/fragment_second_form.xml" value="0.21422101449275363" />
+        <entry key="..\:/AndroidStudioProjects/EstimateNew/app/src/main/res/layout/fragment_send_request.xml" value="0.24375" />
+        <entry key="..\:/AndroidStudioProjects/EstimateNew/app/src/main/res/layout/fragment_take_photo.xml" value="0.24375" />
+        <entry key="..\:/AndroidStudioProjects/EstimateNew/app/src/main/res/layout/fragment_take_single.xml" value="0.24375" />
+        <entry key="..\:/AndroidStudioProjects/EstimateNew/app/src/main/res/layout/item_check_box.xml" value="0.24375" />
+        <entry key="..\:/AndroidStudioProjects/EstimateNew/app/src/main/res/layout/item_dropdown_menu.xml" value="0.24375" />
+        <entry key="..\:/AndroidStudioProjects/EstimateNew/app/src/main/res/layout/item_navigation_drawer.xml" value="0.24375" />
+        <entry key="..\:/AndroidStudioProjects/EstimateNew/app/src/main/res/layout/toolbar.xml" value="0.24375" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" project-jdk-name="jbr-17" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

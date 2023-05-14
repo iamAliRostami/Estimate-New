@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/huge_dp"
+    tools:context=".fragments.main_items.UploadFragment">
+
+    <ImageView
+        android:id="@+id/image_view_download"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:contentDescription="@string/upload"
+        android:src="@drawable/image_upload" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/linear_layout_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/linear_layout_2"
+        android:layout_margin="@dimen/medium_dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/text_view_eshterak_title"
+            style="@style/HomeTitles"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="start"
+            android:text="@string/unuploaded_eshterak" />
+
+        <TextView
+            android:id="@+id/text_view_eshterak"
+            style="@style/HomeTitles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zero" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/linear_layout_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/button_upload"
+        android:layout_margin="@dimen/medium_dp">
+
+        <TextView
+            android:id="@+id/text_view_image_title"
+            style="@style/HomeTitles"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="start"
+            android:text="@string/unuploaded_image" />
+
+        <TextView
+            android:id="@+id/text_view_image"
+            style="@style/HomeTitles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zero" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <Button
+        android:id="@+id/button_upload"
+        style="@style/Button.Negative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="@string/upload" />
+
+</RelativeLayout>
