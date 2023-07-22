@@ -91,7 +91,7 @@ android {
         exclude 'lib/arm64-v8a/libarcore_sdk_c.so'
     }
     compileSdk 34
-    buildToolsVersion '33.0.1'
+    buildToolsVersion '34.0.0'
     signingConfigs {
         config {
             keyAlias 'ali_angel'
