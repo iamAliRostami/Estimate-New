@@ -16,79 +16,13 @@ android {
         }
     }
     packagingOptions {
-        exclude 'AndroidManifest.xml'
-        exclude 'lib/x86/libopencv_java3.so'
-        exclude 'lib/x86_64/libopencv_java3.so'
-        exclude 'lib/mips/libopencv_java3.so'
-        exclude 'lib/mips64/libopencv_java3.so'
-        exclude 'lib/armeabi/libopencv_java3.so'
-        exclude 'lib/armeabi-v7a/libopencv_java3.so'
-        //TODO
-        exclude 'lib/arm64-v8a/libopencv_java3.so'
-
-        exclude 'lib/x86/libruntimecore.so'
-        exclude 'lib/x86_64/libruntimecore.so'
-        exclude 'lib/mips/libruntimecore.so'
-        exclude 'lib/mips64/libruntimecore.so'
-        exclude 'lib/armeabi/libruntimecore.so'
-        exclude 'lib/armeabi-v7a/libruntimecore.so'
-        exclude 'lib/arm64-v8a/libruntimecore.so'
-
-        exclude 'lib/x86/libc++_shared.so'
-        exclude 'lib/x86_64/libc++_shared.so'
-        exclude 'lib/mips/libc++_shared.so'
-        exclude 'lib/mips64/libc++_shared.so'
-        exclude 'lib/armeabi/libc++_shared.so'
-        exclude 'lib/armeabi-v7a/libc++_shared.so'
-        exclude 'lib/arm64-v8a/libc++_shared.so'
-
-        exclude 'lib/x86/libruntimecore_java.so'
-        exclude 'lib/x86_64/libruntimecore_java.so'
-        exclude 'lib/mips/libruntimecore_java.so'
-        exclude 'lib/mips64/libruntimecore_java.so'
-        exclude 'lib/armeabi/libruntimecore_java.so'
-        exclude 'lib/armeabi-v7a/libruntimecore_java.so'
-        exclude 'lib/arm64-v8a/libruntimecore_java.so'
-
-        exclude 'lib/x86/libfilament-jni.so'
-        exclude 'lib/x86_64/libfilament-jni.so'
-        exclude 'lib/mips/libfilament-jni.so'
-        exclude 'lib/mips64/libfilament-jni.so'
-        exclude 'lib/armeabi/libfilament-jni.so'
-        exclude 'lib/armeabi-v7a/libfilament-jni.so'
-        exclude 'lib/arm64-v8a/libfilament_jni.so'
-
-        exclude 'lib/x86/libsceneform_animation.so'
-        exclude 'lib/x86_64/libsceneform_animation.so'
-        exclude 'lib/mips/libsceneform_animation.so'
-        exclude 'lib/mips64/libsceneform_animation.so'
-        exclude 'lib/armeabi/libsceneform_animation.so'
-        exclude 'lib/armeabi-v7a/libsceneform_animation.so'
-        exclude 'lib/arm64-v8a/libsceneform_animation.so'
-
-        exclude 'lib/x86/libarsceneview_jni.so'
-        exclude 'lib/x86_64/libarsceneview_jni.so'
-        exclude 'lib/mips/libarsceneview_jni.so'
-        exclude 'lib/mips64/libarsceneview_jni.so'
-        exclude 'lib/armeabi/libarsceneview_jni.so'
-        exclude 'lib/armeabi-v7a/libarsceneview_jni.so'
-        exclude 'lib/arm64-v8a/libarsceneview_jni.so'
-
-        exclude 'lib/x86/libarcore_sdk_jni.so'
-        exclude 'lib/x86_64/libarcore_sdk_jni.so'
-        exclude 'lib/mips/libarcore_sdk_jni.so'
-        exclude 'lib/mips64/libarcore_sdk_jni.so'
-        exclude 'lib/armeabi/libarcore_sdk_jni.so'
-        exclude 'lib/armeabi-v7a/libarcore_sdk_jni.so'
-        exclude 'lib/arm64-v8a/libarcore_sdk_jni.so'
-
-        exclude 'lib/x86/libarcore_sdk_c.so'
-        exclude 'lib/x86_64/libarcore_sdk_c.so'
-        exclude 'lib/mips/libarcore_sdk_c.so'
-        exclude 'lib/mips64/libarcore_sdk_c.so'
-        exclude 'lib/armeabi/libarcore_sdk_c.so'
-        exclude 'lib/armeabi-v7a/libarcore_sdk_c.so'
-        exclude 'lib/arm64-v8a/libarcore_sdk_c.so'
+        jniLibs {
+            useLegacyPackaging false
+            excludes += ['lib/x86/libopencv_java3.so', 'lib/x86_64/libopencv_java3.so', 'lib/mips/libopencv_java3.so', 'lib/mips64/libopencv_java3.so', 'lib/armeabi/libopencv_java3.so', 'lib/armeabi-v7a/libopencv_java3.so', 'lib/arm64-v8a/libopencv_java3.so', 'lib/x86/libruntimecore.so', 'lib/x86_64/libruntimecore.so', 'lib/mips/libruntimecore.so', 'lib/mips64/libruntimecore.so', 'lib/armeabi/libruntimecore.so', 'lib/armeabi-v7a/libruntimecore.so', 'lib/arm64-v8a/libruntimecore.so', 'lib/x86/libc++_shared.so', 'lib/x86_64/libc++_shared.so', 'lib/mips/libc++_shared.so', 'lib/mips64/libc++_shared.so', 'lib/armeabi/libc++_shared.so', 'lib/armeabi-v7a/libc++_shared.so', 'lib/arm64-v8a/libc++_shared.so', 'lib/x86/libruntimecore_java.so', 'lib/x86_64/libruntimecore_java.so', 'lib/mips/libruntimecore_java.so', 'lib/mips64/libruntimecore_java.so', 'lib/armeabi/libruntimecore_java.so', 'lib/armeabi-v7a/libruntimecore_java.so', 'lib/arm64-v8a/libruntimecore_java.so', 'lib/x86/libfilament-jni.so', 'lib/x86_64/libfilament-jni.so', 'lib/mips/libfilament-jni.so', 'lib/mips64/libfilament-jni.so', 'lib/armeabi/libfilament-jni.so', 'lib/armeabi-v7a/libfilament-jni.so', 'lib/arm64-v8a/libfilament_jni.so', 'lib/x86/libsceneform_animation.so', 'lib/x86_64/libsceneform_animation.so', 'lib/mips/libsceneform_animation.so', 'lib/mips64/libsceneform_animation.so', 'lib/armeabi/libsceneform_animation.so', 'lib/armeabi-v7a/libsceneform_animation.so', 'lib/arm64-v8a/libsceneform_animation.so', 'lib/x86/libarsceneview_jni.so', 'lib/x86_64/libarsceneview_jni.so', 'lib/mips/libarsceneview_jni.so', 'lib/mips64/libarsceneview_jni.so', 'lib/armeabi/libarsceneview_jni.so', 'lib/armeabi-v7a/libarsceneview_jni.so', 'lib/arm64-v8a/libarsceneview_jni.so', 'lib/x86/libarcore_sdk_jni.so', 'lib/x86_64/libarcore_sdk_jni.so', 'lib/mips/libarcore_sdk_jni.so', 'lib/mips64/libarcore_sdk_jni.so', 'lib/armeabi/libarcore_sdk_jni.so', 'lib/armeabi-v7a/libarcore_sdk_jni.so', 'lib/arm64-v8a/libarcore_sdk_jni.so', 'lib/x86/libarcore_sdk_c.so', 'lib/x86_64/libarcore_sdk_c.so', 'lib/mips/libarcore_sdk_c.so', 'lib/mips64/libarcore_sdk_c.so', 'lib/armeabi/libarcore_sdk_c.so', 'lib/armeabi-v7a/libarcore_sdk_c.so', 'lib/arm64-v8a/libarcore_sdk_c.so']
+        }
+        resources {
+            excludes += ['AndroidManifest.xml']
+        }
     }
     compileSdk 34
     buildToolsVersion '34.0.0'
@@ -211,4 +145,12 @@ dependencies {
     implementation 'com.yandex.android:mobmetricalib:5.3.0'
 
     implementation project(':openCVLibrary')
+    constraints {
+        add("implementation", "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0") {
+            because("kotlin-stdlib-jdk7 is now a part of kotlin-stdlib")
+        }
+        add("implementation", "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0") {
+            because("kotlin-stdlib-jdk8 is now a part of kotlin-stdlib")
+        }
+    }
 }
