@@ -16,6 +16,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,6 +30,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.Fragment;
 
+import com.leon.estimate_new.BuildConfig;
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.databinding.FragmentMapDescriptionBinding;
 import com.leon.estimate_new.enums.MapLayerType;
@@ -44,6 +46,7 @@ import org.jetbrains.annotations.NotNull;
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.events.MapEventsReceiver;
+import org.osmdroid.tileprovider.tilesource.XYTileSource;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.overlay.MapEventsOverlay;
 import org.osmdroid.views.overlay.Marker;
@@ -51,6 +54,7 @@ import org.osmdroid.views.overlay.Polyline;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class MapDescriptionFragment extends Fragment implements View.OnClickListener {
@@ -92,6 +96,15 @@ public class MapDescriptionFragment extends Fragment implements View.OnClickList
 
     private void initializeMap() {
         Configuration.getInstance().load(requireContext(), PreferenceManager.getDefaultSharedPreferences(requireContext()));
+        //TODO
+        Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
+        // Set the tile cache path (where map data will be stored)
+        File file = new File(Environment.getExternalStorageDirectory(), "osmdroid/tiles");
+        Configuration.getInstance().setOsmdroidTileCache(file);
+//
+        binding.mapView.setTileSource(new XYTileSource("Mapnik", 0, 18, 256, ".png", new String[] {}));
+//        binding.mapView.setUseDataConnection(false);
+        //TODO
         initializeBaseMap();
         initializeOverlays();
         onMapTouchListener();
@@ -146,7 +159,7 @@ public class MapDescriptionFragment extends Fragment implements View.OnClickList
     }
 
     private void clearMap() {
-        addPolygon(new GeoPoint((double) 0, (double) 0));
+        addPolygon(new GeoPoint(0, (double) 0));
         binding.mapView.getOverlays().clear();
         polygonIndex = pointWater = pointSiphon = 0;
         polygonPoint.clear();

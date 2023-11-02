@@ -8,6 +8,7 @@ import static com.leon.estimate_new.utils.DifferentCompanyManager.getActiveCompa
 import static com.leon.estimate_new.utils.DifferentCompanyManager.getCompanyName;
 import static com.leon.estimate_new.utils.PermissionManager.isNetworkAvailable;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Debug;
 import android.os.SystemClock;
@@ -113,7 +114,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         lastClickTime = SystemClock.elapsedRealtime();
         final int id = v.getId();
         if (id == R.id.button_login) {
-            attempt(false);
+//            attempt(false);
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
         }
         return false;
     }

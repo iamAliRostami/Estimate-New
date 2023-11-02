@@ -30,12 +30,21 @@ public class Constants {
     public static final String APP_FONT_NAME = "assets/fonts/font_1.ttf";
 
 
-    public static final int PERSONAL_FRAGMENT = 0;
-    public static final int SERVICES_FRAGMENT = 1;
-    public static final int BASE_FRAGMENT = 2;
-    public static final int SECOND_FRAGMENT = 3;
-    public static final int MAP_DESCRIPTION_FRAGMENT = 4;
-    public static final int EDIT_MAP_FRAGMENT = 5;
+
+    public static final int HOME_FRAGMENT = 0;
+    public static final int REQUEST_FRAGMENT = 1;
+    public static final int DOWNLOAD_FRAGMENT = 2;
+    public static final int DUTIES_FRAGMENT = 3;
+    public static final int UPLOAD_FRAGMENT = 4;
+    public static final int HELP_FRAGMENT = 5;
+    public static final int OFFLINE_MAP_FRAGMENT = 6;
+
+    public static final int PERSONAL_FRAGMENT = 7;
+    public static final int SERVICES_FRAGMENT = 8;
+    public static final int BASE_FRAGMENT = 9;
+    public static final int SECOND_FRAGMENT = 10;
+    public static final int MAP_DESCRIPTION_FRAGMENT = 11;
+    public static final int EDIT_MAP_FRAGMENT = 12;
 
     public static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10;
     public static final long MIN_TIME_BW_UPDATES = 10000;

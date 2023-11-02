@@ -1,7 +1,14 @@
 package com.leon.estimate_new.activities;
 
+import static com.leon.estimate_new.helpers.Constants.DOWNLOAD_FRAGMENT;
+import static com.leon.estimate_new.helpers.Constants.DUTIES_FRAGMENT;
 import static com.leon.estimate_new.helpers.Constants.EXIT_POSITION;
+import static com.leon.estimate_new.helpers.Constants.HELP_FRAGMENT;
+import static com.leon.estimate_new.helpers.Constants.HOME_FRAGMENT;
+import static com.leon.estimate_new.helpers.Constants.OFFLINE_MAP_FRAGMENT;
 import static com.leon.estimate_new.helpers.Constants.POSITION;
+import static com.leon.estimate_new.helpers.Constants.REQUEST_FRAGMENT;
+import static com.leon.estimate_new.helpers.Constants.UPLOAD_FRAGMENT;
 import static com.leon.estimate_new.helpers.Constants.exit;
 import static com.leon.estimate_new.helpers.MyApplication.getContext;
 
@@ -23,16 +30,11 @@ import com.leon.estimate_new.fragments.main_items.DownloadFragment;
 import com.leon.estimate_new.fragments.main_items.DutiesListFragment;
 import com.leon.estimate_new.fragments.main_items.HelpFragment;
 import com.leon.estimate_new.fragments.main_items.HomeFragment;
+import com.leon.estimate_new.fragments.main_items.OfflineMapFragment;
 import com.leon.estimate_new.fragments.main_items.SendRequestFragment;
 import com.leon.estimate_new.fragments.main_items.UploadFragment;
 
-public class MainActivity extends BaseActivity {
-    private final int HOME_FRAGMENT = 0;
-    private final int REQUEST_FRAGMENT = 1;
-    private final int DOWNLOAD_FRAGMENT = 2;
-    private final int DUTIES_FRAGMENT = 3;
-    private final int UPLOAD_FRAGMENT = 4;
-    private final int HELP_FRAGMENT = 5;
+public class MainActivity extends BaseActivity  {
     private ActivityMainBinding binding;
 
     @Override
@@ -44,14 +46,13 @@ public class MainActivity extends BaseActivity {
         displayView(HOME_FRAGMENT/*DUTIES_FRAGMENT*/);
         setOnDrawerItemClick();
     }
-
-    private void displayView(int position) {
-        final String tag = Integer.toString(position);
-        if (getFragmentManager().findFragmentByTag(tag) != null && getFragmentManager().findFragmentByTag(tag).isVisible()) {
+    public void displayView(int position) {
+        String tag = Integer.toString(position);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        if (fragmentManager.findFragmentByTag(tag) != null && fragmentManager.findFragmentByTag(tag).isVisible()) {
             return;
         }
-        final FragmentManager fragmentManager = getSupportFragmentManager();
-        final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.setCustomAnimations(R.animator.enter, R.animator.exit,
                 R.animator.pop_enter, R.animator.pop_exit);
         fragmentTransaction.replace(binding.containerBody.getId(), getFragment(position), tag);
@@ -60,7 +61,7 @@ public class MainActivity extends BaseActivity {
             fragmentTransaction.addToBackStack(null);
         }
         fragmentTransaction.commitAllowingStateLoss();
-        getFragmentManager().executePendingTransactions();
+        fragmentManager.executePendingTransactions();
     }
 
     private Fragment getFragment(int position) {
@@ -74,7 +75,7 @@ public class MainActivity extends BaseActivity {
             case UPLOAD_FRAGMENT:
                 return UploadFragment.newInstance();
             case HELP_FRAGMENT:
-                return HelpFragment.newInstance();
+                return OfflineMapFragment.newInstance();
             case HOME_FRAGMENT:
             default:
                 return HomeFragment.newInstance();

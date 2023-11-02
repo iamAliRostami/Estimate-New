@@ -178,7 +178,7 @@
     <string name="yes">بله</string>
     <string name="no">خیر</string>
     <string name="accepted_question">درصورت تایید، امکان ویرایش وجود نخواهد داشت. آیا تایید میکنید؟</string>
-<!--    <string name="map_description">برای ایجاد چند ضلعی، چندین بار بر روی نقشه ضربه بزنید.\n\nبرای تعیین محل، کنتور انگشت خود را چند لحظه روی محل نگه دارید.\n\nبعد از تعیین محل کنتور، برای تعیین محل سیفون، مجددا انگشت خود را چند لحظه روی محل نگه دارید.</string>-->
+    <!--    <string name="map_description">برای ایجاد چند ضلعی، چندین بار بر روی نقشه ضربه بزنید.\n\nبرای تعیین محل، کنتور انگشت خود را چند لحظه روی محل نگه دارید.\n\nبعد از تعیین محل کنتور، برای تعیین محل سیفون، مجددا انگشت خود را چند لحظه روی محل نگه دارید.</string>-->
     <string name="map_description">توضیحات (آدرس نوشته نشود)</string>
 
     <string name="home">خانه</string>
@@ -453,9 +453,10 @@
     <string name="your_place">محل شما</string>
 
 
-
     <string name="template_uri_stamen">https://stamen-tiles-{subdomain}.a.ssl.fastly.net/terrain/{level}/{col}/{row}.jpg</string>
     <string name="stamen_attribution">Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.</string>
     <string name="unuploaded_eshterak">تعداد اشتراک بارگذاری نشده:</string>
     <string name="unuploaded_image">تعداد عکس بارگذاری نشده:</string>
+    <string name="download_map">بارگیری نقشه</string>
+    <string name="tile_number">تعداد لایه</string>
 </resources>
