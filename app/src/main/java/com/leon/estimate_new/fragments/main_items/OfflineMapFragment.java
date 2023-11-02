@@ -28,6 +28,7 @@ import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.events.MapEventsReceiver;
 import org.osmdroid.tileprovider.cachemanager.CacheManager;
+import org.osmdroid.tileprovider.constants.OpenStreetMapTileProviderConstants;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.overlay.MapEventsOverlay;
 import org.osmdroid.views.overlay.Marker;
@@ -86,7 +87,11 @@ public class OfflineMapFragment extends BottomSheetDialogFragment implements Vie
         binding.mapView.setMultiTouchControls(true);
         showCurrentLocation();
         onMapTouchListener();
+        Log.e("path",Configuration.getInstance().getOsmdroidTileCache().getAbsolutePath());
+//        OpenStreetMapTileProviderConstants.
+
         cacheManager = new CacheManager(binding.mapView);
+
         lines = new Polyline(binding.mapView);
     }
 

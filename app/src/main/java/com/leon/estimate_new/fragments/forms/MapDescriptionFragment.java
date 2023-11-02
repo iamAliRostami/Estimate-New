@@ -37,6 +37,7 @@ import com.leon.estimate_new.enums.MapLayerType;
 import com.leon.estimate_new.tables.CalculationUserInput;
 import com.leon.estimate_new.tables.ExaminerDuties;
 import com.leon.estimate_new.tables.Place;
+import com.leon.estimate_new.utils.CustomOnlineTileSource;
 import com.leon.estimate_new.utils.gis.CoordinateConversion;
 import com.leon.estimate_new.utils.gis.GetGisPoint;
 import com.leon.estimate_new.utils.gis.GetGisToken;
@@ -173,6 +174,8 @@ public class MapDescriptionFragment extends Fragment implements View.OnClickList
     }
 
     private void initializeBaseMap() {
+        Configuration.getInstance().load(requireContext(), PreferenceManager.getDefaultSharedPreferences(requireContext()));
+        binding.mapView.setTileSource(new CustomOnlineTileSource());
         binding.mapView.setBuiltInZoomControls(true);
         binding.mapView.setMultiTouchControls(true);
         showCurrentLocation();
