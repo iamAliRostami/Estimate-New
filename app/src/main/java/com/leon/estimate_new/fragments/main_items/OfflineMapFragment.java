@@ -41,10 +41,10 @@ public class OfflineMapFragment extends BottomSheetDialogFragment implements Vie
         CacheManager.CacheManagerCallback, MapEventsReceiver {
 
     private FragmentOfflineMapBinding binding;
-    private GeoPoint startPoint, endPoint;
-    private int startPointIndex, endPointIndex;
-    private Polyline lines;
     private CacheManager cacheManager;
+    private int startPointIndex, endPointIndex;
+    private GeoPoint startPoint, endPoint;
+    private Polyline lines;
 
     public OfflineMapFragment() {
     }
@@ -102,8 +102,6 @@ public class OfflineMapFragment extends BottomSheetDialogFragment implements Vie
         binding.imageViewRefresh.setOnClickListener(this);
         binding.imageViewArrowDown.setOnClickListener(this);
         binding.imageViewMyLocation.setOnClickListener(this);
-//        binding.textViewTileNumber.setText(String.valueOf(cacheManager.possibleTilesInArea(lines.getBounds(),
-//                1, 17)));
         binding.textViewTileNumber.setText(String.format(getString(R.string.tile_number),
                 cacheManager.possibleTilesInArea(lines.getBounds(), 1, 17)));
         binding.textViewAccess.setText(String.format(getString(R.string.n_mg), cacheManager.cacheCapacity() / (8 * 1024 * 1024)));
@@ -161,8 +159,6 @@ public class OfflineMapFragment extends BottomSheetDialogFragment implements Vie
             binding.mapView.getOverlays().remove(startPointIndex);
         startPointIndex = endPointIndex = 0;
         lines.setPoints(new ArrayList<>());
-//        binding.textViewTileNumber.setText(String.valueOf(cacheManager.possibleTilesInArea(lines.getBounds(),
-//                1, 17)));
         binding.textViewTileNumber.setText(String.format(getString(R.string.tile_number),
                 cacheManager.possibleTilesInArea(lines.getBounds(), 1, 17)));
 
@@ -181,8 +177,6 @@ public class OfflineMapFragment extends BottomSheetDialogFragment implements Vie
             endPointIndex = binding.mapView.getOverlays().size() - 1;
         }
         addPolyline();
-//        binding.textViewTileNumber.setText(String.valueOf(cacheManager.possibleTilesInArea(lines.getBounds(),
-//                1, 17)));
         binding.textViewTileNumber.setText(String.format(getString(R.string.tile_number),
                 cacheManager.possibleTilesInArea(lines.getBounds(), 1, 17)));
     }
