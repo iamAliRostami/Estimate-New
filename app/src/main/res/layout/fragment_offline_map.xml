@@ -22,7 +22,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:padding="@dimen/large_dp"
+                android:padding="@dimen/medium_dp"
                 android:text="@string/download_map"
                 android:textSize="@dimen/text_size_medium"
                 android:textStyle="bold" />
@@ -37,6 +37,16 @@
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:justificationMode="inter_word"
+            android:paddingStart="@dimen/large_dp"
+            android:paddingEnd="@dimen/large_dp"
+            android:text="@string/download_map_help"
+            android:textSize="@dimen/text_size_medium"
+            tools:ignore="UnusedAttribute" />
+
         <RelativeLayout
             android:id="@+id/relative_layout_map"
             android:layout_width="wrap_content"
@@ -50,6 +60,7 @@
                 android:id="@+id/map_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
             <ImageView
                 android:id="@+id/image_view_my_location"
                 android:layout_width="wrap_content"
@@ -79,9 +90,38 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:padding="@dimen/large_dp"
-                android:text="@string/tile_number"
+                android:padding="@dimen/medium_dp"
+                android:text="@string/occupied_capacity"
                 android:textSize="@dimen/text_size_medium" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_view_occupied"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:textSize="@dimen/text_size_medium" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:padding="@dimen/medium_dp"
+                android:text="@string/access_capacity"
+                android:textSize="@dimen/text_size_medium" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_view_access"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:textSize="@dimen/text_size_medium" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/text_view_tile_number"
@@ -89,6 +129,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
+                android:padding="@dimen/medium_dp"
                 android:text="@string/zero"
                 android:textSize="@dimen/text_size_medium" />
 

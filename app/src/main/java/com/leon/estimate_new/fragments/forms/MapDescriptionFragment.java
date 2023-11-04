@@ -103,7 +103,7 @@ public class MapDescriptionFragment extends Fragment implements View.OnClickList
         File file = new File(Environment.getExternalStorageDirectory(), "osmdroid/tiles");
         Configuration.getInstance().setOsmdroidTileCache(file);
 //
-        binding.mapView.setTileSource(new XYTileSource("Mapnik", 0, 18, 256, ".png", new String[] {}));
+        binding.mapView.setTileSource(new XYTileSource("Mapnik", 0, 18, 256, ".png", new String[]{}));
 //        binding.mapView.setUseDataConnection(false);
         //TODO
         initializeBaseMap();
@@ -183,15 +183,15 @@ public class MapDescriptionFragment extends Fragment implements View.OnClickList
     }
 
     private void showCurrentLocation() {
-        final IMapController mapController = binding.mapView.getController();
+        IMapController mapController = binding.mapView.getController();
         mapController.setZoom(19.5);
-        final double latitude = getLocationTracker(requireActivity()).getLatitude();
-        final double longitude = getLocationTracker(requireActivity()).getLongitude();
+        double latitude = getLocationTracker(requireActivity()).getLatitude();
+        double longitude = getLocationTracker(requireActivity()).getLongitude();
 
-        final GeoPoint startPoint = new GeoPoint(latitude, longitude);
+        GeoPoint startPoint = new GeoPoint(latitude, longitude);
         mapController.setCenter(startPoint);
 
-        final MyLocationNewOverlay locationOverlay =
+        MyLocationNewOverlay locationOverlay =
                 new MyLocationNewOverlay(new GpsMyLocationProvider(requireContext()), binding.mapView);
         locationOverlay.enableMyLocation();
         binding.mapView.getOverlays().add(locationOverlay);

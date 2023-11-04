@@ -6,7 +6,6 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,8 +27,8 @@ import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.events.MapEventsReceiver;
 import org.osmdroid.tileprovider.cachemanager.CacheManager;
-import org.osmdroid.tileprovider.constants.OpenStreetMapTileProviderConstants;
 import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.CustomZoomButtonsController;
 import org.osmdroid.views.overlay.MapEventsOverlay;
 import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.Polyline;
@@ -38,7 +37,8 @@ import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import java.util.ArrayList;
 
-public class OfflineMapFragment extends BottomSheetDialogFragment implements View.OnClickListener {
+public class OfflineMapFragment extends BottomSheetDialogFragment implements View.OnClickListener,
+        CacheManager.CacheManagerCallback, MapEventsReceiver {
 
     private FragmentOfflineMapBinding binding;
     private GeoPoint startPoint, endPoint;
@@ -68,63 +68,6 @@ public class OfflineMapFragment extends BottomSheetDialogFragment implements Vie
         return binding.getRoot();
     }
 
-    private void initialize() {
-        binding.imageViewArrowDown.setOnClickListener(this);
-        binding.imageViewRefresh.setOnClickListener(this);
-        binding.imageViewMyLocation.setOnClickListener(this);
-        binding.buttonDownload.setOnClickListener(this);
-        initializeMap();
-        final RelativeLayout.LayoutParams params = new RelativeLayout.
-                LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
-                requireContext().getResources().getDisplayMetrics().widthPixels);
-        binding.mapView.setLayoutParams(params);
-    }
-
-    private void initializeMap() {
-        Configuration.getInstance().load(requireContext(), PreferenceManager.getDefaultSharedPreferences(requireContext()));
-        binding.mapView.setTileSource(new CustomOnlineTileSource());
-        binding.mapView.setBuiltInZoomControls(true);
-        binding.mapView.setMultiTouchControls(true);
-        showCurrentLocation();
-        onMapTouchListener();
-        Log.e("path",Configuration.getInstance().getOsmdroidTileCache().getAbsolutePath());
-//        OpenStreetMapTileProviderConstants.
-
-        cacheManager = new CacheManager(binding.mapView);
-
-        lines = new Polyline(binding.mapView);
-    }
-
-    private void onMapTouchListener() {
-        binding.mapView.getOverlays().add(new MapEventsOverlay(new MapEventsReceiver() {
-            @Override
-            public boolean singleTapConfirmedHelper(GeoPoint p) {
-                addPoint(p);
-                return false;
-            }
-
-            @Override
-            public boolean longPressHelper(GeoPoint p) {
-                addPoint(p);
-                return false;
-            }
-        }));
-    }
-
-
-    private void showCurrentLocation() {
-        IMapController mapController = binding.mapView.getController();
-        mapController.setZoom(17.5);
-        double latitude = getLocationTracker(requireActivity()).getLatitude();
-        double longitude = getLocationTracker(requireActivity()).getLongitude();
-        mapController.setCenter(new GeoPoint(latitude, longitude));
-        MyLocationNewOverlay locationOverlay =
-                new MyLocationNewOverlay(new GpsMyLocationProvider(requireContext()), binding.mapView);
-        locationOverlay.enableMyLocation();
-        binding.mapView.getOverlays().add(locationOverlay);
-
-    }
-
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -150,6 +93,47 @@ public class OfflineMapFragment extends BottomSheetDialogFragment implements Vie
         return serviceLocationDialog;
     }
 
+    private void initialize() {
+        initializeMap();
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
+                requireContext().getResources().getDisplayMetrics().widthPixels);
+        binding.mapView.setLayoutParams(params);
+        binding.buttonDownload.setOnClickListener(this);
+        binding.imageViewRefresh.setOnClickListener(this);
+        binding.imageViewArrowDown.setOnClickListener(this);
+        binding.imageViewMyLocation.setOnClickListener(this);
+//        binding.textViewTileNumber.setText(String.valueOf(cacheManager.possibleTilesInArea(lines.getBounds(),
+//                1, 17)));
+        binding.textViewTileNumber.setText(String.format(getString(R.string.tile_number),
+                cacheManager.possibleTilesInArea(lines.getBounds(), 1, 17)));
+        binding.textViewAccess.setText(String.format(getString(R.string.n_mg), cacheManager.cacheCapacity() / (8 * 1024 * 1024)));
+        binding.textViewOccupied.setText(String.format(getString(R.string.n_mg), cacheManager.currentCacheUsage() / (8 * 1024 * 1024)));
+    }
+
+    private void initializeMap() {
+        Configuration.getInstance().load(requireContext(), PreferenceManager.getDefaultSharedPreferences(requireContext()));
+        binding.mapView.setTileSource(new CustomOnlineTileSource());
+        binding.mapView.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.NEVER);
+        binding.mapView.setMultiTouchControls(true);
+        binding.mapView.getOverlays().add(new MapEventsOverlay(this));
+        showCurrentLocation();
+        cacheManager = new CacheManager(binding.mapView);
+        lines = new Polyline(binding.mapView);
+    }
+
+    private void showCurrentLocation() {
+        IMapController mapController = binding.mapView.getController();
+        mapController.setZoom(17.5);
+        double latitude = getLocationTracker(requireActivity()).getLatitude();
+        double longitude = getLocationTracker(requireActivity()).getLongitude();
+        mapController.setCenter(new GeoPoint(latitude, longitude));
+        MyLocationNewOverlay locationOverlay =
+                new MyLocationNewOverlay(new GpsMyLocationProvider(requireContext()), binding.mapView);
+        locationOverlay.enableMyLocation();
+        binding.mapView.getOverlays().add(locationOverlay);
+
+    }
+
     @Override
     public void onClick(View v) {
         int id = v.getId();
@@ -157,49 +141,17 @@ public class OfflineMapFragment extends BottomSheetDialogFragment implements Vie
             dismiss();
         } else if (id == R.id.button_download) {
             if (cacheManager.possibleTilesInArea(lines.getBounds(), 1, 17) > 0) {
-                startDownloadMap();
-            } else new CustomToast().warning("ناحیه ای انتخاب نشده است");
-
+                cacheManager.downloadAreaAsync(requireContext(), lines.getBounds(), 1, 17, this);
+            } else {
+                new CustomToast().warning(getString(R.string.no_tiles_selected));
+            }
         } else if (id == R.id.image_view_refresh) {
             clearMap();
-
         } else if (id == R.id.image_view_my_location) {
             showCurrentLocation();
         }
     }
 
-    private void startDownloadMap() {
-        cacheManager.downloadAreaAsync(requireContext(), lines.getBounds(), 1, 17,
-                new CacheManager.CacheManagerCallback() {
-                    @Override
-                    public void onTaskComplete() {
-                        Log.e("here", "onTaskComplete");
-                    }
-
-                    @Override
-                    public void updateProgress(int progress, int currentZoomLevel, int zoomMin, int zoomMax) {
-                        Log.e("here", "updateProgress " + "progress " + progress);
-                        Log.e("here", "updateProgress " + "currentZoomLevel " + currentZoomLevel);
-                        Log.e("here", "updateProgress " + "zoomMin " + zoomMin);
-                        Log.e("here", "updateProgress " + "progress " + progress);
-                    }
-
-                    @Override
-                    public void downloadStarted() {
-                        Log.e("here", "downloadStarted");
-                    }
-
-                    @Override
-                    public void setPossibleTilesInArea(int total) {
-                        Log.e("here", "setPossibleTilesInArea " + total);
-                    }
-
-                    @Override
-                    public void onTaskFailed(int errors) {
-                        Log.e("here", "onTaskFailed " + errors);
-                    }
-                });
-    }
 
     private void clearMap() {
         startPoint = endPoint = null;
@@ -208,9 +160,12 @@ public class OfflineMapFragment extends BottomSheetDialogFragment implements Vie
         if (startPointIndex > 0)
             binding.mapView.getOverlays().remove(startPointIndex);
         startPointIndex = endPointIndex = 0;
-        if (lines != null)
-            lines.setPoints(new ArrayList<>());
-        binding.textViewTileNumber.setText(getString(R.string.zero));
+        lines.setPoints(new ArrayList<>());
+//        binding.textViewTileNumber.setText(String.valueOf(cacheManager.possibleTilesInArea(lines.getBounds(),
+//                1, 17)));
+        binding.textViewTileNumber.setText(String.format(getString(R.string.tile_number),
+                cacheManager.possibleTilesInArea(lines.getBounds(), 1, 17)));
+
     }
 
     private void addPoint(GeoPoint p) {
@@ -224,10 +179,12 @@ public class OfflineMapFragment extends BottomSheetDialogFragment implements Vie
         } else if (endPoint == null) {
             endPoint = p;
             endPointIndex = binding.mapView.getOverlays().size() - 1;
-            addPolyline();
-            binding.textViewTileNumber.setText(String.valueOf(cacheManager.possibleTilesInArea(lines.getBounds(),
-                    1, 17)));
         }
+        addPolyline();
+//        binding.textViewTileNumber.setText(String.valueOf(cacheManager.possibleTilesInArea(lines.getBounds(),
+//                1, 17)));
+        binding.textViewTileNumber.setText(String.format(getString(R.string.tile_number),
+                cacheManager.possibleTilesInArea(lines.getBounds(), 1, 17)));
     }
 
     private void addMaker(GeoPoint p) {
@@ -241,12 +198,50 @@ public class OfflineMapFragment extends BottomSheetDialogFragment implements Vie
         ArrayList<GeoPoint> polygonPoint = new ArrayList<>();
 
         polygonPoint.add(startPoint);
-        polygonPoint.add(new GeoPoint(startPoint.getLatitude(), endPoint.getLongitude()));
-        polygonPoint.add(endPoint);
-        polygonPoint.add(new GeoPoint(endPoint.getLatitude(), startPoint.getLongitude()));
-        polygonPoint.add(startPoint);
-
+        if (endPoint != null) {
+            polygonPoint.add(new GeoPoint(startPoint.getLatitude(), endPoint.getLongitude()));
+            polygonPoint.add(endPoint);
+            polygonPoint.add(new GeoPoint(endPoint.getLatitude(), startPoint.getLongitude()));
+            polygonPoint.add(startPoint);
+        }
         lines.setPoints(polygonPoint);
         binding.mapView.getOverlays().add(lines);
+    }
+
+    @Override
+    public void onTaskComplete() {
+        new CustomToast().success(getString(R.string.download_succeed));
+    }
+
+    @Override
+    public void updateProgress(int progress, int currentZoomLevel, int zoomMin, int zoomMax) {
+
+    }
+
+    @Override
+    public void downloadStarted() {
+        new CustomToast().success(getString(R.string.download_started));
+    }
+
+    @Override
+    public void setPossibleTilesInArea(int total) {
+
+    }
+
+    @Override
+    public void onTaskFailed(int errors) {
+        new CustomToast().error(getString(R.string.download_failed));
+    }
+
+    @Override
+    public boolean singleTapConfirmedHelper(GeoPoint p) {
+        addPoint(p);
+        return false;
+    }
+
+    @Override
+    public boolean longPressHelper(GeoPoint p) {
+        addPoint(p);
+        return false;
     }
 }

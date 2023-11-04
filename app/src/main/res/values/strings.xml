@@ -458,5 +458,13 @@
     <string name="unuploaded_eshterak">تعداد اشتراک بارگذاری نشده:</string>
     <string name="unuploaded_image">تعداد عکس بارگذاری نشده:</string>
     <string name="download_map">بارگیری نقشه</string>
-    <string name="tile_number">تعداد لایه</string>
+    <string name="tile_number">تعداد تصویر %d</string>
+    <string name="download_map_help">برای انتخاب ناحیه مورد نظر دو نقطه را انتخاب کنید</string>
+    <string name="occupied_capacity">حجم اشغال شده</string>
+    <string name="access_capacity">کل حجم در دسترس</string>
+    <string name="n_mg">%d مگابایت</string>
+    <string name="download_succeed">بارگیری با موفقیت انجام شد</string>
+    <string name="download_failed">بارگیری با خطا مواجه شد</string>
+    <string name="download_started">بارگیری آغاز شد</string>
+    <string name="no_tiles_selected">ناحیه ای انتخاب نشده است</string>
 </resources>
