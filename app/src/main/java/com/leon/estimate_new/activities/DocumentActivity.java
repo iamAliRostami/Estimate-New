@@ -4,21 +4,34 @@ import static com.leon.estimate_new.enums.BundleEnum.BILL_ID;
 import static com.leon.estimate_new.enums.BundleEnum.NEW_ENSHEAB;
 import static com.leon.estimate_new.enums.BundleEnum.TRACK_NUMBER;
 import static com.leon.estimate_new.helpers.Constants.MAP_SELECTED;
+import static com.leon.estimate_new.helpers.Constants.PHOTO_PERMISSIONS;
 import static com.leon.estimate_new.helpers.MyApplication.setActivityComponent;
 import static com.leon.estimate_new.utils.CustomFile.loadImage;
+import static com.leon.estimate_new.utils.PermissionManager.checkCameraPermission;
+import static com.leon.estimate_new.utils.PermissionManager.checkLocationPermission;
+import static com.leon.estimate_new.utils.PermissionManager.gpsEnabled;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.Settings;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
+import com.leon.estimate_new.BuildConfig;
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.databinding.ActivityDocumentBinding;
 import com.leon.estimate_new.di.view_model.HttpClientWrapper;
@@ -57,12 +70,20 @@ public class DocumentActivity extends AppCompatActivity implements TakePhotoFrag
         super.onCreate(savedInstanceState);
         binding = ActivityDocumentBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        if (checkSelfPermission(Manifest.permission.CAMERA)
-                != PackageManager.PERMISSION_GRANTED ||
-                checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-                        != PackageManager.PERMISSION_GRANTED ||
-                checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        != PackageManager.PERMISSION_GRANTED) {
+//        if (checkSelfPermission(Manifest.permission.CAMERA)
+//                != PackageManager.PERMISSION_GRANTED ||
+//                checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+//                        != PackageManager.PERMISSION_GRANTED ||
+//                checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+//                        != PackageManager.PERMISSION_GRANTED) {
+//            askPermission();
+//        } else {
+//            initialize();
+//        }
+        checkPermissions();
+    }
+    private void checkPermissions(){
+        if (!checkCameraPermission(getApplicationContext())) {
             askPermission();
         } else {
             initialize();
@@ -146,16 +167,48 @@ public class DocumentActivity extends AppCompatActivity implements TakePhotoFrag
             }
         };
 
-        new TedPermission(this)
-                .setPermissionListener(permissionlistener)
-                .setRationaleMessage("جهت استفاده از برنامه مجوزهای پیشنهادی را قبول فرمایید")
-                .setDeniedMessage("در صورت رد این مجوز قادر به استفاده از این دستگاه نخواهید بود" + "\n" +
-                        "لطفا با فشار دادن دکمه اعطای دسترسی و سپس در بخش دسترسی ها با این مجوز ها موافقت نمایید")
-                .setPermissions(Manifest.permission.CAMERA,
-                        Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE).check();
-    }
+//        new TedPermission(this)
+//                .setPermissionListener(permissionlistener)
+//                .setRationaleMessage("جهت استفاده از برنامه مجوزهای پیشنهادی را قبول فرمایید")
+//                .setDeniedMessage("در صورت رد این مجوز قادر به استفاده از این دستگاه نخواهید بود" + "\n" +
+//                        "لطفا با فشار دادن دکمه اعطای دسترسی و سپس در بخش دسترسی ها با این مجوز ها موافقت نمایید")
+//                .setPermissions(Manifest.permission.CAMERA,
+//                        Manifest.permission.READ_EXTERNAL_STORAGE,
+//                        Manifest.permission.WRITE_EXTERNAL_STORAGE).check();
 
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if (!Environment.isExternalStorageManager()) {
+                final Uri uri = Uri.parse("package:" + BuildConfig.APPLICATION_ID);
+                allFileResultLauncher.launch(new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri));
+            } else if (!Settings.System.canWrite(this)) {
+                final Uri uri = Uri.fromParts("package", getPackageName(), null);
+                settingResultLauncher.launch(new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS, uri));
+            } else if (ActivityCompat.checkSelfPermission(this,
+                    Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                new TedPermission(this)
+                        .setPermissionListener(permissionlistener)
+                        .setRationaleMessage(getString(R.string.confirm_permission))
+                        .setRationaleConfirmText(getString(R.string.allow_permission))
+                        .setDeniedMessage(getString(R.string.if_reject_permission))
+                        .setDeniedCloseButtonText(getString(R.string.close))
+                        .setGotoSettingButtonText(getString(R.string.allow_permission))
+                        .setPermissions(Manifest.permission.CAMERA).check();
+            }
+        } else
+            new TedPermission(this)
+                    .setPermissionListener(permissionlistener)
+                    .setRationaleMessage(getString(R.string.confirm_permission))
+                    .setRationaleConfirmText(getString(R.string.allow_permission))
+                    .setDeniedMessage(getString(R.string.if_reject_permission))
+                    .setDeniedCloseButtonText(getString(R.string.close))
+                    .setGotoSettingButtonText(getString(R.string.allow_permission))
+                    .setPermissions(PHOTO_PERMISSIONS).check();
+    }
+    private final ActivityResultLauncher<Intent> allFileResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(), result -> checkPermissions());
+    private final ActivityResultLauncher<Intent> settingResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(), result -> checkPermissions());
     @Override
     public void setTakenBitmap(Bitmap bitmap) {
         this.bitmap = bitmap;

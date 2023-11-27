@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
+import android.os.Build;
+import android.os.Environment;
 import android.provider.Settings;
 
 import androidx.appcompat.app.AlertDialog;
@@ -70,15 +72,30 @@ public class PermissionManager {
                 ).check();
     }
 
+//    public static boolean checkCameraPermission(Context context) {
+//        return ActivityCompat.checkSelfPermission(context,
+//                Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED &&
+//                ActivityCompat.checkSelfPermission(context,
+//                        Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
+//                ActivityCompat.checkSelfPermission(context,
+//                        Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+//    }
     public static boolean checkCameraPermission(Context context) {
-        return ActivityCompat.checkSelfPermission(context,
-                Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED &&
+        //TODO
+        return checkStoragePermission(context) &&
                 ActivityCompat.checkSelfPermission(context,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
+                        Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    //TODO
+    public static boolean checkStoragePermission(Context context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
+            return Environment.isExternalStorageManager() && Settings.System.canWrite(context);
+        return ActivityCompat.checkSelfPermission(context,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED ||
                 ActivityCompat.checkSelfPermission(context,
                         Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
     }
-
     public static void checkCameraPermission(Activity activity) {
         if (ActivityCompat.checkSelfPermission(activity,
                 Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED &&
@@ -117,12 +134,12 @@ public class PermissionManager {
                 ).check();
     }
 
-    public static boolean checkStoragePermission(Context context) {
-        return ActivityCompat.checkSelfPermission(context,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
-                ActivityCompat.checkSelfPermission(context,
-                        Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED;
-    }
+//    public static boolean checkStoragePermission(Context context) {
+//        return ActivityCompat.checkSelfPermission(context,
+//                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
+//                ActivityCompat.checkSelfPermission(context,
+//                        Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED;
+//    }
 
     public static void checkStoragePermission(Activity activity) {
         if (ActivityCompat.checkSelfPermission(activity,

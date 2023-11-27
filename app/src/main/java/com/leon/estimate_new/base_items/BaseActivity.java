@@ -16,22 +16,30 @@ import static com.leon.estimate_new.utils.PermissionManager.enableNetwork;
 import static com.leon.estimate_new.utils.PermissionManager.gpsEnabled;
 import static com.leon.estimate_new.utils.PermissionManager.isNetworkAvailable;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Debug;
+import android.os.Environment;
+import android.provider.Settings;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -101,16 +109,39 @@ public abstract class BaseActivity extends AppCompatActivity implements
                 PermissionManager.forceClose(activity);
             }
         };
-        new TedPermission(this)
-                .setPermissionListener(permissionlistener)
-                .setRationaleMessage(getString(R.string.confirm_permission))
-                .setRationaleConfirmText(getString(R.string.allow_permission))
-                .setDeniedMessage(getString(R.string.if_reject_permission))
-                .setDeniedCloseButtonText(getString(R.string.close))
-                .setGotoSettingButtonText(getString(R.string.allow_permission))
-                .setPermissions(PHOTO_PERMISSIONS).check();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if (!Environment.isExternalStorageManager()) {
+                final Uri uri = Uri.parse("package:" + BuildConfig.APPLICATION_ID);
+                allFileResultLauncher.launch(new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri));
+            } else if (!Settings.System.canWrite(activity)) {
+                final Uri uri = Uri.fromParts("package", getPackageName(), null);
+                settingResultLauncher.launch(new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS, uri));
+            } else if (ActivityCompat.checkSelfPermission(activity,
+                    Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                new TedPermission(this)
+                        .setPermissionListener(permissionlistener)
+                        .setRationaleMessage(getString(R.string.confirm_permission))
+                        .setRationaleConfirmText(getString(R.string.allow_permission))
+                        .setDeniedMessage(getString(R.string.if_reject_permission))
+                        .setDeniedCloseButtonText(getString(R.string.close))
+                        .setGotoSettingButtonText(getString(R.string.allow_permission))
+                        .setPermissions(Manifest.permission.CAMERA).check();
+            }
+        } else
+            new TedPermission(this)
+                    .setPermissionListener(permissionlistener)
+                    .setRationaleMessage(getString(R.string.confirm_permission))
+                    .setRationaleConfirmText(getString(R.string.allow_permission))
+                    .setDeniedMessage(getString(R.string.if_reject_permission))
+                    .setDeniedCloseButtonText(getString(R.string.close))
+                    .setGotoSettingButtonText(getString(R.string.allow_permission))
+                    .setPermissions(PHOTO_PERMISSIONS).check();
     }
 
+    private final ActivityResultLauncher<Intent> allFileResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(), result -> checkPermissions());
+    private final ActivityResultLauncher<Intent> settingResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(), result -> checkPermissions());
     private void askLocationPermission() {
         PermissionListener permissionlistener = new PermissionListener() {
             @Override
