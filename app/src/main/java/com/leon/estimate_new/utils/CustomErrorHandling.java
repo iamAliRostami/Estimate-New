@@ -1,5 +1,7 @@
 package com.leon.estimate_new.utils;
 
+import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponent;
+
 import android.content.Context;
 
 import com.leon.estimate_new.R;
@@ -69,7 +71,7 @@ public class CustomErrorHandling {
 
     public APIError parseError(Response<?> response) {
         try {
-            Converter<ResponseBody, APIError> converter = MyApplication.getApplicationComponent()
+            Converter<ResponseBody, APIError> converter = getApplicationComponent()
                     .Retrofit().responseBodyConverter(APIError.class, new Annotation[0]);
             APIError error;
             error = converter.convert(Objects.requireNonNull(response.errorBody()));
