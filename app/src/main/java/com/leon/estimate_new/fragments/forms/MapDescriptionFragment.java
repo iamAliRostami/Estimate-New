@@ -49,6 +49,7 @@ import org.osmdroid.config.Configuration;
 import org.osmdroid.events.MapEventsReceiver;
 import org.osmdroid.tileprovider.tilesource.XYTileSource;
 import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.CustomZoomButtonsController;
 import org.osmdroid.views.overlay.MapEventsOverlay;
 import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.Polyline;
@@ -62,7 +63,7 @@ public class MapDescriptionFragment extends Fragment implements View.OnClickList
     private final MapLayerType[] layerTypes = {GIS_WATER_PIPE, GIS_WATER_TRANSFER,
             GIS_SANITATION_TRANSFER, GIS_PARCEL};
     private final ArrayList<GeoPoint> polygonPoint = new ArrayList<>();
-    private double[] latLong;
+    private final double[] latLong = new double[2];
     private int pointWater, pointSiphon, layerCounter = 0, polygonIndex;
     private Callback formActivity;
     private FragmentMapDescriptionBinding binding;
@@ -176,7 +177,9 @@ public class MapDescriptionFragment extends Fragment implements View.OnClickList
     private void initializeBaseMap() {
         Configuration.getInstance().load(requireContext(), PreferenceManager.getDefaultSharedPreferences(requireContext()));
         binding.mapView.setTileSource(new CustomOnlineTileSource());
-        binding.mapView.setBuiltInZoomControls(true);
+//        binding.mapView.setBuiltInZoomControls(true);
+        binding.mapView.getZoomController().
+                setVisibility(CustomZoomButtonsController.Visibility.SHOW_AND_FADEOUT);
         binding.mapView.setMultiTouchControls(true);
         showCurrentLocation();
         requireActivity().runOnUiThread(() -> binding.progressBar.setVisibility(View.GONE));
@@ -226,10 +229,13 @@ public class MapDescriptionFragment extends Fragment implements View.OnClickList
 
     public void setXY(Place place) {
         if (place.X != 0 && place.Y != 0) {
-            final String utm = "39 S ".concat(String.valueOf(place.X)).concat(" ")
-                    .concat(String.valueOf(place.Y));
-            final CoordinateConversion conversion = new CoordinateConversion();
-            latLong = conversion.utm2LatLon(utm);
+//            final String utm = "39 S ".concat(String.valueOf(place.X)).concat(" ")
+//                    .concat(String.valueOf(place.Y));
+//            final CoordinateConversion conversion = new CoordinateConversion();
+//            latLong = conversion.utm2LatLon(utm);
+            //TODO utm or LatLang
+            latLong [0] = place.Y;
+            latLong [1] = place.X;
             addUserPlace();
             getGisToken();
         }

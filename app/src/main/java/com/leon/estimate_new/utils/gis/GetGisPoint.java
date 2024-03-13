@@ -21,6 +21,7 @@ import com.leon.estimate_new.infrastructure.IAbfaService;
 import com.leon.estimate_new.infrastructure.ICallback;
 import com.leon.estimate_new.infrastructure.ICallbackIncomplete;
 import com.leon.estimate_new.tables.GISInfo;
+import com.leon.estimate_new.utils.CustomErrorHandling;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -97,8 +98,11 @@ public class GetGisPoint extends BaseAsync {
         @Override
         public void executeIncomplete(Response<String> response) {
 
-            try {
+            CustomErrorHandling errorHandling = new CustomErrorHandling(getContext());
+
+            try {CustomErrorHandling.APIError apiError = errorHandling.parseError(response);
                 JSONObject jObjError = new JSONObject(response.errorBody().string());
+                Log.e("message", apiError.message());
                 Log.e("message", jObjError.getJSONObject("error").getString("message"));
             } catch (JSONException | IOException e) {
                 e.printStackTrace();

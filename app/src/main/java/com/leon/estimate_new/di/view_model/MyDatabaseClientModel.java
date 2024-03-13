@@ -1,5 +1,7 @@
 package com.leon.estimate_new.di.view_model;
 
+import static com.leon.estimate_new.helpers.MyApplication.getDBName;
+
 import android.content.Context;
 
 import androidx.room.Room;
@@ -16,7 +18,7 @@ public class MyDatabaseClientModel {
 
     @Inject
     public MyDatabaseClientModel(Context context) {
-        myDatabase = Room.databaseBuilder(context, MyDatabase.class, MyApplication.getDBName())
+        myDatabase = Room.databaseBuilder(context, MyDatabase.class, getDBName())
                 .allowMainThreadQueries().build();
     }
 
@@ -28,8 +30,7 @@ public class MyDatabaseClientModel {
     }
 
     public static void migration(Context context) {
-        Room.databaseBuilder(context, MyDatabase.class,
-                        MyApplication.getDBName()).
+        Room.databaseBuilder(context, MyDatabase.class,getDBName()).
                 fallbackToDestructiveMigration().
                 addMigrations(MyDatabase.MIGRATION_1_2).
                 allowMainThreadQueries().
