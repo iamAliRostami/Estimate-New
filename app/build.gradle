@@ -146,7 +146,7 @@ android {
 dependencies {
 
     def arch_version = '1.1.1'
-    def dagger_version = '2.50'
+    def dagger_version = '2.51'
     def okhttp3_version = '4.12.0'
     def retrofit2_version = '2.9.0'
     implementation 'com.google.android.material:material:1.11.0'
@@ -160,7 +160,7 @@ dependencies {
     implementation 'androidx.multidex:multidex:2.0.1'
 //
 //
-    implementation 'com.google.android.gms:play-services-location:21.0.1'
+    implementation 'com.google.android.gms:play-services-location:21.2.0'
     implementation 'com.google.android.material:material:1.11.0'
     implementation 'com.google.code.gson:gson:2.10.1'
     implementation 'com.cocoahero.android:geojson:1.0.1@jar'
