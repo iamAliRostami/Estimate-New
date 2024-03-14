@@ -607,85 +607,53 @@ public class PDFUtility {
         cell.setPadding(4f);
         row.addCell(cell);
 
-        PdfPTable pdfPTableTemp = new PdfPTable(3);
-        Paragraph temp = new Paragraph(dataTable.get(1)[1].concat(" :X"), FONT_EN);
-        PdfPCell pdfPCellTemp = new PdfPCell(temp);
-        pdfPCellTemp.setHorizontalAlignment(Element.ALIGN_CENTER);
-        pdfPCellTemp.setPadding(4f);
-        pdfPTableTemp.addCell(pdfPCellTemp);
+        PdfPTable pdfPTableTemp;
+        Paragraph temp;
+        PdfPCell pdfPCellTemp;
+        {
+            pdfPTableTemp = new PdfPTable(3);
+            temp = new Paragraph(dataTable.get(1)[1].concat(" :X"), FONT_EN);
+            pdfPCellTemp = new PdfPCell(temp);
+            pdfPCellTemp.setHorizontalAlignment(Element.ALIGN_CENTER);
+            pdfPCellTemp.setPadding(4f);
+            pdfPTableTemp.addCell(pdfPCellTemp);
 
-        temp = new Paragraph(dataTable.get(1)[0].concat(" :Y"), FONT_EN);
-        pdfPCellTemp = new PdfPCell(temp);
-        pdfPCellTemp.setHorizontalAlignment(Element.ALIGN_CENTER);
-        pdfPCellTemp.setPadding(4f);
-        pdfPTableTemp.addCell(pdfPCellTemp);
+            temp = new Paragraph(dataTable.get(1)[0].concat(" :Y"), FONT_EN);
+            pdfPCellTemp = new PdfPCell(temp);
+            pdfPCellTemp.setHorizontalAlignment(Element.ALIGN_CENTER);
+            pdfPCellTemp.setPadding(4f);
+            pdfPTableTemp.addCell(pdfPCellTemp);
 
-        PdfPTable pdfPTable = new PdfPTable(3);
+            temp = new Paragraph(pe.process("مختصات جغرافیایی محل: "), FONT_TEXT_ITALIC);
+            pdfPCellTemp = new PdfPCell(addEmptyLine(temp,2));
+            pdfPCellTemp.setHorizontalAlignment(Element.ALIGN_CENTER);
 
-        temp = new Paragraph(pe.process(" محل: "), FONT_TEXT_ITALIC);
-        pdfPCellTemp = new PdfPCell(temp);
-        pdfPCellTemp.setHorizontalAlignment(Element.ALIGN_RIGHT);
-        pdfPCellTemp.setPadding(4f);
-        pdfPCellTemp.setBorder(PdfPCell.NO_BORDER);
-        pdfPTable.addCell(pdfPCellTemp);
-
-        temp = new Paragraph(" UTM ", FONT_EN);
-        pdfPCellTemp = new PdfPCell(temp);
-        pdfPCellTemp.setHorizontalAlignment(Element.ALIGN_CENTER);
-        pdfPCellTemp.setPadding(4f);
-        pdfPCellTemp.setBorder(PdfPCell.NO_BORDER);
-        pdfPTable.addCell(pdfPCellTemp);
-
-        temp = new Paragraph(pe.process(" نقطه "), FONT_TEXT_ITALIC);
-        pdfPCellTemp = new PdfPCell(temp);
-        pdfPCellTemp.setHorizontalAlignment(Element.ALIGN_LEFT);
-        pdfPCellTemp.setPadding(4f);
-        pdfPCellTemp.setBorder(PdfPCell.NO_BORDER);
-        pdfPTable.addCell(pdfPCellTemp);
-
-        pdfPTableTemp.addCell(pdfPTable);
-        pdfPCellTemp = new PdfPCell(pdfPTableTemp);
-
+            pdfPTableTemp.addCell(pdfPCellTemp);
+            pdfPCellTemp = new PdfPCell(pdfPTableTemp);
+        }
         row.addCell(pdfPCellTemp);
 
-        pdfPTableTemp = new PdfPTable(3);
-        temp = new Paragraph(dataTable.get(1)[3].concat(" :X"), FONT_EN);
-        pdfPCellTemp = new PdfPCell(temp);
-        pdfPCellTemp.setHorizontalAlignment(Element.ALIGN_CENTER);
-        pdfPCellTemp.setPadding(4f);
-        pdfPTableTemp.addCell(pdfPCellTemp);
+        {
+            pdfPTableTemp = new PdfPTable(3);
+            temp = new Paragraph(dataTable.get(1)[3].concat(" :X"), FONT_EN);
+            pdfPCellTemp = new PdfPCell(temp);
+            pdfPCellTemp.setHorizontalAlignment(Element.ALIGN_CENTER);
+            pdfPCellTemp.setPadding(4f);
+            pdfPTableTemp.addCell(pdfPCellTemp);
 
-        temp = new Paragraph(dataTable.get(1)[2].concat(" :Y"), FONT_EN);
-        pdfPCellTemp = new PdfPCell(temp);
-        pdfPCellTemp.setHorizontalAlignment(Element.ALIGN_CENTER);
-        pdfPCellTemp.setPadding(4f);
-        pdfPTableTemp.addCell(pdfPCellTemp);
+            temp = new Paragraph(dataTable.get(1)[2].concat(" :Y"), FONT_EN);
+            pdfPCellTemp = new PdfPCell(temp);
+            pdfPCellTemp.setHorizontalAlignment(Element.ALIGN_CENTER);
+            pdfPCellTemp.setPadding(4f);
+            pdfPTableTemp.addCell(pdfPCellTemp);
 
-        pdfPTable = new PdfPTable(3);
+            temp = new Paragraph(pe.process("مختصات جغرافیایی ارزیاب:"), FONT_TEXT_ITALIC);
+            pdfPCellTemp = new PdfPCell(addEmptyLine(temp, 2));
+            pdfPCellTemp.setHorizontalAlignment(Element.ALIGN_CENTER);
 
-        temp = new Paragraph(pe.process(" ارزیاب: "), FONT_TEXT_ITALIC);
-        pdfPCellTemp = new PdfPCell(temp);
-        pdfPCellTemp.setHorizontalAlignment(Element.ALIGN_RIGHT);
-        pdfPCellTemp.setPadding(4f);
-        pdfPCellTemp.setBorder(PdfPCell.NO_BORDER);
-        pdfPTable.addCell(pdfPCellTemp);
-
-        temp = new Paragraph(" UTM ", FONT_EN);
-        pdfPCellTemp = new PdfPCell(temp);
-        pdfPCellTemp.setHorizontalAlignment(Element.ALIGN_RIGHT);
-        pdfPCellTemp.setPadding(4f);
-        pdfPCellTemp.setBorder(PdfPCell.NO_BORDER);
-        pdfPTable.addCell(pdfPCellTemp);
-
-        temp = new Paragraph(pe.process(" نقطه "), FONT_TEXT_ITALIC);
-        pdfPCellTemp = new PdfPCell(temp);
-        pdfPCellTemp.setHorizontalAlignment(Element.ALIGN_LEFT);
-        pdfPCellTemp.setPadding(4f);
-        pdfPCellTemp.setBorder(PdfPCell.NO_BORDER);
-        pdfPTable.addCell(pdfPCellTemp);
-
-        pdfPTableTemp.addCell(pdfPTable);
-        pdfPCellTemp = new PdfPCell(pdfPTableTemp);
+            pdfPTableTemp.addCell(pdfPCellTemp);
+            pdfPCellTemp = new PdfPCell(pdfPTableTemp);
+        }
 
         row.addCell(pdfPCellTemp);
 
@@ -698,7 +666,7 @@ public class PDFUtility {
         pdfPTableTemp.addCell(pdfPCellTemp);
         row.addCell(pdfPCellTemp);
 
-        pdfPTable = new PdfPTable(6);
+        PdfPTable pdfPTable = new PdfPTable(6);
         pdfPTable.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
         pdfPTableTemp.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
 
@@ -732,7 +700,7 @@ public class PDFUtility {
         pdfPCellTemp.setPadding(4f);
         pdfPTable.addCell(pdfPCellTemp);
 
-        temp = new Paragraph(pe.process(" نام مالک "), FONT_TEXT_ITALIC);
+        temp = new Paragraph(pe.process("نام و نام خانوادگی"), FONT_TEXT_ITALIC);
         pdfPCellTemp = new PdfPCell(addEmptyLine(temp, 2));
         pdfPCellTemp.setHorizontalAlignment(Element.ALIGN_CENTER);
         pdfPCellTemp.setPadding(4f);
