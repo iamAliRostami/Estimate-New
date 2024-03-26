@@ -12,9 +12,7 @@ import com.leon.estimate_new.tables.ImageDataTitle;
 import com.leon.estimate_new.tables.Input;
 import com.leon.estimate_new.tables.Login;
 import com.leon.estimate_new.tables.LoginFeedBack;
-import com.leon.estimate_new.tables.LoginInfo;
 import com.leon.estimate_new.tables.Place;
-import com.leon.estimate_new.tables.Request;
 import com.leon.estimate_new.tables.RequestToSend;
 import com.leon.estimate_new.tables.UploadImage;
 import com.leon.estimate_new.tables.Uri;
@@ -79,8 +77,6 @@ public interface IAbfaService {
     @PATCH("/Auth/Account/UpdateDeviceId")
     Call<SimpleMessage> signSerial(@Query("deviceId") String deviceId);
 
-    @PATCH("/Auth/Account/UpdateDeviceIdAnanymous")
-    Call<SimpleMessage> signSerial(@Body LoginInfo logininfo);
 
     @GET("/MoshtarakinApi/ExaminationManager/GetMyWorks")
     Call<Input> getMyWorks();

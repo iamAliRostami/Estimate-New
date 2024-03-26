@@ -53,6 +53,7 @@ import org.osmdroid.views.CustomZoomButtonsController;
 import org.osmdroid.views.overlay.MapEventsOverlay;
 import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.Polyline;
+import org.osmdroid.views.overlay.compass.CompassOverlay;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
@@ -125,14 +126,14 @@ public class MapDescriptionFragment extends Fragment implements View.OnClickList
         binding.mapView.getOverlays().add(new MapEventsOverlay(new MapEventsReceiver() {
             @Override
             public boolean singleTapConfirmedHelper(GeoPoint p) {
-                Log.e("location1", p.toString());
+//                Log.e("location1", p.toString());
                 addPolygon(p);
                 return false;
             }
 
             @Override
             public boolean longPressHelper(GeoPoint p) {
-                Log.e("location2", p.toString());
+//                Log.e("location2", p.toString());
                 addPoint(p);
                 return false;
             }
