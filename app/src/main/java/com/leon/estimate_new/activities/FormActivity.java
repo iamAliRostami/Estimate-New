@@ -52,6 +52,7 @@ import com.leon.estimate_new.tables.Tejariha;
 import com.leon.estimate_new.utils.estimating.GetDBData;
 
 import org.jetbrains.annotations.NotNull;
+import org.osmdroid.util.GeoPoint;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -245,9 +246,9 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
     }
 
     @Override
-    public void setWaterLocation(Point point) {
-        examinerDuty.x1 = calculationUserInput.x3 = point.x;
-        examinerDuty.y1 = calculationUserInput.y3 = point.y;
+    public void setWaterLocation(GeoPoint point) {
+        examinerDuty.x1 = calculationUserInput.x1 = point.getLongitude();
+        examinerDuty.y1 = calculationUserInput.y1 = point.getLatitude();
 
 //        final Point currentPoint = new Point(getLocationTracker(this).getLongitude(),
 //                getLocationTracker(this).getLatitude(), SpatialReferences.getWgs84());
@@ -260,6 +261,12 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
 
 //        examinerDuty.x2 = Double.parseDouble(s[1]);
 //        examinerDuty.y2 = Double.parseDouble(s[2]);
+    }
+
+    @Override
+    public void setCurrentLocation(GeoPoint point) {
+        examinerDuty.x2 = calculationUserInput.x2 = point.getLongitude();
+        examinerDuty.y2 = calculationUserInput.y2 = point.getLatitude();
     }
 
     @Override

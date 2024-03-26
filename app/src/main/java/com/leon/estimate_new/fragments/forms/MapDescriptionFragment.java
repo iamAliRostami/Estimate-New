@@ -14,11 +14,9 @@ import static com.leon.estimate_new.helpers.MyApplication.getLocationTracker;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -38,7 +36,6 @@ import com.leon.estimate_new.tables.CalculationUserInput;
 import com.leon.estimate_new.tables.ExaminerDuties;
 import com.leon.estimate_new.tables.Place;
 import com.leon.estimate_new.utils.CustomOnlineTileSource;
-import com.leon.estimate_new.utils.gis.CoordinateConversion;
 import com.leon.estimate_new.utils.gis.GetGisPoint;
 import com.leon.estimate_new.utils.gis.GetGisToken;
 import com.leon.estimate_new.utils.gis.GetGisXY;
@@ -53,7 +50,6 @@ import org.osmdroid.views.CustomZoomButtonsController;
 import org.osmdroid.views.overlay.MapEventsOverlay;
 import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.Polyline;
-import org.osmdroid.views.overlay.compass.CompassOverlay;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
@@ -155,6 +151,7 @@ public class MapDescriptionFragment extends Fragment implements View.OnClickList
             pointWater = 0;
         }
         if (pointWater == 0) {
+            formActivity.setWaterLocation(geoPoint);
             startMarker.setIcon(AppCompatResources.getDrawable(requireContext(), R.drawable.map_water_drop_point));
             binding.mapView.getOverlays().add(startMarker);
             pointWater = binding.mapView.getOverlays().size() - 1;
@@ -195,6 +192,8 @@ public class MapDescriptionFragment extends Fragment implements View.OnClickList
         GeoPoint startPoint = new GeoPoint(latitude, longitude);
         mapController.setCenter(startPoint);
 
+        formActivity.setCurrentLocation(startPoint);
+
         MyLocationNewOverlay locationOverlay =
                 new MyLocationNewOverlay(new GpsMyLocationProvider(requireContext()), binding.mapView);
         locationOverlay.enableMyLocation();
@@ -234,16 +233,19 @@ public class MapDescriptionFragment extends Fragment implements View.OnClickList
 //                    .concat(String.valueOf(place.Y));
 //            final CoordinateConversion conversion = new CoordinateConversion();
 //            latLong = conversion.utm2LatLon(utm);
+//            latLong [0] = place.Y;
+//            latLong [1] = place.X;
             //TODO utm or LatLang
-            latLong [0] = place.Y;
-            latLong [1] = place.X;
+            latLong[0] = formActivity.getCalculationUserInput().y3 = place.Y;
+            latLong[1] = formActivity.getCalculationUserInput().x3 = place.X;
             addUserPlace();
             getGisToken();
         }
     }
 
     private void addUserPlace() {
-        final GeoPoint startPoint = new GeoPoint(latLong[0], latLong[1]);
+        final GeoPoint startPoint = new GeoPoint(formActivity.getCalculationUserInput().y3,
+                formActivity.getCalculationUserInput().x3);
         final Marker startMarker = new Marker(binding.mapView);
         startMarker.setPosition(startPoint);
         startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
@@ -348,6 +350,8 @@ public class MapDescriptionFragment extends Fragment implements View.OnClickList
 
         void setMapDescription(String description);
 
-        void setWaterLocation(Point point);
+        void setWaterLocation(GeoPoint point);
+
+        void setCurrentLocation(GeoPoint point);
     }
 }

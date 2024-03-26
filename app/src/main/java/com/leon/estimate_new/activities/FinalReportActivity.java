@@ -159,7 +159,7 @@ public class FinalReportActivity extends AppCompatActivity implements View.OnCli
             licenceRows = (List<String[]>) objects[1];
         }
         //TODO
-        if (finalSubmit) sendImages();
+//        if (finalSubmit) sendImages();
     }
 
     private void finalSubmit() {
@@ -175,19 +175,11 @@ public class FinalReportActivity extends AppCompatActivity implements View.OnCli
         if (imageNumber == bitmaps.size())
             finalSubmit();
         else {
-            final int id;
-            switch (imageNumber) {
-                case 2:
-                    id = crookiTitle;
-                    break;
-                case 3:
-                    id = licenceTitle;
-                    break;
-                case 1:
-                default:
-                    id = estimateTitle;
-                    break;
-            }
+            int id = switch (imageNumber) {
+                case 2 -> crookiTitle;
+                case 3 -> licenceTitle;
+                default -> estimateTitle;
+            };
             new UploadImages(id, examinerDuty.trackNumber, examinerDuty.billId != null ?
                     examinerDuty.billId : examinerDuty.neighbourBillId, examinerDuty.isNewEnsheab,
                     this).execute(this);

@@ -219,7 +219,7 @@ public class PrepareOutputImage extends BaseAsync {
         final StringBuilder requestDictionaryString = new StringBuilder();
         for (RequestDictionary requestDictionary : examinerDuty.requestDictionary) {
             if (requestDictionary.isSelected)
-            requestDictionaryString.append(requestDictionary.title.concat(" - "));
+                requestDictionaryString.append(requestDictionary.title.concat(" - "));
         }
         rowString = new String[]{examinerDuty.examinerName, examinerDuty.zoneTitle, requestDictionaryString.toString()};
         temp.add(rowString);
@@ -228,12 +228,12 @@ public class PrepareOutputImage extends BaseAsync {
 
     private List<String[]> getCrookiData() {
         final List<String[]> temp = new ArrayList<>();
-        String[] rowString = new String[]{examinerDuty.zoneTitle};
+        String[] rowString = new String[]{examinerDuty.zoneTitle, examinerDuty.trackNumber};
         temp.add(rowString);
 
 //        rowString = new String[]{String.valueOf(examinerDuty.x1), String.valueOf(examinerDuty.y1), examinerDuty.serviceGroup};
         rowString = new String[]{String.valueOf(examinerDuty.x1), String.valueOf(examinerDuty.y1),
-                String.valueOf(examinerDuty.x2),String.valueOf(examinerDuty.y2)};
+                String.valueOf(examinerDuty.x2), String.valueOf(examinerDuty.y2)};
         temp.add(rowString);
 
         rowString = new String[]{examinerDuty.address};

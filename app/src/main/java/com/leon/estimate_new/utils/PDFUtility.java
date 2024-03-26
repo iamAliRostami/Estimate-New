@@ -130,7 +130,7 @@ public class PDFUtility {
         pdfWriter.setRunDirection(PdfWriter.RUN_DIRECTION_RTL);
 
         document.open();
-        document.add(createHeaderCrooki(context, items.get(0)[0]));
+        document.add(createHeaderCrooki(context, items.get(0)));
         document.add(createCrookiDataTable(items, bitmaps));
         document.close();
         try {
@@ -252,7 +252,7 @@ public class PDFUtility {
         return table;
     }
 
-    private static PdfPTable createHeaderCrooki(Context context, String zoneTitle) throws Exception {
+    private static PdfPTable createHeaderCrooki(Context context, String[] titles) throws Exception {
         final PdfPTable table = new PdfPTable(3);
         final LanguageProcessor pe = new ArabicLigaturizer();
         table.setWidthPercentage(100);
@@ -261,40 +261,78 @@ public class PDFUtility {
         table.getDefaultCell().setVerticalAlignment(Element.ALIGN_CENTER);
         table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
 
-        PdfPCell cell = new PdfPCell(new PdfPCell());
+        PdfPCell cell;
         {
             /* LEFT TOP LOGO */
-            cell.setBorder(PdfPCell.NO_BORDER);
-            table.addCell(cell);
-        }
 
-        {
-            /* MIDDLE TEXT */
-            Paragraph temp = new Paragraph(pe.process("شرکت آب و فاضلاب استان اصفهان"), FONT_TITTER);
-            temp.setAlignment(Element.ALIGN_CENTER);
-            cell.addElement(temp);
-
-            zoneTitle = "امور آب و فاضلاب ".concat(zoneTitle);
-            temp = new Paragraph(pe.process(zoneTitle), FONT_TITTER);
-            temp.setAlignment(Element.ALIGN_CENTER);
-            cell.addElement(temp);
-
-            temp = new Paragraph(pe.process("کروکی محل و مشخصات مالک"), FONT_TITTER);
-            temp.setAlignment(Element.ALIGN_CENTER);
-            cell.addElement(temp);
-
-            table.addCell(cell);
-        }
-        /* RIGHT TOP LOGO*/
-        {
-            final PdfPTable logoTable = new PdfPTable(1);
+            PdfPTable logoTable = new PdfPTable(1);
             logoTable.setWidthPercentage(100);
             logoTable.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
             logoTable.setHorizontalAlignment(Element.ALIGN_CENTER);
             logoTable.getDefaultCell().setVerticalAlignment(Element.ALIGN_CENTER);
 
-            final Image logo = getImageFromDrawable(((BitmapDrawable) ContextCompat.getDrawable(context, R.drawable.form_icon)));
-            if (logo != null) logo.scaleToFit(100, 100);
+            Image logo = getImageFromDrawable(((BitmapDrawable) ContextCompat.getDrawable(context, R.drawable.north_direction)));
+            if (logo != null) logo.scaleToFit(48, 48);
+
+            PdfPCell logoCell = new PdfPCell(logo);
+            logoCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            logoCell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            logoCell.setBorder(PdfPCell.NO_BORDER);
+
+            logoTable.addCell(logoCell);
+
+
+            Paragraph temp = new Paragraph("N", FONT_EN);
+            temp.setAlignment(Element.ALIGN_CENTER);
+            logoCell = new PdfPCell(temp);
+            logoCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            logoCell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            logoCell.setBorder(PdfPCell.NO_BORDER);
+
+            logoTable.addCell(logoCell);
+
+            cell = new PdfPCell(logoTable);
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setUseAscender(true);
+            cell.setBorder(PdfPCell.NO_BORDER);
+            cell.setPadding(2f);
+            table.addCell(cell);
+        }
+
+        {
+            /* MIDDLE TEXT */
+//            Paragraph temp = new Paragraph(pe.process("شرکت آب و فاضلاب استان اصفهان"), FONT_TITTER);
+//            temp.setAlignment(Element.ALIGN_CENTER);
+//            cell.addElement(temp);
+
+            Paragraph temp = new Paragraph(pe.process("کروکی محل و مشخصات مالک"), FONT_TITTER);
+            temp.setAlignment(Element.ALIGN_CENTER);
+            cell.addElement(temp);
+
+            String zoneTitle = "امور آب و فاضلاب ".concat(titles[0]);
+            temp = new Paragraph(pe.process(zoneTitle), FONT_TITTER);
+            temp.setAlignment(Element.ALIGN_CENTER);
+            cell.addElement(temp);
+
+            String trackTitle = "شماره پیگیری ".concat(titles[1]);
+            temp = new Paragraph(pe.process(trackTitle), FONT_TITTER);
+            temp.setAlignment(Element.ALIGN_CENTER);
+            cell.addElement(temp);
+
+
+            table.addCell(cell);
+        }
+        /* RIGHT TOP LOGO*/
+        {
+            PdfPTable logoTable = new PdfPTable(1);
+            logoTable.setWidthPercentage(100);
+            logoTable.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
+            logoTable.setHorizontalAlignment(Element.ALIGN_CENTER);
+            logoTable.getDefaultCell().setVerticalAlignment(Element.ALIGN_CENTER);
+
+            Image logo = getImageFromDrawable(((BitmapDrawable) ContextCompat.getDrawable(context, R.drawable.form_icon)));
+            if (logo != null) logo.scaleToFit(80, 80);
 
             PdfPCell logoCell = new PdfPCell(logo);
             logoCell.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -612,13 +650,13 @@ public class PDFUtility {
         PdfPCell pdfPCellTemp;
         {
             pdfPTableTemp = new PdfPTable(3);
-            temp = new Paragraph("X: ".concat(dataTable.get(1)[1]), FONT_EN);
+            temp = new Paragraph("X: ".concat(dataTable.get(1)[0]), FONT_EN);
             pdfPCellTemp = new PdfPCell(temp);
             pdfPCellTemp.setHorizontalAlignment(Element.ALIGN_CENTER);
             pdfPCellTemp.setPadding(4f);
             pdfPTableTemp.addCell(pdfPCellTemp);
 
-            temp = new Paragraph("Y: ".concat(dataTable.get(1)[0]), FONT_EN);
+            temp = new Paragraph("Y: ".concat(dataTable.get(1)[1]), FONT_EN);
             pdfPCellTemp = new PdfPCell(temp);
             pdfPCellTemp.setHorizontalAlignment(Element.ALIGN_CENTER);
             pdfPCellTemp.setPadding(4f);
@@ -635,13 +673,13 @@ public class PDFUtility {
 
         {
             pdfPTableTemp = new PdfPTable(3);
-            temp = new Paragraph("X: ".concat(dataTable.get(1)[3]), FONT_EN);
+            temp = new Paragraph("X: ".concat(dataTable.get(1)[2]), FONT_EN);
             pdfPCellTemp = new PdfPCell(temp);
             pdfPCellTemp.setHorizontalAlignment(Element.ALIGN_CENTER);
             pdfPCellTemp.setPadding(4f);
             pdfPTableTemp.addCell(pdfPCellTemp);
 
-            temp = new Paragraph("Y: ".concat(dataTable.get(1)[2]), FONT_EN);
+            temp = new Paragraph("Y: ".concat(dataTable.get(1)[3]), FONT_EN);
             pdfPCellTemp = new PdfPCell(temp);
             pdfPCellTemp.setHorizontalAlignment(Element.ALIGN_CENTER);
             pdfPCellTemp.setPadding(4f);
