@@ -87,6 +87,9 @@ public class ExaminerDuties {
 
     public boolean ezharNazarA;
     public boolean ezharNazarF;
+
+    public String ensheabType;
+    public String ezharNazarBahre;
     public int qotrLooleI;
     public int jensLooleI;
     public String qotrLooleS;

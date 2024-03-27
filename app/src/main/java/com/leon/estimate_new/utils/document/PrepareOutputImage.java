@@ -109,13 +109,13 @@ public class PrepareOutputImage extends BaseAsync {
     private List<String[]> getFormData() {
         final List<String[]> temp = new ArrayList<>();
 
-        String[] rowString = new String[]{examinerDuty.billId != null ? examinerDuty.billId :
-                examinerDuty.neighbourBillId, "شناسه قبض", examinerDuty.eshterak, "اشتراک",
+        String[] rowString = new String[]{examinerDuty.trackNumber, "شماره پیگیری", examinerDuty.eshterak, "اشتراک",
                 examinerDuty.radif, "ردیف"};
         temp.add(rowString);
 
-        rowString = new String[]{String.valueOf(examinerDuty.sanadNumber), "شماره سند",
-                examinerDuty.licenceNumber, "شماره پروانه", examinerDuty.trackNumber, "شماره پیگیری"};
+        rowString = new String[]{examinerDuty.billId != null ? examinerDuty.billId :
+                examinerDuty.neighbourBillId, "شناسه قبض", examinerDuty.licenceNumber, "شماره پروانه",
+                String.valueOf(examinerDuty.sanadNumber), "شماره سند"};
         temp.add(rowString);
 
         rowString = new String[]{examinerDuty.fatherName, "نام پدر", examinerDuty.sureName,
@@ -152,10 +152,19 @@ public class PrepareOutputImage extends BaseAsync {
                 String.valueOf(examinerDuty.aianNonMaskooni), "اعیانی تجاری"};
         temp.add(rowString);
 
+        //TODO
         rowString = new String[]{String.valueOf(examinerDuty.tedadTaxfif), "تعداد واحد تخفیف",
+                String.valueOf(examinerDuty.aianKolNew - (examinerDuty.aianNonMaskooniNew + examinerDuty.aianMaskooniNew)),
+                String.valueOf(examinerDuty.aianKol - (examinerDuty.aianNonMaskooni + examinerDuty.aianMaskooni)),
+                "اعیانی سایر"};
+        temp.add(rowString);
+
+
+        rowString = new String[]{"examinerDuty.ensheabType", "نوع انشعاب",
                 String.valueOf(examinerDuty.tedadMaskooniNew),
                 String.valueOf(examinerDuty.tedadMaskooni), "تعداد واحد مسکونی"};
         temp.add(rowString);
+        //TODO
 
         rowString = new String[]{examinerDuty.adamLicence ? "دارد" : "ندارد", "مجوز عدم تولی",
                 String.valueOf(examinerDuty.tedadTejariNew),
@@ -193,13 +202,18 @@ public class PrepareOutputImage extends BaseAsync {
                 examinerDuty.ezharNazarA ? "دارد" : "ندارد", "امکان فنی آب:"};
         temp.add(rowString);
 
-        rowString = new String[]{String.valueOf(examinerDuty.faseleOtherA), "دیگر:",
+        //TODO
+        rowString = new String[]{"examinerDuty.ezharNazarBahre", "اظهار نظر بهره برداری:"};
+        temp.add(rowString);
+        //TODO
+
+        rowString = new String[]{String.valueOf(examinerDuty.faseleOtherA), "سایر:",
                 String.valueOf(examinerDuty.faseleSangA), "سنگ فرش:",
                 String.valueOf(examinerDuty.faseleAsphaltA), "آسفالت:",
                 String.valueOf(examinerDuty.faseleKhakiA), "خاکی:", "فاصله تا شبکه آب"};
         temp.add(rowString);
 
-        rowString = new String[]{String.valueOf(examinerDuty.faseleOtherF), "دیگر:",
+        rowString = new String[]{String.valueOf(examinerDuty.faseleOtherF), "سایر:",
                 String.valueOf(examinerDuty.faseleSangF), "سنگ فرش:",
                 String.valueOf(examinerDuty.faseleAsphaltF), "آسفالت:",
                 String.valueOf(examinerDuty.faseleKhakiF), "خاکی:", "تا شبکه فاضلاب"};
@@ -210,6 +224,8 @@ public class PrepareOutputImage extends BaseAsync {
                 .concat(" *** ").concat(examinerDuty.chahDescription).concat(" *** ").concat(examinerDuty.mapDescription);
         rowString = new String[]{description.substring(0, Math.min(description.length(), charPerLine)), "توضیحات: "};
         temp.add(rowString);
+        /* 4 lines * 110 char */
+        /* 9 lines descriptions */
 
         while (description.length() > charPerLine && temp.size() < 35) {
             description = description.substring(charPerLine);

@@ -141,7 +141,7 @@ public class SecondFormFragment extends Fragment {
 
     private boolean checkIsNoEmpty(EditText editText) {
         View focusView;
-        if (editText.getText().toString().length() < 1) {
+        if (editText.getText().toString().isEmpty()) {
             editText.setError(getString(R.string.error_empty));
             focusView = editText;
             focusView.requestFocus();

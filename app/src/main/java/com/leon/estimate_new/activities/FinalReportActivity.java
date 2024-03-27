@@ -37,9 +37,8 @@ public class FinalReportActivity extends AppCompatActivity implements View.OnCli
     private ActivityFinalReportBinding binding;
     private long lastClickTime = 0;
     private ExaminerDuties examinerDuty;
-    private int pageNumber = 0, maxNumber = 2, imageNumber = 0;
     private boolean licence = false, finalSubmit = false, sent = true;
-    private int licenceTitle, estimateTitle, crookiTitle;
+    private int pageNumber = 0, maxNumber = 2, imageNumber = 0, licenceTitle, estimateTitle, crookiTitle;
     private List<String[]> licenceRows;
 
     @Override
@@ -97,30 +96,48 @@ public class FinalReportActivity extends AppCompatActivity implements View.OnCli
         if (SystemClock.elapsedRealtime() - lastClickTime < 1000) return;
         lastClickTime = SystemClock.elapsedRealtime();
         final int id = v.getId();
-    }
-
-    private void initializeArrowButton() {
-        binding.imageButtonPrevious.setVisibility(View.GONE);
-        binding.imageButtonNext.setOnClickListener(v -> {
+        if (id == R.id.image_button_next) {
             binding.imageButtonPrevious.setVisibility(View.VISIBLE);
             pageNumber++;
             if (pageNumber + 1 == maxNumber) binding.imageButtonNext.setVisibility(View.GONE);
             binding.imageViewOutput.setImageBitmap(bitmaps.get(pageNumber));
-        });
-        binding.imageButtonPrevious.setOnClickListener(v -> {
+        } else if (id == R.id.image_button_previous) {
             binding.imageButtonNext.setVisibility(View.VISIBLE);
             pageNumber--;
             if (pageNumber == 0) binding.imageButtonPrevious.setVisibility(View.GONE);
             binding.imageViewOutput.setImageBitmap(bitmaps.get(pageNumber));
-        });
-    }
-
-    private void setOnAcceptClickListener() {
-        binding.buttonAccepted.setOnClickListener(v -> {
+        } else if (id == R.id.button_accepted) {
             if (binding.signatureView1.isBitmapEmpty() || binding.signatureView2.isBitmapEmpty())
                 new CustomToast().warning(getString(R.string.request_sign), Toast.LENGTH_LONG);
             else addImageSign();
-        });
+        }
+    }
+
+    private void initializeArrowButton() {
+        binding.imageButtonPrevious.setVisibility(View.GONE);
+        binding.imageButtonNext.setOnClickListener(this);
+        binding.imageButtonPrevious.setOnClickListener(this);
+//        binding.imageButtonNext.setOnClickListener(v -> {
+//            binding.imageButtonPrevious.setVisibility(View.VISIBLE);
+//            pageNumber++;
+//            if (pageNumber + 1 == maxNumber) binding.imageButtonNext.setVisibility(View.GONE);
+//            binding.imageViewOutput.setImageBitmap(bitmaps.get(pageNumber));
+//        });
+//        binding.imageButtonPrevious.setOnClickListener(v -> {
+//            binding.imageButtonNext.setVisibility(View.VISIBLE);
+//            pageNumber--;
+//            if (pageNumber == 0) binding.imageButtonPrevious.setVisibility(View.GONE);
+//            binding.imageViewOutput.setImageBitmap(bitmaps.get(pageNumber));
+//        });
+    }
+
+    private void setOnAcceptClickListener() {
+        binding.buttonAccepted.setOnClickListener(this);
+//        binding.buttonAccepted.setOnClickListener(v -> {
+//            if (binding.signatureView1.isBitmapEmpty() || binding.signatureView2.isBitmapEmpty())
+//                new CustomToast().warning(getString(R.string.request_sign), Toast.LENGTH_LONG);
+//            else addImageSign();
+//        });
     }
 
     private void addImageSign() {
@@ -198,5 +215,4 @@ public class FinalReportActivity extends AppCompatActivity implements View.OnCli
     public void setSent(boolean b) {
         sent = b;
     }
-
 }
