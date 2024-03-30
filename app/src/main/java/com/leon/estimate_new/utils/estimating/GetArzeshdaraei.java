@@ -79,7 +79,7 @@ class ArzeshdaraeiSucceed implements ICallback<Arzeshdaraei> {
                 getApplicationComponent().MyDatabase().blockDao().insertBlock(arzeshdaraei.blocks.get(i));
             for (int i = 0; i < arzeshdaraei.zaribs.size(); i++)
                 getApplicationComponent().MyDatabase().zaribDao().insertZarib(arzeshdaraei.zaribs.get(i));
-            ((BaseInfoFragment) object).setArzeshdaraei(arzeshdaraei);
+            ((BaseInfoFragment) object).setArzeshDaraei(arzeshdaraei);
             ShowFragmentDialogOnce(context, "VALUE_FRAGMENT", ValueFragment.newInstance(((BaseInfoFragment) object)));
         } else {
             new CustomDialogModel(Yellow, context, context.getString(R.string.error_value),
