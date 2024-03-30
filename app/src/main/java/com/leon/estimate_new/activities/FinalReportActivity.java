@@ -117,27 +117,10 @@ public class FinalReportActivity extends AppCompatActivity implements View.OnCli
         binding.imageButtonPrevious.setVisibility(View.GONE);
         binding.imageButtonNext.setOnClickListener(this);
         binding.imageButtonPrevious.setOnClickListener(this);
-//        binding.imageButtonNext.setOnClickListener(v -> {
-//            binding.imageButtonPrevious.setVisibility(View.VISIBLE);
-//            pageNumber++;
-//            if (pageNumber + 1 == maxNumber) binding.imageButtonNext.setVisibility(View.GONE);
-//            binding.imageViewOutput.setImageBitmap(bitmaps.get(pageNumber));
-//        });
-//        binding.imageButtonPrevious.setOnClickListener(v -> {
-//            binding.imageButtonNext.setVisibility(View.VISIBLE);
-//            pageNumber--;
-//            if (pageNumber == 0) binding.imageButtonPrevious.setVisibility(View.GONE);
-//            binding.imageViewOutput.setImageBitmap(bitmaps.get(pageNumber));
-//        });
     }
 
     private void setOnAcceptClickListener() {
         binding.buttonAccepted.setOnClickListener(this);
-//        binding.buttonAccepted.setOnClickListener(v -> {
-//            if (binding.signatureView1.isBitmapEmpty() || binding.signatureView2.isBitmapEmpty())
-//                new CustomToast().warning(getString(R.string.request_sign), Toast.LENGTH_LONG);
-//            else addImageSign();
-//        });
     }
 
     private void addImageSign() {

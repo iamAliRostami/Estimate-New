@@ -160,7 +160,7 @@ public class PrepareOutputImage extends BaseAsync {
         temp.add(rowString);
 
 
-        rowString = new String[]{"examinerDuty.ensheabType", "نوع انشعاب",
+        rowString = new String[]{examinerDuty.ensheabType, "نوع انشعاب",
                 String.valueOf(examinerDuty.tedadMaskooniNew),
                 String.valueOf(examinerDuty.tedadMaskooni), "تعداد واحد مسکونی"};
         temp.add(rowString);
@@ -203,7 +203,7 @@ public class PrepareOutputImage extends BaseAsync {
         temp.add(rowString);
 
         //TODO
-        rowString = new String[]{"examinerDuty.ezharNazarBahre", "اظهار نظر بهره برداری:"};
+        rowString = new String[]{examinerDuty.ezharNazarBahre, "اظهار نظر بهره برداری:"};
         temp.add(rowString);
         //TODO
 
@@ -219,6 +219,7 @@ public class PrepareOutputImage extends BaseAsync {
                 String.valueOf(examinerDuty.faseleKhakiF), "خاکی:", "تا شبکه فاضلاب"};
         temp.add(rowString);
 
+        //TODO
         final int charPerLine = 110;
         String description = examinerDuty.description.concat(" *** ").concat(examinerDuty.masrafDescription)
                 .concat(" *** ").concat(examinerDuty.chahDescription).concat(" *** ").concat(examinerDuty.mapDescription);
@@ -227,11 +228,14 @@ public class PrepareOutputImage extends BaseAsync {
         /* 4 lines * 110 char */
         /* 9 lines descriptions */
 
-        while (description.length() > charPerLine && temp.size() < 35) {
+
+        while (description.length() > charPerLine && temp.size() < 32) {
             description = description.substring(charPerLine);
             rowString = new String[]{description.substring(0, Math.min(description.length(), charPerLine)), " "};
             temp.add(rowString);
         }
+        //TODO
+
         final StringBuilder requestDictionaryString = new StringBuilder();
         for (RequestDictionary requestDictionary : examinerDuty.requestDictionary) {
             if (requestDictionary.isSelected)

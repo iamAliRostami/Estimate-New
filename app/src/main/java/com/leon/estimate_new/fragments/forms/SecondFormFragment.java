@@ -118,9 +118,10 @@ public class SecondFormFragment extends Fragment {
         examinerDuty.looleA = binding.checkBoxLooleAb.isChecked();
         examinerDuty.looleF = binding.checkBoxLooleFazelab.isChecked();
 
-        examinerDuty.masrafDescription = binding.editTextNoeMasrafDescription.getText().toString();
-        examinerDuty.chahDescription = binding.editTextDescriptionChahAbBaran.getText().toString();
+        examinerDuty.masrafDescription = binding.editTextNoeMasrafDescription.getText().toString().trim();
+        examinerDuty.chahDescription = binding.editTextDescriptionChahAbBaran.getText().toString().trim();
         examinerDuty.eshterak = binding.editTextEshterak.getText().toString();
+        examinerDuty.ezharNazarBahre = binding.editTextEzharBahre.getText().toString().trim();
 
         return examinerDuty;
     }
@@ -135,6 +136,7 @@ public class SecondFormFragment extends Fragment {
                 checkIsNoEmpty(binding.editTextSangFazelab) &&
                 checkIsNoEmpty(binding.editTextOtherFazelab) &&
                 checkIsNoEmpty(binding.editTextOmqZirzamin) &&
+                checkIsNoEmpty(binding.editTextEzharBahre) &&
                 (!examinerDuty.isNewEnsheab || checkIsNoEmpty(binding.editTextEshterak)) &&
                 checkIsNoEmpty(binding.editTextOmqFazelab);
     }
@@ -169,6 +171,7 @@ public class SecondFormFragment extends Fragment {
         binding.editTextEshterak.setText(examinerDuty.eshterak.trim());
         if (!examinerDuty.isNewEnsheab)
             binding.editTextEshterak.setEnabled(false);
+        binding.editTextEzharBahre.setText(examinerDuty.ezharNazarBahre);
     }
 
     private void initializeRadioButtonField() {

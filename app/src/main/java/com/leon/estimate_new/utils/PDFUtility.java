@@ -871,7 +871,7 @@ public class PDFUtility {
                         BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE},
                 dataTable.get(24), FONT_TEXT, FONT_TITLE, FONT_TEXT, FONT_TITLE, FONT_TEXT, FONT_TITLE, FONT_TEXT, FONT_TITLE));
 
-        tableBordered.addCell(createTableRow(2, PdfPCell.ALIGN_RIGHT, new float[]{12f, 3f},
+        tableBordered.addCell(createTableRow(2, PdfPCell.ALIGN_RIGHT, new float[]{13f, 3f},
                 new float[]{PdfPCell.NO_BORDER, PdfPCell.NO_BORDER}, new BaseColor[]{BaseColor.WHITE, BaseColor.WHITE},
                 dataTable.get(25), FONT_TEXT, FONT_TITLE));
 

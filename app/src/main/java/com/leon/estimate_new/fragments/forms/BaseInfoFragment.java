@@ -127,64 +127,73 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
     }
 
     private void initializeSpinner() {
-        initializeNoeVagozariSpinner();
         initializeKarbariSpinner();
+        initializeNoeVagozariSpinner();
         initializeQotrEnsheabSpinner();
+        initializeNoeEnsheabSpinner();
         initializeTaxfifSpinner();
     }
 
+
     private void initializeKarbariSpinner() {
-        final ArrayList<String> arrayListSpinner = new ArrayList<>();
+        final ArrayList<String> spinnerArrayList = new ArrayList<>();
         int selected = 0, counter = 0;
         for (KarbariDictionary karbariDictionary : formActivity.getKarbariDictionary()) {
-            arrayListSpinner.add(karbariDictionary.title);
+            spinnerArrayList.add(karbariDictionary.title);
             if (karbariDictionary.id == examinerDuty.karbariId) {
                 selected = counter;
             }
             counter = counter + 1;
         }
-        binding.spinner1.setAdapter(new SpinnerCustomAdapter(requireContext(), arrayListSpinner));
+        binding.spinner1.setAdapter(new SpinnerCustomAdapter(requireContext(), spinnerArrayList));
         binding.spinner1.setSelection(selected);
     }
 
 
     private void initializeNoeVagozariSpinner() {
-        final ArrayList<String> arrayListSpinner = new ArrayList<>();
+        final ArrayList<String> spinnerArrayList = new ArrayList<>();
         for (NoeVagozariDictionary noeVagozariDictionary : formActivity.getNoeVagozariDictionaries()) {
-            arrayListSpinner.add(noeVagozariDictionary.title);
+            spinnerArrayList.add(noeVagozariDictionary.title);
         }
-        binding.spinner2.setAdapter(new SpinnerCustomAdapter(requireContext(), arrayListSpinner));
+        binding.spinner2.setAdapter(new SpinnerCustomAdapter(requireContext(), spinnerArrayList));
         binding.spinner2.setSelection(examinerDuty.noeVagozariId);
     }
 
     private void initializeQotrEnsheabSpinner() {
-        final ArrayList<String> arrayListSpinner = new ArrayList<>();
+        final ArrayList<String> spinnerArrayList = new ArrayList<>();
         int counter = 0, selectedA = 0, selectedF = 0;
         for (QotrEnsheabDictionary qotrEnsheabDictionary : formActivity.getQotrEnsheabDictionary()) {
-            arrayListSpinner.add(qotrEnsheabDictionary.title);
+            spinnerArrayList.add(qotrEnsheabDictionary.title);
             if (examinerDuty.qotrEnsheabId == qotrEnsheabDictionary.id) selectedA = counter;
             if (examinerDuty.qotrEnsheabFId == qotrEnsheabDictionary.id) selectedF = counter;
             counter = counter + 1;
         }
-        binding.spinner3.setAdapter(new SpinnerCustomAdapter(requireContext(), arrayListSpinner));
+        binding.spinner3.setAdapter(new SpinnerCustomAdapter(requireContext(), spinnerArrayList));
         binding.spinner3.setSelection(selectedA);
 
-        binding.spinner5.setAdapter(new SpinnerCustomAdapter(requireContext(), arrayListSpinner));
-        binding.spinner5.setSelection(selectedF);
+        binding.spinner4.setAdapter(new SpinnerCustomAdapter(requireContext(), spinnerArrayList));
+        binding.spinner4.setSelection(selectedF);
     }
 
+    private void initializeNoeEnsheabSpinner() {
+        ArrayList<String> spinnerArrayList = new ArrayList<>();
+        spinnerArrayList.add("مشخص نشده");
+        spinnerArrayList.add("انشعاب خاص");
+        spinnerArrayList.add("انشعاب عادی");
+        binding.spinner5.setAdapter(new SpinnerCustomAdapter(requireContext(), spinnerArrayList));
+    }
     private void initializeTaxfifSpinner() {
-        final ArrayList<String> arrayListSpinner = new ArrayList<>();
+        final ArrayList<String> spinnerArrayList = new ArrayList<>();
         int selected = 0, counter = 0;
         for (TaxfifDictionary taxfifDictionary : formActivity.getTaxfifDictionary()) {
-            arrayListSpinner.add(taxfifDictionary.title);
+            spinnerArrayList.add(taxfifDictionary.title);
             if (taxfifDictionary.id == examinerDuty.taxfifId) {
                 selected = counter;
             }
             counter = counter + 1;
         }
-        binding.spinner4.setAdapter(new SpinnerCustomAdapter(requireContext(), arrayListSpinner));
-        binding.spinner4.setSelection(selected);
+        binding.spinner6.setAdapter(new SpinnerCustomAdapter(requireContext(), spinnerArrayList));
+        binding.spinner6.setSelection(selected);
     }
 
     @Override
@@ -301,28 +310,29 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
         examinerDuty.tedadTaxfif = Integer.parseInt(binding.editTextTedadTakhfif.getText().toString());
         examinerDuty.zarfiatQarardadiNew = Integer.parseInt(binding.editTextZarfiatQaradadi.getText().toString());
         examinerDuty.licenceNumber = binding.editTextLicenceNumber.getText().toString();
+
         examinerDuty.karbariId = formActivity.getKarbariDictionary()
                 .get(binding.spinner1.getSelectedItemPosition()).id;
-        examinerDuty.karbariS = formActivity.getKarbariDictionary()
-                .get(binding.spinner1.getSelectedItemPosition()).title;
+        examinerDuty.karbariS = binding.spinner1.getSelectedItem().toString();
+
         examinerDuty.noeVagozariId = formActivity.getNoeVagozariDictionaries()
                 .get(binding.spinner2.getSelectedItemPosition()).id;
-        examinerDuty.noeVagozariS = formActivity.getNoeVagozariDictionaries()
-                .get(binding.spinner2.getSelectedItemPosition()).title;
+        examinerDuty.noeVagozariS = binding.spinner2.getSelectedItem().toString();
+
         examinerDuty.qotrEnsheabId = formActivity.getQotrEnsheabDictionary()
                 .get(binding.spinner3.getSelectedItemPosition()).id;
-        examinerDuty.qotrEnsheabS = formActivity.getQotrEnsheabDictionary()
-                .get(binding.spinner3.getSelectedItemPosition()).title;
+        examinerDuty.qotrEnsheabS = binding.spinner3.getSelectedItem().toString();
 
         examinerDuty.qotrEnsheabFId = formActivity.getQotrEnsheabDictionary()
-                .get(binding.spinner5.getSelectedItemPosition()).id;
-        examinerDuty.qotrEnsheabFS = formActivity.getQotrEnsheabDictionary()
-                .get(binding.spinner5.getSelectedItemPosition()).title;
+                .get(binding.spinner4.getSelectedItemPosition()).id;
+        examinerDuty.qotrEnsheabFS = binding.spinner4.getSelectedItem().toString();
+
+        examinerDuty.ensheabType = binding.spinner5.getSelectedItem().toString();
 
         examinerDuty.taxfifId = formActivity.getTaxfifDictionary()
-                .get(binding.spinner4.getSelectedItemPosition()).id;
-        examinerDuty.taxfifS = formActivity.getTaxfifDictionary()
-                .get(binding.spinner4.getSelectedItemPosition()).title;
+                .get(binding.spinner6.getSelectedItemPosition()).id;
+        examinerDuty.taxfifS = binding.spinner6.getSelectedItem().toString();
+
         examinerDuty.isEnsheabQeirDaem = binding.checkbox1.isChecked();
 
         examinerDuty.motaqazi = binding.checkbox2.isChecked();

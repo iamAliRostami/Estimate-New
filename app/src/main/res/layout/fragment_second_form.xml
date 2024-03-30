@@ -562,6 +562,32 @@
                     android:lines="4"
                     tools:ignore="Autofill" />
             </RelativeLayout>
+            <LinearLayout
+                android:id="@+id/relative_layout_9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/relative_layout_8"
+                android:layout_margin="@dimen/medium_dp"
+                android:background="@drawable/border_gray_1"
+                android:orientation="vertical"
+                android:padding="@dimen/medium_dp">
+
+                <TextView
+                    style="@style/TitleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_margin="@dimen/low_dp"
+                    android:text="@string/ezhar_bahre" />
+
+                <EditText
+                    android:id="@+id/edit_text_ezhar_bahre"
+                    style="@style/EditTextForm"
+                    android:layout_width="match_parent"
+                    android:gravity="top|start"
+                    android:hint="@string/ezhar_bahre"
+                    android:inputType="text"
+                    android:maxLength="100"
+                    tools:ignore="Autofill" />
+            </LinearLayout>
         </RelativeLayout>
     </ScrollView>
 

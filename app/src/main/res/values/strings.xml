@@ -467,4 +467,6 @@
     <string name="download_failed">بارگیری با خطا مواجه شد</string>
     <string name="download_started">بارگیری آغاز شد</string>
     <string name="no_tiles_selected">ناحیه ای انتخاب نشده است</string>
+    <string name="ensheab_type">نوع انشعاب</string>
+    <string name="ezhar_bahre">اظهار نظر واحد بهره برداری</string>
 </resources>
