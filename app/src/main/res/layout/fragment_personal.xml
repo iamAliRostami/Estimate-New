@@ -332,6 +332,7 @@
                         android:layout_weight="2"
                         android:gravity="start|top"
                         android:inputType="textMultiLine"
+                        android:maxLength="200"
                         android:lines="7"
                         tools:ignore="Autofill,LabelFor" />
                 </LinearLayout>

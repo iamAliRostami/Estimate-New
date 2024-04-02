@@ -406,6 +406,7 @@
                     android:hint="@string/description"
                     android:inputType="textMultiLine"
                     android:lines="4"
+                    android:maxLength="200"
                     tools:ignore="Autofill" />
             </RelativeLayout>
 
@@ -560,8 +561,10 @@
                     android:hint="@string/description"
                     android:inputType="textMultiLine"
                     android:lines="4"
+                    android:maxLength="200"
                     tools:ignore="Autofill" />
             </RelativeLayout>
+
             <LinearLayout
                 android:id="@+id/relative_layout_9"
                 android:layout_width="match_parent"

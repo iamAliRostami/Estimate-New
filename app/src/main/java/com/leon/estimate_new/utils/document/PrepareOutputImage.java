@@ -225,18 +225,21 @@ public class PrepareOutputImage extends BaseAsync {
                 .concat(" *** ").concat(examinerDuty.chahDescription).concat(" *** ").concat(examinerDuty.mapDescription);
         rowString = new String[]{description.substring(0, Math.min(description.length(), charPerLine)), "توضیحات: "};
         temp.add(rowString);
-        /* 4 lines * 110 char */
+        /* 8 lines * 110 char */
         /* 9 lines descriptions */
 
-
-        while (description.length() > charPerLine && temp.size() < 32) {
-            description = description.substring(charPerLine);
-            rowString = new String[]{description.substring(0, Math.min(description.length(), charPerLine)), " "};
+        while (/*description.length() > charPerLine &&*/ temp.size() < 36) {
+            if (description.length() > charPerLine) {
+                description = description.substring(charPerLine);
+                rowString = new String[]{description.substring(0, Math.min(description.length(), charPerLine)), " "};
+            } else {
+                rowString = new String[]{"-", " "};
+            }
             temp.add(rowString);
         }
         //TODO
 
-        final StringBuilder requestDictionaryString = new StringBuilder();
+        StringBuilder requestDictionaryString = new StringBuilder();
         for (RequestDictionary requestDictionary : examinerDuty.requestDictionary) {
             if (requestDictionary.isSelected)
                 requestDictionaryString.append(requestDictionary.title.concat(" - "));
