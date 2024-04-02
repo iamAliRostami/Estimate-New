@@ -223,6 +223,7 @@ public class PDFUtility {
             logoTable.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
 
             final Image logo = getImageFromDrawable(((BitmapDrawable) ContextCompat.getDrawable(context, R.drawable.form_icon)));
+            if (logo != null) logo.scaleToFit(80, 80);
             PdfPCell logoCell = new PdfPCell(logo);
             logoCell.setHorizontalAlignment(Element.ALIGN_CENTER);
             logoCell.setBorder(PdfPCell.NO_BORDER);

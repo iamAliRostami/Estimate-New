@@ -159,7 +159,7 @@ public class FinalReportActivity extends AppCompatActivity implements View.OnCli
             licenceRows = (List<String[]>) objects[1];
         }
         //TODO
-//        if (finalSubmit) sendImages();
+        if (finalSubmit) sendImages();
     }
 
     private void finalSubmit() {
