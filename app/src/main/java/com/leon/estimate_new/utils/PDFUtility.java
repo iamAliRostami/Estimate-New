@@ -180,7 +180,6 @@ public class PDFUtility {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-
         if (mCallback != null) {
             mCallback.onPDFDocumentClose(file);
         }
@@ -263,7 +262,6 @@ public class PDFUtility {
         PdfPCell cell;
         {
             /* LEFT TOP LOGO */
-
             PdfPTable logoTable = new PdfPTable(1);
             logoTable.setWidthPercentage(100);
             logoTable.getDefaultCell().setBorder(PdfPCell.NO_BORDER);

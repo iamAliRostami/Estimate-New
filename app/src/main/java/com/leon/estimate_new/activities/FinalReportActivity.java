@@ -72,15 +72,18 @@ public class FinalReportActivity extends AppCompatActivity implements View.OnCli
         }
         createOutputImage();
         initializeSpinner();
-        setOnClickListeners();
+        initializeButtons();
     }
 
-    private void setOnClickListeners() {
+    private void initializeButtons() {
         binding.imageViewRefresh1.setOnClickListener(v -> binding.signatureView1.clearCanvas());
         binding.imageViewRefresh2.setOnClickListener(v -> binding.signatureView2.clearCanvas());
         binding.buttonDenial.setOnClickListener(v -> finish());
-        setOnAcceptClickListener();
-        initializeArrowButton();
+
+        binding.imageButtonPrevious.setVisibility(View.GONE);
+        binding.imageButtonNext.setOnClickListener(this);
+        binding.imageButtonPrevious.setOnClickListener(this);
+        binding.buttonAccepted.setOnClickListener(this);
     }
 
     private void initializeSpinner() {
@@ -111,16 +114,6 @@ public class FinalReportActivity extends AppCompatActivity implements View.OnCli
                 new CustomToast().warning(getString(R.string.request_sign), Toast.LENGTH_LONG);
             else addImageSign();
         }
-    }
-
-    private void initializeArrowButton() {
-        binding.imageButtonPrevious.setVisibility(View.GONE);
-        binding.imageButtonNext.setOnClickListener(this);
-        binding.imageButtonPrevious.setOnClickListener(this);
-    }
-
-    private void setOnAcceptClickListener() {
-        binding.buttonAccepted.setOnClickListener(this);
     }
 
     private void addImageSign() {
