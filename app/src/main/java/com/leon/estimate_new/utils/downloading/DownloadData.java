@@ -8,9 +8,11 @@ import static com.leon.estimate_new.helpers.MyApplication.getContext;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.leon.estimate_new.BuildConfig;
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.base_items.BaseAsync;
 import com.leon.estimate_new.di.view_model.CustomDialogModel;
@@ -51,7 +53,7 @@ public class DownloadData extends BaseAsync {
     public void backgroundTask(Activity activity) {
         final Retrofit retrofit = getApplicationComponent().Retrofit();
         final IAbfaService getKardex = retrofit.create(IAbfaService.class);
-        final Call<Input> call = getKardex.getMyWorks();
+        final Call<Input> call = getKardex.getMyWorks(BuildConfig.VERSION_CODE);
         HttpClientWrapper.callHttpAsync(call, NOT_SHOW.getValue(), activity, new Download(activity, toast),
                 new DownloadIncomplete(activity), new GetError());
     }

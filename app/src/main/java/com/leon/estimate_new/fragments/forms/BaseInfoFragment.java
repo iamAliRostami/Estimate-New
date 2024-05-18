@@ -33,6 +33,7 @@ import com.sardari.daterangepicker.customviews.DateRangeCalendarView;
 import com.sardari.daterangepicker.dialog.DatePickerDialog;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class BaseInfoFragment extends Fragment implements ValueFragment.Callback,
         TejarihaSayerFragment.Callback, View.OnClickListener, TextWatcher {
@@ -130,6 +131,7 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
         initializeKarbariSpinner();
         initializeNoeVagozariSpinner();
         initializeQotrEnsheabSpinner();
+        initializeQotrFazelabSpinner();
         initializeNoeEnsheabSpinner();
         initializeTaxfifSpinner();
     }
@@ -165,14 +167,20 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
         for (QotrEnsheabDictionary qotrEnsheabDictionary : formActivity.getQotrEnsheabDictionary()) {
             spinnerArrayList.add(qotrEnsheabDictionary.title);
             if (examinerDuty.qotrEnsheabId == qotrEnsheabDictionary.id) selectedA = counter;
-            if (examinerDuty.qotrEnsheabFId == qotrEnsheabDictionary.id) selectedF = counter;
             counter = counter + 1;
         }
         binding.spinner3.setAdapter(new SpinnerCustomAdapter(requireContext(), spinnerArrayList));
         binding.spinner3.setSelection(selectedA);
+    }
 
+    private void initializeQotrFazelabSpinner() {
+        final ArrayList<String> spinnerArrayList = new ArrayList<>(Arrays.asList("100", "125", "150", "200"));
         binding.spinner4.setAdapter(new SpinnerCustomAdapter(requireContext(), spinnerArrayList));
-        binding.spinner4.setSelection(selectedF);
+        for (int i = 0; i < spinnerArrayList.size(); i++) {
+            if (examinerDuty.qotrEnsheabFS.equals(spinnerArrayList.get(i))) {
+                binding.spinner4.setSelection(i);
+            }
+        }
     }
 
     private void initializeNoeEnsheabSpinner() {
@@ -182,6 +190,7 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
         spinnerArrayList.add("انشعاب عادی");
         binding.spinner5.setAdapter(new SpinnerCustomAdapter(requireContext(), spinnerArrayList));
     }
+
     private void initializeTaxfifSpinner() {
         final ArrayList<String> spinnerArrayList = new ArrayList<>();
         int selected = 0, counter = 0;
@@ -323,8 +332,8 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
                 .get(binding.spinner3.getSelectedItemPosition()).id;
         examinerDuty.qotrEnsheabS = binding.spinner3.getSelectedItem().toString();
 
-        examinerDuty.qotrEnsheabFId = formActivity.getQotrEnsheabDictionary()
-                .get(binding.spinner4.getSelectedItemPosition()).id;
+//        examinerDuty.qotrEnsheabFId = formActivity.getQotrEnsheabDictionary()
+//                .get(binding.spinner4.getSelectedItemPosition()).id;
         examinerDuty.qotrEnsheabFS = binding.spinner4.getSelectedItem().toString();
 
         examinerDuty.ensheabType = binding.spinner5.getSelectedItem().toString();

@@ -109,22 +109,16 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
     }
 
     private Fragment getFragment(int position) {
-        switch (position) {
-            case SERVICES_FRAGMENT:
-                return ServicesFragment.newInstance();
-            case BASE_FRAGMENT:
-                return BaseInfoFragment.newInstance();
-            case SECOND_FRAGMENT:
-                return SecondFormFragment.newInstance();
-            case MAP_DESCRIPTION_FRAGMENT:
-                return MapDescriptionFragment.newInstance();
-            case EDIT_MAP_FRAGMENT:
+        return switch (position) {
+            case SERVICES_FRAGMENT -> ServicesFragment.newInstance();
+            case BASE_FRAGMENT -> BaseInfoFragment.newInstance();
+            case SECOND_FRAGMENT -> SecondFormFragment.newInstance();
+            case MAP_DESCRIPTION_FRAGMENT -> MapDescriptionFragment.newInstance();
+            case EDIT_MAP_FRAGMENT ->
                 //TODO
-                return EditMapFragment.newInstance();
-            case PERSONAL_FRAGMENT:
-            default:
-                return PersonalFragment.newInstance();
-        }
+                    EditMapFragment.newInstance();
+            default -> PersonalFragment.newInstance();
+        };
     }
 
     @Override

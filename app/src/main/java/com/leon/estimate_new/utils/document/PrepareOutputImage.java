@@ -198,8 +198,8 @@ public class PrepareOutputImage extends BaseAsync {
 
         rowString = new String[]{examinerDuty.qotrEnsheabFS, "قطر انشعاب فاضلاب",
                 examinerDuty.qotrEnsheabS, "قطر انشعاب آب",
-                examinerDuty.ezharNazarF ? "دارد" : "ندارد", "امکان فنی فاضلاب:",
-                examinerDuty.ezharNazarA ? "دارد" : "ندارد", "امکان فنی آب:"};
+                examinerDuty.looleF ? "دارد" : "ندارد", "امکان فنی فاضلاب:",
+                examinerDuty.looleA ? "دارد" : "ندارد", "امکان فنی آب:"};
         temp.add(rowString);
 
         //TODO

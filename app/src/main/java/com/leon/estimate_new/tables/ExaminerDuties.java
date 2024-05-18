@@ -134,7 +134,6 @@ public class ExaminerDuties {
     //TODO
 //    public double x1, x2, x3, y1, y2, y3;
     public String sodurDate;
-
     @Ignore
     public String operation;
     @Ignore

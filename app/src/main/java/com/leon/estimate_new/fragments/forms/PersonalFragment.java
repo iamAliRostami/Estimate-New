@@ -51,7 +51,7 @@ public class PersonalFragment extends Fragment {
 
     private void initializeTextViews() {
         binding.textViewZone.setText(examinerDuties.zoneTitle.trim());
-        if (examinerDuties.billId != null && examinerDuties.billId.length() > 0)
+        if (examinerDuties.billId != null && !examinerDuties.billId.isEmpty())
             binding.textViewBillId.setText(examinerDuties.billId.trim());
         else {
             binding.textViewBillId.setText(examinerDuties.neighbourBillId.trim());

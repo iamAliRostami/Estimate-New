@@ -469,4 +469,5 @@
     <string name="no_tiles_selected">ناحیه ای انتخاب نشده است</string>
     <string name="ensheab_type">نوع انشعاب</string>
     <string name="ezhar_bahre">اظهار نظر واحد بهره برداری</string>
+    <string name="form_preview">پیش نمایش فرم</string>
 </resources>

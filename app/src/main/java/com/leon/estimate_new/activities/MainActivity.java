@@ -65,21 +65,14 @@ public class MainActivity extends BaseActivity  {
     }
 
     private Fragment getFragment(int position) {
-        switch (position) {
-            case DUTIES_FRAGMENT:
-                return DutiesListFragment.newInstance();
-            case DOWNLOAD_FRAGMENT:
-                return DownloadFragment.newInstance();
-            case REQUEST_FRAGMENT:
-                return SendRequestFragment.newInstance();
-            case UPLOAD_FRAGMENT:
-                return UploadFragment.newInstance();
-            case HELP_FRAGMENT:
-                return OfflineMapFragment.newInstance();
-            case HOME_FRAGMENT:
-            default:
-                return HomeFragment.newInstance();
-        }
+        return switch (position) {
+            case DUTIES_FRAGMENT -> DutiesListFragment.newInstance();
+            case DOWNLOAD_FRAGMENT -> DownloadFragment.newInstance();
+            case REQUEST_FRAGMENT -> SendRequestFragment.newInstance();
+            case UPLOAD_FRAGMENT -> UploadFragment.newInstance();
+            case HELP_FRAGMENT -> HelpFragment.newInstance();
+            default -> HomeFragment.newInstance();
+        };
     }
 
     private void setOnDrawerItemClick() {

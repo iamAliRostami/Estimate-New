@@ -79,7 +79,7 @@ public interface IAbfaService {
 
 
     @GET("/MoshtarakinApi/ExaminationManager/GetMyWorks")
-    Call<Input> getMyWorks();
+    Call<Input> getMyWorks(@Query("versionCode")int versionCode);
 
     @GET("/MoshtarakinApi/ExaminationManager/GetExaminationDetails/")
     Call<CalculationInfo> getMyWorksDetails(@Query("trackNumber") String trackNumber);

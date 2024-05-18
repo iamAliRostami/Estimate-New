@@ -98,7 +98,7 @@
                 style="@style/Button.Negative"
                 android:layout_width="match_parent"
                 android:layout_below="@id/linear_layout_take_photo"
-                android:text="@string/final_accepted" />
+                android:text="@string/form_preview" />
         </RelativeLayout>
     </LinearLayout>
 

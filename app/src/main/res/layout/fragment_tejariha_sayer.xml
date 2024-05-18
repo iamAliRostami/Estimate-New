@@ -91,7 +91,7 @@
                 android:layout_marginStart="@dimen/low_dp"
                 android:layout_weight="1"
                 android:hint="@string/capacity"
-                android:inputType="text"
+                android:inputType="numberSigned"
                 tools:ignore="Autofill,TextFields" />
 
             <ImageView
