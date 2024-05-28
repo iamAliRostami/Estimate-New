@@ -78,6 +78,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:inputType="number"
+                        android:maxLength="4"
                         android:singleLine="true"
                         tools:ignore="Autofill,LabelFor" />
 
@@ -93,6 +94,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:inputType="number"
+                        android:maxLength="4"
                         tools:ignore="Autofill,LabelFor" />
                 </LinearLayout>
 
@@ -114,6 +116,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:inputType="number"
+                        android:maxLength="4"
                         tools:ignore="Autofill,LabelFor" />
 
                     <TextView
@@ -128,6 +131,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:inputType="number"
+                        android:maxLength="4"
                         tools:ignore="Autofill,LabelFor" />
 
                 </LinearLayout>
@@ -484,6 +488,7 @@
                         android:id="@+id/edit_text_arse"
                         style="@style/EditTextForm"
                         android:layout_width="0dp"
+                        android:maxLength="4"
                         android:layout_weight="0.75"
                         android:inputType="number"
                         tools:ignore="Autofill,LabelFor" />
@@ -499,6 +504,7 @@
                         style="@style/EditTextForm"
                         android:layout_width="0dp"
                         android:layout_weight="1"
+                        android:maxLength="4"
                         android:inputType="number"
                         tools:ignore="Autofill,LabelFor" />
                 </LinearLayout>
@@ -520,6 +526,7 @@
                         android:id="@+id/edit_text_tedad_saier"
                         style="@style/EditTextForm"
                         android:layout_width="0dp"
+                        android:maxLength="4"
                         android:layout_weight="0.75"
                         android:inputType="numberSigned"
                         tools:ignore="Autofill,LabelFor" />
@@ -535,6 +542,7 @@
                         android:id="@+id/edit_text_tedad_tejari"
                         style="@style/EditTextForm"
                         android:layout_width="0dp"
+                        android:maxLength="4"
                         android:layout_weight="1"
                         android:inputType="number"
                         tools:ignore="Autofill,LabelFor" />
@@ -561,6 +569,7 @@
                         android:text="@string/aian_kol" />
 
                     <EditText
+                        android:maxLength="4"
                         android:id="@+id/edit_text_aian_kol"
                         style="@style/EditTextForm"
                         android:layout_width="0dp"
@@ -575,6 +584,7 @@
                         android:text="@string/ayan_maskooni" />
 
                     <EditText
+                        android:maxLength="4"
                         android:id="@+id/edit_text_aian_maskooni"
                         style="@style/EditTextForm"
                         android:layout_width="0dp"
@@ -615,6 +625,7 @@
                         style="@style/EditTextForm"
                         android:layout_width="0dp"
                         android:layout_weight="1"
+                        android:maxLength="4"
                         android:inputType="number"
                         tools:ignore="Autofill,LabelFor" />
                 </LinearLayout>

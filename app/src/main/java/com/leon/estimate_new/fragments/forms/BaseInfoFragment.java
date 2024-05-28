@@ -174,10 +174,11 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
     }
 
     private void initializeQotrFazelabSpinner() {
-        final ArrayList<String> spinnerArrayList = new ArrayList<>(Arrays.asList("100", "125", "150", "200"));
+        final ArrayList<String> spinnerArrayList = new ArrayList<>(Arrays.asList("0", "100", "125", "150", "200"));
         binding.spinner4.setAdapter(new SpinnerCustomAdapter(requireContext(), spinnerArrayList));
         for (int i = 0; i < spinnerArrayList.size(); i++) {
-            if (examinerDuty.qotrEnsheabFS.equals(spinnerArrayList.get(i))) {
+            if (examinerDuty.qotrEnsheabFS != null &&
+                    examinerDuty.qotrEnsheabFS.equals(spinnerArrayList.get(i))) {
                 binding.spinner4.setSelection(i);
             }
         }
@@ -265,9 +266,12 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
     }
 
     private boolean checkAian() {
-        examinerDuty.aianMaskooniNew = Integer.parseInt(binding.editTextAianMaskooni.getText().toString());
-        examinerDuty.aianNonMaskooniNew = Integer.parseInt(binding.editTextAianNonMaskooni.getText().toString());
-        examinerDuty.aianKolNew = Integer.parseInt(binding.editTextAianKol.getText().toString());
+        examinerDuty.aianMaskooniNew = binding.editTextAianMaskooni.getText().toString().isEmpty() ? 0 :
+                Integer.parseInt(binding.editTextAianMaskooni.getText().toString());
+        examinerDuty.aianNonMaskooniNew = binding.editTextAianNonMaskooni.getText().toString().isEmpty() ? 0 :
+                Integer.parseInt(binding.editTextAianNonMaskooni.getText().toString());
+        examinerDuty.aianKolNew = binding.editTextAianKol.getText().toString().isEmpty() ? 0 :
+                Integer.parseInt(binding.editTextAianKol.getText().toString());
         if (examinerDuty.aianKolNew < examinerDuty.aianMaskooniNew + examinerDuty.aianNonMaskooniNew) {
             binding.editTextAianKol.setError("اعیان کل از مجموع اعیان مسکونی و تجاری کوچک تر است");
             binding.editTextAianKol.requestFocus();
@@ -310,14 +314,19 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
         examinerDuty.sifoon125 = Integer.parseInt(binding.editTextSifoon125.getText().toString());
         examinerDuty.sifoon150 = Integer.parseInt(binding.editTextSifoon150.getText().toString());
         examinerDuty.sifoon200 = Integer.parseInt(binding.editTextSifoon200.getText().toString());
-        examinerDuty.arseNew = Integer.parseInt(binding.editTextArse.getText().toString());
+        examinerDuty.arseNew = binding.editTextArse.getText().toString().isEmpty() ? 0 :
+                Integer.parseInt(binding.editTextArse.getText().toString());
+        examinerDuty.tedadMaskooniNew = binding.editTextTedadMaskooni.getText().toString().isEmpty() ? 0 :
+                Integer.parseInt(binding.editTextTedadMaskooni.getText().toString());
+        examinerDuty.tedadTejariNew = binding.editTextTedadTejari.getText().toString().isEmpty() ? 0 :
+                Integer.parseInt(binding.editTextTedadTejari.getText().toString());
+        examinerDuty.tedadSaierNew = binding.editTextTedadSaier.getText().toString().isEmpty() ? 0 :
+                Integer.parseInt(binding.editTextTedadSaier.getText().toString());
 
-        examinerDuty.tedadMaskooniNew = Integer.parseInt(binding.editTextTedadMaskooni.getText().toString());
-        examinerDuty.tedadTejariNew = Integer.parseInt(binding.editTextTedadTejari.getText().toString());
-        examinerDuty.tedadSaierNew = Integer.parseInt(binding.editTextTedadSaier.getText().toString());
         examinerDuty.arzeshMelk = Integer.parseInt(binding.textViewArzeshMelk.getText().toString());
         examinerDuty.tedadTaxfif = Integer.parseInt(binding.editTextTedadTakhfif.getText().toString());
-        examinerDuty.zarfiatQarardadiNew = Integer.parseInt(binding.editTextZarfiatQaradadi.getText().toString());
+        examinerDuty.zarfiatQarardadiNew = binding.editTextZarfiatQaradadi.getText().toString().isEmpty() ? 0 :
+                Integer.parseInt(binding.editTextZarfiatQaradadi.getText().toString());
         examinerDuty.licenceNumber = binding.editTextLicenceNumber.getText().toString();
 
         examinerDuty.karbariId = formActivity.getKarbariDictionary()
@@ -351,7 +360,8 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
         examinerDuty.adamLicence = binding.checkbox6.isChecked();
         examinerDuty.qaradad = binding.checkbox7.isChecked();
         examinerDuty.qaradadNumber = binding.editTextQarardad.getText().toString();
-        examinerDuty.pelak = Integer.parseInt(binding.editTextPelak.getText().toString());
+        examinerDuty.pelak = binding.editTextPelak.getText().toString().isEmpty() ? 0 :
+                Integer.parseInt(binding.editTextPelak.getText().toString());
         examinerDuty.codeNew = binding.editTextCodeNew.getText().toString();
         examinerDuty.codeKaf = binding.editTextCodeKaf.getText().toString();
         examinerDuty.sanadNumber = Integer.parseInt(binding.editTextSanadNumber.getText().toString());

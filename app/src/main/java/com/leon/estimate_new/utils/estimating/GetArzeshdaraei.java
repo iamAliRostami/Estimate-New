@@ -71,8 +71,8 @@ class ArzeshdaraeiSucceed implements ICallback<Arzeshdaraei> {
     public void execute(Response<Arzeshdaraei> response) {
         Arzeshdaraei arzeshdaraei = response.body();
         if (arzeshdaraei != null && arzeshdaraei.formulas != null &&
-                arzeshdaraei.formulas.size() > 0 && arzeshdaraei.blocks != null
-                && arzeshdaraei.blocks.size() > 0) {
+                !arzeshdaraei.formulas.isEmpty() && arzeshdaraei.blocks != null
+                && !arzeshdaraei.blocks.isEmpty()) {
             for (int i = 0; i < arzeshdaraei.formulas.size(); i++)
                 getApplicationComponent().MyDatabase().formulaDao().insertFormula(arzeshdaraei.formulas.get(i));
             for (int i = 0; i < arzeshdaraei.blocks.size(); i++)

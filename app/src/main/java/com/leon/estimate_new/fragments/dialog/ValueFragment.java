@@ -98,7 +98,7 @@ public class ValueFragment extends DialogFragment {
     }
 
     private boolean checkIsNoEmpty(EditText editText) {
-        if (editText.getText().toString().length() < 1) {
+        if (editText.getText().toString().isEmpty()) {
             editText.setError(getString(R.string.error_empty));
             editText.requestFocus();
             return false;

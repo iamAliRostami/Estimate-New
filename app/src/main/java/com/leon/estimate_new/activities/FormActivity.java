@@ -14,11 +14,9 @@ import static com.leon.estimate_new.helpers.Constants.PERSONAL_FRAGMENT;
 import static com.leon.estimate_new.helpers.Constants.SECOND_FRAGMENT;
 import static com.leon.estimate_new.helpers.Constants.SERVICES_FRAGMENT;
 import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponent;
-import static com.leon.estimate_new.helpers.MyApplication.getLocationTracker;
 import static com.leon.estimate_new.helpers.MyApplication.setActivityComponent;
 
 import android.content.Intent;
-import android.graphics.Point;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -89,7 +87,7 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
                     .fromJson(examinerDuty.requestDictionaryString, RequestDictionary[].class)));
         }
         new GetDBData(this, examinerDuty.zoneId, examinerDuty.trackNumber, this).execute(this);
-        displayView(PERSONAL_FRAGMENT/*MAP_DESCRIPTION_FRAGMENT*/);
+        displayView(PERSONAL_FRAGMENT);
     }
 
     private void displayView(int position) {
@@ -114,9 +112,7 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
             case BASE_FRAGMENT -> BaseInfoFragment.newInstance();
             case SECOND_FRAGMENT -> SecondFormFragment.newInstance();
             case MAP_DESCRIPTION_FRAGMENT -> MapDescriptionFragment.newInstance();
-            case EDIT_MAP_FRAGMENT ->
-                //TODO
-                    EditMapFragment.newInstance();
+            case EDIT_MAP_FRAGMENT -> EditMapFragment.newInstance();
             default -> PersonalFragment.newInstance();
         };
     }
@@ -167,7 +163,6 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
     @Override
     public void setSecondForm(ExaminerDuties examinerDuty) {
         this.examinerDuty = examinerDuty;
-        //TODO
         displayView(MAP_DESCRIPTION_FRAGMENT);
     }
 
@@ -252,7 +247,6 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
 //                getLocationTracker(this).getLatitude(), SpatialReferences.getWgs84());
 //        final String[] s = CoordinateFormatter.toUtm(currentPoint, LATITUDE_BAND_INDICATORS,
 //                true).split(" ");
-
 //        examinerDuty.x2 = Double.parseDouble(s[1]);
 //        examinerDuty.y2 = Double.parseDouble(s[2]);
     }
