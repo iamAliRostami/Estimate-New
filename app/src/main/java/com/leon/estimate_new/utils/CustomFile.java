@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaScannerConnection;
 import android.os.Environment;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.leon.estimate_new.R;
@@ -59,7 +60,8 @@ public class CustomFile {
 
     static byte[] compressBitmapToByte(Bitmap bitmap) {
         final ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        //TODO
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 40, stream);
         return stream.toByteArray();
     }
 
@@ -78,8 +80,7 @@ public class CustomFile {
                 ".jpg",         /* suffix */
                 storageDir      /* directory */
         );
-        final StringBuilder stringBuilder = (new StringBuilder()).append("file:");
-        IMAGE_FILE_NAME = stringBuilder.append(image.getAbsolutePath()).toString();
+        IMAGE_FILE_NAME = "file:" + image.getAbsolutePath();
         return image;
     }
 
@@ -102,6 +103,7 @@ public class CustomFile {
                 original = Bitmap.createScaledBitmap(original, width, height, false);
                 stream = new ByteArrayOutputStream();
                 original.compress(Bitmap.CompressFormat.JPEG, 80, stream);
+                Log.e("size", String.valueOf(stream.size()));
             }
             return original;
         } catch (Exception e) {

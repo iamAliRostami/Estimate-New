@@ -75,9 +75,9 @@ public class TakePhotoFragment extends Fragment implements View.OnClickListener 
                 if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null &&
                         result.getData().getData() != null) {
                     try {
-                        final InputStream inputStream = requireContext().getContentResolver()
+                        InputStream inputStream = requireContext().getContentResolver()
                                 .openInputStream(result.getData().getData());
-                        final Bitmap bitmap = compressBitmap(BitmapFactory.decodeStream(inputStream));
+                        Bitmap bitmap = compressBitmap(BitmapFactory.decodeStream(inputStream));
                         documentActivity.setTakenBitmap(bitmap);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
@@ -121,7 +121,7 @@ public class TakePhotoFragment extends Fragment implements View.OnClickListener 
         binding.buttonAccepted.setOnClickListener(this);
         binding.spinnerTitle.setAdapter(new SpinnerCustomAdapter(requireContext(), documentActivity.getTitles()));
         binding.spinnerTitle.setSelection(documentActivity.getSelected());
-        if (documentActivity.getDataThumbnail().size() == 0) {
+        if (documentActivity.getDataThumbnail().isEmpty()) {
             documentActivity.setImages();
             new ImageThumbnailList(requireContext(), documentActivity.getKey(), this).execute(requireActivity());
         } else binding.progressBar.setVisibility(View.GONE);
