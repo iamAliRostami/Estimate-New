@@ -29,6 +29,8 @@ import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.RectangleReadOnly;
 import com.itextpdf.text.pdf.Barcode128;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPCell;
@@ -74,7 +76,6 @@ public class PDFUtility {
         FONT_TEXT = new Font(BASE_FONT, 22, Font.NORMAL);
         FONT_TEXT_ITALIC = new Font(BASE_FONT, 24, Font.ITALIC);
         FONT_EN = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL);
-
         File file = new File(PDF_ADDRESS);
         if (file.exists()) {
             if (!file.delete()) return;
@@ -82,7 +83,9 @@ public class PDFUtility {
 
         Document document = new Document();
         document.setMargins(PAGE_MARGIN, PAGE_MARGIN, PAGE_MARGIN, PAGE_MARGIN);
-        document.setPageSize(isPortrait ? PageSize.B3 : PageSize.B3.rotate());
+        final Rectangle CUSTOM_PAGE_SIZE = new Rectangle(1000,1600);
+
+        document.setPageSize(isPortrait ? CUSTOM_PAGE_SIZE : CUSTOM_PAGE_SIZE.rotate());
         new FileOutputStream(PDF_ADDRESS);
         PdfWriter pdfWriter = PdfWriter.getInstance(document, new FileOutputStream(PDF_ADDRESS));
         pdfWriter.setFullCompression();

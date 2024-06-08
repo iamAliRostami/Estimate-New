@@ -139,16 +139,14 @@ public class DocumentActivity extends AppCompatActivity implements TakePhotoFrag
 
     private Fragment getFragment(int position) {
         close = false;
-        switch (position) {
-            case BRIGHTNESS_CONTRAST_FRAGMENT:
-                return BrightnessContrastFragment.newInstance();
-            case CROP_FRAGMENT:
-                return CropFragment.newInstance();
-            case TAKE_PHOTO_FRAGMENT:
-            default:
+        return switch (position) {
+            case BRIGHTNESS_CONTRAST_FRAGMENT -> BrightnessContrastFragment.newInstance();
+            case CROP_FRAGMENT -> CropFragment.newInstance();
+            default -> {
                 close = true;
-                return TakePhotoFragment.newInstance();
-        }
+                yield TakePhotoFragment.newInstance();
+            }
+        };
     }
 
     private void askPermission() {
