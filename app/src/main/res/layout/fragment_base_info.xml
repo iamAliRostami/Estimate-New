@@ -488,7 +488,7 @@
                         android:id="@+id/edit_text_arse"
                         style="@style/EditTextForm"
                         android:layout_width="0dp"
-                        android:maxLength="4"
+                        android:maxLength="9"
                         android:layout_weight="0.75"
                         android:inputType="number"
                         tools:ignore="Autofill,LabelFor" />
@@ -569,7 +569,7 @@
                         android:text="@string/aian_kol" />
 
                     <EditText
-                        android:maxLength="4"
+                        android:maxLength="9"
                         android:id="@+id/edit_text_aian_kol"
                         style="@style/EditTextForm"
                         android:layout_width="0dp"
@@ -584,7 +584,7 @@
                         android:text="@string/ayan_maskooni" />
 
                     <EditText
-                        android:maxLength="4"
+                        android:maxLength="9"
                         android:id="@+id/edit_text_aian_maskooni"
                         style="@style/EditTextForm"
                         android:layout_width="0dp"
@@ -625,7 +625,7 @@
                         style="@style/EditTextForm"
                         android:layout_width="0dp"
                         android:layout_weight="1"
-                        android:maxLength="4"
+                        android:maxLength="9"
                         android:inputType="number"
                         tools:ignore="Autofill,LabelFor" />
                 </LinearLayout>

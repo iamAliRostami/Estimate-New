@@ -9,6 +9,7 @@ import static com.leon.estimate_new.utils.ImageUtils.createImage;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,7 @@ import com.leon.estimate_new.tables.ExaminerDuties;
 public class EditMapFragment extends Fragment implements View.OnClickListener {
     private FragmentEditMapBinding binding;
     private Callback formActivity;
+    private Bitmap bitmapTemp;
 
     public EditMapFragment() {
     }
@@ -55,8 +57,10 @@ public class EditMapFragment extends Fragment implements View.OnClickListener {
         binding.imageViewColorBlue.setOnClickListener(this);
         binding.imageViewColorYellow.setOnClickListener(this);
         binding.signatureView.setPenColor(YELLOW);
+
         if (MAP_SELECTED != null) {
-            binding.signatureView.setBitmap(MAP_SELECTED.copy(MAP_SELECTED.getConfig(), true));
+            bitmapTemp = MAP_SELECTED.copy(MAP_SELECTED.getConfig(), true);
+            binding.signatureView.setBitmap(bitmapTemp.copy(bitmapTemp.getConfig(), true));
         }
     }
 
@@ -65,8 +69,8 @@ public class EditMapFragment extends Fragment implements View.OnClickListener {
         final int id = v.getId();
         if (id == R.id.image_view_refresh) {
             binding.signatureView.clearCanvas();
-            if (MAP_SELECTED != null) {
-                binding.signatureView.setBitmap(MAP_SELECTED.copy(MAP_SELECTED.getConfig(), true));
+            if (bitmapTemp != null) {
+                binding.signatureView.setBitmap(bitmapTemp.copy(bitmapTemp.getConfig(), true));
             }
         } else if (id == R.id.image_view_color_blue) {
             binding.signatureView.setPenColor(BLUE);

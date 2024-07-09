@@ -94,7 +94,7 @@ public class PersonalFragment extends Fragment {
     private boolean checkForm() {
         return checkIsNoEmpty(binding.editTextName)
                 && checkIsNoEmpty(binding.editTextFamily)
-                && checkIsNoEmpty(binding.editTextFatherName)
+                /* && checkIsNoEmpty(binding.editTextFatherName)*/
                 && checkIsNoEmpty(binding.editTextNationNumber)
                 && checkIsNoEmpty(binding.editTextAddress)
                 && checkOtherIsNoEmpty();
@@ -102,7 +102,7 @@ public class PersonalFragment extends Fragment {
 
     private boolean checkIsNoEmpty(EditText editText) {
         final View focusView;
-        if (editText.getText().toString().length() < 1) {
+        if (editText.getText().toString().isEmpty()) {
             editText.setError(getString(R.string.error_empty));
             focusView = editText;
             focusView.requestFocus();

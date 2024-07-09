@@ -1099,7 +1099,7 @@ public class PDFUtility {
         tableTemp.addCell(pdfPCellTemp);
 
 
-        text = "تهیه کننده کروکی: ".concat(name);
+        text = "ارزیاب: ".concat(name);
         temp = new Paragraph(pe.process(text), FONT_TEXT);
         pdfPCellTemp = new PdfPCell(addEmptyLine(temp, 2));
         pdfPCellTemp.setHorizontalAlignment(Element.ALIGN_RIGHT);
