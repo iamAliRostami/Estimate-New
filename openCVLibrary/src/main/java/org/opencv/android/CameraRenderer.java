@@ -9,7 +9,6 @@ import android.util.Log;
 import java.io.IOException;
 import java.util.List;
 
-@TargetApi(15)
 @SuppressWarnings("deprecation")
 public class CameraRenderer extends CameraGLRendererBase {
 
@@ -45,7 +44,7 @@ public class CameraRenderer extends CameraGLRendererBase {
                 Log.e(LOGTAG, "Camera is not available (in use or does not exist): " + e.getLocalizedMessage());
             }
 
-            if (mCamera == null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
+            if (mCamera == null) {
                 boolean connected = false;
                 for (int camIdx = 0; camIdx < Camera.getNumberOfCameras(); ++camIdx) {
                     Log.d(LOGTAG, "Trying to open camera with new open(" + camIdx + ")");
@@ -59,40 +58,38 @@ public class CameraRenderer extends CameraGLRendererBase {
                 }
             }
         } else {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-                int localCameraIndex = mCameraIndex;
-                if (mCameraIndex == CameraBridgeViewBase.CAMERA_ID_BACK) {
-                    Log.i(LOGTAG, "Trying to open BACK camera");
-                    Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
-                    for (int camIdx = 0; camIdx < Camera.getNumberOfCameras(); ++camIdx) {
-                        Camera.getCameraInfo(camIdx, cameraInfo);
-                        if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_BACK) {
-                            localCameraIndex = camIdx;
-                            break;
-                        }
-                    }
-                } else if (mCameraIndex == CameraBridgeViewBase.CAMERA_ID_FRONT) {
-                    Log.i(LOGTAG, "Trying to open FRONT camera");
-                    Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
-                    for (int camIdx = 0; camIdx < Camera.getNumberOfCameras(); ++camIdx) {
-                        Camera.getCameraInfo(camIdx, cameraInfo);
-                        if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
-                            localCameraIndex = camIdx;
-                            break;
-                        }
+            int localCameraIndex = mCameraIndex;
+            if (mCameraIndex == CameraBridgeViewBase.CAMERA_ID_BACK) {
+                Log.i(LOGTAG, "Trying to open BACK camera");
+                Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
+                for (int camIdx = 0; camIdx < Camera.getNumberOfCameras(); ++camIdx) {
+                    Camera.getCameraInfo(camIdx, cameraInfo);
+                    if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_BACK) {
+                        localCameraIndex = camIdx;
+                        break;
                     }
                 }
-                if (localCameraIndex == CameraBridgeViewBase.CAMERA_ID_BACK) {
-                    Log.e(LOGTAG, "Back camera not found!");
-                } else if (localCameraIndex == CameraBridgeViewBase.CAMERA_ID_FRONT) {
-                    Log.e(LOGTAG, "Front camera not found!");
-                } else {
-                    Log.d(LOGTAG, "Trying to open camera with new open(" + localCameraIndex + ")");
-                    try {
-                        mCamera = Camera.open(localCameraIndex);
-                    } catch (RuntimeException e) {
-                        Log.e(LOGTAG, "Camera #" + localCameraIndex + "failed to open: " + e.getLocalizedMessage());
+            } else if (mCameraIndex == CameraBridgeViewBase.CAMERA_ID_FRONT) {
+                Log.i(LOGTAG, "Trying to open FRONT camera");
+                Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
+                for (int camIdx = 0; camIdx < Camera.getNumberOfCameras(); ++camIdx) {
+                    Camera.getCameraInfo(camIdx, cameraInfo);
+                    if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+                        localCameraIndex = camIdx;
+                        break;
                     }
+                }
+            }
+            if (localCameraIndex == CameraBridgeViewBase.CAMERA_ID_BACK) {
+                Log.e(LOGTAG, "Back camera not found!");
+            } else if (localCameraIndex == CameraBridgeViewBase.CAMERA_ID_FRONT) {
+                Log.e(LOGTAG, "Front camera not found!");
+            } else {
+                Log.d(LOGTAG, "Trying to open camera with new open(" + localCameraIndex + ")");
+                try {
+                    mCamera = Camera.open(localCameraIndex);
+                } catch (RuntimeException e) {
+                    Log.e(LOGTAG, "Camera #" + localCameraIndex + "failed to open: " + e.getLocalizedMessage());
                 }
             }
         }
@@ -128,7 +125,7 @@ public class CameraRenderer extends CameraGLRendererBase {
         Camera.Parameters param = mCamera.getParameters();
         List<Size> psize = param.getSupportedPreviewSizes();
         int bestWidth = 0, bestHeight = 0;
-        if (psize.size() > 0) {
+        if (!psize.isEmpty()) {
             float aspect = (float) width / height;
             for (Size size : psize) {
                 int w = size.width, h = size.height;
@@ -140,7 +137,7 @@ public class CameraRenderer extends CameraGLRendererBase {
                     bestHeight = h;
                 }
             }
-            if (bestWidth <= 0 || bestHeight <= 0) {
+            if (bestWidth == 0 || bestHeight == 0) {
                 bestWidth = psize.get(0).width;
                 bestHeight = psize.get(0).height;
                 Log.e(LOGTAG, "Error: best size was not selected, using " + bestWidth + " x " + bestHeight);

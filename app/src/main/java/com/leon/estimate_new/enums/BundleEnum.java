@@ -23,6 +23,7 @@ public enum BundleEnum {
     NUMBER("counterStateCode"),
     CURRENT_PAGE("number"),
     IMAGE_BITMAP("image_bitmap"),
+    IS_NEW("is_new"),
     REQUEST("request"),
     ZONE_ID("zone_id"),
     IS_NEIGHBOUR("is_neighbour"),

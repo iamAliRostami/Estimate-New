@@ -30,17 +30,13 @@ public class ORB extends Feature2D {
     //javadoc: ORB::create(nfeatures, scaleFactor, nlevels, edgeThreshold, firstLevel, WTA_K, scoreType, patchSize, fastThreshold)
     public static ORB create(int nfeatures, float scaleFactor, int nlevels, int edgeThreshold, int firstLevel, int WTA_K, int scoreType, int patchSize, int fastThreshold) {
 
-        ORB retVal = ORB.__fromPtr__(create_0(nfeatures, scaleFactor, nlevels, edgeThreshold, firstLevel, WTA_K, scoreType, patchSize, fastThreshold));
-
-        return retVal;
+        return ORB.__fromPtr__(create_0(nfeatures, scaleFactor, nlevels, edgeThreshold, firstLevel, WTA_K, scoreType, patchSize, fastThreshold));
     }
 
     //javadoc: ORB::create()
     public static ORB create() {
 
-        ORB retVal = ORB.__fromPtr__(create_1());
-
-        return retVal;
+        return ORB.__fromPtr__(create_1());
     }
 
 
@@ -206,17 +202,13 @@ public class ORB extends Feature2D {
     //javadoc: ORB::getDefaultName()
     public String getDefaultName() {
 
-        String retVal = getDefaultName_0(nativeObj);
-
-        return retVal;
+        return getDefaultName_0(nativeObj);
     }
 
     //javadoc: ORB::getScaleFactor()
     public double getScaleFactor() {
 
-        double retVal = getScaleFactor_0(nativeObj);
-
-        return retVal;
+        return getScaleFactor_0(nativeObj);
     }
 
     //javadoc: ORB::setScaleFactor(scaleFactor)
@@ -224,15 +216,12 @@ public class ORB extends Feature2D {
 
         setScaleFactor_0(nativeObj, scaleFactor);
 
-        return;
     }
 
     //javadoc: ORB::getEdgeThreshold()
     public int getEdgeThreshold() {
 
-        int retVal = getEdgeThreshold_0(nativeObj);
-
-        return retVal;
+        return getEdgeThreshold_0(nativeObj);
     }
 
     //javadoc: ORB::setEdgeThreshold(edgeThreshold)
@@ -240,15 +229,12 @@ public class ORB extends Feature2D {
 
         setEdgeThreshold_0(nativeObj, edgeThreshold);
 
-        return;
     }
 
     //javadoc: ORB::getFastThreshold()
     public int getFastThreshold() {
 
-        int retVal = getFastThreshold_0(nativeObj);
-
-        return retVal;
+        return getFastThreshold_0(nativeObj);
     }
 
     //javadoc: ORB::setFastThreshold(fastThreshold)
@@ -256,15 +242,12 @@ public class ORB extends Feature2D {
 
         setFastThreshold_0(nativeObj, fastThreshold);
 
-        return;
     }
 
     //javadoc: ORB::getFirstLevel()
     public int getFirstLevel() {
 
-        int retVal = getFirstLevel_0(nativeObj);
-
-        return retVal;
+        return getFirstLevel_0(nativeObj);
     }
 
     //javadoc: ORB::setFirstLevel(firstLevel)
@@ -272,15 +255,12 @@ public class ORB extends Feature2D {
 
         setFirstLevel_0(nativeObj, firstLevel);
 
-        return;
     }
 
     //javadoc: ORB::getMaxFeatures()
     public int getMaxFeatures() {
 
-        int retVal = getMaxFeatures_0(nativeObj);
-
-        return retVal;
+        return getMaxFeatures_0(nativeObj);
     }
 
     //javadoc: ORB::setMaxFeatures(maxFeatures)
@@ -288,15 +268,12 @@ public class ORB extends Feature2D {
 
         setMaxFeatures_0(nativeObj, maxFeatures);
 
-        return;
     }
 
     //javadoc: ORB::getNLevels()
     public int getNLevels() {
 
-        int retVal = getNLevels_0(nativeObj);
-
-        return retVal;
+        return getNLevels_0(nativeObj);
     }
 
     //javadoc: ORB::setNLevels(nlevels)
@@ -304,15 +281,12 @@ public class ORB extends Feature2D {
 
         setNLevels_0(nativeObj, nlevels);
 
-        return;
     }
 
     //javadoc: ORB::getPatchSize()
     public int getPatchSize() {
 
-        int retVal = getPatchSize_0(nativeObj);
-
-        return retVal;
+        return getPatchSize_0(nativeObj);
     }
 
     //javadoc: ORB::setPatchSize(patchSize)
@@ -320,15 +294,12 @@ public class ORB extends Feature2D {
 
         setPatchSize_0(nativeObj, patchSize);
 
-        return;
     }
 
     //javadoc: ORB::getScoreType()
     public int getScoreType() {
 
-        int retVal = getScoreType_0(nativeObj);
-
-        return retVal;
+        return getScoreType_0(nativeObj);
     }
 
     //javadoc: ORB::setScoreType(scoreType)
@@ -336,15 +307,12 @@ public class ORB extends Feature2D {
 
         setScoreType_0(nativeObj, scoreType);
 
-        return;
     }
 
     //javadoc: ORB::getWTA_K()
     public int getWTA_K() {
 
-        int retVal = getWTA_K_0(nativeObj);
-
-        return retVal;
+        return getWTA_K_0(nativeObj);
     }
 
     //javadoc: ORB::setWTA_K(wta_k)
@@ -352,11 +320,11 @@ public class ORB extends Feature2D {
 
         setWTA_K_0(nativeObj, wta_k);
 
-        return;
     }
 
     @Override
     protected void finalize() throws Throwable {
+        super.finalize();
         delete(nativeObj);
     }
 

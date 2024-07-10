@@ -25,20 +25,14 @@ public class Objdetect {
 
     //javadoc: groupRectangles(rectList, weights, groupThreshold, eps)
     public static void groupRectangles(MatOfRect rectList, MatOfInt weights, int groupThreshold, double eps) {
-        Mat rectList_mat = rectList;
-        Mat weights_mat = weights;
-        groupRectangles_0(rectList_mat.nativeObj, weights_mat.nativeObj, groupThreshold, eps);
+        groupRectangles_0(rectList.nativeObj, weights.nativeObj, groupThreshold, eps);
 
-        return;
     }
 
     //javadoc: groupRectangles(rectList, weights, groupThreshold)
     public static void groupRectangles(MatOfRect rectList, MatOfInt weights, int groupThreshold) {
-        Mat rectList_mat = rectList;
-        Mat weights_mat = weights;
-        groupRectangles_1(rectList_mat.nativeObj, weights_mat.nativeObj, groupThreshold);
+        groupRectangles_1(rectList.nativeObj, weights.nativeObj, groupThreshold);
 
-        return;
     }
 
 

@@ -14,11 +14,11 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/relative_layout"
-        android:layout_below="@id/text_view_title"
-        android:background="@drawable/border_white_1">
+        android:layout_above="@id/button_pre"
+        android:layout_below="@id/text_view_title">
 
         <RelativeLayout
+            android:background="@drawable/border_white_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -220,20 +220,24 @@
                     <TextView
                         style="@style/TitleSmall"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:text="@string/parvane" />
+                        android:layout_weight="1.25"
+                        android:text="@string/sodur_date" />
 
-                    <CheckBox
-                        android:id="@+id/checkbox4"
+                    <EditText
+                        android:id="@+id/edit_text_sodur_date"
+                        style="@style/EditTextForm"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="0.5" />
-
+                        android:layout_weight="0.75"
+                        android:focusable="false"
+                        android:cursorVisible="false"
+                        android:gravity="center"
+                        android:inputType="none"
+                        android:maxLength="10"
+                        tools:ignore="Autofill,LabelFor,TextFields" />
                     <TextView
                         style="@style/TitleSmall"
                         android:layout_width="0dp"
-                        android:layout_weight="1.5"
+                        android:layout_weight="1"
                         android:text="@string/parvane_number" />
 
                     <EditText
@@ -247,67 +251,30 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/linear_layout_6"
+                    android:id="@+id/linear_layout_7"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/linear_layout_5">
 
                     <TextView
                         style="@style/TitleSmall"
+                        android:layout_weight="1.25"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:text="@string/estelam_shahrdari" />
+                        android:layout_height="wrap_content"
+                        android:text="@string/qaradad_amade" />
 
                     <CheckBox
-                        android:id="@+id/checkbox3"
+                        android:id="@+id/checkbox7"
+                        android:layout_weight="0.75"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="0.5" />
-
-                    <TextView
-                        style="@style/TitleSmall"
-                        android:layout_width="0dp"
-                        android:layout_weight="1.5"
-                        android:text="@string/sodur_date" />
-
-                    <EditText
-                        android:id="@+id/edit_text_sodur_date"
-                        style="@style/EditTextForm"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:editable="false"
-                        android:gravity="center"
-                        android:inputType="none"
-                        android:maxLength="10"
-                        tools:ignore="Autofill,LabelFor,TextFields" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/linear_layout_7"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/linear_layout_6">
+                        android:layout_gravity="center" />
 
                     <TextView
                         style="@style/TitleSmall"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/ezharat_motaqazi" />
-
-                    <CheckBox
-                        android:id="@+id/checkbox2"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="0.5" />
-
-                    <TextView
-                        style="@style/TitleSmall"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1.5"
                         android:text="@string/pelak" />
 
                     <EditText
@@ -330,7 +297,7 @@
                         style="@style/TitleSmall"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="1.25"
                         android:text="@string/ensheab_gheire_daem" />
 
                     <CheckBox
@@ -338,84 +305,13 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_weight="0.5" />
+                        android:layout_weight="0.75" />
+
 
                     <TextView
                         style="@style/TitleSmall"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1.5"
-                        android:text="@string/code_new" />
-
-                    <EditText
-                        android:id="@+id/edit_text_code_new"
-                        style="@style/EditTextForm"
                         android:layout_width="0dp"
                         android:layout_weight="1"
-                        android:inputType="number"
-                        tools:ignore="Autofill,LabelFor" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@id/linear_layout_9"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/linear_layout_8">
-
-                    <TextView
-                        style="@style/TitleSmall"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/document" />
-
-                    <CheckBox
-                        android:id="@+id/checkbox5"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="0.5" />
-
-                    <TextView
-                        style="@style/TitleSmall"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1.5"
-                        android:text="@string/code_kaf" />
-
-                    <EditText
-                        android:id="@+id/edit_text_code_kaf"
-                        style="@style/EditTextForm"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:inputType="number"
-                        tools:ignore="Autofill,LabelFor" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@id/linear_layout_10"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/linear_layout_9">
-
-                    <TextView
-                        style="@style/TitleSmall"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="مجوز عدم تولی" />
-
-                    <CheckBox
-                        android:id="@+id/checkbox6"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="0.5" />
-
-                    <TextView
-                        style="@style/TitleSmall"
-                        android:layout_width="0dp"
-                        android:layout_weight="1.5"
                         android:text="@string/sanad_number" />
 
                     <EditText
@@ -429,28 +325,29 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@id/linear_layout_9"
+                    android:weightSum="4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/linear_layout_10">
+                    android:layout_below="@id/linear_layout_8">
 
                     <TextView
                         style="@style/TitleSmall"
+                        android:layout_weight="1.25"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="قرارداد آماده سازی" />
+                        android:text="@string/mojavez_adam_tavali" />
 
                     <CheckBox
-                        android:id="@+id/checkbox7"
+                        android:id="@+id/checkbox6"
                         android:layout_width="0dp"
+                        android:layout_weight="0.75"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="0.5" />
-
+                        android:layout_gravity="center" />
                     <TextView
                         style="@style/TitleSmall"
                         android:layout_width="0dp"
-                        android:layout_weight="1.5"
+                        android:layout_weight="1"
                         android:text="@string/qarardad" />
 
                     <EditText
@@ -461,7 +358,9 @@
                         android:inputType="number"
                         android:maxLength="8"
                         tools:ignore="Autofill,LabelFor" />
+
                 </LinearLayout>
+
             </RelativeLayout>
 
             <RelativeLayout
@@ -488,7 +387,7 @@
                         android:id="@+id/edit_text_arse"
                         style="@style/EditTextForm"
                         android:layout_width="0dp"
-                        android:maxLength="9"
+                        android:maxLength="6"
                         android:layout_weight="0.75"
                         android:inputType="number"
                         tools:ignore="Autofill,LabelFor" />
@@ -569,7 +468,7 @@
                         android:text="@string/aian_kol" />
 
                     <EditText
-                        android:maxLength="9"
+                        android:maxLength="6"
                         android:id="@+id/edit_text_aian_kol"
                         style="@style/EditTextForm"
                         android:layout_width="0dp"
@@ -584,7 +483,7 @@
                         android:text="@string/ayan_maskooni" />
 
                     <EditText
-                        android:maxLength="9"
+                        android:maxLength="6"
                         android:id="@+id/edit_text_aian_maskooni"
                         style="@style/EditTextForm"
                         android:layout_width="0dp"
@@ -610,7 +509,8 @@
                         style="@style/EditTextForm"
                         android:layout_width="0dp"
                         android:layout_weight="1"
-                        android:editable="false"
+                        android:focusable="false"
+                        android:cursorVisible="false"
                         android:inputType="none"
                         tools:ignore="Autofill,LabelFor" />
 
@@ -625,7 +525,7 @@
                         style="@style/EditTextForm"
                         android:layout_width="0dp"
                         android:layout_weight="1"
-                        android:maxLength="9"
+                        android:maxLength="6"
                         android:inputType="number"
                         tools:ignore="Autofill,LabelFor" />
                 </LinearLayout>
@@ -666,23 +566,20 @@
         </RelativeLayout>
     </ScrollView>
 
-    <RelativeLayout
-        android:id="@+id/relative_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="@dimen/medium_dp"
-        android:layout_marginBottom="@dimen/medium_dp">
-
         <Button
+            android:layout_marginTop="@dimen/medium_dp"
+            android:layout_marginBottom="@dimen/medium_dp"
+            android:layout_alignParentBottom="true"
             android:id="@+id/button_pre"
             style="@style/Button.Negative"
             android:text="@string/previous" />
 
         <Button
+            android:layout_marginTop="@dimen/medium_dp"
+            android:layout_marginBottom="@dimen/medium_dp"
+            android:layout_alignParentBottom="true"
             android:id="@+id/button_submit"
             style="@style/Button.Positive"
             android:layout_alignParentEnd="true"
             android:text="@string/second_info" />
-    </RelativeLayout>
 </RelativeLayout>

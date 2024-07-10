@@ -24,17 +24,13 @@ public class GFTTDetector extends Feature2D {
     //javadoc: GFTTDetector::create(maxCorners, qualityLevel, minDistance, blockSize, gradiantSize, useHarrisDetector, k)
     public static GFTTDetector create(int maxCorners, double qualityLevel, double minDistance, int blockSize, int gradiantSize, boolean useHarrisDetector, double k) {
 
-        GFTTDetector retVal = GFTTDetector.__fromPtr__(create_0(maxCorners, qualityLevel, minDistance, blockSize, gradiantSize, useHarrisDetector, k));
-
-        return retVal;
+        return GFTTDetector.__fromPtr__(create_0(maxCorners, qualityLevel, minDistance, blockSize, gradiantSize, useHarrisDetector, k));
     }
 
     //javadoc: GFTTDetector::create(maxCorners, qualityLevel, minDistance, blockSize, gradiantSize)
     public static GFTTDetector create(int maxCorners, double qualityLevel, double minDistance, int blockSize, int gradiantSize) {
 
-        GFTTDetector retVal = GFTTDetector.__fromPtr__(create_1(maxCorners, qualityLevel, minDistance, blockSize, gradiantSize));
-
-        return retVal;
+        return GFTTDetector.__fromPtr__(create_1(maxCorners, qualityLevel, minDistance, blockSize, gradiantSize));
     }
 
 
@@ -45,17 +41,13 @@ public class GFTTDetector extends Feature2D {
     //javadoc: GFTTDetector::create(maxCorners, qualityLevel, minDistance, blockSize, useHarrisDetector, k)
     public static GFTTDetector create(int maxCorners, double qualityLevel, double minDistance, int blockSize, boolean useHarrisDetector, double k) {
 
-        GFTTDetector retVal = GFTTDetector.__fromPtr__(create_2(maxCorners, qualityLevel, minDistance, blockSize, useHarrisDetector, k));
-
-        return retVal;
+        return GFTTDetector.__fromPtr__(create_2(maxCorners, qualityLevel, minDistance, blockSize, useHarrisDetector, k));
     }
 
     //javadoc: GFTTDetector::create()
     public static GFTTDetector create() {
 
-        GFTTDetector retVal = GFTTDetector.__fromPtr__(create_3());
-
-        return retVal;
+        return GFTTDetector.__fromPtr__(create_3());
     }
 
 
@@ -178,17 +170,13 @@ public class GFTTDetector extends Feature2D {
     //javadoc: GFTTDetector::getDefaultName()
     public String getDefaultName() {
 
-        String retVal = getDefaultName_0(nativeObj);
-
-        return retVal;
+        return getDefaultName_0(nativeObj);
     }
 
     //javadoc: GFTTDetector::getHarrisDetector()
     public boolean getHarrisDetector() {
 
-        boolean retVal = getHarrisDetector_0(nativeObj);
-
-        return retVal;
+        return getHarrisDetector_0(nativeObj);
     }
 
     //javadoc: GFTTDetector::setHarrisDetector(val)
@@ -196,15 +184,12 @@ public class GFTTDetector extends Feature2D {
 
         setHarrisDetector_0(nativeObj, val);
 
-        return;
     }
 
     //javadoc: GFTTDetector::getK()
     public double getK() {
 
-        double retVal = getK_0(nativeObj);
-
-        return retVal;
+        return getK_0(nativeObj);
     }
 
     //javadoc: GFTTDetector::setK(k)
@@ -212,15 +197,12 @@ public class GFTTDetector extends Feature2D {
 
         setK_0(nativeObj, k);
 
-        return;
     }
 
     //javadoc: GFTTDetector::getMinDistance()
     public double getMinDistance() {
 
-        double retVal = getMinDistance_0(nativeObj);
-
-        return retVal;
+        return getMinDistance_0(nativeObj);
     }
 
     //javadoc: GFTTDetector::setMinDistance(minDistance)
@@ -228,15 +210,12 @@ public class GFTTDetector extends Feature2D {
 
         setMinDistance_0(nativeObj, minDistance);
 
-        return;
     }
 
     //javadoc: GFTTDetector::getQualityLevel()
     public double getQualityLevel() {
 
-        double retVal = getQualityLevel_0(nativeObj);
-
-        return retVal;
+        return getQualityLevel_0(nativeObj);
     }
 
     //javadoc: GFTTDetector::setQualityLevel(qlevel)
@@ -244,15 +223,12 @@ public class GFTTDetector extends Feature2D {
 
         setQualityLevel_0(nativeObj, qlevel);
 
-        return;
     }
 
     //javadoc: GFTTDetector::getBlockSize()
     public int getBlockSize() {
 
-        int retVal = getBlockSize_0(nativeObj);
-
-        return retVal;
+        return getBlockSize_0(nativeObj);
     }
 
     //javadoc: GFTTDetector::setBlockSize(blockSize)
@@ -260,15 +236,12 @@ public class GFTTDetector extends Feature2D {
 
         setBlockSize_0(nativeObj, blockSize);
 
-        return;
     }
 
     //javadoc: GFTTDetector::getMaxFeatures()
     public int getMaxFeatures() {
 
-        int retVal = getMaxFeatures_0(nativeObj);
-
-        return retVal;
+        return getMaxFeatures_0(nativeObj);
     }
 
     //javadoc: GFTTDetector::setMaxFeatures(maxFeatures)
@@ -276,11 +249,11 @@ public class GFTTDetector extends Feature2D {
 
         setMaxFeatures_0(nativeObj, maxFeatures);
 
-        return;
     }
 
     @Override
     protected void finalize() throws Throwable {
+        super.finalize();
         delete(nativeObj);
     }
 

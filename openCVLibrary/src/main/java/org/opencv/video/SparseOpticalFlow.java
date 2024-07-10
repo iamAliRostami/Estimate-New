@@ -37,7 +37,6 @@ public class SparseOpticalFlow extends Algorithm {
 
         calc_0(nativeObj, prevImg.nativeObj, nextImg.nativeObj, prevPts.nativeObj, nextPts.nativeObj, status.nativeObj, err.nativeObj);
 
-        return;
     }
 
     //javadoc: SparseOpticalFlow::calc(prevImg, nextImg, prevPts, nextPts, status)
@@ -45,11 +44,11 @@ public class SparseOpticalFlow extends Algorithm {
 
         calc_1(nativeObj, prevImg.nativeObj, nextImg.nativeObj, prevPts.nativeObj, nextPts.nativeObj, status.nativeObj);
 
-        return;
     }
 
     @Override
     protected void finalize() throws Throwable {
+        super.finalize();
         delete(nativeObj);
     }
 

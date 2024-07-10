@@ -6,7 +6,6 @@ import android.content.Context;
 
 import androidx.room.Room;
 
-import com.leon.estimate_new.helpers.MyApplication;
 import com.leon.estimate_new.utils.MyDatabase;
 
 import javax.inject.Inject;

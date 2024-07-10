@@ -1,7 +1,7 @@
 package com.leon.estimate_new.tables;
 
 public class Uri {
-    public String uri;
+    public final String uri;
     public String billIdOrTrackNumber;
 
     public Uri(String uri) {

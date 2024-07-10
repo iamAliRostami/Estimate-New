@@ -21,7 +21,7 @@ import com.leon.estimate_new.tables.ExaminerDuties;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class SecondFormFragment extends Fragment {
+public class SecondFormFragment extends Fragment implements View.OnClickListener {
     private FragmentSecondFormBinding binding;
     private Callback formActivity;
     private ExaminerDuties examinerDuty;
@@ -52,8 +52,8 @@ public class SecondFormFragment extends Fragment {
         initializeTextField();
         initializeSpinners();
         initializeCheckBoxField();
-        initializeRadioButtonField();
-        setOnClickListener();
+        binding.buttonPre.setOnClickListener(this);
+        binding.buttonSubmit.setOnClickListener(this);
     }
 
     private void initializeSpinners() {
@@ -65,37 +65,11 @@ public class SecondFormFragment extends Fragment {
         binding.spinnerLooleJens.setSelection(examinerDuty.jensLooleI);
     }
 
-    private void setOnClickListener() {
-        binding.buttonPre.setOnClickListener(v -> formActivity.setOnPreClickListener(BASE_FRAGMENT));
-        binding.buttonSubmit.setOnClickListener(v -> {
-            if (checkForm()) {
-                formActivity.setSecondForm(prepareOutput());
-            }
-        });
-    }
-
     private ExaminerDuties prepareOutput() {
         examinerDuty.qotrLooleS = getResources().getStringArray(R.array.menu_qotr_loole)[binding.spinnerLoole.getSelectedItemPosition()];
         examinerDuty.jensLooleS = getResources().getStringArray(R.array.menu_jens_loole)[binding.spinnerLooleJens.getSelectedItemPosition()];
         examinerDuty.jensLooleI = binding.spinnerLooleJens.getSelectedItemPosition();
         examinerDuty.qotrLooleI = binding.spinnerLoole.getSelectedItemPosition();
-
-        if (binding.radioButtonSakht.isChecked()) {
-            examinerDuty.noeMasrafI = 1;
-            examinerDuty.noeMasrafS = binding.radioButtonSakht.getText().toString();
-        } else if (binding.radioButtonService.isChecked()) {
-            examinerDuty.noeMasrafI = 2;
-            examinerDuty.noeMasrafS = binding.radioButtonService.getText().toString();
-        } else if (binding.radioButtonMedical.isChecked()) {
-            examinerDuty.noeMasrafI = 3;
-            examinerDuty.noeMasrafS = binding.radioButtonMedical.getText().toString();
-        }
-
-        if (binding.radioButtonANormalPomp.isChecked()) {
-            examinerDuty.vaziatNasbPompI = 1;
-        } else if (binding.radioButtonDontHave.isChecked()) {
-            examinerDuty.vaziatNasbPompI = 2;
-        }
 
         examinerDuty.faseleKhakiA = Integer.parseInt(binding.editTextKhaki.getText().toString());
         examinerDuty.faseleKhakiF = Integer.parseInt(binding.editTextKhakiFazelab.getText().toString());
@@ -108,20 +82,14 @@ public class SecondFormFragment extends Fragment {
         examinerDuty.faseleOtherF = Integer.parseInt(binding.editTextOtherFazelab.getText().toString());
 
         examinerDuty.omqeZirzamin = Integer.parseInt(binding.editTextOmqZirzamin.getText().toString());
-        examinerDuty.omqFazelab = Integer.parseInt(binding.editTextOmqFazelab.getText().toString());
 
-        examinerDuty.etesalZirzamin = binding.checkBoxEtesalZirzamin.isChecked();
         examinerDuty.chahAbBaran = binding.checkBoxChahAbBaran.isChecked();
         examinerDuty.ezharNazarA = binding.checkBoxVahedAb.isChecked();
-        examinerDuty.ezharNazarF = binding.checkBoxVahedFazelab.isChecked();
 
         examinerDuty.looleA = binding.checkBoxLooleAb.isChecked();
         examinerDuty.looleF = binding.checkBoxLooleFazelab.isChecked();
 
-        examinerDuty.masrafDescription = binding.editTextNoeMasrafDescription.getText().toString().trim();
-        examinerDuty.chahDescription = binding.editTextDescriptionChahAbBaran.getText().toString().trim();
         examinerDuty.eshterak = binding.editTextEshterak.getText().toString();
-        examinerDuty.ezharNazarBahre = binding.editTextEzharBahre.getText().toString().trim();
 
         return examinerDuty;
     }
@@ -136,9 +104,7 @@ public class SecondFormFragment extends Fragment {
                 checkIsNoEmpty(binding.editTextSangFazelab) &&
                 checkIsNoEmpty(binding.editTextOtherFazelab) &&
                 checkIsNoEmpty(binding.editTextOmqZirzamin) &&
-                checkIsNoEmpty(binding.editTextEzharBahre) &&
-                (!examinerDuty.isNewEnsheab || checkIsNoEmpty(binding.editTextEshterak)) &&
-                checkIsNoEmpty(binding.editTextOmqFazelab);
+                (!examinerDuty.isNewEnsheab || checkIsNoEmpty(binding.editTextEshterak));
     }
 
     private boolean checkIsNoEmpty(EditText editText) {
@@ -162,43 +128,32 @@ public class SecondFormFragment extends Fragment {
         binding.editTextAsphaltFazelab.setText(String.valueOf(examinerDuty.faseleAsphaltF));
         binding.editTextSangFazelab.setText(String.valueOf(examinerDuty.faseleSangF));
         binding.editTextOtherFazelab.setText(String.valueOf(examinerDuty.faseleOtherF));
-        binding.editTextOmqFazelab.setText(String.valueOf(examinerDuty.omqFazelab));
 
         binding.editTextOmqZirzamin.setText(String.valueOf(examinerDuty.omqeZirzamin));
 
-        binding.editTextDescriptionChahAbBaran.setText(examinerDuty.chahDescription);
-        binding.editTextNoeMasrafDescription.setText(examinerDuty.masrafDescription);
         binding.editTextEshterak.setText(examinerDuty.eshterak.trim());
         if (!examinerDuty.isNewEnsheab)
             binding.editTextEshterak.setEnabled(false);
-        binding.editTextEzharBahre.setText(examinerDuty.ezharNazarBahre);
     }
 
-    private void initializeRadioButtonField() {
-        if (examinerDuty.noeMasrafI == 0)
-            binding.radioButtonNormal.setChecked(true);
-        else if (examinerDuty.noeMasrafI == 1)
-            binding.radioButtonSakht.setChecked(true);
-        else if (examinerDuty.noeMasrafI == 2)
-            binding.radioButtonService.setChecked(true);
-        else if (examinerDuty.noeMasrafI == 3)
-            binding.radioButtonMedical.setChecked(true);
-
-        if (examinerDuty.vaziatNasbPompI == 0)
-            binding.radioButtonNormalPomp.setChecked(true);
-        else if (examinerDuty.vaziatNasbPompI == 1)
-            binding.radioButtonANormalPomp.setChecked(true);
-        else if (examinerDuty.vaziatNasbPompI == 2)
-            binding.radioButtonDontHave.setChecked(true);
-    }
 
     private void initializeCheckBoxField() {
         binding.checkBoxVahedAb.setChecked(examinerDuty.ezharNazarA);
-        binding.checkBoxVahedFazelab.setChecked(examinerDuty.ezharNazarF);
         binding.checkBoxLooleAb.setChecked(examinerDuty.looleA);
         binding.checkBoxLooleFazelab.setChecked(examinerDuty.looleF);
-        binding.checkBoxEtesalZirzamin.setChecked(examinerDuty.etesalZirzamin);
         binding.checkBoxChahAbBaran.setChecked(examinerDuty.chahAbBaran);
+    }
+
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        if (id == R.id.button_pre) {
+            formActivity.setOnPreClickListener(BASE_FRAGMENT);
+        } else if (id == R.id.button_submit) {
+            if (checkForm()) {
+                formActivity.setSecondForm(prepareOutput());
+            }
+        }
     }
 
     @Override
@@ -214,6 +169,7 @@ public class SecondFormFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
 
     public interface Callback {
         void setOnPreClickListener(int position);

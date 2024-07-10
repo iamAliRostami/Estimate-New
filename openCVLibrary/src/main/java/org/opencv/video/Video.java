@@ -40,9 +40,7 @@ public class Video {
     //javadoc: estimateRigidTransform(src, dst, fullAffine)
     public static Mat estimateRigidTransform(Mat src, Mat dst, boolean fullAffine) {
 
-        Mat retVal = new Mat(estimateRigidTransform_0(src.nativeObj, dst.nativeObj, fullAffine));
-
-        return retVal;
+        return new Mat(estimateRigidTransform_0(src.nativeObj, dst.nativeObj, fullAffine));
     }
 
 
@@ -53,17 +51,13 @@ public class Video {
     //javadoc: createBackgroundSubtractorKNN(history, dist2Threshold, detectShadows)
     public static BackgroundSubtractorKNN createBackgroundSubtractorKNN(int history, double dist2Threshold, boolean detectShadows) {
 
-        BackgroundSubtractorKNN retVal = BackgroundSubtractorKNN.__fromPtr__(createBackgroundSubtractorKNN_0(history, dist2Threshold, detectShadows));
-
-        return retVal;
+        return BackgroundSubtractorKNN.__fromPtr__(createBackgroundSubtractorKNN_0(history, dist2Threshold, detectShadows));
     }
 
     //javadoc: createBackgroundSubtractorKNN()
     public static BackgroundSubtractorKNN createBackgroundSubtractorKNN() {
 
-        BackgroundSubtractorKNN retVal = BackgroundSubtractorKNN.__fromPtr__(createBackgroundSubtractorKNN_1());
-
-        return retVal;
+        return BackgroundSubtractorKNN.__fromPtr__(createBackgroundSubtractorKNN_1());
     }
 
 
@@ -74,17 +68,13 @@ public class Video {
     //javadoc: createBackgroundSubtractorMOG2(history, varThreshold, detectShadows)
     public static BackgroundSubtractorMOG2 createBackgroundSubtractorMOG2(int history, double varThreshold, boolean detectShadows) {
 
-        BackgroundSubtractorMOG2 retVal = BackgroundSubtractorMOG2.__fromPtr__(createBackgroundSubtractorMOG2_0(history, varThreshold, detectShadows));
-
-        return retVal;
+        return BackgroundSubtractorMOG2.__fromPtr__(createBackgroundSubtractorMOG2_0(history, varThreshold, detectShadows));
     }
 
     //javadoc: createBackgroundSubtractorMOG2()
     public static BackgroundSubtractorMOG2 createBackgroundSubtractorMOG2() {
 
-        BackgroundSubtractorMOG2 retVal = BackgroundSubtractorMOG2.__fromPtr__(createBackgroundSubtractorMOG2_1());
-
-        return retVal;
+        return BackgroundSubtractorMOG2.__fromPtr__(createBackgroundSubtractorMOG2_1());
     }
 
 
@@ -95,9 +85,7 @@ public class Video {
     //javadoc: createOptFlow_DualTVL1()
     public static DualTVL1OpticalFlow createOptFlow_DualTVL1() {
 
-        DualTVL1OpticalFlow retVal = DualTVL1OpticalFlow.__fromPtr__(createOptFlow_DualTVL1_0());
-
-        return retVal;
+        return DualTVL1OpticalFlow.__fromPtr__(createOptFlow_DualTVL1_0());
     }
 
 
@@ -109,12 +97,10 @@ public class Video {
     public static RotatedRect CamShift(Mat probImage, Rect window, TermCriteria criteria) {
         double[] window_out = new double[4];
         RotatedRect retVal = new RotatedRect(CamShift_0(probImage.nativeObj, window.x, window.y, window.width, window.height, window_out, criteria.type, criteria.maxCount, criteria.epsilon));
-        if (window != null) {
-            window.x = (int) window_out[0];
-            window.y = (int) window_out[1];
-            window.width = (int) window_out[2];
-            window.height = (int) window_out[3];
-        }
+        window.x = (int) window_out[0];
+        window.y = (int) window_out[1];
+        window.width = (int) window_out[2];
+        window.height = (int) window_out[3];
         return retVal;
     }
 
@@ -126,25 +112,19 @@ public class Video {
     //javadoc: findTransformECC(templateImage, inputImage, warpMatrix, motionType, criteria, inputMask)
     public static double findTransformECC(Mat templateImage, Mat inputImage, Mat warpMatrix, int motionType, TermCriteria criteria, Mat inputMask) {
 
-        double retVal = findTransformECC_0(templateImage.nativeObj, inputImage.nativeObj, warpMatrix.nativeObj, motionType, criteria.type, criteria.maxCount, criteria.epsilon, inputMask.nativeObj);
-
-        return retVal;
+        return findTransformECC_0(templateImage.nativeObj, inputImage.nativeObj, warpMatrix.nativeObj, motionType, criteria.type, criteria.maxCount, criteria.epsilon, inputMask.nativeObj);
     }
 
     //javadoc: findTransformECC(templateImage, inputImage, warpMatrix, motionType)
     public static double findTransformECC(Mat templateImage, Mat inputImage, Mat warpMatrix, int motionType) {
 
-        double retVal = findTransformECC_1(templateImage.nativeObj, inputImage.nativeObj, warpMatrix.nativeObj, motionType);
-
-        return retVal;
+        return findTransformECC_1(templateImage.nativeObj, inputImage.nativeObj, warpMatrix.nativeObj, motionType);
     }
 
     //javadoc: findTransformECC(templateImage, inputImage, warpMatrix)
     public static double findTransformECC(Mat templateImage, Mat inputImage, Mat warpMatrix) {
 
-        double retVal = findTransformECC_2(templateImage.nativeObj, inputImage.nativeObj, warpMatrix.nativeObj);
-
-        return retVal;
+        return findTransformECC_2(templateImage.nativeObj, inputImage.nativeObj, warpMatrix.nativeObj);
     }
 
 
@@ -179,12 +159,10 @@ public class Video {
     public static int meanShift(Mat probImage, Rect window, TermCriteria criteria) {
         double[] window_out = new double[4];
         int retVal = meanShift_0(probImage.nativeObj, window.x, window.y, window.width, window.height, window_out, criteria.type, criteria.maxCount, criteria.epsilon);
-        if (window != null) {
-            window.x = (int) window_out[0];
-            window.y = (int) window_out[1];
-            window.width = (int) window_out[2];
-            window.height = (int) window_out[3];
-        }
+        window.x = (int) window_out[0];
+        window.y = (int) window_out[1];
+        window.width = (int) window_out[2];
+        window.height = (int) window_out[3];
         return retVal;
     }
 
@@ -198,7 +176,6 @@ public class Video {
 
         calcOpticalFlowFarneback_0(prev.nativeObj, next.nativeObj, flow.nativeObj, pyr_scale, levels, winsize, iterations, poly_n, poly_sigma, flags);
 
-        return;
     }
 
 
@@ -208,35 +185,20 @@ public class Video {
 
     //javadoc: calcOpticalFlowPyrLK(prevImg, nextImg, prevPts, nextPts, status, err, winSize, maxLevel, criteria, flags, minEigThreshold)
     public static void calcOpticalFlowPyrLK(Mat prevImg, Mat nextImg, MatOfPoint2f prevPts, MatOfPoint2f nextPts, MatOfByte status, MatOfFloat err, Size winSize, int maxLevel, TermCriteria criteria, int flags, double minEigThreshold) {
-        Mat prevPts_mat = prevPts;
-        Mat nextPts_mat = nextPts;
-        Mat status_mat = status;
-        Mat err_mat = err;
-        calcOpticalFlowPyrLK_0(prevImg.nativeObj, nextImg.nativeObj, prevPts_mat.nativeObj, nextPts_mat.nativeObj, status_mat.nativeObj, err_mat.nativeObj, winSize.width, winSize.height, maxLevel, criteria.type, criteria.maxCount, criteria.epsilon, flags, minEigThreshold);
+        calcOpticalFlowPyrLK_0(prevImg.nativeObj, nextImg.nativeObj, prevPts.nativeObj, nextPts.nativeObj, status.nativeObj, err.nativeObj, winSize.width, winSize.height, maxLevel, criteria.type, criteria.maxCount, criteria.epsilon, flags, minEigThreshold);
 
-        return;
     }
 
     //javadoc: calcOpticalFlowPyrLK(prevImg, nextImg, prevPts, nextPts, status, err, winSize, maxLevel)
     public static void calcOpticalFlowPyrLK(Mat prevImg, Mat nextImg, MatOfPoint2f prevPts, MatOfPoint2f nextPts, MatOfByte status, MatOfFloat err, Size winSize, int maxLevel) {
-        Mat prevPts_mat = prevPts;
-        Mat nextPts_mat = nextPts;
-        Mat status_mat = status;
-        Mat err_mat = err;
-        calcOpticalFlowPyrLK_1(prevImg.nativeObj, nextImg.nativeObj, prevPts_mat.nativeObj, nextPts_mat.nativeObj, status_mat.nativeObj, err_mat.nativeObj, winSize.width, winSize.height, maxLevel);
+        calcOpticalFlowPyrLK_1(prevImg.nativeObj, nextImg.nativeObj, prevPts.nativeObj, nextPts.nativeObj, status.nativeObj, err.nativeObj, winSize.width, winSize.height, maxLevel);
 
-        return;
     }
 
     //javadoc: calcOpticalFlowPyrLK(prevImg, nextImg, prevPts, nextPts, status, err)
     public static void calcOpticalFlowPyrLK(Mat prevImg, Mat nextImg, MatOfPoint2f prevPts, MatOfPoint2f nextPts, MatOfByte status, MatOfFloat err) {
-        Mat prevPts_mat = prevPts;
-        Mat nextPts_mat = nextPts;
-        Mat status_mat = status;
-        Mat err_mat = err;
-        calcOpticalFlowPyrLK_2(prevImg.nativeObj, nextImg.nativeObj, prevPts_mat.nativeObj, nextPts_mat.nativeObj, status_mat.nativeObj, err_mat.nativeObj);
+        calcOpticalFlowPyrLK_2(prevImg.nativeObj, nextImg.nativeObj, prevPts.nativeObj, nextPts.nativeObj, status.nativeObj, err.nativeObj);
 
-        return;
     }
 
 

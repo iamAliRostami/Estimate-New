@@ -14,7 +14,7 @@ public class Images {
     public String address;
     public String billId;
     public String trackingNumber;
-    public String docId;
+    public final String docId;
     public String peygiri;
     @Ignore
     public String docTitle;

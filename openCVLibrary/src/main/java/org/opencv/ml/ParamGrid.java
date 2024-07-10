@@ -22,9 +22,7 @@ public class ParamGrid {
     //javadoc: ParamGrid::create(minVal, maxVal, logstep)
     public static ParamGrid create(double minVal, double maxVal, double logstep) {
 
-        ParamGrid retVal = ParamGrid.__fromPtr__(create_0(minVal, maxVal, logstep));
-
-        return retVal;
+        return ParamGrid.__fromPtr__(create_0(minVal, maxVal, logstep));
     }
 
     //
@@ -34,9 +32,7 @@ public class ParamGrid {
     //javadoc: ParamGrid::create()
     public static ParamGrid create() {
 
-        ParamGrid retVal = ParamGrid.__fromPtr__(create_1());
-
-        return retVal;
+        return ParamGrid.__fromPtr__(create_1());
     }
 
     // C++: static Ptr_ParamGrid create(double minVal = 0., double maxVal = 0., double logstep = 1.)
@@ -102,9 +98,7 @@ public class ParamGrid {
     //javadoc: ParamGrid::get_minVal()
     public double get_minVal() {
 
-        double retVal = get_minVal_0(nativeObj);
-
-        return retVal;
+        return get_minVal_0(nativeObj);
     }
 
     //javadoc: ParamGrid::set_minVal(minVal)
@@ -112,15 +106,12 @@ public class ParamGrid {
 
         set_minVal_0(nativeObj, minVal);
 
-        return;
     }
 
     //javadoc: ParamGrid::get_maxVal()
     public double get_maxVal() {
 
-        double retVal = get_maxVal_0(nativeObj);
-
-        return retVal;
+        return get_maxVal_0(nativeObj);
     }
 
     //javadoc: ParamGrid::set_maxVal(maxVal)
@@ -128,15 +119,12 @@ public class ParamGrid {
 
         set_maxVal_0(nativeObj, maxVal);
 
-        return;
     }
 
     //javadoc: ParamGrid::get_logStep()
     public double get_logStep() {
 
-        double retVal = get_logStep_0(nativeObj);
-
-        return retVal;
+        return get_logStep_0(nativeObj);
     }
 
     //javadoc: ParamGrid::set_logStep(logStep)
@@ -144,7 +132,6 @@ public class ParamGrid {
 
         set_logStep_0(nativeObj, logStep);
 
-        return;
     }
 
     @Override

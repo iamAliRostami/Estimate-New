@@ -118,7 +118,7 @@ public class PersonalFragment extends Fragment {
             focusView = binding.editTextNationNumber;
             focusView.requestFocus();
             return false;
-        } else if (binding.editTextPostalCode.getText().toString().length() > 0 &&
+        } else if (!binding.editTextPostalCode.getText().toString().isEmpty() &&
                 binding.editTextPostalCode.getText().toString().length() < 10) {
             binding.editTextPostalCode.setError(getString(R.string.error_format));
             focusView = binding.editTextPostalCode;

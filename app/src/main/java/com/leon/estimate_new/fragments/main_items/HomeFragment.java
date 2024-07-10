@@ -3,7 +3,6 @@ package com.leon.estimate_new.fragments.main_items;
 import static com.leon.estimate_new.fragments.dialog.ShowFragmentDialog.ShowFragmentDialogOnce;
 import static com.leon.estimate_new.helpers.MyApplication.getLocationTracker;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -19,9 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.leon.estimate_new.BuildConfig;
-import com.leon.estimate_new.activities.MainActivity;
 import com.leon.estimate_new.databinding.FragmentHomeBinding;
-import com.leon.estimate_new.fragments.dialog.AddDocumentFragment;
 import com.leon.estimate_new.utils.CustomOnlineTileSource;
 
 import org.jetbrains.annotations.NotNull;

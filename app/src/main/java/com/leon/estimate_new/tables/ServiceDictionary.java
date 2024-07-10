@@ -7,11 +7,11 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "ServiceDictionary", indices = @Index(value = {"id"}, unique = true))
 public class ServiceDictionary {
     @PrimaryKey
-    public int id;
-    public String title;
-    public boolean hasSms;
-    public boolean isSelected;
-    public boolean isDisabled;
+    public final int id;
+    public final String title;
+    public final boolean hasSms;
+    public final boolean isSelected;
+    public final boolean isDisabled;
 
     public ServiceDictionary(int id, String title, boolean isSelected, boolean isDisabled, boolean hasSms) {
         this.id = id;

@@ -41,19 +41,15 @@ public class Point {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        long temp;
-        temp = Double.doubleToLongBits(x);
-        result = prime * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(y);
-        result = prime * result + (int) (temp ^ (temp >>> 32));
+        result = prime * result + Double.hashCode(x);
+        result = prime * result + Double.hashCode(y);
         return result;
     }
 
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        if (!(obj instanceof Point)) return false;
-        Point it = (Point) obj;
+        if (!(obj instanceof Point it)) return false;
         return x == it.x && y == it.y;
     }
 

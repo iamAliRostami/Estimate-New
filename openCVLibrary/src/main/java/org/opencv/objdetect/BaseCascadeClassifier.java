@@ -24,6 +24,7 @@ public class BaseCascadeClassifier extends Algorithm {
 
     @Override
     protected void finalize() throws Throwable {
+        super.finalize();
         delete(nativeObj);
     }
 

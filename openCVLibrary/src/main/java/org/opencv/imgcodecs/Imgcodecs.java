@@ -71,7 +71,7 @@ public class Imgcodecs {
             IMWRITE_PNG_STRATEGY = 17,
             IMWRITE_PNG_BILEVEL = 18,
             IMWRITE_PXM_BINARY = 32,
-            IMWRITE_EXR_TYPE = (3 << 4) + 0,
+            IMWRITE_EXR_TYPE = (3 << 4),
             IMWRITE_WEBP_QUALITY = 64,
             IMWRITE_PAM_TUPLETYPE = 128,
             IMWRITE_EXR_TYPE_HALF = 1,
@@ -96,9 +96,7 @@ public class Imgcodecs {
     //javadoc: imdecode(buf, flags)
     public static Mat imdecode(Mat buf, int flags) {
 
-        Mat retVal = new Mat(imdecode_0(buf.nativeObj, flags));
-
-        return retVal;
+        return new Mat(imdecode_0(buf.nativeObj, flags));
     }
 
 
@@ -109,17 +107,13 @@ public class Imgcodecs {
     //javadoc: imread(filename, flags)
     public static Mat imread(String filename, int flags) {
 
-        Mat retVal = new Mat(imread_0(filename, flags));
-
-        return retVal;
+        return new Mat(imread_0(filename, flags));
     }
 
     //javadoc: imread(filename)
     public static Mat imread(String filename) {
 
-        Mat retVal = new Mat(imread_1(filename));
-
-        return retVal;
+        return new Mat(imread_1(filename));
     }
 
 
@@ -129,19 +123,14 @@ public class Imgcodecs {
 
     //javadoc: imencode(ext, img, buf, params)
     public static boolean imencode(String ext, Mat img, MatOfByte buf, MatOfInt params) {
-        Mat buf_mat = buf;
-        Mat params_mat = params;
-        boolean retVal = imencode_0(ext, img.nativeObj, buf_mat.nativeObj, params_mat.nativeObj);
 
-        return retVal;
+        return imencode_0(ext, img.nativeObj, buf.nativeObj, params.nativeObj);
     }
 
     //javadoc: imencode(ext, img, buf)
     public static boolean imencode(String ext, Mat img, MatOfByte buf) {
-        Mat buf_mat = buf;
-        boolean retVal = imencode_1(ext, img.nativeObj, buf_mat.nativeObj);
 
-        return retVal;
+        return imencode_1(ext, img.nativeObj, buf.nativeObj);
     }
 
 
@@ -174,18 +163,14 @@ public class Imgcodecs {
 
     //javadoc: imwrite(filename, img, params)
     public static boolean imwrite(String filename, Mat img, MatOfInt params) {
-        Mat params_mat = params;
-        boolean retVal = imwrite_0(filename, img.nativeObj, params_mat.nativeObj);
 
-        return retVal;
+        return imwrite_0(filename, img.nativeObj, params.nativeObj);
     }
 
     //javadoc: imwrite(filename, img)
     public static boolean imwrite(String filename, Mat img) {
 
-        boolean retVal = imwrite_1(filename, img.nativeObj);
-
-        return retVal;
+        return imwrite_1(filename, img.nativeObj);
     }
 
 

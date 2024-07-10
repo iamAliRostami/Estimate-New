@@ -8,14 +8,14 @@ import androidx.room.PrimaryKey;
 public class Tejariha {
     @PrimaryKey(autoGenerate = true)
     public int id;
-    public String karbari;
-    public String noeShoql;
-    public int tedadVahed;
-    public int capacity;
-    public String vahedMohasebe;
+    public final String karbari;
+    public final String noeShoql;
+    public final int tedadVahed;
+    public final int capacity;
+    public final String vahedMohasebe;
     public String tozihat;
-    public String a;
-    public String trackNumber;
+    public final String a;
+    public final String trackNumber;
 
 
     public Tejariha(String karbari, String noeShoql, int tedadVahed, String vahedMohasebe, String a,

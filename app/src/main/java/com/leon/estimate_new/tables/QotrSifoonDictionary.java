@@ -7,11 +7,11 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "QotrSifoonDictionary", indices = @Index(value = {"id"}, unique = true))
 public class QotrSifoonDictionary {
     @PrimaryKey
-    public int id;
-    public String title;
-    public boolean isSelected;
-    public boolean isDisabled;
-    public boolean hasSms;
+    public final int id;
+    public final String title;
+    public final boolean isSelected;
+    public final boolean isDisabled;
+    public final boolean hasSms;
 
     public QotrSifoonDictionary(int id, String title, boolean isSelected, boolean isDisabled, boolean hasSms) {
         this.id = id;

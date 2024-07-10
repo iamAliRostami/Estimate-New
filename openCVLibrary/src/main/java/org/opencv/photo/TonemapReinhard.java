@@ -70,9 +70,7 @@ public class TonemapReinhard extends Tonemap {
     //javadoc: TonemapReinhard::getColorAdaptation()
     public float getColorAdaptation() {
 
-        float retVal = getColorAdaptation_0(nativeObj);
-
-        return retVal;
+        return getColorAdaptation_0(nativeObj);
     }
 
     //javadoc: TonemapReinhard::setColorAdaptation(color_adapt)
@@ -80,15 +78,12 @@ public class TonemapReinhard extends Tonemap {
 
         setColorAdaptation_0(nativeObj, color_adapt);
 
-        return;
     }
 
     //javadoc: TonemapReinhard::getIntensity()
     public float getIntensity() {
 
-        float retVal = getIntensity_0(nativeObj);
-
-        return retVal;
+        return getIntensity_0(nativeObj);
     }
 
     //javadoc: TonemapReinhard::setIntensity(intensity)
@@ -96,15 +91,12 @@ public class TonemapReinhard extends Tonemap {
 
         setIntensity_0(nativeObj, intensity);
 
-        return;
     }
 
     //javadoc: TonemapReinhard::getLightAdaptation()
     public float getLightAdaptation() {
 
-        float retVal = getLightAdaptation_0(nativeObj);
-
-        return retVal;
+        return getLightAdaptation_0(nativeObj);
     }
 
     //javadoc: TonemapReinhard::setLightAdaptation(light_adapt)
@@ -112,11 +104,11 @@ public class TonemapReinhard extends Tonemap {
 
         setLightAdaptation_0(nativeObj, light_adapt);
 
-        return;
     }
 
     @Override
     protected void finalize() throws Throwable {
+        super.finalize();
         delete(nativeObj);
     }
 

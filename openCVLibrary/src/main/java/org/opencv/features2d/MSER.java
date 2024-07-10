@@ -31,17 +31,13 @@ public class MSER extends Feature2D {
     //javadoc: MSER::create(_delta, _min_area, _max_area, _max_variation, _min_diversity, _max_evolution, _area_threshold, _min_margin, _edge_blur_size)
     public static MSER create(int _delta, int _min_area, int _max_area, double _max_variation, double _min_diversity, int _max_evolution, double _area_threshold, double _min_margin, int _edge_blur_size) {
 
-        MSER retVal = MSER.__fromPtr__(create_0(_delta, _min_area, _max_area, _max_variation, _min_diversity, _max_evolution, _area_threshold, _min_margin, _edge_blur_size));
-
-        return retVal;
+        return MSER.__fromPtr__(create_0(_delta, _min_area, _max_area, _max_variation, _min_diversity, _max_evolution, _area_threshold, _min_margin, _edge_blur_size));
     }
 
     //javadoc: MSER::create()
     public static MSER create() {
 
-        MSER retVal = MSER.__fromPtr__(create_1());
-
-        return retVal;
+        return MSER.__fromPtr__(create_1());
     }
 
 
@@ -135,17 +131,13 @@ public class MSER extends Feature2D {
     //javadoc: MSER::getDefaultName()
     public String getDefaultName() {
 
-        String retVal = getDefaultName_0(nativeObj);
-
-        return retVal;
+        return getDefaultName_0(nativeObj);
     }
 
     //javadoc: MSER::getPass2Only()
     public boolean getPass2Only() {
 
-        boolean retVal = getPass2Only_0(nativeObj);
-
-        return retVal;
+        return getPass2Only_0(nativeObj);
     }
 
     //javadoc: MSER::setPass2Only(f)
@@ -153,15 +145,12 @@ public class MSER extends Feature2D {
 
         setPass2Only_0(nativeObj, f);
 
-        return;
     }
 
     //javadoc: MSER::getDelta()
     public int getDelta() {
 
-        int retVal = getDelta_0(nativeObj);
-
-        return retVal;
+        return getDelta_0(nativeObj);
     }
 
     //javadoc: MSER::setDelta(delta)
@@ -169,15 +158,12 @@ public class MSER extends Feature2D {
 
         setDelta_0(nativeObj, delta);
 
-        return;
     }
 
     //javadoc: MSER::getMaxArea()
     public int getMaxArea() {
 
-        int retVal = getMaxArea_0(nativeObj);
-
-        return retVal;
+        return getMaxArea_0(nativeObj);
     }
 
     //javadoc: MSER::setMaxArea(maxArea)
@@ -185,15 +171,12 @@ public class MSER extends Feature2D {
 
         setMaxArea_0(nativeObj, maxArea);
 
-        return;
     }
 
     //javadoc: MSER::getMinArea()
     public int getMinArea() {
 
-        int retVal = getMinArea_0(nativeObj);
-
-        return retVal;
+        return getMinArea_0(nativeObj);
     }
 
     //javadoc: MSER::setMinArea(minArea)
@@ -201,21 +184,19 @@ public class MSER extends Feature2D {
 
         setMinArea_0(nativeObj, minArea);
 
-        return;
     }
 
     //javadoc: MSER::detectRegions(image, msers, bboxes)
     public void detectRegions(Mat image, List<MatOfPoint> msers, MatOfRect bboxes) {
         Mat msers_mat = new Mat();
-        Mat bboxes_mat = bboxes;
-        detectRegions_0(nativeObj, image.nativeObj, msers_mat.nativeObj, bboxes_mat.nativeObj);
+        detectRegions_0(nativeObj, image.nativeObj, msers_mat.nativeObj, bboxes.nativeObj);
         Converters.Mat_to_vector_vector_Point(msers_mat, msers);
         msers_mat.release();
-        return;
     }
 
     @Override
     protected void finalize() throws Throwable {
+        super.finalize();
         delete(nativeObj);
     }
 

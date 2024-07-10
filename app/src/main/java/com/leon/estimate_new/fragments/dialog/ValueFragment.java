@@ -116,17 +116,17 @@ public class ValueFragment extends DialogFragment {
     }
 
     private void counting(boolean dis) {
-        if (binding.editTextMaskooni.getText().toString().length() > 0)
+        if (!binding.editTextMaskooni.getText().toString().isEmpty())
             values.set(0, Integer.parseInt(binding.editTextMaskooni.getText().toString()));
-        if (binding.editTextTejari.getText().toString().length() > 0)
+        if (!binding.editTextTejari.getText().toString().isEmpty())
             values.set(1, Integer.parseInt(binding.editTextTejari.getText().toString()));
-        if (binding.editTextEdari.getText().toString().length() > 0)
+        if (!binding.editTextEdari.getText().toString().isEmpty())
             values.set(2, Integer.parseInt(binding.editTextEdari.getText().toString()));
-        if (binding.editTextOmumi.getText().toString().length() > 0)
+        if (!binding.editTextOmumi.getText().toString().isEmpty())
             values.set(3, Integer.parseInt(binding.editTextOmumi.getText().toString()));
-        if (binding.editTextSanati.getText().toString().length() > 0)
+        if (!binding.editTextSanati.getText().toString().isEmpty())
             values.set(4, Integer.parseInt(binding.editTextSanati.getText().toString()));
-        if (binding.editTextHotel.getText().toString().length() > 0)
+        if (!binding.editTextHotel.getText().toString().isEmpty())
             values.set(5, Integer.parseInt(binding.editTextHotel.getText().toString()));
         if (values.get(0) > 0 || values.get(1) > 0 || values.get(2) > 0 || values.get(3) > 0 ||
                 values.get(4) > 0 || values.get(5) > 0) {

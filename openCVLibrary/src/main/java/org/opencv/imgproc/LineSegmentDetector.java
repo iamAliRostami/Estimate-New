@@ -54,17 +54,13 @@ public class LineSegmentDetector extends Algorithm {
     //javadoc: LineSegmentDetector::compareSegments(size, lines1, lines2, _image)
     public int compareSegments(Size size, Mat lines1, Mat lines2, Mat _image) {
 
-        int retVal = compareSegments_0(nativeObj, size.width, size.height, lines1.nativeObj, lines2.nativeObj, _image.nativeObj);
-
-        return retVal;
+        return compareSegments_0(nativeObj, size.width, size.height, lines1.nativeObj, lines2.nativeObj, _image.nativeObj);
     }
 
     //javadoc: LineSegmentDetector::compareSegments(size, lines1, lines2)
     public int compareSegments(Size size, Mat lines1, Mat lines2) {
 
-        int retVal = compareSegments_1(nativeObj, size.width, size.height, lines1.nativeObj, lines2.nativeObj);
-
-        return retVal;
+        return compareSegments_1(nativeObj, size.width, size.height, lines1.nativeObj, lines2.nativeObj);
     }
 
     //javadoc: LineSegmentDetector::detect(_image, _lines, width, prec, nfa)
@@ -72,7 +68,6 @@ public class LineSegmentDetector extends Algorithm {
 
         detect_0(nativeObj, _image.nativeObj, _lines.nativeObj, width.nativeObj, prec.nativeObj, nfa.nativeObj);
 
-        return;
     }
 
     //javadoc: LineSegmentDetector::detect(_image, _lines)
@@ -80,7 +75,6 @@ public class LineSegmentDetector extends Algorithm {
 
         detect_1(nativeObj, _image.nativeObj, _lines.nativeObj);
 
-        return;
     }
 
     //javadoc: LineSegmentDetector::drawSegments(_image, lines)
@@ -88,11 +82,11 @@ public class LineSegmentDetector extends Algorithm {
 
         drawSegments_0(nativeObj, _image.nativeObj, lines.nativeObj);
 
-        return;
     }
 
     @Override
     protected void finalize() throws Throwable {
+        super.finalize();
         delete(nativeObj);
     }
 

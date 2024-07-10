@@ -17,7 +17,6 @@ public class FlannBasedMatcher extends DescriptorMatcher {
 
         super(FlannBasedMatcher_0());
 
-        return;
     }
 
     //
@@ -37,9 +36,7 @@ public class FlannBasedMatcher extends DescriptorMatcher {
     //javadoc: FlannBasedMatcher::create()
     public static FlannBasedMatcher create() {
 
-        FlannBasedMatcher retVal = FlannBasedMatcher.__fromPtr__(create_0());
-
-        return retVal;
+        return FlannBasedMatcher.__fromPtr__(create_0());
     }
 
     // C++:   FlannBasedMatcher(Ptr_flann_IndexParams indexParams = makePtr<flann::KDTreeIndexParams>(), Ptr_flann_SearchParams searchParams = makePtr<flann::SearchParams>())
@@ -53,6 +50,7 @@ public class FlannBasedMatcher extends DescriptorMatcher {
 
     @Override
     protected void finalize() throws Throwable {
+        super.finalize();
         delete(nativeObj);
     }
 

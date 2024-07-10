@@ -31,7 +31,9 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.window.OnBackInvokedDispatcher;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -83,6 +85,7 @@ public abstract class BaseActivity extends AppCompatActivity implements
         if (isNetworkAvailable(getApplicationContext()))
             checkPermissions();
         else enableNetwork(this);
+        addOnBackPressed();
     }
 
     private void checkPermissions() {
@@ -142,6 +145,7 @@ public abstract class BaseActivity extends AppCompatActivity implements
             new ActivityResultContracts.StartActivityForResult(), result -> checkPermissions());
     private final ActivityResultLauncher<Intent> settingResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(), result -> checkPermissions());
+
     private void askLocationPermission() {
         PermissionListener permissionlistener = new PermissionListener() {
             @Override
@@ -205,8 +209,21 @@ public abstract class BaseActivity extends AppCompatActivity implements
         binding.recyclerView.setNestedScrollingEnabled(true);
     }
 
-    @Override
-    public void onBackPressed() {
+    private void addOnBackPressed() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            getOnBackInvokedDispatcher().registerOnBackInvokedCallback(
+                    OnBackInvokedDispatcher.PRIORITY_DEFAULT, this::backPressed);
+        } else {
+            getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+                @Override
+                public void handleOnBackPressed() {
+                    backPressed();
+                }
+            });
+        }
+    }
+
+    private void backPressed() {
         if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
             binding.drawerLayout.closeDrawer(GravityCompat.START);
         } else {

@@ -9,7 +9,7 @@ public class RequestToSend {
     public String mobile;
     public String notificationMobile;
     public String nationalId;
-    public ArrayList<Integer> selectedServices;
+    public final ArrayList<Integer> selectedServices;
     public String firstName;
     public String sureName;
 

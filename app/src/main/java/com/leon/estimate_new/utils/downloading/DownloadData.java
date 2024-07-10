@@ -8,7 +8,6 @@ import static com.leon.estimate_new.helpers.MyApplication.getContext;
 
 import android.app.Activity;
 import android.content.Context;
-import android.os.Build;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -37,7 +36,7 @@ public class DownloadData extends BaseAsync {
     private final boolean toast;
 
     public DownloadData(Context context, boolean toast) {
-        super(context, false, null);
+        super(context, false,  null);
         this.toast = toast;
     }
 

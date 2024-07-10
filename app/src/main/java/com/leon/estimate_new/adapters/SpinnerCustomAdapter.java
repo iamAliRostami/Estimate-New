@@ -62,7 +62,7 @@ public class SpinnerCustomAdapter extends BaseAdapter {
     }
 
     private ArrayAdapter<String> createArrayAdapter(final List<String> arrayListSpinner, Context context) {
-        return new ArrayAdapter<String>(context,
+        return new ArrayAdapter<>(context,
                 R.layout.item_dropdown_menu_popup, arrayListSpinner) {
             @NotNull
             @Override

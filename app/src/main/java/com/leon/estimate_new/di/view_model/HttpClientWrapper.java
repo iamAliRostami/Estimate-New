@@ -46,7 +46,7 @@ public class HttpClientWrapper {
         }
 
         if (isNetworkAvailable(context)) {
-            call.enqueue(new Callback<T>() {
+            call.enqueue(new Callback<>() {
                 @Override
                 public void onResponse(@NonNull Call<T> call, @NonNull Response<T> response) {
                     if (!cancel) {
@@ -97,7 +97,7 @@ public class HttpClientWrapper {
         cancel = false;
 
         if (isNetworkAvailable(context)) {
-            call.enqueue(new Callback<T>() {
+            call.enqueue(new Callback<>() {
                 @Override
                 public void onResponse(@NonNull Call<T> call, @NonNull Response<T> response) {
                     if (!cancel) {
@@ -137,7 +137,7 @@ public class HttpClientWrapper {
             progressCancelable.show(context, true, context.getString(R.string.waiting));
         }
         if (isNetworkAvailable(context)) {
-            call.enqueue(new Callback<T>() {
+            call.enqueue(new Callback<>() {
                 @Override
                 public void onResponse(@NonNull Call<T> call, @NonNull Response<T> response) {
                     if (progressCancelable.getDialog() != null)

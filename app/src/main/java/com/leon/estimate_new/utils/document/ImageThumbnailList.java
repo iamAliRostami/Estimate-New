@@ -8,13 +8,11 @@ import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponen
 import android.app.Activity;
 import android.content.Context;
 import android.view.View;
-import android.widget.ProgressBar;
 
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.base_items.BaseAsync;
 import com.leon.estimate_new.di.view_model.CustomDialogModel;
 import com.leon.estimate_new.di.view_model.HttpClientWrapper;
-import com.leon.estimate_new.fragments.dialog.ShowDocumentFragment;
 import com.leon.estimate_new.fragments.documents.TakePhotoFragment;
 import com.leon.estimate_new.infrastructure.IAbfaService;
 import com.leon.estimate_new.infrastructure.ICallback;

@@ -6,10 +6,10 @@ public class UploadImage {
     public boolean success;
     public String error;
 
-    public String billId;
-    public String trackingNumber;
-    public int docId;
-    public MultipartBody.Part imageFile;
+    public final String billId;
+    public final String trackingNumber;
+    public final int docId;
+    public final MultipartBody.Part imageFile;
 
     public UploadImage(String billId, String trackingNumber, int docId, MultipartBody.Part imageFile) {
         this.billId = billId;

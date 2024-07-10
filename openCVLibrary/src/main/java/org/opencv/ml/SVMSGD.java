@@ -34,9 +34,7 @@ public class SVMSGD extends StatModel {
     //javadoc: SVMSGD::create()
     public static SVMSGD create() {
 
-        SVMSGD retVal = SVMSGD.__fromPtr__(create_0());
-
-        return retVal;
+        return SVMSGD.__fromPtr__(create_0());
     }
 
 
@@ -47,9 +45,7 @@ public class SVMSGD extends StatModel {
     //javadoc: SVMSGD::load(filepath, nodeName)
     public static SVMSGD load(String filepath, String nodeName) {
 
-        SVMSGD retVal = SVMSGD.__fromPtr__(load_0(filepath, nodeName));
-
-        return retVal;
+        return SVMSGD.__fromPtr__(load_0(filepath, nodeName));
     }
 
 
@@ -60,9 +56,7 @@ public class SVMSGD extends StatModel {
     //javadoc: SVMSGD::load(filepath)
     public static SVMSGD load(String filepath) {
 
-        SVMSGD retVal = SVMSGD.__fromPtr__(load_1(filepath));
-
-        return retVal;
+        return SVMSGD.__fromPtr__(load_1(filepath));
     }
 
     // C++:  Mat getWeights()
@@ -196,17 +190,13 @@ public class SVMSGD extends StatModel {
     //javadoc: SVMSGD::getWeights()
     public Mat getWeights() {
 
-        Mat retVal = new Mat(getWeights_0(nativeObj));
-
-        return retVal;
+        return new Mat(getWeights_0(nativeObj));
     }
 
     //javadoc: SVMSGD::getTermCriteria()
     public TermCriteria getTermCriteria() {
 
-        TermCriteria retVal = new TermCriteria(getTermCriteria_0(nativeObj));
-
-        return retVal;
+        return new TermCriteria(getTermCriteria_0(nativeObj));
     }
 
     //javadoc: SVMSGD::setTermCriteria(val)
@@ -214,15 +204,12 @@ public class SVMSGD extends StatModel {
 
         setTermCriteria_0(nativeObj, val.type, val.maxCount, val.epsilon);
 
-        return;
     }
 
     //javadoc: SVMSGD::getInitialStepSize()
     public float getInitialStepSize() {
 
-        float retVal = getInitialStepSize_0(nativeObj);
-
-        return retVal;
+        return getInitialStepSize_0(nativeObj);
     }
 
     //javadoc: SVMSGD::setInitialStepSize(InitialStepSize)
@@ -230,15 +217,12 @@ public class SVMSGD extends StatModel {
 
         setInitialStepSize_0(nativeObj, InitialStepSize);
 
-        return;
     }
 
     //javadoc: SVMSGD::getMarginRegularization()
     public float getMarginRegularization() {
 
-        float retVal = getMarginRegularization_0(nativeObj);
-
-        return retVal;
+        return getMarginRegularization_0(nativeObj);
     }
 
     //javadoc: SVMSGD::setMarginRegularization(marginRegularization)
@@ -246,23 +230,18 @@ public class SVMSGD extends StatModel {
 
         setMarginRegularization_0(nativeObj, marginRegularization);
 
-        return;
     }
 
     //javadoc: SVMSGD::getShift()
     public float getShift() {
 
-        float retVal = getShift_0(nativeObj);
-
-        return retVal;
+        return getShift_0(nativeObj);
     }
 
     //javadoc: SVMSGD::getStepDecreasingPower()
     public float getStepDecreasingPower() {
 
-        float retVal = getStepDecreasingPower_0(nativeObj);
-
-        return retVal;
+        return getStepDecreasingPower_0(nativeObj);
     }
 
     //javadoc: SVMSGD::setStepDecreasingPower(stepDecreasingPower)
@@ -270,15 +249,12 @@ public class SVMSGD extends StatModel {
 
         setStepDecreasingPower_0(nativeObj, stepDecreasingPower);
 
-        return;
     }
 
     //javadoc: SVMSGD::getMarginType()
     public int getMarginType() {
 
-        int retVal = getMarginType_0(nativeObj);
-
-        return retVal;
+        return getMarginType_0(nativeObj);
     }
 
     //javadoc: SVMSGD::setMarginType(marginType)
@@ -286,15 +262,12 @@ public class SVMSGD extends StatModel {
 
         setMarginType_0(nativeObj, marginType);
 
-        return;
     }
 
     //javadoc: SVMSGD::getSvmsgdType()
     public int getSvmsgdType() {
 
-        int retVal = getSvmsgdType_0(nativeObj);
-
-        return retVal;
+        return getSvmsgdType_0(nativeObj);
     }
 
     //javadoc: SVMSGD::setSvmsgdType(svmsgdType)
@@ -302,7 +275,6 @@ public class SVMSGD extends StatModel {
 
         setSvmsgdType_0(nativeObj, svmsgdType);
 
-        return;
     }
 
     //javadoc: SVMSGD::setOptimalParameters(svmsgdType, marginType)
@@ -310,7 +282,6 @@ public class SVMSGD extends StatModel {
 
         setOptimalParameters_0(nativeObj, svmsgdType, marginType);
 
-        return;
     }
 
     //javadoc: SVMSGD::setOptimalParameters()
@@ -318,11 +289,11 @@ public class SVMSGD extends StatModel {
 
         setOptimalParameters_1(nativeObj);
 
-        return;
     }
 
     @Override
     protected void finalize() throws Throwable {
+        super.finalize();
         delete(nativeObj);
     }
 

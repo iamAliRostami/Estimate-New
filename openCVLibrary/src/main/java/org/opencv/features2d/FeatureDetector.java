@@ -82,9 +82,7 @@ public class FeatureDetector {
     @Deprecated
     public static FeatureDetector create(int detectorType) {
 
-        FeatureDetector retVal = FeatureDetector.__fromPtr__(create_0(detectorType));
-
-        return retVal;
+        return FeatureDetector.__fromPtr__(create_0(detectorType));
     }
 
 
@@ -149,25 +147,19 @@ public class FeatureDetector {
     //javadoc: javaFeatureDetector::empty()
     public boolean empty() {
 
-        boolean retVal = empty_0(nativeObj);
-
-        return retVal;
+        return empty_0(nativeObj);
     }
 
     //javadoc: javaFeatureDetector::detect(image, keypoints, mask)
     public void detect(Mat image, MatOfKeyPoint keypoints, Mat mask) {
-        Mat keypoints_mat = keypoints;
-        detect_0(nativeObj, image.nativeObj, keypoints_mat.nativeObj, mask.nativeObj);
+        detect_0(nativeObj, image.nativeObj, keypoints.nativeObj, mask.nativeObj);
 
-        return;
     }
 
     //javadoc: javaFeatureDetector::detect(image, keypoints)
     public void detect(Mat image, MatOfKeyPoint keypoints) {
-        Mat keypoints_mat = keypoints;
-        detect_1(nativeObj, image.nativeObj, keypoints_mat.nativeObj);
+        detect_1(nativeObj, image.nativeObj, keypoints.nativeObj);
 
-        return;
     }
 
     //javadoc: javaFeatureDetector::detect(images, keypoints, masks)
@@ -178,7 +170,6 @@ public class FeatureDetector {
         detect_2(nativeObj, images_mat.nativeObj, keypoints_mat.nativeObj, masks_mat.nativeObj);
         Converters.Mat_to_vector_vector_KeyPoint(keypoints_mat, keypoints);
         keypoints_mat.release();
-        return;
     }
 
     //javadoc: javaFeatureDetector::detect(images, keypoints)
@@ -188,7 +179,6 @@ public class FeatureDetector {
         detect_3(nativeObj, images_mat.nativeObj, keypoints_mat.nativeObj);
         Converters.Mat_to_vector_vector_KeyPoint(keypoints_mat, keypoints);
         keypoints_mat.release();
-        return;
     }
 
     //javadoc: javaFeatureDetector::read(fileName)
@@ -196,7 +186,6 @@ public class FeatureDetector {
 
         read_0(nativeObj, fileName);
 
-        return;
     }
 
     //javadoc: javaFeatureDetector::write(fileName)
@@ -204,7 +193,6 @@ public class FeatureDetector {
 
         write_0(nativeObj, fileName);
 
-        return;
     }
 
     @Override

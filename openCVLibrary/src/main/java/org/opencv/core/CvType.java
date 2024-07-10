@@ -21,7 +21,7 @@ public final class CvType {
             CV_32FC1 = CV_32FC(1), CV_32FC2 = CV_32FC(2), CV_32FC3 = CV_32FC(3), CV_32FC4 = CV_32FC(4),
             CV_64FC1 = CV_64FC(1), CV_64FC2 = CV_64FC(2), CV_64FC3 = CV_64FC(3), CV_64FC4 = CV_64FC(4);
 
-    public static final int makeType(int depth, int channels) {
+    public static int makeType(int depth, int channels) {
         if (channels <= 0 || channels >= CV_CN_MAX) {
             throw new java.lang.UnsupportedOperationException(
                     "Channels count should be 1.." + (CV_CN_MAX - 1));
@@ -33,96 +33,70 @@ public final class CvType {
         return (depth & (CV_DEPTH_MAX - 1)) + ((channels - 1) << CV_CN_SHIFT);
     }
 
-    public static final int CV_8UC(int ch) {
+    public static int CV_8UC(int ch) {
         return makeType(CV_8U, ch);
     }
 
-    public static final int CV_8SC(int ch) {
+    public static int CV_8SC(int ch) {
         return makeType(CV_8S, ch);
     }
 
-    public static final int CV_16UC(int ch) {
+    public static int CV_16UC(int ch) {
         return makeType(CV_16U, ch);
     }
 
-    public static final int CV_16SC(int ch) {
+    public static int CV_16SC(int ch) {
         return makeType(CV_16S, ch);
     }
 
-    public static final int CV_32SC(int ch) {
+    public static int CV_32SC(int ch) {
         return makeType(CV_32S, ch);
     }
 
-    public static final int CV_32FC(int ch) {
+    public static int CV_32FC(int ch) {
         return makeType(CV_32F, ch);
     }
 
-    public static final int CV_64FC(int ch) {
+    public static int CV_64FC(int ch) {
         return makeType(CV_64F, ch);
     }
 
-    public static final int channels(int type) {
+    public static int channels(int type) {
         return (type >> CV_CN_SHIFT) + 1;
     }
 
-    public static final int depth(int type) {
+    public static int depth(int type) {
         return type & (CV_DEPTH_MAX - 1);
     }
 
-    public static final boolean isInteger(int type) {
+    public static boolean isInteger(int type) {
         return depth(type) < CV_32F;
     }
 
-    public static final int ELEM_SIZE(int type) {
-        switch (depth(type)) {
-            case CV_8U:
-            case CV_8S:
-                return channels(type);
-            case CV_16U:
-            case CV_16S:
-                return 2 * channels(type);
-            case CV_32S:
-            case CV_32F:
-                return 4 * channels(type);
-            case CV_64F:
-                return 8 * channels(type);
-            default:
-                throw new java.lang.UnsupportedOperationException(
-                        "Unsupported CvType value: " + type);
-        }
+    public static int ELEM_SIZE(int type) {
+        return switch (depth(type)) {
+            case CV_8U, CV_8S -> channels(type);
+            case CV_16U, CV_16S -> 2 * channels(type);
+            case CV_32S, CV_32F -> 4 * channels(type);
+            case CV_64F -> 8 * channels(type);
+            default -> throw new UnsupportedOperationException(
+                    "Unsupported CvType value: " + type);
+        };
     }
 
-    public static final String typeToString(int type) {
-        String s;
-        switch (depth(type)) {
-            case CV_8U:
-                s = "CV_8U";
-                break;
-            case CV_8S:
-                s = "CV_8S";
-                break;
-            case CV_16U:
-                s = "CV_16U";
-                break;
-            case CV_16S:
-                s = "CV_16S";
-                break;
-            case CV_32S:
-                s = "CV_32S";
-                break;
-            case CV_32F:
-                s = "CV_32F";
-                break;
-            case CV_64F:
-                s = "CV_64F";
-                break;
-            case CV_USRTYPE1:
-                s = "CV_USRTYPE1";
-                break;
-            default:
-                throw new java.lang.UnsupportedOperationException(
-                        "Unsupported CvType value: " + type);
-        }
+    public static String typeToString(int type) {
+        String s = switch (depth(type)) {
+            case CV_8U -> "CV_8U";
+            case CV_8S -> "CV_8S";
+            case CV_16U -> "CV_16U";
+            case CV_16S -> "CV_16S";
+            case CV_32S -> "CV_32S";
+            case CV_32F -> "CV_32F";
+            case CV_64F -> "CV_64F";
+            case CV_USRTYPE1 -> "CV_USRTYPE1";
+            default -> throw new UnsupportedOperationException(
+                    "Unsupported CvType value: " + type);
+        };
 
         int ch = channels(type);
         if (ch <= 4)

@@ -19,7 +19,6 @@ public class DictValue {
 
         nativeObj = DictValue_0(s);
 
-        return;
     }
 
     //javadoc: DictValue::DictValue(p)
@@ -27,7 +26,6 @@ public class DictValue {
 
         nativeObj = DictValue_1(p);
 
-        return;
     }
 
     //
@@ -39,7 +37,6 @@ public class DictValue {
 
         nativeObj = DictValue_2(i);
 
-        return;
     }
 
 
@@ -130,73 +127,55 @@ public class DictValue {
     //javadoc: DictValue::getStringValue(idx)
     public String getStringValue(int idx) {
 
-        String retVal = getStringValue_0(nativeObj, idx);
-
-        return retVal;
+        return getStringValue_0(nativeObj, idx);
     }
 
     //javadoc: DictValue::getStringValue()
     public String getStringValue() {
 
-        String retVal = getStringValue_1(nativeObj);
-
-        return retVal;
+        return getStringValue_1(nativeObj);
     }
 
     //javadoc: DictValue::isInt()
     public boolean isInt() {
 
-        boolean retVal = isInt_0(nativeObj);
-
-        return retVal;
+        return isInt_0(nativeObj);
     }
 
     //javadoc: DictValue::isReal()
     public boolean isReal() {
 
-        boolean retVal = isReal_0(nativeObj);
-
-        return retVal;
+        return isReal_0(nativeObj);
     }
 
     //javadoc: DictValue::isString()
     public boolean isString() {
 
-        boolean retVal = isString_0(nativeObj);
-
-        return retVal;
+        return isString_0(nativeObj);
     }
 
     //javadoc: DictValue::getRealValue(idx)
     public double getRealValue(int idx) {
 
-        double retVal = getRealValue_0(nativeObj, idx);
-
-        return retVal;
+        return getRealValue_0(nativeObj, idx);
     }
 
     //javadoc: DictValue::getRealValue()
     public double getRealValue() {
 
-        double retVal = getRealValue_1(nativeObj);
-
-        return retVal;
+        return getRealValue_1(nativeObj);
     }
 
     //javadoc: DictValue::getIntValue(idx)
     public int getIntValue(int idx) {
 
-        int retVal = getIntValue_0(nativeObj, idx);
-
-        return retVal;
+        return getIntValue_0(nativeObj, idx);
     }
 
     //javadoc: DictValue::getIntValue()
     public int getIntValue() {
 
-        int retVal = getIntValue_1(nativeObj);
-
-        return retVal;
+        return getIntValue_1(nativeObj);
     }
 
     @Override

@@ -151,12 +151,12 @@ public class Core {
             ROTATE_180 = 1,
             ROTATE_90_COUNTERCLOCKWISE = 2,
             TYPE_GENERAL = 0,
-            TYPE_MARKER = 0 + 1,
-            TYPE_WRAPPER = 0 + 2,
-            TYPE_FUN = 0 + 3,
+            TYPE_MARKER = 1,
+            TYPE_WRAPPER = 2,
+            TYPE_FUN = 3,
             IMPL_PLAIN = 0,
-            IMPL_IPP = 0 + 1,
-            IMPL_OPENCL = 0 + 2,
+            IMPL_IPP = 1,
+            IMPL_OPENCL = 2,
             FLAGS_NONE = 0,
             FLAGS_MAPPING = 0x01,
             FLAGS_EXPAND_SAME_NAMES = 0x02;
@@ -203,17 +203,13 @@ public class Core {
     //javadoc: mean(src, mask)
     public static Scalar mean(Mat src, Mat mask) {
 
-        Scalar retVal = new Scalar(mean_0(src.nativeObj, mask.nativeObj));
-
-        return retVal;
+        return new Scalar(mean_0(src.nativeObj, mask.nativeObj));
     }
 
     //javadoc: mean(src)
     public static Scalar mean(Mat src) {
 
-        Scalar retVal = new Scalar(mean_1(src.nativeObj));
-
-        return retVal;
+        return new Scalar(mean_1(src.nativeObj));
     }
 
 
@@ -224,9 +220,7 @@ public class Core {
     //javadoc: sum(src)
     public static Scalar sumElems(Mat src) {
 
-        Scalar retVal = new Scalar(sumElems_0(src.nativeObj));
-
-        return retVal;
+        return new Scalar(sumElems_0(src.nativeObj));
     }
 
 
@@ -237,9 +231,7 @@ public class Core {
     //javadoc: trace(mtx)
     public static Scalar trace(Mat mtx) {
 
-        Scalar retVal = new Scalar(trace_0(mtx.nativeObj));
-
-        return retVal;
+        return new Scalar(trace_0(mtx.nativeObj));
     }
 
 
@@ -250,9 +242,7 @@ public class Core {
     //javadoc: getBuildInformation()
     public static String getBuildInformation() {
 
-        String retVal = getBuildInformation_0();
-
-        return retVal;
+        return getBuildInformation_0();
     }
 
 
@@ -263,9 +253,7 @@ public class Core {
     //javadoc: getHardwareFeatureName(feature)
     public static String getHardwareFeatureName(int feature) {
 
-        String retVal = getHardwareFeatureName_0(feature);
-
-        return retVal;
+        return getHardwareFeatureName_0(feature);
     }
 
 
@@ -276,9 +264,7 @@ public class Core {
     //javadoc: getIppVersion()
     public static String getIppVersion() {
 
-        String retVal = getIppVersion_0();
-
-        return retVal;
+        return getIppVersion_0();
     }
 
 
@@ -289,17 +275,13 @@ public class Core {
     //javadoc: checkRange(a, quiet, minVal, maxVal)
     public static boolean checkRange(Mat a, boolean quiet, double minVal, double maxVal) {
 
-        boolean retVal = checkRange_0(a.nativeObj, quiet, minVal, maxVal);
-
-        return retVal;
+        return checkRange_0(a.nativeObj, quiet, minVal, maxVal);
     }
 
     //javadoc: checkRange(a)
     public static boolean checkRange(Mat a) {
 
-        boolean retVal = checkRange_1(a.nativeObj);
-
-        return retVal;
+        return checkRange_1(a.nativeObj);
     }
 
 
@@ -310,17 +292,13 @@ public class Core {
     //javadoc: eigen(src, eigenvalues, eigenvectors)
     public static boolean eigen(Mat src, Mat eigenvalues, Mat eigenvectors) {
 
-        boolean retVal = eigen_0(src.nativeObj, eigenvalues.nativeObj, eigenvectors.nativeObj);
-
-        return retVal;
+        return eigen_0(src.nativeObj, eigenvalues.nativeObj, eigenvectors.nativeObj);
     }
 
     //javadoc: eigen(src, eigenvalues)
     public static boolean eigen(Mat src, Mat eigenvalues) {
 
-        boolean retVal = eigen_1(src.nativeObj, eigenvalues.nativeObj);
-
-        return retVal;
+        return eigen_1(src.nativeObj, eigenvalues.nativeObj);
     }
 
 
@@ -331,17 +309,13 @@ public class Core {
     //javadoc: solve(src1, src2, dst, flags)
     public static boolean solve(Mat src1, Mat src2, Mat dst, int flags) {
 
-        boolean retVal = solve_0(src1.nativeObj, src2.nativeObj, dst.nativeObj, flags);
-
-        return retVal;
+        return solve_0(src1.nativeObj, src2.nativeObj, dst.nativeObj, flags);
     }
 
     //javadoc: solve(src1, src2, dst)
     public static boolean solve(Mat src1, Mat src2, Mat dst) {
 
-        boolean retVal = solve_1(src1.nativeObj, src2.nativeObj, dst.nativeObj);
-
-        return retVal;
+        return solve_1(src1.nativeObj, src2.nativeObj, dst.nativeObj);
     }
 
 
@@ -352,9 +326,7 @@ public class Core {
     //javadoc: useIPP()
     public static boolean useIPP() {
 
-        boolean retVal = useIPP_0();
-
-        return retVal;
+        return useIPP_0();
     }
 
 
@@ -365,9 +337,7 @@ public class Core {
     //javadoc: useIPP_NE()
     public static boolean useIPP_NE() {
 
-        boolean retVal = useIPP_NE_0();
-
-        return retVal;
+        return useIPP_NE_0();
     }
 
 
@@ -378,9 +348,7 @@ public class Core {
     //javadoc: Mahalanobis(v1, v2, icovar)
     public static double Mahalanobis(Mat v1, Mat v2, Mat icovar) {
 
-        double retVal = Mahalanobis_0(v1.nativeObj, v2.nativeObj, icovar.nativeObj);
-
-        return retVal;
+        return Mahalanobis_0(v1.nativeObj, v2.nativeObj, icovar.nativeObj);
     }
 
 
@@ -391,9 +359,7 @@ public class Core {
     //javadoc: PSNR(src1, src2)
     public static double PSNR(Mat src1, Mat src2) {
 
-        double retVal = PSNR_0(src1.nativeObj, src2.nativeObj);
-
-        return retVal;
+        return PSNR_0(src1.nativeObj, src2.nativeObj);
     }
 
 
@@ -404,9 +370,7 @@ public class Core {
     //javadoc: determinant(mtx)
     public static double determinant(Mat mtx) {
 
-        double retVal = determinant_0(mtx.nativeObj);
-
-        return retVal;
+        return determinant_0(mtx.nativeObj);
     }
 
 
@@ -417,9 +381,7 @@ public class Core {
     //javadoc: getTickFrequency()
     public static double getTickFrequency() {
 
-        double retVal = getTickFrequency_0();
-
-        return retVal;
+        return getTickFrequency_0();
     }
 
 
@@ -430,17 +392,13 @@ public class Core {
     //javadoc: invert(src, dst, flags)
     public static double invert(Mat src, Mat dst, int flags) {
 
-        double retVal = invert_0(src.nativeObj, dst.nativeObj, flags);
-
-        return retVal;
+        return invert_0(src.nativeObj, dst.nativeObj, flags);
     }
 
     //javadoc: invert(src, dst)
     public static double invert(Mat src, Mat dst) {
 
-        double retVal = invert_1(src.nativeObj, dst.nativeObj);
-
-        return retVal;
+        return invert_1(src.nativeObj, dst.nativeObj);
     }
 
 
@@ -451,17 +409,13 @@ public class Core {
     //javadoc: kmeans(data, K, bestLabels, criteria, attempts, flags, centers)
     public static double kmeans(Mat data, int K, Mat bestLabels, TermCriteria criteria, int attempts, int flags, Mat centers) {
 
-        double retVal = kmeans_0(data.nativeObj, K, bestLabels.nativeObj, criteria.type, criteria.maxCount, criteria.epsilon, attempts, flags, centers.nativeObj);
-
-        return retVal;
+        return kmeans_0(data.nativeObj, K, bestLabels.nativeObj, criteria.type, criteria.maxCount, criteria.epsilon, attempts, flags, centers.nativeObj);
     }
 
     //javadoc: kmeans(data, K, bestLabels, criteria, attempts, flags)
     public static double kmeans(Mat data, int K, Mat bestLabels, TermCriteria criteria, int attempts, int flags) {
 
-        double retVal = kmeans_1(data.nativeObj, K, bestLabels.nativeObj, criteria.type, criteria.maxCount, criteria.epsilon, attempts, flags);
-
-        return retVal;
+        return kmeans_1(data.nativeObj, K, bestLabels.nativeObj, criteria.type, criteria.maxCount, criteria.epsilon, attempts, flags);
     }
 
 
@@ -472,25 +426,19 @@ public class Core {
     //javadoc: norm(src1, src2, normType, mask)
     public static double norm(Mat src1, Mat src2, int normType, Mat mask) {
 
-        double retVal = norm_0(src1.nativeObj, src2.nativeObj, normType, mask.nativeObj);
-
-        return retVal;
+        return norm_0(src1.nativeObj, src2.nativeObj, normType, mask.nativeObj);
     }
 
     //javadoc: norm(src1, src2, normType)
     public static double norm(Mat src1, Mat src2, int normType) {
 
-        double retVal = norm_1(src1.nativeObj, src2.nativeObj, normType);
-
-        return retVal;
+        return norm_1(src1.nativeObj, src2.nativeObj, normType);
     }
 
     //javadoc: norm(src1, src2)
     public static double norm(Mat src1, Mat src2) {
 
-        double retVal = norm_2(src1.nativeObj, src2.nativeObj);
-
-        return retVal;
+        return norm_2(src1.nativeObj, src2.nativeObj);
     }
 
 
@@ -501,25 +449,19 @@ public class Core {
     //javadoc: norm(src1, normType, mask)
     public static double norm(Mat src1, int normType, Mat mask) {
 
-        double retVal = norm_3(src1.nativeObj, normType, mask.nativeObj);
-
-        return retVal;
+        return norm_3(src1.nativeObj, normType, mask.nativeObj);
     }
 
     //javadoc: norm(src1, normType)
     public static double norm(Mat src1, int normType) {
 
-        double retVal = norm_4(src1.nativeObj, normType);
-
-        return retVal;
+        return norm_4(src1.nativeObj, normType);
     }
 
     //javadoc: norm(src1)
     public static double norm(Mat src1) {
 
-        double retVal = norm_5(src1.nativeObj);
-
-        return retVal;
+        return norm_5(src1.nativeObj);
     }
 
 
@@ -530,17 +472,13 @@ public class Core {
     //javadoc: solvePoly(coeffs, roots, maxIters)
     public static double solvePoly(Mat coeffs, Mat roots, int maxIters) {
 
-        double retVal = solvePoly_0(coeffs.nativeObj, roots.nativeObj, maxIters);
-
-        return retVal;
+        return solvePoly_0(coeffs.nativeObj, roots.nativeObj, maxIters);
     }
 
     //javadoc: solvePoly(coeffs, roots)
     public static double solvePoly(Mat coeffs, Mat roots) {
 
-        double retVal = solvePoly_1(coeffs.nativeObj, roots.nativeObj);
-
-        return retVal;
+        return solvePoly_1(coeffs.nativeObj, roots.nativeObj);
     }
 
 
@@ -551,9 +489,7 @@ public class Core {
     //javadoc: cubeRoot(val)
     public static float cubeRoot(float val) {
 
-        float retVal = cubeRoot_0(val);
-
-        return retVal;
+        return cubeRoot_0(val);
     }
 
 
@@ -564,9 +500,7 @@ public class Core {
     //javadoc: fastAtan2(y, x)
     public static float fastAtan2(float y, float x) {
 
-        float retVal = fastAtan2_0(y, x);
-
-        return retVal;
+        return fastAtan2_0(y, x);
     }
 
 
@@ -577,9 +511,7 @@ public class Core {
     //javadoc: borderInterpolate(p, len, borderType)
     public static int borderInterpolate(int p, int len, int borderType) {
 
-        int retVal = borderInterpolate_0(p, len, borderType);
-
-        return retVal;
+        return borderInterpolate_0(p, len, borderType);
     }
 
 
@@ -590,9 +522,7 @@ public class Core {
     //javadoc: countNonZero(src)
     public static int countNonZero(Mat src) {
 
-        int retVal = countNonZero_0(src.nativeObj);
-
-        return retVal;
+        return countNonZero_0(src.nativeObj);
     }
 
 
@@ -603,9 +533,7 @@ public class Core {
     //javadoc: getNumThreads()
     public static int getNumThreads() {
 
-        int retVal = getNumThreads_0();
-
-        return retVal;
+        return getNumThreads_0();
     }
 
 
@@ -618,7 +546,6 @@ public class Core {
 
         setNumThreads_0(nthreads);
 
-        return;
     }
 
 
@@ -629,9 +556,7 @@ public class Core {
     //javadoc: getNumberOfCPUs()
     public static int getNumberOfCPUs() {
 
-        int retVal = getNumberOfCPUs_0();
-
-        return retVal;
+        return getNumberOfCPUs_0();
     }
 
 
@@ -642,9 +567,7 @@ public class Core {
     //javadoc: getOptimalDFTSize(vecsize)
     public static int getOptimalDFTSize(int vecsize) {
 
-        int retVal = getOptimalDFTSize_0(vecsize);
-
-        return retVal;
+        return getOptimalDFTSize_0(vecsize);
     }
 
 
@@ -656,9 +579,7 @@ public class Core {
     @Deprecated
     public static int getThreadNum() {
 
-        int retVal = getThreadNum_0();
-
-        return retVal;
+        return getThreadNum_0();
     }
 
 
@@ -669,9 +590,7 @@ public class Core {
     //javadoc: solveCubic(coeffs, roots)
     public static int solveCubic(Mat coeffs, Mat roots) {
 
-        int retVal = solveCubic_0(coeffs.nativeObj, roots.nativeObj);
-
-        return retVal;
+        return solveCubic_0(coeffs.nativeObj, roots.nativeObj);
     }
 
 
@@ -682,9 +601,7 @@ public class Core {
     //javadoc: getCPUTickCount()
     public static long getCPUTickCount() {
 
-        long retVal = getCPUTickCount_0();
-
-        return retVal;
+        return getCPUTickCount_0();
     }
 
 
@@ -695,9 +612,7 @@ public class Core {
     //javadoc: getTickCount()
     public static long getTickCount() {
 
-        long retVal = getTickCount_0();
-
-        return retVal;
+        return getTickCount_0();
     }
 
 
@@ -710,7 +625,6 @@ public class Core {
 
         LUT_0(src.nativeObj, lut.nativeObj, dst.nativeObj);
 
-        return;
     }
 
 
@@ -723,7 +637,6 @@ public class Core {
 
         PCABackProject_0(data.nativeObj, mean.nativeObj, eigenvectors.nativeObj, result.nativeObj);
 
-        return;
     }
 
 
@@ -736,7 +649,6 @@ public class Core {
 
         PCACompute_0(data.nativeObj, mean.nativeObj, eigenvectors.nativeObj, retainedVariance);
 
-        return;
     }
 
     //javadoc: PCACompute(data, mean, eigenvectors, maxComponents)
@@ -744,7 +656,6 @@ public class Core {
 
         PCACompute_1(data.nativeObj, mean.nativeObj, eigenvectors.nativeObj, maxComponents);
 
-        return;
     }
 
 
@@ -757,7 +668,6 @@ public class Core {
 
         PCACompute_2(data.nativeObj, mean.nativeObj, eigenvectors.nativeObj);
 
-        return;
     }
 
 
@@ -770,7 +680,6 @@ public class Core {
 
         PCAProject_0(data.nativeObj, mean.nativeObj, eigenvectors.nativeObj, result.nativeObj);
 
-        return;
     }
 
 
@@ -783,7 +692,6 @@ public class Core {
 
         SVBackSubst_0(w.nativeObj, u.nativeObj, vt.nativeObj, rhs.nativeObj, dst.nativeObj);
 
-        return;
     }
 
     //javadoc: SVDecomp(src, w, u, vt, flags)
@@ -791,7 +699,6 @@ public class Core {
 
         SVDecomp_0(src.nativeObj, w.nativeObj, u.nativeObj, vt.nativeObj, flags);
 
-        return;
     }
 
 
@@ -804,7 +711,6 @@ public class Core {
 
         SVDecomp_1(src.nativeObj, w.nativeObj, u.nativeObj, vt.nativeObj);
 
-        return;
     }
 
 
@@ -817,7 +723,6 @@ public class Core {
 
         absdiff_0(src1.nativeObj, src2.nativeObj, dst.nativeObj);
 
-        return;
     }
 
 
@@ -830,7 +735,6 @@ public class Core {
 
         absdiff_1(src1.nativeObj, src2.val[0], src2.val[1], src2.val[2], src2.val[3], dst.nativeObj);
 
-        return;
     }
 
     //javadoc: add(src1, src2, dst, mask, dtype)
@@ -838,7 +742,6 @@ public class Core {
 
         add_0(src1.nativeObj, src2.nativeObj, dst.nativeObj, mask.nativeObj, dtype);
 
-        return;
     }
 
     //javadoc: add(src1, src2, dst, mask)
@@ -846,7 +749,6 @@ public class Core {
 
         add_1(src1.nativeObj, src2.nativeObj, dst.nativeObj, mask.nativeObj);
 
-        return;
     }
 
 
@@ -859,7 +761,6 @@ public class Core {
 
         add_2(src1.nativeObj, src2.nativeObj, dst.nativeObj);
 
-        return;
     }
 
     //javadoc: add(src1, src2, dst, mask, dtype)
@@ -867,7 +768,6 @@ public class Core {
 
         add_3(src1.nativeObj, src2.val[0], src2.val[1], src2.val[2], src2.val[3], dst.nativeObj, mask.nativeObj, dtype);
 
-        return;
     }
 
     //javadoc: add(src1, src2, dst, mask)
@@ -875,7 +775,6 @@ public class Core {
 
         add_4(src1.nativeObj, src2.val[0], src2.val[1], src2.val[2], src2.val[3], dst.nativeObj, mask.nativeObj);
 
-        return;
     }
 
 
@@ -888,7 +787,6 @@ public class Core {
 
         add_5(src1.nativeObj, src2.val[0], src2.val[1], src2.val[2], src2.val[3], dst.nativeObj);
 
-        return;
     }
 
     //javadoc: addWeighted(src1, alpha, src2, beta, gamma, dst, dtype)
@@ -896,7 +794,6 @@ public class Core {
 
         addWeighted_0(src1.nativeObj, alpha, src2.nativeObj, beta, gamma, dst.nativeObj, dtype);
 
-        return;
     }
 
 
@@ -909,7 +806,6 @@ public class Core {
 
         addWeighted_1(src1.nativeObj, alpha, src2.nativeObj, beta, gamma, dst.nativeObj);
 
-        return;
     }
 
     //javadoc: batchDistance(src1, src2, dist, dtype, nidx, normType, K, mask, update, crosscheck)
@@ -917,7 +813,6 @@ public class Core {
 
         batchDistance_0(src1.nativeObj, src2.nativeObj, dist.nativeObj, dtype, nidx.nativeObj, normType, K, mask.nativeObj, update, crosscheck);
 
-        return;
     }
 
     //javadoc: batchDistance(src1, src2, dist, dtype, nidx, normType, K)
@@ -925,7 +820,6 @@ public class Core {
 
         batchDistance_1(src1.nativeObj, src2.nativeObj, dist.nativeObj, dtype, nidx.nativeObj, normType, K);
 
-        return;
     }
 
 
@@ -938,7 +832,6 @@ public class Core {
 
         batchDistance_2(src1.nativeObj, src2.nativeObj, dist.nativeObj, dtype, nidx.nativeObj);
 
-        return;
     }
 
     //javadoc: bitwise_and(src1, src2, dst, mask)
@@ -946,7 +839,6 @@ public class Core {
 
         bitwise_and_0(src1.nativeObj, src2.nativeObj, dst.nativeObj, mask.nativeObj);
 
-        return;
     }
 
 
@@ -959,7 +851,6 @@ public class Core {
 
         bitwise_and_1(src1.nativeObj, src2.nativeObj, dst.nativeObj);
 
-        return;
     }
 
     //javadoc: bitwise_not(src, dst, mask)
@@ -967,7 +858,6 @@ public class Core {
 
         bitwise_not_0(src.nativeObj, dst.nativeObj, mask.nativeObj);
 
-        return;
     }
 
 
@@ -980,7 +870,6 @@ public class Core {
 
         bitwise_not_1(src.nativeObj, dst.nativeObj);
 
-        return;
     }
 
     //javadoc: bitwise_or(src1, src2, dst, mask)
@@ -988,7 +877,6 @@ public class Core {
 
         bitwise_or_0(src1.nativeObj, src2.nativeObj, dst.nativeObj, mask.nativeObj);
 
-        return;
     }
 
 
@@ -1001,7 +889,6 @@ public class Core {
 
         bitwise_or_1(src1.nativeObj, src2.nativeObj, dst.nativeObj);
 
-        return;
     }
 
     //javadoc: bitwise_xor(src1, src2, dst, mask)
@@ -1009,7 +896,6 @@ public class Core {
 
         bitwise_xor_0(src1.nativeObj, src2.nativeObj, dst.nativeObj, mask.nativeObj);
 
-        return;
     }
 
 
@@ -1022,7 +908,6 @@ public class Core {
 
         bitwise_xor_1(src1.nativeObj, src2.nativeObj, dst.nativeObj);
 
-        return;
     }
 
     //javadoc: calcCovarMatrix(samples, covar, mean, flags, ctype)
@@ -1030,7 +915,6 @@ public class Core {
 
         calcCovarMatrix_0(samples.nativeObj, covar.nativeObj, mean.nativeObj, flags, ctype);
 
-        return;
     }
 
 
@@ -1043,7 +927,6 @@ public class Core {
 
         calcCovarMatrix_1(samples.nativeObj, covar.nativeObj, mean.nativeObj, flags);
 
-        return;
     }
 
     //javadoc: cartToPolar(x, y, magnitude, angle, angleInDegrees)
@@ -1051,7 +934,6 @@ public class Core {
 
         cartToPolar_0(x.nativeObj, y.nativeObj, magnitude.nativeObj, angle.nativeObj, angleInDegrees);
 
-        return;
     }
 
 
@@ -1064,7 +946,6 @@ public class Core {
 
         cartToPolar_1(x.nativeObj, y.nativeObj, magnitude.nativeObj, angle.nativeObj);
 
-        return;
     }
 
 
@@ -1077,7 +958,6 @@ public class Core {
 
         compare_0(src1.nativeObj, src2.nativeObj, dst.nativeObj, cmpop);
 
-        return;
     }
 
 
@@ -1090,7 +970,6 @@ public class Core {
 
         compare_1(src1.nativeObj, src2.val[0], src2.val[1], src2.val[2], src2.val[3], dst.nativeObj, cmpop);
 
-        return;
     }
 
     //javadoc: completeSymm(m, lowerToUpper)
@@ -1098,7 +977,6 @@ public class Core {
 
         completeSymm_0(m.nativeObj, lowerToUpper);
 
-        return;
     }
 
 
@@ -1111,7 +989,6 @@ public class Core {
 
         completeSymm_1(m.nativeObj);
 
-        return;
     }
 
 
@@ -1124,7 +1001,6 @@ public class Core {
 
         convertFp16_0(src.nativeObj, dst.nativeObj);
 
-        return;
     }
 
     //javadoc: convertScaleAbs(src, dst, alpha, beta)
@@ -1132,7 +1008,6 @@ public class Core {
 
         convertScaleAbs_0(src.nativeObj, dst.nativeObj, alpha, beta);
 
-        return;
     }
 
 
@@ -1145,7 +1020,6 @@ public class Core {
 
         convertScaleAbs_1(src.nativeObj, dst.nativeObj);
 
-        return;
     }
 
     //javadoc: copyMakeBorder(src, dst, top, bottom, left, right, borderType, value)
@@ -1153,7 +1027,6 @@ public class Core {
 
         copyMakeBorder_0(src.nativeObj, dst.nativeObj, top, bottom, left, right, borderType, value.val[0], value.val[1], value.val[2], value.val[3]);
 
-        return;
     }
 
 
@@ -1166,7 +1039,6 @@ public class Core {
 
         copyMakeBorder_1(src.nativeObj, dst.nativeObj, top, bottom, left, right, borderType);
 
-        return;
     }
 
     //javadoc: dct(src, dst, flags)
@@ -1174,7 +1046,6 @@ public class Core {
 
         dct_0(src.nativeObj, dst.nativeObj, flags);
 
-        return;
     }
 
 
@@ -1187,7 +1058,6 @@ public class Core {
 
         dct_1(src.nativeObj, dst.nativeObj);
 
-        return;
     }
 
     //javadoc: dft(src, dst, flags, nonzeroRows)
@@ -1195,7 +1065,6 @@ public class Core {
 
         dft_0(src.nativeObj, dst.nativeObj, flags, nonzeroRows);
 
-        return;
     }
 
 
@@ -1208,7 +1077,6 @@ public class Core {
 
         dft_1(src.nativeObj, dst.nativeObj);
 
-        return;
     }
 
     //javadoc: divide(src1, src2, dst, scale, dtype)
@@ -1216,7 +1084,6 @@ public class Core {
 
         divide_0(src1.nativeObj, src2.nativeObj, dst.nativeObj, scale, dtype);
 
-        return;
     }
 
     //javadoc: divide(src1, src2, dst, scale)
@@ -1224,7 +1091,6 @@ public class Core {
 
         divide_1(src1.nativeObj, src2.nativeObj, dst.nativeObj, scale);
 
-        return;
     }
 
 
@@ -1237,7 +1103,6 @@ public class Core {
 
         divide_2(src1.nativeObj, src2.nativeObj, dst.nativeObj);
 
-        return;
     }
 
     //javadoc: divide(src1, src2, dst, scale, dtype)
@@ -1245,7 +1110,6 @@ public class Core {
 
         divide_3(src1.nativeObj, src2.val[0], src2.val[1], src2.val[2], src2.val[3], dst.nativeObj, scale, dtype);
 
-        return;
     }
 
     //javadoc: divide(src1, src2, dst, scale)
@@ -1253,7 +1117,6 @@ public class Core {
 
         divide_4(src1.nativeObj, src2.val[0], src2.val[1], src2.val[2], src2.val[3], dst.nativeObj, scale);
 
-        return;
     }
 
 
@@ -1266,7 +1129,6 @@ public class Core {
 
         divide_5(src1.nativeObj, src2.val[0], src2.val[1], src2.val[2], src2.val[3], dst.nativeObj);
 
-        return;
     }
 
     //javadoc: divide(scale, src2, dst, dtype)
@@ -1274,7 +1136,6 @@ public class Core {
 
         divide_6(scale, src2.nativeObj, dst.nativeObj, dtype);
 
-        return;
     }
 
 
@@ -1287,7 +1148,6 @@ public class Core {
 
         divide_7(scale, src2.nativeObj, dst.nativeObj);
 
-        return;
     }
 
 
@@ -1300,7 +1160,6 @@ public class Core {
 
         eigenNonSymmetric_0(src.nativeObj, eigenvalues.nativeObj, eigenvectors.nativeObj);
 
-        return;
     }
 
 
@@ -1313,7 +1172,6 @@ public class Core {
 
         exp_0(src.nativeObj, dst.nativeObj);
 
-        return;
     }
 
 
@@ -1326,7 +1184,6 @@ public class Core {
 
         extractChannel_0(src.nativeObj, dst.nativeObj, coi);
 
-        return;
     }
 
 
@@ -1339,7 +1196,6 @@ public class Core {
 
         findNonZero_0(src.nativeObj, idx.nativeObj);
 
-        return;
     }
 
 
@@ -1352,7 +1208,6 @@ public class Core {
 
         flip_0(src.nativeObj, dst.nativeObj, flipCode);
 
-        return;
     }
 
     //javadoc: gemm(src1, src2, alpha, src3, beta, dst, flags)
@@ -1360,7 +1215,6 @@ public class Core {
 
         gemm_0(src1.nativeObj, src2.nativeObj, alpha, src3.nativeObj, beta, dst.nativeObj, flags);
 
-        return;
     }
 
 
@@ -1373,7 +1227,6 @@ public class Core {
 
         gemm_1(src1.nativeObj, src2.nativeObj, alpha, src3.nativeObj, beta, dst.nativeObj);
 
-        return;
     }
 
 
@@ -1386,7 +1239,6 @@ public class Core {
         Mat src_mat = Converters.vector_Mat_to_Mat(src);
         hconcat_0(src_mat.nativeObj, dst.nativeObj);
 
-        return;
     }
 
     //javadoc: idct(src, dst, flags)
@@ -1394,7 +1246,6 @@ public class Core {
 
         idct_0(src.nativeObj, dst.nativeObj, flags);
 
-        return;
     }
 
 
@@ -1407,7 +1258,6 @@ public class Core {
 
         idct_1(src.nativeObj, dst.nativeObj);
 
-        return;
     }
 
     //javadoc: idft(src, dst, flags, nonzeroRows)
@@ -1415,7 +1265,6 @@ public class Core {
 
         idft_0(src.nativeObj, dst.nativeObj, flags, nonzeroRows);
 
-        return;
     }
 
 
@@ -1428,7 +1277,6 @@ public class Core {
 
         idft_1(src.nativeObj, dst.nativeObj);
 
-        return;
     }
 
 
@@ -1441,7 +1289,6 @@ public class Core {
 
         inRange_0(src.nativeObj, lowerb.val[0], lowerb.val[1], lowerb.val[2], lowerb.val[3], upperb.val[0], upperb.val[1], upperb.val[2], upperb.val[3], dst.nativeObj);
 
-        return;
     }
 
 
@@ -1454,7 +1301,6 @@ public class Core {
 
         insertChannel_0(src.nativeObj, dst.nativeObj, coi);
 
-        return;
     }
 
 
@@ -1467,7 +1313,6 @@ public class Core {
 
         log_0(src.nativeObj, dst.nativeObj);
 
-        return;
     }
 
 
@@ -1480,7 +1325,6 @@ public class Core {
 
         magnitude_0(x.nativeObj, y.nativeObj, magnitude.nativeObj);
 
-        return;
     }
 
 
@@ -1493,7 +1337,6 @@ public class Core {
 
         max_0(src1.nativeObj, src2.nativeObj, dst.nativeObj);
 
-        return;
     }
 
 
@@ -1506,16 +1349,12 @@ public class Core {
 
         max_1(src1.nativeObj, src2.val[0], src2.val[1], src2.val[2], src2.val[3], dst.nativeObj);
 
-        return;
     }
 
     //javadoc: meanStdDev(src, mean, stddev, mask)
     public static void meanStdDev(Mat src, MatOfDouble mean, MatOfDouble stddev, Mat mask) {
-        Mat mean_mat = mean;
-        Mat stddev_mat = stddev;
-        meanStdDev_0(src.nativeObj, mean_mat.nativeObj, stddev_mat.nativeObj, mask.nativeObj);
+        meanStdDev_0(src.nativeObj, mean.nativeObj, stddev.nativeObj, mask.nativeObj);
 
-        return;
     }
 
 
@@ -1525,11 +1364,8 @@ public class Core {
 
     //javadoc: meanStdDev(src, mean, stddev)
     public static void meanStdDev(Mat src, MatOfDouble mean, MatOfDouble stddev) {
-        Mat mean_mat = mean;
-        Mat stddev_mat = stddev;
-        meanStdDev_1(src.nativeObj, mean_mat.nativeObj, stddev_mat.nativeObj);
+        meanStdDev_1(src.nativeObj, mean.nativeObj, stddev.nativeObj);
 
-        return;
     }
 
 
@@ -1542,7 +1378,6 @@ public class Core {
         Mat mv_mat = Converters.vector_Mat_to_Mat(mv);
         merge_0(mv_mat.nativeObj, dst.nativeObj);
 
-        return;
     }
 
 
@@ -1555,7 +1390,6 @@ public class Core {
 
         min_0(src1.nativeObj, src2.nativeObj, dst.nativeObj);
 
-        return;
     }
 
 
@@ -1568,7 +1402,6 @@ public class Core {
 
         min_1(src1.nativeObj, src2.val[0], src2.val[1], src2.val[2], src2.val[3], dst.nativeObj);
 
-        return;
     }
 
 
@@ -1580,10 +1413,8 @@ public class Core {
     public static void mixChannels(List<Mat> src, List<Mat> dst, MatOfInt fromTo) {
         Mat src_mat = Converters.vector_Mat_to_Mat(src);
         Mat dst_mat = Converters.vector_Mat_to_Mat(dst);
-        Mat fromTo_mat = fromTo;
-        mixChannels_0(src_mat.nativeObj, dst_mat.nativeObj, fromTo_mat.nativeObj);
+        mixChannels_0(src_mat.nativeObj, dst_mat.nativeObj, fromTo.nativeObj);
 
-        return;
     }
 
     //javadoc: mulSpectrums(a, b, c, flags, conjB)
@@ -1591,7 +1422,6 @@ public class Core {
 
         mulSpectrums_0(a.nativeObj, b.nativeObj, c.nativeObj, flags, conjB);
 
-        return;
     }
 
 
@@ -1604,7 +1434,6 @@ public class Core {
 
         mulSpectrums_1(a.nativeObj, b.nativeObj, c.nativeObj, flags);
 
-        return;
     }
 
     //javadoc: mulTransposed(src, dst, aTa, delta, scale, dtype)
@@ -1612,7 +1441,6 @@ public class Core {
 
         mulTransposed_0(src.nativeObj, dst.nativeObj, aTa, delta.nativeObj, scale, dtype);
 
-        return;
     }
 
     //javadoc: mulTransposed(src, dst, aTa, delta, scale)
@@ -1620,7 +1448,6 @@ public class Core {
 
         mulTransposed_1(src.nativeObj, dst.nativeObj, aTa, delta.nativeObj, scale);
 
-        return;
     }
 
 
@@ -1633,7 +1460,6 @@ public class Core {
 
         mulTransposed_2(src.nativeObj, dst.nativeObj, aTa);
 
-        return;
     }
 
     //javadoc: multiply(src1, src2, dst, scale, dtype)
@@ -1641,7 +1467,6 @@ public class Core {
 
         multiply_0(src1.nativeObj, src2.nativeObj, dst.nativeObj, scale, dtype);
 
-        return;
     }
 
     //javadoc: multiply(src1, src2, dst, scale)
@@ -1649,7 +1474,6 @@ public class Core {
 
         multiply_1(src1.nativeObj, src2.nativeObj, dst.nativeObj, scale);
 
-        return;
     }
 
 
@@ -1662,7 +1486,6 @@ public class Core {
 
         multiply_2(src1.nativeObj, src2.nativeObj, dst.nativeObj);
 
-        return;
     }
 
     //javadoc: multiply(src1, src2, dst, scale, dtype)
@@ -1670,7 +1493,6 @@ public class Core {
 
         multiply_3(src1.nativeObj, src2.val[0], src2.val[1], src2.val[2], src2.val[3], dst.nativeObj, scale, dtype);
 
-        return;
     }
 
     //javadoc: multiply(src1, src2, dst, scale)
@@ -1678,7 +1500,6 @@ public class Core {
 
         multiply_4(src1.nativeObj, src2.val[0], src2.val[1], src2.val[2], src2.val[3], dst.nativeObj, scale);
 
-        return;
     }
 
 
@@ -1691,7 +1512,6 @@ public class Core {
 
         multiply_5(src1.nativeObj, src2.val[0], src2.val[1], src2.val[2], src2.val[3], dst.nativeObj);
 
-        return;
     }
 
     //javadoc: normalize(src, dst, alpha, beta, norm_type, dtype, mask)
@@ -1699,7 +1519,6 @@ public class Core {
 
         normalize_0(src.nativeObj, dst.nativeObj, alpha, beta, norm_type, dtype, mask.nativeObj);
 
-        return;
     }
 
     //javadoc: normalize(src, dst, alpha, beta, norm_type, dtype)
@@ -1707,7 +1526,6 @@ public class Core {
 
         normalize_1(src.nativeObj, dst.nativeObj, alpha, beta, norm_type, dtype);
 
-        return;
     }
 
     //javadoc: normalize(src, dst, alpha, beta, norm_type)
@@ -1715,7 +1533,6 @@ public class Core {
 
         normalize_2(src.nativeObj, dst.nativeObj, alpha, beta, norm_type);
 
-        return;
     }
 
 
@@ -1728,7 +1545,6 @@ public class Core {
 
         normalize_3(src.nativeObj, dst.nativeObj);
 
-        return;
     }
 
     //javadoc: patchNaNs(a, val)
@@ -1736,7 +1552,6 @@ public class Core {
 
         patchNaNs_0(a.nativeObj, val);
 
-        return;
     }
 
 
@@ -1749,7 +1564,6 @@ public class Core {
 
         patchNaNs_1(a.nativeObj);
 
-        return;
     }
 
 
@@ -1762,7 +1576,6 @@ public class Core {
 
         perspectiveTransform_0(src.nativeObj, dst.nativeObj, m.nativeObj);
 
-        return;
     }
 
     //javadoc: phase(x, y, angle, angleInDegrees)
@@ -1770,7 +1583,6 @@ public class Core {
 
         phase_0(x.nativeObj, y.nativeObj, angle.nativeObj, angleInDegrees);
 
-        return;
     }
 
 
@@ -1783,7 +1595,6 @@ public class Core {
 
         phase_1(x.nativeObj, y.nativeObj, angle.nativeObj);
 
-        return;
     }
 
     //javadoc: polarToCart(magnitude, angle, x, y, angleInDegrees)
@@ -1791,7 +1602,6 @@ public class Core {
 
         polarToCart_0(magnitude.nativeObj, angle.nativeObj, x.nativeObj, y.nativeObj, angleInDegrees);
 
-        return;
     }
 
 
@@ -1804,7 +1614,6 @@ public class Core {
 
         polarToCart_1(magnitude.nativeObj, angle.nativeObj, x.nativeObj, y.nativeObj);
 
-        return;
     }
 
 
@@ -1817,7 +1626,6 @@ public class Core {
 
         pow_0(src.nativeObj, power, dst.nativeObj);
 
-        return;
     }
 
     //javadoc: randShuffle(dst, iterFactor)
@@ -1825,7 +1633,6 @@ public class Core {
 
         randShuffle_0(dst.nativeObj, iterFactor);
 
-        return;
     }
 
 
@@ -1838,7 +1645,6 @@ public class Core {
 
         randShuffle_1(dst.nativeObj);
 
-        return;
     }
 
 
@@ -1851,7 +1657,6 @@ public class Core {
 
         randn_0(dst.nativeObj, mean, stddev);
 
-        return;
     }
 
 
@@ -1864,7 +1669,6 @@ public class Core {
 
         randu_0(dst.nativeObj, low, high);
 
-        return;
     }
 
     //javadoc: reduce(src, dst, dim, rtype, dtype)
@@ -1872,7 +1676,6 @@ public class Core {
 
         reduce_0(src.nativeObj, dst.nativeObj, dim, rtype, dtype);
 
-        return;
     }
 
 
@@ -1885,7 +1688,6 @@ public class Core {
 
         reduce_1(src.nativeObj, dst.nativeObj, dim, rtype);
 
-        return;
     }
 
 
@@ -1898,7 +1700,6 @@ public class Core {
 
         repeat_0(src.nativeObj, ny, nx, dst.nativeObj);
 
-        return;
     }
 
 
@@ -1911,7 +1712,6 @@ public class Core {
 
         rotate_0(src.nativeObj, dst.nativeObj, rotateCode);
 
-        return;
     }
 
 
@@ -1924,7 +1724,6 @@ public class Core {
 
         scaleAdd_0(src1.nativeObj, alpha, src2.nativeObj, dst.nativeObj);
 
-        return;
     }
 
 
@@ -1937,7 +1736,6 @@ public class Core {
 
         setErrorVerbosity_0(verbose);
 
-        return;
     }
 
     //javadoc: setIdentity(mtx, s)
@@ -1945,7 +1743,6 @@ public class Core {
 
         setIdentity_0(mtx.nativeObj, s.val[0], s.val[1], s.val[2], s.val[3]);
 
-        return;
     }
 
 
@@ -1958,7 +1755,6 @@ public class Core {
 
         setIdentity_1(mtx.nativeObj);
 
-        return;
     }
 
 
@@ -1971,7 +1767,6 @@ public class Core {
 
         setRNGSeed_0(seed);
 
-        return;
     }
 
 
@@ -1984,7 +1779,6 @@ public class Core {
 
         sort_0(src.nativeObj, dst.nativeObj, flags);
 
-        return;
     }
 
 
@@ -1997,7 +1791,6 @@ public class Core {
 
         sortIdx_0(src.nativeObj, dst.nativeObj, flags);
 
-        return;
     }
 
 
@@ -2011,7 +1804,6 @@ public class Core {
         split_0(m.nativeObj, mv_mat.nativeObj);
         Converters.Mat_to_vector_Mat(mv_mat, mv);
         mv_mat.release();
-        return;
     }
 
 
@@ -2024,7 +1816,6 @@ public class Core {
 
         sqrt_0(src.nativeObj, dst.nativeObj);
 
-        return;
     }
 
 
@@ -2037,7 +1828,6 @@ public class Core {
 
         subtract_0(src1.nativeObj, src2.nativeObj, dst.nativeObj, mask.nativeObj, dtype);
 
-        return;
     }
 
     //javadoc: subtract(src1, src2, dst, mask)
@@ -2045,7 +1835,6 @@ public class Core {
 
         subtract_1(src1.nativeObj, src2.nativeObj, dst.nativeObj, mask.nativeObj);
 
-        return;
     }
 
     //javadoc: subtract(src1, src2, dst)
@@ -2053,7 +1842,6 @@ public class Core {
 
         subtract_2(src1.nativeObj, src2.nativeObj, dst.nativeObj);
 
-        return;
     }
 
 
@@ -2066,7 +1854,6 @@ public class Core {
 
         subtract_3(src1.nativeObj, src2.val[0], src2.val[1], src2.val[2], src2.val[3], dst.nativeObj, mask.nativeObj, dtype);
 
-        return;
     }
 
     //javadoc: subtract(src1, src2, dst, mask)
@@ -2074,7 +1861,6 @@ public class Core {
 
         subtract_4(src1.nativeObj, src2.val[0], src2.val[1], src2.val[2], src2.val[3], dst.nativeObj, mask.nativeObj);
 
-        return;
     }
 
     //javadoc: subtract(src1, src2, dst)
@@ -2082,7 +1868,6 @@ public class Core {
 
         subtract_5(src1.nativeObj, src2.val[0], src2.val[1], src2.val[2], src2.val[3], dst.nativeObj);
 
-        return;
     }
 
 
@@ -2095,7 +1880,6 @@ public class Core {
 
         transform_0(src.nativeObj, dst.nativeObj, m.nativeObj);
 
-        return;
     }
 
 
@@ -2108,7 +1892,6 @@ public class Core {
 
         transpose_0(src.nativeObj, dst.nativeObj);
 
-        return;
     }
 
 
@@ -2121,7 +1904,6 @@ public class Core {
         Mat src_mat = Converters.vector_Mat_to_Mat(src);
         vconcat_0(src_mat.nativeObj, dst.nativeObj);
 
-        return;
     }
 
 
@@ -2134,7 +1916,6 @@ public class Core {
 
         setUseIPP_0(flag);
 
-        return;
     }
 
 
@@ -2147,7 +1928,6 @@ public class Core {
 
         setUseIPP_NE_0(flag);
 
-        return;
     }
 
     //javadoc: minMaxLoc(src, mask)
@@ -2640,8 +2420,8 @@ public class Core {
     public static class MinMaxLocResult {
         public double minVal;
         public double maxVal;
-        public Point minLoc;
-        public Point maxLoc;
+        public final Point minLoc;
+        public final Point maxLoc;
 
 
         public MinMaxLocResult() {

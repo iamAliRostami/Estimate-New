@@ -48,7 +48,7 @@ public class MatOfPoint extends Mat {
         int buff[] = new int[num * _channels];
         for (int i = 0; i < num; i++) {
             Point p = a[i];
-            buff[_channels * i + 0] = (int) p.x;
+            buff[_channels * i] = (int) p.x;
             buff[_channels * i + 1] = (int) p.y;
         }
         put(0, 0, buff); //TODO: check ret val!

@@ -25,7 +25,6 @@ public class CascadeClassifier {
 
         nativeObj = CascadeClassifier_0(filename);
 
-        return;
     }
 
     //javadoc: CascadeClassifier::CascadeClassifier()
@@ -33,7 +32,6 @@ public class CascadeClassifier {
 
         nativeObj = CascadeClassifier_1();
 
-        return;
     }
 
     //
@@ -53,9 +51,7 @@ public class CascadeClassifier {
     //javadoc: CascadeClassifier::convert(oldcascade, newcascade)
     public static boolean convert(String oldcascade, String newcascade) {
 
-        boolean retVal = convert_0(oldcascade, newcascade);
-
-        return retVal;
+        return convert_0(oldcascade, newcascade);
     }
 
 
@@ -159,95 +155,67 @@ public class CascadeClassifier {
     //javadoc: CascadeClassifier::getOriginalWindowSize()
     public Size getOriginalWindowSize() {
 
-        Size retVal = new Size(getOriginalWindowSize_0(nativeObj));
-
-        return retVal;
+        return new Size(getOriginalWindowSize_0(nativeObj));
     }
 
     //javadoc: CascadeClassifier::empty()
     public boolean empty() {
 
-        boolean retVal = empty_0(nativeObj);
-
-        return retVal;
+        return empty_0(nativeObj);
     }
 
     //javadoc: CascadeClassifier::isOldFormatCascade()
     public boolean isOldFormatCascade() {
 
-        boolean retVal = isOldFormatCascade_0(nativeObj);
-
-        return retVal;
+        return isOldFormatCascade_0(nativeObj);
     }
 
     //javadoc: CascadeClassifier::load(filename)
     public boolean load(String filename) {
 
-        boolean retVal = load_0(nativeObj, filename);
-
-        return retVal;
+        return load_0(nativeObj, filename);
     }
 
     //javadoc: CascadeClassifier::getFeatureType()
     public int getFeatureType() {
 
-        int retVal = getFeatureType_0(nativeObj);
-
-        return retVal;
+        return getFeatureType_0(nativeObj);
     }
 
     //javadoc: CascadeClassifier::detectMultiScale(image, objects, scaleFactor, minNeighbors, flags, minSize, maxSize)
     public void detectMultiScale(Mat image, MatOfRect objects, double scaleFactor, int minNeighbors, int flags, Size minSize, Size maxSize) {
-        Mat objects_mat = objects;
-        detectMultiScale_0(nativeObj, image.nativeObj, objects_mat.nativeObj, scaleFactor, minNeighbors, flags, minSize.width, minSize.height, maxSize.width, maxSize.height);
+        detectMultiScale_0(nativeObj, image.nativeObj, objects.nativeObj, scaleFactor, minNeighbors, flags, minSize.width, minSize.height, maxSize.width, maxSize.height);
 
-        return;
     }
 
     //javadoc: CascadeClassifier::detectMultiScale(image, objects)
     public void detectMultiScale(Mat image, MatOfRect objects) {
-        Mat objects_mat = objects;
-        detectMultiScale_1(nativeObj, image.nativeObj, objects_mat.nativeObj);
+        detectMultiScale_1(nativeObj, image.nativeObj, objects.nativeObj);
 
-        return;
     }
 
     //javadoc: CascadeClassifier::detectMultiScale(image, objects, numDetections, scaleFactor, minNeighbors, flags, minSize, maxSize)
     public void detectMultiScale2(Mat image, MatOfRect objects, MatOfInt numDetections, double scaleFactor, int minNeighbors, int flags, Size minSize, Size maxSize) {
-        Mat objects_mat = objects;
-        Mat numDetections_mat = numDetections;
-        detectMultiScale2_0(nativeObj, image.nativeObj, objects_mat.nativeObj, numDetections_mat.nativeObj, scaleFactor, minNeighbors, flags, minSize.width, minSize.height, maxSize.width, maxSize.height);
+        detectMultiScale2_0(nativeObj, image.nativeObj, objects.nativeObj, numDetections.nativeObj, scaleFactor, minNeighbors, flags, minSize.width, minSize.height, maxSize.width, maxSize.height);
 
-        return;
     }
 
     //javadoc: CascadeClassifier::detectMultiScale(image, objects, numDetections)
     public void detectMultiScale2(Mat image, MatOfRect objects, MatOfInt numDetections) {
-        Mat objects_mat = objects;
-        Mat numDetections_mat = numDetections;
-        detectMultiScale2_1(nativeObj, image.nativeObj, objects_mat.nativeObj, numDetections_mat.nativeObj);
+        detectMultiScale2_1(nativeObj, image.nativeObj, objects.nativeObj, numDetections.nativeObj);
 
-        return;
     }
 
     //javadoc: CascadeClassifier::detectMultiScale(image, objects, rejectLevels, levelWeights, scaleFactor, minNeighbors, flags, minSize, maxSize, outputRejectLevels)
     public void detectMultiScale3(Mat image, MatOfRect objects, MatOfInt rejectLevels, MatOfDouble levelWeights, double scaleFactor, int minNeighbors, int flags, Size minSize, Size maxSize, boolean outputRejectLevels) {
-        Mat objects_mat = objects;
-        Mat rejectLevels_mat = rejectLevels;
-        Mat levelWeights_mat = levelWeights;
-        detectMultiScale3_0(nativeObj, image.nativeObj, objects_mat.nativeObj, rejectLevels_mat.nativeObj, levelWeights_mat.nativeObj, scaleFactor, minNeighbors, flags, minSize.width, minSize.height, maxSize.width, maxSize.height, outputRejectLevels);
+        detectMultiScale3_0(nativeObj, image.nativeObj, objects.nativeObj, rejectLevels.nativeObj, levelWeights.nativeObj, scaleFactor, minNeighbors, flags, minSize.width, minSize.height, maxSize.width, maxSize.height, outputRejectLevels);
 
-        return;
     }
 
     //javadoc: CascadeClassifier::detectMultiScale(image, objects, rejectLevels, levelWeights)
     public void detectMultiScale3(Mat image, MatOfRect objects, MatOfInt rejectLevels, MatOfDouble levelWeights) {
-        Mat objects_mat = objects;
-        Mat rejectLevels_mat = rejectLevels;
-        Mat levelWeights_mat = levelWeights;
-        detectMultiScale3_1(nativeObj, image.nativeObj, objects_mat.nativeObj, rejectLevels_mat.nativeObj, levelWeights_mat.nativeObj);
+        detectMultiScale3_1(nativeObj, image.nativeObj, objects.nativeObj, rejectLevels.nativeObj, levelWeights.nativeObj);
 
-        return;
     }
 
     @Override

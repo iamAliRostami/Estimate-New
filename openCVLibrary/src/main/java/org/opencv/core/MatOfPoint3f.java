@@ -48,7 +48,7 @@ public class MatOfPoint3f extends Mat {
         float buff[] = new float[num * _channels];
         for (int i = 0; i < num; i++) {
             Point3 p = a[i];
-            buff[_channels * i + 0] = (float) p.x;
+            buff[_channels * i] = (float) p.x;
             buff[_channels * i + 1] = (float) p.y;
             buff[_channels * i + 2] = (float) p.z;
         }

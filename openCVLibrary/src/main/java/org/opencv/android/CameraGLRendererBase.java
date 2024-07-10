@@ -17,50 +17,10 @@ import java.nio.FloatBuffer;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-@TargetApi(15)
 public abstract class CameraGLRendererBase implements GLSurfaceView.Renderer, SurfaceTexture.OnFrameAvailableListener {
 
     protected final String LOGTAG = "CameraGLRendererBase";
 
-    // shaders
-    private final String vss = ""
-            + "attribute vec2 vPosition;\n"
-            + "attribute vec2 vTexCoord;\n" + "varying vec2 texCoord;\n"
-            + "void main() {\n" + "  texCoord = vTexCoord;\n"
-            + "  gl_Position = vec4 ( vPosition.x, vPosition.y, 0.0, 1.0 );\n"
-            + "}";
-
-    private final String fssOES = ""
-            + "#extension GL_OES_EGL_image_external : require\n"
-            + "precision mediump float;\n"
-            + "uniform samplerExternalOES sTexture;\n"
-            + "varying vec2 texCoord;\n"
-            + "void main() {\n"
-            + "  gl_FragColor = texture2D(sTexture,texCoord);\n" + "}";
-
-    private final String fss2D = ""
-            + "precision mediump float;\n"
-            + "uniform sampler2D sTexture;\n"
-            + "varying vec2 texCoord;\n"
-            + "void main() {\n"
-            + "  gl_FragColor = texture2D(sTexture,texCoord);\n" + "}";
-
-    // coord-s
-    private final float vertices[] = {
-            -1, -1,
-            -1, 1,
-            1, -1,
-            1, 1};
-    private final float texCoordOES[] = {
-            0, 1,
-            0, 0,
-            1, 1,
-            1, 0};
-    private final float texCoord2D[] = {
-            0, 0,
-            0, 1,
-            1, 0,
-            1, 1};
     protected int mCameraWidth = -1, mCameraHeight = -1;
     protected int mFBOWidth = -1, mFBOHeight = -1;
     protected int mMaxCameraWidth = -1, mMaxCameraHeight = -1;
@@ -71,21 +31,41 @@ public abstract class CameraGLRendererBase implements GLSurfaceView.Renderer, Su
     protected boolean mUpdateST = false;
     protected boolean mEnabled = true;
     protected boolean mIsStarted = false;
-    protected CameraGLSurfaceView mView;
-    private int[] texCamera = {0}, texFBO = {0}, texDraw = {0};
-    private int[] FBO = {0};
+    protected final CameraGLSurfaceView mView;
+    private final int[] texCamera = {0};
+    private final int[] texFBO = {0};
+    private final int[] texDraw = {0};
+    private final int[] FBO = {0};
     private int progOES = -1, prog2D = -1;
     private int vPosOES, vTCOES, vPos2D, vTC2D;
-    private FloatBuffer vert, texOES, tex2D;
+    private final FloatBuffer vert;
+    private final FloatBuffer texOES;
+    private final FloatBuffer tex2D;
 
     public CameraGLRendererBase(CameraGLSurfaceView view) {
         mView = view;
+        // coord-s
+        float[] vertices = {
+                -1, -1,
+                -1, 1,
+                1, -1,
+                1, 1};
         int bytes = vertices.length * Float.SIZE / Byte.SIZE;
         vert = ByteBuffer.allocateDirect(bytes).order(ByteOrder.nativeOrder()).asFloatBuffer();
         texOES = ByteBuffer.allocateDirect(bytes).order(ByteOrder.nativeOrder()).asFloatBuffer();
         tex2D = ByteBuffer.allocateDirect(bytes).order(ByteOrder.nativeOrder()).asFloatBuffer();
         vert.put(vertices).position(0);
+        float[] texCoordOES = {
+                0, 1,
+                0, 0,
+                1, 1,
+                1, 0};
         texOES.put(texCoordOES).position(0);
+        float[] texCoord2D = {
+                0, 0,
+                0, 1,
+                1, 0,
+                1, 1};
         tex2D.put(texCoord2D).position(0);
     }
 
@@ -105,7 +85,6 @@ public abstract class CameraGLRendererBase implements GLSurfaceView.Renderer, Su
         if (status[0] == 0) {
             Log.e("CameraGLRendererBase", "Could not compile vertex shader: " + GLES20.glGetShaderInfoLog(vshader));
             GLES20.glDeleteShader(vshader);
-            vshader = 0;
             return 0;
         }
 
@@ -117,7 +96,6 @@ public abstract class CameraGLRendererBase implements GLSurfaceView.Renderer, Su
             Log.e("CameraGLRendererBase", "Could not compile fragment shader:" + GLES20.glGetShaderInfoLog(fshader));
             GLES20.glDeleteShader(vshader);
             GLES20.glDeleteShader(fshader);
-            fshader = 0;
             return 0;
         }
 
@@ -130,7 +108,6 @@ public abstract class CameraGLRendererBase implements GLSurfaceView.Renderer, Su
         GLES20.glGetProgramiv(program, GLES20.GL_LINK_STATUS, status, 0);
         if (status[0] == 0) {
             Log.e("CameraGLRendererBase", "Could not link shader program: " + GLES20.glGetProgramInfoLog(program));
-            program = 0;
             return 0;
         }
         GLES20.glValidateProgram(program);
@@ -138,7 +115,6 @@ public abstract class CameraGLRendererBase implements GLSurfaceView.Renderer, Su
         if (status[0] == 0) {
             Log.e("CameraGLRendererBase", "Shader program validation error: " + GLES20.glGetProgramInfoLog(program));
             GLES20.glDeleteProgram(program);
-            program = 0;
             return 0;
         }
 
@@ -221,12 +197,39 @@ public abstract class CameraGLRendererBase implements GLSurfaceView.Renderer, Su
 
         GLES20.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 
+        String fssOES = """
+                \
+                #extension GL_OES_EGL_image_external : require
+                precision mediump float;
+                uniform samplerExternalOES sTexture;
+                varying vec2 texCoord;
+                void main() {
+                  gl_FragColor = texture2D(sTexture,texCoord);
+                }""";
+        // shaders
+        String vss = """
+                \
+                attribute vec2 vPosition;
+                attribute vec2 vTexCoord;
+                varying vec2 texCoord;
+                void main() {
+                  texCoord = vTexCoord;
+                  gl_Position = vec4 ( vPosition.x, vPosition.y, 0.0, 1.0 );
+                }""";
         progOES = loadShader(vss, fssOES);
         vPosOES = GLES20.glGetAttribLocation(progOES, "vPosition");
         vTCOES = GLES20.glGetAttribLocation(progOES, "vTexCoord");
         GLES20.glEnableVertexAttribArray(vPosOES);
         GLES20.glEnableVertexAttribArray(vTCOES);
 
+        String fss2D = """
+                \
+                precision mediump float;
+                uniform sampler2D sTexture;
+                varying vec2 texCoord;
+                void main() {
+                  gl_FragColor = texture2D(sTexture,texCoord);
+                }""";
         prog2D = loadShader(vss, fss2D);
         vPos2D = GLES20.glGetAttribLocation(prog2D, "vPosition");
         vTC2D = GLES20.glGetAttribLocation(prog2D, "vTexCoord");

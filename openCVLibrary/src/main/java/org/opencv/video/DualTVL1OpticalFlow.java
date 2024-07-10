@@ -24,17 +24,13 @@ public class DualTVL1OpticalFlow extends DenseOpticalFlow {
     //javadoc: DualTVL1OpticalFlow::create(tau, lambda, theta, nscales, warps, epsilon, innnerIterations, outerIterations, scaleStep, gamma, medianFiltering, useInitialFlow)
     public static DualTVL1OpticalFlow create(double tau, double lambda, double theta, int nscales, int warps, double epsilon, int innnerIterations, int outerIterations, double scaleStep, double gamma, int medianFiltering, boolean useInitialFlow) {
 
-        DualTVL1OpticalFlow retVal = DualTVL1OpticalFlow.__fromPtr__(create_0(tau, lambda, theta, nscales, warps, epsilon, innnerIterations, outerIterations, scaleStep, gamma, medianFiltering, useInitialFlow));
-
-        return retVal;
+        return DualTVL1OpticalFlow.__fromPtr__(create_0(tau, lambda, theta, nscales, warps, epsilon, innnerIterations, outerIterations, scaleStep, gamma, medianFiltering, useInitialFlow));
     }
 
     //javadoc: DualTVL1OpticalFlow::create()
     public static DualTVL1OpticalFlow create() {
 
-        DualTVL1OpticalFlow retVal = DualTVL1OpticalFlow.__fromPtr__(create_1());
-
-        return retVal;
+        return DualTVL1OpticalFlow.__fromPtr__(create_1());
     }
 
 
@@ -240,9 +236,7 @@ public class DualTVL1OpticalFlow extends DenseOpticalFlow {
     //javadoc: DualTVL1OpticalFlow::getUseInitialFlow()
     public boolean getUseInitialFlow() {
 
-        boolean retVal = getUseInitialFlow_0(nativeObj);
-
-        return retVal;
+        return getUseInitialFlow_0(nativeObj);
     }
 
     //javadoc: DualTVL1OpticalFlow::setUseInitialFlow(val)
@@ -250,15 +244,12 @@ public class DualTVL1OpticalFlow extends DenseOpticalFlow {
 
         setUseInitialFlow_0(nativeObj, val);
 
-        return;
     }
 
     //javadoc: DualTVL1OpticalFlow::getEpsilon()
     public double getEpsilon() {
 
-        double retVal = getEpsilon_0(nativeObj);
-
-        return retVal;
+        return getEpsilon_0(nativeObj);
     }
 
     //javadoc: DualTVL1OpticalFlow::setEpsilon(val)
@@ -266,15 +257,12 @@ public class DualTVL1OpticalFlow extends DenseOpticalFlow {
 
         setEpsilon_0(nativeObj, val);
 
-        return;
     }
 
     //javadoc: DualTVL1OpticalFlow::getGamma()
     public double getGamma() {
 
-        double retVal = getGamma_0(nativeObj);
-
-        return retVal;
+        return getGamma_0(nativeObj);
     }
 
     //javadoc: DualTVL1OpticalFlow::setGamma(val)
@@ -282,15 +270,12 @@ public class DualTVL1OpticalFlow extends DenseOpticalFlow {
 
         setGamma_0(nativeObj, val);
 
-        return;
     }
 
     //javadoc: DualTVL1OpticalFlow::getLambda()
     public double getLambda() {
 
-        double retVal = getLambda_0(nativeObj);
-
-        return retVal;
+        return getLambda_0(nativeObj);
     }
 
     //javadoc: DualTVL1OpticalFlow::setLambda(val)
@@ -298,15 +283,12 @@ public class DualTVL1OpticalFlow extends DenseOpticalFlow {
 
         setLambda_0(nativeObj, val);
 
-        return;
     }
 
     //javadoc: DualTVL1OpticalFlow::getScaleStep()
     public double getScaleStep() {
 
-        double retVal = getScaleStep_0(nativeObj);
-
-        return retVal;
+        return getScaleStep_0(nativeObj);
     }
 
     //javadoc: DualTVL1OpticalFlow::setScaleStep(val)
@@ -314,15 +296,12 @@ public class DualTVL1OpticalFlow extends DenseOpticalFlow {
 
         setScaleStep_0(nativeObj, val);
 
-        return;
     }
 
     //javadoc: DualTVL1OpticalFlow::getTau()
     public double getTau() {
 
-        double retVal = getTau_0(nativeObj);
-
-        return retVal;
+        return getTau_0(nativeObj);
     }
 
     //javadoc: DualTVL1OpticalFlow::setTau(val)
@@ -330,15 +309,12 @@ public class DualTVL1OpticalFlow extends DenseOpticalFlow {
 
         setTau_0(nativeObj, val);
 
-        return;
     }
 
     //javadoc: DualTVL1OpticalFlow::getTheta()
     public double getTheta() {
 
-        double retVal = getTheta_0(nativeObj);
-
-        return retVal;
+        return getTheta_0(nativeObj);
     }
 
     //javadoc: DualTVL1OpticalFlow::setTheta(val)
@@ -346,15 +322,12 @@ public class DualTVL1OpticalFlow extends DenseOpticalFlow {
 
         setTheta_0(nativeObj, val);
 
-        return;
     }
 
     //javadoc: DualTVL1OpticalFlow::getInnerIterations()
     public int getInnerIterations() {
 
-        int retVal = getInnerIterations_0(nativeObj);
-
-        return retVal;
+        return getInnerIterations_0(nativeObj);
     }
 
     //javadoc: DualTVL1OpticalFlow::setInnerIterations(val)
@@ -362,15 +335,12 @@ public class DualTVL1OpticalFlow extends DenseOpticalFlow {
 
         setInnerIterations_0(nativeObj, val);
 
-        return;
     }
 
     //javadoc: DualTVL1OpticalFlow::getMedianFiltering()
     public int getMedianFiltering() {
 
-        int retVal = getMedianFiltering_0(nativeObj);
-
-        return retVal;
+        return getMedianFiltering_0(nativeObj);
     }
 
     //javadoc: DualTVL1OpticalFlow::setMedianFiltering(val)
@@ -378,15 +348,12 @@ public class DualTVL1OpticalFlow extends DenseOpticalFlow {
 
         setMedianFiltering_0(nativeObj, val);
 
-        return;
     }
 
     //javadoc: DualTVL1OpticalFlow::getOuterIterations()
     public int getOuterIterations() {
 
-        int retVal = getOuterIterations_0(nativeObj);
-
-        return retVal;
+        return getOuterIterations_0(nativeObj);
     }
 
     //javadoc: DualTVL1OpticalFlow::setOuterIterations(val)
@@ -394,15 +361,12 @@ public class DualTVL1OpticalFlow extends DenseOpticalFlow {
 
         setOuterIterations_0(nativeObj, val);
 
-        return;
     }
 
     //javadoc: DualTVL1OpticalFlow::getScalesNumber()
     public int getScalesNumber() {
 
-        int retVal = getScalesNumber_0(nativeObj);
-
-        return retVal;
+        return getScalesNumber_0(nativeObj);
     }
 
     //javadoc: DualTVL1OpticalFlow::setScalesNumber(val)
@@ -410,15 +374,12 @@ public class DualTVL1OpticalFlow extends DenseOpticalFlow {
 
         setScalesNumber_0(nativeObj, val);
 
-        return;
     }
 
     //javadoc: DualTVL1OpticalFlow::getWarpingsNumber()
     public int getWarpingsNumber() {
 
-        int retVal = getWarpingsNumber_0(nativeObj);
-
-        return retVal;
+        return getWarpingsNumber_0(nativeObj);
     }
 
     //javadoc: DualTVL1OpticalFlow::setWarpingsNumber(val)
@@ -426,11 +387,11 @@ public class DualTVL1OpticalFlow extends DenseOpticalFlow {
 
         setWarpingsNumber_0(nativeObj, val);
 
-        return;
     }
 
     @Override
     protected void finalize() throws Throwable {
+        super.finalize();
         delete(nativeObj);
     }
 

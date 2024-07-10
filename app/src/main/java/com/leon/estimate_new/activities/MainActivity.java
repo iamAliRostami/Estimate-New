@@ -5,7 +5,6 @@ import static com.leon.estimate_new.helpers.Constants.DUTIES_FRAGMENT;
 import static com.leon.estimate_new.helpers.Constants.EXIT_POSITION;
 import static com.leon.estimate_new.helpers.Constants.HELP_FRAGMENT;
 import static com.leon.estimate_new.helpers.Constants.HOME_FRAGMENT;
-import static com.leon.estimate_new.helpers.Constants.OFFLINE_MAP_FRAGMENT;
 import static com.leon.estimate_new.helpers.Constants.POSITION;
 import static com.leon.estimate_new.helpers.Constants.REQUEST_FRAGMENT;
 import static com.leon.estimate_new.helpers.Constants.UPLOAD_FRAGMENT;
@@ -30,7 +29,6 @@ import com.leon.estimate_new.fragments.main_items.DownloadFragment;
 import com.leon.estimate_new.fragments.main_items.DutiesListFragment;
 import com.leon.estimate_new.fragments.main_items.HelpFragment;
 import com.leon.estimate_new.fragments.main_items.HomeFragment;
-import com.leon.estimate_new.fragments.main_items.OfflineMapFragment;
 import com.leon.estimate_new.fragments.main_items.SendRequestFragment;
 import com.leon.estimate_new.fragments.main_items.UploadFragment;
 

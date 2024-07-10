@@ -33,7 +33,7 @@ public abstract class BaseAsyncIndependent extends AsyncTask<Activity, Void, Voi
 
     @Override
     protected Void doInBackground(Activity... contexts) {
-        backgroundTask((Context) contexts[0]);
+        backgroundTask(contexts[0]);
         return null;
     }
 

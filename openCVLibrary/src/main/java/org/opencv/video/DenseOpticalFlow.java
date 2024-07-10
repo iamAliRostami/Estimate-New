@@ -43,7 +43,6 @@ public class DenseOpticalFlow extends Algorithm {
 
         calc_0(nativeObj, I0.nativeObj, I1.nativeObj, flow.nativeObj);
 
-        return;
     }
 
     //javadoc: DenseOpticalFlow::collectGarbage()
@@ -51,11 +50,11 @@ public class DenseOpticalFlow extends Algorithm {
 
         collectGarbage_0(nativeObj);
 
-        return;
     }
 
     @Override
     protected void finalize() throws Throwable {
+        super.finalize();
         delete(nativeObj);
     }
 

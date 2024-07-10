@@ -74,9 +74,7 @@ public class CLAHE extends Algorithm {
     //javadoc: CLAHE::getTilesGridSize()
     public Size getTilesGridSize() {
 
-        Size retVal = new Size(getTilesGridSize_0(nativeObj));
-
-        return retVal;
+        return new Size(getTilesGridSize_0(nativeObj));
     }
 
     //javadoc: CLAHE::setTilesGridSize(tileGridSize)
@@ -84,15 +82,12 @@ public class CLAHE extends Algorithm {
 
         setTilesGridSize_0(nativeObj, tileGridSize.width, tileGridSize.height);
 
-        return;
     }
 
     //javadoc: CLAHE::getClipLimit()
     public double getClipLimit() {
 
-        double retVal = getClipLimit_0(nativeObj);
-
-        return retVal;
+        return getClipLimit_0(nativeObj);
     }
 
     //javadoc: CLAHE::setClipLimit(clipLimit)
@@ -100,7 +95,6 @@ public class CLAHE extends Algorithm {
 
         setClipLimit_0(nativeObj, clipLimit);
 
-        return;
     }
 
     //javadoc: CLAHE::apply(src, dst)
@@ -108,7 +102,6 @@ public class CLAHE extends Algorithm {
 
         apply_0(nativeObj, src.nativeObj, dst.nativeObj);
 
-        return;
     }
 
     //javadoc: CLAHE::collectGarbage()
@@ -116,11 +109,11 @@ public class CLAHE extends Algorithm {
 
         collectGarbage_0(nativeObj);
 
-        return;
     }
 
     @Override
     protected void finalize() throws Throwable {
+        super.finalize();
         delete(nativeObj);
     }
 

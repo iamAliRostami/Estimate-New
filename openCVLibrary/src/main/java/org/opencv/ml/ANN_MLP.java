@@ -41,9 +41,7 @@ public class ANN_MLP extends StatModel {
     //javadoc: ANN_MLP::create()
     public static ANN_MLP create() {
 
-        ANN_MLP retVal = ANN_MLP.__fromPtr__(create_0());
-
-        return retVal;
+        return ANN_MLP.__fromPtr__(create_0());
     }
 
 
@@ -54,9 +52,7 @@ public class ANN_MLP extends StatModel {
     //javadoc: ANN_MLP::load(filepath)
     public static ANN_MLP load(String filepath) {
 
-        ANN_MLP retVal = ANN_MLP.__fromPtr__(load_0(filepath));
-
-        return retVal;
+        return ANN_MLP.__fromPtr__(load_0(filepath));
     }
 
 
@@ -315,9 +311,7 @@ public class ANN_MLP extends StatModel {
     //javadoc: ANN_MLP::getLayerSizes()
     public Mat getLayerSizes() {
 
-        Mat retVal = new Mat(getLayerSizes_0(nativeObj));
-
-        return retVal;
+        return new Mat(getLayerSizes_0(nativeObj));
     }
 
     //javadoc: ANN_MLP::setLayerSizes(_layer_sizes)
@@ -325,23 +319,18 @@ public class ANN_MLP extends StatModel {
 
         setLayerSizes_0(nativeObj, _layer_sizes.nativeObj);
 
-        return;
     }
 
     //javadoc: ANN_MLP::getWeights(layerIdx)
     public Mat getWeights(int layerIdx) {
 
-        Mat retVal = new Mat(getWeights_0(nativeObj, layerIdx));
-
-        return retVal;
+        return new Mat(getWeights_0(nativeObj, layerIdx));
     }
 
     //javadoc: ANN_MLP::getTermCriteria()
     public TermCriteria getTermCriteria() {
 
-        TermCriteria retVal = new TermCriteria(getTermCriteria_0(nativeObj));
-
-        return retVal;
+        return new TermCriteria(getTermCriteria_0(nativeObj));
     }
 
     //javadoc: ANN_MLP::setTermCriteria(val)
@@ -349,15 +338,12 @@ public class ANN_MLP extends StatModel {
 
         setTermCriteria_0(nativeObj, val.type, val.maxCount, val.epsilon);
 
-        return;
     }
 
     //javadoc: ANN_MLP::getAnnealCoolingRatio()
     public double getAnnealCoolingRatio() {
 
-        double retVal = getAnnealCoolingRatio_0(nativeObj);
-
-        return retVal;
+        return getAnnealCoolingRatio_0(nativeObj);
     }
 
     //javadoc: ANN_MLP::setAnnealCoolingRatio(val)
@@ -365,15 +351,12 @@ public class ANN_MLP extends StatModel {
 
         setAnnealCoolingRatio_0(nativeObj, val);
 
-        return;
     }
 
     //javadoc: ANN_MLP::getAnnealFinalT()
     public double getAnnealFinalT() {
 
-        double retVal = getAnnealFinalT_0(nativeObj);
-
-        return retVal;
+        return getAnnealFinalT_0(nativeObj);
     }
 
     //javadoc: ANN_MLP::setAnnealFinalT(val)
@@ -381,15 +364,12 @@ public class ANN_MLP extends StatModel {
 
         setAnnealFinalT_0(nativeObj, val);
 
-        return;
     }
 
     //javadoc: ANN_MLP::getAnnealInitialT()
     public double getAnnealInitialT() {
 
-        double retVal = getAnnealInitialT_0(nativeObj);
-
-        return retVal;
+        return getAnnealInitialT_0(nativeObj);
     }
 
     //javadoc: ANN_MLP::setAnnealInitialT(val)
@@ -397,15 +377,12 @@ public class ANN_MLP extends StatModel {
 
         setAnnealInitialT_0(nativeObj, val);
 
-        return;
     }
 
     //javadoc: ANN_MLP::getBackpropMomentumScale()
     public double getBackpropMomentumScale() {
 
-        double retVal = getBackpropMomentumScale_0(nativeObj);
-
-        return retVal;
+        return getBackpropMomentumScale_0(nativeObj);
     }
 
     //javadoc: ANN_MLP::setBackpropMomentumScale(val)
@@ -413,15 +390,12 @@ public class ANN_MLP extends StatModel {
 
         setBackpropMomentumScale_0(nativeObj, val);
 
-        return;
     }
 
     //javadoc: ANN_MLP::getBackpropWeightScale()
     public double getBackpropWeightScale() {
 
-        double retVal = getBackpropWeightScale_0(nativeObj);
-
-        return retVal;
+        return getBackpropWeightScale_0(nativeObj);
     }
 
     //javadoc: ANN_MLP::setBackpropWeightScale(val)
@@ -429,15 +403,12 @@ public class ANN_MLP extends StatModel {
 
         setBackpropWeightScale_0(nativeObj, val);
 
-        return;
     }
 
     //javadoc: ANN_MLP::getRpropDW0()
     public double getRpropDW0() {
 
-        double retVal = getRpropDW0_0(nativeObj);
-
-        return retVal;
+        return getRpropDW0_0(nativeObj);
     }
 
     //javadoc: ANN_MLP::setRpropDW0(val)
@@ -445,15 +416,12 @@ public class ANN_MLP extends StatModel {
 
         setRpropDW0_0(nativeObj, val);
 
-        return;
     }
 
     //javadoc: ANN_MLP::getRpropDWMax()
     public double getRpropDWMax() {
 
-        double retVal = getRpropDWMax_0(nativeObj);
-
-        return retVal;
+        return getRpropDWMax_0(nativeObj);
     }
 
     //javadoc: ANN_MLP::setRpropDWMax(val)
@@ -461,15 +429,12 @@ public class ANN_MLP extends StatModel {
 
         setRpropDWMax_0(nativeObj, val);
 
-        return;
     }
 
     //javadoc: ANN_MLP::getRpropDWMin()
     public double getRpropDWMin() {
 
-        double retVal = getRpropDWMin_0(nativeObj);
-
-        return retVal;
+        return getRpropDWMin_0(nativeObj);
     }
 
     //javadoc: ANN_MLP::setRpropDWMin(val)
@@ -477,15 +442,12 @@ public class ANN_MLP extends StatModel {
 
         setRpropDWMin_0(nativeObj, val);
 
-        return;
     }
 
     //javadoc: ANN_MLP::getRpropDWMinus()
     public double getRpropDWMinus() {
 
-        double retVal = getRpropDWMinus_0(nativeObj);
-
-        return retVal;
+        return getRpropDWMinus_0(nativeObj);
     }
 
     //javadoc: ANN_MLP::setRpropDWMinus(val)
@@ -493,15 +455,12 @@ public class ANN_MLP extends StatModel {
 
         setRpropDWMinus_0(nativeObj, val);
 
-        return;
     }
 
     //javadoc: ANN_MLP::getRpropDWPlus()
     public double getRpropDWPlus() {
 
-        double retVal = getRpropDWPlus_0(nativeObj);
-
-        return retVal;
+        return getRpropDWPlus_0(nativeObj);
     }
 
     //javadoc: ANN_MLP::setRpropDWPlus(val)
@@ -509,15 +468,12 @@ public class ANN_MLP extends StatModel {
 
         setRpropDWPlus_0(nativeObj, val);
 
-        return;
     }
 
     //javadoc: ANN_MLP::getAnnealItePerStep()
     public int getAnnealItePerStep() {
 
-        int retVal = getAnnealItePerStep_0(nativeObj);
-
-        return retVal;
+        return getAnnealItePerStep_0(nativeObj);
     }
 
     //javadoc: ANN_MLP::setAnnealItePerStep(val)
@@ -525,15 +481,12 @@ public class ANN_MLP extends StatModel {
 
         setAnnealItePerStep_0(nativeObj, val);
 
-        return;
     }
 
     //javadoc: ANN_MLP::getTrainMethod()
     public int getTrainMethod() {
 
-        int retVal = getTrainMethod_0(nativeObj);
-
-        return retVal;
+        return getTrainMethod_0(nativeObj);
     }
 
     //javadoc: ANN_MLP::setTrainMethod(method)
@@ -541,7 +494,6 @@ public class ANN_MLP extends StatModel {
 
         setTrainMethod_1(nativeObj, method);
 
-        return;
     }
 
     //javadoc: ANN_MLP::setActivationFunction(type, param1, param2)
@@ -549,7 +501,6 @@ public class ANN_MLP extends StatModel {
 
         setActivationFunction_0(nativeObj, type, param1, param2);
 
-        return;
     }
 
     //javadoc: ANN_MLP::setActivationFunction(type)
@@ -557,7 +508,6 @@ public class ANN_MLP extends StatModel {
 
         setActivationFunction_1(nativeObj, type);
 
-        return;
     }
 
     //javadoc: ANN_MLP::setTrainMethod(method, param1, param2)
@@ -565,11 +515,11 @@ public class ANN_MLP extends StatModel {
 
         setTrainMethod_0(nativeObj, method, param1, param2);
 
-        return;
     }
 
     @Override
     protected void finalize() throws Throwable {
+        super.finalize();
         delete(nativeObj);
     }
 

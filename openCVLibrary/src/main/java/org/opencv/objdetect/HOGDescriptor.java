@@ -29,7 +29,6 @@ public class HOGDescriptor {
 
         nativeObj = HOGDescriptor_0(_winSize.width, _winSize.height, _blockSize.width, _blockSize.height, _blockStride.width, _blockStride.height, _cellSize.width, _cellSize.height, _nbins, _derivAperture, _winSigma, _histogramNormType, _L2HysThreshold, _gammaCorrection, _nlevels, _signedGradient);
 
-        return;
     }
 
     //javadoc: HOGDescriptor::HOGDescriptor(_winSize, _blockSize, _blockStride, _cellSize, _nbins)
@@ -37,7 +36,6 @@ public class HOGDescriptor {
 
         nativeObj = HOGDescriptor_1(_winSize.width, _winSize.height, _blockSize.width, _blockSize.height, _blockStride.width, _blockStride.height, _cellSize.width, _cellSize.height, _nbins);
 
-        return;
     }
 
 
@@ -50,7 +48,6 @@ public class HOGDescriptor {
 
         nativeObj = HOGDescriptor_2(filename);
 
-        return;
     }
 
     //javadoc: HOGDescriptor::HOGDescriptor()
@@ -58,7 +55,6 @@ public class HOGDescriptor {
 
         nativeObj = HOGDescriptor_3();
 
-        return;
     }
 
 
@@ -79,9 +75,7 @@ public class HOGDescriptor {
     //javadoc: HOGDescriptor::getDaimlerPeopleDetector()
     public static MatOfFloat getDaimlerPeopleDetector() {
 
-        MatOfFloat retVal = MatOfFloat.fromNativeAddr(getDaimlerPeopleDetector_0());
-
-        return retVal;
+        return MatOfFloat.fromNativeAddr(getDaimlerPeopleDetector_0());
     }
 
 
@@ -92,9 +86,7 @@ public class HOGDescriptor {
     //javadoc: HOGDescriptor::getDefaultPeopleDetector()
     public static MatOfFloat getDefaultPeopleDetector() {
 
-        MatOfFloat retVal = MatOfFloat.fromNativeAddr(getDefaultPeopleDetector_0());
-
-        return retVal;
+        return MatOfFloat.fromNativeAddr(getDefaultPeopleDetector_0());
     }
 
 
@@ -325,58 +317,43 @@ public class HOGDescriptor {
     //javadoc: HOGDescriptor::checkDetectorSize()
     public boolean checkDetectorSize() {
 
-        boolean retVal = checkDetectorSize_0(nativeObj);
-
-        return retVal;
+        return checkDetectorSize_0(nativeObj);
     }
 
     //javadoc: HOGDescriptor::load(filename, objname)
     public boolean load(String filename, String objname) {
 
-        boolean retVal = load_0(nativeObj, filename, objname);
-
-        return retVal;
+        return load_0(nativeObj, filename, objname);
     }
 
     //javadoc: HOGDescriptor::load(filename)
     public boolean load(String filename) {
 
-        boolean retVal = load_1(nativeObj, filename);
-
-        return retVal;
+        return load_1(nativeObj, filename);
     }
 
     //javadoc: HOGDescriptor::getWinSigma()
     public double getWinSigma() {
 
-        double retVal = getWinSigma_0(nativeObj);
-
-        return retVal;
+        return getWinSigma_0(nativeObj);
     }
 
     //javadoc: HOGDescriptor::getDescriptorSize()
     public long getDescriptorSize() {
 
-        long retVal = getDescriptorSize_0(nativeObj);
-
-        return retVal;
+        return getDescriptorSize_0(nativeObj);
     }
 
     //javadoc: HOGDescriptor::compute(img, descriptors, winStride, padding, locations)
     public void compute(Mat img, MatOfFloat descriptors, Size winStride, Size padding, MatOfPoint locations) {
-        Mat descriptors_mat = descriptors;
-        Mat locations_mat = locations;
-        compute_0(nativeObj, img.nativeObj, descriptors_mat.nativeObj, winStride.width, winStride.height, padding.width, padding.height, locations_mat.nativeObj);
+        compute_0(nativeObj, img.nativeObj, descriptors.nativeObj, winStride.width, winStride.height, padding.width, padding.height, locations.nativeObj);
 
-        return;
     }
 
     //javadoc: HOGDescriptor::compute(img, descriptors)
     public void compute(Mat img, MatOfFloat descriptors) {
-        Mat descriptors_mat = descriptors;
-        compute_1(nativeObj, img.nativeObj, descriptors_mat.nativeObj);
+        compute_1(nativeObj, img.nativeObj, descriptors.nativeObj);
 
-        return;
     }
 
     //javadoc: HOGDescriptor::computeGradient(img, grad, angleOfs, paddingTL, paddingBR)
@@ -384,7 +361,6 @@ public class HOGDescriptor {
 
         computeGradient_0(nativeObj, img.nativeObj, grad.nativeObj, angleOfs.nativeObj, paddingTL.width, paddingTL.height, paddingBR.width, paddingBR.height);
 
-        return;
     }
 
     //javadoc: HOGDescriptor::computeGradient(img, grad, angleOfs)
@@ -392,44 +368,30 @@ public class HOGDescriptor {
 
         computeGradient_1(nativeObj, img.nativeObj, grad.nativeObj, angleOfs.nativeObj);
 
-        return;
     }
 
     //javadoc: HOGDescriptor::detect(img, foundLocations, weights, hitThreshold, winStride, padding, searchLocations)
     public void detect(Mat img, MatOfPoint foundLocations, MatOfDouble weights, double hitThreshold, Size winStride, Size padding, MatOfPoint searchLocations) {
-        Mat foundLocations_mat = foundLocations;
-        Mat weights_mat = weights;
-        Mat searchLocations_mat = searchLocations;
-        detect_0(nativeObj, img.nativeObj, foundLocations_mat.nativeObj, weights_mat.nativeObj, hitThreshold, winStride.width, winStride.height, padding.width, padding.height, searchLocations_mat.nativeObj);
+        detect_0(nativeObj, img.nativeObj, foundLocations.nativeObj, weights.nativeObj, hitThreshold, winStride.width, winStride.height, padding.width, padding.height, searchLocations.nativeObj);
 
-        return;
     }
 
     //javadoc: HOGDescriptor::detect(img, foundLocations, weights)
     public void detect(Mat img, MatOfPoint foundLocations, MatOfDouble weights) {
-        Mat foundLocations_mat = foundLocations;
-        Mat weights_mat = weights;
-        detect_1(nativeObj, img.nativeObj, foundLocations_mat.nativeObj, weights_mat.nativeObj);
+        detect_1(nativeObj, img.nativeObj, foundLocations.nativeObj, weights.nativeObj);
 
-        return;
     }
 
     //javadoc: HOGDescriptor::detectMultiScale(img, foundLocations, foundWeights, hitThreshold, winStride, padding, scale, finalThreshold, useMeanshiftGrouping)
     public void detectMultiScale(Mat img, MatOfRect foundLocations, MatOfDouble foundWeights, double hitThreshold, Size winStride, Size padding, double scale, double finalThreshold, boolean useMeanshiftGrouping) {
-        Mat foundLocations_mat = foundLocations;
-        Mat foundWeights_mat = foundWeights;
-        detectMultiScale_0(nativeObj, img.nativeObj, foundLocations_mat.nativeObj, foundWeights_mat.nativeObj, hitThreshold, winStride.width, winStride.height, padding.width, padding.height, scale, finalThreshold, useMeanshiftGrouping);
+        detectMultiScale_0(nativeObj, img.nativeObj, foundLocations.nativeObj, foundWeights.nativeObj, hitThreshold, winStride.width, winStride.height, padding.width, padding.height, scale, finalThreshold, useMeanshiftGrouping);
 
-        return;
     }
 
     //javadoc: HOGDescriptor::detectMultiScale(img, foundLocations, foundWeights)
     public void detectMultiScale(Mat img, MatOfRect foundLocations, MatOfDouble foundWeights) {
-        Mat foundLocations_mat = foundLocations;
-        Mat foundWeights_mat = foundWeights;
-        detectMultiScale_1(nativeObj, img.nativeObj, foundLocations_mat.nativeObj, foundWeights_mat.nativeObj);
+        detectMultiScale_1(nativeObj, img.nativeObj, foundLocations.nativeObj, foundWeights.nativeObj);
 
-        return;
     }
 
     //javadoc: HOGDescriptor::save(filename, objname)
@@ -437,7 +399,6 @@ public class HOGDescriptor {
 
         save_0(nativeObj, filename, objname);
 
-        return;
     }
 
     //javadoc: HOGDescriptor::save(filename)
@@ -445,7 +406,6 @@ public class HOGDescriptor {
 
         save_1(nativeObj, filename);
 
-        return;
     }
 
     //javadoc: HOGDescriptor::setSVMDetector(_svmdetector)
@@ -453,111 +413,84 @@ public class HOGDescriptor {
 
         setSVMDetector_0(nativeObj, _svmdetector.nativeObj);
 
-        return;
     }
 
     //javadoc: HOGDescriptor::get_winSize()
     public Size get_winSize() {
 
-        Size retVal = new Size(get_winSize_0(nativeObj));
-
-        return retVal;
+        return new Size(get_winSize_0(nativeObj));
     }
 
     //javadoc: HOGDescriptor::get_blockSize()
     public Size get_blockSize() {
 
-        Size retVal = new Size(get_blockSize_0(nativeObj));
-
-        return retVal;
+        return new Size(get_blockSize_0(nativeObj));
     }
 
     //javadoc: HOGDescriptor::get_blockStride()
     public Size get_blockStride() {
 
-        Size retVal = new Size(get_blockStride_0(nativeObj));
-
-        return retVal;
+        return new Size(get_blockStride_0(nativeObj));
     }
 
     //javadoc: HOGDescriptor::get_cellSize()
     public Size get_cellSize() {
 
-        Size retVal = new Size(get_cellSize_0(nativeObj));
-
-        return retVal;
+        return new Size(get_cellSize_0(nativeObj));
     }
 
     //javadoc: HOGDescriptor::get_nbins()
     public int get_nbins() {
 
-        int retVal = get_nbins_0(nativeObj);
-
-        return retVal;
+        return get_nbins_0(nativeObj);
     }
 
     //javadoc: HOGDescriptor::get_derivAperture()
     public int get_derivAperture() {
 
-        int retVal = get_derivAperture_0(nativeObj);
-
-        return retVal;
+        return get_derivAperture_0(nativeObj);
     }
 
     //javadoc: HOGDescriptor::get_winSigma()
     public double get_winSigma() {
 
-        double retVal = get_winSigma_0(nativeObj);
-
-        return retVal;
+        return get_winSigma_0(nativeObj);
     }
 
     //javadoc: HOGDescriptor::get_histogramNormType()
     public int get_histogramNormType() {
 
-        int retVal = get_histogramNormType_0(nativeObj);
-
-        return retVal;
+        return get_histogramNormType_0(nativeObj);
     }
 
     //javadoc: HOGDescriptor::get_L2HysThreshold()
     public double get_L2HysThreshold() {
 
-        double retVal = get_L2HysThreshold_0(nativeObj);
-
-        return retVal;
+        return get_L2HysThreshold_0(nativeObj);
     }
 
     //javadoc: HOGDescriptor::get_gammaCorrection()
     public boolean get_gammaCorrection() {
 
-        boolean retVal = get_gammaCorrection_0(nativeObj);
-
-        return retVal;
+        return get_gammaCorrection_0(nativeObj);
     }
 
     //javadoc: HOGDescriptor::get_svmDetector()
     public MatOfFloat get_svmDetector() {
 
-        MatOfFloat retVal = MatOfFloat.fromNativeAddr(get_svmDetector_0(nativeObj));
-
-        return retVal;
+        return MatOfFloat.fromNativeAddr(get_svmDetector_0(nativeObj));
     }
 
     //javadoc: HOGDescriptor::get_nlevels()
     public int get_nlevels() {
 
-        int retVal = get_nlevels_0(nativeObj);
-
-        return retVal;
+        return get_nlevels_0(nativeObj);
     }
 
     //javadoc: HOGDescriptor::get_signedGradient()
     public boolean get_signedGradient() {
 
-        boolean retVal = get_signedGradient_0(nativeObj);
-
-        return retVal;
+        return get_signedGradient_0(nativeObj);
     }
 
     @Override

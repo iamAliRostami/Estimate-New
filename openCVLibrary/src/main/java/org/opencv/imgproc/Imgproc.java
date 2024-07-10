@@ -450,11 +450,8 @@ public class Imgproc {
 
     //javadoc: getAffineTransform(src, dst)
     public static Mat getAffineTransform(MatOfPoint2f src, MatOfPoint2f dst) {
-        Mat src_mat = src;
-        Mat dst_mat = dst;
-        Mat retVal = new Mat(getAffineTransform_0(src_mat.nativeObj, dst_mat.nativeObj));
 
-        return retVal;
+        return new Mat(getAffineTransform_0(src.nativeObj, dst.nativeObj));
     }
 
 
@@ -465,17 +462,13 @@ public class Imgproc {
     //javadoc: getDefaultNewCameraMatrix(cameraMatrix, imgsize, centerPrincipalPoint)
     public static Mat getDefaultNewCameraMatrix(Mat cameraMatrix, Size imgsize, boolean centerPrincipalPoint) {
 
-        Mat retVal = new Mat(getDefaultNewCameraMatrix_0(cameraMatrix.nativeObj, imgsize.width, imgsize.height, centerPrincipalPoint));
-
-        return retVal;
+        return new Mat(getDefaultNewCameraMatrix_0(cameraMatrix.nativeObj, imgsize.width, imgsize.height, centerPrincipalPoint));
     }
 
     //javadoc: getDefaultNewCameraMatrix(cameraMatrix)
     public static Mat getDefaultNewCameraMatrix(Mat cameraMatrix) {
 
-        Mat retVal = new Mat(getDefaultNewCameraMatrix_1(cameraMatrix.nativeObj));
-
-        return retVal;
+        return new Mat(getDefaultNewCameraMatrix_1(cameraMatrix.nativeObj));
     }
 
 
@@ -486,17 +479,13 @@ public class Imgproc {
     //javadoc: getGaborKernel(ksize, sigma, theta, lambd, gamma, psi, ktype)
     public static Mat getGaborKernel(Size ksize, double sigma, double theta, double lambd, double gamma, double psi, int ktype) {
 
-        Mat retVal = new Mat(getGaborKernel_0(ksize.width, ksize.height, sigma, theta, lambd, gamma, psi, ktype));
-
-        return retVal;
+        return new Mat(getGaborKernel_0(ksize.width, ksize.height, sigma, theta, lambd, gamma, psi, ktype));
     }
 
     //javadoc: getGaborKernel(ksize, sigma, theta, lambd, gamma)
     public static Mat getGaborKernel(Size ksize, double sigma, double theta, double lambd, double gamma) {
 
-        Mat retVal = new Mat(getGaborKernel_1(ksize.width, ksize.height, sigma, theta, lambd, gamma));
-
-        return retVal;
+        return new Mat(getGaborKernel_1(ksize.width, ksize.height, sigma, theta, lambd, gamma));
     }
 
 
@@ -507,17 +496,13 @@ public class Imgproc {
     //javadoc: getGaussianKernel(ksize, sigma, ktype)
     public static Mat getGaussianKernel(int ksize, double sigma, int ktype) {
 
-        Mat retVal = new Mat(getGaussianKernel_0(ksize, sigma, ktype));
-
-        return retVal;
+        return new Mat(getGaussianKernel_0(ksize, sigma, ktype));
     }
 
     //javadoc: getGaussianKernel(ksize, sigma)
     public static Mat getGaussianKernel(int ksize, double sigma) {
 
-        Mat retVal = new Mat(getGaussianKernel_1(ksize, sigma));
-
-        return retVal;
+        return new Mat(getGaussianKernel_1(ksize, sigma));
     }
 
 
@@ -528,9 +513,7 @@ public class Imgproc {
     //javadoc: getPerspectiveTransform(src, dst)
     public static Mat getPerspectiveTransform(Mat src, Mat dst) {
 
-        Mat retVal = new Mat(getPerspectiveTransform_0(src.nativeObj, dst.nativeObj));
-
-        return retVal;
+        return new Mat(getPerspectiveTransform_0(src.nativeObj, dst.nativeObj));
     }
 
 
@@ -541,9 +524,7 @@ public class Imgproc {
     //javadoc: getRotationMatrix2D(center, angle, scale)
     public static Mat getRotationMatrix2D(Point center, double angle, double scale) {
 
-        Mat retVal = new Mat(getRotationMatrix2D_0(center.x, center.y, angle, scale));
-
-        return retVal;
+        return new Mat(getRotationMatrix2D_0(center.x, center.y, angle, scale));
     }
 
 
@@ -554,17 +535,13 @@ public class Imgproc {
     //javadoc: getStructuringElement(shape, ksize, anchor)
     public static Mat getStructuringElement(int shape, Size ksize, Point anchor) {
 
-        Mat retVal = new Mat(getStructuringElement_0(shape, ksize.width, ksize.height, anchor.x, anchor.y));
-
-        return retVal;
+        return new Mat(getStructuringElement_0(shape, ksize.width, ksize.height, anchor.x, anchor.y));
     }
 
     //javadoc: getStructuringElement(shape, ksize)
     public static Mat getStructuringElement(int shape, Size ksize) {
 
-        Mat retVal = new Mat(getStructuringElement_1(shape, ksize.width, ksize.height));
-
-        return retVal;
+        return new Mat(getStructuringElement_1(shape, ksize.width, ksize.height));
     }
 
 
@@ -575,17 +552,13 @@ public class Imgproc {
     //javadoc: moments(array, binaryImage)
     public static Moments moments(Mat array, boolean binaryImage) {
 
-        Moments retVal = new Moments(moments_0(array.nativeObj, binaryImage));
-
-        return retVal;
+        return new Moments(moments_0(array.nativeObj, binaryImage));
     }
 
     //javadoc: moments(array)
     public static Moments moments(Mat array) {
 
-        Moments retVal = new Moments(moments_1(array.nativeObj));
-
-        return retVal;
+        return new Moments(moments_1(array.nativeObj));
     }
 
 
@@ -597,16 +570,14 @@ public class Imgproc {
     public static Point phaseCorrelate(Mat src1, Mat src2, Mat window, double[] response) {
         double[] response_out = new double[1];
         Point retVal = new Point(phaseCorrelate_0(src1.nativeObj, src2.nativeObj, window.nativeObj, response_out));
-        if (response != null) response[0] = (double) response_out[0];
+        if (response != null) response[0] = response_out[0];
         return retVal;
     }
 
     //javadoc: phaseCorrelate(src1, src2)
     public static Point phaseCorrelate(Mat src1, Mat src2) {
 
-        Point retVal = new Point(phaseCorrelate_1(src1.nativeObj, src2.nativeObj));
-
-        return retVal;
+        return new Point(phaseCorrelate_1(src1.nativeObj, src2.nativeObj));
     }
 
 
@@ -617,17 +588,13 @@ public class Imgproc {
     //javadoc: createCLAHE(clipLimit, tileGridSize)
     public static CLAHE createCLAHE(double clipLimit, Size tileGridSize) {
 
-        CLAHE retVal = CLAHE.__fromPtr__(createCLAHE_0(clipLimit, tileGridSize.width, tileGridSize.height));
-
-        return retVal;
+        return CLAHE.__fromPtr__(createCLAHE_0(clipLimit, tileGridSize.width, tileGridSize.height));
     }
 
     //javadoc: createCLAHE()
     public static CLAHE createCLAHE() {
 
-        CLAHE retVal = CLAHE.__fromPtr__(createCLAHE_1());
-
-        return retVal;
+        return CLAHE.__fromPtr__(createCLAHE_1());
     }
 
 
@@ -638,17 +605,13 @@ public class Imgproc {
     //javadoc: createLineSegmentDetector(_refine, _scale, _sigma_scale, _quant, _ang_th, _log_eps, _density_th, _n_bins)
     public static LineSegmentDetector createLineSegmentDetector(int _refine, double _scale, double _sigma_scale, double _quant, double _ang_th, double _log_eps, double _density_th, int _n_bins) {
 
-        LineSegmentDetector retVal = LineSegmentDetector.__fromPtr__(createLineSegmentDetector_0(_refine, _scale, _sigma_scale, _quant, _ang_th, _log_eps, _density_th, _n_bins));
-
-        return retVal;
+        return LineSegmentDetector.__fromPtr__(createLineSegmentDetector_0(_refine, _scale, _sigma_scale, _quant, _ang_th, _log_eps, _density_th, _n_bins));
     }
 
     //javadoc: createLineSegmentDetector()
     public static LineSegmentDetector createLineSegmentDetector() {
 
-        LineSegmentDetector retVal = LineSegmentDetector.__fromPtr__(createLineSegmentDetector_1());
-
-        return retVal;
+        return LineSegmentDetector.__fromPtr__(createLineSegmentDetector_1());
     }
 
 
@@ -658,10 +621,8 @@ public class Imgproc {
 
     //javadoc: boundingRect(points)
     public static Rect boundingRect(MatOfPoint points) {
-        Mat points_mat = points;
-        Rect retVal = new Rect(boundingRect_0(points_mat.nativeObj));
 
-        return retVal;
+        return new Rect(boundingRect_0(points.nativeObj));
     }
 
 
@@ -671,10 +632,8 @@ public class Imgproc {
 
     //javadoc: fitEllipse(points)
     public static RotatedRect fitEllipse(MatOfPoint2f points) {
-        Mat points_mat = points;
-        RotatedRect retVal = new RotatedRect(fitEllipse_0(points_mat.nativeObj));
 
-        return retVal;
+        return new RotatedRect(fitEllipse_0(points.nativeObj));
     }
 
 
@@ -685,9 +644,7 @@ public class Imgproc {
     //javadoc: fitEllipseAMS(points)
     public static RotatedRect fitEllipseAMS(Mat points) {
 
-        RotatedRect retVal = new RotatedRect(fitEllipseAMS_0(points.nativeObj));
-
-        return retVal;
+        return new RotatedRect(fitEllipseAMS_0(points.nativeObj));
     }
 
 
@@ -698,9 +655,7 @@ public class Imgproc {
     //javadoc: fitEllipseDirect(points)
     public static RotatedRect fitEllipseDirect(Mat points) {
 
-        RotatedRect retVal = new RotatedRect(fitEllipseDirect_0(points.nativeObj));
-
-        return retVal;
+        return new RotatedRect(fitEllipseDirect_0(points.nativeObj));
     }
 
 
@@ -710,10 +665,8 @@ public class Imgproc {
 
     //javadoc: minAreaRect(points)
     public static RotatedRect minAreaRect(MatOfPoint2f points) {
-        Mat points_mat = points;
-        RotatedRect retVal = new RotatedRect(minAreaRect_0(points_mat.nativeObj));
 
-        return retVal;
+        return new RotatedRect(minAreaRect_0(points.nativeObj));
     }
 
 
@@ -726,14 +679,10 @@ public class Imgproc {
         double[] pt1_out = new double[2];
         double[] pt2_out = new double[2];
         boolean retVal = clipLine_0(imgRect.x, imgRect.y, imgRect.width, imgRect.height, pt1.x, pt1.y, pt1_out, pt2.x, pt2.y, pt2_out);
-        if (pt1 != null) {
-            pt1.x = pt1_out[0];
-            pt1.y = pt1_out[1];
-        }
-        if (pt2 != null) {
-            pt2.x = pt2_out[0];
-            pt2.y = pt2_out[1];
-        }
+        pt1.x = pt1_out[0];
+        pt1.y = pt1_out[1];
+        pt2.x = pt2_out[0];
+        pt2.y = pt2_out[1];
         return retVal;
     }
 
@@ -744,10 +693,8 @@ public class Imgproc {
 
     //javadoc: isContourConvex(contour)
     public static boolean isContourConvex(MatOfPoint contour) {
-        Mat contour_mat = contour;
-        boolean retVal = isContourConvex_0(contour_mat.nativeObj);
 
-        return retVal;
+        return isContourConvex_0(contour.nativeObj);
     }
 
 
@@ -757,10 +704,8 @@ public class Imgproc {
 
     //javadoc: arcLength(curve, closed)
     public static double arcLength(MatOfPoint2f curve, boolean closed) {
-        Mat curve_mat = curve;
-        double retVal = arcLength_0(curve_mat.nativeObj, closed);
 
-        return retVal;
+        return arcLength_0(curve.nativeObj, closed);
     }
 
 
@@ -771,9 +716,7 @@ public class Imgproc {
     //javadoc: compareHist(H1, H2, method)
     public static double compareHist(Mat H1, Mat H2, int method) {
 
-        double retVal = compareHist_0(H1.nativeObj, H2.nativeObj, method);
-
-        return retVal;
+        return compareHist_0(H1.nativeObj, H2.nativeObj, method);
     }
 
 
@@ -784,17 +727,13 @@ public class Imgproc {
     //javadoc: contourArea(contour, oriented)
     public static double contourArea(Mat contour, boolean oriented) {
 
-        double retVal = contourArea_0(contour.nativeObj, oriented);
-
-        return retVal;
+        return contourArea_0(contour.nativeObj, oriented);
     }
 
     //javadoc: contourArea(contour)
     public static double contourArea(Mat contour) {
 
-        double retVal = contourArea_1(contour.nativeObj);
-
-        return retVal;
+        return contourArea_1(contour.nativeObj);
     }
 
 
@@ -805,17 +744,13 @@ public class Imgproc {
     //javadoc: getFontScaleFromHeight(fontFace, pixelHeight, thickness)
     public static double getFontScaleFromHeight(int fontFace, int pixelHeight, int thickness) {
 
-        double retVal = getFontScaleFromHeight_0(fontFace, pixelHeight, thickness);
-
-        return retVal;
+        return getFontScaleFromHeight_0(fontFace, pixelHeight, thickness);
     }
 
     //javadoc: getFontScaleFromHeight(fontFace, pixelHeight)
     public static double getFontScaleFromHeight(int fontFace, int pixelHeight) {
 
-        double retVal = getFontScaleFromHeight_1(fontFace, pixelHeight);
-
-        return retVal;
+        return getFontScaleFromHeight_1(fontFace, pixelHeight);
     }
 
 
@@ -826,9 +761,7 @@ public class Imgproc {
     //javadoc: matchShapes(contour1, contour2, method, parameter)
     public static double matchShapes(Mat contour1, Mat contour2, int method, double parameter) {
 
-        double retVal = matchShapes_0(contour1.nativeObj, contour2.nativeObj, method, parameter);
-
-        return retVal;
+        return matchShapes_0(contour1.nativeObj, contour2.nativeObj, method, parameter);
     }
 
 
@@ -839,9 +772,7 @@ public class Imgproc {
     //javadoc: minEnclosingTriangle(points, triangle)
     public static double minEnclosingTriangle(Mat points, Mat triangle) {
 
-        double retVal = minEnclosingTriangle_0(points.nativeObj, triangle.nativeObj);
-
-        return retVal;
+        return minEnclosingTriangle_0(points.nativeObj, triangle.nativeObj);
     }
 
 
@@ -851,10 +782,8 @@ public class Imgproc {
 
     //javadoc: pointPolygonTest(contour, pt, measureDist)
     public static double pointPolygonTest(MatOfPoint2f contour, Point pt, boolean measureDist) {
-        Mat contour_mat = contour;
-        double retVal = pointPolygonTest_0(contour_mat.nativeObj, pt.x, pt.y, measureDist);
 
-        return retVal;
+        return pointPolygonTest_0(contour.nativeObj, pt.x, pt.y, measureDist);
     }
 
 
@@ -865,9 +794,7 @@ public class Imgproc {
     //javadoc: threshold(src, dst, thresh, maxval, type)
     public static double threshold(Mat src, Mat dst, double thresh, double maxval, int type) {
 
-        double retVal = threshold_0(src.nativeObj, dst.nativeObj, thresh, maxval, type);
-
-        return retVal;
+        return threshold_0(src.nativeObj, dst.nativeObj, thresh, maxval, type);
     }
 
 
@@ -878,17 +805,13 @@ public class Imgproc {
     //javadoc: initWideAngleProjMap(cameraMatrix, distCoeffs, imageSize, destImageWidth, m1type, map1, map2, projType, alpha)
     public static float initWideAngleProjMap(Mat cameraMatrix, Mat distCoeffs, Size imageSize, int destImageWidth, int m1type, Mat map1, Mat map2, int projType, double alpha) {
 
-        float retVal = initWideAngleProjMap_0(cameraMatrix.nativeObj, distCoeffs.nativeObj, imageSize.width, imageSize.height, destImageWidth, m1type, map1.nativeObj, map2.nativeObj, projType, alpha);
-
-        return retVal;
+        return initWideAngleProjMap_0(cameraMatrix.nativeObj, distCoeffs.nativeObj, imageSize.width, imageSize.height, destImageWidth, m1type, map1.nativeObj, map2.nativeObj, projType, alpha);
     }
 
     //javadoc: initWideAngleProjMap(cameraMatrix, distCoeffs, imageSize, destImageWidth, m1type, map1, map2)
     public static float initWideAngleProjMap(Mat cameraMatrix, Mat distCoeffs, Size imageSize, int destImageWidth, int m1type, Mat map1, Mat map2) {
 
-        float retVal = initWideAngleProjMap_1(cameraMatrix.nativeObj, distCoeffs.nativeObj, imageSize.width, imageSize.height, destImageWidth, m1type, map1.nativeObj, map2.nativeObj);
-
-        return retVal;
+        return initWideAngleProjMap_1(cameraMatrix.nativeObj, distCoeffs.nativeObj, imageSize.width, imageSize.height, destImageWidth, m1type, map1.nativeObj, map2.nativeObj);
     }
 
 
@@ -899,17 +822,13 @@ public class Imgproc {
     //javadoc: intersectConvexConvex(_p1, _p2, _p12, handleNested)
     public static float intersectConvexConvex(Mat _p1, Mat _p2, Mat _p12, boolean handleNested) {
 
-        float retVal = intersectConvexConvex_0(_p1.nativeObj, _p2.nativeObj, _p12.nativeObj, handleNested);
-
-        return retVal;
+        return intersectConvexConvex_0(_p1.nativeObj, _p2.nativeObj, _p12.nativeObj, handleNested);
     }
 
     //javadoc: intersectConvexConvex(_p1, _p2, _p12)
     public static float intersectConvexConvex(Mat _p1, Mat _p2, Mat _p12) {
 
-        float retVal = intersectConvexConvex_1(_p1.nativeObj, _p2.nativeObj, _p12.nativeObj);
-
-        return retVal;
+        return intersectConvexConvex_1(_p1.nativeObj, _p2.nativeObj, _p12.nativeObj);
     }
 
 
@@ -920,17 +839,13 @@ public class Imgproc {
     //javadoc: wrapperEMD(signature1, signature2, distType, cost, flow)
     public static float EMD(Mat signature1, Mat signature2, int distType, Mat cost, Mat flow) {
 
-        float retVal = EMD_0(signature1.nativeObj, signature2.nativeObj, distType, cost.nativeObj, flow.nativeObj);
-
-        return retVal;
+        return EMD_0(signature1.nativeObj, signature2.nativeObj, distType, cost.nativeObj, flow.nativeObj);
     }
 
     //javadoc: wrapperEMD(signature1, signature2, distType)
     public static float EMD(Mat signature1, Mat signature2, int distType) {
 
-        float retVal = EMD_1(signature1.nativeObj, signature2.nativeObj, distType);
-
-        return retVal;
+        return EMD_1(signature1.nativeObj, signature2.nativeObj, distType);
     }
 
 
@@ -941,9 +856,7 @@ public class Imgproc {
     //javadoc: connectedComponents(image, labels, connectivity, ltype, ccltype)
     public static int connectedComponentsWithAlgorithm(Mat image, Mat labels, int connectivity, int ltype, int ccltype) {
 
-        int retVal = connectedComponentsWithAlgorithm_0(image.nativeObj, labels.nativeObj, connectivity, ltype, ccltype);
-
-        return retVal;
+        return connectedComponentsWithAlgorithm_0(image.nativeObj, labels.nativeObj, connectivity, ltype, ccltype);
     }
 
 
@@ -954,17 +867,13 @@ public class Imgproc {
     //javadoc: connectedComponents(image, labels, connectivity, ltype)
     public static int connectedComponents(Mat image, Mat labels, int connectivity, int ltype) {
 
-        int retVal = connectedComponents_0(image.nativeObj, labels.nativeObj, connectivity, ltype);
-
-        return retVal;
+        return connectedComponents_0(image.nativeObj, labels.nativeObj, connectivity, ltype);
     }
 
     //javadoc: connectedComponents(image, labels)
     public static int connectedComponents(Mat image, Mat labels) {
 
-        int retVal = connectedComponents_1(image.nativeObj, labels.nativeObj);
-
-        return retVal;
+        return connectedComponents_1(image.nativeObj, labels.nativeObj);
     }
 
 
@@ -975,9 +884,7 @@ public class Imgproc {
     //javadoc: connectedComponentsWithStats(image, labels, stats, centroids, connectivity, ltype, ccltype)
     public static int connectedComponentsWithStatsWithAlgorithm(Mat image, Mat labels, Mat stats, Mat centroids, int connectivity, int ltype, int ccltype) {
 
-        int retVal = connectedComponentsWithStatsWithAlgorithm_0(image.nativeObj, labels.nativeObj, stats.nativeObj, centroids.nativeObj, connectivity, ltype, ccltype);
-
-        return retVal;
+        return connectedComponentsWithStatsWithAlgorithm_0(image.nativeObj, labels.nativeObj, stats.nativeObj, centroids.nativeObj, connectivity, ltype, ccltype);
     }
 
 
@@ -988,17 +895,13 @@ public class Imgproc {
     //javadoc: connectedComponentsWithStats(image, labels, stats, centroids, connectivity, ltype)
     public static int connectedComponentsWithStats(Mat image, Mat labels, Mat stats, Mat centroids, int connectivity, int ltype) {
 
-        int retVal = connectedComponentsWithStats_0(image.nativeObj, labels.nativeObj, stats.nativeObj, centroids.nativeObj, connectivity, ltype);
-
-        return retVal;
+        return connectedComponentsWithStats_0(image.nativeObj, labels.nativeObj, stats.nativeObj, centroids.nativeObj, connectivity, ltype);
     }
 
     //javadoc: connectedComponentsWithStats(image, labels, stats, centroids)
     public static int connectedComponentsWithStats(Mat image, Mat labels, Mat stats, Mat centroids) {
 
-        int retVal = connectedComponentsWithStats_1(image.nativeObj, labels.nativeObj, stats.nativeObj, centroids.nativeObj);
-
-        return retVal;
+        return connectedComponentsWithStats_1(image.nativeObj, labels.nativeObj, stats.nativeObj, centroids.nativeObj);
     }
 
 
@@ -1022,9 +925,7 @@ public class Imgproc {
     //javadoc: floodFill(image, mask, seedPoint, newVal)
     public static int floodFill(Mat image, Mat mask, Point seedPoint, Scalar newVal) {
 
-        int retVal = floodFill_1(image.nativeObj, mask.nativeObj, seedPoint.x, seedPoint.y, newVal.val[0], newVal.val[1], newVal.val[2], newVal.val[3]);
-
-        return retVal;
+        return floodFill_1(image.nativeObj, mask.nativeObj, seedPoint.x, seedPoint.y, newVal.val[0], newVal.val[1], newVal.val[2], newVal.val[3]);
     }
 
 
@@ -1035,9 +936,7 @@ public class Imgproc {
     //javadoc: rotatedRectangleIntersection(rect1, rect2, intersectingRegion)
     public static int rotatedRectangleIntersection(RotatedRect rect1, RotatedRect rect2, Mat intersectingRegion) {
 
-        int retVal = rotatedRectangleIntersection_0(rect1.center.x, rect1.center.y, rect1.size.width, rect1.size.height, rect1.angle, rect2.center.x, rect2.center.y, rect2.size.width, rect2.size.height, rect2.angle, intersectingRegion.nativeObj);
-
-        return retVal;
+        return rotatedRectangleIntersection_0(rect1.center.x, rect1.center.y, rect1.size.width, rect1.size.height, rect1.angle, rect2.center.x, rect2.center.y, rect2.size.width, rect2.size.height, rect2.angle, intersectingRegion.nativeObj);
     }
 
 
@@ -1050,7 +949,6 @@ public class Imgproc {
 
         Canny_0(dx.nativeObj, dy.nativeObj, edges.nativeObj, threshold1, threshold2, L2gradient);
 
-        return;
     }
 
     //javadoc: Canny(dx, dy, edges, threshold1, threshold2)
@@ -1058,7 +956,6 @@ public class Imgproc {
 
         Canny_1(dx.nativeObj, dy.nativeObj, edges.nativeObj, threshold1, threshold2);
 
-        return;
     }
 
 
@@ -1071,7 +968,6 @@ public class Imgproc {
 
         Canny_2(image.nativeObj, edges.nativeObj, threshold1, threshold2, apertureSize, L2gradient);
 
-        return;
     }
 
     //javadoc: Canny(image, edges, threshold1, threshold2)
@@ -1079,7 +975,6 @@ public class Imgproc {
 
         Canny_3(image.nativeObj, edges.nativeObj, threshold1, threshold2);
 
-        return;
     }
 
 
@@ -1092,7 +987,6 @@ public class Imgproc {
 
         GaussianBlur_0(src.nativeObj, dst.nativeObj, ksize.width, ksize.height, sigmaX, sigmaY, borderType);
 
-        return;
     }
 
     //javadoc: GaussianBlur(src, dst, ksize, sigmaX, sigmaY)
@@ -1100,7 +994,6 @@ public class Imgproc {
 
         GaussianBlur_1(src.nativeObj, dst.nativeObj, ksize.width, ksize.height, sigmaX, sigmaY);
 
-        return;
     }
 
     //javadoc: GaussianBlur(src, dst, ksize, sigmaX)
@@ -1108,7 +1001,6 @@ public class Imgproc {
 
         GaussianBlur_2(src.nativeObj, dst.nativeObj, ksize.width, ksize.height, sigmaX);
 
-        return;
     }
 
 
@@ -1121,7 +1013,6 @@ public class Imgproc {
 
         HoughCircles_0(image.nativeObj, circles.nativeObj, method, dp, minDist, param1, param2, minRadius, maxRadius);
 
-        return;
     }
 
     //javadoc: HoughCircles(image, circles, method, dp, minDist)
@@ -1129,7 +1020,6 @@ public class Imgproc {
 
         HoughCircles_1(image.nativeObj, circles.nativeObj, method, dp, minDist);
 
-        return;
     }
 
 
@@ -1142,7 +1032,6 @@ public class Imgproc {
 
         HoughLines_0(image.nativeObj, lines.nativeObj, rho, theta, threshold, srn, stn, min_theta, max_theta);
 
-        return;
     }
 
     //javadoc: HoughLines(image, lines, rho, theta, threshold)
@@ -1150,7 +1039,6 @@ public class Imgproc {
 
         HoughLines_1(image.nativeObj, lines.nativeObj, rho, theta, threshold);
 
-        return;
     }
 
 
@@ -1163,7 +1051,6 @@ public class Imgproc {
 
         HoughLinesP_0(image.nativeObj, lines.nativeObj, rho, theta, threshold, minLineLength, maxLineGap);
 
-        return;
     }
 
     //javadoc: HoughLinesP(image, lines, rho, theta, threshold)
@@ -1171,7 +1058,6 @@ public class Imgproc {
 
         HoughLinesP_1(image.nativeObj, lines.nativeObj, rho, theta, threshold);
 
-        return;
     }
 
 
@@ -1184,7 +1070,6 @@ public class Imgproc {
 
         HoughLinesPointSet_0(_point.nativeObj, _lines.nativeObj, lines_max, threshold, min_rho, max_rho, rho_step, min_theta, max_theta, theta_step);
 
-        return;
     }
 
 
@@ -1197,7 +1082,6 @@ public class Imgproc {
 
         HuMoments_0(m.m00, m.m10, m.m01, m.m20, m.m11, m.m02, m.m30, m.m21, m.m12, m.m03, hu.nativeObj);
 
-        return;
     }
 
 
@@ -1210,7 +1094,6 @@ public class Imgproc {
 
         Laplacian_0(src.nativeObj, dst.nativeObj, ddepth, ksize, scale, delta, borderType);
 
-        return;
     }
 
     //javadoc: Laplacian(src, dst, ddepth, ksize, scale, delta)
@@ -1218,7 +1101,6 @@ public class Imgproc {
 
         Laplacian_1(src.nativeObj, dst.nativeObj, ddepth, ksize, scale, delta);
 
-        return;
     }
 
     //javadoc: Laplacian(src, dst, ddepth)
@@ -1226,7 +1108,6 @@ public class Imgproc {
 
         Laplacian_2(src.nativeObj, dst.nativeObj, ddepth);
 
-        return;
     }
 
 
@@ -1239,7 +1120,6 @@ public class Imgproc {
 
         Scharr_0(src.nativeObj, dst.nativeObj, ddepth, dx, dy, scale, delta, borderType);
 
-        return;
     }
 
     //javadoc: Scharr(src, dst, ddepth, dx, dy, scale, delta)
@@ -1247,7 +1127,6 @@ public class Imgproc {
 
         Scharr_1(src.nativeObj, dst.nativeObj, ddepth, dx, dy, scale, delta);
 
-        return;
     }
 
     //javadoc: Scharr(src, dst, ddepth, dx, dy)
@@ -1255,7 +1134,6 @@ public class Imgproc {
 
         Scharr_2(src.nativeObj, dst.nativeObj, ddepth, dx, dy);
 
-        return;
     }
 
 
@@ -1268,7 +1146,6 @@ public class Imgproc {
 
         Sobel_0(src.nativeObj, dst.nativeObj, ddepth, dx, dy, ksize, scale, delta, borderType);
 
-        return;
     }
 
     //javadoc: Sobel(src, dst, ddepth, dx, dy, ksize, scale, delta)
@@ -1276,7 +1153,6 @@ public class Imgproc {
 
         Sobel_1(src.nativeObj, dst.nativeObj, ddepth, dx, dy, ksize, scale, delta);
 
-        return;
     }
 
     //javadoc: Sobel(src, dst, ddepth, dx, dy)
@@ -1284,7 +1160,6 @@ public class Imgproc {
 
         Sobel_2(src.nativeObj, dst.nativeObj, ddepth, dx, dy);
 
-        return;
     }
 
 
@@ -1297,7 +1172,6 @@ public class Imgproc {
 
         accumulate_0(src.nativeObj, dst.nativeObj, mask.nativeObj);
 
-        return;
     }
 
     //javadoc: accumulate(src, dst)
@@ -1305,7 +1179,6 @@ public class Imgproc {
 
         accumulate_1(src.nativeObj, dst.nativeObj);
 
-        return;
     }
 
 
@@ -1318,7 +1191,6 @@ public class Imgproc {
 
         accumulateProduct_0(src1.nativeObj, src2.nativeObj, dst.nativeObj, mask.nativeObj);
 
-        return;
     }
 
     //javadoc: accumulateProduct(src1, src2, dst)
@@ -1326,7 +1198,6 @@ public class Imgproc {
 
         accumulateProduct_1(src1.nativeObj, src2.nativeObj, dst.nativeObj);
 
-        return;
     }
 
 
@@ -1339,7 +1210,6 @@ public class Imgproc {
 
         accumulateSquare_0(src.nativeObj, dst.nativeObj, mask.nativeObj);
 
-        return;
     }
 
     //javadoc: accumulateSquare(src, dst)
@@ -1347,7 +1217,6 @@ public class Imgproc {
 
         accumulateSquare_1(src.nativeObj, dst.nativeObj);
 
-        return;
     }
 
 
@@ -1360,7 +1229,6 @@ public class Imgproc {
 
         accumulateWeighted_0(src.nativeObj, dst.nativeObj, alpha, mask.nativeObj);
 
-        return;
     }
 
     //javadoc: accumulateWeighted(src, dst, alpha)
@@ -1368,7 +1236,6 @@ public class Imgproc {
 
         accumulateWeighted_1(src.nativeObj, dst.nativeObj, alpha);
 
-        return;
     }
 
 
@@ -1381,7 +1248,6 @@ public class Imgproc {
 
         adaptiveThreshold_0(src.nativeObj, dst.nativeObj, maxValue, adaptiveMethod, thresholdType, blockSize, C);
 
-        return;
     }
 
 
@@ -1394,7 +1260,6 @@ public class Imgproc {
 
         applyColorMap_0(src.nativeObj, dst.nativeObj, userColor.nativeObj);
 
-        return;
     }
 
 
@@ -1407,7 +1272,6 @@ public class Imgproc {
 
         applyColorMap_1(src.nativeObj, dst.nativeObj, colormap);
 
-        return;
     }
 
 
@@ -1417,11 +1281,8 @@ public class Imgproc {
 
     //javadoc: approxPolyDP(curve, approxCurve, epsilon, closed)
     public static void approxPolyDP(MatOfPoint2f curve, MatOfPoint2f approxCurve, double epsilon, boolean closed) {
-        Mat curve_mat = curve;
-        Mat approxCurve_mat = approxCurve;
-        approxPolyDP_0(curve_mat.nativeObj, approxCurve_mat.nativeObj, epsilon, closed);
+        approxPolyDP_0(curve.nativeObj, approxCurve.nativeObj, epsilon, closed);
 
-        return;
     }
 
 
@@ -1434,7 +1295,6 @@ public class Imgproc {
 
         arrowedLine_0(img.nativeObj, pt1.x, pt1.y, pt2.x, pt2.y, color.val[0], color.val[1], color.val[2], color.val[3], thickness, line_type, shift, tipLength);
 
-        return;
     }
 
     //javadoc: arrowedLine(img, pt1, pt2, color)
@@ -1442,7 +1302,6 @@ public class Imgproc {
 
         arrowedLine_1(img.nativeObj, pt1.x, pt1.y, pt2.x, pt2.y, color.val[0], color.val[1], color.val[2], color.val[3]);
 
-        return;
     }
 
 
@@ -1455,7 +1314,6 @@ public class Imgproc {
 
         bilateralFilter_0(src.nativeObj, dst.nativeObj, d, sigmaColor, sigmaSpace, borderType);
 
-        return;
     }
 
     //javadoc: bilateralFilter(src, dst, d, sigmaColor, sigmaSpace)
@@ -1463,7 +1321,6 @@ public class Imgproc {
 
         bilateralFilter_1(src.nativeObj, dst.nativeObj, d, sigmaColor, sigmaSpace);
 
-        return;
     }
 
 
@@ -1476,7 +1333,6 @@ public class Imgproc {
 
         blur_0(src.nativeObj, dst.nativeObj, ksize.width, ksize.height, anchor.x, anchor.y, borderType);
 
-        return;
     }
 
     //javadoc: blur(src, dst, ksize, anchor)
@@ -1484,7 +1340,6 @@ public class Imgproc {
 
         blur_1(src.nativeObj, dst.nativeObj, ksize.width, ksize.height, anchor.x, anchor.y);
 
-        return;
     }
 
     //javadoc: blur(src, dst, ksize)
@@ -1492,7 +1347,6 @@ public class Imgproc {
 
         blur_2(src.nativeObj, dst.nativeObj, ksize.width, ksize.height);
 
-        return;
     }
 
 
@@ -1505,7 +1359,6 @@ public class Imgproc {
 
         boxFilter_0(src.nativeObj, dst.nativeObj, ddepth, ksize.width, ksize.height, anchor.x, anchor.y, normalize, borderType);
 
-        return;
     }
 
     //javadoc: boxFilter(src, dst, ddepth, ksize, anchor, normalize)
@@ -1513,7 +1366,6 @@ public class Imgproc {
 
         boxFilter_1(src.nativeObj, dst.nativeObj, ddepth, ksize.width, ksize.height, anchor.x, anchor.y, normalize);
 
-        return;
     }
 
     //javadoc: boxFilter(src, dst, ddepth, ksize)
@@ -1521,7 +1373,6 @@ public class Imgproc {
 
         boxFilter_2(src.nativeObj, dst.nativeObj, ddepth, ksize.width, ksize.height);
 
-        return;
     }
 
 
@@ -1534,7 +1385,6 @@ public class Imgproc {
 
         boxPoints_0(box.center.x, box.center.y, box.size.width, box.size.height, box.angle, points.nativeObj);
 
-        return;
     }
 
 
@@ -1545,11 +1395,8 @@ public class Imgproc {
     //javadoc: calcBackProject(images, channels, hist, dst, ranges, scale)
     public static void calcBackProject(List<Mat> images, MatOfInt channels, Mat hist, Mat dst, MatOfFloat ranges, double scale) {
         Mat images_mat = Converters.vector_Mat_to_Mat(images);
-        Mat channels_mat = channels;
-        Mat ranges_mat = ranges;
-        calcBackProject_0(images_mat.nativeObj, channels_mat.nativeObj, hist.nativeObj, dst.nativeObj, ranges_mat.nativeObj, scale);
+        calcBackProject_0(images_mat.nativeObj, channels.nativeObj, hist.nativeObj, dst.nativeObj, ranges.nativeObj, scale);
 
-        return;
     }
 
 
@@ -1560,23 +1407,15 @@ public class Imgproc {
     //javadoc: calcHist(images, channels, mask, hist, histSize, ranges, accumulate)
     public static void calcHist(List<Mat> images, MatOfInt channels, Mat mask, Mat hist, MatOfInt histSize, MatOfFloat ranges, boolean accumulate) {
         Mat images_mat = Converters.vector_Mat_to_Mat(images);
-        Mat channels_mat = channels;
-        Mat histSize_mat = histSize;
-        Mat ranges_mat = ranges;
-        calcHist_0(images_mat.nativeObj, channels_mat.nativeObj, mask.nativeObj, hist.nativeObj, histSize_mat.nativeObj, ranges_mat.nativeObj, accumulate);
+        calcHist_0(images_mat.nativeObj, channels.nativeObj, mask.nativeObj, hist.nativeObj, histSize.nativeObj, ranges.nativeObj, accumulate);
 
-        return;
     }
 
     //javadoc: calcHist(images, channels, mask, hist, histSize, ranges)
     public static void calcHist(List<Mat> images, MatOfInt channels, Mat mask, Mat hist, MatOfInt histSize, MatOfFloat ranges) {
         Mat images_mat = Converters.vector_Mat_to_Mat(images);
-        Mat channels_mat = channels;
-        Mat histSize_mat = histSize;
-        Mat ranges_mat = ranges;
-        calcHist_1(images_mat.nativeObj, channels_mat.nativeObj, mask.nativeObj, hist.nativeObj, histSize_mat.nativeObj, ranges_mat.nativeObj);
+        calcHist_1(images_mat.nativeObj, channels.nativeObj, mask.nativeObj, hist.nativeObj, histSize.nativeObj, ranges.nativeObj);
 
-        return;
     }
 
 
@@ -1589,7 +1428,6 @@ public class Imgproc {
 
         circle_0(img.nativeObj, center.x, center.y, radius, color.val[0], color.val[1], color.val[2], color.val[3], thickness, lineType, shift);
 
-        return;
     }
 
     //javadoc: circle(img, center, radius, color, thickness)
@@ -1597,7 +1435,6 @@ public class Imgproc {
 
         circle_1(img.nativeObj, center.x, center.y, radius, color.val[0], color.val[1], color.val[2], color.val[3], thickness);
 
-        return;
     }
 
     //javadoc: circle(img, center, radius, color)
@@ -1605,7 +1442,6 @@ public class Imgproc {
 
         circle_2(img.nativeObj, center.x, center.y, radius, color.val[0], color.val[1], color.val[2], color.val[3]);
 
-        return;
     }
 
 
@@ -1618,7 +1454,6 @@ public class Imgproc {
 
         convertMaps_0(map1.nativeObj, map2.nativeObj, dstmap1.nativeObj, dstmap2.nativeObj, dstmap1type, nninterpolation);
 
-        return;
     }
 
     //javadoc: convertMaps(map1, map2, dstmap1, dstmap2, dstmap1type)
@@ -1626,7 +1461,6 @@ public class Imgproc {
 
         convertMaps_1(map1.nativeObj, map2.nativeObj, dstmap1.nativeObj, dstmap2.nativeObj, dstmap1type);
 
-        return;
     }
 
 
@@ -1636,20 +1470,14 @@ public class Imgproc {
 
     //javadoc: convexHull(points, hull, clockwise)
     public static void convexHull(MatOfPoint points, MatOfInt hull, boolean clockwise) {
-        Mat points_mat = points;
-        Mat hull_mat = hull;
-        convexHull_0(points_mat.nativeObj, hull_mat.nativeObj, clockwise);
+        convexHull_0(points.nativeObj, hull.nativeObj, clockwise);
 
-        return;
     }
 
     //javadoc: convexHull(points, hull)
     public static void convexHull(MatOfPoint points, MatOfInt hull) {
-        Mat points_mat = points;
-        Mat hull_mat = hull;
-        convexHull_1(points_mat.nativeObj, hull_mat.nativeObj);
+        convexHull_1(points.nativeObj, hull.nativeObj);
 
-        return;
     }
 
 
@@ -1659,12 +1487,8 @@ public class Imgproc {
 
     //javadoc: convexityDefects(contour, convexhull, convexityDefects)
     public static void convexityDefects(MatOfPoint contour, MatOfInt convexhull, MatOfInt4 convexityDefects) {
-        Mat contour_mat = contour;
-        Mat convexhull_mat = convexhull;
-        Mat convexityDefects_mat = convexityDefects;
-        convexityDefects_0(contour_mat.nativeObj, convexhull_mat.nativeObj, convexityDefects_mat.nativeObj);
+        convexityDefects_0(contour.nativeObj, convexhull.nativeObj, convexityDefects.nativeObj);
 
-        return;
     }
 
 
@@ -1677,7 +1501,6 @@ public class Imgproc {
 
         cornerEigenValsAndVecs_0(src.nativeObj, dst.nativeObj, blockSize, ksize, borderType);
 
-        return;
     }
 
     //javadoc: cornerEigenValsAndVecs(src, dst, blockSize, ksize)
@@ -1685,7 +1508,6 @@ public class Imgproc {
 
         cornerEigenValsAndVecs_1(src.nativeObj, dst.nativeObj, blockSize, ksize);
 
-        return;
     }
 
 
@@ -1698,7 +1520,6 @@ public class Imgproc {
 
         cornerHarris_0(src.nativeObj, dst.nativeObj, blockSize, ksize, k, borderType);
 
-        return;
     }
 
     //javadoc: cornerHarris(src, dst, blockSize, ksize, k)
@@ -1706,7 +1527,6 @@ public class Imgproc {
 
         cornerHarris_1(src.nativeObj, dst.nativeObj, blockSize, ksize, k);
 
-        return;
     }
 
 
@@ -1719,7 +1539,6 @@ public class Imgproc {
 
         cornerMinEigenVal_0(src.nativeObj, dst.nativeObj, blockSize, ksize, borderType);
 
-        return;
     }
 
     //javadoc: cornerMinEigenVal(src, dst, blockSize, ksize)
@@ -1727,7 +1546,6 @@ public class Imgproc {
 
         cornerMinEigenVal_1(src.nativeObj, dst.nativeObj, blockSize, ksize);
 
-        return;
     }
 
     //javadoc: cornerMinEigenVal(src, dst, blockSize)
@@ -1735,7 +1553,6 @@ public class Imgproc {
 
         cornerMinEigenVal_2(src.nativeObj, dst.nativeObj, blockSize);
 
-        return;
     }
 
 
@@ -1748,7 +1565,6 @@ public class Imgproc {
 
         cornerSubPix_0(image.nativeObj, corners.nativeObj, winSize.width, winSize.height, zeroZone.width, zeroZone.height, criteria.type, criteria.maxCount, criteria.epsilon);
 
-        return;
     }
 
 
@@ -1761,7 +1577,6 @@ public class Imgproc {
 
         createHanningWindow_0(dst.nativeObj, winSize.width, winSize.height, type);
 
-        return;
     }
 
 
@@ -1774,7 +1589,6 @@ public class Imgproc {
 
         cvtColor_0(src.nativeObj, dst.nativeObj, code, dstCn);
 
-        return;
     }
 
     //javadoc: cvtColor(src, dst, code)
@@ -1782,7 +1596,6 @@ public class Imgproc {
 
         cvtColor_1(src.nativeObj, dst.nativeObj, code);
 
-        return;
     }
 
 
@@ -1795,7 +1608,6 @@ public class Imgproc {
 
         cvtColorTwoPlane_0(src1.nativeObj, src2.nativeObj, dst.nativeObj, code);
 
-        return;
     }
 
 
@@ -1808,7 +1620,6 @@ public class Imgproc {
 
         demosaicing_0(_src.nativeObj, _dst.nativeObj, code, dcn);
 
-        return;
     }
 
     //javadoc: demosaicing(_src, _dst, code)
@@ -1816,7 +1627,6 @@ public class Imgproc {
 
         demosaicing_1(_src.nativeObj, _dst.nativeObj, code);
 
-        return;
     }
 
 
@@ -1829,7 +1639,6 @@ public class Imgproc {
 
         dilate_0(src.nativeObj, dst.nativeObj, kernel.nativeObj, anchor.x, anchor.y, iterations, borderType, borderValue.val[0], borderValue.val[1], borderValue.val[2], borderValue.val[3]);
 
-        return;
     }
 
     //javadoc: dilate(src, dst, kernel, anchor, iterations)
@@ -1837,7 +1646,6 @@ public class Imgproc {
 
         dilate_1(src.nativeObj, dst.nativeObj, kernel.nativeObj, anchor.x, anchor.y, iterations);
 
-        return;
     }
 
     //javadoc: dilate(src, dst, kernel)
@@ -1845,7 +1653,6 @@ public class Imgproc {
 
         dilate_2(src.nativeObj, dst.nativeObj, kernel.nativeObj);
 
-        return;
     }
 
 
@@ -1858,7 +1665,6 @@ public class Imgproc {
 
         distanceTransformWithLabels_0(src.nativeObj, dst.nativeObj, labels.nativeObj, distanceType, maskSize, labelType);
 
-        return;
     }
 
     //javadoc: distanceTransform(src, dst, labels, distanceType, maskSize)
@@ -1866,7 +1672,6 @@ public class Imgproc {
 
         distanceTransformWithLabels_1(src.nativeObj, dst.nativeObj, labels.nativeObj, distanceType, maskSize);
 
-        return;
     }
 
 
@@ -1879,7 +1684,6 @@ public class Imgproc {
 
         distanceTransform_0(src.nativeObj, dst.nativeObj, distanceType, maskSize, dstType);
 
-        return;
     }
 
     //javadoc: distanceTransform(src, dst, distanceType, maskSize)
@@ -1887,7 +1691,6 @@ public class Imgproc {
 
         distanceTransform_1(src.nativeObj, dst.nativeObj, distanceType, maskSize);
 
-        return;
     }
 
 
@@ -1897,29 +1700,26 @@ public class Imgproc {
 
     //javadoc: drawContours(image, contours, contourIdx, color, thickness, lineType, hierarchy, maxLevel, offset)
     public static void drawContours(Mat image, List<MatOfPoint> contours, int contourIdx, Scalar color, int thickness, int lineType, Mat hierarchy, int maxLevel, Point offset) {
-        List<Mat> contours_tmplm = new ArrayList<Mat>((contours != null) ? contours.size() : 0);
+        List<Mat> contours_tmplm = new ArrayList<>((contours != null) ? contours.size() : 0);
         Mat contours_mat = Converters.vector_vector_Point_to_Mat(contours, contours_tmplm);
         drawContours_0(image.nativeObj, contours_mat.nativeObj, contourIdx, color.val[0], color.val[1], color.val[2], color.val[3], thickness, lineType, hierarchy.nativeObj, maxLevel, offset.x, offset.y);
 
-        return;
     }
 
     //javadoc: drawContours(image, contours, contourIdx, color, thickness)
     public static void drawContours(Mat image, List<MatOfPoint> contours, int contourIdx, Scalar color, int thickness) {
-        List<Mat> contours_tmplm = new ArrayList<Mat>((contours != null) ? contours.size() : 0);
+        List<Mat> contours_tmplm = new ArrayList<>((contours != null) ? contours.size() : 0);
         Mat contours_mat = Converters.vector_vector_Point_to_Mat(contours, contours_tmplm);
         drawContours_1(image.nativeObj, contours_mat.nativeObj, contourIdx, color.val[0], color.val[1], color.val[2], color.val[3], thickness);
 
-        return;
     }
 
     //javadoc: drawContours(image, contours, contourIdx, color)
     public static void drawContours(Mat image, List<MatOfPoint> contours, int contourIdx, Scalar color) {
-        List<Mat> contours_tmplm = new ArrayList<Mat>((contours != null) ? contours.size() : 0);
+        List<Mat> contours_tmplm = new ArrayList<>((contours != null) ? contours.size() : 0);
         Mat contours_mat = Converters.vector_vector_Point_to_Mat(contours, contours_tmplm);
         drawContours_2(image.nativeObj, contours_mat.nativeObj, contourIdx, color.val[0], color.val[1], color.val[2], color.val[3]);
 
-        return;
     }
 
 
@@ -1932,7 +1732,6 @@ public class Imgproc {
 
         drawMarker_0(img.nativeObj, position.x, position.y, color.val[0], color.val[1], color.val[2], color.val[3], markerType, markerSize, thickness, line_type);
 
-        return;
     }
 
     //javadoc: drawMarker(img, position, color)
@@ -1940,7 +1739,6 @@ public class Imgproc {
 
         drawMarker_1(img.nativeObj, position.x, position.y, color.val[0], color.val[1], color.val[2], color.val[3]);
 
-        return;
     }
 
 
@@ -1953,7 +1751,6 @@ public class Imgproc {
 
         ellipse_0(img.nativeObj, center.x, center.y, axes.width, axes.height, angle, startAngle, endAngle, color.val[0], color.val[1], color.val[2], color.val[3], thickness, lineType, shift);
 
-        return;
     }
 
     //javadoc: ellipse(img, center, axes, angle, startAngle, endAngle, color, thickness)
@@ -1961,7 +1758,6 @@ public class Imgproc {
 
         ellipse_1(img.nativeObj, center.x, center.y, axes.width, axes.height, angle, startAngle, endAngle, color.val[0], color.val[1], color.val[2], color.val[3], thickness);
 
-        return;
     }
 
     //javadoc: ellipse(img, center, axes, angle, startAngle, endAngle, color)
@@ -1969,7 +1765,6 @@ public class Imgproc {
 
         ellipse_2(img.nativeObj, center.x, center.y, axes.width, axes.height, angle, startAngle, endAngle, color.val[0], color.val[1], color.val[2], color.val[3]);
 
-        return;
     }
 
 
@@ -1982,7 +1777,6 @@ public class Imgproc {
 
         ellipse_3(img.nativeObj, box.center.x, box.center.y, box.size.width, box.size.height, box.angle, color.val[0], color.val[1], color.val[2], color.val[3], thickness, lineType);
 
-        return;
     }
 
     //javadoc: ellipse(img, box, color, thickness)
@@ -1990,7 +1784,6 @@ public class Imgproc {
 
         ellipse_4(img.nativeObj, box.center.x, box.center.y, box.size.width, box.size.height, box.angle, color.val[0], color.val[1], color.val[2], color.val[3], thickness);
 
-        return;
     }
 
     //javadoc: ellipse(img, box, color)
@@ -1998,7 +1791,6 @@ public class Imgproc {
 
         ellipse_5(img.nativeObj, box.center.x, box.center.y, box.size.width, box.size.height, box.angle, color.val[0], color.val[1], color.val[2], color.val[3]);
 
-        return;
     }
 
 
@@ -2008,10 +1800,8 @@ public class Imgproc {
 
     //javadoc: ellipse2Poly(center, axes, angle, arcStart, arcEnd, delta, pts)
     public static void ellipse2Poly(Point center, Size axes, int angle, int arcStart, int arcEnd, int delta, MatOfPoint pts) {
-        Mat pts_mat = pts;
-        ellipse2Poly_0(center.x, center.y, axes.width, axes.height, angle, arcStart, arcEnd, delta, pts_mat.nativeObj);
+        ellipse2Poly_0(center.x, center.y, axes.width, axes.height, angle, arcStart, arcEnd, delta, pts.nativeObj);
 
-        return;
     }
 
 
@@ -2024,7 +1814,6 @@ public class Imgproc {
 
         equalizeHist_0(src.nativeObj, dst.nativeObj);
 
-        return;
     }
 
 
@@ -2037,7 +1826,6 @@ public class Imgproc {
 
         erode_0(src.nativeObj, dst.nativeObj, kernel.nativeObj, anchor.x, anchor.y, iterations, borderType, borderValue.val[0], borderValue.val[1], borderValue.val[2], borderValue.val[3]);
 
-        return;
     }
 
     //javadoc: erode(src, dst, kernel, anchor, iterations)
@@ -2045,7 +1833,6 @@ public class Imgproc {
 
         erode_1(src.nativeObj, dst.nativeObj, kernel.nativeObj, anchor.x, anchor.y, iterations);
 
-        return;
     }
 
     //javadoc: erode(src, dst, kernel)
@@ -2053,7 +1840,6 @@ public class Imgproc {
 
         erode_2(src.nativeObj, dst.nativeObj, kernel.nativeObj);
 
-        return;
     }
 
 
@@ -2063,18 +1849,14 @@ public class Imgproc {
 
     //javadoc: fillConvexPoly(img, points, color, lineType, shift)
     public static void fillConvexPoly(Mat img, MatOfPoint points, Scalar color, int lineType, int shift) {
-        Mat points_mat = points;
-        fillConvexPoly_0(img.nativeObj, points_mat.nativeObj, color.val[0], color.val[1], color.val[2], color.val[3], lineType, shift);
+        fillConvexPoly_0(img.nativeObj, points.nativeObj, color.val[0], color.val[1], color.val[2], color.val[3], lineType, shift);
 
-        return;
     }
 
     //javadoc: fillConvexPoly(img, points, color)
     public static void fillConvexPoly(Mat img, MatOfPoint points, Scalar color) {
-        Mat points_mat = points;
-        fillConvexPoly_1(img.nativeObj, points_mat.nativeObj, color.val[0], color.val[1], color.val[2], color.val[3]);
+        fillConvexPoly_1(img.nativeObj, points.nativeObj, color.val[0], color.val[1], color.val[2], color.val[3]);
 
-        return;
     }
 
 
@@ -2084,20 +1866,18 @@ public class Imgproc {
 
     //javadoc: fillPoly(img, pts, color, lineType, shift, offset)
     public static void fillPoly(Mat img, List<MatOfPoint> pts, Scalar color, int lineType, int shift, Point offset) {
-        List<Mat> pts_tmplm = new ArrayList<Mat>((pts != null) ? pts.size() : 0);
+        List<Mat> pts_tmplm = new ArrayList<>((pts != null) ? pts.size() : 0);
         Mat pts_mat = Converters.vector_vector_Point_to_Mat(pts, pts_tmplm);
         fillPoly_0(img.nativeObj, pts_mat.nativeObj, color.val[0], color.val[1], color.val[2], color.val[3], lineType, shift, offset.x, offset.y);
 
-        return;
     }
 
     //javadoc: fillPoly(img, pts, color)
     public static void fillPoly(Mat img, List<MatOfPoint> pts, Scalar color) {
-        List<Mat> pts_tmplm = new ArrayList<Mat>((pts != null) ? pts.size() : 0);
+        List<Mat> pts_tmplm = new ArrayList<>((pts != null) ? pts.size() : 0);
         Mat pts_mat = Converters.vector_vector_Point_to_Mat(pts, pts_tmplm);
         fillPoly_1(img.nativeObj, pts_mat.nativeObj, color.val[0], color.val[1], color.val[2], color.val[3]);
 
-        return;
     }
 
 
@@ -2110,7 +1890,6 @@ public class Imgproc {
 
         filter2D_0(src.nativeObj, dst.nativeObj, ddepth, kernel.nativeObj, anchor.x, anchor.y, delta, borderType);
 
-        return;
     }
 
     //javadoc: filter2D(src, dst, ddepth, kernel, anchor, delta)
@@ -2118,7 +1897,6 @@ public class Imgproc {
 
         filter2D_1(src.nativeObj, dst.nativeObj, ddepth, kernel.nativeObj, anchor.x, anchor.y, delta);
 
-        return;
     }
 
     //javadoc: filter2D(src, dst, ddepth, kernel)
@@ -2126,7 +1904,6 @@ public class Imgproc {
 
         filter2D_2(src.nativeObj, dst.nativeObj, ddepth, kernel.nativeObj);
 
-        return;
     }
 
 
@@ -2140,7 +1917,6 @@ public class Imgproc {
         findContours_0(image.nativeObj, contours_mat.nativeObj, hierarchy.nativeObj, mode, method, offset.x, offset.y);
         Converters.Mat_to_vector_vector_Point(contours_mat, contours);
         contours_mat.release();
-        return;
     }
 
     //javadoc: findContours(image, contours, hierarchy, mode, method)
@@ -2149,7 +1925,6 @@ public class Imgproc {
         findContours_1(image.nativeObj, contours_mat.nativeObj, hierarchy.nativeObj, mode, method);
         Converters.Mat_to_vector_vector_Point(contours_mat, contours);
         contours_mat.release();
-        return;
     }
 
 
@@ -2162,7 +1937,6 @@ public class Imgproc {
 
         fitLine_0(points.nativeObj, line.nativeObj, distType, param, reps, aeps);
 
-        return;
     }
 
 
@@ -2175,7 +1949,6 @@ public class Imgproc {
 
         getDerivKernels_0(kx.nativeObj, ky.nativeObj, dx, dy, ksize, normalize, ktype);
 
-        return;
     }
 
     //javadoc: getDerivKernels(kx, ky, dx, dy, ksize)
@@ -2183,7 +1956,6 @@ public class Imgproc {
 
         getDerivKernels_1(kx.nativeObj, ky.nativeObj, dx, dy, ksize);
 
-        return;
     }
 
 
@@ -2196,7 +1968,6 @@ public class Imgproc {
 
         getRectSubPix_0(image.nativeObj, patchSize.width, patchSize.height, center.x, center.y, patch.nativeObj, patchType);
 
-        return;
     }
 
     //javadoc: getRectSubPix(image, patchSize, center, patch)
@@ -2204,7 +1975,6 @@ public class Imgproc {
 
         getRectSubPix_1(image.nativeObj, patchSize.width, patchSize.height, center.x, center.y, patch.nativeObj);
 
-        return;
     }
 
 
@@ -2214,18 +1984,14 @@ public class Imgproc {
 
     //javadoc: goodFeaturesToTrack(image, corners, maxCorners, qualityLevel, minDistance, mask, blockSize, gradientSize, useHarrisDetector, k)
     public static void goodFeaturesToTrack(Mat image, MatOfPoint corners, int maxCorners, double qualityLevel, double minDistance, Mat mask, int blockSize, int gradientSize, boolean useHarrisDetector, double k) {
-        Mat corners_mat = corners;
-        goodFeaturesToTrack_0(image.nativeObj, corners_mat.nativeObj, maxCorners, qualityLevel, minDistance, mask.nativeObj, blockSize, gradientSize, useHarrisDetector, k);
+        goodFeaturesToTrack_0(image.nativeObj, corners.nativeObj, maxCorners, qualityLevel, minDistance, mask.nativeObj, blockSize, gradientSize, useHarrisDetector, k);
 
-        return;
     }
 
     //javadoc: goodFeaturesToTrack(image, corners, maxCorners, qualityLevel, minDistance, mask, blockSize, gradientSize)
     public static void goodFeaturesToTrack(Mat image, MatOfPoint corners, int maxCorners, double qualityLevel, double minDistance, Mat mask, int blockSize, int gradientSize) {
-        Mat corners_mat = corners;
-        goodFeaturesToTrack_1(image.nativeObj, corners_mat.nativeObj, maxCorners, qualityLevel, minDistance, mask.nativeObj, blockSize, gradientSize);
+        goodFeaturesToTrack_1(image.nativeObj, corners.nativeObj, maxCorners, qualityLevel, minDistance, mask.nativeObj, blockSize, gradientSize);
 
-        return;
     }
 
 
@@ -2235,18 +2001,14 @@ public class Imgproc {
 
     //javadoc: goodFeaturesToTrack(image, corners, maxCorners, qualityLevel, minDistance, mask, blockSize, useHarrisDetector, k)
     public static void goodFeaturesToTrack(Mat image, MatOfPoint corners, int maxCorners, double qualityLevel, double minDistance, Mat mask, int blockSize, boolean useHarrisDetector, double k) {
-        Mat corners_mat = corners;
-        goodFeaturesToTrack_2(image.nativeObj, corners_mat.nativeObj, maxCorners, qualityLevel, minDistance, mask.nativeObj, blockSize, useHarrisDetector, k);
+        goodFeaturesToTrack_2(image.nativeObj, corners.nativeObj, maxCorners, qualityLevel, minDistance, mask.nativeObj, blockSize, useHarrisDetector, k);
 
-        return;
     }
 
     //javadoc: goodFeaturesToTrack(image, corners, maxCorners, qualityLevel, minDistance)
     public static void goodFeaturesToTrack(Mat image, MatOfPoint corners, int maxCorners, double qualityLevel, double minDistance) {
-        Mat corners_mat = corners;
-        goodFeaturesToTrack_3(image.nativeObj, corners_mat.nativeObj, maxCorners, qualityLevel, minDistance);
+        goodFeaturesToTrack_3(image.nativeObj, corners.nativeObj, maxCorners, qualityLevel, minDistance);
 
-        return;
     }
 
 
@@ -2259,7 +2021,6 @@ public class Imgproc {
 
         grabCut_0(img.nativeObj, mask.nativeObj, rect.x, rect.y, rect.width, rect.height, bgdModel.nativeObj, fgdModel.nativeObj, iterCount, mode);
 
-        return;
     }
 
     //javadoc: grabCut(img, mask, rect, bgdModel, fgdModel, iterCount)
@@ -2267,7 +2028,6 @@ public class Imgproc {
 
         grabCut_1(img.nativeObj, mask.nativeObj, rect.x, rect.y, rect.width, rect.height, bgdModel.nativeObj, fgdModel.nativeObj, iterCount);
 
-        return;
     }
 
 
@@ -2280,7 +2040,6 @@ public class Imgproc {
 
         initUndistortRectifyMap_0(cameraMatrix.nativeObj, distCoeffs.nativeObj, R.nativeObj, newCameraMatrix.nativeObj, size.width, size.height, m1type, map1.nativeObj, map2.nativeObj);
 
-        return;
     }
 
 
@@ -2293,7 +2052,6 @@ public class Imgproc {
 
         integral3_0(src.nativeObj, sum.nativeObj, sqsum.nativeObj, tilted.nativeObj, sdepth, sqdepth);
 
-        return;
     }
 
     //javadoc: integral(src, sum, sqsum, tilted)
@@ -2301,7 +2059,6 @@ public class Imgproc {
 
         integral3_1(src.nativeObj, sum.nativeObj, sqsum.nativeObj, tilted.nativeObj);
 
-        return;
     }
 
 
@@ -2314,7 +2071,6 @@ public class Imgproc {
 
         integral2_0(src.nativeObj, sum.nativeObj, sqsum.nativeObj, sdepth, sqdepth);
 
-        return;
     }
 
     //javadoc: integral(src, sum, sqsum)
@@ -2322,7 +2078,6 @@ public class Imgproc {
 
         integral2_1(src.nativeObj, sum.nativeObj, sqsum.nativeObj);
 
-        return;
     }
 
 
@@ -2335,7 +2090,6 @@ public class Imgproc {
 
         integral_0(src.nativeObj, sum.nativeObj, sdepth);
 
-        return;
     }
 
     //javadoc: integral(src, sum)
@@ -2343,7 +2097,6 @@ public class Imgproc {
 
         integral_1(src.nativeObj, sum.nativeObj);
 
-        return;
     }
 
 
@@ -2356,7 +2109,6 @@ public class Imgproc {
 
         invertAffineTransform_0(M.nativeObj, iM.nativeObj);
 
-        return;
     }
 
 
@@ -2369,7 +2121,6 @@ public class Imgproc {
 
         line_0(img.nativeObj, pt1.x, pt1.y, pt2.x, pt2.y, color.val[0], color.val[1], color.val[2], color.val[3], thickness, lineType, shift);
 
-        return;
     }
 
     //javadoc: line(img, pt1, pt2, color, thickness)
@@ -2377,7 +2128,6 @@ public class Imgproc {
 
         line_1(img.nativeObj, pt1.x, pt1.y, pt2.x, pt2.y, color.val[0], color.val[1], color.val[2], color.val[3], thickness);
 
-        return;
     }
 
     //javadoc: line(img, pt1, pt2, color)
@@ -2385,7 +2135,6 @@ public class Imgproc {
 
         line_2(img.nativeObj, pt1.x, pt1.y, pt2.x, pt2.y, color.val[0], color.val[1], color.val[2], color.val[3]);
 
-        return;
     }
 
 
@@ -2398,7 +2147,6 @@ public class Imgproc {
 
         linearPolar_0(src.nativeObj, dst.nativeObj, center.x, center.y, maxRadius, flags);
 
-        return;
     }
 
 
@@ -2411,7 +2159,6 @@ public class Imgproc {
 
         logPolar_0(src.nativeObj, dst.nativeObj, center.x, center.y, M, flags);
 
-        return;
     }
 
 
@@ -2424,7 +2171,6 @@ public class Imgproc {
 
         matchTemplate_0(image.nativeObj, templ.nativeObj, result.nativeObj, method, mask.nativeObj);
 
-        return;
     }
 
     //javadoc: matchTemplate(image, templ, result, method)
@@ -2432,7 +2178,6 @@ public class Imgproc {
 
         matchTemplate_1(image.nativeObj, templ.nativeObj, result.nativeObj, method);
 
-        return;
     }
 
 
@@ -2445,7 +2190,6 @@ public class Imgproc {
 
         medianBlur_0(src.nativeObj, dst.nativeObj, ksize);
 
-        return;
     }
 
 
@@ -2455,16 +2199,14 @@ public class Imgproc {
 
     //javadoc: minEnclosingCircle(points, center, radius)
     public static void minEnclosingCircle(MatOfPoint2f points, Point center, float[] radius) {
-        Mat points_mat = points;
         double[] center_out = new double[2];
         double[] radius_out = new double[1];
-        minEnclosingCircle_0(points_mat.nativeObj, center_out, radius_out);
+        minEnclosingCircle_0(points.nativeObj, center_out, radius_out);
         if (center != null) {
             center.x = center_out[0];
             center.y = center_out[1];
         }
         if (radius != null) radius[0] = (float) radius_out[0];
-        return;
     }
 
 
@@ -2477,7 +2219,6 @@ public class Imgproc {
 
         morphologyEx_0(src.nativeObj, dst.nativeObj, op, kernel.nativeObj, anchor.x, anchor.y, iterations, borderType, borderValue.val[0], borderValue.val[1], borderValue.val[2], borderValue.val[3]);
 
-        return;
     }
 
     //javadoc: morphologyEx(src, dst, op, kernel, anchor, iterations)
@@ -2485,7 +2226,6 @@ public class Imgproc {
 
         morphologyEx_1(src.nativeObj, dst.nativeObj, op, kernel.nativeObj, anchor.x, anchor.y, iterations);
 
-        return;
     }
 
     //javadoc: morphologyEx(src, dst, op, kernel)
@@ -2493,7 +2233,6 @@ public class Imgproc {
 
         morphologyEx_2(src.nativeObj, dst.nativeObj, op, kernel.nativeObj);
 
-        return;
     }
 
 
@@ -2503,29 +2242,26 @@ public class Imgproc {
 
     //javadoc: polylines(img, pts, isClosed, color, thickness, lineType, shift)
     public static void polylines(Mat img, List<MatOfPoint> pts, boolean isClosed, Scalar color, int thickness, int lineType, int shift) {
-        List<Mat> pts_tmplm = new ArrayList<Mat>((pts != null) ? pts.size() : 0);
+        List<Mat> pts_tmplm = new ArrayList<>((pts != null) ? pts.size() : 0);
         Mat pts_mat = Converters.vector_vector_Point_to_Mat(pts, pts_tmplm);
         polylines_0(img.nativeObj, pts_mat.nativeObj, isClosed, color.val[0], color.val[1], color.val[2], color.val[3], thickness, lineType, shift);
 
-        return;
     }
 
     //javadoc: polylines(img, pts, isClosed, color, thickness)
     public static void polylines(Mat img, List<MatOfPoint> pts, boolean isClosed, Scalar color, int thickness) {
-        List<Mat> pts_tmplm = new ArrayList<Mat>((pts != null) ? pts.size() : 0);
+        List<Mat> pts_tmplm = new ArrayList<>((pts != null) ? pts.size() : 0);
         Mat pts_mat = Converters.vector_vector_Point_to_Mat(pts, pts_tmplm);
         polylines_1(img.nativeObj, pts_mat.nativeObj, isClosed, color.val[0], color.val[1], color.val[2], color.val[3], thickness);
 
-        return;
     }
 
     //javadoc: polylines(img, pts, isClosed, color)
     public static void polylines(Mat img, List<MatOfPoint> pts, boolean isClosed, Scalar color) {
-        List<Mat> pts_tmplm = new ArrayList<Mat>((pts != null) ? pts.size() : 0);
+        List<Mat> pts_tmplm = new ArrayList<>((pts != null) ? pts.size() : 0);
         Mat pts_mat = Converters.vector_vector_Point_to_Mat(pts, pts_tmplm);
         polylines_2(img.nativeObj, pts_mat.nativeObj, isClosed, color.val[0], color.val[1], color.val[2], color.val[3]);
 
-        return;
     }
 
 
@@ -2538,7 +2274,6 @@ public class Imgproc {
 
         preCornerDetect_0(src.nativeObj, dst.nativeObj, ksize, borderType);
 
-        return;
     }
 
     //javadoc: preCornerDetect(src, dst, ksize)
@@ -2546,7 +2281,6 @@ public class Imgproc {
 
         preCornerDetect_1(src.nativeObj, dst.nativeObj, ksize);
 
-        return;
     }
 
 
@@ -2559,7 +2293,6 @@ public class Imgproc {
 
         putText_0(img.nativeObj, text, org.x, org.y, fontFace, fontScale, color.val[0], color.val[1], color.val[2], color.val[3], thickness, lineType, bottomLeftOrigin);
 
-        return;
     }
 
     //javadoc: putText(img, text, org, fontFace, fontScale, color, thickness)
@@ -2567,7 +2300,6 @@ public class Imgproc {
 
         putText_1(img.nativeObj, text, org.x, org.y, fontFace, fontScale, color.val[0], color.val[1], color.val[2], color.val[3], thickness);
 
-        return;
     }
 
     //javadoc: putText(img, text, org, fontFace, fontScale, color)
@@ -2575,7 +2307,6 @@ public class Imgproc {
 
         putText_2(img.nativeObj, text, org.x, org.y, fontFace, fontScale, color.val[0], color.val[1], color.val[2], color.val[3]);
 
-        return;
     }
 
 
@@ -2588,7 +2319,6 @@ public class Imgproc {
 
         pyrDown_0(src.nativeObj, dst.nativeObj, dstsize.width, dstsize.height, borderType);
 
-        return;
     }
 
     //javadoc: pyrDown(src, dst, dstsize)
@@ -2596,7 +2326,6 @@ public class Imgproc {
 
         pyrDown_1(src.nativeObj, dst.nativeObj, dstsize.width, dstsize.height);
 
-        return;
     }
 
     //javadoc: pyrDown(src, dst)
@@ -2604,7 +2333,6 @@ public class Imgproc {
 
         pyrDown_2(src.nativeObj, dst.nativeObj);
 
-        return;
     }
 
 
@@ -2617,7 +2345,6 @@ public class Imgproc {
 
         pyrMeanShiftFiltering_0(src.nativeObj, dst.nativeObj, sp, sr, maxLevel, termcrit.type, termcrit.maxCount, termcrit.epsilon);
 
-        return;
     }
 
     //javadoc: pyrMeanShiftFiltering(src, dst, sp, sr)
@@ -2625,7 +2352,6 @@ public class Imgproc {
 
         pyrMeanShiftFiltering_1(src.nativeObj, dst.nativeObj, sp, sr);
 
-        return;
     }
 
 
@@ -2638,7 +2364,6 @@ public class Imgproc {
 
         pyrUp_0(src.nativeObj, dst.nativeObj, dstsize.width, dstsize.height, borderType);
 
-        return;
     }
 
     //javadoc: pyrUp(src, dst, dstsize)
@@ -2646,7 +2371,6 @@ public class Imgproc {
 
         pyrUp_1(src.nativeObj, dst.nativeObj, dstsize.width, dstsize.height);
 
-        return;
     }
 
     //javadoc: pyrUp(src, dst)
@@ -2654,7 +2378,6 @@ public class Imgproc {
 
         pyrUp_2(src.nativeObj, dst.nativeObj);
 
-        return;
     }
 
 
@@ -2667,7 +2390,6 @@ public class Imgproc {
 
         rectangle_0(img.nativeObj, pt1.x, pt1.y, pt2.x, pt2.y, color.val[0], color.val[1], color.val[2], color.val[3], thickness, lineType, shift);
 
-        return;
     }
 
     //javadoc: rectangle(img, pt1, pt2, color, thickness)
@@ -2675,7 +2397,6 @@ public class Imgproc {
 
         rectangle_1(img.nativeObj, pt1.x, pt1.y, pt2.x, pt2.y, color.val[0], color.val[1], color.val[2], color.val[3], thickness);
 
-        return;
     }
 
     //javadoc: rectangle(img, pt1, pt2, color)
@@ -2683,7 +2404,6 @@ public class Imgproc {
 
         rectangle_2(img.nativeObj, pt1.x, pt1.y, pt2.x, pt2.y, color.val[0], color.val[1], color.val[2], color.val[3]);
 
-        return;
     }
 
 
@@ -2696,7 +2416,6 @@ public class Imgproc {
 
         remap_0(src.nativeObj, dst.nativeObj, map1.nativeObj, map2.nativeObj, interpolation, borderMode, borderValue.val[0], borderValue.val[1], borderValue.val[2], borderValue.val[3]);
 
-        return;
     }
 
     //javadoc: remap(src, dst, map1, map2, interpolation)
@@ -2704,7 +2423,6 @@ public class Imgproc {
 
         remap_1(src.nativeObj, dst.nativeObj, map1.nativeObj, map2.nativeObj, interpolation);
 
-        return;
     }
 
 
@@ -2717,7 +2435,6 @@ public class Imgproc {
 
         resize_0(src.nativeObj, dst.nativeObj, dsize.width, dsize.height, fx, fy, interpolation);
 
-        return;
     }
 
     //javadoc: resize(src, dst, dsize)
@@ -2725,7 +2442,6 @@ public class Imgproc {
 
         resize_1(src.nativeObj, dst.nativeObj, dsize.width, dsize.height);
 
-        return;
     }
 
 
@@ -2738,7 +2454,6 @@ public class Imgproc {
 
         sepFilter2D_0(src.nativeObj, dst.nativeObj, ddepth, kernelX.nativeObj, kernelY.nativeObj, anchor.x, anchor.y, delta, borderType);
 
-        return;
     }
 
     //javadoc: sepFilter2D(src, dst, ddepth, kernelX, kernelY, anchor, delta)
@@ -2746,7 +2461,6 @@ public class Imgproc {
 
         sepFilter2D_1(src.nativeObj, dst.nativeObj, ddepth, kernelX.nativeObj, kernelY.nativeObj, anchor.x, anchor.y, delta);
 
-        return;
     }
 
     //javadoc: sepFilter2D(src, dst, ddepth, kernelX, kernelY)
@@ -2754,7 +2468,6 @@ public class Imgproc {
 
         sepFilter2D_2(src.nativeObj, dst.nativeObj, ddepth, kernelX.nativeObj, kernelY.nativeObj);
 
-        return;
     }
 
 
@@ -2767,7 +2480,6 @@ public class Imgproc {
 
         spatialGradient_0(src.nativeObj, dx.nativeObj, dy.nativeObj, ksize, borderType);
 
-        return;
     }
 
     //javadoc: spatialGradient(src, dx, dy, ksize)
@@ -2775,7 +2487,6 @@ public class Imgproc {
 
         spatialGradient_1(src.nativeObj, dx.nativeObj, dy.nativeObj, ksize);
 
-        return;
     }
 
     //javadoc: spatialGradient(src, dx, dy)
@@ -2783,7 +2494,6 @@ public class Imgproc {
 
         spatialGradient_2(src.nativeObj, dx.nativeObj, dy.nativeObj);
 
-        return;
     }
 
 
@@ -2796,7 +2506,6 @@ public class Imgproc {
 
         sqrBoxFilter_0(_src.nativeObj, _dst.nativeObj, ddepth, ksize.width, ksize.height, anchor.x, anchor.y, normalize, borderType);
 
-        return;
     }
 
     //javadoc: sqrBoxFilter(_src, _dst, ddepth, ksize, anchor, normalize)
@@ -2804,7 +2513,6 @@ public class Imgproc {
 
         sqrBoxFilter_1(_src.nativeObj, _dst.nativeObj, ddepth, ksize.width, ksize.height, anchor.x, anchor.y, normalize);
 
-        return;
     }
 
     //javadoc: sqrBoxFilter(_src, _dst, ddepth, ksize)
@@ -2812,7 +2520,6 @@ public class Imgproc {
 
         sqrBoxFilter_2(_src.nativeObj, _dst.nativeObj, ddepth, ksize.width, ksize.height);
 
-        return;
     }
 
 
@@ -2825,7 +2532,6 @@ public class Imgproc {
 
         undistort_0(src.nativeObj, dst.nativeObj, cameraMatrix.nativeObj, distCoeffs.nativeObj, newCameraMatrix.nativeObj);
 
-        return;
     }
 
     //javadoc: undistort(src, dst, cameraMatrix, distCoeffs)
@@ -2833,7 +2539,6 @@ public class Imgproc {
 
         undistort_1(src.nativeObj, dst.nativeObj, cameraMatrix.nativeObj, distCoeffs.nativeObj);
 
-        return;
     }
 
 
@@ -2846,7 +2551,6 @@ public class Imgproc {
 
         undistortPointsIter_0(src.nativeObj, dst.nativeObj, cameraMatrix.nativeObj, distCoeffs.nativeObj, R.nativeObj, P.nativeObj, criteria.type, criteria.maxCount, criteria.epsilon);
 
-        return;
     }
 
 
@@ -2859,7 +2563,6 @@ public class Imgproc {
 
         undistortPoints_0(src.nativeObj, dst.nativeObj, cameraMatrix.nativeObj, distCoeffs.nativeObj, R.nativeObj, P.nativeObj);
 
-        return;
     }
 
     //javadoc: undistortPoints(src, dst, cameraMatrix, distCoeffs)
@@ -2867,7 +2570,6 @@ public class Imgproc {
 
         undistortPoints_1(src.nativeObj, dst.nativeObj, cameraMatrix.nativeObj, distCoeffs.nativeObj);
 
-        return;
     }
 
 
@@ -2880,7 +2582,6 @@ public class Imgproc {
 
         warpAffine_0(src.nativeObj, dst.nativeObj, M.nativeObj, dsize.width, dsize.height, flags, borderMode, borderValue.val[0], borderValue.val[1], borderValue.val[2], borderValue.val[3]);
 
-        return;
     }
 
     //javadoc: warpAffine(src, dst, M, dsize, flags)
@@ -2888,7 +2589,6 @@ public class Imgproc {
 
         warpAffine_1(src.nativeObj, dst.nativeObj, M.nativeObj, dsize.width, dsize.height, flags);
 
-        return;
     }
 
     //javadoc: warpAffine(src, dst, M, dsize)
@@ -2896,7 +2596,6 @@ public class Imgproc {
 
         warpAffine_2(src.nativeObj, dst.nativeObj, M.nativeObj, dsize.width, dsize.height);
 
-        return;
     }
 
 
@@ -2909,7 +2608,6 @@ public class Imgproc {
 
         warpPerspective_0(src.nativeObj, dst.nativeObj, M.nativeObj, dsize.width, dsize.height, flags, borderMode, borderValue.val[0], borderValue.val[1], borderValue.val[2], borderValue.val[3]);
 
-        return;
     }
 
     //javadoc: warpPerspective(src, dst, M, dsize, flags)
@@ -2917,7 +2615,6 @@ public class Imgproc {
 
         warpPerspective_1(src.nativeObj, dst.nativeObj, M.nativeObj, dsize.width, dsize.height, flags);
 
-        return;
     }
 
     //javadoc: warpPerspective(src, dst, M, dsize)
@@ -2925,7 +2622,6 @@ public class Imgproc {
 
         warpPerspective_2(src.nativeObj, dst.nativeObj, M.nativeObj, dsize.width, dsize.height);
 
-        return;
     }
 
 
@@ -2938,7 +2634,6 @@ public class Imgproc {
 
         watershed_0(image.nativeObj, markers.nativeObj);
 
-        return;
     }
 
 
@@ -2947,8 +2642,7 @@ public class Imgproc {
     public static Size getTextSize(String text, int fontFace, double fontScale, int thickness, int[] baseLine) {
         if (baseLine != null && baseLine.length != 1)
             throw new java.lang.IllegalArgumentException("'baseLine' must be 'int[1]' or 'null'.");
-        Size retVal = new Size(n_getTextSize(text, fontFace, fontScale, thickness, baseLine));
-        return retVal;
+        return new Size(n_getTextSize(text, fontFace, fontScale, thickness, baseLine));
     }
 
 

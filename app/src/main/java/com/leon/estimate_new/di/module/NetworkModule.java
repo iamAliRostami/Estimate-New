@@ -13,7 +13,7 @@ import retrofit2.Retrofit;
 //@Singleton
 @Module
 public class NetworkModule {
-    NetworkHelperModel networkHelperModel;
+    final NetworkHelperModel networkHelperModel;
 
     public NetworkModule() {
         networkHelperModel = new NetworkHelperModel();

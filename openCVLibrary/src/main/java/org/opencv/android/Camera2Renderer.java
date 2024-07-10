@@ -17,10 +17,10 @@ import android.util.Size;
 import android.view.Surface;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
-@TargetApi(21)
 public class Camera2Renderer extends CameraGLRendererBase {
 
     protected final String LOGTAG = "Camera2Renderer";
@@ -32,7 +32,7 @@ public class Camera2Renderer extends CameraGLRendererBase {
 
     private HandlerThread mBackgroundThread;
     private Handler mBackgroundHandler;
-    private Semaphore mCameraOpenCloseLock = new Semaphore(1);
+    private final Semaphore mCameraOpenCloseLock = new Semaphore(1);
     private final CameraDevice.StateCallback mStateCallback = new CameraDevice.StateCallback() {
 
         @Override
@@ -213,7 +213,7 @@ public class Camera2Renderer extends CameraGLRendererBase {
                     .createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW);
             mPreviewRequestBuilder.addTarget(surface);
 
-            mCameraDevice.createCaptureSession(Arrays.asList(surface),
+            mCameraDevice.createCaptureSession(List.of(surface),
                     new CameraCaptureSession.StateCallback() {
                         @Override
                         public void onConfigured(CameraCaptureSession cameraCaptureSession) {
@@ -242,8 +242,6 @@ public class Camera2Renderer extends CameraGLRendererBase {
         } catch (InterruptedException e) {
             throw new RuntimeException(
                     "Interrupted while createCameraPreviewSession", e);
-        } finally {
-            //mCameraOpenCloseLock.release();
         }
     }
 

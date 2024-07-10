@@ -46,9 +46,7 @@ public class DescriptorExtractor {
     //javadoc: javaDescriptorExtractor::create(extractorType)
     public static DescriptorExtractor create(int extractorType) {
 
-        DescriptorExtractor retVal = DescriptorExtractor.__fromPtr__(create_0(extractorType));
-
-        return retVal;
+        return DescriptorExtractor.__fromPtr__(create_0(extractorType));
     }
 
 
@@ -125,39 +123,31 @@ public class DescriptorExtractor {
     //javadoc: javaDescriptorExtractor::empty()
     public boolean empty() {
 
-        boolean retVal = empty_0(nativeObj);
-
-        return retVal;
+        return empty_0(nativeObj);
     }
 
     //javadoc: javaDescriptorExtractor::descriptorSize()
     public int descriptorSize() {
 
-        int retVal = descriptorSize_0(nativeObj);
-
-        return retVal;
+        return descriptorSize_0(nativeObj);
     }
 
     //javadoc: javaDescriptorExtractor::descriptorType()
     public int descriptorType() {
 
-        int retVal = descriptorType_0(nativeObj);
-
-        return retVal;
+        return descriptorType_0(nativeObj);
     }
 
     //javadoc: javaDescriptorExtractor::compute(image, keypoints, descriptors)
     public void compute(Mat image, MatOfKeyPoint keypoints, Mat descriptors) {
-        Mat keypoints_mat = keypoints;
-        compute_0(nativeObj, image.nativeObj, keypoints_mat.nativeObj, descriptors.nativeObj);
+        compute_0(nativeObj, image.nativeObj, keypoints.nativeObj, descriptors.nativeObj);
 
-        return;
     }
 
     //javadoc: javaDescriptorExtractor::compute(images, keypoints, descriptors)
     public void compute(List<Mat> images, List<MatOfKeyPoint> keypoints, List<Mat> descriptors) {
         Mat images_mat = Converters.vector_Mat_to_Mat(images);
-        List<Mat> keypoints_tmplm = new ArrayList<Mat>((keypoints != null) ? keypoints.size() : 0);
+        List<Mat> keypoints_tmplm = new ArrayList<>((keypoints != null) ? keypoints.size() : 0);
         Mat keypoints_mat = Converters.vector_vector_KeyPoint_to_Mat(keypoints, keypoints_tmplm);
         Mat descriptors_mat = new Mat();
         compute_1(nativeObj, images_mat.nativeObj, keypoints_mat.nativeObj, descriptors_mat.nativeObj);
@@ -165,7 +155,6 @@ public class DescriptorExtractor {
         keypoints_mat.release();
         Converters.Mat_to_vector_Mat(descriptors_mat, descriptors);
         descriptors_mat.release();
-        return;
     }
 
     //javadoc: javaDescriptorExtractor::read(fileName)
@@ -173,7 +162,6 @@ public class DescriptorExtractor {
 
         read_0(nativeObj, fileName);
 
-        return;
     }
 
     //javadoc: javaDescriptorExtractor::write(fileName)
@@ -181,7 +169,6 @@ public class DescriptorExtractor {
 
         write_0(nativeObj, fileName);
 
-        return;
     }
 
     @Override

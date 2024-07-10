@@ -5,7 +5,6 @@ import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponen
 import android.content.Context;
 
 import com.leon.estimate_new.R;
-import com.leon.estimate_new.helpers.MyApplication;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;

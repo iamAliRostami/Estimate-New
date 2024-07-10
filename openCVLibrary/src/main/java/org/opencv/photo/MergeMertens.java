@@ -91,9 +91,7 @@ public class MergeMertens extends MergeExposures {
     //javadoc: MergeMertens::getContrastWeight()
     public float getContrastWeight() {
 
-        float retVal = getContrastWeight_0(nativeObj);
-
-        return retVal;
+        return getContrastWeight_0(nativeObj);
     }
 
     //javadoc: MergeMertens::setContrastWeight(contrast_weiht)
@@ -101,15 +99,12 @@ public class MergeMertens extends MergeExposures {
 
         setContrastWeight_0(nativeObj, contrast_weiht);
 
-        return;
     }
 
     //javadoc: MergeMertens::getExposureWeight()
     public float getExposureWeight() {
 
-        float retVal = getExposureWeight_0(nativeObj);
-
-        return retVal;
+        return getExposureWeight_0(nativeObj);
     }
 
     //javadoc: MergeMertens::setExposureWeight(exposure_weight)
@@ -117,15 +112,12 @@ public class MergeMertens extends MergeExposures {
 
         setExposureWeight_0(nativeObj, exposure_weight);
 
-        return;
     }
 
     //javadoc: MergeMertens::getSaturationWeight()
     public float getSaturationWeight() {
 
-        float retVal = getSaturationWeight_0(nativeObj);
-
-        return retVal;
+        return getSaturationWeight_0(nativeObj);
     }
 
     //javadoc: MergeMertens::setSaturationWeight(saturation_weight)
@@ -133,7 +125,6 @@ public class MergeMertens extends MergeExposures {
 
         setSaturationWeight_0(nativeObj, saturation_weight);
 
-        return;
     }
 
     //javadoc: MergeMertens::process(src, dst, times, response)
@@ -141,7 +132,6 @@ public class MergeMertens extends MergeExposures {
         Mat src_mat = Converters.vector_Mat_to_Mat(src);
         process_0(nativeObj, src_mat.nativeObj, dst.nativeObj, times.nativeObj, response.nativeObj);
 
-        return;
     }
 
     //javadoc: MergeMertens::process(src, dst)
@@ -149,11 +139,11 @@ public class MergeMertens extends MergeExposures {
         Mat src_mat = Converters.vector_Mat_to_Mat(src);
         process_1(nativeObj, src_mat.nativeObj, dst.nativeObj);
 
-        return;
     }
 
     @Override
     protected void finalize() throws Throwable {
+        super.finalize();
         delete(nativeObj);
     }
 

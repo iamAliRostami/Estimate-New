@@ -1,11 +1,11 @@
 package com.leon.estimate_new.tables;
 
 public class AddDocument {
-    public String trackNumber;
-    public String firstName;
-    public String sureName;
-    public String address;
-    public String zoneId;
+    public final String trackNumber;
+    public final String firstName;
+    public final String sureName;
+    public final String address;
+    public final String zoneId;
 
     public String data;
     public String error;

@@ -60,7 +60,6 @@ public class FinalReportActivity extends AppCompatActivity implements View.OnCli
     private void initialize() {
         examinerDuty.requestDictionary = new ArrayList<>(Arrays.asList(new GsonBuilder().create()
                 .fromJson(examinerDuty.requestDictionaryString, RequestDictionary[].class)));
-        //TODO
         for (int i = 0; i < examinerDuty.requestDictionary.size() && !licence; i++) {
             if ((examinerDuty.requestDictionary.get(i).title.trim().equals("انشعاب آب") ||
                     examinerDuty.requestDictionary.get(i).title.trim().equals("انشعاب فاضلاب")) &

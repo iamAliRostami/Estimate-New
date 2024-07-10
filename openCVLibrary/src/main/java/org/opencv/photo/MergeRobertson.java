@@ -45,7 +45,6 @@ public class MergeRobertson extends MergeExposures {
         Mat src_mat = Converters.vector_Mat_to_Mat(src);
         process_0(nativeObj, src_mat.nativeObj, dst.nativeObj, times.nativeObj, response.nativeObj);
 
-        return;
     }
 
     //javadoc: MergeRobertson::process(src, dst, times)
@@ -53,11 +52,11 @@ public class MergeRobertson extends MergeExposures {
         Mat src_mat = Converters.vector_Mat_to_Mat(src);
         process_1(nativeObj, src_mat.nativeObj, dst.nativeObj, times.nativeObj);
 
-        return;
     }
 
     @Override
     protected void finalize() throws Throwable {
+        super.finalize();
         delete(nativeObj);
     }
 

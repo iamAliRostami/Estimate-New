@@ -9,6 +9,6 @@ public class CheckBoxViewHolder {
     public final CheckBox checkBox;
 
     public CheckBoxViewHolder(View view) {
-        this.checkBox = (CheckBox) view.findViewById(R.id.checkbox);
+        this.checkBox = view.findViewById(R.id.checkbox);
     }
 }

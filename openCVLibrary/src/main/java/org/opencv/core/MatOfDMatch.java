@@ -15,14 +15,14 @@ public class MatOfDMatch extends Mat {
     protected MatOfDMatch(long addr) {
         super(addr);
         if (!empty() && checkVector(_channels, _depth) < 0)
-            throw new IllegalArgumentException("Incompatible Mat: " + toString());
+            throw new IllegalArgumentException("Incompatible Mat: " + this);
         //FIXME: do we need release() here?
     }
 
     public MatOfDMatch(Mat m) {
         super(m, Range.all());
         if (!empty() && checkVector(_channels, _depth) < 0)
-            throw new IllegalArgumentException("Incompatible Mat: " + toString());
+            throw new IllegalArgumentException("Incompatible Mat: " + this);
         //FIXME: do we need release() here?
     }
 
@@ -49,7 +49,7 @@ public class MatOfDMatch extends Mat {
         float buff[] = new float[num * _channels];
         for (int i = 0; i < num; i++) {
             DMatch m = a[i];
-            buff[_channels * i + 0] = m.queryIdx;
+            buff[_channels * i] = m.queryIdx;
             buff[_channels * i + 1] = m.trainIdx;
             buff[_channels * i + 2] = m.imgIdx;
             buff[_channels * i + 3] = m.distance;
@@ -65,7 +65,7 @@ public class MatOfDMatch extends Mat {
         float buff[] = new float[num * _channels];
         get(0, 0, buff); //TODO: check ret val!
         for (int i = 0; i < num; i++)
-            a[i] = new DMatch((int) buff[_channels * i + 0], (int) buff[_channels * i + 1], (int) buff[_channels * i + 2], buff[_channels * i + 3]);
+            a[i] = new DMatch((int) buff[_channels * i], (int) buff[_channels * i + 1], (int) buff[_channels * i + 2], buff[_channels * i + 3]);
         return a;
     }
 

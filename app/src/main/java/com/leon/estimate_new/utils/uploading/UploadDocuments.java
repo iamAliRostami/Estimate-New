@@ -50,7 +50,7 @@ public class UploadDocuments extends BaseAsync {
         if (images != null) {
             final MultipartBody.Part body = CustomFile.bitmapToFile(images.bitmap, activity);
             final Call<UploadImage> call;
-            if (images.trackingNumber.length() > 0)
+            if (!images.trackingNumber.isEmpty())
                 call = abfaService.uploadDocNew(getApplicationComponent().SharedPreferenceModel()
                                 .getStringData(TOKEN_FOR_FILE.getValue()), body,
                         Integer.parseInt(images.docId), images.trackingNumber);

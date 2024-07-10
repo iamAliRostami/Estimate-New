@@ -8,8 +8,6 @@ import static com.leon.estimate_new.helpers.Constants.PHOTO_PERMISSIONS;
 import static com.leon.estimate_new.helpers.MyApplication.setActivityComponent;
 import static com.leon.estimate_new.utils.CustomFile.loadImage;
 import static com.leon.estimate_new.utils.PermissionManager.checkCameraPermission;
-import static com.leon.estimate_new.utils.PermissionManager.checkLocationPermission;
-import static com.leon.estimate_new.utils.PermissionManager.gpsEnabled;
 
 import android.Manifest;
 import android.content.Intent;
@@ -21,11 +19,14 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Settings;
 import android.widget.Toast;
+import android.window.OnBackInvokedDispatcher;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -70,17 +71,8 @@ public class DocumentActivity extends AppCompatActivity implements TakePhotoFrag
         super.onCreate(savedInstanceState);
         binding = ActivityDocumentBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-//        if (checkSelfPermission(Manifest.permission.CAMERA)
-//                != PackageManager.PERMISSION_GRANTED ||
-//                checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-//                        != PackageManager.PERMISSION_GRANTED ||
-//                checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-//                        != PackageManager.PERMISSION_GRANTED) {
-//            askPermission();
-//        } else {
-//            initialize();
-//        }
         checkPermissions();
+        addOnBackPressed();
     }
     private void checkPermissions(){
         if (!checkCameraPermission(getApplicationContext())) {
@@ -103,17 +95,8 @@ public class DocumentActivity extends AppCompatActivity implements TakePhotoFrag
         getExtra();
         new LoginDocument(this, this).execute(this);
         //TODO
-//        if (BITMAP_SELECTED != null) {
-//            bitmap = BITMAP_SELECTED.copy(Bitmap.Config.ARGB_8888, true);
-////            bitmap = ImageUtils.createImage(BITMAP_SELECTED, true, );
-//            BITMAP_SELECTED = null;
-//            MAP_SELECTED = bitmap.copy(Bitmap.Config.ARGB_8888, true);
-//        }
         if (MAP_SELECTED != null) {
             bitmap = MAP_SELECTED.copy(Bitmap.Config.ARGB_8888, true);
-//            bitmap = ImageUtils.createImage(BITMAP_SELECTED, true, );
-//            MAP_SELECTED = null;
-//            BITMAP_SELECTED = bitmap.copy(Bitmap.Config.ARGB_8888, true);
         }
     }
 
@@ -164,16 +147,6 @@ public class DocumentActivity extends AppCompatActivity implements TakePhotoFrag
                 finish();
             }
         };
-
-//        new TedPermission(this)
-//                .setPermissionListener(permissionlistener)
-//                .setRationaleMessage("جهت استفاده از برنامه مجوزهای پیشنهادی را قبول فرمایید")
-//                .setDeniedMessage("در صورت رد این مجوز قادر به استفاده از این دستگاه نخواهید بود" + "\n" +
-//                        "لطفا با فشار دادن دکمه اعطای دسترسی و سپس در بخش دسترسی ها با این مجوز ها موافقت نمایید")
-//                .setPermissions(Manifest.permission.CAMERA,
-//                        Manifest.permission.READ_EXTERNAL_STORAGE,
-//                        Manifest.permission.WRITE_EXTERNAL_STORAGE).check();
-
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             if (!Environment.isExternalStorageManager()) {
@@ -325,8 +298,21 @@ public class DocumentActivity extends AppCompatActivity implements TakePhotoFrag
         displayView(TAKE_PHOTO_FRAGMENT);
     }
 
-    @Override
-    public void onBackPressed() {
+    private void addOnBackPressed() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            getOnBackInvokedDispatcher().registerOnBackInvokedCallback(
+                    OnBackInvokedDispatcher.PRIORITY_DEFAULT, this::backPressed);
+        } else {
+            getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+                @Override
+                public void handleOnBackPressed() {
+                    backPressed();
+                }
+            });
+        }
+    }
+
+    private void backPressed() {
         if (HttpClientWrapper.call != null) {
             HttpClientWrapper.call.cancel();
             HttpClientWrapper.call = null;

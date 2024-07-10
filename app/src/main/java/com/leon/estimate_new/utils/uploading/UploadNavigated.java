@@ -50,7 +50,7 @@ public class UploadNavigated extends BaseAsync {
         final ArrayList<CalculationUserInput> calculationUserInputs =
                 new ArrayList<>(getApplicationComponent().MyDatabase().calculationUserInputDao()
                         .getCalculationUserInput());
-        if (calculationUserInputs.size() > 0) {
+        if (!calculationUserInputs.isEmpty()) {
             final ArrayList<CalculationUserInputSend> calculationUserInputSends = new ArrayList<>();
             for (int i = 0; i < calculationUserInputs.size(); i++) {
                 final ExaminerDuties examinerDuties = getApplicationComponent().MyDatabase()

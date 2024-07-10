@@ -116,17 +116,13 @@ public class AlignMTB extends AlignExposures {
     //javadoc: AlignMTB::calculateShift(img0, img1)
     public Point calculateShift(Mat img0, Mat img1) {
 
-        Point retVal = new Point(calculateShift_0(nativeObj, img0.nativeObj, img1.nativeObj));
-
-        return retVal;
+        return new Point(calculateShift_0(nativeObj, img0.nativeObj, img1.nativeObj));
     }
 
     //javadoc: AlignMTB::getCut()
     public boolean getCut() {
 
-        boolean retVal = getCut_0(nativeObj);
-
-        return retVal;
+        return getCut_0(nativeObj);
     }
 
     //javadoc: AlignMTB::setCut(value)
@@ -134,15 +130,12 @@ public class AlignMTB extends AlignExposures {
 
         setCut_0(nativeObj, value);
 
-        return;
     }
 
     //javadoc: AlignMTB::getExcludeRange()
     public int getExcludeRange() {
 
-        int retVal = getExcludeRange_0(nativeObj);
-
-        return retVal;
+        return getExcludeRange_0(nativeObj);
     }
 
     //javadoc: AlignMTB::setExcludeRange(exclude_range)
@@ -150,15 +143,12 @@ public class AlignMTB extends AlignExposures {
 
         setExcludeRange_0(nativeObj, exclude_range);
 
-        return;
     }
 
     //javadoc: AlignMTB::getMaxBits()
     public int getMaxBits() {
 
-        int retVal = getMaxBits_0(nativeObj);
-
-        return retVal;
+        return getMaxBits_0(nativeObj);
     }
 
     //javadoc: AlignMTB::setMaxBits(max_bits)
@@ -166,7 +156,6 @@ public class AlignMTB extends AlignExposures {
 
         setMaxBits_0(nativeObj, max_bits);
 
-        return;
     }
 
     //javadoc: AlignMTB::computeBitmaps(img, tb, eb)
@@ -174,7 +163,6 @@ public class AlignMTB extends AlignExposures {
 
         computeBitmaps_0(nativeObj, img.nativeObj, tb.nativeObj, eb.nativeObj);
 
-        return;
     }
 
     //javadoc: AlignMTB::process(src, dst, times, response)
@@ -183,7 +171,6 @@ public class AlignMTB extends AlignExposures {
         Mat dst_mat = Converters.vector_Mat_to_Mat(dst);
         process_0(nativeObj, src_mat.nativeObj, dst_mat.nativeObj, times.nativeObj, response.nativeObj);
 
-        return;
     }
 
     //javadoc: AlignMTB::process(src, dst)
@@ -192,7 +179,6 @@ public class AlignMTB extends AlignExposures {
         Mat dst_mat = Converters.vector_Mat_to_Mat(dst);
         process_1(nativeObj, src_mat.nativeObj, dst_mat.nativeObj);
 
-        return;
     }
 
     //javadoc: AlignMTB::shiftMat(src, dst, shift)
@@ -200,11 +186,11 @@ public class AlignMTB extends AlignExposures {
 
         shiftMat_0(nativeObj, src.nativeObj, dst.nativeObj, shift.x, shift.y);
 
-        return;
     }
 
     @Override
     protected void finalize() throws Throwable {
+        super.finalize();
         delete(nativeObj);
     }
 

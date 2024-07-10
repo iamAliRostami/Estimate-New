@@ -23,7 +23,15 @@ public class LovelyTextInputDialog extends AbsLovelyDialog<LovelyTextInputDialog
     private static final String KEY_TYPED_TEXT = "key_typed_text";
 
     @SuppressLint("StaticFieldLeak")
-    private static EditText editText1, editText2, editText3, editText4, editText5;
+    private static EditText editText1;
+    @SuppressLint("StaticFieldLeak")
+    private static EditText editText2;
+    @SuppressLint("StaticFieldLeak")
+    private static EditText editText3;
+    @SuppressLint("StaticFieldLeak")
+    private static EditText editText4;
+    @SuppressLint("StaticFieldLeak")
+    private static EditText editText5;
     private final TextView errorMessage;
     private final TextView confirmButton;
     private final TextView negativeButton;
@@ -59,7 +67,7 @@ public class LovelyTextInputDialog extends AbsLovelyDialog<LovelyTextInputDialog
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (editable.length() > 0) {
+                if (!editable.isEmpty()) {
                     viewFocus = editText2;
                     viewFocus.requestFocus();
                 }
@@ -80,7 +88,7 @@ public class LovelyTextInputDialog extends AbsLovelyDialog<LovelyTextInputDialog
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (editable.length() > 0) {
+                if (!editable.isEmpty()) {
                     viewFocus = editText3;
                     viewFocus.requestFocus();
                 }
@@ -103,7 +111,7 @@ public class LovelyTextInputDialog extends AbsLovelyDialog<LovelyTextInputDialog
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (editable.length() > 0) {
+                if (!editable.isEmpty()) {
                     viewFocus = editText4;
                     viewFocus.requestFocus();
                 }
@@ -122,7 +130,7 @@ public class LovelyTextInputDialog extends AbsLovelyDialog<LovelyTextInputDialog
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (editable.length() > 0) {
+                if (!editable.isEmpty()) {
                     viewFocus = editText5;
                     viewFocus.requestFocus();
                 }
@@ -133,7 +141,7 @@ public class LovelyTextInputDialog extends AbsLovelyDialog<LovelyTextInputDialog
             @Override
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
                 if (i == KeyEvent.KEYCODE_DEL) {
-                    if (editText2.getText().length() < 1) {
+                    if (editText2.getText().isEmpty()) {
                         viewFocus = editText1;
                         viewFocus.requestFocus();
                     }
@@ -145,7 +153,7 @@ public class LovelyTextInputDialog extends AbsLovelyDialog<LovelyTextInputDialog
             @Override
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
                 if (i == KeyEvent.KEYCODE_DEL) {
-                    if (editText3.getText().length() < 1) {
+                    if (editText3.getText().isEmpty()) {
                         viewFocus = editText2;
                         viewFocus.requestFocus();
                     }
@@ -157,7 +165,7 @@ public class LovelyTextInputDialog extends AbsLovelyDialog<LovelyTextInputDialog
             @Override
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
                 if (i == KeyEvent.KEYCODE_DEL) {
-                    if (editText4.getText().length() < 1) {
+                    if (editText4.getText().isEmpty()) {
                         viewFocus = editText3;
                         viewFocus.requestFocus();
                     }
@@ -169,7 +177,7 @@ public class LovelyTextInputDialog extends AbsLovelyDialog<LovelyTextInputDialog
             @Override
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
                 if (i == KeyEvent.KEYCODE_DEL) {
-                    if (editText5.getText().length() < 1) {
+                    if (editText5.getText().isEmpty()) {
                         viewFocus = editText4;
                         viewFocus.requestFocus();
                     }

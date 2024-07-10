@@ -81,9 +81,6 @@ public class EditMapFragment extends Fragment implements View.OnClickListener {
         } else if (id == R.id.button_pre) {
             formActivity.setOnPreClickListener(MAP_DESCRIPTION_FRAGMENT);
         } else if (id == R.id.button_submit) {
-            //TODO
-//            BITMAP_SELECTED = binding.signatureView.getSignatureBitmap();
-//            MAP_SELECTED = binding.signatureView.getSignatureBitmap();
             MAP_SELECTED = createImage(binding.signatureView.getSignatureBitmap(), true,
                     formActivity.getExaminerDuty().x1, formActivity.getExaminerDuty().y1);
             formActivity.setEditMap();

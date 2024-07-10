@@ -23,7 +23,6 @@ public class Mat {
 
         nativeObj = n_Mat();
 
-        return;
     }
 
     //
@@ -35,7 +34,6 @@ public class Mat {
 
         nativeObj = n_Mat(rows, cols, type);
 
-        return;
     }
 
     //
@@ -47,7 +45,6 @@ public class Mat {
 
         nativeObj = n_Mat(rows, cols, type, data);
 
-        return;
     }
 
     //
@@ -59,7 +56,6 @@ public class Mat {
 
         nativeObj = n_Mat(size.width, size.height, type);
 
-        return;
     }
 
     //
@@ -71,7 +67,6 @@ public class Mat {
 
         nativeObj = n_Mat(rows, cols, type, s.val[0], s.val[1], s.val[2], s.val[3]);
 
-        return;
     }
 
     //
@@ -83,7 +78,6 @@ public class Mat {
 
         nativeObj = n_Mat(size.width, size.height, type, s.val[0], s.val[1], s.val[2], s.val[3]);
 
-        return;
     }
 
     //
@@ -95,7 +89,6 @@ public class Mat {
 
         nativeObj = n_Mat(m.nativeObj, rowRange.start, rowRange.end, colRange.start, colRange.end);
 
-        return;
     }
 
     // javadoc: Mat::Mat(m, rowRange)
@@ -103,7 +96,6 @@ public class Mat {
 
         nativeObj = n_Mat(m.nativeObj, rowRange.start, rowRange.end);
 
-        return;
     }
 
     //
@@ -115,7 +107,6 @@ public class Mat {
 
         nativeObj = n_Mat(m.nativeObj, roi.y, roi.y + roi.height, roi.x, roi.x + roi.width);
 
-        return;
     }
 
     //
@@ -125,9 +116,7 @@ public class Mat {
     // javadoc: Mat::diag(d)
     public static Mat diag(Mat d) {
 
-        Mat retVal = new Mat(n_diag(d.nativeObj));
-
-        return retVal;
+        return new Mat(n_diag(d.nativeObj));
     }
 
     //
@@ -137,17 +126,13 @@ public class Mat {
     // javadoc: Mat::eye(rows, cols, type)
     public static Mat eye(int rows, int cols, int type) {
 
-        Mat retVal = new Mat(n_eye(rows, cols, type));
-
-        return retVal;
+        return new Mat(n_eye(rows, cols, type));
     }
 
     // javadoc: Mat::eye(size, type)
     public static Mat eye(Size size, int type) {
 
-        Mat retVal = new Mat(n_eye(size.width, size.height, type));
-
-        return retVal;
+        return new Mat(n_eye(size.width, size.height, type));
     }
 
     //
@@ -157,9 +142,7 @@ public class Mat {
     // javadoc: Mat::ones(rows, cols, type)
     public static Mat ones(int rows, int cols, int type) {
 
-        Mat retVal = new Mat(n_ones(rows, cols, type));
-
-        return retVal;
+        return new Mat(n_ones(rows, cols, type));
     }
 
     //
@@ -170,25 +153,19 @@ public class Mat {
     // javadoc: Mat::ones(size, type)
     public static Mat ones(Size size, int type) {
 
-        Mat retVal = new Mat(n_ones(size.width, size.height, type));
-
-        return retVal;
+        return new Mat(n_ones(size.width, size.height, type));
     }
 
     // javadoc: Mat::zeros(rows, cols, type)
     public static Mat zeros(int rows, int cols, int type) {
 
-        Mat retVal = new Mat(n_zeros(rows, cols, type));
-
-        return retVal;
+        return new Mat(n_zeros(rows, cols, type));
     }
 
     // javadoc: Mat::zeros(size, type)
     public static Mat zeros(Size size, int type) {
 
-        Mat retVal = new Mat(n_zeros(size.width, size.height, type));
-
-        return retVal;
+        return new Mat(n_zeros(size.width, size.height, type));
     }
 
     //
@@ -616,9 +593,7 @@ public class Mat {
     // javadoc: Mat::adjustROI(dtop, dbottom, dleft, dright)
     public Mat adjustROI(int dtop, int dbottom, int dleft, int dright) {
 
-        Mat retVal = new Mat(n_adjustROI(nativeObj, dtop, dbottom, dleft, dright));
-
-        return retVal;
+        return new Mat(n_adjustROI(nativeObj, dtop, dbottom, dleft, dright));
     }
 
     // javadoc: Mat::assignTo(m, type)
@@ -626,7 +601,6 @@ public class Mat {
 
         n_assignTo(nativeObj, m.nativeObj, type);
 
-        return;
     }
 
     // javadoc: Mat::assignTo(m)
@@ -634,87 +608,66 @@ public class Mat {
 
         n_assignTo(nativeObj, m.nativeObj);
 
-        return;
     }
 
     // javadoc: Mat::channels()
     public int channels() {
 
-        int retVal = n_channels(nativeObj);
-
-        return retVal;
+        return n_channels(nativeObj);
     }
 
     // javadoc: Mat::checkVector(elemChannels, depth, requireContinuous)
     public int checkVector(int elemChannels, int depth, boolean requireContinuous) {
 
-        int retVal = n_checkVector(nativeObj, elemChannels, depth, requireContinuous);
-
-        return retVal;
+        return n_checkVector(nativeObj, elemChannels, depth, requireContinuous);
     }
 
     // javadoc: Mat::checkVector(elemChannels, depth)
     public int checkVector(int elemChannels, int depth) {
 
-        int retVal = n_checkVector(nativeObj, elemChannels, depth);
-
-        return retVal;
+        return n_checkVector(nativeObj, elemChannels, depth);
     }
 
     // javadoc: Mat::checkVector(elemChannels)
     public int checkVector(int elemChannels) {
 
-        int retVal = n_checkVector(nativeObj, elemChannels);
-
-        return retVal;
+        return n_checkVector(nativeObj, elemChannels);
     }
 
     // javadoc: Mat::clone()
     public Mat clone() {
 
-        Mat retVal = new Mat(n_clone(nativeObj));
-
-        return retVal;
+        return new Mat(n_clone(nativeObj));
     }
 
     // javadoc: Mat::col(x)
     public Mat col(int x) {
 
-        Mat retVal = new Mat(n_col(nativeObj, x));
-
-        return retVal;
+        return new Mat(n_col(nativeObj, x));
     }
 
     // javadoc: Mat::colRange(startcol, endcol)
     public Mat colRange(int startcol, int endcol) {
 
-        Mat retVal = new Mat(n_colRange(nativeObj, startcol, endcol));
-
-        return retVal;
+        return new Mat(n_colRange(nativeObj, startcol, endcol));
     }
 
     // javadoc: Mat::colRange(r)
     public Mat colRange(Range r) {
 
-        Mat retVal = new Mat(n_colRange(nativeObj, r.start, r.end));
-
-        return retVal;
+        return new Mat(n_colRange(nativeObj, r.start, r.end));
     }
 
     // javadoc: Mat::dims()
     public int dims() {
 
-        int retVal = n_dims(nativeObj);
-
-        return retVal;
+        return n_dims(nativeObj);
     }
 
     // javadoc: Mat::cols()
     public int cols() {
 
-        int retVal = n_cols(nativeObj);
-
-        return retVal;
+        return n_cols(nativeObj);
     }
 
     // javadoc: Mat::convertTo(m, rtype, alpha, beta)
@@ -722,7 +675,6 @@ public class Mat {
 
         n_convertTo(nativeObj, m.nativeObj, rtype, alpha, beta);
 
-        return;
     }
 
     // javadoc: Mat::convertTo(m, rtype, alpha)
@@ -730,7 +682,6 @@ public class Mat {
 
         n_convertTo(nativeObj, m.nativeObj, rtype, alpha);
 
-        return;
     }
 
     // javadoc: Mat::convertTo(m, rtype)
@@ -738,7 +689,6 @@ public class Mat {
 
         n_convertTo(nativeObj, m.nativeObj, rtype);
 
-        return;
     }
 
     // javadoc: Mat::copyTo(m)
@@ -746,7 +696,6 @@ public class Mat {
 
         n_copyTo(nativeObj, m.nativeObj);
 
-        return;
     }
 
     // javadoc: Mat::copyTo(m, mask)
@@ -754,7 +703,6 @@ public class Mat {
 
         n_copyTo(nativeObj, m.nativeObj, mask.nativeObj);
 
-        return;
     }
 
     // javadoc: Mat::create(rows, cols, type)
@@ -762,7 +710,6 @@ public class Mat {
 
         n_create(nativeObj, rows, cols, type);
 
-        return;
     }
 
     // javadoc: Mat::create(size, type)
@@ -770,111 +717,84 @@ public class Mat {
 
         n_create(nativeObj, size.width, size.height, type);
 
-        return;
     }
 
     // javadoc: Mat::cross(m)
     public Mat cross(Mat m) {
 
-        Mat retVal = new Mat(n_cross(nativeObj, m.nativeObj));
-
-        return retVal;
+        return new Mat(n_cross(nativeObj, m.nativeObj));
     }
 
     // javadoc: Mat::dataAddr()
     public long dataAddr() {
 
-        long retVal = n_dataAddr(nativeObj);
-
-        return retVal;
+        return n_dataAddr(nativeObj);
     }
 
     // javadoc: Mat::depth()
     public int depth() {
 
-        int retVal = n_depth(nativeObj);
-
-        return retVal;
+        return n_depth(nativeObj);
     }
 
     // javadoc: Mat::diag(d)
     public Mat diag(int d) {
 
-        Mat retVal = new Mat(n_diag(nativeObj, d));
-
-        return retVal;
+        return new Mat(n_diag(nativeObj, d));
     }
 
     // javadoc: Mat::diag()
     public Mat diag() {
 
-        Mat retVal = new Mat(n_diag(nativeObj, 0));
-
-        return retVal;
+        return new Mat(n_diag(nativeObj, 0));
     }
 
     // javadoc: Mat::dot(m)
     public double dot(Mat m) {
 
-        double retVal = n_dot(nativeObj, m.nativeObj);
-
-        return retVal;
+        return n_dot(nativeObj, m.nativeObj);
     }
 
     // javadoc: Mat::elemSize()
     public long elemSize() {
 
-        long retVal = n_elemSize(nativeObj);
-
-        return retVal;
+        return n_elemSize(nativeObj);
     }
 
     // javadoc: Mat::elemSize1()
     public long elemSize1() {
 
-        long retVal = n_elemSize1(nativeObj);
-
-        return retVal;
+        return n_elemSize1(nativeObj);
     }
 
     // javadoc: Mat::empty()
     public boolean empty() {
 
-        boolean retVal = n_empty(nativeObj);
-
-        return retVal;
+        return n_empty(nativeObj);
     }
 
     // javadoc: Mat::inv(method)
     public Mat inv(int method) {
 
-        Mat retVal = new Mat(n_inv(nativeObj, method));
-
-        return retVal;
+        return new Mat(n_inv(nativeObj, method));
     }
 
     // javadoc: Mat::inv()
     public Mat inv() {
 
-        Mat retVal = new Mat(n_inv(nativeObj));
-
-        return retVal;
+        return new Mat(n_inv(nativeObj));
     }
 
     // javadoc: Mat::isContinuous()
     public boolean isContinuous() {
 
-        boolean retVal = n_isContinuous(nativeObj);
-
-        return retVal;
+        return n_isContinuous(nativeObj);
     }
 
     // javadoc: Mat::isSubmatrix()
     public boolean isSubmatrix() {
 
-        boolean retVal = n_isSubmatrix(nativeObj);
-
-        return retVal;
+        return n_isSubmatrix(nativeObj);
     }
 
     // javadoc: Mat::locateROI(wholeSize, ofs)
@@ -890,23 +810,18 @@ public class Mat {
             ofs.x = ofs_out[0];
             ofs.y = ofs_out[1];
         }
-        return;
     }
 
     // javadoc: Mat::mul(m, scale)
     public Mat mul(Mat m, double scale) {
 
-        Mat retVal = new Mat(n_mul(nativeObj, m.nativeObj, scale));
-
-        return retVal;
+        return new Mat(n_mul(nativeObj, m.nativeObj, scale));
     }
 
     // javadoc: Mat::mul(m)
     public Mat mul(Mat m) {
 
-        Mat retVal = new Mat(n_mul(nativeObj, m.nativeObj));
-
-        return retVal;
+        return new Mat(n_mul(nativeObj, m.nativeObj));
     }
 
     // javadoc: Mat::push_back(m)
@@ -914,7 +829,6 @@ public class Mat {
 
         n_push_back(nativeObj, m.nativeObj);
 
-        return;
     }
 
     // javadoc: Mat::release()
@@ -922,159 +836,120 @@ public class Mat {
 
         n_release(nativeObj);
 
-        return;
     }
 
     // javadoc: Mat::reshape(cn, rows)
     public Mat reshape(int cn, int rows) {
 
-        Mat retVal = new Mat(n_reshape(nativeObj, cn, rows));
-
-        return retVal;
+        return new Mat(n_reshape(nativeObj, cn, rows));
     }
 
     // javadoc: Mat::reshape(cn)
     public Mat reshape(int cn) {
 
-        Mat retVal = new Mat(n_reshape(nativeObj, cn));
-
-        return retVal;
+        return new Mat(n_reshape(nativeObj, cn));
     }
 
     // javadoc: Mat::row(y)
     public Mat row(int y) {
 
-        Mat retVal = new Mat(n_row(nativeObj, y));
-
-        return retVal;
+        return new Mat(n_row(nativeObj, y));
     }
 
     // javadoc: Mat::rowRange(startrow, endrow)
     public Mat rowRange(int startrow, int endrow) {
 
-        Mat retVal = new Mat(n_rowRange(nativeObj, startrow, endrow));
-
-        return retVal;
+        return new Mat(n_rowRange(nativeObj, startrow, endrow));
     }
 
     // javadoc: Mat::rowRange(r)
     public Mat rowRange(Range r) {
 
-        Mat retVal = new Mat(n_rowRange(nativeObj, r.start, r.end));
-
-        return retVal;
+        return new Mat(n_rowRange(nativeObj, r.start, r.end));
     }
 
     // javadoc: Mat::rows()
     public int rows() {
 
-        int retVal = n_rows(nativeObj);
-
-        return retVal;
+        return n_rows(nativeObj);
     }
 
     // javadoc: Mat::operator =(s)
     public Mat setTo(Scalar s) {
 
-        Mat retVal = new Mat(n_setTo(nativeObj, s.val[0], s.val[1], s.val[2], s.val[3]));
-
-        return retVal;
+        return new Mat(n_setTo(nativeObj, s.val[0], s.val[1], s.val[2], s.val[3]));
     }
 
     // javadoc: Mat::setTo(value, mask)
     public Mat setTo(Scalar value, Mat mask) {
 
-        Mat retVal = new Mat(n_setTo(nativeObj, value.val[0], value.val[1], value.val[2], value.val[3], mask.nativeObj));
-
-        return retVal;
+        return new Mat(n_setTo(nativeObj, value.val[0], value.val[1], value.val[2], value.val[3], mask.nativeObj));
     }
 
     // javadoc: Mat::setTo(value, mask)
     public Mat setTo(Mat value, Mat mask) {
 
-        Mat retVal = new Mat(n_setTo(nativeObj, value.nativeObj, mask.nativeObj));
-
-        return retVal;
+        return new Mat(n_setTo(nativeObj, value.nativeObj, mask.nativeObj));
     }
 
     // javadoc: Mat::setTo(value)
     public Mat setTo(Mat value) {
 
-        Mat retVal = new Mat(n_setTo(nativeObj, value.nativeObj));
-
-        return retVal;
+        return new Mat(n_setTo(nativeObj, value.nativeObj));
     }
 
     // javadoc: Mat::size()
     public Size size() {
 
-        Size retVal = new Size(n_size(nativeObj));
-
-        return retVal;
+        return new Size(n_size(nativeObj));
     }
 
     // javadoc: Mat::step1(i)
     public long step1(int i) {
 
-        long retVal = n_step1(nativeObj, i);
-
-        return retVal;
+        return n_step1(nativeObj, i);
     }
 
     // javadoc: Mat::step1()
     public long step1() {
 
-        long retVal = n_step1(nativeObj);
-
-        return retVal;
+        return n_step1(nativeObj);
     }
 
     // javadoc: Mat::operator()(rowStart, rowEnd, colStart, colEnd)
     public Mat submat(int rowStart, int rowEnd, int colStart, int colEnd) {
 
-        Mat retVal = new Mat(n_submat_rr(nativeObj, rowStart, rowEnd, colStart, colEnd));
-
-        return retVal;
+        return new Mat(n_submat_rr(nativeObj, rowStart, rowEnd, colStart, colEnd));
     }
 
     // javadoc: Mat::operator()(rowRange, colRange)
     public Mat submat(Range rowRange, Range colRange) {
 
-        Mat retVal = new Mat(n_submat_rr(nativeObj, rowRange.start, rowRange.end, colRange.start, colRange.end));
-
-        return retVal;
+        return new Mat(n_submat_rr(nativeObj, rowRange.start, rowRange.end, colRange.start, colRange.end));
     }
 
     // javadoc: Mat::operator()(roi)
     public Mat submat(Rect roi) {
 
-        Mat retVal = new Mat(n_submat(nativeObj, roi.x, roi.y, roi.width, roi.height));
-
-        return retVal;
+        return new Mat(n_submat(nativeObj, roi.x, roi.y, roi.width, roi.height));
     }
 
     // javadoc: Mat::t()
     public Mat t() {
 
-        Mat retVal = new Mat(n_t(nativeObj));
-
-        return retVal;
+        return new Mat(n_t(nativeObj));
     }
 
     // javadoc: Mat::total()
     public long total() {
 
-        long retVal = n_total(nativeObj);
-
-        return retVal;
+        return n_total(nativeObj);
     }
 
     // javadoc: Mat::type()
     public int type() {
 
-        int retVal = n_type(nativeObj);
-
-        return retVal;
+        return n_type(nativeObj);
     }
 
     @Override

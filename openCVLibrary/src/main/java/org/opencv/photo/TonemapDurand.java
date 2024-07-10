@@ -86,9 +86,7 @@ public class TonemapDurand extends Tonemap {
     //javadoc: TonemapDurand::getContrast()
     public float getContrast() {
 
-        float retVal = getContrast_0(nativeObj);
-
-        return retVal;
+        return getContrast_0(nativeObj);
     }
 
     //javadoc: TonemapDurand::setContrast(contrast)
@@ -96,15 +94,12 @@ public class TonemapDurand extends Tonemap {
 
         setContrast_0(nativeObj, contrast);
 
-        return;
     }
 
     //javadoc: TonemapDurand::getSaturation()
     public float getSaturation() {
 
-        float retVal = getSaturation_0(nativeObj);
-
-        return retVal;
+        return getSaturation_0(nativeObj);
     }
 
     //javadoc: TonemapDurand::setSaturation(saturation)
@@ -112,15 +107,12 @@ public class TonemapDurand extends Tonemap {
 
         setSaturation_0(nativeObj, saturation);
 
-        return;
     }
 
     //javadoc: TonemapDurand::getSigmaColor()
     public float getSigmaColor() {
 
-        float retVal = getSigmaColor_0(nativeObj);
-
-        return retVal;
+        return getSigmaColor_0(nativeObj);
     }
 
     //javadoc: TonemapDurand::setSigmaColor(sigma_color)
@@ -128,15 +120,12 @@ public class TonemapDurand extends Tonemap {
 
         setSigmaColor_0(nativeObj, sigma_color);
 
-        return;
     }
 
     //javadoc: TonemapDurand::getSigmaSpace()
     public float getSigmaSpace() {
 
-        float retVal = getSigmaSpace_0(nativeObj);
-
-        return retVal;
+        return getSigmaSpace_0(nativeObj);
     }
 
     //javadoc: TonemapDurand::setSigmaSpace(sigma_space)
@@ -144,11 +133,11 @@ public class TonemapDurand extends Tonemap {
 
         setSigmaSpace_0(nativeObj, sigma_space);
 
-        return;
     }
 
     @Override
     protected void finalize() throws Throwable {
+        super.finalize();
         delete(nativeObj);
     }
 

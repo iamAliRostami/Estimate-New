@@ -70,9 +70,7 @@ public class CalibrateDebevec extends CalibrateCRF {
     //javadoc: CalibrateDebevec::getRandom()
     public boolean getRandom() {
 
-        boolean retVal = getRandom_0(nativeObj);
-
-        return retVal;
+        return getRandom_0(nativeObj);
     }
 
     //javadoc: CalibrateDebevec::setRandom(random)
@@ -80,15 +78,12 @@ public class CalibrateDebevec extends CalibrateCRF {
 
         setRandom_0(nativeObj, random);
 
-        return;
     }
 
     //javadoc: CalibrateDebevec::getLambda()
     public float getLambda() {
 
-        float retVal = getLambda_0(nativeObj);
-
-        return retVal;
+        return getLambda_0(nativeObj);
     }
 
     //javadoc: CalibrateDebevec::setLambda(lambda)
@@ -96,15 +91,12 @@ public class CalibrateDebevec extends CalibrateCRF {
 
         setLambda_0(nativeObj, lambda);
 
-        return;
     }
 
     //javadoc: CalibrateDebevec::getSamples()
     public int getSamples() {
 
-        int retVal = getSamples_0(nativeObj);
-
-        return retVal;
+        return getSamples_0(nativeObj);
     }
 
     //javadoc: CalibrateDebevec::setSamples(samples)
@@ -112,11 +104,11 @@ public class CalibrateDebevec extends CalibrateCRF {
 
         setSamples_0(nativeObj, samples);
 
-        return;
     }
 
     @Override
     protected void finalize() throws Throwable {
+        super.finalize();
         delete(nativeObj);
     }
 

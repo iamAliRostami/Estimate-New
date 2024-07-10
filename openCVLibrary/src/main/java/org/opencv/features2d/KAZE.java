@@ -31,17 +31,13 @@ public class KAZE extends Feature2D {
     //javadoc: KAZE::create(extended, upright, threshold, nOctaves, nOctaveLayers, diffusivity)
     public static KAZE create(boolean extended, boolean upright, float threshold, int nOctaves, int nOctaveLayers, int diffusivity) {
 
-        KAZE retVal = KAZE.__fromPtr__(create_0(extended, upright, threshold, nOctaves, nOctaveLayers, diffusivity));
-
-        return retVal;
+        return KAZE.__fromPtr__(create_0(extended, upright, threshold, nOctaves, nOctaveLayers, diffusivity));
     }
 
     //javadoc: KAZE::create()
     public static KAZE create() {
 
-        KAZE retVal = KAZE.__fromPtr__(create_1());
-
-        return retVal;
+        return KAZE.__fromPtr__(create_1());
     }
 
 
@@ -159,17 +155,13 @@ public class KAZE extends Feature2D {
     //javadoc: KAZE::getDefaultName()
     public String getDefaultName() {
 
-        String retVal = getDefaultName_0(nativeObj);
-
-        return retVal;
+        return getDefaultName_0(nativeObj);
     }
 
     //javadoc: KAZE::getExtended()
     public boolean getExtended() {
 
-        boolean retVal = getExtended_0(nativeObj);
-
-        return retVal;
+        return getExtended_0(nativeObj);
     }
 
     //javadoc: KAZE::setExtended(extended)
@@ -177,15 +169,12 @@ public class KAZE extends Feature2D {
 
         setExtended_0(nativeObj, extended);
 
-        return;
     }
 
     //javadoc: KAZE::getUpright()
     public boolean getUpright() {
 
-        boolean retVal = getUpright_0(nativeObj);
-
-        return retVal;
+        return getUpright_0(nativeObj);
     }
 
     //javadoc: KAZE::setUpright(upright)
@@ -193,15 +182,12 @@ public class KAZE extends Feature2D {
 
         setUpright_0(nativeObj, upright);
 
-        return;
     }
 
     //javadoc: KAZE::getThreshold()
     public double getThreshold() {
 
-        double retVal = getThreshold_0(nativeObj);
-
-        return retVal;
+        return getThreshold_0(nativeObj);
     }
 
     //javadoc: KAZE::setThreshold(threshold)
@@ -209,15 +195,12 @@ public class KAZE extends Feature2D {
 
         setThreshold_0(nativeObj, threshold);
 
-        return;
     }
 
     //javadoc: KAZE::getDiffusivity()
     public int getDiffusivity() {
 
-        int retVal = getDiffusivity_0(nativeObj);
-
-        return retVal;
+        return getDiffusivity_0(nativeObj);
     }
 
     //javadoc: KAZE::setDiffusivity(diff)
@@ -225,15 +208,12 @@ public class KAZE extends Feature2D {
 
         setDiffusivity_0(nativeObj, diff);
 
-        return;
     }
 
     //javadoc: KAZE::getNOctaveLayers()
     public int getNOctaveLayers() {
 
-        int retVal = getNOctaveLayers_0(nativeObj);
-
-        return retVal;
+        return getNOctaveLayers_0(nativeObj);
     }
 
     //javadoc: KAZE::setNOctaveLayers(octaveLayers)
@@ -241,15 +221,12 @@ public class KAZE extends Feature2D {
 
         setNOctaveLayers_0(nativeObj, octaveLayers);
 
-        return;
     }
 
     //javadoc: KAZE::getNOctaves()
     public int getNOctaves() {
 
-        int retVal = getNOctaves_0(nativeObj);
-
-        return retVal;
+        return getNOctaves_0(nativeObj);
     }
 
     //javadoc: KAZE::setNOctaves(octaves)
@@ -257,11 +234,11 @@ public class KAZE extends Feature2D {
 
         setNOctaves_0(nativeObj, octaves);
 
-        return;
     }
 
     @Override
     protected void finalize() throws Throwable {
+        super.finalize();
         delete(nativeObj);
     }
 

@@ -146,55 +146,43 @@ public class Feature2D extends Algorithm {
     //javadoc: Feature2D::getDefaultName()
     public String getDefaultName() {
 
-        String retVal = getDefaultName_0(nativeObj);
-
-        return retVal;
+        return getDefaultName_0(nativeObj);
     }
 
     //javadoc: Feature2D::empty()
     public boolean empty() {
 
-        boolean retVal = empty_0(nativeObj);
-
-        return retVal;
+        return empty_0(nativeObj);
     }
 
     //javadoc: Feature2D::defaultNorm()
     public int defaultNorm() {
 
-        int retVal = defaultNorm_0(nativeObj);
-
-        return retVal;
+        return defaultNorm_0(nativeObj);
     }
 
     //javadoc: Feature2D::descriptorSize()
     public int descriptorSize() {
 
-        int retVal = descriptorSize_0(nativeObj);
-
-        return retVal;
+        return descriptorSize_0(nativeObj);
     }
 
     //javadoc: Feature2D::descriptorType()
     public int descriptorType() {
 
-        int retVal = descriptorType_0(nativeObj);
-
-        return retVal;
+        return descriptorType_0(nativeObj);
     }
 
     //javadoc: Feature2D::compute(image, keypoints, descriptors)
     public void compute(Mat image, MatOfKeyPoint keypoints, Mat descriptors) {
-        Mat keypoints_mat = keypoints;
-        compute_0(nativeObj, image.nativeObj, keypoints_mat.nativeObj, descriptors.nativeObj);
+        compute_0(nativeObj, image.nativeObj, keypoints.nativeObj, descriptors.nativeObj);
 
-        return;
     }
 
     //javadoc: Feature2D::compute(images, keypoints, descriptors)
     public void compute(List<Mat> images, List<MatOfKeyPoint> keypoints, List<Mat> descriptors) {
         Mat images_mat = Converters.vector_Mat_to_Mat(images);
-        List<Mat> keypoints_tmplm = new ArrayList<Mat>((keypoints != null) ? keypoints.size() : 0);
+        List<Mat> keypoints_tmplm = new ArrayList<>((keypoints != null) ? keypoints.size() : 0);
         Mat keypoints_mat = Converters.vector_vector_KeyPoint_to_Mat(keypoints, keypoints_tmplm);
         Mat descriptors_mat = new Mat();
         compute_1(nativeObj, images_mat.nativeObj, keypoints_mat.nativeObj, descriptors_mat.nativeObj);
@@ -202,23 +190,18 @@ public class Feature2D extends Algorithm {
         keypoints_mat.release();
         Converters.Mat_to_vector_Mat(descriptors_mat, descriptors);
         descriptors_mat.release();
-        return;
     }
 
     //javadoc: Feature2D::detect(image, keypoints, mask)
     public void detect(Mat image, MatOfKeyPoint keypoints, Mat mask) {
-        Mat keypoints_mat = keypoints;
-        detect_0(nativeObj, image.nativeObj, keypoints_mat.nativeObj, mask.nativeObj);
+        detect_0(nativeObj, image.nativeObj, keypoints.nativeObj, mask.nativeObj);
 
-        return;
     }
 
     //javadoc: Feature2D::detect(image, keypoints)
     public void detect(Mat image, MatOfKeyPoint keypoints) {
-        Mat keypoints_mat = keypoints;
-        detect_1(nativeObj, image.nativeObj, keypoints_mat.nativeObj);
+        detect_1(nativeObj, image.nativeObj, keypoints.nativeObj);
 
-        return;
     }
 
     //javadoc: Feature2D::detect(images, keypoints, masks)
@@ -229,7 +212,6 @@ public class Feature2D extends Algorithm {
         detect_2(nativeObj, images_mat.nativeObj, keypoints_mat.nativeObj, masks_mat.nativeObj);
         Converters.Mat_to_vector_vector_KeyPoint(keypoints_mat, keypoints);
         keypoints_mat.release();
-        return;
     }
 
     //javadoc: Feature2D::detect(images, keypoints)
@@ -239,23 +221,18 @@ public class Feature2D extends Algorithm {
         detect_3(nativeObj, images_mat.nativeObj, keypoints_mat.nativeObj);
         Converters.Mat_to_vector_vector_KeyPoint(keypoints_mat, keypoints);
         keypoints_mat.release();
-        return;
     }
 
     //javadoc: Feature2D::detectAndCompute(image, mask, keypoints, descriptors, useProvidedKeypoints)
     public void detectAndCompute(Mat image, Mat mask, MatOfKeyPoint keypoints, Mat descriptors, boolean useProvidedKeypoints) {
-        Mat keypoints_mat = keypoints;
-        detectAndCompute_0(nativeObj, image.nativeObj, mask.nativeObj, keypoints_mat.nativeObj, descriptors.nativeObj, useProvidedKeypoints);
+        detectAndCompute_0(nativeObj, image.nativeObj, mask.nativeObj, keypoints.nativeObj, descriptors.nativeObj, useProvidedKeypoints);
 
-        return;
     }
 
     //javadoc: Feature2D::detectAndCompute(image, mask, keypoints, descriptors)
     public void detectAndCompute(Mat image, Mat mask, MatOfKeyPoint keypoints, Mat descriptors) {
-        Mat keypoints_mat = keypoints;
-        detectAndCompute_1(nativeObj, image.nativeObj, mask.nativeObj, keypoints_mat.nativeObj, descriptors.nativeObj);
+        detectAndCompute_1(nativeObj, image.nativeObj, mask.nativeObj, keypoints.nativeObj, descriptors.nativeObj);
 
-        return;
     }
 
     //javadoc: Feature2D::read(fileName)
@@ -263,7 +240,6 @@ public class Feature2D extends Algorithm {
 
         read_0(nativeObj, fileName);
 
-        return;
     }
 
     //javadoc: Feature2D::write(fileName)
@@ -271,11 +247,11 @@ public class Feature2D extends Algorithm {
 
         write_0(nativeObj, fileName);
 
-        return;
     }
 
     @Override
     protected void finalize() throws Throwable {
+        super.finalize();
         delete(nativeObj);
     }
 

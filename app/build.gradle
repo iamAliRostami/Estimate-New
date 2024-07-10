@@ -102,8 +102,8 @@ android {
         applicationId "com.leon.estimate_new"
         minSdk 23
         targetSdk 35
-        versionCode 13
-        versionName "2.03.03.19"
+        versionCode 14
+        versionName "2.03.04.20"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
@@ -151,7 +151,7 @@ dependencies {
     def retrofit2_version = '2.11.0'
 //    implementation "androidx.activity:activity:1.5.0"
 //    implementation "androidx.fragment:fragment:1.3.6"
-    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
 //    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     testImplementation 'junit:junit:4.13.2'
 //    androidTestImplementation 'androidx.test.ext:junit:1.1.3'

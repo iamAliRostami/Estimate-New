@@ -9,18 +9,18 @@ import androidx.room.PrimaryKey;
 public class Calculation {
     @PrimaryKey(autoGenerate = true)
     public int id;
-    public String address;
-    public String billId;
-    public String examinationDay;
-    public String examinationId;
-    public String moshtarakMobile;
-    public String nameAndFamily;
-    public String neighbourBillId;
-    public String notificationMobile;
-    public String radif;
-    public String serviceGroup;
-    public String trackNumber;
-    public boolean isPeymayesh;
+    public final String address;
+    public final String billId;
+    public final String examinationDay;
+    public final String examinationId;
+    public final String moshtarakMobile;
+    public final String nameAndFamily;
+    public final String neighbourBillId;
+    public final String notificationMobile;
+    public final String radif;
+    public final String serviceGroup;
+    public final String trackNumber;
+    public final boolean isPeymayesh;
     public boolean read;
 
     public Calculation(String address, String billId, String examinationDay,

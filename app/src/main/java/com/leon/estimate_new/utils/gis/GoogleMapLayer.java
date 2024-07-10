@@ -8,13 +8,8 @@ package com.leon.estimate_new.utils.gis;
 //import com.esri.arcgisruntime.geometry.Point;
 //import com.esri.arcgisruntime.geometry.SpatialReference;
 //import com.esri.arcgisruntime.layers.WebTiledLayer;
-import com.leon.estimate_new.enums.MapType;
-import com.leon.estimate_new.infrastructure.IMapLayer;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import com.leon.estimate_new.infrastructure.IMapLayer;
 
 public class GoogleMapLayer implements IMapLayer {
 

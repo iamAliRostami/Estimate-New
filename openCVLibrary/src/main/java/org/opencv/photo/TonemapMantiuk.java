@@ -54,9 +54,7 @@ public class TonemapMantiuk extends Tonemap {
     //javadoc: TonemapMantiuk::getSaturation()
     public float getSaturation() {
 
-        float retVal = getSaturation_0(nativeObj);
-
-        return retVal;
+        return getSaturation_0(nativeObj);
     }
 
     //javadoc: TonemapMantiuk::setSaturation(saturation)
@@ -64,15 +62,12 @@ public class TonemapMantiuk extends Tonemap {
 
         setSaturation_0(nativeObj, saturation);
 
-        return;
     }
 
     //javadoc: TonemapMantiuk::getScale()
     public float getScale() {
 
-        float retVal = getScale_0(nativeObj);
-
-        return retVal;
+        return getScale_0(nativeObj);
     }
 
     //javadoc: TonemapMantiuk::setScale(scale)
@@ -80,11 +75,11 @@ public class TonemapMantiuk extends Tonemap {
 
         setScale_0(nativeObj, scale);
 
-        return;
     }
 
     @Override
     protected void finalize() throws Throwable {
+        super.finalize();
         delete(nativeObj);
     }
 

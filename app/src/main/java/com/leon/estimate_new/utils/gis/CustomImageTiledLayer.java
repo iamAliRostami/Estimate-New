@@ -7,11 +7,9 @@ package com.leon.estimate_new.utils.gis;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 public class CustomImageTiledLayer /*extends ImageTiledLayer */{
-    private String mainURL = "";
+    private final String mainURL = "";
 
 //    public CustomImageTiledLayer(TileInfo tileInfo, Envelope fullExtent) {
 //        super(tileInfo, fullExtent);

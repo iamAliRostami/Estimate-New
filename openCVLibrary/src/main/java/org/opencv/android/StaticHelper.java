@@ -36,7 +36,7 @@ class StaticHelper {
         Log.d(TAG, "First attempt to load libs");
         if (initOpenCVLibs(libs)) {
             Log.d(TAG, "First attempt to load libs is OK");
-            String eol = System.getProperty("line.separator");
+            String eol = System.lineSeparator();
             for (String str : Core.getBuildInformation().split(eol))
                 Log.i(TAG, str);
 
@@ -70,7 +70,7 @@ class StaticHelper {
 
         boolean result = true;
 
-        if ((null != Libs) && (Libs.length() != 0)) {
+        if ((null != Libs) && (!Libs.isEmpty())) {
             Log.d(TAG, "Trying to load libs by dependency list");
             StringTokenizer splitter = new StringTokenizer(Libs, ";");
             while (splitter.hasMoreTokens()) {

@@ -17,10 +17,10 @@ public class Rect {
     }
 
     public Rect(Point p1, Point p2) {
-        x = (int) (p1.x < p2.x ? p1.x : p2.x);
-        y = (int) (p1.y < p2.y ? p1.y : p2.y);
-        width = (int) (p1.x > p2.x ? p1.x : p2.x) - x;
-        height = (int) (p1.y > p2.y ? p1.y : p2.y) - y;
+        x = (int) (Math.min(p1.x, p2.x));
+        y = (int) (Math.min(p1.y, p2.y));
+        width = (int) (Math.max(p1.x, p2.x)) - x;
+        height = (int) (Math.max(p1.y, p2.y)) - y;
     }
 
     public Rect(Point p, Size s) {
@@ -77,23 +77,17 @@ public class Rect {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        long temp;
-        temp = Double.doubleToLongBits(height);
-        result = prime * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(width);
-        result = prime * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(x);
-        result = prime * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(y);
-        result = prime * result + (int) (temp ^ (temp >>> 32));
+        result = prime * result + Double.hashCode(height);
+        result = prime * result + Double.hashCode(width);
+        result = prime * result + Double.hashCode(x);
+        result = prime * result + Double.hashCode(y);
         return result;
     }
 
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        if (!(obj instanceof Rect)) return false;
-        Rect it = (Rect) obj;
+        if (!(obj instanceof Rect it)) return false;
         return x == it.x && y == it.y && width == it.width && height == it.height;
     }
 

@@ -35,9 +35,7 @@ public class LogisticRegression extends StatModel {
     //javadoc: LogisticRegression::create()
     public static LogisticRegression create() {
 
-        LogisticRegression retVal = LogisticRegression.__fromPtr__(create_0());
-
-        return retVal;
+        return LogisticRegression.__fromPtr__(create_0());
     }
 
 
@@ -48,9 +46,7 @@ public class LogisticRegression extends StatModel {
     //javadoc: LogisticRegression::load(filepath, nodeName)
     public static LogisticRegression load(String filepath, String nodeName) {
 
-        LogisticRegression retVal = LogisticRegression.__fromPtr__(load_0(filepath, nodeName));
-
-        return retVal;
+        return LogisticRegression.__fromPtr__(load_0(filepath, nodeName));
     }
 
 
@@ -61,9 +57,7 @@ public class LogisticRegression extends StatModel {
     //javadoc: LogisticRegression::load(filepath)
     public static LogisticRegression load(String filepath) {
 
-        LogisticRegression retVal = LogisticRegression.__fromPtr__(load_1(filepath));
-
-        return retVal;
+        return LogisticRegression.__fromPtr__(load_1(filepath));
     }
 
     // C++:  Mat get_learnt_thetas()
@@ -189,17 +183,13 @@ public class LogisticRegression extends StatModel {
     //javadoc: LogisticRegression::get_learnt_thetas()
     public Mat get_learnt_thetas() {
 
-        Mat retVal = new Mat(get_learnt_thetas_0(nativeObj));
-
-        return retVal;
+        return new Mat(get_learnt_thetas_0(nativeObj));
     }
 
     //javadoc: LogisticRegression::getTermCriteria()
     public TermCriteria getTermCriteria() {
 
-        TermCriteria retVal = new TermCriteria(getTermCriteria_0(nativeObj));
-
-        return retVal;
+        return new TermCriteria(getTermCriteria_0(nativeObj));
     }
 
     //javadoc: LogisticRegression::setTermCriteria(val)
@@ -207,15 +197,12 @@ public class LogisticRegression extends StatModel {
 
         setTermCriteria_0(nativeObj, val.type, val.maxCount, val.epsilon);
 
-        return;
     }
 
     //javadoc: LogisticRegression::getLearningRate()
     public double getLearningRate() {
 
-        double retVal = getLearningRate_0(nativeObj);
-
-        return retVal;
+        return getLearningRate_0(nativeObj);
     }
 
     //javadoc: LogisticRegression::setLearningRate(val)
@@ -223,31 +210,24 @@ public class LogisticRegression extends StatModel {
 
         setLearningRate_0(nativeObj, val);
 
-        return;
     }
 
     //javadoc: LogisticRegression::predict(samples, results, flags)
     public float predict(Mat samples, Mat results, int flags) {
 
-        float retVal = predict_0(nativeObj, samples.nativeObj, results.nativeObj, flags);
-
-        return retVal;
+        return predict_0(nativeObj, samples.nativeObj, results.nativeObj, flags);
     }
 
     //javadoc: LogisticRegression::predict(samples)
     public float predict(Mat samples) {
 
-        float retVal = predict_1(nativeObj, samples.nativeObj);
-
-        return retVal;
+        return predict_1(nativeObj, samples.nativeObj);
     }
 
     //javadoc: LogisticRegression::getIterations()
     public int getIterations() {
 
-        int retVal = getIterations_0(nativeObj);
-
-        return retVal;
+        return getIterations_0(nativeObj);
     }
 
     //javadoc: LogisticRegression::setIterations(val)
@@ -255,15 +235,12 @@ public class LogisticRegression extends StatModel {
 
         setIterations_0(nativeObj, val);
 
-        return;
     }
 
     //javadoc: LogisticRegression::getMiniBatchSize()
     public int getMiniBatchSize() {
 
-        int retVal = getMiniBatchSize_0(nativeObj);
-
-        return retVal;
+        return getMiniBatchSize_0(nativeObj);
     }
 
     //javadoc: LogisticRegression::setMiniBatchSize(val)
@@ -271,15 +248,12 @@ public class LogisticRegression extends StatModel {
 
         setMiniBatchSize_0(nativeObj, val);
 
-        return;
     }
 
     //javadoc: LogisticRegression::getRegularization()
     public int getRegularization() {
 
-        int retVal = getRegularization_0(nativeObj);
-
-        return retVal;
+        return getRegularization_0(nativeObj);
     }
 
     //javadoc: LogisticRegression::setRegularization(val)
@@ -287,15 +261,12 @@ public class LogisticRegression extends StatModel {
 
         setRegularization_0(nativeObj, val);
 
-        return;
     }
 
     //javadoc: LogisticRegression::getTrainMethod()
     public int getTrainMethod() {
 
-        int retVal = getTrainMethod_0(nativeObj);
-
-        return retVal;
+        return getTrainMethod_0(nativeObj);
     }
 
     //javadoc: LogisticRegression::setTrainMethod(val)
@@ -303,11 +274,11 @@ public class LogisticRegression extends StatModel {
 
         setTrainMethod_0(nativeObj, val);
 
-        return;
     }
 
     @Override
     protected void finalize() throws Throwable {
+        super.finalize();
         delete(nativeObj);
     }
 

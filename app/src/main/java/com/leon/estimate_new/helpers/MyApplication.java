@@ -82,8 +82,6 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         appContext = getApplicationContext();
-        if (!BuildConfig.BUILD_TYPE.equals("release"))
-            setupYandex();
 
         Toasty.Config.getInstance()
                 .tintIcon(true)

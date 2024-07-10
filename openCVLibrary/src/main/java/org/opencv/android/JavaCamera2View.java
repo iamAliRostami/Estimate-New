@@ -25,6 +25,7 @@ import org.opencv.imgproc.Imgproc;
 
 import java.nio.ByteBuffer;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * This class is an implementation of the Bridge View between OpenCV and Java Camera.
@@ -36,13 +37,12 @@ import java.util.Arrays;
  * converted to RGBA32 and then passed to the external callback for modifications if required.
  */
 
-@TargetApi(21)
 public class JavaCamera2View extends CameraBridgeViewBase {
 
     private static final String LOGTAG = "JavaCamera2View";
 
     private ImageReader mImageReader;
-    private int mPreviewFormat = ImageFormat.YUV_420_888;
+    private final int mPreviewFormat = ImageFormat.YUV_420_888;
 
     private CameraDevice mCameraDevice;
     private CameraCaptureSession mCaptureSession;
@@ -159,40 +159,37 @@ public class JavaCamera2View extends CameraBridgeViewBase {
             }
 
             mImageReader = ImageReader.newInstance(w, h, mPreviewFormat, 2);
-            mImageReader.setOnImageAvailableListener(new ImageReader.OnImageAvailableListener() {
-                @Override
-                public void onImageAvailable(ImageReader reader) {
-                    Image image = reader.acquireLatestImage();
-                    if (image == null)
-                        return;
+            mImageReader.setOnImageAvailableListener(reader -> {
+                Image image = reader.acquireLatestImage();
+                if (image == null)
+                    return;
 
-                    // sanity checks - 3 planes
-                    Image.Plane[] planes = image.getPlanes();
-                    assert (planes.length == 3);
-                    assert (image.getFormat() == mPreviewFormat);
+                // sanity checks - 3 planes
+                Image.Plane[] planes = image.getPlanes();
+                assert (planes.length == 3);
+                assert (image.getFormat() == mPreviewFormat);
 
-                    // see also https://developer.android.com/reference/android/graphics/ImageFormat.html#YUV_420_888
-                    // Y plane (0) non-interleaved => stride == 1; U/V plane interleaved => stride == 2
-                    assert (planes[0].getPixelStride() == 1);
-                    assert (planes[1].getPixelStride() == 2);
-                    assert (planes[2].getPixelStride() == 2);
+                // see also https://developer.android.com/reference/android/graphics/ImageFormat.html#YUV_420_888
+                // Y plane (0) non-interleaved => stride == 1; U/V plane interleaved => stride == 2
+                assert (planes[0].getPixelStride() == 1);
+                assert (planes[1].getPixelStride() == 2);
+                assert (planes[2].getPixelStride() == 2);
 
-                    ByteBuffer y_plane = planes[0].getBuffer();
-                    ByteBuffer uv_plane = planes[1].getBuffer();
-                    Mat y_mat = new Mat(h, w, CvType.CV_8UC1, y_plane);
-                    Mat uv_mat = new Mat(h / 2, w / 2, CvType.CV_8UC2, uv_plane);
-                    JavaCamera2Frame tempFrame = new JavaCamera2Frame(y_mat, uv_mat, w, h);
-                    deliverAndDrawFrame(tempFrame);
-                    tempFrame.release();
-                    image.close();
-                }
+                ByteBuffer y_plane = planes[0].getBuffer();
+                ByteBuffer uv_plane = planes[1].getBuffer();
+                Mat y_mat = new Mat(h, w, CvType.CV_8UC1, y_plane);
+                Mat uv_mat = new Mat(h / 2, w / 2, CvType.CV_8UC2, uv_plane);
+                JavaCamera2Frame tempFrame = new JavaCamera2Frame(y_mat, uv_mat, w, h);
+                deliverAndDrawFrame(tempFrame);
+                tempFrame.release();
+                image.close();
             }, mBackgroundHandler);
             Surface surface = mImageReader.getSurface();
 
             mPreviewRequestBuilder = mCameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW);
             mPreviewRequestBuilder.addTarget(surface);
 
-            mCameraDevice.createCaptureSession(Arrays.asList(surface),
+            mCameraDevice.createCaptureSession(List.of(surface),
                     new CameraCaptureSession.StateCallback() {
                         @Override
                         public void onConfigured(CameraCaptureSession cameraCaptureSession) {
@@ -258,7 +255,7 @@ public class JavaCamera2View extends CameraBridgeViewBase {
         try {
             CameraCharacteristics characteristics = manager.getCameraCharacteristics(mCameraID);
             StreamConfigurationMap map = characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP);
-            int bestWidth = 0, bestHeight = 0;
+            int bestWidth, bestHeight;
             float aspect = (float) width / height;
             android.util.Size[] sizes = map.getOutputSizes(ImageReader.class);
             bestWidth = sizes[0].getWidth();
@@ -322,11 +319,11 @@ public class JavaCamera2View extends CameraBridgeViewBase {
     }
 
     private class JavaCamera2Frame implements CvCameraViewFrame {
-        private Mat mYuvFrameData;
-        private Mat mUVFrameData;
-        private Mat mRgba;
-        private int mWidth;
-        private int mHeight;
+        private final Mat mYuvFrameData;
+        private final Mat mUVFrameData;
+        private final Mat mRgba;
+        private final int mWidth;
+        private final int mHeight;
 
         public JavaCamera2Frame(Mat Yuv420sp, int width, int height) {
             super();
@@ -353,15 +350,8 @@ public class JavaCamera2View extends CameraBridgeViewBase {
 
         @Override
         public Mat rgba() {
-            if (mPreviewFormat == ImageFormat.NV21)
-                Imgproc.cvtColor(mYuvFrameData, mRgba, Imgproc.COLOR_YUV2RGBA_NV21, 4);
-            else if (mPreviewFormat == ImageFormat.YV12)
-                Imgproc.cvtColor(mYuvFrameData, mRgba, Imgproc.COLOR_YUV2RGB_I420, 4); // COLOR_YUV2RGBA_YV12 produces inverted colors
-            else if (mPreviewFormat == ImageFormat.YUV_420_888) {
-                assert (mUVFrameData != null);
-                Imgproc.cvtColorTwoPlane(mYuvFrameData, mUVFrameData, mRgba, Imgproc.COLOR_YUV2RGBA_NV21);
-            } else
-                throw new IllegalArgumentException("Preview Format can be NV21 or YV12");
+            assert (mUVFrameData != null);
+            Imgproc.cvtColorTwoPlane(mYuvFrameData, mUVFrameData, mRgba, Imgproc.COLOR_YUV2RGBA_NV21);
 
             return mRgba;
         }
@@ -371,5 +361,4 @@ public class JavaCamera2View extends CameraBridgeViewBase {
         }
     }
 
-    ;
 }

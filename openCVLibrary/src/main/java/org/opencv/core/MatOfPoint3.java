@@ -48,7 +48,7 @@ public class MatOfPoint3 extends Mat {
         int buff[] = new int[num * _channels];
         for (int i = 0; i < num; i++) {
             Point3 p = a[i];
-            buff[_channels * i + 0] = (int) p.x;
+            buff[_channels * i] = (int) p.x;
             buff[_channels * i + 1] = (int) p.y;
             buff[_channels * i + 2] = (int) p.z;
         }

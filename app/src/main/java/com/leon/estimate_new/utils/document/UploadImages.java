@@ -24,7 +24,6 @@ import com.leon.estimate_new.infrastructure.ICallbackIncomplete;
 import com.leon.estimate_new.tables.Images;
 import com.leon.estimate_new.tables.UploadImage;
 import com.leon.estimate_new.utils.CustomErrorHandling;
-import com.leon.estimate_new.utils.CustomFile;
 import com.leon.estimate_new.utils.CustomToast;
 
 import okhttp3.MultipartBody;

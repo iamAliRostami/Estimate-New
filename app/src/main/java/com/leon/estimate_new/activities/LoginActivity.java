@@ -24,7 +24,6 @@ import com.leon.estimate_new.R;
 import com.leon.estimate_new.databinding.ActivityLoginBinding;
 import com.leon.estimate_new.utils.Crypto;
 import com.leon.estimate_new.utils.CustomToast;
-import com.leon.estimate_new.utils.DifferentCompanyManager;
 import com.leon.estimate_new.utils.login.AttemptLogin;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener,
@@ -104,7 +103,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 binding.editTextPassword.setInputType(InputType.TYPE_CLASS_TEXT |
                         InputType.TYPE_TEXT_VARIATION_PASSWORD);
         } else if (id == R.id.button_login) {
-            attempt(true);
+            attempt();
         }
     }
 
@@ -122,14 +121,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         return false;
     }
 
-    private void attempt(boolean isLogin) {
+    private void attempt() {
         boolean cancel = false;
-        if (binding.editTextUsername.getText().length() < 1) {
+        if (binding.editTextUsername.getText().toString().isEmpty()) {
             binding.editTextUsername.setError(getString(R.string.error_empty));
             binding.editTextUsername.requestFocus();
             cancel = true;
         }
-        if (!cancel && binding.editTextPassword.getText().length() < 1) {
+        if (!cancel && binding.editTextPassword.getText().toString().isEmpty()) {
             binding.editTextPassword.setError(getString(R.string.error_empty));
             binding.editTextPassword.requestFocus();
             cancel = true;
@@ -137,7 +136,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (!cancel) {
             String username = binding.editTextUsername.getText().toString();
             String password = binding.editTextPassword.getText().toString();
-            if (isLogin && isNetworkAvailable(getApplicationContext())) {
+            if (isNetworkAvailable(getApplicationContext())) {
                 new AttemptLogin(username, password, binding.checkBoxSave.isChecked()).execute(this);
             } else {
                 new CustomToast().warning(getString(R.string.turn_internet_on));
@@ -176,5 +175,4 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         System.gc();
         super.onStop();
     }
-
 }

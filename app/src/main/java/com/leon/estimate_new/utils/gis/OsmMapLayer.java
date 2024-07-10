@@ -2,7 +2,7 @@ package com.leon.estimate_new.utils.gis;
 
 //import com.esri.arcgisruntime.data.TileKey;
 //import com.esri.arcgisruntime.layers.WebTiledLayer;
-import com.leon.estimate_new.enums.MapType;
+
 import com.leon.estimate_new.infrastructure.IMapLayer;
 
 import java.util.Arrays;

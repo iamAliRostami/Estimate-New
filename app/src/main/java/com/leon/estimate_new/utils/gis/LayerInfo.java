@@ -6,9 +6,6 @@ package com.leon.estimate_new.utils.gis;
 //import com.esri.arcgisruntime.geometry.Point;
 //import com.esri.arcgisruntime.geometry.SpatialReference;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class LayerInfo {
 //
 //    private static final double X_MIN_MERCATOR = -20037508.3427892;

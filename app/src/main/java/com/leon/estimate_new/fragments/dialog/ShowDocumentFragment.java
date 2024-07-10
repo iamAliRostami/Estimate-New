@@ -2,7 +2,7 @@ package com.leon.estimate_new.fragments.dialog;
 
 import static com.leon.estimate_new.enums.BundleEnum.BILL_ID;
 import static com.leon.estimate_new.enums.BundleEnum.IS_NEIGHBOUR;
-import static com.leon.estimate_new.enums.BundleEnum.NEW_ENSHEAB;
+import static com.leon.estimate_new.enums.BundleEnum.IS_NEW;
 import static com.leon.estimate_new.enums.BundleEnum.TRACK_NUMBER;
 import static com.leon.estimate_new.utils.CustomFile.loadImage;
 
@@ -45,15 +45,15 @@ public class ShowDocumentFragment extends DialogFragment {
     public ShowDocumentFragment() {
     }
 
-    public static ShowDocumentFragment newInstance(String billId, boolean isNew, boolean isNeighbour
-            , String... trackNumber) {
+    public static ShowDocumentFragment newInstance(String billId, boolean isNeighbour, boolean isNew,
+                                                   String... trackNumber) {
         final ShowDocumentFragment fragment = new ShowDocumentFragment();
         final Bundle args = new Bundle();
         if (trackNumber.length > 0)
             args.putString(TRACK_NUMBER.getValue(), trackNumber[0]);
         args.putString(BILL_ID.getValue(), billId);
-        args.putBoolean(NEW_ENSHEAB.getValue(), isNew);
         args.putBoolean(IS_NEIGHBOUR.getValue(), isNeighbour);
+        args.putBoolean(IS_NEW.getValue(), isNew);
         fragment.setArguments(args);
         return fragment;
     }
@@ -62,7 +62,7 @@ public class ShowDocumentFragment extends DialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            isNew = getArguments().getBoolean(NEW_ENSHEAB.getValue());
+            isNew = getArguments().getBoolean(IS_NEW.getValue());
             isNeighbour = getArguments().getBoolean(IS_NEIGHBOUR.getValue());
             trackNumber = getArguments().getString(TRACK_NUMBER.getValue());
             billId = getArguments().getString(BILL_ID.getValue());
@@ -87,12 +87,13 @@ public class ShowDocumentFragment extends DialogFragment {
 
     public void setTitles(ImageDataTitle body) {
         if (!isNeighbour) {
-            final ArrayList<Images> images = new ArrayList<>(loadImage(trackNumber, billId,
+            ArrayList<Images> images = new ArrayList<>(loadImage(trackNumber, billId,
                     body.data, requireContext()));
             imageViewAdapter = new ImageViewAdapter(requireContext(), images);
             binding.gridViewImage.setAdapter(imageViewAdapter);
         }
-        new ImageThumbnailList(requireContext(), isNew ? trackNumber : billId, this).execute(requireActivity());
+        new ImageThumbnailList(requireContext(), (isNeighbour||!isNew) ? billId : trackNumber,
+                this).execute(requireActivity());
     }
 
     public ProgressBar getProgressBar() {

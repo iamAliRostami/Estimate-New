@@ -30,18 +30,14 @@ public class Features2d {
 
     //javadoc: drawKeypoints(image, keypoints, outImage, color, flags)
     public static void drawKeypoints(Mat image, MatOfKeyPoint keypoints, Mat outImage, Scalar color, int flags) {
-        Mat keypoints_mat = keypoints;
-        drawKeypoints_0(image.nativeObj, keypoints_mat.nativeObj, outImage.nativeObj, color.val[0], color.val[1], color.val[2], color.val[3], flags);
+        drawKeypoints_0(image.nativeObj, keypoints.nativeObj, outImage.nativeObj, color.val[0], color.val[1], color.val[2], color.val[3], flags);
 
-        return;
     }
 
     //javadoc: drawKeypoints(image, keypoints, outImage)
     public static void drawKeypoints(Mat image, MatOfKeyPoint keypoints, Mat outImage) {
-        Mat keypoints_mat = keypoints;
-        drawKeypoints_1(image.nativeObj, keypoints_mat.nativeObj, outImage.nativeObj);
+        drawKeypoints_1(image.nativeObj, keypoints.nativeObj, outImage.nativeObj);
 
-        return;
     }
 
 
@@ -51,23 +47,14 @@ public class Features2d {
 
     //javadoc: drawMatches(img1, keypoints1, img2, keypoints2, matches1to2, outImg, matchColor, singlePointColor, matchesMask, flags)
     public static void drawMatches(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, MatOfDMatch matches1to2, Mat outImg, Scalar matchColor, Scalar singlePointColor, MatOfByte matchesMask, int flags) {
-        Mat keypoints1_mat = keypoints1;
-        Mat keypoints2_mat = keypoints2;
-        Mat matches1to2_mat = matches1to2;
-        Mat matchesMask_mat = matchesMask;
-        drawMatches_0(img1.nativeObj, keypoints1_mat.nativeObj, img2.nativeObj, keypoints2_mat.nativeObj, matches1to2_mat.nativeObj, outImg.nativeObj, matchColor.val[0], matchColor.val[1], matchColor.val[2], matchColor.val[3], singlePointColor.val[0], singlePointColor.val[1], singlePointColor.val[2], singlePointColor.val[3], matchesMask_mat.nativeObj, flags);
+        drawMatches_0(img1.nativeObj, keypoints1.nativeObj, img2.nativeObj, keypoints2.nativeObj, matches1to2.nativeObj, outImg.nativeObj, matchColor.val[0], matchColor.val[1], matchColor.val[2], matchColor.val[3], singlePointColor.val[0], singlePointColor.val[1], singlePointColor.val[2], singlePointColor.val[3], matchesMask.nativeObj, flags);
 
-        return;
     }
 
     //javadoc: drawMatches(img1, keypoints1, img2, keypoints2, matches1to2, outImg)
     public static void drawMatches(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, MatOfDMatch matches1to2, Mat outImg) {
-        Mat keypoints1_mat = keypoints1;
-        Mat keypoints2_mat = keypoints2;
-        Mat matches1to2_mat = matches1to2;
-        drawMatches_1(img1.nativeObj, keypoints1_mat.nativeObj, img2.nativeObj, keypoints2_mat.nativeObj, matches1to2_mat.nativeObj, outImg.nativeObj);
+        drawMatches_1(img1.nativeObj, keypoints1.nativeObj, img2.nativeObj, keypoints2.nativeObj, matches1to2.nativeObj, outImg.nativeObj);
 
-        return;
     }
 
 
@@ -77,26 +64,20 @@ public class Features2d {
 
     //javadoc: drawMatches(img1, keypoints1, img2, keypoints2, matches1to2, outImg, matchColor, singlePointColor, matchesMask, flags)
     public static void drawMatches2(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, List<MatOfDMatch> matches1to2, Mat outImg, Scalar matchColor, Scalar singlePointColor, List<MatOfByte> matchesMask, int flags) {
-        Mat keypoints1_mat = keypoints1;
-        Mat keypoints2_mat = keypoints2;
-        List<Mat> matches1to2_tmplm = new ArrayList<Mat>((matches1to2 != null) ? matches1to2.size() : 0);
+        List<Mat> matches1to2_tmplm = new ArrayList<>((matches1to2 != null) ? matches1to2.size() : 0);
         Mat matches1to2_mat = Converters.vector_vector_DMatch_to_Mat(matches1to2, matches1to2_tmplm);
-        List<Mat> matchesMask_tmplm = new ArrayList<Mat>((matchesMask != null) ? matchesMask.size() : 0);
+        List<Mat> matchesMask_tmplm = new ArrayList<>((matchesMask != null) ? matchesMask.size() : 0);
         Mat matchesMask_mat = Converters.vector_vector_char_to_Mat(matchesMask, matchesMask_tmplm);
-        drawMatches2_0(img1.nativeObj, keypoints1_mat.nativeObj, img2.nativeObj, keypoints2_mat.nativeObj, matches1to2_mat.nativeObj, outImg.nativeObj, matchColor.val[0], matchColor.val[1], matchColor.val[2], matchColor.val[3], singlePointColor.val[0], singlePointColor.val[1], singlePointColor.val[2], singlePointColor.val[3], matchesMask_mat.nativeObj, flags);
+        drawMatches2_0(img1.nativeObj, keypoints1.nativeObj, img2.nativeObj, keypoints2.nativeObj, matches1to2_mat.nativeObj, outImg.nativeObj, matchColor.val[0], matchColor.val[1], matchColor.val[2], matchColor.val[3], singlePointColor.val[0], singlePointColor.val[1], singlePointColor.val[2], singlePointColor.val[3], matchesMask_mat.nativeObj, flags);
 
-        return;
     }
 
     //javadoc: drawMatches(img1, keypoints1, img2, keypoints2, matches1to2, outImg)
     public static void drawMatches2(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, List<MatOfDMatch> matches1to2, Mat outImg) {
-        Mat keypoints1_mat = keypoints1;
-        Mat keypoints2_mat = keypoints2;
-        List<Mat> matches1to2_tmplm = new ArrayList<Mat>((matches1to2 != null) ? matches1to2.size() : 0);
+        List<Mat> matches1to2_tmplm = new ArrayList<>((matches1to2 != null) ? matches1to2.size() : 0);
         Mat matches1to2_mat = Converters.vector_vector_DMatch_to_Mat(matches1to2, matches1to2_tmplm);
-        drawMatches2_1(img1.nativeObj, keypoints1_mat.nativeObj, img2.nativeObj, keypoints2_mat.nativeObj, matches1to2_mat.nativeObj, outImg.nativeObj);
+        drawMatches2_1(img1.nativeObj, keypoints1.nativeObj, img2.nativeObj, keypoints2.nativeObj, matches1to2_mat.nativeObj, outImg.nativeObj);
 
-        return;
     }
 
 
@@ -106,26 +87,20 @@ public class Features2d {
 
     //javadoc: drawMatches(img1, keypoints1, img2, keypoints2, matches1to2, outImg, matchColor, singlePointColor, matchesMask, flags)
     public static void drawMatchesKnn(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, List<MatOfDMatch> matches1to2, Mat outImg, Scalar matchColor, Scalar singlePointColor, List<MatOfByte> matchesMask, int flags) {
-        Mat keypoints1_mat = keypoints1;
-        Mat keypoints2_mat = keypoints2;
-        List<Mat> matches1to2_tmplm = new ArrayList<Mat>((matches1to2 != null) ? matches1to2.size() : 0);
+        List<Mat> matches1to2_tmplm = new ArrayList<>((matches1to2 != null) ? matches1to2.size() : 0);
         Mat matches1to2_mat = Converters.vector_vector_DMatch_to_Mat(matches1to2, matches1to2_tmplm);
-        List<Mat> matchesMask_tmplm = new ArrayList<Mat>((matchesMask != null) ? matchesMask.size() : 0);
+        List<Mat> matchesMask_tmplm = new ArrayList<>((matchesMask != null) ? matchesMask.size() : 0);
         Mat matchesMask_mat = Converters.vector_vector_char_to_Mat(matchesMask, matchesMask_tmplm);
-        drawMatchesKnn_0(img1.nativeObj, keypoints1_mat.nativeObj, img2.nativeObj, keypoints2_mat.nativeObj, matches1to2_mat.nativeObj, outImg.nativeObj, matchColor.val[0], matchColor.val[1], matchColor.val[2], matchColor.val[3], singlePointColor.val[0], singlePointColor.val[1], singlePointColor.val[2], singlePointColor.val[3], matchesMask_mat.nativeObj, flags);
+        drawMatchesKnn_0(img1.nativeObj, keypoints1.nativeObj, img2.nativeObj, keypoints2.nativeObj, matches1to2_mat.nativeObj, outImg.nativeObj, matchColor.val[0], matchColor.val[1], matchColor.val[2], matchColor.val[3], singlePointColor.val[0], singlePointColor.val[1], singlePointColor.val[2], singlePointColor.val[3], matchesMask_mat.nativeObj, flags);
 
-        return;
     }
 
     //javadoc: drawMatches(img1, keypoints1, img2, keypoints2, matches1to2, outImg)
     public static void drawMatchesKnn(Mat img1, MatOfKeyPoint keypoints1, Mat img2, MatOfKeyPoint keypoints2, List<MatOfDMatch> matches1to2, Mat outImg) {
-        Mat keypoints1_mat = keypoints1;
-        Mat keypoints2_mat = keypoints2;
-        List<Mat> matches1to2_tmplm = new ArrayList<Mat>((matches1to2 != null) ? matches1to2.size() : 0);
+        List<Mat> matches1to2_tmplm = new ArrayList<>((matches1to2 != null) ? matches1to2.size() : 0);
         Mat matches1to2_mat = Converters.vector_vector_DMatch_to_Mat(matches1to2, matches1to2_tmplm);
-        drawMatchesKnn_1(img1.nativeObj, keypoints1_mat.nativeObj, img2.nativeObj, keypoints2_mat.nativeObj, matches1to2_mat.nativeObj, outImg.nativeObj);
+        drawMatchesKnn_1(img1.nativeObj, keypoints1.nativeObj, img2.nativeObj, keypoints2.nativeObj, matches1to2_mat.nativeObj, outImg.nativeObj);
 
-        return;
     }
 
 

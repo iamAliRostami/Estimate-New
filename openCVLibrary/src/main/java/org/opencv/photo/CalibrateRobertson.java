@@ -64,17 +64,13 @@ public class CalibrateRobertson extends CalibrateCRF {
     //javadoc: CalibrateRobertson::getRadiance()
     public Mat getRadiance() {
 
-        Mat retVal = new Mat(getRadiance_0(nativeObj));
-
-        return retVal;
+        return new Mat(getRadiance_0(nativeObj));
     }
 
     //javadoc: CalibrateRobertson::getThreshold()
     public float getThreshold() {
 
-        float retVal = getThreshold_0(nativeObj);
-
-        return retVal;
+        return getThreshold_0(nativeObj);
     }
 
     //javadoc: CalibrateRobertson::setThreshold(threshold)
@@ -82,15 +78,12 @@ public class CalibrateRobertson extends CalibrateCRF {
 
         setThreshold_0(nativeObj, threshold);
 
-        return;
     }
 
     //javadoc: CalibrateRobertson::getMaxIter()
     public int getMaxIter() {
 
-        int retVal = getMaxIter_0(nativeObj);
-
-        return retVal;
+        return getMaxIter_0(nativeObj);
     }
 
     //javadoc: CalibrateRobertson::setMaxIter(max_iter)
@@ -98,11 +91,11 @@ public class CalibrateRobertson extends CalibrateCRF {
 
         setMaxIter_0(nativeObj, max_iter);
 
-        return;
     }
 
     @Override
     protected void finalize() throws Throwable {
+        super.finalize();
         delete(nativeObj);
     }
 

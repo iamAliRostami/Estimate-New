@@ -62,25 +62,25 @@ public class CoordinateConversion {
     }
 
     private class LatLon2UTM {
-        double equatorialRadius = 6378137;
-        double polarRadius = 6356752.314;
+        final double equatorialRadius = 6378137;
+        final double polarRadius = 6356752.314;
         double flattening = 0.00335281066474748;
         double inverseFlattening = 298.257223563;
         double rm = POW(equatorialRadius * polarRadius, 1 / 2.0);
-        double k0 = 0.9996;
-        double e = Math.sqrt(1 - POW(polarRadius / equatorialRadius, 2));
-        double e1sq = e * e / (1 - e * e);
+        final double k0 = 0.9996;
+        final double e = Math.sqrt(1 - POW(polarRadius / equatorialRadius, 2));
+        final double e1sq = e * e / (1 - e * e);
         double n = (equatorialRadius - polarRadius) / (equatorialRadius + polarRadius);
         double rho = 6368573.744;
         double nu = 6389236.914;
         double S = 5103266.421;
-        double A0 = 6367449.146;
-        double B0 = 16038.42955;
-        double C0 = 16.83261333;
-        double D0 = 0.021984404;
-        double E0 = 0.000312705;
+        final double A0 = 6367449.146;
+        final double B0 = 16038.42955;
+        final double C0 = 16.83261333;
+        final double D0 = 0.021984404;
+        final double E0 = 0.000312705;
         double p = -0.483084;
-        double sin1 = 4.84814E-06;
+        final double sin1 = 4.84814E-06;
         double K1 = 5101225.115;
         double K2 = 3750.291596;
         double K3 = 1.397608151;
@@ -90,7 +90,7 @@ public class CoordinateConversion {
 
         public String convertLatLonToUTM(double latitude, double longitude) {
             validate(latitude, longitude);
-            String UTM = "";
+            String UTM;
 
             setVariables(latitude, longitude);
 
@@ -179,7 +179,7 @@ public class CoordinateConversion {
     private class LatLon2MGRUTM extends LatLon2UTM {
         public String convertLatLonToMGRUTM(double latitude, double longitude) {
             validate(latitude, longitude);
-            String mgrUTM = "";
+            String mgrUTM;
 
             setVariables(latitude, longitude);
 
@@ -255,7 +255,7 @@ public class CoordinateConversion {
 
             setVariables();
 
-            double latitude = 0;
+            double latitude;
             latitude = 180 * (phi1 - fact1 * (fact2 + fact3 + fact4)) / Math.PI;
 
             if (latZoneDegree < 0) {
@@ -279,7 +279,7 @@ public class CoordinateConversion {
         double easting;
         double northing;
         int zone;
-        String southernHemisphere = "ACDEFGHJKLM";
+        final String southernHemisphere = "ACDEFGHJKLM";
         double arc;
         double mu;
         double ei;
@@ -304,11 +304,10 @@ public class CoordinateConversion {
         double fact4;
         double zoneCM;
         double _a3;
-        double b = 6356752.314;
-        double a = 6378137;
-        double e = 0.081819191;
-        double e1sq = 0.006739497;
-        double k0 = 0.9996;
+        final double a = 6378137;
+        final double e = 0.081819191;
+        final double e1sq = 0.006739497;
+        final double k0 = 0.9996;
 
         protected String getHemisphere(String latZone) {
             String hemisphere = "N";
@@ -326,8 +325,8 @@ public class CoordinateConversion {
             easting = Double.parseDouble(utm[2]);
             northing = Double.parseDouble(utm[3]);
             String hemisphere = getHemisphere(latZone);
-            double latitude = 0.0;
-            double longitude = 0.0;
+            double latitude;
+            double longitude;
 
             if (hemisphere.equals("S")) {
                 northing = 10000000 - northing;
@@ -399,64 +398,64 @@ public class CoordinateConversion {
     }
 
     private class Digraphs {
-        private Map digraph1 = new Hashtable();
+        private final Map digraph1 = new Hashtable();
 
-        private Map digraph2 = new Hashtable();
+        private final Map digraph2 = new Hashtable();
 
-        private String[] digraph1Array = {"A", "B", "C", "D", "E", "F", "G", "H",
+        private final String[] digraph1Array = {"A", "B", "C", "D", "E", "F", "G", "H",
                 "J", "K", "L", "M", "N", "P", "Q", "R", "S", "T", "U", "V", "W", "X",
                 "Y", "Z"};
 
-        private String[] digraph2Array = {"V", "A", "B", "C", "D", "E", "F", "G",
+        private final String[] digraph2Array = {"V", "A", "B", "C", "D", "E", "F", "G",
                 "H", "J", "K", "L", "M", "N", "P", "Q", "R", "S", "T", "U", "V"};
 
         public Digraphs() {
-            digraph1.put(new Integer(1), "A");
-            digraph1.put(new Integer(2), "B");
-            digraph1.put(new Integer(3), "C");
-            digraph1.put(new Integer(4), "D");
-            digraph1.put(new Integer(5), "E");
-            digraph1.put(new Integer(6), "F");
-            digraph1.put(new Integer(7), "G");
-            digraph1.put(new Integer(8), "H");
-            digraph1.put(new Integer(9), "J");
-            digraph1.put(new Integer(10), "K");
-            digraph1.put(new Integer(11), "L");
-            digraph1.put(new Integer(12), "M");
-            digraph1.put(new Integer(13), "N");
-            digraph1.put(new Integer(14), "P");
-            digraph1.put(new Integer(15), "Q");
-            digraph1.put(new Integer(16), "R");
-            digraph1.put(new Integer(17), "S");
-            digraph1.put(new Integer(18), "T");
-            digraph1.put(new Integer(19), "U");
-            digraph1.put(new Integer(20), "V");
-            digraph1.put(new Integer(21), "W");
-            digraph1.put(new Integer(22), "X");
-            digraph1.put(new Integer(23), "Y");
-            digraph1.put(new Integer(24), "Z");
+            digraph1.put(1, "A");
+            digraph1.put(2, "B");
+            digraph1.put(3, "C");
+            digraph1.put(4, "D");
+            digraph1.put(5, "E");
+            digraph1.put(6, "F");
+            digraph1.put(7, "G");
+            digraph1.put(8, "H");
+            digraph1.put(9, "J");
+            digraph1.put(10, "K");
+            digraph1.put(11, "L");
+            digraph1.put(12, "M");
+            digraph1.put(13, "N");
+            digraph1.put(14, "P");
+            digraph1.put(15, "Q");
+            digraph1.put(16, "R");
+            digraph1.put(17, "S");
+            digraph1.put(18, "T");
+            digraph1.put(19, "U");
+            digraph1.put(20, "V");
+            digraph1.put(21, "W");
+            digraph1.put(22, "X");
+            digraph1.put(23, "Y");
+            digraph1.put(24, "Z");
 
-            digraph2.put(new Integer(0), "V");
-            digraph2.put(new Integer(1), "A");
-            digraph2.put(new Integer(2), "B");
-            digraph2.put(new Integer(3), "C");
-            digraph2.put(new Integer(4), "D");
-            digraph2.put(new Integer(5), "E");
-            digraph2.put(new Integer(6), "F");
-            digraph2.put(new Integer(7), "G");
-            digraph2.put(new Integer(8), "H");
-            digraph2.put(new Integer(9), "J");
-            digraph2.put(new Integer(10), "K");
-            digraph2.put(new Integer(11), "L");
-            digraph2.put(new Integer(12), "M");
-            digraph2.put(new Integer(13), "N");
-            digraph2.put(new Integer(14), "P");
-            digraph2.put(new Integer(15), "Q");
-            digraph2.put(new Integer(16), "R");
-            digraph2.put(new Integer(17), "S");
-            digraph2.put(new Integer(18), "T");
-            digraph2.put(new Integer(19), "U");
-            digraph2.put(new Integer(20), "V");
+            digraph2.put(0, "V");
+            digraph2.put(1, "A");
+            digraph2.put(2, "B");
+            digraph2.put(3, "C");
+            digraph2.put(4, "D");
+            digraph2.put(5, "E");
+            digraph2.put(6, "F");
+            digraph2.put(7, "G");
+            digraph2.put(8, "H");
+            digraph2.put(9, "J");
+            digraph2.put(10, "K");
+            digraph2.put(11, "L");
+            digraph2.put(12, "M");
+            digraph2.put(13, "N");
+            digraph2.put(14, "P");
+            digraph2.put(15, "Q");
+            digraph2.put(16, "R");
+            digraph2.put(17, "S");
+            digraph2.put(18, "T");
+            digraph2.put(19, "U");
+            digraph2.put(20, "V");
 
         }
 
@@ -500,29 +499,29 @@ public class CoordinateConversion {
     }
 
     private class LatZones {
-        private char[] letters = {'A', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K',
+        private final char[] letters = {'A', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K',
                 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Z'};
 
-        private int[] degrees = {-90, -84, -72, -64, -56, -48, -40, -32, -24, -16,
+        private final int[] degrees = {-90, -84, -72, -64, -56, -48, -40, -32, -24, -16,
                 -8, 0, 8, 16, 24, 32, 40, 48, 56, 64, 72, 84};
 
-        private char[] negLetters = {'A', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K',
+        private final char[] negLetters = {'A', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K',
                 'L', 'M'};
 
-        private int[] negDegrees = {-90, -84, -72, -64, -56, -48, -40, -32, -24,
+        private final int[] negDegrees = {-90, -84, -72, -64, -56, -48, -40, -32, -24,
                 -16, -8};
 
-        private char[] posLetters = {'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W',
+        private final char[] posLetters = {'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W',
                 'X', 'Z'};
 
-        private int[] posDegrees = {0, 8, 16, 24, 32, 40, 48, 56, 64, 72, 84};
-        private int arrayLength = 22;
+        private final int[] posDegrees = {0, 8, 16, 24, 32, 40, 48, 56, 64, 72, 84};
 
         public LatZones() {
         }
 
         public int getLatZoneDegree(String letter) {
             char ltr = letter.charAt(0);
+            int arrayLength = 22;
             for (int i = 0; i < arrayLength; i++) {
                 if (letters[i] == ltr) {
                     return degrees[i];
@@ -543,8 +542,7 @@ public class CoordinateConversion {
                         break;
                     }
 
-                    if (lat > posDegrees[i]) {
-                    } else {
+                    if (lat <= posDegrees[i]) {
                         latIndex = i - 1;
                         break;
                     }

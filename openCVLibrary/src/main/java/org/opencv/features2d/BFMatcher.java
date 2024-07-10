@@ -17,7 +17,6 @@ public class BFMatcher extends DescriptorMatcher {
 
         super(BFMatcher_0(normType, crossCheck));
 
-        return;
     }
 
     //
@@ -29,7 +28,6 @@ public class BFMatcher extends DescriptorMatcher {
 
         super(BFMatcher_1());
 
-        return;
     }
 
     // internal usage only
@@ -45,17 +43,13 @@ public class BFMatcher extends DescriptorMatcher {
     //javadoc: BFMatcher::create(normType, crossCheck)
     public static BFMatcher create(int normType, boolean crossCheck) {
 
-        BFMatcher retVal = BFMatcher.__fromPtr__(create_0(normType, crossCheck));
-
-        return retVal;
+        return BFMatcher.__fromPtr__(create_0(normType, crossCheck));
     }
 
     //javadoc: BFMatcher::create()
     public static BFMatcher create() {
 
-        BFMatcher retVal = BFMatcher.__fromPtr__(create_1());
-
-        return retVal;
+        return BFMatcher.__fromPtr__(create_1());
     }
 
     // C++:   BFMatcher(int normType = NORM_L2, bool crossCheck = false)
@@ -73,6 +67,7 @@ public class BFMatcher extends DescriptorMatcher {
 
     @Override
     protected void finalize() throws Throwable {
+        super.finalize();
         delete(nativeObj);
     }
 

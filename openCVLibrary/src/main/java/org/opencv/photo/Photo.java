@@ -36,17 +36,13 @@ public class Photo {
     //javadoc: createAlignMTB(max_bits, exclude_range, cut)
     public static AlignMTB createAlignMTB(int max_bits, int exclude_range, boolean cut) {
 
-        AlignMTB retVal = AlignMTB.__fromPtr__(createAlignMTB_0(max_bits, exclude_range, cut));
-
-        return retVal;
+        return AlignMTB.__fromPtr__(createAlignMTB_0(max_bits, exclude_range, cut));
     }
 
     //javadoc: createAlignMTB()
     public static AlignMTB createAlignMTB() {
 
-        AlignMTB retVal = AlignMTB.__fromPtr__(createAlignMTB_1());
-
-        return retVal;
+        return AlignMTB.__fromPtr__(createAlignMTB_1());
     }
 
 
@@ -57,17 +53,13 @@ public class Photo {
     //javadoc: createCalibrateDebevec(samples, lambda, random)
     public static CalibrateDebevec createCalibrateDebevec(int samples, float lambda, boolean random) {
 
-        CalibrateDebevec retVal = CalibrateDebevec.__fromPtr__(createCalibrateDebevec_0(samples, lambda, random));
-
-        return retVal;
+        return CalibrateDebevec.__fromPtr__(createCalibrateDebevec_0(samples, lambda, random));
     }
 
     //javadoc: createCalibrateDebevec()
     public static CalibrateDebevec createCalibrateDebevec() {
 
-        CalibrateDebevec retVal = CalibrateDebevec.__fromPtr__(createCalibrateDebevec_1());
-
-        return retVal;
+        return CalibrateDebevec.__fromPtr__(createCalibrateDebevec_1());
     }
 
 
@@ -78,17 +70,13 @@ public class Photo {
     //javadoc: createCalibrateRobertson(max_iter, threshold)
     public static CalibrateRobertson createCalibrateRobertson(int max_iter, float threshold) {
 
-        CalibrateRobertson retVal = CalibrateRobertson.__fromPtr__(createCalibrateRobertson_0(max_iter, threshold));
-
-        return retVal;
+        return CalibrateRobertson.__fromPtr__(createCalibrateRobertson_0(max_iter, threshold));
     }
 
     //javadoc: createCalibrateRobertson()
     public static CalibrateRobertson createCalibrateRobertson() {
 
-        CalibrateRobertson retVal = CalibrateRobertson.__fromPtr__(createCalibrateRobertson_1());
-
-        return retVal;
+        return CalibrateRobertson.__fromPtr__(createCalibrateRobertson_1());
     }
 
 
@@ -99,9 +87,7 @@ public class Photo {
     //javadoc: createMergeDebevec()
     public static MergeDebevec createMergeDebevec() {
 
-        MergeDebevec retVal = MergeDebevec.__fromPtr__(createMergeDebevec_0());
-
-        return retVal;
+        return MergeDebevec.__fromPtr__(createMergeDebevec_0());
     }
 
 
@@ -112,17 +98,13 @@ public class Photo {
     //javadoc: createMergeMertens(contrast_weight, saturation_weight, exposure_weight)
     public static MergeMertens createMergeMertens(float contrast_weight, float saturation_weight, float exposure_weight) {
 
-        MergeMertens retVal = MergeMertens.__fromPtr__(createMergeMertens_0(contrast_weight, saturation_weight, exposure_weight));
-
-        return retVal;
+        return MergeMertens.__fromPtr__(createMergeMertens_0(contrast_weight, saturation_weight, exposure_weight));
     }
 
     //javadoc: createMergeMertens()
     public static MergeMertens createMergeMertens() {
 
-        MergeMertens retVal = MergeMertens.__fromPtr__(createMergeMertens_1());
-
-        return retVal;
+        return MergeMertens.__fromPtr__(createMergeMertens_1());
     }
 
 
@@ -133,9 +115,7 @@ public class Photo {
     //javadoc: createMergeRobertson()
     public static MergeRobertson createMergeRobertson() {
 
-        MergeRobertson retVal = MergeRobertson.__fromPtr__(createMergeRobertson_0());
-
-        return retVal;
+        return MergeRobertson.__fromPtr__(createMergeRobertson_0());
     }
 
 
@@ -146,17 +126,13 @@ public class Photo {
     //javadoc: createTonemap(gamma)
     public static Tonemap createTonemap(float gamma) {
 
-        Tonemap retVal = Tonemap.__fromPtr__(createTonemap_0(gamma));
-
-        return retVal;
+        return Tonemap.__fromPtr__(createTonemap_0(gamma));
     }
 
     //javadoc: createTonemap()
     public static Tonemap createTonemap() {
 
-        Tonemap retVal = Tonemap.__fromPtr__(createTonemap_1());
-
-        return retVal;
+        return Tonemap.__fromPtr__(createTonemap_1());
     }
 
 
@@ -167,17 +143,13 @@ public class Photo {
     //javadoc: createTonemapDrago(gamma, saturation, bias)
     public static TonemapDrago createTonemapDrago(float gamma, float saturation, float bias) {
 
-        TonemapDrago retVal = TonemapDrago.__fromPtr__(createTonemapDrago_0(gamma, saturation, bias));
-
-        return retVal;
+        return TonemapDrago.__fromPtr__(createTonemapDrago_0(gamma, saturation, bias));
     }
 
     //javadoc: createTonemapDrago()
     public static TonemapDrago createTonemapDrago() {
 
-        TonemapDrago retVal = TonemapDrago.__fromPtr__(createTonemapDrago_1());
-
-        return retVal;
+        return TonemapDrago.__fromPtr__(createTonemapDrago_1());
     }
 
 
@@ -188,17 +160,13 @@ public class Photo {
     //javadoc: createTonemapDurand(gamma, contrast, saturation, sigma_space, sigma_color)
     public static TonemapDurand createTonemapDurand(float gamma, float contrast, float saturation, float sigma_space, float sigma_color) {
 
-        TonemapDurand retVal = TonemapDurand.__fromPtr__(createTonemapDurand_0(gamma, contrast, saturation, sigma_space, sigma_color));
-
-        return retVal;
+        return TonemapDurand.__fromPtr__(createTonemapDurand_0(gamma, contrast, saturation, sigma_space, sigma_color));
     }
 
     //javadoc: createTonemapDurand()
     public static TonemapDurand createTonemapDurand() {
 
-        TonemapDurand retVal = TonemapDurand.__fromPtr__(createTonemapDurand_1());
-
-        return retVal;
+        return TonemapDurand.__fromPtr__(createTonemapDurand_1());
     }
 
 
@@ -209,17 +177,13 @@ public class Photo {
     //javadoc: createTonemapMantiuk(gamma, scale, saturation)
     public static TonemapMantiuk createTonemapMantiuk(float gamma, float scale, float saturation) {
 
-        TonemapMantiuk retVal = TonemapMantiuk.__fromPtr__(createTonemapMantiuk_0(gamma, scale, saturation));
-
-        return retVal;
+        return TonemapMantiuk.__fromPtr__(createTonemapMantiuk_0(gamma, scale, saturation));
     }
 
     //javadoc: createTonemapMantiuk()
     public static TonemapMantiuk createTonemapMantiuk() {
 
-        TonemapMantiuk retVal = TonemapMantiuk.__fromPtr__(createTonemapMantiuk_1());
-
-        return retVal;
+        return TonemapMantiuk.__fromPtr__(createTonemapMantiuk_1());
     }
 
 
@@ -230,17 +194,13 @@ public class Photo {
     //javadoc: createTonemapReinhard(gamma, intensity, light_adapt, color_adapt)
     public static TonemapReinhard createTonemapReinhard(float gamma, float intensity, float light_adapt, float color_adapt) {
 
-        TonemapReinhard retVal = TonemapReinhard.__fromPtr__(createTonemapReinhard_0(gamma, intensity, light_adapt, color_adapt));
-
-        return retVal;
+        return TonemapReinhard.__fromPtr__(createTonemapReinhard_0(gamma, intensity, light_adapt, color_adapt));
     }
 
     //javadoc: createTonemapReinhard()
     public static TonemapReinhard createTonemapReinhard() {
 
-        TonemapReinhard retVal = TonemapReinhard.__fromPtr__(createTonemapReinhard_1());
-
-        return retVal;
+        return TonemapReinhard.__fromPtr__(createTonemapReinhard_1());
     }
 
 
@@ -253,7 +213,6 @@ public class Photo {
 
         colorChange_0(src.nativeObj, mask.nativeObj, dst.nativeObj, red_mul, green_mul, blue_mul);
 
-        return;
     }
 
     //javadoc: colorChange(src, mask, dst)
@@ -261,7 +220,6 @@ public class Photo {
 
         colorChange_1(src.nativeObj, mask.nativeObj, dst.nativeObj);
 
-        return;
     }
 
 
@@ -274,7 +232,6 @@ public class Photo {
 
         decolor_0(src.nativeObj, grayscale.nativeObj, color_boost.nativeObj);
 
-        return;
     }
 
 
@@ -287,7 +244,6 @@ public class Photo {
         Mat observations_mat = Converters.vector_Mat_to_Mat(observations);
         denoise_TVL1_0(observations_mat.nativeObj, result.nativeObj, lambda, niters);
 
-        return;
     }
 
     //javadoc: denoise_TVL1(observations, result)
@@ -295,7 +251,6 @@ public class Photo {
         Mat observations_mat = Converters.vector_Mat_to_Mat(observations);
         denoise_TVL1_1(observations_mat.nativeObj, result.nativeObj);
 
-        return;
     }
 
 
@@ -308,7 +263,6 @@ public class Photo {
 
         detailEnhance_0(src.nativeObj, dst.nativeObj, sigma_s, sigma_r);
 
-        return;
     }
 
     //javadoc: detailEnhance(src, dst)
@@ -316,7 +270,6 @@ public class Photo {
 
         detailEnhance_1(src.nativeObj, dst.nativeObj);
 
-        return;
     }
 
 
@@ -329,7 +282,6 @@ public class Photo {
 
         edgePreservingFilter_0(src.nativeObj, dst.nativeObj, flags, sigma_s, sigma_r);
 
-        return;
     }
 
     //javadoc: edgePreservingFilter(src, dst)
@@ -337,7 +289,6 @@ public class Photo {
 
         edgePreservingFilter_1(src.nativeObj, dst.nativeObj);
 
-        return;
     }
 
 
@@ -350,7 +301,6 @@ public class Photo {
 
         fastNlMeansDenoising_0(src.nativeObj, dst.nativeObj, h, templateWindowSize, searchWindowSize);
 
-        return;
     }
 
     //javadoc: fastNlMeansDenoising(src, dst)
@@ -358,7 +308,6 @@ public class Photo {
 
         fastNlMeansDenoising_1(src.nativeObj, dst.nativeObj);
 
-        return;
     }
 
 
@@ -368,18 +317,14 @@ public class Photo {
 
     //javadoc: fastNlMeansDenoising(src, dst, h, templateWindowSize, searchWindowSize, normType)
     public static void fastNlMeansDenoising(Mat src, Mat dst, MatOfFloat h, int templateWindowSize, int searchWindowSize, int normType) {
-        Mat h_mat = h;
-        fastNlMeansDenoising_2(src.nativeObj, dst.nativeObj, h_mat.nativeObj, templateWindowSize, searchWindowSize, normType);
+        fastNlMeansDenoising_2(src.nativeObj, dst.nativeObj, h.nativeObj, templateWindowSize, searchWindowSize, normType);
 
-        return;
     }
 
     //javadoc: fastNlMeansDenoising(src, dst, h)
     public static void fastNlMeansDenoising(Mat src, Mat dst, MatOfFloat h) {
-        Mat h_mat = h;
-        fastNlMeansDenoising_3(src.nativeObj, dst.nativeObj, h_mat.nativeObj);
+        fastNlMeansDenoising_3(src.nativeObj, dst.nativeObj, h.nativeObj);
 
-        return;
     }
 
 
@@ -392,7 +337,6 @@ public class Photo {
 
         fastNlMeansDenoisingColored_0(src.nativeObj, dst.nativeObj, h, hColor, templateWindowSize, searchWindowSize);
 
-        return;
     }
 
     //javadoc: fastNlMeansDenoisingColored(src, dst)
@@ -400,7 +344,6 @@ public class Photo {
 
         fastNlMeansDenoisingColored_1(src.nativeObj, dst.nativeObj);
 
-        return;
     }
 
 
@@ -413,7 +356,6 @@ public class Photo {
         Mat srcImgs_mat = Converters.vector_Mat_to_Mat(srcImgs);
         fastNlMeansDenoisingColoredMulti_0(srcImgs_mat.nativeObj, dst.nativeObj, imgToDenoiseIndex, temporalWindowSize, h, hColor, templateWindowSize, searchWindowSize);
 
-        return;
     }
 
     //javadoc: fastNlMeansDenoisingColoredMulti(srcImgs, dst, imgToDenoiseIndex, temporalWindowSize)
@@ -421,7 +363,6 @@ public class Photo {
         Mat srcImgs_mat = Converters.vector_Mat_to_Mat(srcImgs);
         fastNlMeansDenoisingColoredMulti_1(srcImgs_mat.nativeObj, dst.nativeObj, imgToDenoiseIndex, temporalWindowSize);
 
-        return;
     }
 
 
@@ -434,7 +375,6 @@ public class Photo {
         Mat srcImgs_mat = Converters.vector_Mat_to_Mat(srcImgs);
         fastNlMeansDenoisingMulti_0(srcImgs_mat.nativeObj, dst.nativeObj, imgToDenoiseIndex, temporalWindowSize, h, templateWindowSize, searchWindowSize);
 
-        return;
     }
 
     //javadoc: fastNlMeansDenoisingMulti(srcImgs, dst, imgToDenoiseIndex, temporalWindowSize)
@@ -442,7 +382,6 @@ public class Photo {
         Mat srcImgs_mat = Converters.vector_Mat_to_Mat(srcImgs);
         fastNlMeansDenoisingMulti_1(srcImgs_mat.nativeObj, dst.nativeObj, imgToDenoiseIndex, temporalWindowSize);
 
-        return;
     }
 
 
@@ -453,19 +392,15 @@ public class Photo {
     //javadoc: fastNlMeansDenoisingMulti(srcImgs, dst, imgToDenoiseIndex, temporalWindowSize, h, templateWindowSize, searchWindowSize, normType)
     public static void fastNlMeansDenoisingMulti(List<Mat> srcImgs, Mat dst, int imgToDenoiseIndex, int temporalWindowSize, MatOfFloat h, int templateWindowSize, int searchWindowSize, int normType) {
         Mat srcImgs_mat = Converters.vector_Mat_to_Mat(srcImgs);
-        Mat h_mat = h;
-        fastNlMeansDenoisingMulti_2(srcImgs_mat.nativeObj, dst.nativeObj, imgToDenoiseIndex, temporalWindowSize, h_mat.nativeObj, templateWindowSize, searchWindowSize, normType);
+        fastNlMeansDenoisingMulti_2(srcImgs_mat.nativeObj, dst.nativeObj, imgToDenoiseIndex, temporalWindowSize, h.nativeObj, templateWindowSize, searchWindowSize, normType);
 
-        return;
     }
 
     //javadoc: fastNlMeansDenoisingMulti(srcImgs, dst, imgToDenoiseIndex, temporalWindowSize, h)
     public static void fastNlMeansDenoisingMulti(List<Mat> srcImgs, Mat dst, int imgToDenoiseIndex, int temporalWindowSize, MatOfFloat h) {
         Mat srcImgs_mat = Converters.vector_Mat_to_Mat(srcImgs);
-        Mat h_mat = h;
-        fastNlMeansDenoisingMulti_3(srcImgs_mat.nativeObj, dst.nativeObj, imgToDenoiseIndex, temporalWindowSize, h_mat.nativeObj);
+        fastNlMeansDenoisingMulti_3(srcImgs_mat.nativeObj, dst.nativeObj, imgToDenoiseIndex, temporalWindowSize, h.nativeObj);
 
-        return;
     }
 
 
@@ -478,7 +413,6 @@ public class Photo {
 
         illuminationChange_0(src.nativeObj, mask.nativeObj, dst.nativeObj, alpha, beta);
 
-        return;
     }
 
     //javadoc: illuminationChange(src, mask, dst)
@@ -486,7 +420,6 @@ public class Photo {
 
         illuminationChange_1(src.nativeObj, mask.nativeObj, dst.nativeObj);
 
-        return;
     }
 
 
@@ -499,7 +432,6 @@ public class Photo {
 
         inpaint_0(src.nativeObj, inpaintMask.nativeObj, dst.nativeObj, inpaintRadius, flags);
 
-        return;
     }
 
 
@@ -512,7 +444,6 @@ public class Photo {
 
         pencilSketch_0(src.nativeObj, dst1.nativeObj, dst2.nativeObj, sigma_s, sigma_r, shade_factor);
 
-        return;
     }
 
     //javadoc: pencilSketch(src, dst1, dst2)
@@ -520,7 +451,6 @@ public class Photo {
 
         pencilSketch_1(src.nativeObj, dst1.nativeObj, dst2.nativeObj);
 
-        return;
     }
 
 
@@ -533,7 +463,6 @@ public class Photo {
 
         seamlessClone_0(src.nativeObj, dst.nativeObj, mask.nativeObj, p.x, p.y, blend.nativeObj, flags);
 
-        return;
     }
 
 
@@ -546,7 +475,6 @@ public class Photo {
 
         stylization_0(src.nativeObj, dst.nativeObj, sigma_s, sigma_r);
 
-        return;
     }
 
     //javadoc: stylization(src, dst)
@@ -554,7 +482,6 @@ public class Photo {
 
         stylization_1(src.nativeObj, dst.nativeObj);
 
-        return;
     }
 
 
@@ -567,7 +494,6 @@ public class Photo {
 
         textureFlattening_0(src.nativeObj, mask.nativeObj, dst.nativeObj, low_threshold, high_threshold, kernel_size);
 
-        return;
     }
 
     //javadoc: textureFlattening(src, mask, dst)
@@ -575,7 +501,6 @@ public class Photo {
 
         textureFlattening_1(src.nativeObj, mask.nativeObj, dst.nativeObj);
 
-        return;
     }
 
 

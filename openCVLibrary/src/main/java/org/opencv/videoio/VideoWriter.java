@@ -22,7 +22,6 @@ public class VideoWriter {
 
         nativeObj = VideoWriter_0(filename, apiPreference, fourcc, fps, frameSize.width, frameSize.height, isColor);
 
-        return;
     }
 
     //javadoc: VideoWriter::VideoWriter(filename, apiPreference, fourcc, fps, frameSize)
@@ -30,7 +29,6 @@ public class VideoWriter {
 
         nativeObj = VideoWriter_1(filename, apiPreference, fourcc, fps, frameSize.width, frameSize.height);
 
-        return;
     }
 
     //
@@ -42,7 +40,6 @@ public class VideoWriter {
 
         nativeObj = VideoWriter_2(filename, fourcc, fps, frameSize.width, frameSize.height, isColor);
 
-        return;
     }
 
     //javadoc: VideoWriter::VideoWriter(filename, fourcc, fps, frameSize)
@@ -50,7 +47,6 @@ public class VideoWriter {
 
         nativeObj = VideoWriter_3(filename, fourcc, fps, frameSize.width, frameSize.height);
 
-        return;
     }
 
 
@@ -63,7 +59,6 @@ public class VideoWriter {
 
         nativeObj = VideoWriter_4();
 
-        return;
     }
 
     // internal usage only
@@ -79,9 +74,7 @@ public class VideoWriter {
     //javadoc: VideoWriter::fourcc(c1, c2, c3, c4)
     public static int fourcc(char c1, char c2, char c3, char c4) {
 
-        int retVal = fourcc_0(c1, c2, c3, c4);
-
-        return retVal;
+        return fourcc_0(c1, c2, c3, c4);
     }
 
 
@@ -175,57 +168,43 @@ public class VideoWriter {
     //javadoc: VideoWriter::isOpened()
     public boolean isOpened() {
 
-        boolean retVal = isOpened_0(nativeObj);
-
-        return retVal;
+        return isOpened_0(nativeObj);
     }
 
     //javadoc: VideoWriter::open(filename, apiPreference, fourcc, fps, frameSize, isColor)
     public boolean open(String filename, int apiPreference, int fourcc, double fps, Size frameSize, boolean isColor) {
 
-        boolean retVal = open_0(nativeObj, filename, apiPreference, fourcc, fps, frameSize.width, frameSize.height, isColor);
-
-        return retVal;
+        return open_0(nativeObj, filename, apiPreference, fourcc, fps, frameSize.width, frameSize.height, isColor);
     }
 
     //javadoc: VideoWriter::open(filename, apiPreference, fourcc, fps, frameSize)
     public boolean open(String filename, int apiPreference, int fourcc, double fps, Size frameSize) {
 
-        boolean retVal = open_1(nativeObj, filename, apiPreference, fourcc, fps, frameSize.width, frameSize.height);
-
-        return retVal;
+        return open_1(nativeObj, filename, apiPreference, fourcc, fps, frameSize.width, frameSize.height);
     }
 
     //javadoc: VideoWriter::open(filename, fourcc, fps, frameSize, isColor)
     public boolean open(String filename, int fourcc, double fps, Size frameSize, boolean isColor) {
 
-        boolean retVal = open_2(nativeObj, filename, fourcc, fps, frameSize.width, frameSize.height, isColor);
-
-        return retVal;
+        return open_2(nativeObj, filename, fourcc, fps, frameSize.width, frameSize.height, isColor);
     }
 
     //javadoc: VideoWriter::open(filename, fourcc, fps, frameSize)
     public boolean open(String filename, int fourcc, double fps, Size frameSize) {
 
-        boolean retVal = open_3(nativeObj, filename, fourcc, fps, frameSize.width, frameSize.height);
-
-        return retVal;
+        return open_3(nativeObj, filename, fourcc, fps, frameSize.width, frameSize.height);
     }
 
     //javadoc: VideoWriter::set(propId, value)
     public boolean set(int propId, double value) {
 
-        boolean retVal = set_0(nativeObj, propId, value);
-
-        return retVal;
+        return set_0(nativeObj, propId, value);
     }
 
     //javadoc: VideoWriter::get(propId)
     public double get(int propId) {
 
-        double retVal = get_0(nativeObj, propId);
-
-        return retVal;
+        return get_0(nativeObj, propId);
     }
 
     //javadoc: VideoWriter::release()
@@ -233,7 +212,6 @@ public class VideoWriter {
 
         release_0(nativeObj);
 
-        return;
     }
 
     //javadoc: VideoWriter::write(image)
@@ -241,7 +219,6 @@ public class VideoWriter {
 
         write_0(nativeObj, image.nativeObj);
 
-        return;
     }
 
     @Override

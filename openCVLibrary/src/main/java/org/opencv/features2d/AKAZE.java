@@ -31,17 +31,13 @@ public class AKAZE extends Feature2D {
     //javadoc: AKAZE::create(descriptor_type, descriptor_size, descriptor_channels, threshold, nOctaves, nOctaveLayers, diffusivity)
     public static AKAZE create(int descriptor_type, int descriptor_size, int descriptor_channels, float threshold, int nOctaves, int nOctaveLayers, int diffusivity) {
 
-        AKAZE retVal = AKAZE.__fromPtr__(create_0(descriptor_type, descriptor_size, descriptor_channels, threshold, nOctaves, nOctaveLayers, diffusivity));
-
-        return retVal;
+        return AKAZE.__fromPtr__(create_0(descriptor_type, descriptor_size, descriptor_channels, threshold, nOctaves, nOctaveLayers, diffusivity));
     }
 
     //javadoc: AKAZE::create()
     public static AKAZE create() {
 
-        AKAZE retVal = AKAZE.__fromPtr__(create_1());
-
-        return retVal;
+        return AKAZE.__fromPtr__(create_1());
     }
 
 
@@ -175,17 +171,13 @@ public class AKAZE extends Feature2D {
     //javadoc: AKAZE::getDefaultName()
     public String getDefaultName() {
 
-        String retVal = getDefaultName_0(nativeObj);
-
-        return retVal;
+        return getDefaultName_0(nativeObj);
     }
 
     //javadoc: AKAZE::getThreshold()
     public double getThreshold() {
 
-        double retVal = getThreshold_0(nativeObj);
-
-        return retVal;
+        return getThreshold_0(nativeObj);
     }
 
     //javadoc: AKAZE::setThreshold(threshold)
@@ -193,15 +185,12 @@ public class AKAZE extends Feature2D {
 
         setThreshold_0(nativeObj, threshold);
 
-        return;
     }
 
     //javadoc: AKAZE::getDescriptorChannels()
     public int getDescriptorChannels() {
 
-        int retVal = getDescriptorChannels_0(nativeObj);
-
-        return retVal;
+        return getDescriptorChannels_0(nativeObj);
     }
 
     //javadoc: AKAZE::setDescriptorChannels(dch)
@@ -209,15 +198,12 @@ public class AKAZE extends Feature2D {
 
         setDescriptorChannels_0(nativeObj, dch);
 
-        return;
     }
 
     //javadoc: AKAZE::getDescriptorSize()
     public int getDescriptorSize() {
 
-        int retVal = getDescriptorSize_0(nativeObj);
-
-        return retVal;
+        return getDescriptorSize_0(nativeObj);
     }
 
     //javadoc: AKAZE::setDescriptorSize(dsize)
@@ -225,15 +211,12 @@ public class AKAZE extends Feature2D {
 
         setDescriptorSize_0(nativeObj, dsize);
 
-        return;
     }
 
     //javadoc: AKAZE::getDescriptorType()
     public int getDescriptorType() {
 
-        int retVal = getDescriptorType_0(nativeObj);
-
-        return retVal;
+        return getDescriptorType_0(nativeObj);
     }
 
     //javadoc: AKAZE::setDescriptorType(dtype)
@@ -241,15 +224,12 @@ public class AKAZE extends Feature2D {
 
         setDescriptorType_0(nativeObj, dtype);
 
-        return;
     }
 
     //javadoc: AKAZE::getDiffusivity()
     public int getDiffusivity() {
 
-        int retVal = getDiffusivity_0(nativeObj);
-
-        return retVal;
+        return getDiffusivity_0(nativeObj);
     }
 
     //javadoc: AKAZE::setDiffusivity(diff)
@@ -257,15 +237,12 @@ public class AKAZE extends Feature2D {
 
         setDiffusivity_0(nativeObj, diff);
 
-        return;
     }
 
     //javadoc: AKAZE::getNOctaveLayers()
     public int getNOctaveLayers() {
 
-        int retVal = getNOctaveLayers_0(nativeObj);
-
-        return retVal;
+        return getNOctaveLayers_0(nativeObj);
     }
 
     //javadoc: AKAZE::setNOctaveLayers(octaveLayers)
@@ -273,15 +250,12 @@ public class AKAZE extends Feature2D {
 
         setNOctaveLayers_0(nativeObj, octaveLayers);
 
-        return;
     }
 
     //javadoc: AKAZE::getNOctaves()
     public int getNOctaves() {
 
-        int retVal = getNOctaves_0(nativeObj);
-
-        return retVal;
+        return getNOctaves_0(nativeObj);
     }
 
     //javadoc: AKAZE::setNOctaves(octaves)
@@ -289,11 +263,11 @@ public class AKAZE extends Feature2D {
 
         setNOctaves_0(nativeObj, octaves);
 
-        return;
     }
 
     @Override
     protected void finalize() throws Throwable {
+        super.finalize();
         delete(nativeObj);
     }
 

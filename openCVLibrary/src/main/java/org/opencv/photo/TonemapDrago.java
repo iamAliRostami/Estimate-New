@@ -54,9 +54,7 @@ public class TonemapDrago extends Tonemap {
     //javadoc: TonemapDrago::getBias()
     public float getBias() {
 
-        float retVal = getBias_0(nativeObj);
-
-        return retVal;
+        return getBias_0(nativeObj);
     }
 
     //javadoc: TonemapDrago::setBias(bias)
@@ -64,15 +62,12 @@ public class TonemapDrago extends Tonemap {
 
         setBias_0(nativeObj, bias);
 
-        return;
     }
 
     //javadoc: TonemapDrago::getSaturation()
     public float getSaturation() {
 
-        float retVal = getSaturation_0(nativeObj);
-
-        return retVal;
+        return getSaturation_0(nativeObj);
     }
 
     //javadoc: TonemapDrago::setSaturation(saturation)
@@ -80,11 +75,11 @@ public class TonemapDrago extends Tonemap {
 
         setSaturation_0(nativeObj, saturation);
 
-        return;
     }
 
     @Override
     protected void finalize() throws Throwable {
+        super.finalize();
         delete(nativeObj);
     }
 

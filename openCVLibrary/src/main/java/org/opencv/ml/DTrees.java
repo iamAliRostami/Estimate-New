@@ -33,9 +33,7 @@ public class DTrees extends StatModel {
     //javadoc: DTrees::create()
     public static DTrees create() {
 
-        DTrees retVal = DTrees.__fromPtr__(create_0());
-
-        return retVal;
+        return DTrees.__fromPtr__(create_0());
     }
 
 
@@ -46,9 +44,7 @@ public class DTrees extends StatModel {
     //javadoc: DTrees::load(filepath, nodeName)
     public static DTrees load(String filepath, String nodeName) {
 
-        DTrees retVal = DTrees.__fromPtr__(load_0(filepath, nodeName));
-
-        return retVal;
+        return DTrees.__fromPtr__(load_0(filepath, nodeName));
     }
 
 
@@ -59,9 +55,7 @@ public class DTrees extends StatModel {
     //javadoc: DTrees::load(filepath)
     public static DTrees load(String filepath) {
 
-        DTrees retVal = DTrees.__fromPtr__(load_1(filepath));
-
-        return retVal;
+        return DTrees.__fromPtr__(load_1(filepath));
     }
 
     // C++:  Mat getPriors()
@@ -217,9 +211,7 @@ public class DTrees extends StatModel {
     //javadoc: DTrees::getPriors()
     public Mat getPriors() {
 
-        Mat retVal = new Mat(getPriors_0(nativeObj));
-
-        return retVal;
+        return new Mat(getPriors_0(nativeObj));
     }
 
     //javadoc: DTrees::setPriors(val)
@@ -227,15 +219,12 @@ public class DTrees extends StatModel {
 
         setPriors_0(nativeObj, val.nativeObj);
 
-        return;
     }
 
     //javadoc: DTrees::getTruncatePrunedTree()
     public boolean getTruncatePrunedTree() {
 
-        boolean retVal = getTruncatePrunedTree_0(nativeObj);
-
-        return retVal;
+        return getTruncatePrunedTree_0(nativeObj);
     }
 
     //javadoc: DTrees::setTruncatePrunedTree(val)
@@ -243,15 +232,12 @@ public class DTrees extends StatModel {
 
         setTruncatePrunedTree_0(nativeObj, val);
 
-        return;
     }
 
     //javadoc: DTrees::getUse1SERule()
     public boolean getUse1SERule() {
 
-        boolean retVal = getUse1SERule_0(nativeObj);
-
-        return retVal;
+        return getUse1SERule_0(nativeObj);
     }
 
     //javadoc: DTrees::setUse1SERule(val)
@@ -259,15 +245,12 @@ public class DTrees extends StatModel {
 
         setUse1SERule_0(nativeObj, val);
 
-        return;
     }
 
     //javadoc: DTrees::getUseSurrogates()
     public boolean getUseSurrogates() {
 
-        boolean retVal = getUseSurrogates_0(nativeObj);
-
-        return retVal;
+        return getUseSurrogates_0(nativeObj);
     }
 
     //javadoc: DTrees::setUseSurrogates(val)
@@ -275,15 +258,12 @@ public class DTrees extends StatModel {
 
         setUseSurrogates_0(nativeObj, val);
 
-        return;
     }
 
     //javadoc: DTrees::getRegressionAccuracy()
     public float getRegressionAccuracy() {
 
-        float retVal = getRegressionAccuracy_0(nativeObj);
-
-        return retVal;
+        return getRegressionAccuracy_0(nativeObj);
     }
 
     //javadoc: DTrees::setRegressionAccuracy(val)
@@ -291,15 +271,12 @@ public class DTrees extends StatModel {
 
         setRegressionAccuracy_0(nativeObj, val);
 
-        return;
     }
 
     //javadoc: DTrees::getCVFolds()
     public int getCVFolds() {
 
-        int retVal = getCVFolds_0(nativeObj);
-
-        return retVal;
+        return getCVFolds_0(nativeObj);
     }
 
     //javadoc: DTrees::setCVFolds(val)
@@ -307,15 +284,12 @@ public class DTrees extends StatModel {
 
         setCVFolds_0(nativeObj, val);
 
-        return;
     }
 
     //javadoc: DTrees::getMaxCategories()
     public int getMaxCategories() {
 
-        int retVal = getMaxCategories_0(nativeObj);
-
-        return retVal;
+        return getMaxCategories_0(nativeObj);
     }
 
     //javadoc: DTrees::setMaxCategories(val)
@@ -323,15 +297,12 @@ public class DTrees extends StatModel {
 
         setMaxCategories_0(nativeObj, val);
 
-        return;
     }
 
     //javadoc: DTrees::getMaxDepth()
     public int getMaxDepth() {
 
-        int retVal = getMaxDepth_0(nativeObj);
-
-        return retVal;
+        return getMaxDepth_0(nativeObj);
     }
 
     //javadoc: DTrees::setMaxDepth(val)
@@ -339,15 +310,12 @@ public class DTrees extends StatModel {
 
         setMaxDepth_0(nativeObj, val);
 
-        return;
     }
 
     //javadoc: DTrees::getMinSampleCount()
     public int getMinSampleCount() {
 
-        int retVal = getMinSampleCount_0(nativeObj);
-
-        return retVal;
+        return getMinSampleCount_0(nativeObj);
     }
 
     //javadoc: DTrees::setMinSampleCount(val)
@@ -355,11 +323,11 @@ public class DTrees extends StatModel {
 
         setMinSampleCount_0(nativeObj, val);
 
-        return;
     }
 
     @Override
     protected void finalize() throws Throwable {
+        super.finalize();
         delete(nativeObj);
     }
 

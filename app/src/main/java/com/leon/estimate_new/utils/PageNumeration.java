@@ -20,12 +20,9 @@ import java.io.IOException;
 
 public class PageNumeration extends PdfPageEventHelper {
     private static Font FONT_FOOTER;
-    private static Font FONT_FOOTER_EN;
     private static Font FONT_FOOTER_FA;
-    private int pageNumber;
 
     PageNumeration(int pageNumber) {
-        this.pageNumber = pageNumber;
         try {
             BaseFont baseFont = BaseFont.createFont(Constants.PDF_FONT_NAME, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
             FONT_FOOTER = new Font(baseFont, 8, Font.NORMAL, BaseColor.DARK_GRAY);
@@ -35,7 +32,7 @@ public class PageNumeration extends PdfPageEventHelper {
         } catch (DocumentException | IOException e) {
             e.printStackTrace();
         }
-        FONT_FOOTER_EN = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL);
+        Font FONT_FOOTER_EN = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.NORMAL);
     }
 
     @Override

@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Arzeshdaraei {
-    public ArrayList<Block> blocks;
-    public ArrayList<Formula> formulas;
-    public ArrayList<Zarib> zaribs;
+    public final ArrayList<Block> blocks;
+    public final ArrayList<Formula> formulas;
+    public final ArrayList<Zarib> zaribs;
 
     public Arzeshdaraei() {
         this.blocks = new ArrayList<>();

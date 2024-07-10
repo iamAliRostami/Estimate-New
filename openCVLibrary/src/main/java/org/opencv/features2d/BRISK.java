@@ -27,21 +27,14 @@ public class BRISK extends Feature2D {
 
     //javadoc: BRISK::create(thresh, octaves, radiusList, numberList, dMax, dMin, indexChange)
     public static BRISK create(int thresh, int octaves, MatOfFloat radiusList, MatOfInt numberList, float dMax, float dMin, MatOfInt indexChange) {
-        Mat radiusList_mat = radiusList;
-        Mat numberList_mat = numberList;
-        Mat indexChange_mat = indexChange;
-        BRISK retVal = BRISK.__fromPtr__(create_0(thresh, octaves, radiusList_mat.nativeObj, numberList_mat.nativeObj, dMax, dMin, indexChange_mat.nativeObj));
 
-        return retVal;
+        return BRISK.__fromPtr__(create_0(thresh, octaves, radiusList.nativeObj, numberList.nativeObj, dMax, dMin, indexChange.nativeObj));
     }
 
     //javadoc: BRISK::create(thresh, octaves, radiusList, numberList)
     public static BRISK create(int thresh, int octaves, MatOfFloat radiusList, MatOfInt numberList) {
-        Mat radiusList_mat = radiusList;
-        Mat numberList_mat = numberList;
-        BRISK retVal = BRISK.__fromPtr__(create_1(thresh, octaves, radiusList_mat.nativeObj, numberList_mat.nativeObj));
 
-        return retVal;
+        return BRISK.__fromPtr__(create_1(thresh, octaves, radiusList.nativeObj, numberList.nativeObj));
     }
 
 
@@ -52,17 +45,13 @@ public class BRISK extends Feature2D {
     //javadoc: BRISK::create(thresh, octaves, patternScale)
     public static BRISK create(int thresh, int octaves, float patternScale) {
 
-        BRISK retVal = BRISK.__fromPtr__(create_2(thresh, octaves, patternScale));
-
-        return retVal;
+        return BRISK.__fromPtr__(create_2(thresh, octaves, patternScale));
     }
 
     //javadoc: BRISK::create()
     public static BRISK create() {
 
-        BRISK retVal = BRISK.__fromPtr__(create_3());
-
-        return retVal;
+        return BRISK.__fromPtr__(create_3());
     }
 
 
@@ -72,21 +61,14 @@ public class BRISK extends Feature2D {
 
     //javadoc: BRISK::create(radiusList, numberList, dMax, dMin, indexChange)
     public static BRISK create(MatOfFloat radiusList, MatOfInt numberList, float dMax, float dMin, MatOfInt indexChange) {
-        Mat radiusList_mat = radiusList;
-        Mat numberList_mat = numberList;
-        Mat indexChange_mat = indexChange;
-        BRISK retVal = BRISK.__fromPtr__(create_4(radiusList_mat.nativeObj, numberList_mat.nativeObj, dMax, dMin, indexChange_mat.nativeObj));
 
-        return retVal;
+        return BRISK.__fromPtr__(create_4(radiusList.nativeObj, numberList.nativeObj, dMax, dMin, indexChange.nativeObj));
     }
 
     //javadoc: BRISK::create(radiusList, numberList)
     public static BRISK create(MatOfFloat radiusList, MatOfInt numberList) {
-        Mat radiusList_mat = radiusList;
-        Mat numberList_mat = numberList;
-        BRISK retVal = BRISK.__fromPtr__(create_5(radiusList_mat.nativeObj, numberList_mat.nativeObj));
 
-        return retVal;
+        return BRISK.__fromPtr__(create_5(radiusList.nativeObj, numberList.nativeObj));
     }
 
 
@@ -118,13 +100,12 @@ public class BRISK extends Feature2D {
     //javadoc: BRISK::getDefaultName()
     public String getDefaultName() {
 
-        String retVal = getDefaultName_0(nativeObj);
-
-        return retVal;
+        return getDefaultName_0(nativeObj);
     }
 
     @Override
     protected void finalize() throws Throwable {
+        super.finalize();
         delete(nativeObj);
     }
 

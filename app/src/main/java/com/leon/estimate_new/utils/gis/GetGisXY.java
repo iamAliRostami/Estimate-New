@@ -1,6 +1,5 @@
 package com.leon.estimate_new.utils.gis;
 
-import static com.leon.estimate_new.enums.ProgressType.NOT_SHOW;
 import static com.leon.estimate_new.enums.ProgressType.SHOW;
 import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponent;
 

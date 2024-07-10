@@ -46,7 +46,7 @@ public class EnterBillFragment extends DialogFragment {
             } else {
                 dismiss();
                 ShowFragmentDialogOnce(requireContext(), "DOCUMENT_FRAGMENT",
-                        ShowDocumentFragment.newInstance(s, false, false));
+                        ShowDocumentFragment.newInstance(s, true,true));
             }
         });
     }

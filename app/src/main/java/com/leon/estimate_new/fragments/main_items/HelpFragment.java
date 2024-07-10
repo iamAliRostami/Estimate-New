@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class HelpFragment extends Fragment {
-    private final int maxNumber = 21;
+    private final int maxNumber = 23;
     private FragmentHelpBinding binding;
     private int pageNumber = 0;
 

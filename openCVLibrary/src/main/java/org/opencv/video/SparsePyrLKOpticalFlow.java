@@ -27,17 +27,13 @@ public class SparsePyrLKOpticalFlow extends SparseOpticalFlow {
     //javadoc: SparsePyrLKOpticalFlow::create(winSize, maxLevel, crit, flags, minEigThreshold)
     public static SparsePyrLKOpticalFlow create(Size winSize, int maxLevel, TermCriteria crit, int flags, double minEigThreshold) {
 
-        SparsePyrLKOpticalFlow retVal = SparsePyrLKOpticalFlow.__fromPtr__(create_0(winSize.width, winSize.height, maxLevel, crit.type, crit.maxCount, crit.epsilon, flags, minEigThreshold));
-
-        return retVal;
+        return SparsePyrLKOpticalFlow.__fromPtr__(create_0(winSize.width, winSize.height, maxLevel, crit.type, crit.maxCount, crit.epsilon, flags, minEigThreshold));
     }
 
     //javadoc: SparsePyrLKOpticalFlow::create()
     public static SparsePyrLKOpticalFlow create() {
 
-        SparsePyrLKOpticalFlow retVal = SparsePyrLKOpticalFlow.__fromPtr__(create_1());
-
-        return retVal;
+        return SparsePyrLKOpticalFlow.__fromPtr__(create_1());
     }
 
 
@@ -131,9 +127,7 @@ public class SparsePyrLKOpticalFlow extends SparseOpticalFlow {
     //javadoc: SparsePyrLKOpticalFlow::getWinSize()
     public Size getWinSize() {
 
-        Size retVal = new Size(getWinSize_0(nativeObj));
-
-        return retVal;
+        return new Size(getWinSize_0(nativeObj));
     }
 
     //javadoc: SparsePyrLKOpticalFlow::setWinSize(winSize)
@@ -141,15 +135,12 @@ public class SparsePyrLKOpticalFlow extends SparseOpticalFlow {
 
         setWinSize_0(nativeObj, winSize.width, winSize.height);
 
-        return;
     }
 
     //javadoc: SparsePyrLKOpticalFlow::getTermCriteria()
     public TermCriteria getTermCriteria() {
 
-        TermCriteria retVal = new TermCriteria(getTermCriteria_0(nativeObj));
-
-        return retVal;
+        return new TermCriteria(getTermCriteria_0(nativeObj));
     }
 
     //javadoc: SparsePyrLKOpticalFlow::setTermCriteria(crit)
@@ -157,15 +148,12 @@ public class SparsePyrLKOpticalFlow extends SparseOpticalFlow {
 
         setTermCriteria_0(nativeObj, crit.type, crit.maxCount, crit.epsilon);
 
-        return;
     }
 
     //javadoc: SparsePyrLKOpticalFlow::getMinEigThreshold()
     public double getMinEigThreshold() {
 
-        double retVal = getMinEigThreshold_0(nativeObj);
-
-        return retVal;
+        return getMinEigThreshold_0(nativeObj);
     }
 
     //javadoc: SparsePyrLKOpticalFlow::setMinEigThreshold(minEigThreshold)
@@ -173,15 +161,12 @@ public class SparsePyrLKOpticalFlow extends SparseOpticalFlow {
 
         setMinEigThreshold_0(nativeObj, minEigThreshold);
 
-        return;
     }
 
     //javadoc: SparsePyrLKOpticalFlow::getFlags()
     public int getFlags() {
 
-        int retVal = getFlags_0(nativeObj);
-
-        return retVal;
+        return getFlags_0(nativeObj);
     }
 
     //javadoc: SparsePyrLKOpticalFlow::setFlags(flags)
@@ -189,15 +174,12 @@ public class SparsePyrLKOpticalFlow extends SparseOpticalFlow {
 
         setFlags_0(nativeObj, flags);
 
-        return;
     }
 
     //javadoc: SparsePyrLKOpticalFlow::getMaxLevel()
     public int getMaxLevel() {
 
-        int retVal = getMaxLevel_0(nativeObj);
-
-        return retVal;
+        return getMaxLevel_0(nativeObj);
     }
 
     //javadoc: SparsePyrLKOpticalFlow::setMaxLevel(maxLevel)
@@ -205,11 +187,11 @@ public class SparsePyrLKOpticalFlow extends SparseOpticalFlow {
 
         setMaxLevel_0(nativeObj, maxLevel);
 
-        return;
     }
 
     @Override
     protected void finalize() throws Throwable {
+        super.finalize();
         delete(nativeObj);
     }
 

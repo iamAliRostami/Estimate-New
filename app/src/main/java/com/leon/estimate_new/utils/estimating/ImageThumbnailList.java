@@ -7,7 +7,6 @@ import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponen
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 
 import com.leon.estimate_new.R;

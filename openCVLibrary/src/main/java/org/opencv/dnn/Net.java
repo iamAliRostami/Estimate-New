@@ -26,7 +26,6 @@ public class Net {
 
         nativeObj = Net_0();
 
-        return;
     }
 
     // internal usage only
@@ -304,121 +303,91 @@ public class Net {
     //javadoc: Net::forward(outputName)
     public Mat forward(String outputName) {
 
-        Mat retVal = new Mat(forward_0(nativeObj, outputName));
-
-        return retVal;
+        return new Mat(forward_0(nativeObj, outputName));
     }
 
     //javadoc: Net::forward()
     public Mat forward() {
 
-        Mat retVal = new Mat(forward_1(nativeObj));
-
-        return retVal;
+        return new Mat(forward_1(nativeObj));
     }
 
     //javadoc: Net::getParam(layer, numParam)
     public Mat getParam(DictValue layer, int numParam) {
 
-        Mat retVal = new Mat(getParam_0(nativeObj, layer.getNativeObjAddr(), numParam));
-
-        return retVal;
+        return new Mat(getParam_0(nativeObj, layer.getNativeObjAddr(), numParam));
     }
 
     //javadoc: Net::getParam(layer)
     public Mat getParam(DictValue layer) {
 
-        Mat retVal = new Mat(getParam_1(nativeObj, layer.getNativeObjAddr()));
-
-        return retVal;
+        return new Mat(getParam_1(nativeObj, layer.getNativeObjAddr()));
     }
 
     //javadoc: Net::getLayer(layerId)
     public Layer getLayer(DictValue layerId) {
 
-        Layer retVal = Layer.__fromPtr__(getLayer_0(nativeObj, layerId.getNativeObjAddr()));
-
-        return retVal;
+        return Layer.__fromPtr__(getLayer_0(nativeObj, layerId.getNativeObjAddr()));
     }
 
     //javadoc: Net::empty()
     public boolean empty() {
 
-        boolean retVal = empty_0(nativeObj);
-
-        return retVal;
+        return empty_0(nativeObj);
     }
 
     //javadoc: Net::getLayerId(layer)
     public int getLayerId(String layer) {
 
-        int retVal = getLayerId_0(nativeObj, layer);
-
-        return retVal;
+        return getLayerId_0(nativeObj, layer);
     }
 
     //javadoc: Net::getLayersCount(layerType)
     public int getLayersCount(String layerType) {
 
-        int retVal = getLayersCount_0(nativeObj, layerType);
-
-        return retVal;
+        return getLayersCount_0(nativeObj, layerType);
     }
 
     //javadoc: Net::getFLOPS(netInputShape)
     public long getFLOPS(MatOfInt netInputShape) {
-        Mat netInputShape_mat = netInputShape;
-        long retVal = getFLOPS_0(nativeObj, netInputShape_mat.nativeObj);
 
-        return retVal;
+        return getFLOPS_0(nativeObj, netInputShape.nativeObj);
     }
 
     //javadoc: Net::getFLOPS(layerId, netInputShape)
     public long getFLOPS(int layerId, MatOfInt netInputShape) {
-        Mat netInputShape_mat = netInputShape;
-        long retVal = getFLOPS_1(nativeObj, layerId, netInputShape_mat.nativeObj);
 
-        return retVal;
+        return getFLOPS_1(nativeObj, layerId, netInputShape.nativeObj);
     }
 
     //javadoc: Net::getFLOPS(layerId, netInputShapes)
     public long getFLOPS(int layerId, List<MatOfInt> netInputShapes) {
 
-        long retVal = getFLOPS_2(nativeObj, layerId, netInputShapes);
-
-        return retVal;
+        return getFLOPS_2(nativeObj, layerId, netInputShapes);
     }
 
     //javadoc: Net::getFLOPS(netInputShapes)
     public long getFLOPS(List<MatOfInt> netInputShapes) {
 
-        long retVal = getFLOPS_3(nativeObj, netInputShapes);
-
-        return retVal;
+        return getFLOPS_3(nativeObj, netInputShapes);
     }
 
     //javadoc: Net::getPerfProfile(timings)
     public long getPerfProfile(MatOfDouble timings) {
-        Mat timings_mat = timings;
-        long retVal = getPerfProfile_0(nativeObj, timings_mat.nativeObj);
 
-        return retVal;
+        return getPerfProfile_0(nativeObj, timings.nativeObj);
     }
 
     //javadoc: Net::getLayerNames()
     public List<String> getLayerNames() {
 
-        List<String> retVal = getLayerNames_0(nativeObj);
-
-        return retVal;
+        return getLayerNames_0(nativeObj);
     }
 
     //javadoc: Net::getUnconnectedOutLayers()
     public MatOfInt getUnconnectedOutLayers() {
 
-        MatOfInt retVal = MatOfInt.fromNativeAddr(getUnconnectedOutLayers_0(nativeObj));
-
-        return retVal;
+        return MatOfInt.fromNativeAddr(getUnconnectedOutLayers_0(nativeObj));
     }
 
     //javadoc: Net::connect(outPin, inpPin)
@@ -426,7 +395,6 @@ public class Net {
 
         connect_0(nativeObj, outPin, inpPin);
 
-        return;
     }
 
     //javadoc: Net::deleteLayer(layer)
@@ -434,7 +402,6 @@ public class Net {
 
         deleteLayer_0(nativeObj, layer.getNativeObjAddr());
 
-        return;
     }
 
     //javadoc: Net::enableFusion(fusion)
@@ -442,7 +409,6 @@ public class Net {
 
         enableFusion_0(nativeObj, fusion);
 
-        return;
     }
 
     //javadoc: Net::forward(outputBlobs, outputName)
@@ -451,7 +417,6 @@ public class Net {
         forward_2(nativeObj, outputBlobs_mat.nativeObj, outputName);
         Converters.Mat_to_vector_Mat(outputBlobs_mat, outputBlobs);
         outputBlobs_mat.release();
-        return;
     }
 
     //javadoc: Net::forward(outputBlobs)
@@ -460,7 +425,6 @@ public class Net {
         forward_3(nativeObj, outputBlobs_mat.nativeObj);
         Converters.Mat_to_vector_Mat(outputBlobs_mat, outputBlobs);
         outputBlobs_mat.release();
-        return;
     }
 
     //javadoc: Net::forward(outputBlobs, outBlobNames)
@@ -469,7 +433,6 @@ public class Net {
         forward_4(nativeObj, outputBlobs_mat.nativeObj, outBlobNames);
         Converters.Mat_to_vector_Mat(outputBlobs_mat, outputBlobs);
         outputBlobs_mat.release();
-        return;
     }
 
     //javadoc: Net::getLayerTypes(layersTypes)
@@ -477,29 +440,24 @@ public class Net {
 
         getLayerTypes_0(nativeObj, layersTypes);
 
-        return;
     }
 
     //javadoc: Net::getMemoryConsumption(netInputShape, weights, blobs)
     public void getMemoryConsumption(MatOfInt netInputShape, long[] weights, long[] blobs) {
-        Mat netInputShape_mat = netInputShape;
         double[] weights_out = new double[1];
         double[] blobs_out = new double[1];
-        getMemoryConsumption_0(nativeObj, netInputShape_mat.nativeObj, weights_out, blobs_out);
+        getMemoryConsumption_0(nativeObj, netInputShape.nativeObj, weights_out, blobs_out);
         if (weights != null) weights[0] = (long) weights_out[0];
         if (blobs != null) blobs[0] = (long) blobs_out[0];
-        return;
     }
 
     //javadoc: Net::getMemoryConsumption(layerId, netInputShape, weights, blobs)
     public void getMemoryConsumption(int layerId, MatOfInt netInputShape, long[] weights, long[] blobs) {
-        Mat netInputShape_mat = netInputShape;
         double[] weights_out = new double[1];
         double[] blobs_out = new double[1];
-        getMemoryConsumption_1(nativeObj, layerId, netInputShape_mat.nativeObj, weights_out, blobs_out);
+        getMemoryConsumption_1(nativeObj, layerId, netInputShape.nativeObj, weights_out, blobs_out);
         if (weights != null) weights[0] = (long) weights_out[0];
         if (blobs != null) blobs[0] = (long) blobs_out[0];
-        return;
     }
 
     //javadoc: Net::getMemoryConsumption(layerId, netInputShapes, weights, blobs)
@@ -509,7 +467,6 @@ public class Net {
         getMemoryConsumption_2(nativeObj, layerId, netInputShapes, weights_out, blobs_out);
         if (weights != null) weights[0] = (long) weights_out[0];
         if (blobs != null) blobs[0] = (long) blobs_out[0];
-        return;
     }
 
     //javadoc: Net::setHalideScheduler(scheduler)
@@ -517,7 +474,6 @@ public class Net {
 
         setHalideScheduler_0(nativeObj, scheduler);
 
-        return;
     }
 
     //javadoc: Net::setInput(blob, name)
@@ -525,7 +481,6 @@ public class Net {
 
         setInput_0(nativeObj, blob.nativeObj, name);
 
-        return;
     }
 
     //javadoc: Net::setInput(blob)
@@ -533,7 +488,6 @@ public class Net {
 
         setInput_1(nativeObj, blob.nativeObj);
 
-        return;
     }
 
     //javadoc: Net::setInputsNames(inputBlobNames)
@@ -541,7 +495,6 @@ public class Net {
 
         setInputsNames_0(nativeObj, inputBlobNames);
 
-        return;
     }
 
     //javadoc: Net::setParam(layer, numParam, blob)
@@ -549,7 +502,6 @@ public class Net {
 
         setParam_0(nativeObj, layer.getNativeObjAddr(), numParam, blob.nativeObj);
 
-        return;
     }
 
     //javadoc: Net::setPreferableBackend(backendId)
@@ -557,7 +509,6 @@ public class Net {
 
         setPreferableBackend_0(nativeObj, backendId);
 
-        return;
     }
 
     //javadoc: Net::setPreferableTarget(targetId)
@@ -565,7 +516,6 @@ public class Net {
 
         setPreferableTarget_0(nativeObj, targetId);
 
-        return;
     }
 
     @Override

@@ -20,7 +20,6 @@ public class Params {
 
         nativeObj = Params_0();
 
-        return;
     }
 
     // internal usage only
@@ -347,9 +346,7 @@ public class Params {
     //javadoc: Params::get_thresholdStep()
     public float get_thresholdStep() {
 
-        float retVal = get_thresholdStep_0(nativeObj);
-
-        return retVal;
+        return get_thresholdStep_0(nativeObj);
     }
 
     //javadoc: Params::set_thresholdStep(thresholdStep)
@@ -357,15 +354,12 @@ public class Params {
 
         set_thresholdStep_0(nativeObj, thresholdStep);
 
-        return;
     }
 
     //javadoc: Params::get_minThreshold()
     public float get_minThreshold() {
 
-        float retVal = get_minThreshold_0(nativeObj);
-
-        return retVal;
+        return get_minThreshold_0(nativeObj);
     }
 
     //javadoc: Params::set_minThreshold(minThreshold)
@@ -373,15 +367,12 @@ public class Params {
 
         set_minThreshold_0(nativeObj, minThreshold);
 
-        return;
     }
 
     //javadoc: Params::get_maxThreshold()
     public float get_maxThreshold() {
 
-        float retVal = get_maxThreshold_0(nativeObj);
-
-        return retVal;
+        return get_maxThreshold_0(nativeObj);
     }
 
     //javadoc: Params::set_maxThreshold(maxThreshold)
@@ -389,15 +380,12 @@ public class Params {
 
         set_maxThreshold_0(nativeObj, maxThreshold);
 
-        return;
     }
 
     //javadoc: Params::get_minRepeatability()
     public long get_minRepeatability() {
 
-        long retVal = get_minRepeatability_0(nativeObj);
-
-        return retVal;
+        return get_minRepeatability_0(nativeObj);
     }
 
     //javadoc: Params::set_minRepeatability(minRepeatability)
@@ -405,15 +393,12 @@ public class Params {
 
         set_minRepeatability_0(nativeObj, minRepeatability);
 
-        return;
     }
 
     //javadoc: Params::get_minDistBetweenBlobs()
     public float get_minDistBetweenBlobs() {
 
-        float retVal = get_minDistBetweenBlobs_0(nativeObj);
-
-        return retVal;
+        return get_minDistBetweenBlobs_0(nativeObj);
     }
 
     //javadoc: Params::set_minDistBetweenBlobs(minDistBetweenBlobs)
@@ -421,15 +406,12 @@ public class Params {
 
         set_minDistBetweenBlobs_0(nativeObj, minDistBetweenBlobs);
 
-        return;
     }
 
     //javadoc: Params::get_filterByColor()
     public boolean get_filterByColor() {
 
-        boolean retVal = get_filterByColor_0(nativeObj);
-
-        return retVal;
+        return get_filterByColor_0(nativeObj);
     }
 
     //javadoc: Params::set_filterByColor(filterByColor)
@@ -437,15 +419,12 @@ public class Params {
 
         set_filterByColor_0(nativeObj, filterByColor);
 
-        return;
     }
 
     //javadoc: Params::get_filterByArea()
     public boolean get_filterByArea() {
 
-        boolean retVal = get_filterByArea_0(nativeObj);
-
-        return retVal;
+        return get_filterByArea_0(nativeObj);
     }
 
     //javadoc: Params::set_filterByArea(filterByArea)
@@ -453,15 +432,12 @@ public class Params {
 
         set_filterByArea_0(nativeObj, filterByArea);
 
-        return;
     }
 
     //javadoc: Params::get_minArea()
     public float get_minArea() {
 
-        float retVal = get_minArea_0(nativeObj);
-
-        return retVal;
+        return get_minArea_0(nativeObj);
     }
 
     //javadoc: Params::set_minArea(minArea)
@@ -469,15 +445,12 @@ public class Params {
 
         set_minArea_0(nativeObj, minArea);
 
-        return;
     }
 
     //javadoc: Params::get_maxArea()
     public float get_maxArea() {
 
-        float retVal = get_maxArea_0(nativeObj);
-
-        return retVal;
+        return get_maxArea_0(nativeObj);
     }
 
     //javadoc: Params::set_maxArea(maxArea)
@@ -485,15 +458,12 @@ public class Params {
 
         set_maxArea_0(nativeObj, maxArea);
 
-        return;
     }
 
     //javadoc: Params::get_filterByCircularity()
     public boolean get_filterByCircularity() {
 
-        boolean retVal = get_filterByCircularity_0(nativeObj);
-
-        return retVal;
+        return get_filterByCircularity_0(nativeObj);
     }
 
     //javadoc: Params::set_filterByCircularity(filterByCircularity)
@@ -501,15 +471,12 @@ public class Params {
 
         set_filterByCircularity_0(nativeObj, filterByCircularity);
 
-        return;
     }
 
     //javadoc: Params::get_minCircularity()
     public float get_minCircularity() {
 
-        float retVal = get_minCircularity_0(nativeObj);
-
-        return retVal;
+        return get_minCircularity_0(nativeObj);
     }
 
     //javadoc: Params::set_minCircularity(minCircularity)
@@ -517,15 +484,12 @@ public class Params {
 
         set_minCircularity_0(nativeObj, minCircularity);
 
-        return;
     }
 
     //javadoc: Params::get_maxCircularity()
     public float get_maxCircularity() {
 
-        float retVal = get_maxCircularity_0(nativeObj);
-
-        return retVal;
+        return get_maxCircularity_0(nativeObj);
     }
 
     //javadoc: Params::set_maxCircularity(maxCircularity)
@@ -533,15 +497,12 @@ public class Params {
 
         set_maxCircularity_0(nativeObj, maxCircularity);
 
-        return;
     }
 
     //javadoc: Params::get_filterByInertia()
     public boolean get_filterByInertia() {
 
-        boolean retVal = get_filterByInertia_0(nativeObj);
-
-        return retVal;
+        return get_filterByInertia_0(nativeObj);
     }
 
     //javadoc: Params::set_filterByInertia(filterByInertia)
@@ -549,15 +510,12 @@ public class Params {
 
         set_filterByInertia_0(nativeObj, filterByInertia);
 
-        return;
     }
 
     //javadoc: Params::get_minInertiaRatio()
     public float get_minInertiaRatio() {
 
-        float retVal = get_minInertiaRatio_0(nativeObj);
-
-        return retVal;
+        return get_minInertiaRatio_0(nativeObj);
     }
 
     //javadoc: Params::set_minInertiaRatio(minInertiaRatio)
@@ -565,15 +523,12 @@ public class Params {
 
         set_minInertiaRatio_0(nativeObj, minInertiaRatio);
 
-        return;
     }
 
     //javadoc: Params::get_maxInertiaRatio()
     public float get_maxInertiaRatio() {
 
-        float retVal = get_maxInertiaRatio_0(nativeObj);
-
-        return retVal;
+        return get_maxInertiaRatio_0(nativeObj);
     }
 
     //javadoc: Params::set_maxInertiaRatio(maxInertiaRatio)
@@ -581,15 +536,12 @@ public class Params {
 
         set_maxInertiaRatio_0(nativeObj, maxInertiaRatio);
 
-        return;
     }
 
     //javadoc: Params::get_filterByConvexity()
     public boolean get_filterByConvexity() {
 
-        boolean retVal = get_filterByConvexity_0(nativeObj);
-
-        return retVal;
+        return get_filterByConvexity_0(nativeObj);
     }
 
     //javadoc: Params::set_filterByConvexity(filterByConvexity)
@@ -597,15 +549,12 @@ public class Params {
 
         set_filterByConvexity_0(nativeObj, filterByConvexity);
 
-        return;
     }
 
     //javadoc: Params::get_minConvexity()
     public float get_minConvexity() {
 
-        float retVal = get_minConvexity_0(nativeObj);
-
-        return retVal;
+        return get_minConvexity_0(nativeObj);
     }
 
     //javadoc: Params::set_minConvexity(minConvexity)
@@ -613,15 +562,12 @@ public class Params {
 
         set_minConvexity_0(nativeObj, minConvexity);
 
-        return;
     }
 
     //javadoc: Params::get_maxConvexity()
     public float get_maxConvexity() {
 
-        float retVal = get_maxConvexity_0(nativeObj);
-
-        return retVal;
+        return get_maxConvexity_0(nativeObj);
     }
 
     //javadoc: Params::set_maxConvexity(maxConvexity)
@@ -629,7 +575,6 @@ public class Params {
 
         set_maxConvexity_0(nativeObj, maxConvexity);
 
-        return;
     }
 
     @Override

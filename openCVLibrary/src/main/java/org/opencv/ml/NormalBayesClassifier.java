@@ -26,9 +26,7 @@ public class NormalBayesClassifier extends StatModel {
     //javadoc: NormalBayesClassifier::create()
     public static NormalBayesClassifier create() {
 
-        NormalBayesClassifier retVal = NormalBayesClassifier.__fromPtr__(create_0());
-
-        return retVal;
+        return NormalBayesClassifier.__fromPtr__(create_0());
     }
 
 
@@ -39,17 +37,13 @@ public class NormalBayesClassifier extends StatModel {
     //javadoc: NormalBayesClassifier::load(filepath, nodeName)
     public static NormalBayesClassifier load(String filepath, String nodeName) {
 
-        NormalBayesClassifier retVal = NormalBayesClassifier.__fromPtr__(load_0(filepath, nodeName));
-
-        return retVal;
+        return NormalBayesClassifier.__fromPtr__(load_0(filepath, nodeName));
     }
 
     //javadoc: NormalBayesClassifier::load(filepath)
     public static NormalBayesClassifier load(String filepath) {
 
-        NormalBayesClassifier retVal = NormalBayesClassifier.__fromPtr__(load_1(filepath));
-
-        return retVal;
+        return NormalBayesClassifier.__fromPtr__(load_1(filepath));
     }
 
 
@@ -76,21 +70,18 @@ public class NormalBayesClassifier extends StatModel {
     //javadoc: NormalBayesClassifier::predictProb(inputs, outputs, outputProbs, flags)
     public float predictProb(Mat inputs, Mat outputs, Mat outputProbs, int flags) {
 
-        float retVal = predictProb_0(nativeObj, inputs.nativeObj, outputs.nativeObj, outputProbs.nativeObj, flags);
-
-        return retVal;
+        return predictProb_0(nativeObj, inputs.nativeObj, outputs.nativeObj, outputProbs.nativeObj, flags);
     }
 
     //javadoc: NormalBayesClassifier::predictProb(inputs, outputs, outputProbs)
     public float predictProb(Mat inputs, Mat outputs, Mat outputProbs) {
 
-        float retVal = predictProb_1(nativeObj, inputs.nativeObj, outputs.nativeObj, outputProbs.nativeObj);
-
-        return retVal;
+        return predictProb_1(nativeObj, inputs.nativeObj, outputs.nativeObj, outputProbs.nativeObj);
     }
 
     @Override
     protected void finalize() throws Throwable {
+        super.finalize();
         delete(nativeObj);
     }
 

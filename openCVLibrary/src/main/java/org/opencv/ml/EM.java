@@ -42,9 +42,7 @@ public class EM extends StatModel {
     //javadoc: EM::create()
     public static EM create() {
 
-        EM retVal = EM.__fromPtr__(create_0());
-
-        return retVal;
+        return EM.__fromPtr__(create_0());
     }
 
 
@@ -55,9 +53,7 @@ public class EM extends StatModel {
     //javadoc: EM::load(filepath, nodeName)
     public static EM load(String filepath, String nodeName) {
 
-        EM retVal = EM.__fromPtr__(load_0(filepath, nodeName));
-
-        return retVal;
+        return EM.__fromPtr__(load_0(filepath, nodeName));
     }
 
 
@@ -68,9 +64,7 @@ public class EM extends StatModel {
     //javadoc: EM::load(filepath)
     public static EM load(String filepath) {
 
-        EM retVal = EM.__fromPtr__(load_1(filepath));
-
-        return retVal;
+        return EM.__fromPtr__(load_1(filepath));
     }
 
 
@@ -202,25 +196,19 @@ public class EM extends StatModel {
     //javadoc: EM::getMeans()
     public Mat getMeans() {
 
-        Mat retVal = new Mat(getMeans_0(nativeObj));
-
-        return retVal;
+        return new Mat(getMeans_0(nativeObj));
     }
 
     //javadoc: EM::getWeights()
     public Mat getWeights() {
 
-        Mat retVal = new Mat(getWeights_0(nativeObj));
-
-        return retVal;
+        return new Mat(getWeights_0(nativeObj));
     }
 
     //javadoc: EM::getTermCriteria()
     public TermCriteria getTermCriteria() {
 
-        TermCriteria retVal = new TermCriteria(getTermCriteria_0(nativeObj));
-
-        return retVal;
+        return new TermCriteria(getTermCriteria_0(nativeObj));
     }
 
     //javadoc: EM::setTermCriteria(val)
@@ -228,87 +216,66 @@ public class EM extends StatModel {
 
         setTermCriteria_0(nativeObj, val.type, val.maxCount, val.epsilon);
 
-        return;
     }
 
     //javadoc: EM::predict2(sample, probs)
     public double[] predict2(Mat sample, Mat probs) {
 
-        double[] retVal = predict2_0(nativeObj, sample.nativeObj, probs.nativeObj);
-
-        return retVal;
+        return predict2_0(nativeObj, sample.nativeObj, probs.nativeObj);
     }
 
     //javadoc: EM::trainE(samples, means0, covs0, weights0, logLikelihoods, labels, probs)
     public boolean trainE(Mat samples, Mat means0, Mat covs0, Mat weights0, Mat logLikelihoods, Mat labels, Mat probs) {
 
-        boolean retVal = trainE_0(nativeObj, samples.nativeObj, means0.nativeObj, covs0.nativeObj, weights0.nativeObj, logLikelihoods.nativeObj, labels.nativeObj, probs.nativeObj);
-
-        return retVal;
+        return trainE_0(nativeObj, samples.nativeObj, means0.nativeObj, covs0.nativeObj, weights0.nativeObj, logLikelihoods.nativeObj, labels.nativeObj, probs.nativeObj);
     }
 
     //javadoc: EM::trainE(samples, means0)
     public boolean trainE(Mat samples, Mat means0) {
 
-        boolean retVal = trainE_1(nativeObj, samples.nativeObj, means0.nativeObj);
-
-        return retVal;
+        return trainE_1(nativeObj, samples.nativeObj, means0.nativeObj);
     }
 
     //javadoc: EM::trainEM(samples, logLikelihoods, labels, probs)
     public boolean trainEM(Mat samples, Mat logLikelihoods, Mat labels, Mat probs) {
 
-        boolean retVal = trainEM_0(nativeObj, samples.nativeObj, logLikelihoods.nativeObj, labels.nativeObj, probs.nativeObj);
-
-        return retVal;
+        return trainEM_0(nativeObj, samples.nativeObj, logLikelihoods.nativeObj, labels.nativeObj, probs.nativeObj);
     }
 
     //javadoc: EM::trainEM(samples)
     public boolean trainEM(Mat samples) {
 
-        boolean retVal = trainEM_1(nativeObj, samples.nativeObj);
-
-        return retVal;
+        return trainEM_1(nativeObj, samples.nativeObj);
     }
 
     //javadoc: EM::trainM(samples, probs0, logLikelihoods, labels, probs)
     public boolean trainM(Mat samples, Mat probs0, Mat logLikelihoods, Mat labels, Mat probs) {
 
-        boolean retVal = trainM_0(nativeObj, samples.nativeObj, probs0.nativeObj, logLikelihoods.nativeObj, labels.nativeObj, probs.nativeObj);
-
-        return retVal;
+        return trainM_0(nativeObj, samples.nativeObj, probs0.nativeObj, logLikelihoods.nativeObj, labels.nativeObj, probs.nativeObj);
     }
 
     //javadoc: EM::trainM(samples, probs0)
     public boolean trainM(Mat samples, Mat probs0) {
 
-        boolean retVal = trainM_1(nativeObj, samples.nativeObj, probs0.nativeObj);
-
-        return retVal;
+        return trainM_1(nativeObj, samples.nativeObj, probs0.nativeObj);
     }
 
     //javadoc: EM::predict(samples, results, flags)
     public float predict(Mat samples, Mat results, int flags) {
 
-        float retVal = predict_0(nativeObj, samples.nativeObj, results.nativeObj, flags);
-
-        return retVal;
+        return predict_0(nativeObj, samples.nativeObj, results.nativeObj, flags);
     }
 
     //javadoc: EM::predict(samples)
     public float predict(Mat samples) {
 
-        float retVal = predict_1(nativeObj, samples.nativeObj);
-
-        return retVal;
+        return predict_1(nativeObj, samples.nativeObj);
     }
 
     //javadoc: EM::getClustersNumber()
     public int getClustersNumber() {
 
-        int retVal = getClustersNumber_0(nativeObj);
-
-        return retVal;
+        return getClustersNumber_0(nativeObj);
     }
 
     //javadoc: EM::setClustersNumber(val)
@@ -316,15 +283,12 @@ public class EM extends StatModel {
 
         setClustersNumber_0(nativeObj, val);
 
-        return;
     }
 
     //javadoc: EM::getCovarianceMatrixType()
     public int getCovarianceMatrixType() {
 
-        int retVal = getCovarianceMatrixType_0(nativeObj);
-
-        return retVal;
+        return getCovarianceMatrixType_0(nativeObj);
     }
 
     //javadoc: EM::setCovarianceMatrixType(val)
@@ -332,7 +296,6 @@ public class EM extends StatModel {
 
         setCovarianceMatrixType_0(nativeObj, val);
 
-        return;
     }
 
     //javadoc: EM::getCovs(covs)
@@ -341,11 +304,11 @@ public class EM extends StatModel {
         getCovs_0(nativeObj, covs_mat.nativeObj);
         Converters.Mat_to_vector_Mat(covs_mat, covs);
         covs_mat.release();
-        return;
     }
 
     @Override
     protected void finalize() throws Throwable {
+        super.finalize();
         delete(nativeObj);
     }
 

@@ -1,13 +1,5 @@
 package com.leon.estimate_new.utils.gis;
 
-import static com.leon.estimate_new.helpers.MyApplication.getContext;
-
-import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.util.Log;
-
-import androidx.core.content.ContextCompat;
-
 //import com.esri.arcgisruntime.geometry.CoordinateFormatter;
 //import com.esri.arcgisruntime.geometry.Point;
 //import com.esri.arcgisruntime.geometry.SpatialReferences;

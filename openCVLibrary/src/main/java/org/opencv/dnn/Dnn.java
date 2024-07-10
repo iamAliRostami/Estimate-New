@@ -33,17 +33,13 @@ public class Dnn {
     //javadoc: blobFromImage(image, scalefactor, size, mean, swapRB, crop)
     public static Mat blobFromImage(Mat image, double scalefactor, Size size, Scalar mean, boolean swapRB, boolean crop) {
 
-        Mat retVal = new Mat(blobFromImage_0(image.nativeObj, scalefactor, size.width, size.height, mean.val[0], mean.val[1], mean.val[2], mean.val[3], swapRB, crop));
-
-        return retVal;
+        return new Mat(blobFromImage_0(image.nativeObj, scalefactor, size.width, size.height, mean.val[0], mean.val[1], mean.val[2], mean.val[3], swapRB, crop));
     }
 
     //javadoc: blobFromImage(image)
     public static Mat blobFromImage(Mat image) {
 
-        Mat retVal = new Mat(blobFromImage_1(image.nativeObj));
-
-        return retVal;
+        return new Mat(blobFromImage_1(image.nativeObj));
     }
 
 
@@ -54,17 +50,15 @@ public class Dnn {
     //javadoc: blobFromImages(images, scalefactor, size, mean, swapRB, crop)
     public static Mat blobFromImages(List<Mat> images, double scalefactor, Size size, Scalar mean, boolean swapRB, boolean crop) {
         Mat images_mat = Converters.vector_Mat_to_Mat(images);
-        Mat retVal = new Mat(blobFromImages_0(images_mat.nativeObj, scalefactor, size.width, size.height, mean.val[0], mean.val[1], mean.val[2], mean.val[3], swapRB, crop));
 
-        return retVal;
+        return new Mat(blobFromImages_0(images_mat.nativeObj, scalefactor, size.width, size.height, mean.val[0], mean.val[1], mean.val[2], mean.val[3], swapRB, crop));
     }
 
     //javadoc: blobFromImages(images)
     public static Mat blobFromImages(List<Mat> images) {
         Mat images_mat = Converters.vector_Mat_to_Mat(images);
-        Mat retVal = new Mat(blobFromImages_1(images_mat.nativeObj));
 
-        return retVal;
+        return new Mat(blobFromImages_1(images_mat.nativeObj));
     }
 
 
@@ -75,17 +69,13 @@ public class Dnn {
     //javadoc: readTorchBlob(filename, isBinary)
     public static Mat readTorchBlob(String filename, boolean isBinary) {
 
-        Mat retVal = new Mat(readTorchBlob_0(filename, isBinary));
-
-        return retVal;
+        return new Mat(readTorchBlob_0(filename, isBinary));
     }
 
     //javadoc: readTorchBlob(filename)
     public static Mat readTorchBlob(String filename) {
 
-        Mat retVal = new Mat(readTorchBlob_1(filename));
-
-        return retVal;
+        return new Mat(readTorchBlob_1(filename));
     }
 
 
@@ -96,17 +86,13 @@ public class Dnn {
     //javadoc: readNetFromCaffe(prototxt, caffeModel)
     public static Net readNetFromCaffe(String prototxt, String caffeModel) {
 
-        Net retVal = new Net(readNetFromCaffe_0(prototxt, caffeModel));
-
-        return retVal;
+        return new Net(readNetFromCaffe_0(prototxt, caffeModel));
     }
 
     //javadoc: readNetFromCaffe(prototxt)
     public static Net readNetFromCaffe(String prototxt) {
 
-        Net retVal = new Net(readNetFromCaffe_1(prototxt));
-
-        return retVal;
+        return new Net(readNetFromCaffe_1(prototxt));
     }
 
 
@@ -117,17 +103,13 @@ public class Dnn {
     //javadoc: readNetFromDarknet(cfgFile, darknetModel)
     public static Net readNetFromDarknet(String cfgFile, String darknetModel) {
 
-        Net retVal = new Net(readNetFromDarknet_0(cfgFile, darknetModel));
-
-        return retVal;
+        return new Net(readNetFromDarknet_0(cfgFile, darknetModel));
     }
 
     //javadoc: readNetFromDarknet(cfgFile)
     public static Net readNetFromDarknet(String cfgFile) {
 
-        Net retVal = new Net(readNetFromDarknet_1(cfgFile));
-
-        return retVal;
+        return new Net(readNetFromDarknet_1(cfgFile));
     }
 
 
@@ -138,17 +120,13 @@ public class Dnn {
     //javadoc: readNetFromTensorflow(model, config)
     public static Net readNetFromTensorflow(String model, String config) {
 
-        Net retVal = new Net(readNetFromTensorflow_0(model, config));
-
-        return retVal;
+        return new Net(readNetFromTensorflow_0(model, config));
     }
 
     //javadoc: readNetFromTensorflow(model)
     public static Net readNetFromTensorflow(String model) {
 
-        Net retVal = new Net(readNetFromTensorflow_1(model));
-
-        return retVal;
+        return new Net(readNetFromTensorflow_1(model));
     }
 
 
@@ -159,17 +137,13 @@ public class Dnn {
     //javadoc: readNetFromTorch(model, isBinary)
     public static Net readNetFromTorch(String model, boolean isBinary) {
 
-        Net retVal = new Net(readNetFromTorch_0(model, isBinary));
-
-        return retVal;
+        return new Net(readNetFromTorch_0(model, isBinary));
     }
 
     //javadoc: readNetFromTorch(model)
     public static Net readNetFromTorch(String model) {
 
-        Net retVal = new Net(readNetFromTorch_1(model));
-
-        return retVal;
+        return new Net(readNetFromTorch_1(model));
     }
 
 
@@ -179,22 +153,14 @@ public class Dnn {
 
     //javadoc: NMSBoxes(bboxes, scores, score_threshold, nms_threshold, indices, eta, top_k)
     public static void NMSBoxes(MatOfRect bboxes, MatOfFloat scores, float score_threshold, float nms_threshold, MatOfInt indices, float eta, int top_k) {
-        Mat bboxes_mat = bboxes;
-        Mat scores_mat = scores;
-        Mat indices_mat = indices;
-        NMSBoxes_0(bboxes_mat.nativeObj, scores_mat.nativeObj, score_threshold, nms_threshold, indices_mat.nativeObj, eta, top_k);
+        NMSBoxes_0(bboxes.nativeObj, scores.nativeObj, score_threshold, nms_threshold, indices.nativeObj, eta, top_k);
 
-        return;
     }
 
     //javadoc: NMSBoxes(bboxes, scores, score_threshold, nms_threshold, indices)
     public static void NMSBoxes(MatOfRect bboxes, MatOfFloat scores, float score_threshold, float nms_threshold, MatOfInt indices) {
-        Mat bboxes_mat = bboxes;
-        Mat scores_mat = scores;
-        Mat indices_mat = indices;
-        NMSBoxes_1(bboxes_mat.nativeObj, scores_mat.nativeObj, score_threshold, nms_threshold, indices_mat.nativeObj);
+        NMSBoxes_1(bboxes.nativeObj, scores.nativeObj, score_threshold, nms_threshold, indices.nativeObj);
 
-        return;
     }
 
 
@@ -208,7 +174,6 @@ public class Dnn {
         imagesFromBlob_0(blob_.nativeObj, images__mat.nativeObj);
         Converters.Mat_to_vector_Mat(images__mat, images_);
         images__mat.release();
-        return;
     }
 
 
@@ -221,7 +186,6 @@ public class Dnn {
 
         shrinkCaffeModel_0(src, dst, layersTypes);
 
-        return;
     }
 
     //javadoc: shrinkCaffeModel(src, dst)
@@ -229,7 +193,6 @@ public class Dnn {
 
         shrinkCaffeModel_1(src, dst);
 
-        return;
     }
 
 

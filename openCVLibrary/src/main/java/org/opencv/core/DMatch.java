@@ -11,18 +11,18 @@ public class DMatch {
     /**
      * Query descriptor index.
      */
-    public int queryIdx;
+    public final int queryIdx;
     /**
      * Train descriptor index.
      */
-    public int trainIdx;
+    public final int trainIdx;
     /**
      * Train image index.
      */
-    public int imgIdx;
+    public final int imgIdx;
 
     // javadoc: DMatch::distance
-    public float distance;
+    public final float distance;
 
     // javadoc: DMatch::DMatch()
     public DMatch() {

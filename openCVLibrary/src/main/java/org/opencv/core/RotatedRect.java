@@ -3,8 +3,8 @@ package org.opencv.core;
 //javadoc:RotatedRect_
 public class RotatedRect {
 
-    public Point center;
-    public Size size;
+    public final Point center;
+    public final Size size;
     public double angle;
 
     public RotatedRect() {
@@ -26,13 +26,12 @@ public class RotatedRect {
 
     public void set(double[] vals) {
         if (vals != null) {
-            center.x = vals.length > 0 ? (double) vals[0] : 0;
-            center.y = vals.length > 1 ? (double) vals[1] : 0;
-            size.width = vals.length > 2 ? (double) vals[2] : 0;
-            size.height = vals.length > 3 ? (double) vals[3] : 0;
-            angle = vals.length > 4 ? (double) vals[4] : 0;
+            center.x = vals.length > 0 ? vals[0] : 0;
+            center.y = vals.length > 1 ? vals[1] : 0;
+            size.width = vals.length > 2 ? vals[2] : 0;
+            size.height = vals.length > 3 ? vals[3] : 0;
+            angle = vals.length > 4 ? vals[4] : 0;
         } else {
-            center.x = 0;
             center.x = 0;
             size.width = 0;
             size.height = 0;
@@ -42,8 +41,8 @@ public class RotatedRect {
 
     public void points(Point pt[]) {
         double _angle = angle * Math.PI / 180.0;
-        double b = (double) Math.cos(_angle) * 0.5f;
-        double a = (double) Math.sin(_angle) * 0.5f;
+        double b = Math.cos(_angle) * 0.5f;
+        double a = Math.sin(_angle) * 0.5f;
 
         pt[0] = new Point(
                 center.x - a * size.height - b * size.width,
@@ -82,25 +81,18 @@ public class RotatedRect {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        long temp;
-        temp = Double.doubleToLongBits(center.x);
-        result = prime * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(center.y);
-        result = prime * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(size.width);
-        result = prime * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(size.height);
-        result = prime * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(angle);
-        result = prime * result + (int) (temp ^ (temp >>> 32));
+        result = prime * result + Double.hashCode(center.x);
+        result = prime * result + Double.hashCode(center.y);
+        result = prime * result + Double.hashCode(size.width);
+        result = prime * result + Double.hashCode(size.height);
+        result = prime * result + Double.hashCode(angle);
         return result;
     }
 
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        if (!(obj instanceof RotatedRect)) return false;
-        RotatedRect it = (RotatedRect) obj;
+        if (!(obj instanceof RotatedRect it)) return false;
         return center.equals(it.center) && size.equals(it.size) && angle == it.angle;
     }
 

@@ -226,9 +226,7 @@ public class BackgroundSubtractorMOG2 extends BackgroundSubtractor {
     //javadoc: BackgroundSubtractorMOG2::getDetectShadows()
     public boolean getDetectShadows() {
 
-        boolean retVal = getDetectShadows_0(nativeObj);
-
-        return retVal;
+        return getDetectShadows_0(nativeObj);
     }
 
     //javadoc: BackgroundSubtractorMOG2::setDetectShadows(detectShadows)
@@ -236,15 +234,12 @@ public class BackgroundSubtractorMOG2 extends BackgroundSubtractor {
 
         setDetectShadows_0(nativeObj, detectShadows);
 
-        return;
     }
 
     //javadoc: BackgroundSubtractorMOG2::getBackgroundRatio()
     public double getBackgroundRatio() {
 
-        double retVal = getBackgroundRatio_0(nativeObj);
-
-        return retVal;
+        return getBackgroundRatio_0(nativeObj);
     }
 
     //javadoc: BackgroundSubtractorMOG2::setBackgroundRatio(ratio)
@@ -252,15 +247,12 @@ public class BackgroundSubtractorMOG2 extends BackgroundSubtractor {
 
         setBackgroundRatio_0(nativeObj, ratio);
 
-        return;
     }
 
     //javadoc: BackgroundSubtractorMOG2::getComplexityReductionThreshold()
     public double getComplexityReductionThreshold() {
 
-        double retVal = getComplexityReductionThreshold_0(nativeObj);
-
-        return retVal;
+        return getComplexityReductionThreshold_0(nativeObj);
     }
 
     //javadoc: BackgroundSubtractorMOG2::setComplexityReductionThreshold(ct)
@@ -268,15 +260,12 @@ public class BackgroundSubtractorMOG2 extends BackgroundSubtractor {
 
         setComplexityReductionThreshold_0(nativeObj, ct);
 
-        return;
     }
 
     //javadoc: BackgroundSubtractorMOG2::getShadowThreshold()
     public double getShadowThreshold() {
 
-        double retVal = getShadowThreshold_0(nativeObj);
-
-        return retVal;
+        return getShadowThreshold_0(nativeObj);
     }
 
     //javadoc: BackgroundSubtractorMOG2::setShadowThreshold(threshold)
@@ -284,15 +273,12 @@ public class BackgroundSubtractorMOG2 extends BackgroundSubtractor {
 
         setShadowThreshold_0(nativeObj, threshold);
 
-        return;
     }
 
     //javadoc: BackgroundSubtractorMOG2::getVarInit()
     public double getVarInit() {
 
-        double retVal = getVarInit_0(nativeObj);
-
-        return retVal;
+        return getVarInit_0(nativeObj);
     }
 
     //javadoc: BackgroundSubtractorMOG2::setVarInit(varInit)
@@ -300,15 +286,12 @@ public class BackgroundSubtractorMOG2 extends BackgroundSubtractor {
 
         setVarInit_0(nativeObj, varInit);
 
-        return;
     }
 
     //javadoc: BackgroundSubtractorMOG2::getVarMax()
     public double getVarMax() {
 
-        double retVal = getVarMax_0(nativeObj);
-
-        return retVal;
+        return getVarMax_0(nativeObj);
     }
 
     //javadoc: BackgroundSubtractorMOG2::setVarMax(varMax)
@@ -316,15 +299,12 @@ public class BackgroundSubtractorMOG2 extends BackgroundSubtractor {
 
         setVarMax_0(nativeObj, varMax);
 
-        return;
     }
 
     //javadoc: BackgroundSubtractorMOG2::getVarMin()
     public double getVarMin() {
 
-        double retVal = getVarMin_0(nativeObj);
-
-        return retVal;
+        return getVarMin_0(nativeObj);
     }
 
     //javadoc: BackgroundSubtractorMOG2::setVarMin(varMin)
@@ -332,15 +312,12 @@ public class BackgroundSubtractorMOG2 extends BackgroundSubtractor {
 
         setVarMin_0(nativeObj, varMin);
 
-        return;
     }
 
     //javadoc: BackgroundSubtractorMOG2::getVarThreshold()
     public double getVarThreshold() {
 
-        double retVal = getVarThreshold_0(nativeObj);
-
-        return retVal;
+        return getVarThreshold_0(nativeObj);
     }
 
     //javadoc: BackgroundSubtractorMOG2::setVarThreshold(varThreshold)
@@ -348,15 +325,12 @@ public class BackgroundSubtractorMOG2 extends BackgroundSubtractor {
 
         setVarThreshold_0(nativeObj, varThreshold);
 
-        return;
     }
 
     //javadoc: BackgroundSubtractorMOG2::getVarThresholdGen()
     public double getVarThresholdGen() {
 
-        double retVal = getVarThresholdGen_0(nativeObj);
-
-        return retVal;
+        return getVarThresholdGen_0(nativeObj);
     }
 
     //javadoc: BackgroundSubtractorMOG2::setVarThresholdGen(varThresholdGen)
@@ -364,15 +338,12 @@ public class BackgroundSubtractorMOG2 extends BackgroundSubtractor {
 
         setVarThresholdGen_0(nativeObj, varThresholdGen);
 
-        return;
     }
 
     //javadoc: BackgroundSubtractorMOG2::getHistory()
     public int getHistory() {
 
-        int retVal = getHistory_0(nativeObj);
-
-        return retVal;
+        return getHistory_0(nativeObj);
     }
 
     //javadoc: BackgroundSubtractorMOG2::setHistory(history)
@@ -380,15 +351,12 @@ public class BackgroundSubtractorMOG2 extends BackgroundSubtractor {
 
         setHistory_0(nativeObj, history);
 
-        return;
     }
 
     //javadoc: BackgroundSubtractorMOG2::getNMixtures()
     public int getNMixtures() {
 
-        int retVal = getNMixtures_0(nativeObj);
-
-        return retVal;
+        return getNMixtures_0(nativeObj);
     }
 
     //javadoc: BackgroundSubtractorMOG2::setNMixtures(nmixtures)
@@ -396,15 +364,12 @@ public class BackgroundSubtractorMOG2 extends BackgroundSubtractor {
 
         setNMixtures_0(nativeObj, nmixtures);
 
-        return;
     }
 
     //javadoc: BackgroundSubtractorMOG2::getShadowValue()
     public int getShadowValue() {
 
-        int retVal = getShadowValue_0(nativeObj);
-
-        return retVal;
+        return getShadowValue_0(nativeObj);
     }
 
     //javadoc: BackgroundSubtractorMOG2::setShadowValue(value)
@@ -412,7 +377,6 @@ public class BackgroundSubtractorMOG2 extends BackgroundSubtractor {
 
         setShadowValue_0(nativeObj, value);
 
-        return;
     }
 
     //javadoc: BackgroundSubtractorMOG2::apply(image, fgmask, learningRate)
@@ -420,7 +384,6 @@ public class BackgroundSubtractorMOG2 extends BackgroundSubtractor {
 
         apply_0(nativeObj, image.nativeObj, fgmask.nativeObj, learningRate);
 
-        return;
     }
 
     //javadoc: BackgroundSubtractorMOG2::apply(image, fgmask)
@@ -428,11 +391,11 @@ public class BackgroundSubtractorMOG2 extends BackgroundSubtractor {
 
         apply_1(nativeObj, image.nativeObj, fgmask.nativeObj);
 
-        return;
     }
 
     @Override
     protected void finalize() throws Throwable {
+        super.finalize();
         delete(nativeObj);
     }
 

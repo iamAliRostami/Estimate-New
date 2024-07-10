@@ -20,7 +20,6 @@ public class TickMeter {
 
         nativeObj = TickMeter_0();
 
-        return;
     }
 
     // internal usage only
@@ -109,41 +108,31 @@ public class TickMeter {
     //javadoc: TickMeter::getTimeMicro()
     public double getTimeMicro() {
 
-        double retVal = getTimeMicro_0(nativeObj);
-
-        return retVal;
+        return getTimeMicro_0(nativeObj);
     }
 
     //javadoc: TickMeter::getTimeMilli()
     public double getTimeMilli() {
 
-        double retVal = getTimeMilli_0(nativeObj);
-
-        return retVal;
+        return getTimeMilli_0(nativeObj);
     }
 
     //javadoc: TickMeter::getTimeSec()
     public double getTimeSec() {
 
-        double retVal = getTimeSec_0(nativeObj);
-
-        return retVal;
+        return getTimeSec_0(nativeObj);
     }
 
     //javadoc: TickMeter::getCounter()
     public long getCounter() {
 
-        long retVal = getCounter_0(nativeObj);
-
-        return retVal;
+        return getCounter_0(nativeObj);
     }
 
     //javadoc: TickMeter::getTimeTicks()
     public long getTimeTicks() {
 
-        long retVal = getTimeTicks_0(nativeObj);
-
-        return retVal;
+        return getTimeTicks_0(nativeObj);
     }
 
     //javadoc: TickMeter::reset()
@@ -151,7 +140,6 @@ public class TickMeter {
 
         reset_0(nativeObj);
 
-        return;
     }
 
     //javadoc: TickMeter::start()
@@ -159,7 +147,6 @@ public class TickMeter {
 
         start_0(nativeObj);
 
-        return;
     }
 
     //javadoc: TickMeter::stop()
@@ -167,7 +154,6 @@ public class TickMeter {
 
         stop_0(nativeObj);
 
-        return;
     }
 
     @Override

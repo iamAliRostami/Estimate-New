@@ -93,7 +93,7 @@ public class Layer extends Algorithm {
     //javadoc: Layer::finalize(inputs)
     public List<Mat> finalize(List<Mat> inputs) {
         Mat inputs_mat = Converters.vector_Mat_to_Mat(inputs);
-        List<Mat> retVal = new ArrayList<Mat>();
+        List<Mat> retVal = new ArrayList<>();
         Mat retValMat = new Mat(finalize_0(nativeObj, inputs_mat.nativeObj));
         Converters.Mat_to_vector_Mat(retValMat, retVal);
         return retVal;
@@ -106,7 +106,6 @@ public class Layer extends Algorithm {
         finalize_1(nativeObj, inputs_mat.nativeObj, outputs_mat.nativeObj);
         Converters.Mat_to_vector_Mat(outputs_mat, outputs);
         outputs_mat.release();
-        return;
     }
 
     //javadoc: Layer::run(inputs, outputs, internals)
@@ -119,12 +118,11 @@ public class Layer extends Algorithm {
         outputs_mat.release();
         Converters.Mat_to_vector_Mat(internals_mat, internals);
         internals_mat.release();
-        return;
     }
 
     //javadoc: Layer::get_blobs()
     public List<Mat> get_blobs() {
-        List<Mat> retVal = new ArrayList<Mat>();
+        List<Mat> retVal = new ArrayList<>();
         Mat retValMat = new Mat(get_blobs_0(nativeObj));
         Converters.Mat_to_vector_Mat(retValMat, retVal);
         return retVal;
@@ -135,35 +133,29 @@ public class Layer extends Algorithm {
         Mat blobs_mat = Converters.vector_Mat_to_Mat(blobs);
         set_blobs_0(nativeObj, blobs_mat.nativeObj);
 
-        return;
     }
 
     //javadoc: Layer::get_name()
     public String get_name() {
 
-        String retVal = get_name_0(nativeObj);
-
-        return retVal;
+        return get_name_0(nativeObj);
     }
 
     //javadoc: Layer::get_type()
     public String get_type() {
 
-        String retVal = get_type_0(nativeObj);
-
-        return retVal;
+        return get_type_0(nativeObj);
     }
 
     //javadoc: Layer::get_preferableTarget()
     public int get_preferableTarget() {
 
-        int retVal = get_preferableTarget_0(nativeObj);
-
-        return retVal;
+        return get_preferableTarget_0(nativeObj);
     }
 
     @Override
     protected void finalize() throws Throwable {
+        super.finalize();
         delete(nativeObj);
     }
 

@@ -65,7 +65,7 @@ public abstract class CameraBridgeViewBase extends SurfaceView implements Surfac
         super(context, attrs);
 
         int count = attrs.getAttributeCount();
-        Log.d(TAG, "Attr count: " + Integer.valueOf(count));
+        Log.d(TAG, "Attr count: " + count);
 
         TypedArray styledAttrs = getContext().obtainStyledAttributes(attrs, R.styleable.CameraBridgeViewBase);
         if (styledAttrs.getBoolean(R.styleable.CameraBridgeViewBase_show_fps, false))
@@ -91,18 +91,15 @@ public abstract class CameraBridgeViewBase extends SurfaceView implements Surfac
     public void surfaceChanged(SurfaceHolder arg0, int arg1, int arg2, int arg3) {
         Log.d(TAG, "call surfaceChanged event");
         synchronized (mSyncObject) {
-            if (!mSurfaceExist) {
-                mSurfaceExist = true;
-                checkCurrentState();
-            } else {
+            if (mSurfaceExist) {
                 /** Surface changed. We need to stop camera and restart with new parameters */
                 /* Pretend that old surface has been destroyed */
                 mSurfaceExist = false;
                 checkCurrentState();
                 /* Now use new surface. Say we have it now */
-                mSurfaceExist = true;
-                checkCurrentState();
             }
+            mSurfaceExist = true;
+            checkCurrentState();
         }
     }
 
@@ -110,16 +107,12 @@ public abstract class CameraBridgeViewBase extends SurfaceView implements Surfac
         /* Do nothing. Wait until surfaceChanged delivered */
     }
 
-    ;
-
     public void surfaceDestroyed(SurfaceHolder holder) {
         synchronized (mSyncObject) {
             mSurfaceExist = false;
             checkCurrentState();
         }
     }
-
-    ;
 
     /**
      * This method is provided for clients, so they can enable the camera connection.
@@ -131,8 +124,6 @@ public abstract class CameraBridgeViewBase extends SurfaceView implements Surfac
             checkCurrentState();
         }
     }
-
-    ;
 
     /**
      * This method is provided for clients, so they can disable camera connection and stop
@@ -190,8 +181,7 @@ public abstract class CameraBridgeViewBase extends SurfaceView implements Surfac
 
     public void SetCaptureFormat(int format) {
         mPreviewFormat = format;
-        if (mListener instanceof CvCameraViewListenerAdapter) {
-            CvCameraViewListenerAdapter adapter = (CvCameraViewListenerAdapter) mListener;
+        if (mListener instanceof CvCameraViewListenerAdapter adapter) {
             adapter.setFrameFormat(mPreviewFormat);
         }
     }
@@ -233,7 +223,6 @@ public abstract class CameraBridgeViewBase extends SurfaceView implements Surfac
                 }
                 break;
         }
-        ;
     }
 
     private void processExitState(int state) {
@@ -246,7 +235,6 @@ public abstract class CameraBridgeViewBase extends SurfaceView implements Surfac
                 onExitStoppedState();
                 break;
         }
-        ;
     }
 
     private void onEnterStoppedState() {
@@ -266,11 +254,9 @@ public abstract class CameraBridgeViewBase extends SurfaceView implements Surfac
             AlertDialog ad = new AlertDialog.Builder(getContext()).create();
             ad.setCancelable(false); // This blocks the 'BACK' button
             ad.setMessage("It seems that you device does not support camera (or it is locked). Application will be closed.");
-            ad.setButton(DialogInterface.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                    ((Activity) getContext()).finish();
-                }
+            ad.setButton(DialogInterface.BUTTON_NEUTRAL, "OK", (dialog, which) -> {
+                dialog.dismiss();
+                ((Activity) getContext()).finish();
             });
             ad.show();
 
@@ -386,8 +372,8 @@ public abstract class CameraBridgeViewBase extends SurfaceView implements Surfac
 
             if (width <= maxAllowedWidth && height <= maxAllowedHeight) {
                 if (width >= calcWidth && height >= calcHeight) {
-                    calcWidth = (int) width;
-                    calcHeight = (int) height;
+                    calcWidth = width;
+                    calcHeight = height;
                 }
             }
         }
@@ -403,20 +389,20 @@ public abstract class CameraBridgeViewBase extends SurfaceView implements Surfac
          * @param width  -  the width of the frames that will be delivered
          * @param height - the height of the frames that will be delivered
          */
-        public void onCameraViewStarted(int width, int height);
+        void onCameraViewStarted(int width, int height);
 
         /**
          * This method is invoked when camera preview has been stopped for some reason.
          * No frames will be delivered via onCameraFrame() callback after this method is called.
          */
-        public void onCameraViewStopped();
+        void onCameraViewStopped();
 
         /**
          * This method is invoked when delivery of the frame needs to be done.
          * The returned values - is a modified frame which needs to be displayed on the screen.
          * TODO: pass the parameters specifying the format of the frame (BPP, YUV or RGB and etc)
          */
-        public Mat onCameraFrame(Mat inputFrame);
+        Mat onCameraFrame(Mat inputFrame);
     }
 
     public interface CvCameraViewListener2 {
@@ -427,20 +413,20 @@ public abstract class CameraBridgeViewBase extends SurfaceView implements Surfac
          * @param width  -  the width of the frames that will be delivered
          * @param height - the height of the frames that will be delivered
          */
-        public void onCameraViewStarted(int width, int height);
+        void onCameraViewStarted(int width, int height);
 
         /**
          * This method is invoked when camera preview has been stopped for some reason.
          * No frames will be delivered via onCameraFrame() callback after this method is called.
          */
-        public void onCameraViewStopped();
+        void onCameraViewStopped();
 
         /**
          * This method is invoked when delivery of the frame needs to be done.
          * The returned values - is a modified frame which needs to be displayed on the screen.
          * TODO: pass the parameters specifying the format of the frame (BPP, YUV or RGB and etc)
          */
-        public Mat onCameraFrame(CvCameraViewFrame inputFrame);
+        Mat onCameraFrame(CvCameraViewFrame inputFrame);
     }
 
     /**
@@ -452,25 +438,23 @@ public abstract class CameraBridgeViewBase extends SurfaceView implements Surfac
         /**
          * This method returns RGBA Mat with frame
          */
-        public Mat rgba();
+        Mat rgba();
 
         /**
          * This method returns single channel gray scale Mat with frame
          */
-        public Mat gray();
+        Mat gray();
     }
 
     public interface ListItemAccessor {
-        public int getWidth(Object obj);
+        int getWidth(Object obj);
 
-        public int getHeight(Object obj);
+        int getHeight(Object obj);
     }
-
-    ;
 
     protected class CvCameraViewListenerAdapter implements CvCameraViewListener2 {
         private int mPreviewFormat = RGBA;
-        private CvCameraViewListener mOldStyleListener;
+        private final CvCameraViewListener mOldStyleListener;
 
         public CvCameraViewListenerAdapter(CvCameraViewListener oldStypeListener) {
             mOldStyleListener = oldStypeListener;
@@ -496,7 +480,6 @@ public abstract class CameraBridgeViewBase extends SurfaceView implements Surfac
                 default:
                     Log.e(TAG, "Invalid frame format! Only RGBA and Gray Scale are supported!");
             }
-            ;
 
             return result;
         }

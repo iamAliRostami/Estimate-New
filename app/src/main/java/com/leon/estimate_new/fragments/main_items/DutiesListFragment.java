@@ -123,13 +123,13 @@ public class DutiesListFragment extends Fragment implements SearchFragment.Callb
     public void filter(String... s) {
         examinerDutiesTemp.clear();
         examinerDutiesTemp.addAll(examinerDuties);
-        if (s[0].length() > 0) filterByBillId(s[0]);
-        if (s[1].length() > 0) filterByTrackNumber(s[1]);
-        if (s[2].length() > 0) filterByName(s[2]);
-        if (s[3].length() > 0) filterByFamily(s[3]);
-        if (s[4].length() > 0) filterByNationId(s[4]);
-        if (s[5].length() > 0) filterByMobile(s[5]);
-        if (s[6].length() > 0) filterByDate(s[6]);
+        if (!s[0].isEmpty()) filterByBillId(s[0]);
+        if (!s[1].isEmpty()) filterByTrackNumber(s[1]);
+        if (!s[2].isEmpty()) filterByName(s[2]);
+        if (!s[3].isEmpty()) filterByFamily(s[3]);
+        if (!s[4].isEmpty()) filterByNationId(s[4]);
+        if (!s[5].isEmpty()) filterByMobile(s[5]);
+        if (!s[6].isEmpty()) filterByDate(s[6]);
         requireActivity().runOnUiThread(() -> {
             adapter = new CustomAdapterList(requireContext(), this.examinerDutiesTemp);
             binding.recyclerView.setAdapter(adapter);

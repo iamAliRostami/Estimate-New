@@ -6,29 +6,29 @@ public class KeyPoint {
     /**
      * Coordinates of the keypoint.
      */
-    public Point pt;
+    public final Point pt;
     /**
      * Diameter of the useful keypoint adjacent area.
      */
-    public float size;
+    public final float size;
     /**
      * Computed orientation of the keypoint (-1 if not applicable).
      */
-    public float angle;
+    public final float angle;
     /**
      * The response, by which the strongest keypoints have been selected. Can
      * be used for further sorting or subsampling.
      */
-    public float response;
+    public final float response;
     /**
      * Octave (pyramid layer), from which the keypoint has been extracted.
      */
-    public int octave;
+    public final int octave;
     /**
      * Object ID, that can be used to cluster keypoints by an object they
      * belong to.
      */
-    public int class_id;
+    public final int class_id;
 
     // javadoc:KeyPoint::KeyPoint(x,y,_size,_angle,_response,_octave,_class_id)
     public KeyPoint(float x, float y, float _size, float _angle, float _response, int _octave, int _class_id) {

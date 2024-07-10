@@ -8,17 +8,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.leon.estimate_new.R;
 
 public class ViewHolderList extends RecyclerView.ViewHolder {
-    public TextView textViewName;
-    public TextView textViewPeymayesh;
-    public TextView textViewExaminationDay;
-    public TextView textViewServiceGroup;
-    public TextView textViewAddress;
-    public TextView textViewTrackNumber;
-    public TextView textViewNotificationMobile;
-    public TextView textViewMoshtarakMobile;
-    public TextView textViewBillId;
-    public TextView textViewBillIdTitle;
-    public TextView textViewRadif;
+    public final TextView textViewName;
+    public final TextView textViewPeymayesh;
+    public final TextView textViewExaminationDay;
+    public final TextView textViewServiceGroup;
+    public final TextView textViewAddress;
+    public final TextView textViewTrackNumber;
+    public final TextView textViewNotificationMobile;
+    public final TextView textViewMoshtarakMobile;
+    public final TextView textViewBillId;
+    public final TextView textViewBillIdTitle;
+    public final TextView textViewRadif;
 
     public ViewHolderList(View itemView) {
         super(itemView);

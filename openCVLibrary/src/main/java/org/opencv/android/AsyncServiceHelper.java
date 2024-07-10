@@ -10,7 +10,7 @@ import android.os.RemoteException;
 import android.util.Log;
 
 import org.opencv.core.Core;
-import org.opencv.engine.OpenCVEngineInterface;
+import org.opencv.engin.OpenCVEngineInterface;
 
 import java.io.File;
 import java.util.StringTokenizer;
@@ -25,10 +25,10 @@ class AsyncServiceHelper {
     protected static boolean mServiceInstallationProgress = false;
     protected static boolean mLibraryInstallationProgress = false;
     protected OpenCVEngineInterface mEngineService;
-    protected LoaderCallbackInterface mUserAppCallback;
-    protected String mOpenCVersion;
-    protected Context mAppContext;
-    protected ServiceConnection mServiceConnection = new ServiceConnection() {
+    protected final LoaderCallbackInterface mUserAppCallback;
+    protected final String mOpenCVersion;
+    protected final Context mAppContext;
+    protected final ServiceConnection mServiceConnection = new ServiceConnection() {
         public void onServiceConnected(ComponentName className, IBinder service) {
             Log.d(TAG, "Service connection created");
             mEngineService = OpenCVEngineInterface.Stub.asInterface(service);
@@ -49,7 +49,7 @@ class AsyncServiceHelper {
 
                     Log.d(TAG, "Trying to get library path");
                     String path = mEngineService.getLibPathByVersion(mOpenCVersion);
-                    if ((null == path) || (path.length() == 0)) {
+                    if ((null == path) || (path.isEmpty())) {
                         if (!mLibraryInstallationProgress) {
                             InstallCallbackInterface InstallQuery = new InstallCallbackInterface() {
                                 public String getPackageName() {
@@ -145,7 +145,6 @@ class AsyncServiceHelper {
 
                             mUserAppCallback.onPackageInstall(InstallCallbackInterface.INSTALLATION_PROGRESS, WaitQuery);
                         }
-                        return;
                     } else {
                         Log.d(TAG, "Trying to get library list");
                         mLibraryInstallationProgress = false;
@@ -155,7 +154,7 @@ class AsyncServiceHelper {
                         int status;
                         if (initOpenCVLibs(path, libs)) {
                             Log.d(TAG, "First attempt to load libs is OK");
-                            String eol = System.getProperty("line.separator");
+                            String eol = System.lineSeparator();
                             for (String str : Core.getBuildInformation().split(eol))
                                 Log.i(TAG, str);
 
@@ -224,7 +223,7 @@ class AsyncServiceHelper {
         if (!mServiceInstallationProgress) {
             Log.d(TAG, "Request new service installation");
             InstallCallbackInterface InstallQuery = new InstallCallbackInterface() {
-                private LoaderCallbackInterface mUserAppCallback = Callback;
+                private final LoaderCallbackInterface mUserAppCallback = Callback;
 
                 public String getPackageName() {
                     return "OpenCV Manager";
@@ -264,7 +263,7 @@ class AsyncServiceHelper {
         } else {
             Log.d(TAG, "Waiting current installation process");
             InstallCallbackInterface WaitQuery = new InstallCallbackInterface() {
-                private LoaderCallbackInterface mUserAppCallback = Callback;
+                private final LoaderCallbackInterface mUserAppCallback = Callback;
 
                 public String getPackageName() {
                     return "OpenCV Manager";
@@ -310,9 +309,9 @@ class AsyncServiceHelper {
 
     private boolean initOpenCVLibs(String Path, String Libs) {
         Log.d(TAG, "Trying to init OpenCV libs");
-        if ((null != Path) && (Path.length() != 0)) {
+        if ((null != Path) && (!Path.isEmpty())) {
             boolean result = true;
-            if ((null != Libs) && (Libs.length() != 0)) {
+            if ((null != Libs) && (!Libs.isEmpty())) {
                 Log.d(TAG, "Trying to load libs by dependency list");
                 StringTokenizer splitter = new StringTokenizer(Libs, ";");
                 while (splitter.hasMoreTokens()) {

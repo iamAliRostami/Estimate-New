@@ -26,9 +26,7 @@ public class TrainData {
     //javadoc: TrainData::getSubVector(vec, idx)
     public static Mat getSubVector(Mat vec, Mat idx) {
 
-        Mat retVal = new Mat(getSubVector_0(vec.nativeObj, idx.nativeObj));
-
-        return retVal;
+        return new Mat(getSubVector_0(vec.nativeObj, idx.nativeObj));
     }
 
     //
@@ -38,9 +36,7 @@ public class TrainData {
     //javadoc: TrainData::create(samples, layout, responses, varIdx, sampleIdx, sampleWeights, varType)
     public static TrainData create(Mat samples, int layout, Mat responses, Mat varIdx, Mat sampleIdx, Mat sampleWeights, Mat varType) {
 
-        TrainData retVal = TrainData.__fromPtr__(create_0(samples.nativeObj, layout, responses.nativeObj, varIdx.nativeObj, sampleIdx.nativeObj, sampleWeights.nativeObj, varType.nativeObj));
-
-        return retVal;
+        return TrainData.__fromPtr__(create_0(samples.nativeObj, layout, responses.nativeObj, varIdx.nativeObj, sampleIdx.nativeObj, sampleWeights.nativeObj, varType.nativeObj));
     }
 
 
@@ -51,9 +47,7 @@ public class TrainData {
     //javadoc: TrainData::create(samples, layout, responses)
     public static TrainData create(Mat samples, int layout, Mat responses) {
 
-        TrainData retVal = TrainData.__fromPtr__(create_1(samples.nativeObj, layout, responses.nativeObj));
-
-        return retVal;
+        return TrainData.__fromPtr__(create_1(samples.nativeObj, layout, responses.nativeObj));
     }
 
 
@@ -368,249 +362,187 @@ public class TrainData {
     //javadoc: TrainData::getCatMap()
     public Mat getCatMap() {
 
-        Mat retVal = new Mat(getCatMap_0(nativeObj));
-
-        return retVal;
+        return new Mat(getCatMap_0(nativeObj));
     }
 
     //javadoc: TrainData::getCatOfs()
     public Mat getCatOfs() {
 
-        Mat retVal = new Mat(getCatOfs_0(nativeObj));
-
-        return retVal;
+        return new Mat(getCatOfs_0(nativeObj));
     }
 
     //javadoc: TrainData::getClassLabels()
     public Mat getClassLabels() {
 
-        Mat retVal = new Mat(getClassLabels_0(nativeObj));
-
-        return retVal;
+        return new Mat(getClassLabels_0(nativeObj));
     }
 
     //javadoc: TrainData::getDefaultSubstValues()
     public Mat getDefaultSubstValues() {
 
-        Mat retVal = new Mat(getDefaultSubstValues_0(nativeObj));
-
-        return retVal;
+        return new Mat(getDefaultSubstValues_0(nativeObj));
     }
 
     //javadoc: TrainData::getMissing()
     public Mat getMissing() {
 
-        Mat retVal = new Mat(getMissing_0(nativeObj));
-
-        return retVal;
+        return new Mat(getMissing_0(nativeObj));
     }
 
     //javadoc: TrainData::getNormCatResponses()
     public Mat getNormCatResponses() {
 
-        Mat retVal = new Mat(getNormCatResponses_0(nativeObj));
-
-        return retVal;
+        return new Mat(getNormCatResponses_0(nativeObj));
     }
 
     //javadoc: TrainData::getResponses()
     public Mat getResponses() {
 
-        Mat retVal = new Mat(getResponses_0(nativeObj));
-
-        return retVal;
+        return new Mat(getResponses_0(nativeObj));
     }
 
     //javadoc: TrainData::getSampleWeights()
     public Mat getSampleWeights() {
 
-        Mat retVal = new Mat(getSampleWeights_0(nativeObj));
-
-        return retVal;
+        return new Mat(getSampleWeights_0(nativeObj));
     }
 
     //javadoc: TrainData::getSamples()
     public Mat getSamples() {
 
-        Mat retVal = new Mat(getSamples_0(nativeObj));
-
-        return retVal;
+        return new Mat(getSamples_0(nativeObj));
     }
 
     //javadoc: TrainData::getTestNormCatResponses()
     public Mat getTestNormCatResponses() {
 
-        Mat retVal = new Mat(getTestNormCatResponses_0(nativeObj));
-
-        return retVal;
+        return new Mat(getTestNormCatResponses_0(nativeObj));
     }
 
     //javadoc: TrainData::getTestResponses()
     public Mat getTestResponses() {
 
-        Mat retVal = new Mat(getTestResponses_0(nativeObj));
-
-        return retVal;
+        return new Mat(getTestResponses_0(nativeObj));
     }
 
     //javadoc: TrainData::getTestSampleIdx()
     public Mat getTestSampleIdx() {
 
-        Mat retVal = new Mat(getTestSampleIdx_0(nativeObj));
-
-        return retVal;
+        return new Mat(getTestSampleIdx_0(nativeObj));
     }
 
     //javadoc: TrainData::getTestSampleWeights()
     public Mat getTestSampleWeights() {
 
-        Mat retVal = new Mat(getTestSampleWeights_0(nativeObj));
-
-        return retVal;
+        return new Mat(getTestSampleWeights_0(nativeObj));
     }
 
     //javadoc: TrainData::getTestSamples()
     public Mat getTestSamples() {
 
-        Mat retVal = new Mat(getTestSamples_0(nativeObj));
-
-        return retVal;
+        return new Mat(getTestSamples_0(nativeObj));
     }
 
     //javadoc: TrainData::getTrainNormCatResponses()
     public Mat getTrainNormCatResponses() {
 
-        Mat retVal = new Mat(getTrainNormCatResponses_0(nativeObj));
-
-        return retVal;
+        return new Mat(getTrainNormCatResponses_0(nativeObj));
     }
 
     //javadoc: TrainData::getTrainResponses()
     public Mat getTrainResponses() {
 
-        Mat retVal = new Mat(getTrainResponses_0(nativeObj));
-
-        return retVal;
+        return new Mat(getTrainResponses_0(nativeObj));
     }
 
     //javadoc: TrainData::getTrainSampleIdx()
     public Mat getTrainSampleIdx() {
 
-        Mat retVal = new Mat(getTrainSampleIdx_0(nativeObj));
-
-        return retVal;
+        return new Mat(getTrainSampleIdx_0(nativeObj));
     }
 
     //javadoc: TrainData::getTrainSampleWeights()
     public Mat getTrainSampleWeights() {
 
-        Mat retVal = new Mat(getTrainSampleWeights_0(nativeObj));
-
-        return retVal;
+        return new Mat(getTrainSampleWeights_0(nativeObj));
     }
 
     //javadoc: TrainData::getTrainSamples(layout, compressSamples, compressVars)
     public Mat getTrainSamples(int layout, boolean compressSamples, boolean compressVars) {
 
-        Mat retVal = new Mat(getTrainSamples_0(nativeObj, layout, compressSamples, compressVars));
-
-        return retVal;
+        return new Mat(getTrainSamples_0(nativeObj, layout, compressSamples, compressVars));
     }
 
     //javadoc: TrainData::getTrainSamples()
     public Mat getTrainSamples() {
 
-        Mat retVal = new Mat(getTrainSamples_1(nativeObj));
-
-        return retVal;
+        return new Mat(getTrainSamples_1(nativeObj));
     }
 
     //javadoc: TrainData::getVarIdx()
     public Mat getVarIdx() {
 
-        Mat retVal = new Mat(getVarIdx_0(nativeObj));
-
-        return retVal;
+        return new Mat(getVarIdx_0(nativeObj));
     }
 
     //javadoc: TrainData::getVarSymbolFlags()
     public Mat getVarSymbolFlags() {
 
-        Mat retVal = new Mat(getVarSymbolFlags_0(nativeObj));
-
-        return retVal;
+        return new Mat(getVarSymbolFlags_0(nativeObj));
     }
 
     //javadoc: TrainData::getVarType()
     public Mat getVarType() {
 
-        Mat retVal = new Mat(getVarType_0(nativeObj));
-
-        return retVal;
+        return new Mat(getVarType_0(nativeObj));
     }
 
     //javadoc: TrainData::getCatCount(vi)
     public int getCatCount(int vi) {
 
-        int retVal = getCatCount_0(nativeObj, vi);
-
-        return retVal;
+        return getCatCount_0(nativeObj, vi);
     }
 
     //javadoc: TrainData::getLayout()
     public int getLayout() {
 
-        int retVal = getLayout_0(nativeObj);
-
-        return retVal;
+        return getLayout_0(nativeObj);
     }
 
     //javadoc: TrainData::getNAllVars()
     public int getNAllVars() {
 
-        int retVal = getNAllVars_0(nativeObj);
-
-        return retVal;
+        return getNAllVars_0(nativeObj);
     }
 
     //javadoc: TrainData::getNSamples()
     public int getNSamples() {
 
-        int retVal = getNSamples_0(nativeObj);
-
-        return retVal;
+        return getNSamples_0(nativeObj);
     }
 
     //javadoc: TrainData::getNTestSamples()
     public int getNTestSamples() {
 
-        int retVal = getNTestSamples_0(nativeObj);
-
-        return retVal;
+        return getNTestSamples_0(nativeObj);
     }
 
     //javadoc: TrainData::getNTrainSamples()
     public int getNTrainSamples() {
 
-        int retVal = getNTrainSamples_0(nativeObj);
-
-        return retVal;
+        return getNTrainSamples_0(nativeObj);
     }
 
     //javadoc: TrainData::getNVars()
     public int getNVars() {
 
-        int retVal = getNVars_0(nativeObj);
-
-        return retVal;
+        return getNVars_0(nativeObj);
     }
 
     //javadoc: TrainData::getResponseType()
     public int getResponseType() {
 
-        int retVal = getResponseType_0(nativeObj);
-
-        return retVal;
+        return getResponseType_0(nativeObj);
     }
 
     //javadoc: TrainData::getNames(names)
@@ -618,7 +550,6 @@ public class TrainData {
 
         getNames_0(nativeObj, names);
 
-        return;
     }
 
     //javadoc: TrainData::getSample(varIdx, sidx, buf)
@@ -626,7 +557,6 @@ public class TrainData {
 
         getSample_0(nativeObj, varIdx.nativeObj, sidx, buf);
 
-        return;
     }
 
     //javadoc: TrainData::getValues(vi, sidx, values)
@@ -634,7 +564,6 @@ public class TrainData {
 
         getValues_0(nativeObj, vi, sidx.nativeObj, values);
 
-        return;
     }
 
     //javadoc: TrainData::setTrainTestSplit(count, shuffle)
@@ -642,7 +571,6 @@ public class TrainData {
 
         setTrainTestSplit_0(nativeObj, count, shuffle);
 
-        return;
     }
 
     //javadoc: TrainData::setTrainTestSplit(count)
@@ -650,7 +578,6 @@ public class TrainData {
 
         setTrainTestSplit_1(nativeObj, count);
 
-        return;
     }
 
     //javadoc: TrainData::setTrainTestSplitRatio(ratio, shuffle)
@@ -658,7 +585,6 @@ public class TrainData {
 
         setTrainTestSplitRatio_0(nativeObj, ratio, shuffle);
 
-        return;
     }
 
     //javadoc: TrainData::setTrainTestSplitRatio(ratio)
@@ -666,7 +592,6 @@ public class TrainData {
 
         setTrainTestSplitRatio_1(nativeObj, ratio);
 
-        return;
     }
 
     //javadoc: TrainData::shuffleTrainTest()
@@ -674,7 +599,6 @@ public class TrainData {
 
         shuffleTrainTest_0(nativeObj);
 
-        return;
     }
 
     @Override

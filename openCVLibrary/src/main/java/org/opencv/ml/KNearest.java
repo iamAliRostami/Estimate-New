@@ -31,9 +31,7 @@ public class KNearest extends StatModel {
     //javadoc: KNearest::create()
     public static KNearest create() {
 
-        KNearest retVal = KNearest.__fromPtr__(create_0());
-
-        return retVal;
+        return KNearest.__fromPtr__(create_0());
     }
 
 
@@ -119,9 +117,7 @@ public class KNearest extends StatModel {
     //javadoc: KNearest::getIsClassifier()
     public boolean getIsClassifier() {
 
-        boolean retVal = getIsClassifier_0(nativeObj);
-
-        return retVal;
+        return getIsClassifier_0(nativeObj);
     }
 
     //javadoc: KNearest::setIsClassifier(val)
@@ -129,31 +125,24 @@ public class KNearest extends StatModel {
 
         setIsClassifier_0(nativeObj, val);
 
-        return;
     }
 
     //javadoc: KNearest::findNearest(samples, k, results, neighborResponses, dist)
     public float findNearest(Mat samples, int k, Mat results, Mat neighborResponses, Mat dist) {
 
-        float retVal = findNearest_0(nativeObj, samples.nativeObj, k, results.nativeObj, neighborResponses.nativeObj, dist.nativeObj);
-
-        return retVal;
+        return findNearest_0(nativeObj, samples.nativeObj, k, results.nativeObj, neighborResponses.nativeObj, dist.nativeObj);
     }
 
     //javadoc: KNearest::findNearest(samples, k, results)
     public float findNearest(Mat samples, int k, Mat results) {
 
-        float retVal = findNearest_1(nativeObj, samples.nativeObj, k, results.nativeObj);
-
-        return retVal;
+        return findNearest_1(nativeObj, samples.nativeObj, k, results.nativeObj);
     }
 
     //javadoc: KNearest::getAlgorithmType()
     public int getAlgorithmType() {
 
-        int retVal = getAlgorithmType_0(nativeObj);
-
-        return retVal;
+        return getAlgorithmType_0(nativeObj);
     }
 
     //javadoc: KNearest::setAlgorithmType(val)
@@ -161,15 +150,12 @@ public class KNearest extends StatModel {
 
         setAlgorithmType_0(nativeObj, val);
 
-        return;
     }
 
     //javadoc: KNearest::getDefaultK()
     public int getDefaultK() {
 
-        int retVal = getDefaultK_0(nativeObj);
-
-        return retVal;
+        return getDefaultK_0(nativeObj);
     }
 
     //javadoc: KNearest::setDefaultK(val)
@@ -177,15 +163,12 @@ public class KNearest extends StatModel {
 
         setDefaultK_0(nativeObj, val);
 
-        return;
     }
 
     //javadoc: KNearest::getEmax()
     public int getEmax() {
 
-        int retVal = getEmax_0(nativeObj);
-
-        return retVal;
+        return getEmax_0(nativeObj);
     }
 
     //javadoc: KNearest::setEmax(val)
@@ -193,11 +176,11 @@ public class KNearest extends StatModel {
 
         setEmax_0(nativeObj, val);
 
-        return;
     }
 
     @Override
     protected void finalize() throws Throwable {
+        super.finalize();
         delete(nativeObj);
     }
 

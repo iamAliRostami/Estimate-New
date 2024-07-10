@@ -74,17 +74,13 @@ public class Algorithm {
     //javadoc: Algorithm::getDefaultName()
     public String getDefaultName() {
 
-        String retVal = getDefaultName_0(nativeObj);
-
-        return retVal;
+        return getDefaultName_0(nativeObj);
     }
 
     //javadoc: Algorithm::empty()
     public boolean empty() {
 
-        boolean retVal = empty_0(nativeObj);
-
-        return retVal;
+        return empty_0(nativeObj);
     }
 
     //javadoc: Algorithm::clear()
@@ -92,7 +88,6 @@ public class Algorithm {
 
         clear_0(nativeObj);
 
-        return;
     }
 
     //javadoc: Algorithm::save(filename)
@@ -100,7 +95,6 @@ public class Algorithm {
 
         save_0(nativeObj, filename);
 
-        return;
     }
 
     @Override

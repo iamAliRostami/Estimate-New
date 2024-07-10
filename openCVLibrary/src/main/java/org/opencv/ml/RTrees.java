@@ -27,9 +27,7 @@ public class RTrees extends DTrees {
     //javadoc: RTrees::create()
     public static RTrees create() {
 
-        RTrees retVal = RTrees.__fromPtr__(create_0());
-
-        return retVal;
+        return RTrees.__fromPtr__(create_0());
     }
 
 
@@ -40,9 +38,7 @@ public class RTrees extends DTrees {
     //javadoc: RTrees::load(filepath, nodeName)
     public static RTrees load(String filepath, String nodeName) {
 
-        RTrees retVal = RTrees.__fromPtr__(load_0(filepath, nodeName));
-
-        return retVal;
+        return RTrees.__fromPtr__(load_0(filepath, nodeName));
     }
 
 
@@ -53,9 +49,7 @@ public class RTrees extends DTrees {
     //javadoc: RTrees::load(filepath)
     public static RTrees load(String filepath) {
 
-        RTrees retVal = RTrees.__fromPtr__(load_1(filepath));
-
-        return retVal;
+        return RTrees.__fromPtr__(load_1(filepath));
     }
 
     // C++:  Mat getVarImportance()
@@ -131,17 +125,13 @@ public class RTrees extends DTrees {
     //javadoc: RTrees::getVarImportance()
     public Mat getVarImportance() {
 
-        Mat retVal = new Mat(getVarImportance_0(nativeObj));
-
-        return retVal;
+        return new Mat(getVarImportance_0(nativeObj));
     }
 
     //javadoc: RTrees::getTermCriteria()
     public TermCriteria getTermCriteria() {
 
-        TermCriteria retVal = new TermCriteria(getTermCriteria_0(nativeObj));
-
-        return retVal;
+        return new TermCriteria(getTermCriteria_0(nativeObj));
     }
 
     //javadoc: RTrees::setTermCriteria(val)
@@ -149,15 +139,12 @@ public class RTrees extends DTrees {
 
         setTermCriteria_0(nativeObj, val.type, val.maxCount, val.epsilon);
 
-        return;
     }
 
     //javadoc: RTrees::getCalculateVarImportance()
     public boolean getCalculateVarImportance() {
 
-        boolean retVal = getCalculateVarImportance_0(nativeObj);
-
-        return retVal;
+        return getCalculateVarImportance_0(nativeObj);
     }
 
     //javadoc: RTrees::setCalculateVarImportance(val)
@@ -165,15 +152,12 @@ public class RTrees extends DTrees {
 
         setCalculateVarImportance_0(nativeObj, val);
 
-        return;
     }
 
     //javadoc: RTrees::getActiveVarCount()
     public int getActiveVarCount() {
 
-        int retVal = getActiveVarCount_0(nativeObj);
-
-        return retVal;
+        return getActiveVarCount_0(nativeObj);
     }
 
     //javadoc: RTrees::setActiveVarCount(val)
@@ -181,7 +165,6 @@ public class RTrees extends DTrees {
 
         setActiveVarCount_0(nativeObj, val);
 
-        return;
     }
 
     //javadoc: RTrees::getVotes(samples, results, flags)
@@ -189,11 +172,11 @@ public class RTrees extends DTrees {
 
         getVotes_0(nativeObj, samples.nativeObj, results.nativeObj, flags);
 
-        return;
     }
 
     @Override
     protected void finalize() throws Throwable {
+        super.finalize();
         delete(nativeObj);
     }
 

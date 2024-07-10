@@ -59,7 +59,7 @@ public class MatOfByte extends Mat {
         if (a == null)
             throw new NullPointerException();
         if (length < 0 || length + offset > a.length)
-            throw new IllegalArgumentException("invalid 'length' parameter: " + Integer.toString(length));
+            throw new IllegalArgumentException("invalid 'length' parameter: " + length);
         if (a.length == 0)
             return;
         int num = length / _channels;
@@ -70,7 +70,7 @@ public class MatOfByte extends Mat {
     public byte[] toArray() {
         int num = checkVector(_channels, _depth);
         if (num < 0)
-            throw new RuntimeException("Native Mat has unexpected type or size: " + toString());
+            throw new RuntimeException("Native Mat has unexpected type or size: " + this);
         byte[] a = new byte[num * _channels];
         if (num == 0)
             return a;
@@ -79,7 +79,7 @@ public class MatOfByte extends Mat {
     }
 
     public void fromList(List<Byte> lb) {
-        if (lb == null || lb.size() == 0)
+        if (lb == null || lb.isEmpty())
             return;
         Byte ab[] = lb.toArray(new Byte[0]);
         byte a[] = new byte[ab.length];

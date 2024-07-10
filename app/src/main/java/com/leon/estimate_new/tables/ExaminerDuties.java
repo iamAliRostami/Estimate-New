@@ -81,38 +81,23 @@ public class ExaminerDuties {
     public boolean adamTaxfifAb;
     public boolean adamTaxfifFazelab;
     public boolean isEnsheabQeirDaem;
-    public boolean hasRadif;
     public String requestDictionaryString;
     public String shenasname;
 
     public boolean ezharNazarA;
-    public boolean ezharNazarF;
 
     public String ensheabType;
-    public String ezharNazarBahre;
     public int qotrLooleI;
     public int jensLooleI;
     public String qotrLooleS;
     public String jensLooleS;
     public boolean looleA;
     public boolean looleF;
-    public int noeMasrafI;
-    public String noeMasrafS;
-    public int vaziatNasbPompI;
-    public boolean etesalZirzamin;
-    public int omqFazelab;
     public int noeVagozariId;
     public String noeVagozariS;
     public int pelak;
-    public boolean sanad;
     public int sanadNumber;
     public String examinerName;
-    public boolean estelamShahrdari, parvane, motaqazi;
-    public String masrafDescription;
-    public String chahDescription;
-    public String mapDescription;
-    public String codeNew;
-    public String codeKaf;
     public String eshterak;
 
     public boolean adamLicence;

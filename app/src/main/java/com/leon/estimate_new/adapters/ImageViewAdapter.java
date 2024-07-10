@@ -43,7 +43,7 @@ public class ImageViewAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         final Images imageDataTitle = images.get(position);
         View view = convertView;
-        if (view == null) view = inflater.inflate(R.layout.item_image, null);
+        if (view == null) view = inflater.inflate(R.layout.item_image, parent, false);
         final ImageViewHolder holder = new ImageViewHolder(view);
         holder.textView.setText(imageDataTitle.docTitle);
         holder.imageView.setImageBitmap(imageDataTitle.bitmap);

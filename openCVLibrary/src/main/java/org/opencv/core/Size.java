@@ -49,19 +49,15 @@ public class Size {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        long temp;
-        temp = Double.doubleToLongBits(height);
-        result = prime * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(width);
-        result = prime * result + (int) (temp ^ (temp >>> 32));
+        result = prime * result + Double.hashCode(height);
+        result = prime * result + Double.hashCode(width);
         return result;
     }
 
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        if (!(obj instanceof Size)) return false;
-        Size it = (Size) obj;
+        if (!(obj instanceof Size it)) return false;
         return width == it.width && height == it.height;
     }
 

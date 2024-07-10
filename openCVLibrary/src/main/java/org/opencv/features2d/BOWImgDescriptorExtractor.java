@@ -78,9 +78,7 @@ public class BOWImgDescriptorExtractor {
     //javadoc: BOWImgDescriptorExtractor::getVocabulary()
     public Mat getVocabulary() {
 
-        Mat retVal = new Mat(getVocabulary_0(nativeObj));
-
-        return retVal;
+        return new Mat(getVocabulary_0(nativeObj));
     }
 
     //javadoc: BOWImgDescriptorExtractor::setVocabulary(vocabulary)
@@ -88,31 +86,24 @@ public class BOWImgDescriptorExtractor {
 
         setVocabulary_0(nativeObj, vocabulary.nativeObj);
 
-        return;
     }
 
     //javadoc: BOWImgDescriptorExtractor::descriptorSize()
     public int descriptorSize() {
 
-        int retVal = descriptorSize_0(nativeObj);
-
-        return retVal;
+        return descriptorSize_0(nativeObj);
     }
 
     //javadoc: BOWImgDescriptorExtractor::descriptorType()
     public int descriptorType() {
 
-        int retVal = descriptorType_0(nativeObj);
-
-        return retVal;
+        return descriptorType_0(nativeObj);
     }
 
     //javadoc: BOWImgDescriptorExtractor::compute2(image, keypoints, imgDescriptor)
     public void compute(Mat image, MatOfKeyPoint keypoints, Mat imgDescriptor) {
-        Mat keypoints_mat = keypoints;
-        compute_0(nativeObj, image.nativeObj, keypoints_mat.nativeObj, imgDescriptor.nativeObj);
+        compute_0(nativeObj, image.nativeObj, keypoints.nativeObj, imgDescriptor.nativeObj);
 
-        return;
     }
 
     @Override

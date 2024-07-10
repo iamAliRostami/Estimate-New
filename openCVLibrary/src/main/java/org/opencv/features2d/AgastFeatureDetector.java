@@ -33,17 +33,13 @@ public class AgastFeatureDetector extends Feature2D {
     //javadoc: AgastFeatureDetector::create(threshold, nonmaxSuppression, type)
     public static AgastFeatureDetector create(int threshold, boolean nonmaxSuppression, int type) {
 
-        AgastFeatureDetector retVal = AgastFeatureDetector.__fromPtr__(create_0(threshold, nonmaxSuppression, type));
-
-        return retVal;
+        return AgastFeatureDetector.__fromPtr__(create_0(threshold, nonmaxSuppression, type));
     }
 
     //javadoc: AgastFeatureDetector::create()
     public static AgastFeatureDetector create() {
 
-        AgastFeatureDetector retVal = AgastFeatureDetector.__fromPtr__(create_1());
-
-        return retVal;
+        return AgastFeatureDetector.__fromPtr__(create_1());
     }
 
 
@@ -113,17 +109,13 @@ public class AgastFeatureDetector extends Feature2D {
     //javadoc: AgastFeatureDetector::getDefaultName()
     public String getDefaultName() {
 
-        String retVal = getDefaultName_0(nativeObj);
-
-        return retVal;
+        return getDefaultName_0(nativeObj);
     }
 
     //javadoc: AgastFeatureDetector::getNonmaxSuppression()
     public boolean getNonmaxSuppression() {
 
-        boolean retVal = getNonmaxSuppression_0(nativeObj);
-
-        return retVal;
+        return getNonmaxSuppression_0(nativeObj);
     }
 
     //javadoc: AgastFeatureDetector::setNonmaxSuppression(f)
@@ -131,15 +123,12 @@ public class AgastFeatureDetector extends Feature2D {
 
         setNonmaxSuppression_0(nativeObj, f);
 
-        return;
     }
 
     //javadoc: AgastFeatureDetector::getThreshold()
     public int getThreshold() {
 
-        int retVal = getThreshold_0(nativeObj);
-
-        return retVal;
+        return getThreshold_0(nativeObj);
     }
 
     //javadoc: AgastFeatureDetector::setThreshold(threshold)
@@ -147,15 +136,12 @@ public class AgastFeatureDetector extends Feature2D {
 
         setThreshold_0(nativeObj, threshold);
 
-        return;
     }
 
     //javadoc: AgastFeatureDetector::getType()
     public int getType() {
 
-        int retVal = getType_0(nativeObj);
-
-        return retVal;
+        return getType_0(nativeObj);
     }
 
     //javadoc: AgastFeatureDetector::setType(type)
@@ -163,11 +149,11 @@ public class AgastFeatureDetector extends Feature2D {
 
         setType_0(nativeObj, type);
 
-        return;
     }
 
     @Override
     protected void finalize() throws Throwable {
+        super.finalize();
         delete(nativeObj);
     }
 

@@ -17,10 +17,15 @@ import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponen
 import static com.leon.estimate_new.helpers.MyApplication.setActivityComponent;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.window.OnBackInvokedCallback;
+import android.window.OnBackInvokedDispatcher;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -77,8 +82,22 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
         setContentView(binding.getRoot());
         setActivityComponent(this);
         initialize();
+        addOnBackPressed();
     }
+    private void addOnBackPressed() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            getOnBackInvokedDispatcher().registerOnBackInvokedCallback(
+                    OnBackInvokedDispatcher.PRIORITY_DEFAULT, () -> {
 
+                    });
+        } else {
+            getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+                @Override
+                public void handleOnBackPressed() {
+                }
+            });
+        }
+    }
     private void initialize() {
         if (getIntent().getExtras() != null) {
             final String json = getIntent().getExtras().getString(EXAMINER_DUTY.getValue());
@@ -118,10 +137,6 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
     }
 
     @Override
-    public void onBackPressed() {
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(@NonNull Menu menu) {
         getMenuInflater().inflate(R.menu.document_menu, menu);
         if (!examinerDuty.isNewEnsheab) {
@@ -134,12 +149,13 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
     public boolean onOptionsItemSelected(@NotNull MenuItem item) {
         if (item.getItemId() == R.id.menu_document) {
             ShowFragmentDialogOnce(this, ShowDocument.getValue(),
-                    ShowDocumentFragment.newInstance(examinerDuty.billId, examinerDuty.isNewEnsheab,
-                            false, examinerDuty.trackNumber));
+                    ShowDocumentFragment.newInstance(examinerDuty.isNewEnsheab ?
+                                    examinerDuty.trackNumber : examinerDuty.billId,false,
+                            examinerDuty.isNewEnsheab, examinerDuty.trackNumber));
         } else if (item.getItemId() == R.id.menu_neighbour_document) {
             ShowFragmentDialogOnce(this, ShowDocument.getValue(),
-                    ShowDocumentFragment.newInstance(examinerDuty.neighbourBillId,
-                            examinerDuty.isNewEnsheab, true, examinerDuty.trackNumber));
+                    ShowDocumentFragment.newInstance(examinerDuty.neighbourBillId,true,
+                            examinerDuty.isNewEnsheab, examinerDuty.trackNumber));
         } else if (item.getItemId() == R.id.menu_other_document) {
             ShowFragmentDialogOnce(this, Bill.getValue(), EnterBillFragment.newInstance());
         }
@@ -229,8 +245,7 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
     }
 
     @Override
-    public void setMapDescription(String description) {
-        examinerDuty.mapDescription = description;
+    public void setMapDescription() {
         displayView(EDIT_MAP_FRAGMENT);
     }
 

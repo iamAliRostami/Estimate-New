@@ -100,85 +100,66 @@ public class StatModel extends Algorithm {
     //javadoc: StatModel::empty()
     public boolean empty() {
 
-        boolean retVal = empty_0(nativeObj);
-
-        return retVal;
+        return empty_0(nativeObj);
     }
 
     //javadoc: StatModel::isClassifier()
     public boolean isClassifier() {
 
-        boolean retVal = isClassifier_0(nativeObj);
-
-        return retVal;
+        return isClassifier_0(nativeObj);
     }
 
     //javadoc: StatModel::isTrained()
     public boolean isTrained() {
 
-        boolean retVal = isTrained_0(nativeObj);
-
-        return retVal;
+        return isTrained_0(nativeObj);
     }
 
     //javadoc: StatModel::train(samples, layout, responses)
     public boolean train(Mat samples, int layout, Mat responses) {
 
-        boolean retVal = train_0(nativeObj, samples.nativeObj, layout, responses.nativeObj);
-
-        return retVal;
+        return train_0(nativeObj, samples.nativeObj, layout, responses.nativeObj);
     }
 
     //javadoc: StatModel::train(trainData, flags)
     public boolean train(TrainData trainData, int flags) {
 
-        boolean retVal = train_1(nativeObj, trainData.getNativeObjAddr(), flags);
-
-        return retVal;
+        return train_1(nativeObj, trainData.getNativeObjAddr(), flags);
     }
 
     //javadoc: StatModel::train(trainData)
     public boolean train(TrainData trainData) {
 
-        boolean retVal = train_2(nativeObj, trainData.getNativeObjAddr());
-
-        return retVal;
+        return train_2(nativeObj, trainData.getNativeObjAddr());
     }
 
     //javadoc: StatModel::calcError(data, test, resp)
     public float calcError(TrainData data, boolean test, Mat resp) {
 
-        float retVal = calcError_0(nativeObj, data.getNativeObjAddr(), test, resp.nativeObj);
-
-        return retVal;
+        return calcError_0(nativeObj, data.getNativeObjAddr(), test, resp.nativeObj);
     }
 
     //javadoc: StatModel::predict(samples, results, flags)
     public float predict(Mat samples, Mat results, int flags) {
 
-        float retVal = predict_0(nativeObj, samples.nativeObj, results.nativeObj, flags);
-
-        return retVal;
+        return predict_0(nativeObj, samples.nativeObj, results.nativeObj, flags);
     }
 
     //javadoc: StatModel::predict(samples)
     public float predict(Mat samples) {
 
-        float retVal = predict_1(nativeObj, samples.nativeObj);
-
-        return retVal;
+        return predict_1(nativeObj, samples.nativeObj);
     }
 
     //javadoc: StatModel::getVarCount()
     public int getVarCount() {
 
-        int retVal = getVarCount_0(nativeObj);
-
-        return retVal;
+        return getVarCount_0(nativeObj);
     }
 
     @Override
     protected void finalize() throws Throwable {
+        super.finalize();
         delete(nativeObj);
     }
 

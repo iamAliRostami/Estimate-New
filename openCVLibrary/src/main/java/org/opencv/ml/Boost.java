@@ -31,9 +31,7 @@ public class Boost extends DTrees {
     //javadoc: Boost::create()
     public static Boost create() {
 
-        Boost retVal = Boost.__fromPtr__(create_0());
-
-        return retVal;
+        return Boost.__fromPtr__(create_0());
     }
 
 
@@ -44,17 +42,13 @@ public class Boost extends DTrees {
     //javadoc: Boost::load(filepath, nodeName)
     public static Boost load(String filepath, String nodeName) {
 
-        Boost retVal = Boost.__fromPtr__(load_0(filepath, nodeName));
-
-        return retVal;
+        return Boost.__fromPtr__(load_0(filepath, nodeName));
     }
 
     //javadoc: Boost::load(filepath)
     public static Boost load(String filepath) {
 
-        Boost retVal = Boost.__fromPtr__(load_1(filepath));
-
-        return retVal;
+        return Boost.__fromPtr__(load_1(filepath));
     }
 
 
@@ -119,9 +113,7 @@ public class Boost extends DTrees {
     //javadoc: Boost::getWeightTrimRate()
     public double getWeightTrimRate() {
 
-        double retVal = getWeightTrimRate_0(nativeObj);
-
-        return retVal;
+        return getWeightTrimRate_0(nativeObj);
     }
 
     //javadoc: Boost::setWeightTrimRate(val)
@@ -129,15 +121,12 @@ public class Boost extends DTrees {
 
         setWeightTrimRate_0(nativeObj, val);
 
-        return;
     }
 
     //javadoc: Boost::getBoostType()
     public int getBoostType() {
 
-        int retVal = getBoostType_0(nativeObj);
-
-        return retVal;
+        return getBoostType_0(nativeObj);
     }
 
     //javadoc: Boost::setBoostType(val)
@@ -145,15 +134,12 @@ public class Boost extends DTrees {
 
         setBoostType_0(nativeObj, val);
 
-        return;
     }
 
     //javadoc: Boost::getWeakCount()
     public int getWeakCount() {
 
-        int retVal = getWeakCount_0(nativeObj);
-
-        return retVal;
+        return getWeakCount_0(nativeObj);
     }
 
     //javadoc: Boost::setWeakCount(val)
@@ -161,11 +147,11 @@ public class Boost extends DTrees {
 
         setWeakCount_0(nativeObj, val);
 
-        return;
     }
 
     @Override
     protected void finalize() throws Throwable {
+        super.finalize();
         delete(nativeObj);
     }
 

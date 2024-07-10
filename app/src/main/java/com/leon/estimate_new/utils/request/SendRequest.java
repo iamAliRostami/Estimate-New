@@ -36,7 +36,7 @@ public class SendRequest extends BaseAsync {
     private final RequestToSend request;
 
     public SendRequest(Context context, RequestToSend request, Object... o) {
-        super(context, false, null);
+        super(context, false,  null);
         this.request = request;
         object = o[0];
     }

@@ -1,9 +1,6 @@
 package com.leon.estimate_new.adapters;
 
 import static com.leon.estimate_new.enums.BundleEnum.EXAMINER_DUTY;
-import static com.leon.estimate_new.enums.BundleEnum.LICENCE_TITLE;
-import static com.leon.estimate_new.enums.BundleEnum.OTHER_TITLE;
-import static com.leon.estimate_new.enums.BundleEnum.TITLE;
 import static com.leon.estimate_new.enums.SharedReferenceKeys.TRACK_NUMBER;
 import static com.leon.estimate_new.helpers.MyApplication.getPreferenceManager;
 
@@ -22,7 +19,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 import com.leon.estimate_new.R;
-import com.leon.estimate_new.activities.FinalReportActivity;
 import com.leon.estimate_new.activities.FormActivity;
 import com.leon.estimate_new.adapters.holders.ViewHolderList;
 import com.leon.estimate_new.tables.ExaminerDuties;
@@ -42,8 +38,7 @@ public class CustomAdapterList extends RecyclerView.Adapter<ViewHolderList> {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             examinerDuties.sort(Comparator.comparing(ExaminerDuties::isPeymayesh).thenComparing(ExaminerDuties::getExaminationDay));
         } else {
-            Collections.sort(examinerDuties, (obj1, obj2) ->
-                    obj1.getExaminationDay().compareTo(obj2.getExaminationDay()));
+            Collections.sort(examinerDuties, Comparator.comparing(ExaminerDuties::getExaminationDay));
         }
         this.context = context;
         this.examinerDutiesTemp.addAll(examinerDuties);
@@ -76,7 +71,7 @@ public class CustomAdapterList extends RecyclerView.Adapter<ViewHolderList> {
         final ExaminerDuties examinerDuties = getItem(i);
 
         viewHolder.textViewName.setText(examinerDuties.nameAndFamily != null &&
-                examinerDuties.nameAndFamily.trim().length() > 0 ?
+                !examinerDuties.nameAndFamily.trim().isEmpty() ?
                 examinerDuties.nameAndFamily.trim() : "-");
         if (examinerDuties.isPeymayesh()) {
             viewHolder.textViewPeymayesh.setText("پیمایش شده");
@@ -89,7 +84,7 @@ public class CustomAdapterList extends RecyclerView.Adapter<ViewHolderList> {
         viewHolder.textViewServiceGroup.setText(examinerDuties.serviceGroup);
         viewHolder.textViewAddress.setText(examinerDuties.address != null && !examinerDuties.address.isEmpty() ?
                 examinerDuties.address.trim() : "-");
-        viewHolder.textViewRadif.setText(examinerDuties.radif != null && examinerDuties.radif.trim().length() > 0 ?
+        viewHolder.textViewRadif.setText(examinerDuties.radif != null && !examinerDuties.radif.trim().isEmpty() ?
                 examinerDuties.radif : "-");
         viewHolder.textViewTrackNumber.setText(examinerDuties.trackNumber);
         viewHolder.textViewNotificationMobile.setText(examinerDuties.notificationMobile);

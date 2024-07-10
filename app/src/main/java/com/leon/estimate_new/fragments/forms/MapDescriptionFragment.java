@@ -90,7 +90,6 @@ public class MapDescriptionFragment extends Fragment implements View.OnClickList
     private void initialize() {
         initializeMap();
         setOnClickListener();
-        binding.editTextDescription.setText(formActivity.getExaminerDuty().mapDescription);
     }
 
     private void initializeMap() {
@@ -122,14 +121,12 @@ public class MapDescriptionFragment extends Fragment implements View.OnClickList
         binding.mapView.getOverlays().add(new MapEventsOverlay(new MapEventsReceiver() {
             @Override
             public boolean singleTapConfirmedHelper(GeoPoint p) {
-//                Log.e("location1", p.toString());
                 addPolygon(p);
                 return false;
             }
 
             @Override
             public boolean longPressHelper(GeoPoint p) {
-//                Log.e("location2", p.toString());
                 addPoint(p);
                 return false;
             }
@@ -169,7 +166,6 @@ public class MapDescriptionFragment extends Fragment implements View.OnClickList
         binding.mapView.destroyDrawingCache();
         binding.mapView.setDrawingCacheEnabled(true);
         MAP_SELECTED = binding.mapView.getDrawingCache(true);
-        formActivity.setMapDescription(binding.editTextDescription.getText().toString());
     }
 
     private void initializeBaseMap() {
@@ -287,6 +283,7 @@ public class MapDescriptionFragment extends Fragment implements View.OnClickList
         } else if (id == R.id.button_edit_crooki) {
             captureScreenshotAsync();
             clearMap();
+            formActivity.setMapDescription();
         }
     }
 
@@ -348,10 +345,9 @@ public class MapDescriptionFragment extends Fragment implements View.OnClickList
 
         void setTitle(String title, boolean showMenu);
 
-        void setMapDescription(String description);
-
         void setWaterLocation(GeoPoint point);
 
         void setCurrentLocation(GeoPoint point);
+        void setMapDescription();
     }
 }

@@ -67,8 +67,8 @@ class LoginCompleted implements ICallback<LoginFeedBack> {
         LoginFeedBack loginFeedBack = response.body();
         if (loginFeedBack == null || loginFeedBack.access_token == null ||
                 loginFeedBack.refresh_token == null ||
-                loginFeedBack.access_token.length() < 1 ||
-                loginFeedBack.refresh_token.length() < 1) {
+                loginFeedBack.access_token.isEmpty() ||
+                loginFeedBack.refresh_token.isEmpty()) {
             new CustomToast().warning(activity.getString(R.string.error_is_not_match), Toast.LENGTH_LONG);
         } else {
 //            List<String> cookieList = response.headers().values("Set-Cookie");

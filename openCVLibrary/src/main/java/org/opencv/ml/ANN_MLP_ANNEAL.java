@@ -86,9 +86,7 @@ public class ANN_MLP_ANNEAL extends ANN_MLP {
     //javadoc: ANN_MLP_ANNEAL::getAnnealCoolingRatio()
     public double getAnnealCoolingRatio() {
 
-        double retVal = getAnnealCoolingRatio_0(nativeObj);
-
-        return retVal;
+        return getAnnealCoolingRatio_0(nativeObj);
     }
 
     //javadoc: ANN_MLP_ANNEAL::setAnnealCoolingRatio(val)
@@ -96,15 +94,12 @@ public class ANN_MLP_ANNEAL extends ANN_MLP {
 
         setAnnealCoolingRatio_0(nativeObj, val);
 
-        return;
     }
 
     //javadoc: ANN_MLP_ANNEAL::getAnnealFinalT()
     public double getAnnealFinalT() {
 
-        double retVal = getAnnealFinalT_0(nativeObj);
-
-        return retVal;
+        return getAnnealFinalT_0(nativeObj);
     }
 
     //javadoc: ANN_MLP_ANNEAL::setAnnealFinalT(val)
@@ -112,15 +107,12 @@ public class ANN_MLP_ANNEAL extends ANN_MLP {
 
         setAnnealFinalT_0(nativeObj, val);
 
-        return;
     }
 
     //javadoc: ANN_MLP_ANNEAL::getAnnealInitialT()
     public double getAnnealInitialT() {
 
-        double retVal = getAnnealInitialT_0(nativeObj);
-
-        return retVal;
+        return getAnnealInitialT_0(nativeObj);
     }
 
     //javadoc: ANN_MLP_ANNEAL::setAnnealInitialT(val)
@@ -128,15 +120,12 @@ public class ANN_MLP_ANNEAL extends ANN_MLP {
 
         setAnnealInitialT_0(nativeObj, val);
 
-        return;
     }
 
     //javadoc: ANN_MLP_ANNEAL::getAnnealItePerStep()
     public int getAnnealItePerStep() {
 
-        int retVal = getAnnealItePerStep_0(nativeObj);
-
-        return retVal;
+        return getAnnealItePerStep_0(nativeObj);
     }
 
     //javadoc: ANN_MLP_ANNEAL::setAnnealItePerStep(val)
@@ -144,11 +133,11 @@ public class ANN_MLP_ANNEAL extends ANN_MLP {
 
         setAnnealItePerStep_0(nativeObj, val);
 
-        return;
     }
 
     @Override
     protected void finalize() throws Throwable {
+        super.finalize();
         delete(nativeObj);
     }
 

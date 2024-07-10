@@ -31,17 +31,13 @@ public class StereoBM extends StereoMatcher {
     //javadoc: StereoBM::create(numDisparities, blockSize)
     public static StereoBM create(int numDisparities, int blockSize) {
 
-        StereoBM retVal = StereoBM.__fromPtr__(create_0(numDisparities, blockSize));
-
-        return retVal;
+        return StereoBM.__fromPtr__(create_0(numDisparities, blockSize));
     }
 
     //javadoc: StereoBM::create()
     public static StereoBM create() {
 
-        StereoBM retVal = StereoBM.__fromPtr__(create_1());
-
-        return retVal;
+        return StereoBM.__fromPtr__(create_1());
     }
 
 
@@ -183,9 +179,7 @@ public class StereoBM extends StereoMatcher {
     //javadoc: StereoBM::getROI1()
     public Rect getROI1() {
 
-        Rect retVal = new Rect(getROI1_0(nativeObj));
-
-        return retVal;
+        return new Rect(getROI1_0(nativeObj));
     }
 
     //javadoc: StereoBM::setROI1(roi1)
@@ -193,15 +187,12 @@ public class StereoBM extends StereoMatcher {
 
         setROI1_0(nativeObj, roi1.x, roi1.y, roi1.width, roi1.height);
 
-        return;
     }
 
     //javadoc: StereoBM::getROI2()
     public Rect getROI2() {
 
-        Rect retVal = new Rect(getROI2_0(nativeObj));
-
-        return retVal;
+        return new Rect(getROI2_0(nativeObj));
     }
 
     //javadoc: StereoBM::setROI2(roi2)
@@ -209,15 +200,12 @@ public class StereoBM extends StereoMatcher {
 
         setROI2_0(nativeObj, roi2.x, roi2.y, roi2.width, roi2.height);
 
-        return;
     }
 
     //javadoc: StereoBM::getPreFilterCap()
     public int getPreFilterCap() {
 
-        int retVal = getPreFilterCap_0(nativeObj);
-
-        return retVal;
+        return getPreFilterCap_0(nativeObj);
     }
 
     //javadoc: StereoBM::setPreFilterCap(preFilterCap)
@@ -225,15 +213,12 @@ public class StereoBM extends StereoMatcher {
 
         setPreFilterCap_0(nativeObj, preFilterCap);
 
-        return;
     }
 
     //javadoc: StereoBM::getPreFilterSize()
     public int getPreFilterSize() {
 
-        int retVal = getPreFilterSize_0(nativeObj);
-
-        return retVal;
+        return getPreFilterSize_0(nativeObj);
     }
 
     //javadoc: StereoBM::setPreFilterSize(preFilterSize)
@@ -241,15 +226,12 @@ public class StereoBM extends StereoMatcher {
 
         setPreFilterSize_0(nativeObj, preFilterSize);
 
-        return;
     }
 
     //javadoc: StereoBM::getPreFilterType()
     public int getPreFilterType() {
 
-        int retVal = getPreFilterType_0(nativeObj);
-
-        return retVal;
+        return getPreFilterType_0(nativeObj);
     }
 
     //javadoc: StereoBM::setPreFilterType(preFilterType)
@@ -257,15 +239,12 @@ public class StereoBM extends StereoMatcher {
 
         setPreFilterType_0(nativeObj, preFilterType);
 
-        return;
     }
 
     //javadoc: StereoBM::getSmallerBlockSize()
     public int getSmallerBlockSize() {
 
-        int retVal = getSmallerBlockSize_0(nativeObj);
-
-        return retVal;
+        return getSmallerBlockSize_0(nativeObj);
     }
 
     //javadoc: StereoBM::setSmallerBlockSize(blockSize)
@@ -273,15 +252,12 @@ public class StereoBM extends StereoMatcher {
 
         setSmallerBlockSize_0(nativeObj, blockSize);
 
-        return;
     }
 
     //javadoc: StereoBM::getTextureThreshold()
     public int getTextureThreshold() {
 
-        int retVal = getTextureThreshold_0(nativeObj);
-
-        return retVal;
+        return getTextureThreshold_0(nativeObj);
     }
 
     //javadoc: StereoBM::setTextureThreshold(textureThreshold)
@@ -289,15 +265,12 @@ public class StereoBM extends StereoMatcher {
 
         setTextureThreshold_0(nativeObj, textureThreshold);
 
-        return;
     }
 
     //javadoc: StereoBM::getUniquenessRatio()
     public int getUniquenessRatio() {
 
-        int retVal = getUniquenessRatio_0(nativeObj);
-
-        return retVal;
+        return getUniquenessRatio_0(nativeObj);
     }
 
     //javadoc: StereoBM::setUniquenessRatio(uniquenessRatio)
@@ -305,11 +278,11 @@ public class StereoBM extends StereoMatcher {
 
         setUniquenessRatio_0(nativeObj, uniquenessRatio);
 
-        return;
     }
 
     @Override
     protected void finalize() throws Throwable {
+        super.finalize();
         delete(nativeObj);
     }
 

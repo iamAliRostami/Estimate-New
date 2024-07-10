@@ -59,19 +59,15 @@ public class Range {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        long temp;
-        temp = Double.doubleToLongBits(start);
-        result = prime * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(end);
-        result = prime * result + (int) (temp ^ (temp >>> 32));
+        result = prime * result + Double.hashCode(start);
+        result = prime * result + Double.hashCode(end);
         return result;
     }
 
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        if (!(obj instanceof Range)) return false;
-        Range it = (Range) obj;
+        if (!(obj instanceof Range it)) return false;
         return start == it.start && end == it.end;
     }
 

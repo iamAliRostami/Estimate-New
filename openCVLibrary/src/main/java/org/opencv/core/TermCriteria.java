@@ -48,7 +48,7 @@ public class TermCriteria {
         if (vals != null) {
             type = vals.length > 0 ? (int) vals[0] : 0;
             maxCount = vals.length > 1 ? (int) vals[1] : 0;
-            epsilon = vals.length > 2 ? (double) vals[2] : 0;
+            epsilon = vals.length > 2 ? vals[2] : 0;
         } else {
             type = 0;
             maxCount = 0;
@@ -64,21 +64,16 @@ public class TermCriteria {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        long temp;
-        temp = Double.doubleToLongBits(type);
-        result = prime * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(maxCount);
-        result = prime * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(epsilon);
-        result = prime * result + (int) (temp ^ (temp >>> 32));
+        result = prime * result + Double.hashCode(type);
+        result = prime * result + Double.hashCode(maxCount);
+        result = prime * result + Double.hashCode(epsilon);
         return result;
     }
 
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        if (!(obj instanceof TermCriteria)) return false;
-        TermCriteria it = (TermCriteria) obj;
+        if (!(obj instanceof TermCriteria it)) return false;
         return type == it.type && maxCount == it.maxCount && epsilon == it.epsilon;
     }
 

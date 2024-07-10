@@ -1,20 +1,19 @@
 /*
  * This file is auto-generated.  DO NOT MODIFY.
  */
-package org.opencv.engine;
+package org.opencv.engin;
 /**
 * Class provides a Java interface for OpenCV Engine Service. It's synchronous with native OpenCVEngine class.
 */
 public interface OpenCVEngineInterface extends android.os.IInterface
 {
   /** Default implementation for OpenCVEngineInterface. */
-  public static class Default implements org.opencv.engine.OpenCVEngineInterface
+  class Default implements org.opencv.engin.OpenCVEngineInterface
   {
     /**
         * @return Returns service version.
         */
-    @Override public int getEngineVersion() throws android.os.RemoteException
-    {
+    @Override public int getEngineVersion() {
       return 0;
     }
     /**
@@ -22,8 +21,7 @@ public interface OpenCVEngineInterface extends android.os.IInterface
         * @param OpenCV version.
         * @return Returns path to OpenCV native libs or an empty string if OpenCV can not be found.
         */
-    @Override public java.lang.String getLibPathByVersion(java.lang.String version) throws android.os.RemoteException
-    {
+    @Override public java.lang.String getLibPathByVersion(java.lang.String version) {
       return null;
     }
     /**
@@ -31,8 +29,7 @@ public interface OpenCVEngineInterface extends android.os.IInterface
         * @param OpenCV version.
         * @return Returns true if installation was successful or OpenCV package has been already installed.
         */
-    @Override public boolean installVersion(java.lang.String version) throws android.os.RemoteException
-    {
+    @Override public boolean installVersion(java.lang.String version) {
       return false;
     }
     /**
@@ -40,8 +37,7 @@ public interface OpenCVEngineInterface extends android.os.IInterface
         * @param OpenCV version.
         * @return Returns names of OpenCV libraries, separated by semicolon.
         */
-    @Override public java.lang.String getLibraryList(java.lang.String version) throws android.os.RemoteException
-    {
+    @Override public java.lang.String getLibraryList(java.lang.String version) {
       return null;
     }
     @Override
@@ -50,7 +46,7 @@ public interface OpenCVEngineInterface extends android.os.IInterface
     }
   }
   /** Local-side IPC implementation stub class. */
-  public static abstract class Stub extends android.os.Binder implements org.opencv.engine.OpenCVEngineInterface
+  abstract class Stub extends android.os.Binder implements org.opencv.engin.OpenCVEngineInterface
   {
     /** Construct the stub at attach it to the interface. */
     public Stub()
@@ -58,19 +54,19 @@ public interface OpenCVEngineInterface extends android.os.IInterface
       this.attachInterface(this, DESCRIPTOR);
     }
     /**
-     * Cast an IBinder object into an org.opencv.engine.OpenCVEngineInterface interface,
+     * Cast an IBinder object into an org.opencv.engin.OpenCVEngineInterface interface,
      * generating a proxy if needed.
      */
-    public static org.opencv.engine.OpenCVEngineInterface asInterface(android.os.IBinder obj)
+    public static org.opencv.engin.OpenCVEngineInterface asInterface(android.os.IBinder obj)
     {
       if ((obj==null)) {
         return null;
       }
       android.os.IInterface iin = obj.queryLocalInterface(DESCRIPTOR);
-      if (((iin!=null)&&(iin instanceof org.opencv.engine.OpenCVEngineInterface))) {
-        return ((org.opencv.engine.OpenCVEngineInterface)iin);
+      if (((iin instanceof OpenCVEngineInterface))) {
+        return ((org.opencv.engin.OpenCVEngineInterface)iin);
       }
-      return new org.opencv.engine.OpenCVEngineInterface.Stub.Proxy(obj);
+      return new org.opencv.engin.OpenCVEngineInterface.Stub.Proxy(obj);
     }
     @Override public android.os.IBinder asBinder()
     {
@@ -79,14 +75,10 @@ public interface OpenCVEngineInterface extends android.os.IInterface
     @Override public boolean onTransact(int code, android.os.Parcel data, android.os.Parcel reply, int flags) throws android.os.RemoteException
     {
       java.lang.String descriptor = DESCRIPTOR;
-      switch (code)
-      {
-        case INTERFACE_TRANSACTION:
-        {
-          reply.writeString(descriptor);
-          return true;
+        if (code == INTERFACE_TRANSACTION) {
+            reply.writeString(descriptor);
+            return true;
         }
-      }
       switch (code)
       {
         case TRANSACTION_getEngineVersion:
@@ -133,9 +125,9 @@ public interface OpenCVEngineInterface extends android.os.IInterface
         }
       }
     }
-    private static class Proxy implements org.opencv.engine.OpenCVEngineInterface
+    private static class Proxy implements org.opencv.engin.OpenCVEngineInterface
     {
-      private android.os.IBinder mRemote;
+      private final android.os.IBinder mRemote;
       Proxy(android.os.IBinder remote)
       {
         mRemote = remote;
@@ -257,13 +249,13 @@ public interface OpenCVEngineInterface extends android.os.IInterface
         }
         return _result;
       }
-      public static org.opencv.engine.OpenCVEngineInterface sDefaultImpl;
+      public static org.opencv.engin.OpenCVEngineInterface sDefaultImpl;
     }
-    static final int TRANSACTION_getEngineVersion = (android.os.IBinder.FIRST_CALL_TRANSACTION + 0);
+    static final int TRANSACTION_getEngineVersion = (android.os.IBinder.FIRST_CALL_TRANSACTION);
     static final int TRANSACTION_getLibPathByVersion = (android.os.IBinder.FIRST_CALL_TRANSACTION + 1);
     static final int TRANSACTION_installVersion = (android.os.IBinder.FIRST_CALL_TRANSACTION + 2);
     static final int TRANSACTION_getLibraryList = (android.os.IBinder.FIRST_CALL_TRANSACTION + 3);
-    public static boolean setDefaultImpl(org.opencv.engine.OpenCVEngineInterface impl) {
+    public static boolean setDefaultImpl(org.opencv.engin.OpenCVEngineInterface impl) {
       // Only one user of this interface can use this function
       // at a time. This is a heuristic to detect if two different
       // users in the same process use this function.
@@ -276,31 +268,31 @@ public interface OpenCVEngineInterface extends android.os.IInterface
       }
       return false;
     }
-    public static org.opencv.engine.OpenCVEngineInterface getDefaultImpl() {
+    public static org.opencv.engin.OpenCVEngineInterface getDefaultImpl() {
       return Stub.Proxy.sDefaultImpl;
     }
   }
-  public static final java.lang.String DESCRIPTOR = "org.opencv.engine.OpenCVEngineInterface";
+  java.lang.String DESCRIPTOR = "org.opencv.engin.OpenCVEngineInterface";
   /**
       * @return Returns service version.
       */
-  public int getEngineVersion() throws android.os.RemoteException;
+  int getEngineVersion() throws android.os.RemoteException;
   /**
       * Finds an installed OpenCV library.
       * @param OpenCV version.
       * @return Returns path to OpenCV native libs or an empty string if OpenCV can not be found.
       */
-  public java.lang.String getLibPathByVersion(java.lang.String version) throws android.os.RemoteException;
+  java.lang.String getLibPathByVersion(java.lang.String version) throws android.os.RemoteException;
   /**
       * Tries to install defined version of OpenCV from Google Play Market.
       * @param OpenCV version.
       * @return Returns true if installation was successful or OpenCV package has been already installed.
       */
-  public boolean installVersion(java.lang.String version) throws android.os.RemoteException;
+  boolean installVersion(java.lang.String version) throws android.os.RemoteException;
   /**
       * Returns list of libraries in loading order, separated by semicolon.
       * @param OpenCV version.
       * @return Returns names of OpenCV libraries, separated by semicolon.
       */
-  public java.lang.String getLibraryList(java.lang.String version) throws android.os.RemoteException;
+  java.lang.String getLibraryList(java.lang.String version) throws android.os.RemoteException;
 }

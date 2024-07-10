@@ -82,30 +82,24 @@ public class BOWTrainer {
     //javadoc: BOWTrainer::cluster(descriptors)
     public Mat cluster(Mat descriptors) {
 
-        Mat retVal = new Mat(cluster_0(nativeObj, descriptors.nativeObj));
-
-        return retVal;
+        return new Mat(cluster_0(nativeObj, descriptors.nativeObj));
     }
 
     //javadoc: BOWTrainer::cluster()
     public Mat cluster() {
 
-        Mat retVal = new Mat(cluster_1(nativeObj));
-
-        return retVal;
+        return new Mat(cluster_1(nativeObj));
     }
 
     //javadoc: BOWTrainer::descriptorsCount()
     public int descriptorsCount() {
 
-        int retVal = descriptorsCount_0(nativeObj);
-
-        return retVal;
+        return descriptorsCount_0(nativeObj);
     }
 
     //javadoc: BOWTrainer::getDescriptors()
     public List<Mat> getDescriptors() {
-        List<Mat> retVal = new ArrayList<Mat>();
+        List<Mat> retVal = new ArrayList<>();
         Mat retValMat = new Mat(getDescriptors_0(nativeObj));
         Converters.Mat_to_vector_Mat(retValMat, retVal);
         return retVal;
@@ -116,7 +110,6 @@ public class BOWTrainer {
 
         add_0(nativeObj, descriptors.nativeObj);
 
-        return;
     }
 
     //javadoc: BOWTrainer::clear()
@@ -124,7 +117,6 @@ public class BOWTrainer {
 
         clear_0(nativeObj);
 
-        return;
     }
 
     @Override

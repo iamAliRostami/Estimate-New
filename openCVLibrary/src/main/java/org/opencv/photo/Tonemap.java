@@ -49,9 +49,7 @@ public class Tonemap extends Algorithm {
     //javadoc: Tonemap::getGamma()
     public float getGamma() {
 
-        float retVal = getGamma_0(nativeObj);
-
-        return retVal;
+        return getGamma_0(nativeObj);
     }
 
     //javadoc: Tonemap::setGamma(gamma)
@@ -59,7 +57,6 @@ public class Tonemap extends Algorithm {
 
         setGamma_0(nativeObj, gamma);
 
-        return;
     }
 
     //javadoc: Tonemap::process(src, dst)
@@ -67,11 +64,11 @@ public class Tonemap extends Algorithm {
 
         process_0(nativeObj, src.nativeObj, dst.nativeObj);
 
-        return;
     }
 
     @Override
     protected void finalize() throws Throwable {
+        super.finalize();
         delete(nativeObj);
     }
 

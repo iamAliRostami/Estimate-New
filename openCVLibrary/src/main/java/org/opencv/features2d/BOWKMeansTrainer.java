@@ -20,7 +20,6 @@ public class BOWKMeansTrainer extends BOWTrainer {
 
         super(BOWKMeansTrainer_0(clusterCount, termcrit.type, termcrit.maxCount, termcrit.epsilon, attempts, flags));
 
-        return;
     }
 
     //
@@ -32,7 +31,6 @@ public class BOWKMeansTrainer extends BOWTrainer {
 
         super(BOWKMeansTrainer_1(clusterCount));
 
-        return;
     }
 
     // internal usage only
@@ -67,21 +65,18 @@ public class BOWKMeansTrainer extends BOWTrainer {
     //javadoc: BOWKMeansTrainer::cluster(descriptors)
     public Mat cluster(Mat descriptors) {
 
-        Mat retVal = new Mat(cluster_0(nativeObj, descriptors.nativeObj));
-
-        return retVal;
+        return new Mat(cluster_0(nativeObj, descriptors.nativeObj));
     }
 
     //javadoc: BOWKMeansTrainer::cluster()
     public Mat cluster() {
 
-        Mat retVal = new Mat(cluster_1(nativeObj));
-
-        return retVal;
+        return new Mat(cluster_1(nativeObj));
     }
 
     @Override
     protected void finalize() throws Throwable {
+        super.finalize();
         delete(nativeObj);
     }
 

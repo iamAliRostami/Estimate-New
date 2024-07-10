@@ -12,11 +12,9 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.leon.estimate_new.R;
-import com.leon.estimate_new.activities.FormActivity;
 import com.leon.estimate_new.base_items.BaseAsync;
 import com.leon.estimate_new.di.view_model.HttpClientWrapper;
 import com.leon.estimate_new.fragments.dialog.ShowDocumentFragment;
-import com.leon.estimate_new.helpers.MyApplication;
 import com.leon.estimate_new.infrastructure.IAbfaService;
 import com.leon.estimate_new.infrastructure.ICallback;
 import com.leon.estimate_new.infrastructure.ICallbackIncomplete;
