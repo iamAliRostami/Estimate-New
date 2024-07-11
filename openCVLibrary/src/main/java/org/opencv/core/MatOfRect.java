@@ -46,7 +46,7 @@ public class MatOfRect extends Mat {
             return;
         int num = a.length;
         alloc(num);
-        int buff[] = new int[num * _channels];
+        int[] buff = new int[num * _channels];
         for (int i = 0; i < num; i++) {
             Rect r = a[i];
             buff[_channels * i] = r.x;
@@ -63,7 +63,7 @@ public class MatOfRect extends Mat {
         Rect[] a = new Rect[num];
         if (num == 0)
             return a;
-        int buff[] = new int[num * _channels];
+        int[] buff = new int[num * _channels];
         get(0, 0, buff); //TODO: check ret val!
         for (int i = 0; i < num; i++)
             a[i] = new Rect(buff[i * _channels], buff[i * _channels + 1], buff[i * _channels + 2], buff[i * _channels + 3]);
@@ -71,7 +71,7 @@ public class MatOfRect extends Mat {
     }
 
     public void fromList(List<Rect> lr) {
-        Rect ap[] = lr.toArray(new Rect[0]);
+        Rect[] ap = lr.toArray(new Rect[0]);
         fromArray(ap);
     }
 

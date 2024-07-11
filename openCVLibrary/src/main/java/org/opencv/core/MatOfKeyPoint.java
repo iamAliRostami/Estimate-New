@@ -45,7 +45,7 @@ public class MatOfKeyPoint extends Mat {
             return;
         int num = a.length;
         alloc(num);
-        float buff[] = new float[num * _channels];
+        float[] buff = new float[num * _channels];
         for (int i = 0; i < num; i++) {
             KeyPoint kp = a[i];
             buff[_channels * i] = (float) kp.pt.x;
@@ -64,7 +64,7 @@ public class MatOfKeyPoint extends Mat {
         KeyPoint[] a = new KeyPoint[num];
         if (num == 0)
             return a;
-        float buff[] = new float[num * _channels];
+        float[] buff = new float[num * _channels];
         get(0, 0, buff); //TODO: check ret val!
         for (int i = 0; i < num; i++)
             a[i] = new KeyPoint(buff[_channels * i], buff[_channels * i + 1], buff[_channels * i + 2], buff[_channels * i + 3],
@@ -73,7 +73,7 @@ public class MatOfKeyPoint extends Mat {
     }
 
     public void fromList(List<KeyPoint> lkp) {
-        KeyPoint akp[] = lkp.toArray(new KeyPoint[0]);
+        KeyPoint[] akp = lkp.toArray(new KeyPoint[0]);
         fromArray(akp);
     }
 

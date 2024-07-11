@@ -33,7 +33,7 @@ public class JavaCameraView extends CameraBridgeViewBase implements PreviewCallb
     private static final String TAG = "JavaCameraView";
     protected Camera mCamera;
     protected JavaCameraFrame[] mCameraFrame;
-    private byte mBuffer[];
+    private byte[] mBuffer;
     private Mat[] mFrameChain;
     private int mChainIdx = 0;
     private Thread mThread;

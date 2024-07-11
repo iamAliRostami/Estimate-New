@@ -296,7 +296,7 @@ class AsyncServiceHelper {
 
         Log.d(TAG, "Trying to load library " + AbsPath);
         try {
-            System.load(AbsPath);
+            System.loadLibrary(AbsPath);
             Log.d(TAG, "OpenCV libs init was ok!");
         } catch (UnsatisfiedLinkError e) {
             Log.d(TAG, "Cannot load library \"" + AbsPath + "\"");

@@ -92,7 +92,6 @@ public abstract class CameraBridgeViewBase extends SurfaceView implements Surfac
         Log.d(TAG, "call surfaceChanged event");
         synchronized (mSyncObject) {
             if (mSurfaceExist) {
-                /** Surface changed. We need to stop camera and restart with new parameters */
                 /* Pretend that old surface has been destroyed */
                 mSurfaceExist = false;
                 checkCurrentState();
@@ -151,7 +150,6 @@ public abstract class CameraBridgeViewBase extends SurfaceView implements Surfac
     }
 
     /**
-     * @param listener
      */
 
     public void setCvCameraViewListener(CvCameraViewListener2 listener) {
@@ -354,9 +352,6 @@ public abstract class CameraBridgeViewBase extends SurfaceView implements Surfac
      * It goes over the list of the supported preview sizes and selects the maximum one which
      * fits both values set via setMaxFrameSize() and surface frame allocated for this view
      *
-     * @param supportedSizes
-     * @param surfaceWidth
-     * @param surfaceHeight
      * @return optimal frame size
      */
     protected Size calculateCameraFrameSize(List<?> supportedSizes, ListItemAccessor accessor, int surfaceWidth, int surfaceHeight) {

@@ -18,7 +18,6 @@ public interface OpenCVEngineInterface extends android.os.IInterface
     }
     /**
         * Finds an installed OpenCV library.
-        * @param OpenCV version.
         * @return Returns path to OpenCV native libs or an empty string if OpenCV can not be found.
         */
     @Override public java.lang.String getLibPathByVersion(java.lang.String version) {
@@ -26,7 +25,6 @@ public interface OpenCVEngineInterface extends android.os.IInterface
     }
     /**
         * Tries to install defined version of OpenCV from Google Play Market.
-        * @param OpenCV version.
         * @return Returns true if installation was successful or OpenCV package has been already installed.
         */
     @Override public boolean installVersion(java.lang.String version) {
@@ -34,7 +32,6 @@ public interface OpenCVEngineInterface extends android.os.IInterface
     }
     /**
         * Returns list of libraries in loading order, separated by semicolon.
-        * @param OpenCV version.
         * @return Returns names of OpenCV libraries, separated by semicolon.
         */
     @Override public java.lang.String getLibraryList(java.lang.String version) {
@@ -167,7 +164,6 @@ public interface OpenCVEngineInterface extends android.os.IInterface
       }
       /**
           * Finds an installed OpenCV library.
-          * @param OpenCV version.
           * @return Returns path to OpenCV native libs or an empty string if OpenCV can not be found.
           */
       @Override public java.lang.String getLibPathByVersion(java.lang.String version) throws android.os.RemoteException
@@ -195,7 +191,6 @@ public interface OpenCVEngineInterface extends android.os.IInterface
       }
       /**
           * Tries to install defined version of OpenCV from Google Play Market.
-          * @param OpenCV version.
           * @return Returns true if installation was successful or OpenCV package has been already installed.
           */
       @Override public boolean installVersion(java.lang.String version) throws android.os.RemoteException
@@ -223,7 +218,6 @@ public interface OpenCVEngineInterface extends android.os.IInterface
       }
       /**
           * Returns list of libraries in loading order, separated by semicolon.
-          * @param OpenCV version.
           * @return Returns names of OpenCV libraries, separated by semicolon.
           */
       @Override public java.lang.String getLibraryList(java.lang.String version) throws android.os.RemoteException
@@ -279,19 +273,16 @@ public interface OpenCVEngineInterface extends android.os.IInterface
   int getEngineVersion() throws android.os.RemoteException;
   /**
       * Finds an installed OpenCV library.
-      * @param OpenCV version.
       * @return Returns path to OpenCV native libs or an empty string if OpenCV can not be found.
       */
   java.lang.String getLibPathByVersion(java.lang.String version) throws android.os.RemoteException;
   /**
       * Tries to install defined version of OpenCV from Google Play Market.
-      * @param OpenCV version.
       * @return Returns true if installation was successful or OpenCV package has been already installed.
       */
   boolean installVersion(java.lang.String version) throws android.os.RemoteException;
   /**
       * Returns list of libraries in loading order, separated by semicolon.
-      * @param OpenCV version.
       * @return Returns names of OpenCV libraries, separated by semicolon.
       */
   java.lang.String getLibraryList(java.lang.String version) throws android.os.RemoteException;

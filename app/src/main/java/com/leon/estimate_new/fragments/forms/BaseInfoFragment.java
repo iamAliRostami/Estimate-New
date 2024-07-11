@@ -242,9 +242,9 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
     public void onFocusChange(View view, boolean b) {
         if (!b) {
             int saier, tejari;
-            saier = !binding.editTextTedadSaier.getText().isEmpty() ?
+            saier = !binding.editTextTedadSaier.getText().toString().isEmpty() ?
                     Integer.parseInt(binding.editTextTedadSaier.getText().toString()) : 0;
-            tejari = !binding.editTextTedadTejari.getText().isEmpty() ?
+            tejari = !binding.editTextTedadTejari.getText().toString().isEmpty() ?
                     Integer.parseInt(binding.editTextTedadTejari.getText().toString()) : 0;
             binding.textViewTedadSaier.setEnabled(saier > 0 || tejari > 0);
             binding.textViewTedadTejari.setEnabled(saier > 0 || tejari > 0);

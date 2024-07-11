@@ -108,7 +108,7 @@ public class JavaCamera2View extends CameraBridgeViewBase {
         Log.i(LOGTAG, "initializeCamera");
         CameraManager manager = (CameraManager) getContext().getSystemService(Context.CAMERA_SERVICE);
         try {
-            String camList[] = manager.getCameraIdList();
+            String[] camList = manager.getCameraIdList();
             if (camList.length == 0) {
                 Log.e(LOGTAG, "Error: camera isn't detected.");
                 return false;
@@ -165,15 +165,7 @@ public class JavaCamera2View extends CameraBridgeViewBase {
                     return;
 
                 // sanity checks - 3 planes
-                Image.Plane[] planes = image.getPlanes();
-                assert (planes.length == 3);
-                assert (image.getFormat() == mPreviewFormat);
-
-                // see also https://developer.android.com/reference/android/graphics/ImageFormat.html#YUV_420_888
-                // Y plane (0) non-interleaved => stride == 1; U/V plane interleaved => stride == 2
-                assert (planes[0].getPixelStride() == 1);
-                assert (planes[1].getPixelStride() == 2);
-                assert (planes[2].getPixelStride() == 2);
+                Image.Plane[] planes = getPlanes(image);
 
                 ByteBuffer y_plane = planes[0].getBuffer();
                 ByteBuffer uv_plane = planes[1].getBuffer();
@@ -221,6 +213,19 @@ public class JavaCamera2View extends CameraBridgeViewBase {
         } catch (CameraAccessException e) {
             Log.e(LOGTAG, "createCameraPreviewSession", e);
         }
+    }
+
+    private Image.Plane[] getPlanes(Image image) {
+        Image.Plane[] planes = image.getPlanes();
+        assert (planes.length == 3);
+        assert (image.getFormat() == mPreviewFormat);
+
+        // see also https://developer.android.com/reference/android/graphics/ImageFormat.html#YUV_420_888
+        // Y plane (0) non-interleaved => stride == 1; U/V plane interleaved => stride == 2
+        assert (planes[0].getPixelStride() == 1);
+        assert (planes[1].getPixelStride() == 2);
+        assert (planes[2].getPixelStride() == 2);
+        return planes;
     }
 
     @Override
