@@ -14,6 +14,8 @@ import static com.leon.estimate_new.helpers.MyApplication.getLocationTracker;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
@@ -25,7 +27,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 
 import com.leon.estimate_new.BuildConfig;
@@ -83,8 +87,42 @@ public class MapDescriptionFragment extends Fragment implements View.OnClickList
                              Bundle savedInstanceState) {
         binding = FragmentMapDescriptionBinding.inflate(inflater, container, false);
         initialize();
-        setHasOptionsMenu(true);
+//        setHasOptionsMenu(true);
         return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        requireActivity().addMenuProvider(new MenuProvider() {
+            @Override
+            public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
+                menuInflater.inflate(R.menu.map_menu, menu);
+                menu.getItem(getApplicationComponent().SharedPreferenceModel()
+                        .getIntData(MAP_TYPE.getValue())).setChecked(true);
+            }
+
+            @Override
+            public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
+                menuItem.setChecked(!menuItem.isChecked());
+                final int itemId = menuItem.getItemId();
+                if (itemId == R.id.vector) {
+                    initializeBaseMap();
+                    return true;
+                } else if (itemId == R.id.roads) {
+                    initializeBaseMap();
+                    return true;
+                } else if (itemId == R.id.satellite) {
+                    initializeBaseMap();
+                    return true;
+                } else if (itemId == R.id.osm) {
+                    initializeBaseMap();
+                    return true;
+                }
+//                return super.onOptionsItemSelected(item);
+                return false;
+            }
+        });
     }
 
     private void initialize() {
@@ -192,6 +230,8 @@ public class MapDescriptionFragment extends Fragment implements View.OnClickList
 
         MyLocationNewOverlay locationOverlay =
                 new MyLocationNewOverlay(new GpsMyLocationProvider(requireContext()), binding.mapView);
+        Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.my_location);
+        locationOverlay.setPersonIcon(icon);
         locationOverlay.enableMyLocation();
         binding.mapView.getOverlays().add(locationOverlay);
 
@@ -288,34 +328,6 @@ public class MapDescriptionFragment extends Fragment implements View.OnClickList
     }
 
     @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.map_menu, menu);
-        menu.getItem(getApplicationComponent().SharedPreferenceModel()
-                .getIntData(MAP_TYPE.getValue())).setChecked(true);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NotNull MenuItem item) {
-        item.setChecked(!item.isChecked());
-        final int itemId = item.getItemId();
-        if (itemId == R.id.vector) {
-            initializeBaseMap();
-            return true;
-        } else if (itemId == R.id.roads) {
-            initializeBaseMap();
-            return true;
-        } else if (itemId == R.id.satellite) {
-            initializeBaseMap();
-            return true;
-        } else if (itemId == R.id.osm) {
-            initializeBaseMap();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         if (context instanceof Activity) {
@@ -348,6 +360,7 @@ public class MapDescriptionFragment extends Fragment implements View.OnClickList
         void setWaterLocation(GeoPoint point);
 
         void setCurrentLocation(GeoPoint point);
+
         void setMapDescription();
     }
 }

@@ -50,7 +50,7 @@ public class ImageThumbnailList extends BaseAsync {
                 .getDocsListThumbnail(getApplicationComponent().SharedPreferenceModel()
                         .getStringData(TOKEN_FOR_FILE.getValue()), key);
         HttpClientWrapper.callHttpAsync(call, NOT_SHOW.getValue(), activity,
-                new GetList(object), new GetListIncomplete(object), new GetError());
+                new GetList(object), new GetListIncomplete(object), new GetErrorHideProgress(object));
     }
 
     @Override

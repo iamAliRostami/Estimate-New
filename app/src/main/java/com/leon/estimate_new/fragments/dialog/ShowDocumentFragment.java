@@ -86,13 +86,13 @@ public class ShowDocumentFragment extends DialogFragment {
     }
 
     public void setTitles(ImageDataTitle body) {
+        ArrayList<Images> images = new ArrayList<>();
         if (!isNeighbour) {
-            ArrayList<Images> images = new ArrayList<>(loadImage(trackNumber, billId,
-                    body.data, requireContext()));
-            imageViewAdapter = new ImageViewAdapter(requireContext(), images);
-            binding.gridViewImage.setAdapter(imageViewAdapter);
+            images.addAll(loadImage(trackNumber, billId, body.data, requireContext()));
         }
-        new ImageThumbnailList(requireContext(), (isNeighbour||!isNew) ? billId : trackNumber,
+        imageViewAdapter = new ImageViewAdapter(requireContext(), images);
+        binding.gridViewImage.setAdapter(imageViewAdapter);
+        new ImageThumbnailList(requireContext(), (isNeighbour || !isNew) ? billId : trackNumber,
                 this).execute(requireActivity());
     }
 
@@ -111,10 +111,9 @@ public class ShowDocumentFragment extends DialogFragment {
     public void setImage(ResponseBody... body) {//TODO
         try {
             if (body.length > 0) {
-                imageViewAdapter.updateImagesList(new Images(billId, trackNumber,
-                        dataThumbnailUri.get(position - 1), dataThumbnail.get(position - 1).title_name,
-                        dataThumbnail.get(position - 1).title_id, BitmapFactory.decodeStream(body[0].byteStream()),
-                        false));
+                imageViewAdapter.updateImagesList(new Images(dataThumbnailUri.get(position - 1),
+                        dataThumbnail.get(position - 1).title_name,
+                        BitmapFactory.decodeStream(body[0].byteStream())));
             }
             if (dataThumbnail.size() > position)
                 new ImageThumbnail(dataThumbnail.get(position).img, this).execute(requireActivity());

@@ -14,7 +14,7 @@ public class Images {
     public String address;
     public String billId;
     public String trackingNumber;
-    public final String docId;
+    public String docId;
     public String peygiri;
     @Ignore
     public String docTitle;
@@ -32,7 +32,6 @@ public class Images {
         this.docId = docId;
         this.peygiri = peygiri;
     }
-
     public Images(String address, String billId, String trackingNumber, String docId,
                   String docTitle, Bitmap bitmap, Boolean needSave) {
         this.address = address;
@@ -53,6 +52,12 @@ public class Images {
         this.uri = uri;
         this.bitmap = bitmap;
         this.needSave = needSave;
+    }
+
+    public Images( String uri, String docTitle,Bitmap bitmap) {
+        this.docTitle = docTitle;
+        this.uri = uri;
+        this.bitmap = bitmap;
     }
 
     public Images(String address, String billId, String trackingNumber, int docId,

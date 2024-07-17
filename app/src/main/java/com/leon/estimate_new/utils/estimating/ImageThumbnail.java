@@ -50,9 +50,8 @@ public class ImageThumbnail extends BaseAsync {
         final IAbfaService abfaService = retrofit.create(IAbfaService.class);
         final Call<ResponseBody> call = abfaService.getDoc(getApplicationComponent().SharedPreferenceModel()
                 .getStringData(TOKEN_FOR_FILE.getValue()), new Uri(uri));
-        HttpClientWrapper.callHttpAsync(call, NOT_SHOW.getValue(), activity,
-                new GetImageDoc(object), new GetImageDocIncomplete(object),
-                new GetError());
+        HttpClientWrapper.callHttpAsync(call, NOT_SHOW.getValue(), activity, new GetImageDoc(object),
+                new GetImageDocIncomplete(object), new GetErrorHideProgress(object));
     }
 
     @Override
