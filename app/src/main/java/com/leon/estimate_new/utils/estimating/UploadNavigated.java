@@ -51,7 +51,7 @@ public class UploadNavigated extends BaseAsync {
     @Override
     public void backgroundTask(Activity activity) {
         //TODO
-        getApplicationComponent().MyDatabase().examinerDutiesDao().updateExamination(true, examinerDuty.trackNumber);
+        getApplicationComponent().MyDatabase().examinerDutiesDao().updateExaminationByPeymayesh(true, examinerDuty.trackNumber);
         final CalculationUserInput calculationUserInput = getApplicationComponent().MyDatabase().calculationUserInputDao().getCalculationUserInput(examinerDuty.trackNumber);
         calculationUserInput.accuracy = getLocationTracker(activity).getAccuracy();
         calculationUserInput.y2 = getLocationTracker(activity).getLatitude();

@@ -2,6 +2,7 @@ package com.leon.estimate_new.adapters;
 
 import static com.leon.estimate_new.enums.BundleEnum.EXAMINER_DUTY;
 import static com.leon.estimate_new.enums.SharedReferenceKeys.TRACK_NUMBER;
+import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponent;
 import static com.leon.estimate_new.helpers.MyApplication.getPreferenceManager;
 
 import android.annotation.SuppressLint;
@@ -21,6 +22,7 @@ import com.google.gson.Gson;
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.activities.FormActivity;
 import com.leon.estimate_new.adapters.holders.ViewHolderList;
+import com.leon.estimate_new.helpers.MyApplication;
 import com.leon.estimate_new.tables.ExaminerDuties;
 import com.leon.estimate_new.utils.CustomToast;
 
@@ -56,6 +58,8 @@ public class CustomAdapterList extends RecyclerView.Adapter<ViewHolderList> {
             if (examinerDutiesTemp.get(i).isPeymayesh()) {
                 new CustomToast().success(context.getString(R.string.is_peymayesh), Toast.LENGTH_LONG);
             } else {
+                getApplicationComponent().MyDatabase().examinerDutiesDao()
+                        .updateExaminationByEdit(true, examinerDutiesTemp.get(i).trackNumber);
                 final String json = new Gson().toJson(examinerDutiesTemp.get(i));
                 getPreferenceManager().putData(TRACK_NUMBER.getValue(), examinerDutiesTemp.get(i).trackNumber);
                 final Intent intent = new Intent(context, FormActivity.class);
@@ -76,7 +80,10 @@ public class CustomAdapterList extends RecyclerView.Adapter<ViewHolderList> {
         if (examinerDuties.isPeymayesh()) {
             viewHolder.textViewPeymayesh.setText("پیمایش شده");
             viewHolder.textViewPeymayesh.setBackground(ContextCompat.getDrawable(context, R.drawable.border_green_2));
-        } else {
+        } else if (examinerDuties.isEdited){
+            viewHolder.textViewPeymayesh.setText("ویرایش شده");
+            viewHolder.textViewPeymayesh.setBackground(ContextCompat.getDrawable(context, R.drawable.border_red_3));
+        }else {
             viewHolder.textViewPeymayesh.setText("پیمایش نشده");
             viewHolder.textViewPeymayesh.setBackground(ContextCompat.getDrawable(context, R.drawable.border_red_2));
         }

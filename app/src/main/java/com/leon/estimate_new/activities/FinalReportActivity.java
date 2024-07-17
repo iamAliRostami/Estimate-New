@@ -159,7 +159,7 @@ public class FinalReportActivity extends AppCompatActivity implements View.OnCli
             new UploadNavigated(examinerDuty,
                     resultDictionaries.get(binding.spinner.getSelectedItemPosition()).id, this).execute(this);
         else
-            getApplicationComponent().MyDatabase().examinerDutiesDao().updateExamination(true, examinerDuty.trackNumber);
+            getApplicationComponent().MyDatabase().examinerDutiesDao().updateExaminationByPeymayesh(true, examinerDuty.trackNumber);
         finish();
     }
 

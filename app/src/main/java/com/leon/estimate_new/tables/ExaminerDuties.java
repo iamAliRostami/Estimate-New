@@ -114,6 +114,7 @@ public class ExaminerDuties {
     public int faseleOtherF;
     public int omqeZirzamin;
     public boolean chahAbBaran;
+    public boolean isEdited;
 
     public double x1, x2, y1, y2;
     //TODO

@@ -39,5 +39,8 @@ public interface ExaminerDutiesDao {
     ExaminerDuties examinerDutiesByTrackNumber(String trackNumber);
 
     @Query("UPDATE ExaminerDuties SET isPeymayesh = :sent  WHERE trackNumber = :trackNumber")
-    int updateExamination(boolean sent, String trackNumber);
+    void updateExaminationByPeymayesh(boolean sent, String trackNumber);
+
+    @Query("UPDATE ExaminerDuties SET isEdited = :isEdited  WHERE trackNumber = :trackNumber")
+    void updateExaminationByEdit(boolean isEdited, String trackNumber);
 }
