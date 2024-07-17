@@ -15,7 +15,6 @@ import androidx.fragment.app.Fragment;
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.adapters.CheckBoxAdapter;
 import com.leon.estimate_new.databinding.FragmentServicesBinding;
-import com.leon.estimate_new.tables.CalculationUserInput;
 import com.leon.estimate_new.tables.ExaminerDuties;
 import com.leon.estimate_new.tables.RequestDictionary;
 import com.leon.estimate_new.utils.CustomToast;
@@ -23,7 +22,6 @@ import com.leon.estimate_new.utils.CustomToast;
 import java.util.ArrayList;
 
 public class ServicesFragment extends Fragment {
-    private final ArrayList<RequestDictionary> requestDictionaries = new ArrayList<>();
     private FragmentServicesBinding binding;
     private CheckBoxAdapter checkBoxAdapter;
     private Callback formActivity;
@@ -55,8 +53,7 @@ public class ServicesFragment extends Fragment {
     }
 
     private void initializeServices() {
-        requestDictionaries.addAll(formActivity.getServiceDictionaries());
-        checkBoxAdapter = new CheckBoxAdapter(requireContext(), requestDictionaries);
+        checkBoxAdapter = new CheckBoxAdapter(requireContext(), formActivity.getServiceDictionaries());
         binding.gridView.setAdapter(checkBoxAdapter);
     }
 
@@ -64,9 +61,7 @@ public class ServicesFragment extends Fragment {
         binding.buttonPre.setOnClickListener(v -> formActivity.setOnPreClickListener(PERSONAL_FRAGMENT));
         binding.buttonSubmit.setOnClickListener(v -> {
             if (checkBoxAdapter.isRequestDictionariesEmpty()) {
-                final CalculationUserInput calculationUserInput = new CalculationUserInput();
-                calculationUserInput.selectedServicesObject = checkBoxAdapter.getRequestDictionaries();
-                formActivity.setServices(calculationUserInput);
+                formActivity.setServices(checkBoxAdapter.getRequestDictionaries());
             } else {
                 new CustomToast().warning(getString(R.string.select_service));
             }
@@ -93,7 +88,7 @@ public class ServicesFragment extends Fragment {
 
         void setTitle(String title, boolean showMenu);
 
-        void setServices(CalculationUserInput calculationUserInput);
+        void setServices(ArrayList<RequestDictionary> requestDictionaries);
 
         ExaminerDuties getExaminerDuty();
 

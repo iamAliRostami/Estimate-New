@@ -65,58 +65,6 @@ public class SecondFormFragment extends Fragment implements View.OnClickListener
         binding.spinnerLooleJens.setSelection(examinerDuty.jensLooleI);
     }
 
-    private ExaminerDuties prepareOutput() {
-        examinerDuty.qotrLooleS = getResources().getStringArray(R.array.menu_qotr_loole)[binding.spinnerLoole.getSelectedItemPosition()];
-        examinerDuty.jensLooleS = getResources().getStringArray(R.array.menu_jens_loole)[binding.spinnerLooleJens.getSelectedItemPosition()];
-        examinerDuty.jensLooleI = binding.spinnerLooleJens.getSelectedItemPosition();
-        examinerDuty.qotrLooleI = binding.spinnerLoole.getSelectedItemPosition();
-
-        examinerDuty.faseleKhakiA = Integer.parseInt(binding.editTextKhaki.getText().toString());
-        examinerDuty.faseleKhakiF = Integer.parseInt(binding.editTextKhakiFazelab.getText().toString());
-        examinerDuty.faseleAsphaltA = Integer.parseInt(binding.editTextAsphalt.getText().toString());
-        examinerDuty.faseleAsphaltF = Integer.parseInt(binding.editTextAsphaltFazelab.getText().toString());
-
-        examinerDuty.faseleSangA = Integer.parseInt(binding.editTextSang.getText().toString());
-        examinerDuty.faseleSangF = Integer.parseInt(binding.editTextSangFazelab.getText().toString());
-        examinerDuty.faseleOtherA = Integer.parseInt(binding.editTextOther.getText().toString());
-        examinerDuty.faseleOtherF = Integer.parseInt(binding.editTextOtherFazelab.getText().toString());
-
-        examinerDuty.omqeZirzamin = Integer.parseInt(binding.editTextOmqZirzamin.getText().toString());
-
-        examinerDuty.chahAbBaran = binding.checkBoxChahAbBaran.isChecked();
-        examinerDuty.ezharNazarA = binding.checkBoxVahedAb.isChecked();
-
-        examinerDuty.looleA = binding.checkBoxLooleAb.isChecked();
-        examinerDuty.looleF = binding.checkBoxLooleFazelab.isChecked();
-
-        examinerDuty.eshterak = binding.editTextEshterak.getText().toString();
-
-        return examinerDuty;
-    }
-
-    private boolean checkForm() {
-        return checkIsNoEmpty(binding.editTextKhaki) &&
-                checkIsNoEmpty(binding.editTextAsphalt) &&
-                checkIsNoEmpty(binding.editTextSang) &&
-                checkIsNoEmpty(binding.editTextOther) &&
-                checkIsNoEmpty(binding.editTextKhakiFazelab) &&
-                checkIsNoEmpty(binding.editTextAsphaltFazelab) &&
-                checkIsNoEmpty(binding.editTextSangFazelab) &&
-                checkIsNoEmpty(binding.editTextOtherFazelab) &&
-                checkIsNoEmpty(binding.editTextOmqZirzamin) &&
-                (!examinerDuty.isNewEnsheab || checkIsNoEmpty(binding.editTextEshterak));
-    }
-
-    private boolean checkIsNoEmpty(EditText editText) {
-        View focusView;
-        if (editText.getText().toString().isEmpty()) {
-            editText.setError(getString(R.string.error_empty));
-            focusView = editText;
-            focusView.requestFocus();
-            return false;
-        }
-        return true;
-    }
 
     private void initializeTextField() {
         binding.editTextKhaki.setText(String.valueOf(examinerDuty.faseleKhakiA));
@@ -154,6 +102,59 @@ public class SecondFormFragment extends Fragment implements View.OnClickListener
                 formActivity.setSecondForm(prepareOutput());
             }
         }
+    }
+
+    private boolean checkForm() {
+        return checkIsNoEmpty(binding.editTextKhaki) &&
+                checkIsNoEmpty(binding.editTextAsphalt) &&
+                checkIsNoEmpty(binding.editTextSang) &&
+                checkIsNoEmpty(binding.editTextOther) &&
+                checkIsNoEmpty(binding.editTextKhakiFazelab) &&
+                checkIsNoEmpty(binding.editTextAsphaltFazelab) &&
+                checkIsNoEmpty(binding.editTextSangFazelab) &&
+                checkIsNoEmpty(binding.editTextOtherFazelab) &&
+                checkIsNoEmpty(binding.editTextOmqZirzamin) &&
+                (!examinerDuty.isNewEnsheab || checkIsNoEmpty(binding.editTextEshterak));
+    }
+
+    private boolean checkIsNoEmpty(EditText editText) {
+        View focusView;
+        if (editText.getText().toString().isEmpty()) {
+            editText.setError(getString(R.string.error_empty));
+            focusView = editText;
+            focusView.requestFocus();
+            return false;
+        }
+        return true;
+    }
+
+    private ExaminerDuties prepareOutput() {
+        examinerDuty.qotrLooleS = getResources().getStringArray(R.array.menu_qotr_loole)[binding.spinnerLoole.getSelectedItemPosition()];
+        examinerDuty.jensLooleS = getResources().getStringArray(R.array.menu_jens_loole)[binding.spinnerLooleJens.getSelectedItemPosition()];
+        examinerDuty.jensLooleI = binding.spinnerLooleJens.getSelectedItemPosition();
+        examinerDuty.qotrLooleI = binding.spinnerLoole.getSelectedItemPosition();
+
+        examinerDuty.faseleKhakiA = Integer.parseInt(binding.editTextKhaki.getText().toString());
+        examinerDuty.faseleKhakiF = Integer.parseInt(binding.editTextKhakiFazelab.getText().toString());
+        examinerDuty.faseleAsphaltA = Integer.parseInt(binding.editTextAsphalt.getText().toString());
+        examinerDuty.faseleAsphaltF = Integer.parseInt(binding.editTextAsphaltFazelab.getText().toString());
+
+        examinerDuty.faseleSangA = Integer.parseInt(binding.editTextSang.getText().toString());
+        examinerDuty.faseleSangF = Integer.parseInt(binding.editTextSangFazelab.getText().toString());
+        examinerDuty.faseleOtherA = Integer.parseInt(binding.editTextOther.getText().toString());
+        examinerDuty.faseleOtherF = Integer.parseInt(binding.editTextOtherFazelab.getText().toString());
+
+        examinerDuty.omqeZirzamin = Integer.parseInt(binding.editTextOmqZirzamin.getText().toString());
+
+        examinerDuty.chahAbBaran = binding.checkBoxChahAbBaran.isChecked();
+        examinerDuty.ezharNazarA = binding.checkBoxVahedAb.isChecked();
+
+        examinerDuty.looleA = binding.checkBoxLooleAb.isChecked();
+        examinerDuty.looleF = binding.checkBoxLooleFazelab.isChecked();
+
+        examinerDuty.eshterak = binding.editTextEshterak.getText().toString();
+
+        return examinerDuty;
     }
 
     @Override

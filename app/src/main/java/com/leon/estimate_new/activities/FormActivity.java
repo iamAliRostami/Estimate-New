@@ -19,16 +19,15 @@ import static com.leon.estimate_new.helpers.MyApplication.setActivityComponent;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.window.OnBackInvokedCallback;
 import android.window.OnBackInvokedDispatcher;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.gson.Gson;
@@ -84,6 +83,7 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
         initialize();
         addOnBackPressed();
     }
+
     private void addOnBackPressed() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             getOnBackInvokedDispatcher().registerOnBackInvokedCallback(
@@ -98,23 +98,41 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
             });
         }
     }
+
     private void initialize() {
         if (getIntent().getExtras() != null) {
             final String json = getIntent().getExtras().getString(EXAMINER_DUTY.getValue());
             examinerDuty = new Gson().fromJson(json, ExaminerDuties.class);
-            requestDictionaries.addAll(Arrays.asList(new GsonBuilder().create()
-                    .fromJson(examinerDuty.requestDictionaryString, RequestDictionary[].class)));
         }
         new GetDBData(this, examinerDuty.zoneId, examinerDuty.trackNumber, this).execute(this);
         displayView(PERSONAL_FRAGMENT);
     }
 
+    public void setData(Arzeshdaraei arzeshdaraei,
+                        ArrayList<NoeVagozariDictionary> noeVagozariDictionaries,
+                        ArrayList<QotrEnsheabDictionary> qotrEnsheabDictionaries,
+                        ArrayList<KarbariDictionary> karbariDictionaries,
+                        ArrayList<TaxfifDictionary> taxfifDictionaries,
+                        ArrayList<Tejariha> tejariha) {
+        calculationUserInput.updateConstField(examinerDuty);
+        requestDictionaries.addAll(Arrays.asList(new GsonBuilder().create()
+                .fromJson(examinerDuty.requestDictionaryString, RequestDictionary[].class)));
+        this.noeVagozariDictionaries.addAll(noeVagozariDictionaries);
+        this.qotrEnsheabDictionaries.addAll(qotrEnsheabDictionaries);
+        this.karbariDictionaries.addAll(karbariDictionaries);
+        this.taxfifDictionaries.addAll(taxfifDictionaries);
+        this.tejarihas.addAll(tejariha);
+        this.arzeshdaraei = arzeshdaraei;
+    }
+
     private void displayView(int position) {
         final String tag = Integer.toString(position);
-        if (getFragmentManager().findFragmentByTag(tag) != null && getFragmentManager().findFragmentByTag(tag).isVisible()) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment fragment = fragmentManager.findFragmentByTag(tag);
+        if (fragment != null && fragment.isVisible()) {
             return;
         }
-        final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.setCustomAnimations(R.animator.enter, R.animator.exit,
                 R.animator.pop_enter, R.animator.pop_exit);
         fragmentTransaction.replace(binding.containerBody.getId(), getFragment(position), tag);
@@ -122,7 +140,7 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
             fragmentTransaction.addToBackStack(null);
         }
         fragmentTransaction.commitAllowingStateLoss();
-        getFragmentManager().executePendingTransactions();
+        fragmentManager.executePendingTransactions();
     }
 
     private Fragment getFragment(int position) {
@@ -150,11 +168,11 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
         if (item.getItemId() == R.id.menu_document) {
             ShowFragmentDialogOnce(this, ShowDocument.getValue(),
                     ShowDocumentFragment.newInstance(examinerDuty.isNewEnsheab ?
-                                    examinerDuty.trackNumber : examinerDuty.billId,false,
+                                    examinerDuty.trackNumber : examinerDuty.billId, false,
                             examinerDuty.isNewEnsheab, examinerDuty.trackNumber));
         } else if (item.getItemId() == R.id.menu_neighbour_document) {
             ShowFragmentDialogOnce(this, ShowDocument.getValue(),
-                    ShowDocumentFragment.newInstance(examinerDuty.neighbourBillId,true,
+                    ShowDocumentFragment.newInstance(examinerDuty.neighbourBillId, true,
                             examinerDuty.isNewEnsheab, examinerDuty.trackNumber));
         } else if (item.getItemId() == R.id.menu_other_document) {
             ShowFragmentDialogOnce(this, Bill.getValue(), EnterBillFragment.newInstance());
@@ -169,60 +187,59 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
 
     @Override
     public void setTitle(String title, boolean showMenu) {
-        if (getSupportActionBar() != null)
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(title);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(showMenu);
-        getSupportActionBar().setDisplayShowHomeEnabled(false);
-        getSupportActionBar().setIcon(R.mipmap.ic_launcher);
-    }
-
-    @Override
-    public void setSecondForm(ExaminerDuties examinerDuty) {
-        this.examinerDuty = examinerDuty;
-        displayView(MAP_DESCRIPTION_FRAGMENT);
-    }
-
-    @Override
-    public void setPersonalInfo(final CalculationUserInput calculationUserInputTemp) {
-        examinerDuty.preparePersonal(calculationUserInputTemp);
-        calculationUserInputTemp.zoneId = Integer.parseInt(examinerDuty.zoneId);
-        calculationUserInput.preparePersonal(calculationUserInputTemp);
-        displayView(SERVICES_FRAGMENT);
-    }
-
-    @Override
-    public void setServices(CalculationUserInput calculationUserInputTemp) {
-        calculationUserInput.selectedServicesObject = new ArrayList<>(calculationUserInputTemp.selectedServicesObject);
-        examinerDuty.requestDictionary = new ArrayList<>(calculationUserInputTemp.selectedServicesObject);
-        calculationUserInput.selectedServicesString = new GsonBuilder().create().toJson(calculationUserInputTemp.selectedServicesObject);
-        examinerDuty.requestDictionaryString = new GsonBuilder().create().toJson(calculationUserInputTemp.selectedServicesObject);
-        displayView(BASE_FRAGMENT);
-    }
-
-    public void setData(Arzeshdaraei arzeshdaraei,
-                        ArrayList<NoeVagozariDictionary> noeVagozariDictionaries,
-                        ArrayList<QotrEnsheabDictionary> qotrEnsheabDictionaries,
-                        ArrayList<KarbariDictionary> karbariDictionaries,
-                        ArrayList<TaxfifDictionary> taxfifDictionaries,
-                        ArrayList<Tejariha> tejariha) {
-        this.noeVagozariDictionaries.addAll(noeVagozariDictionaries);
-        this.qotrEnsheabDictionaries.addAll(qotrEnsheabDictionaries);
-        this.karbariDictionaries.addAll(karbariDictionaries);
-        this.taxfifDictionaries.addAll(taxfifDictionaries);
-        this.tejarihas.addAll(tejariha);
-        this.arzeshdaraei = arzeshdaraei;
-    }
-
-    @Override
-    public void setBaseInfo(ExaminerDuties examinerDuty) {
-        this.examinerDuty = examinerDuty;
-        this.calculationUserInput.updateCalculationUserInput(examinerDuty);
-        displayView(SECOND_FRAGMENT);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(showMenu);
+            getSupportActionBar().setDisplayShowHomeEnabled(false);
+            getSupportActionBar().setIcon(R.mipmap.ic_launcher);
+        }
     }
 
     @Override
     public ExaminerDuties getExaminerDuty() {
         return examinerDuty;
+    }
+
+    @Override
+    public void setPersonalInfo(ExaminerDuties examinerDutyTemp) {
+        examinerDuty = examinerDutyTemp;
+        calculationUserInput.updatePersonal(examinerDuty);
+
+        prepareToSend();
+        displayView(SERVICES_FRAGMENT);
+    }
+
+    @Override
+    public void setServices(ArrayList<RequestDictionary> requestDictionaries) {
+        examinerDuty.requestDictionary = new ArrayList<>(requestDictionaries);
+        examinerDuty.requestDictionaryString = new GsonBuilder().create().toJson(examinerDuty.requestDictionary);
+
+        calculationUserInput.selectedServicesObject = new ArrayList<>(examinerDuty.requestDictionary);
+        calculationUserInput.selectedServicesString = examinerDuty.requestDictionaryString;
+
+        prepareToSend();
+        displayView(BASE_FRAGMENT);
+    }
+
+
+    @Override
+    public void setBaseInfo(ExaminerDuties examinerDutyTemp) {
+        examinerDuty = examinerDutyTemp;
+        calculationUserInput.updateBaseInfo(examinerDuty);
+        prepareToSend();
+        displayView(SECOND_FRAGMENT);
+    }
+
+    @Override
+    public void setSecondForm(ExaminerDuties examinerDutyTemp) {
+        examinerDuty = examinerDutyTemp;
+        prepareToSend();
+        displayView(MAP_DESCRIPTION_FRAGMENT);
+    }
+
+    @Override
+    public void setMapDescription() {
+        displayView(EDIT_MAP_FRAGMENT);
     }
 
     @Override
@@ -232,21 +249,15 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
         intent.putExtra(BILL_ID.getValue(), examinerDuty.billId != null ?
                 examinerDuty.billId : examinerDuty.neighbourBillId);
         intent.putExtra(NEW_ENSHEAB.getValue(), examinerDuty.isNewEnsheab);
-        prepareToSend();
+//        prepareToSend();
         finish();
         startActivity(intent);
     }
 
     private void prepareToSend() {
-        calculationUserInput.fillCalculationUserInput(examinerDuty);
-        getApplicationComponent().MyDatabase().calculationUserInputDao().deleteByTrackNumber(examinerDuty.trackNumber);
-        getApplicationComponent().MyDatabase().calculationUserInputDao().insertCalculationUserInput(calculationUserInput);
+//        getApplicationComponent().MyDatabase().calculationUserInputDao().deleteByTrackNumber(examinerDuty.trackNumber);
+        getApplicationComponent().MyDatabase().calculationUserInputDao().insert(calculationUserInput);
         getApplicationComponent().MyDatabase().examinerDutiesDao().insert(examinerDuty);
-    }
-
-    @Override
-    public void setMapDescription() {
-        displayView(EDIT_MAP_FRAGMENT);
     }
 
     @Override

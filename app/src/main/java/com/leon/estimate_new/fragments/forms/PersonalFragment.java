@@ -16,7 +16,7 @@ import com.leon.estimate_new.databinding.FragmentPersonalBinding;
 import com.leon.estimate_new.tables.CalculationUserInput;
 import com.leon.estimate_new.tables.ExaminerDuties;
 
-public class PersonalFragment extends Fragment {
+public class PersonalFragment extends Fragment implements View.OnClickListener {
     private FragmentPersonalBinding binding;
     private Callback formActivity;
     private ExaminerDuties examinerDuties;
@@ -45,8 +45,9 @@ public class PersonalFragment extends Fragment {
     private void initialize() {
         examinerDuties = formActivity.getExaminerDuty();
         initializeEditText();
-        setOnButtonsClickListener();
         initializeTextViews();
+        binding.buttonClose.setOnClickListener(this);
+        binding.buttonSubmit.setOnClickListener(this);
     }
 
     private void initializeTextViews() {
@@ -81,15 +82,19 @@ public class PersonalFragment extends Fragment {
         binding.editTextDescription.setText(examinerDuties.description.trim());
     }
 
-    private void setOnButtonsClickListener() {
-        binding.buttonClose.setOnClickListener(v -> requireActivity().finish());
-        binding.buttonSubmit.setOnClickListener(v -> {
+
+
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        if (id == R.id.button_close) {
+            requireActivity().finish();
+        } else if (id == R.id.button_submit) {
             if (checkForm()) {
                 formActivity.setPersonalInfo(prepareOutput());
             }
-        });
+        }
     }
-
 
     private boolean checkForm() {
         return checkIsNoEmpty(binding.editTextName)
@@ -133,29 +138,26 @@ public class PersonalFragment extends Fragment {
         return true;
     }
 
-    private CalculationUserInput prepareOutput() {
-        final CalculationUserInput calculationUserInput = new CalculationUserInput();
-        calculationUserInput.nationalId = binding.editTextNationNumber.getText().toString();
-        calculationUserInput.firstName = binding.editTextName.getText().toString();
-        calculationUserInput.sureName = binding.editTextFamily.getText().toString();
-        calculationUserInput.fatherName = binding.editTextFatherName.getText().toString();
-        calculationUserInput.postalCode = binding.editTextPostalCode.getText().toString();
-        calculationUserInput.radif = binding.editTextRadif.getText().toString();
-        calculationUserInput.phoneNumber = binding.editTextPhone.getText().toString();
-        calculationUserInput.mobile = binding.editTextMobile.getText().toString();
-        calculationUserInput.address = binding.editTextAddress.getText().toString();
-        calculationUserInput.description = binding.editTextDescription.getText().toString();
-        calculationUserInput.shenasname = binding.editTextShenasname.getText().toString();
-        return calculationUserInput;
+    private ExaminerDuties prepareOutput() {
+        examinerDuties.nationalId = binding.editTextNationNumber.getText().toString();
+        examinerDuties.firstName = binding.editTextName.getText().toString();
+        examinerDuties.sureName = binding.editTextFamily.getText().toString();
+        examinerDuties.fatherName = binding.editTextFatherName.getText().toString();
+        examinerDuties.postalCode = binding.editTextPostalCode.getText().toString();
+        examinerDuties.radif = binding.editTextRadif.getText().toString();
+        examinerDuties.phoneNumber = binding.editTextPhone.getText().toString();
+        examinerDuties.mobile = binding.editTextMobile.getText().toString();
+        examinerDuties.address = binding.editTextAddress.getText().toString();
+        examinerDuties.description = binding.editTextDescription.getText().toString();
+        examinerDuties.shenasname = binding.editTextShenasname.getText().toString();
+        return examinerDuties;
     }
-
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         if (context instanceof Activity) {
             formActivity = (Callback) context;
         }
-
     }
 
     @Override
@@ -168,7 +170,7 @@ public class PersonalFragment extends Fragment {
 
         void setTitle(String title, boolean showMenu);
 
-        void setPersonalInfo(CalculationUserInput calculationUserInput);
+        void setPersonalInfo(ExaminerDuties examinerDuties);
 
         ExaminerDuties getExaminerDuty();
     }

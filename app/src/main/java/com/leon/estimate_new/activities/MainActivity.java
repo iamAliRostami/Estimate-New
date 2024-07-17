@@ -47,7 +47,8 @@ public class MainActivity extends BaseActivity  {
     public void displayView(int position) {
         String tag = Integer.toString(position);
         FragmentManager fragmentManager = getSupportFragmentManager();
-        if (fragmentManager.findFragmentByTag(tag) != null && fragmentManager.findFragmentByTag(tag).isVisible()) {
+        Fragment fragment = fragmentManager.findFragmentByTag(tag);
+        if (fragment != null && fragment.isVisible()) {
             return;
         }
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

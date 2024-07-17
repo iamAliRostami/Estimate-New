@@ -176,7 +176,7 @@ public class MapDescriptionFragment extends Fragment implements View.OnClickList
         startMarker.setPosition(geoPoint);
         startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
         if (pointSiphon == 0 && pointWater != 0) {
-            startMarker.setIcon(AppCompatResources.getDrawable(requireContext(), R.drawable.map_siphon_drop_point));
+            startMarker.setIcon(AppCompatResources.getDrawable(requireContext(), R.drawable.map_siphon_drop_point_1));
             binding.mapView.getOverlays().add(startMarker);
             pointSiphon = binding.mapView.getOverlays().size() - 2;
         } else if (pointSiphon != 0) {

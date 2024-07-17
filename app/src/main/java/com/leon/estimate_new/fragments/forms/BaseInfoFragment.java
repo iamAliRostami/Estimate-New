@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class BaseInfoFragment extends Fragment implements ValueFragment.Callback,
-        TejarihaSayerFragment.Callback, View.OnClickListener, /*TextWatcher,*/ View.OnFocusChangeListener {
+        TejarihaSayerFragment.Callback, View.OnClickListener, View.OnFocusChangeListener {
     private FragmentBaseInfoBinding binding;
     private ExaminerDuties examinerDuty;
     private Arzeshdaraei arzeshdaraei;

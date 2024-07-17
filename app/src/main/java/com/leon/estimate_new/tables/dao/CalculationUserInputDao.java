@@ -21,13 +21,13 @@ public interface CalculationUserInputDao {
     CalculationUserInput getCalculationUserInput(String trackingNumber);
 
     @Query("UPDATE CalculationUserInput SET sent = :sent  WHERE trackNumber = :trackNumber")
-    int updateCalculationUserInput(boolean sent, String trackNumber);
+    void updateCalculationUserInput(boolean sent, String trackNumber);
 
     @Query("SELECT COUNT (*) FROM CalculationUserInput WHERE sent != 1 and ready ==1")
     int getCalculationUserInputUnsent();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    Long insertCalculationUserInput(CalculationUserInput calculationUserInput);
+    void insert(CalculationUserInput calculationUserInput);
 
     @Query("DELETE FROM CalculationUserInput WHERE trackNumber = :trackNumber")
     void deleteByTrackNumber(String trackNumber);

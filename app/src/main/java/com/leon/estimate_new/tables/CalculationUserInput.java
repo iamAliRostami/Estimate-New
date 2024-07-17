@@ -86,34 +86,34 @@ public class CalculationUserInput {
     public CalculationUserInput() {
     }
 
-    public void preparePersonal(CalculationUserInput calculationUserInput) {
-        nationalId = calculationUserInput.nationalId;
-        firstName = calculationUserInput.firstName;
-        sureName = calculationUserInput.sureName;
-        fatherName = calculationUserInput.fatherName;
-        postalCode = calculationUserInput.postalCode;
-        radif = calculationUserInput.radif;
-        phoneNumber = calculationUserInput.phoneNumber;
-        mobile = calculationUserInput.mobile;
-        address = calculationUserInput.address;
-        description = calculationUserInput.description;
-        shenasname = calculationUserInput.shenasname;
-        zoneId = calculationUserInput.zoneId;
-    }
 
-    public void fillCalculationUserInput(ExaminerDuties examinerDuties) {
-        trackingId = examinerDuties.trackingId;
-        requestType = Integer.parseInt(examinerDuties.requestType);
-        licenceNumber = examinerDuties.licenceNumber;
-        billId = examinerDuties.billId;
-        neighbourBillId = examinerDuties.neighbourBillId;
-        notificationMobile = examinerDuties.notificationMobile;
-        identityCode = examinerDuties.identityCode;
-        trackNumber = examinerDuties.trackNumber;
+
+    public void updateConstField(ExaminerDuties examinerDuty) {
+        trackingId = examinerDuty.trackingId;
+        requestType = Integer.parseInt(examinerDuty.requestType);
+        licenceNumber = examinerDuty.licenceNumber;
+        billId = examinerDuty.billId;
+        neighbourBillId = examinerDuty.neighbourBillId;
+        notificationMobile = examinerDuty.notificationMobile;
+        identityCode = examinerDuty.identityCode;
+        trackNumber = examinerDuty.trackNumber;
         sent = false;
     }
-
-    public void updateCalculationUserInput(ExaminerDuties examinerDuty) {
+    public void updatePersonal(ExaminerDuties examinerDuty) {
+        nationalId = examinerDuty.nationalId;
+        firstName = examinerDuty.firstName;
+        sureName = examinerDuty.sureName;
+        fatherName = examinerDuty.fatherName;
+        postalCode = examinerDuty.postalCode;
+        radif = examinerDuty.radif;
+        phoneNumber = examinerDuty.phoneNumber;
+        mobile = examinerDuty.mobile;
+        address = examinerDuty.address;
+        description = examinerDuty.description;
+        shenasname = examinerDuty.shenasname;
+        zoneId = Integer.parseInt(examinerDuty.zoneId);;
+    }
+    public void updateBaseInfo(ExaminerDuties examinerDuty) {
         sifoon100 = examinerDuty.sifoon100;
         sifoon125 = examinerDuty.sifoon125;
         sifoon150 = examinerDuty.sifoon150;

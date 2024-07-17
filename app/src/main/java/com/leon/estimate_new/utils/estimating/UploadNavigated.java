@@ -60,7 +60,7 @@ public class UploadNavigated extends BaseAsync {
         calculationUserInput.ready = true;
 
         getApplicationComponent().MyDatabase().calculationUserInputDao().deleteByTrackNumber(examinerDuty.trackNumber);
-        getApplicationComponent().MyDatabase().calculationUserInputDao().insertCalculationUserInput(calculationUserInput);
+        getApplicationComponent().MyDatabase().calculationUserInputDao().insert(calculationUserInput);
 
         final ArrayList<CalculationUserInputSend> calculationUserInputSends = new ArrayList<>();
         calculationUserInputSends.add(new CalculationUserInputSend(calculationUserInput, examinerDuty));
