@@ -22,8 +22,6 @@ public class Images {
     public Bitmap bitmap;
     @Ignore
     public String uri;
-    @Ignore
-    public boolean needSave;
 
     public Images(String address, String billId, String trackingNumber, String docId, String peygiri) {
         this.address = address;
@@ -33,25 +31,23 @@ public class Images {
         this.peygiri = peygiri;
     }
     public Images(String address, String billId, String trackingNumber, String docId,
-                  String docTitle, Bitmap bitmap, Boolean needSave) {
+                  String docTitle, Bitmap bitmap) {
         this.address = address;
         this.billId = billId;
         this.trackingNumber = trackingNumber;
         this.docId = docId;
         this.docTitle = docTitle;
         this.bitmap = bitmap;
-        this.needSave = needSave;
     }
 
     public Images(String billId, String trackingNumber, String uri, String docTitle, int docId,
-                  Bitmap bitmap, Boolean needSave) {
+                  Bitmap bitmap) {
         this.billId = billId;
         this.trackingNumber = trackingNumber;
         this.docTitle = docTitle;
         this.docId = String.valueOf(docId);
         this.uri = uri;
         this.bitmap = bitmap;
-        this.needSave = needSave;
     }
 
     public Images( String uri, String docTitle,Bitmap bitmap) {
@@ -61,13 +57,12 @@ public class Images {
     }
 
     public Images(String address, String billId, String trackingNumber, int docId,
-                  String docTitle, Bitmap bitmap, Boolean needSave) {
+                  String docTitle, Bitmap bitmap) {
         this.address = address;
         this.billId = billId;
         this.trackingNumber = trackingNumber;
         this.docId = String.valueOf(docId);
         this.docTitle = docTitle;
         this.bitmap = bitmap;
-        this.needSave = needSave;
     }
 }

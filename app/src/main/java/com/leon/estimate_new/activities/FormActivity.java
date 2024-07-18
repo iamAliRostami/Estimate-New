@@ -140,7 +140,7 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
             fragmentTransaction.addToBackStack(null);
         }
         fragmentTransaction.commitAllowingStateLoss();
-        fragmentManager.executePendingTransactions();
+//TODO        fragmentManager.executePendingTransactions();
     }
 
     private Fragment getFragment(int position) {

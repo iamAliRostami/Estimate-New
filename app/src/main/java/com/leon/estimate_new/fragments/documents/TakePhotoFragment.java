@@ -176,7 +176,7 @@ public class TakePhotoFragment extends Fragment implements View.OnClickListener 
                     documentActivity.getDataThumbnailUri().get(position - 1),
                     documentActivity.getDataThumbnail().get(position - 1).title_name,
                     documentActivity.getDataThumbnail().get(position - 1).title_id,
-                    BitmapFactory.decodeStream(body[0].byteStream()), false);
+                    BitmapFactory.decodeStream(body[0].byteStream()));
             documentActivity.addImage(image);
             initializeImageAdapter(image);
         }
@@ -210,7 +210,7 @@ public class TakePhotoFragment extends Fragment implements View.OnClickListener 
                 documentActivity.getTrackNumber(),
                 documentActivity.getDataTitle(binding.spinnerTitle.getSelectedItemPosition()).id,
                 documentActivity.getDataTitle(binding.spinnerTitle.getSelectedItemPosition()).title,
-                documentActivity.getBitmap(), true);
+                documentActivity.getBitmap());
     }
 
     private void initializeImageAdapter(Images... image) {

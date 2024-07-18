@@ -71,19 +71,10 @@ public class FinalReportActivity extends AppCompatActivity implements View.OnCli
         }
         createOutputImage();
         initializeSpinner();
-        initializeButtons();
-    }
-
-    private void initializeButtons() {
-        binding.imageViewRefresh1.setOnClickListener(v -> binding.signatureView1.clearCanvas());
-        binding.imageViewRefresh2.setOnClickListener(v -> binding.signatureView2.clearCanvas());
-        binding.buttonDenial.setOnClickListener(v -> finish());
-
+        setOnClickListener();
         binding.imageButtonPrevious.setVisibility(View.GONE);
-        binding.imageButtonNext.setOnClickListener(this);
-        binding.imageButtonPrevious.setOnClickListener(this);
-        binding.buttonAccepted.setOnClickListener(this);
     }
+
 
     private void initializeSpinner() {
         final ArrayList<String> items = new ArrayList<>();
@@ -93,12 +84,27 @@ public class FinalReportActivity extends AppCompatActivity implements View.OnCli
         binding.spinner.setAdapter(new SpinnerCustomAdapter(getApplicationContext(), items));
     }
 
+    private void setOnClickListener() {
+        binding.imageViewRefresh1.setOnClickListener(this);
+        binding.imageViewRefresh2.setOnClickListener(this);
+        binding.buttonDenial.setOnClickListener(this);
+        binding.imageButtonNext.setOnClickListener(this);
+        binding.buttonAccepted.setOnClickListener(this);
+        binding.imageButtonPrevious.setOnClickListener(this);
+    }
+
     @Override
     public void onClick(View v) {
         if (SystemClock.elapsedRealtime() - lastClickTime < 1000) return;
         lastClickTime = SystemClock.elapsedRealtime();
         final int id = v.getId();
-        if (id == R.id.image_button_next) {
+        if (id == R.id.button_denial) {
+            finish();
+        } else if (id == R.id.image_view_refresh_1) {
+            binding.signatureView1.clearCanvas();
+        } else if (id == R.id.image_view_refresh_2) {
+            binding.signatureView2.clearCanvas();
+        } else if (id == R.id.image_button_next) {
             binding.imageButtonPrevious.setVisibility(View.VISIBLE);
             pageNumber++;
             if (pageNumber + 1 == maxNumber) binding.imageButtonNext.setVisibility(View.GONE);

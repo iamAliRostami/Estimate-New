@@ -45,23 +45,15 @@ public class BrightnessContrastFragment extends Fragment implements SeekBar.OnSe
         binding.seekBarBrightness.setMax(300);
         binding.seekBarBrightness.setProgress(150);
         binding.seekBarBrightness.setOnSeekBarChangeListener(this);
+
         binding.seekBarContrast.setMax(100);
         binding.seekBarContrast.setProgress(50);
         binding.seekBarContrast.setOnSeekBarChangeListener(this);
+
         binding.buttonAccepted.setOnClickListener(this);
         binding.buttonClose.setOnClickListener(this);
         bitmapTemp = documentActivity.getBitmap();
         binding.imageView.setImageBitmap(bitmapTemp);
-    }
-
-    @Override
-    public void onClick(View view) {
-        int id = view.getId();
-        if (id ==R.id.button_accepted){
-            documentActivity.setFinalBitmap(bitmapTemp);
-        } else if (id ==R.id.button_close) {
-            documentActivity.cancelEditing();
-        }
     }
 
     @Override
@@ -83,13 +75,22 @@ public class BrightnessContrastFragment extends Fragment implements SeekBar.OnSe
 
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
-
     }
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
-
     }
+
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        if (id == R.id.button_accepted) {
+            documentActivity.setFinalBitmap(bitmapTemp);
+        } else if (id == R.id.button_close) {
+            documentActivity.cancelEditing();
+        }
+    }
+
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -108,8 +109,6 @@ public class BrightnessContrastFragment extends Fragment implements SeekBar.OnSe
 
     public interface Callback {
         Bitmap getBitmap();
-
-        void setTempBitmap(Bitmap tempBitmap);
 
         void setFinalBitmap(Bitmap finalBitmap);
 

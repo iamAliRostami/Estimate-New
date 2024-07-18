@@ -142,7 +142,7 @@ public class CustomFile {
             out.flush();
             out.close();
             final Images image = new Images(IMAGE_FILE_NAME, billId, trackNumber, docId, docTitle,
-                    bitmapImage, true);
+                    bitmapImage);
             if (isNew)
                 image.billId = "";
             else image.trackingNumber = "";

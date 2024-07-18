@@ -54,6 +54,7 @@ import java.util.ArrayList;
 
 public class DocumentActivity extends AppCompatActivity implements TakePhotoFragment.Callback,
         CropFragment.Callback, BrightnessContrastFragment.Callback {
+    private ActivityDocumentBinding binding;
     private final ArrayList<ImageData> dataThumbnail = new ArrayList<>();
     private final ArrayList<String> dataThumbnailUri = new ArrayList<>();
     private final ArrayList<String> titles = new ArrayList<>();
@@ -61,14 +62,13 @@ public class DocumentActivity extends AppCompatActivity implements TakePhotoFrag
     private final int TAKE_PHOTO_FRAGMENT = 0;
     private final int CROP_FRAGMENT = 1;
     private final int BRIGHTNESS_CONTRAST_FRAGMENT = 2;
-    private ActivityDocumentBinding binding;
+    private int selected;
+    private boolean isNew, close;
+    private SpinnerCustomAdapter spinnerAdapter;
+    private ImageViewAdapter imageViewAdapter;
     private ImageDataTitle imageDataTitle;
     private String trackNumber, billId;
-    private boolean isNew, close;
     private Bitmap bitmap;
-    private int selected;
-    private ImageViewAdapter imageViewAdapter;
-    private SpinnerCustomAdapter spinnerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,7 +116,7 @@ public class DocumentActivity extends AppCompatActivity implements TakePhotoFrag
         if (fragment != null && fragment.isVisible()) {
             return;
         }
-        final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.setCustomAnimations(R.animator.enter, R.animator.exit,
                 R.animator.pop_enter, R.animator.pop_exit);
         fragmentTransaction.replace(binding.containerBody.getId(), getFragment(position), tag);
@@ -124,7 +124,7 @@ public class DocumentActivity extends AppCompatActivity implements TakePhotoFrag
             fragmentTransaction.addToBackStack(null);
         }
         fragmentTransaction.commitAllowingStateLoss();
-        getFragmentManager().executePendingTransactions();
+//        fragmentManager.executePendingTransactions();
     }
 
     private Fragment getFragment(int position) {
