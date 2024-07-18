@@ -11,7 +11,8 @@ public class DifferentCompanyManager {
 
     public static String getBaseUrl(CompanyNames companyNames) {
         return switch (companyNames) {
-            case ESF -> "https://37.191.92.157/";
+//            case ESF -> "https://37.191.92.157/";
+            case ESF -> "http://172.18.12.14:100";
             case ZONE1 -> "http://217.146.220.33:50011/";
             case ZONE2 -> "http://212.16.75.194:8080/";
             case ZONE3 -> "http://212.16.69.36:90/";

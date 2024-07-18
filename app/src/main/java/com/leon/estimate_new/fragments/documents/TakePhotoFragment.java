@@ -6,9 +6,11 @@ import static com.leon.estimate_new.enums.BundleEnum.TITLE;
 import static com.leon.estimate_new.enums.BundleEnum.TRACK_NUMBER;
 import static com.leon.estimate_new.enums.DialogType.YellowRedirect;
 import static com.leon.estimate_new.fragments.dialog.ShowFragmentDialog.ShowFragmentDialogOnce;
+import static com.leon.estimate_new.helpers.Constants.IMAGE_FILE_NAME;
 import static com.leon.estimate_new.helpers.Constants.NECESSARY_IMAGES;
 import static com.leon.estimate_new.utils.CustomFile.compressBitmap;
 import static com.leon.estimate_new.utils.CustomFile.createImageFile;
+import static com.leon.estimate_new.utils.CustomFile.saveTempBitmap;
 
 import android.app.Activity;
 import android.content.Context;
@@ -30,9 +32,11 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
+import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 
 import com.leon.estimate_new.BuildConfig;
@@ -53,8 +57,6 @@ import com.leon.estimate_new.utils.document.ImageThumbnail;
 import com.leon.estimate_new.utils.document.ImageThumbnailList;
 import com.leon.estimate_new.utils.document.UploadImages;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -69,29 +71,31 @@ public class TakePhotoFragment extends Fragment implements View.OnClickListener 
     public Callback documentActivity;
     private int position = 0;
     private String path;
-    private final ActivityResultLauncher<Intent> galleryActivityResultLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null &&
-                        result.getData().getData() != null) {
-                    try {
-                        InputStream inputStream = requireContext().getContentResolver()
-                                .openInputStream(result.getData().getData());
-                        Bitmap bitmap = compressBitmap(BitmapFactory.decodeStream(inputStream));
-                        documentActivity.setTakenBitmap(bitmap);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
+    private final ActivityResultLauncher<Intent> galleryActivityResultLauncher =
+            registerForActivityResult(
+                    new ActivityResultContracts.StartActivityForResult(),
+                    result -> {
+                        if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null &&
+                                result.getData().getData() != null) {
+                            try {
+                                InputStream inputStream = requireContext().getContentResolver()
+                                        .openInputStream(result.getData().getData());
+                                Bitmap bitmap = compressBitmap(BitmapFactory.decodeStream(inputStream));
+                                documentActivity.setTakenBitmap(bitmap);
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
 
-    private final ActivityResultLauncher<Intent> cameraActivityResultLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                if (result.getResultCode() == Activity.RESULT_OK) {
-                    documentActivity.setTakenBitmap(compressBitmap(BitmapFactory.decodeFile(path)));
-                }
-            });
+    private final ActivityResultLauncher<Intent> cameraActivityResultLauncher =
+            registerForActivityResult(
+                    new ActivityResultContracts.StartActivityForResult(),
+                    result -> {
+                        if (result.getResultCode() == Activity.RESULT_OK) {
+                            documentActivity.setTakenBitmap(compressBitmap(BitmapFactory.decodeFile(path)));
+                        }
+                    });
 
     public static TakePhotoFragment newInstance() {
         return new TakePhotoFragment();
@@ -107,8 +111,29 @@ public class TakePhotoFragment extends Fragment implements View.OnClickListener 
                              Bundle savedInstanceState) {
         binding = FragmentTakePhotoBinding.inflate(inflater, container, false);
         initialize();
-        setHasOptionsMenu(true);
+//        setHasOptionsMenu(true);
         return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        requireActivity().addMenuProvider(new MenuProvider() {
+            @Override
+            public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
+                if (documentActivity.isNew())
+                    menuInflater.inflate(R.menu.add_document_menu, menu);
+            }
+
+            @Override
+            public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
+                if (menuItem.getItemId() == R.id.add_document_menu) {
+                    ShowFragmentDialogOnce(requireContext(), "ADD_DOCUMENT",
+                            AddDocumentFragment.newInstance(documentActivity.getTrackNumber()));
+                }
+                return false;
+            }
+        });
     }
 
     private void initialize() {
@@ -116,52 +141,87 @@ public class TakePhotoFragment extends Fragment implements View.OnClickListener 
             binding.imageView.setImageBitmap(documentActivity.getBitmap());
             binding.buttonUpload.setVisibility(View.VISIBLE);
         }
+        if (documentActivity.getImages().isEmpty()) {
+            documentActivity.setImages();
+            new ImageThumbnailList(requireContext(), documentActivity.getKey(),
+                    this).execute(requireActivity());
+        } else binding.progressBar.setVisibility(View.GONE);
+        initializeImageAdapter();
+        initializeTitleSpinner();
+        setOnClickListener();
+    }
+
+    private void initializeTitleSpinner() {
+        if (documentActivity.getSpinnerAdapter() == null)
+            documentActivity.setSpinnerAdapter(new SpinnerCustomAdapter(requireContext(),
+                    documentActivity.getTitles()));
+        binding.spinnerTitle.setAdapter(documentActivity.getSpinnerAdapter());
+        binding.spinnerTitle.setSelection(documentActivity.getSelected());
+    }
+
+    private void setOnClickListener() {
         binding.buttonPick.setOnClickListener(this);
         binding.buttonUpload.setOnClickListener(this);
         binding.buttonAccepted.setOnClickListener(this);
-        binding.spinnerTitle.setAdapter(new SpinnerCustomAdapter(requireContext(), documentActivity.getTitles()));
-        binding.spinnerTitle.setSelection(documentActivity.getSelected());
-        if (documentActivity.getDataThumbnail().isEmpty()) {
-            documentActivity.setImages();
-            new ImageThumbnailList(requireContext(), documentActivity.getKey(), this).execute(requireActivity());
-        } else binding.progressBar.setVisibility(View.GONE);
-        prepareImageAdapter();
     }
 
-    public void setThumbnails(final ImageDataThumbnail thumbnails) {
+    public void setOldThumbnails(ImageDataThumbnail thumbnails) {
         documentActivity.setDataThumbnail(thumbnails);
-        setImage();
+        addImage();
     }
 
-    public void setImage(ResponseBody... body) {
+    public void addImage(ResponseBody... body) {
         if (body.length > 0) {
-            documentActivity.addImage(new Images(documentActivity.getBillId(), documentActivity.getTrackNumber(),
+            Images image = new Images(documentActivity.getBillId(), documentActivity.getTrackNumber(),
                     documentActivity.getDataThumbnailUri().get(position - 1),
                     documentActivity.getDataThumbnail().get(position - 1).title_name,
                     documentActivity.getDataThumbnail().get(position - 1).title_id,
-                    BitmapFactory.decodeStream(body[0].byteStream()), false));
+                    BitmapFactory.decodeStream(body[0].byteStream()), false);
+            documentActivity.addImage(image);
+            initializeImageAdapter(image);
         }
-        prepareImageAdapter();
+        getNextImage();
+    }
+
+    private void getNextImage() {
         if (documentActivity.getDataThumbnail().size() > position)
-            new ImageThumbnail(documentActivity.getDataThumbnail().get(position).img, this).execute(requireActivity());
+            new ImageThumbnail(documentActivity.getDataThumbnail().get(position).img,
+                    this).execute(requireActivity());
         else binding.progressBar.setVisibility(View.GONE);
         position++;
     }
 
-    public DataTitle getTitle() {
-        return documentActivity.getDataTitle(binding.spinnerTitle.getSelectedItemPosition());
+    public void saveBitmap() {
+        saveTempBitmap(documentActivity.getBitmap(), requireContext(), documentActivity.getBillId(),
+                documentActivity.getTrackNumber(),
+                documentActivity.getDataTitle(binding.spinnerTitle.getSelectedItemPosition()).id,
+                documentActivity.getDataTitle(binding.spinnerTitle.getSelectedItemPosition()).title,
+                documentActivity.isNew());
     }
 
-    public void addImage(Images image) {
+    public void addUploadedImage() {
+        Images image = createImageObject();
         documentActivity.addImage(image);
-        prepareImageAdapter();
+        initializeImageAdapter(image);
     }
 
-    private void prepareImageAdapter() {
+    private Images createImageObject() {
+        return new Images(IMAGE_FILE_NAME, documentActivity.getBillId(),
+                documentActivity.getTrackNumber(),
+                documentActivity.getDataTitle(binding.spinnerTitle.getSelectedItemPosition()).id,
+                documentActivity.getDataTitle(binding.spinnerTitle.getSelectedItemPosition()).title,
+                documentActivity.getBitmap(), true);
+    }
+
+    private void initializeImageAdapter(Images... image) {
         try {
-            final ImageViewAdapter imageViewAdapter = new ImageViewAdapter(requireContext(),
-                    documentActivity.getImages());
-            binding.gridViewImage.setAdapter(imageViewAdapter);
+            if (image.length > 0)
+                documentActivity.getImageViewAdapter().updateImagesList(image[0]);
+            else {
+                documentActivity.setImageViewAdapter(new ImageViewAdapter(requireContext(),
+                        documentActivity.getImages()));
+                binding.gridViewImage.setAdapter(documentActivity.getImageViewAdapter());
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -169,6 +229,65 @@ public class TakePhotoFragment extends Fragment implements View.OnClickListener 
 
     public ProgressBar getProgressBar() {
         return binding.progressBar;
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        if (SystemClock.elapsedRealtime() - lastClickTime < 1000) return;
+        lastClickTime = SystemClock.elapsedRealtime();
+        final int id = v.getId();
+        if (id == R.id.button_upload) {
+            upload();
+        } else if (id == R.id.button_pick) {
+            pickImage();
+        } else if (id == R.id.button_accepted) {
+            accept();
+        }
+    }
+
+    private void upload() {
+        if (documentActivity.getBitmap() != null) {
+            binding.buttonUpload.setVisibility(View.GONE);
+            binding.imageView.setImageDrawable(ContextCompat.getDrawable(requireContext(),
+                    R.drawable.icon_finder_camera));
+            new UploadImages(this, documentActivity.isNew() ?
+                    documentActivity.getTrackNumber() : documentActivity.getBillId(),
+                    documentActivity.getDataTitle(binding.spinnerTitle.getSelectedItemPosition()).id,
+                    documentActivity.isNew()).execute(requireActivity());
+        }
+    }
+
+    private void pickImage() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setTitle(R.string.choose_document);
+        builder.setMessage(R.string.select_source);
+        builder.setPositiveButton(R.string.gallery, (dialog, which) -> {
+            dialog.dismiss();
+            openGalleryActivityForResult();
+        });
+        builder.setNegativeButton(R.string.camera, (dialog, which) -> {
+            dialog.dismiss();
+            openCameraActivityForResult();
+        });
+        builder.create().show();
+    }
+
+    private void accept() {
+        boolean cancel = false;
+        for (String docId : NECESSARY_IMAGES) {
+            cancel = true;
+            final ArrayList<Images> images = documentActivity.getImages();
+            for (int i = 0, imagesSize = images.size(); cancel && i < imagesSize; i++) {
+                final Images image = images.get(i);
+                cancel = !image.docId.equals(docId);
+            }
+        }//TODO
+        if (!cancel)
+            new CustomToast().error("مدارک الزامی الصاق نشده است.", Toast.LENGTH_LONG);
+        else
+            new ShowDialogue(getString(R.string.accepted_question), getString(R.string.dear_user),
+                    getString(R.string.final_accepted), getString(R.string.yes));
     }
 
     private void openCameraActivityForResult() {
@@ -195,64 +314,6 @@ public class TakePhotoFragment extends Fragment implements View.OnClickListener 
             galleryIntent.setType("image/*");
             galleryActivityResultLauncher.launch(galleryIntent);
         }
-    }
-
-    @Override
-    public void onClick(View v) {
-        if (SystemClock.elapsedRealtime() - lastClickTime < 1000) return;
-        lastClickTime = SystemClock.elapsedRealtime();
-        final int id = v.getId();
-        if (id == R.id.button_upload) {
-            if (documentActivity.getBitmap() != null) {
-                binding.buttonUpload.setVisibility(View.GONE);
-                binding.imageView.setImageDrawable(ContextCompat.getDrawable(requireContext(),
-                        R.drawable.icon_finder_camera));
-                new UploadImages(this).execute(requireActivity());
-            }
-        } else if (id == R.id.button_pick) {
-            final AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-            builder.setTitle(R.string.choose_document);
-            builder.setMessage(R.string.select_source);
-            builder.setPositiveButton(R.string.gallery, (dialog, which) -> {
-                dialog.dismiss();
-                openGalleryActivityForResult();
-            });
-            builder.setNegativeButton(R.string.camera, (dialog, which) -> {
-                dialog.dismiss();
-                openCameraActivityForResult();
-            });
-            builder.create().show();
-        } else if (id == R.id.button_accepted) {
-            boolean cancel = false;
-            for (String docId : NECESSARY_IMAGES) {
-                cancel = true;
-                final ArrayList<Images> images = documentActivity.getImages();
-                for (int i = 0, imagesSize = images.size(); cancel && i < imagesSize; i++) {
-                    final Images image = images.get(i);
-                    cancel = !image.docId.equals(docId);
-                }
-            }//TODO
-            if (!cancel)
-                new CustomToast().error("مدارک الزامی الصاق نشده است.", Toast.LENGTH_LONG);
-            else
-                new ShowDialogue(getString(R.string.accepted_question), getString(R.string.dear_user),
-                        getString(R.string.final_accepted), getString(R.string.yes));
-        }
-    }
-
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        if (documentActivity.isNew())
-            inflater.inflate(R.menu.add_document_menu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NotNull MenuItem item) {
-        if (item.getItemId() == R.id.add_document_menu) {
-            ShowFragmentDialogOnce(requireContext(), "ADD_DOCUMENT", AddDocumentFragment.newInstance(documentActivity.getTrackNumber()));
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -301,6 +362,14 @@ public class TakePhotoFragment extends Fragment implements View.OnClickListener 
         void setImages();
 
         void addImage(Images images);
+
+        void setSpinnerAdapter(SpinnerCustomAdapter spinnerAdapter);
+
+        SpinnerCustomAdapter getSpinnerAdapter();
+
+        void setImageViewAdapter(ImageViewAdapter imageViewAdapter);
+
+        ImageViewAdapter getImageViewAdapter();
     }
 
     class ShowDialogue implements CustomDialogModel.Inline {

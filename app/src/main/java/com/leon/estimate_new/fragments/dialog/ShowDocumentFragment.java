@@ -126,11 +126,16 @@ public class ShowDocumentFragment extends DialogFragment {
 
     @Override
     public void dismiss() {
-        super.dismiss();
-        if (HttpClientWrapper.call != null) {
-            HttpClientWrapper.call.cancel();
-            HttpClientWrapper.call = null;
+        try {
+            super.dismiss();
+            if (HttpClientWrapper.call != null) {
+                HttpClientWrapper.call.cancel();
+                HttpClientWrapper.call = null;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
+
     }
 
     @Override

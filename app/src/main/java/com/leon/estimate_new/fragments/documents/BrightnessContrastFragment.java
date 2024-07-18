@@ -18,17 +18,11 @@ import androidx.fragment.app.Fragment;
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.databinding.FragmentBrightnessContrastBinding;
 
-public class BrightnessContrastFragment extends Fragment implements SeekBar.OnSeekBarChangeListener {
+public class BrightnessContrastFragment extends Fragment implements SeekBar.OnSeekBarChangeListener,
+        View.OnClickListener {
     private FragmentBrightnessContrastBinding binding;
     private Callback documentActivity;
-    private final View.OnClickListener onClickListenerClose = v -> documentActivity.cancelEditing();
     private Bitmap bitmapTemp;
-    private final View.OnClickListener onClickListenerAccepted = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            documentActivity.setFinalBitmap(bitmapTemp);
-        }
-    };
 
     public static BrightnessContrastFragment newInstance() {
         return new BrightnessContrastFragment();
@@ -54,10 +48,20 @@ public class BrightnessContrastFragment extends Fragment implements SeekBar.OnSe
         binding.seekBarContrast.setMax(100);
         binding.seekBarContrast.setProgress(50);
         binding.seekBarContrast.setOnSeekBarChangeListener(this);
-        binding.buttonAccepted.setOnClickListener(onClickListenerAccepted);
-        binding.buttonClose.setOnClickListener(onClickListenerClose);
+        binding.buttonAccepted.setOnClickListener(this);
+        binding.buttonClose.setOnClickListener(this);
         bitmapTemp = documentActivity.getBitmap();
         binding.imageView.setImageBitmap(bitmapTemp);
+    }
+
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        if (id ==R.id.button_accepted){
+            documentActivity.setFinalBitmap(bitmapTemp);
+        } else if (id ==R.id.button_close) {
+            documentActivity.cancelEditing();
+        }
     }
 
     @Override

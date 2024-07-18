@@ -70,7 +70,7 @@ class GetImageDoc implements ICallback<ResponseBody> {
 
     @Override
     public void execute(Response<ResponseBody> response) {
-        ((TakePhotoFragment) object).setImage(response.body());
+        ((TakePhotoFragment) object).addImage(response.body());
     }
 }
 

@@ -74,22 +74,22 @@
             android:layout_alignParentEnd="true"
             android:layout_margin="@dimen/low_dp" />
     </RelativeLayout>
+
     <Button
+        android:id="@+id/button_pre"
+        style="@style/Button.Negative"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="@dimen/medium_dp"
         android:layout_marginBottom="@dimen/medium_dp"
-        android:id="@+id/button_pre"
-        style="@style/Button.Negative"
         android:text="@string/previous" />
 
     <Button
-
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="@dimen/medium_dp"
-        android:layout_marginBottom="@dimen/medium_dp"
         android:id="@+id/button_edit_crooki"
         style="@style/Button.Positive"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/medium_dp"
+        android:layout_marginBottom="@dimen/medium_dp"
         android:text="@string/crooki" />
 
 </RelativeLayout>

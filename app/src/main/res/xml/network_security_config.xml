@@ -47,4 +47,12 @@
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">https://c.tile.openstreetmap.org</domain>
     </domain-config>
+
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">172.18.12.14:100</domain>
+    </domain-config>
+
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">172.18.12.14</domain>
+    </domain-config>
 </network-security-config>

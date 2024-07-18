@@ -70,7 +70,7 @@ class GetList implements ICallback<ImageDataThumbnail> {
     @Override
     public void execute(Response<ImageDataThumbnail> response) {
         if (response.body() != null && response.body().success) {
-            ((TakePhotoFragment) object).setThumbnails(response.body());
+            ((TakePhotoFragment) object).setOldThumbnails(response.body());
         } else {
             new CustomDialogModel(Yellow, ((TakePhotoFragment) object).requireContext(),
                     ((TakePhotoFragment) object).requireContext().getString(R.string.download_document)

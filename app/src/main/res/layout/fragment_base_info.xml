@@ -15,10 +15,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/button_pre"
+        android:background="@drawable/border_white_1"
         android:layout_below="@id/text_view_title">
 
         <RelativeLayout
-            android:background="@drawable/border_white_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -228,12 +228,13 @@
                         style="@style/EditTextForm"
                         android:layout_width="0dp"
                         android:layout_weight="0.75"
-                        android:focusable="false"
                         android:cursorVisible="false"
+                        android:focusable="false"
                         android:gravity="center"
                         android:inputType="none"
                         android:maxLength="10"
                         tools:ignore="Autofill,LabelFor,TextFields" />
+
                     <TextView
                         style="@style/TitleSmall"
                         android:layout_width="0dp"
@@ -258,17 +259,17 @@
 
                     <TextView
                         style="@style/TitleSmall"
-                        android:layout_weight="1.25"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1.25"
                         android:text="@string/qaradad_amade" />
 
                     <CheckBox
                         android:id="@+id/checkbox7"
-                        android:layout_weight="0.75"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center" />
+                        android:layout_gravity="center"
+                        android:layout_weight="0.75" />
 
                     <TextView
                         style="@style/TitleSmall"
@@ -307,7 +308,6 @@
                         android:layout_gravity="center"
                         android:layout_weight="0.75" />
 
-
                     <TextView
                         style="@style/TitleSmall"
                         android:layout_width="0dp"
@@ -326,24 +326,25 @@
 
                 <LinearLayout
                     android:id="@id/linear_layout_9"
-                    android:weightSum="4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/linear_layout_8">
+                    android:layout_below="@id/linear_layout_8"
+                    android:weightSum="4">
 
                     <TextView
                         style="@style/TitleSmall"
-                        android:layout_weight="1.25"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1.25"
                         android:text="@string/mojavez_adam_tavali" />
 
                     <CheckBox
                         android:id="@+id/checkbox6"
                         android:layout_width="0dp"
-                        android:layout_weight="0.75"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center" />
+                        android:layout_gravity="center"
+                        android:layout_weight="0.75" />
+
                     <TextView
                         style="@style/TitleSmall"
                         android:layout_width="0dp"
@@ -387,9 +388,9 @@
                         android:id="@+id/edit_text_arse"
                         style="@style/EditTextForm"
                         android:layout_width="0dp"
-                        android:maxLength="8"
                         android:layout_weight="0.75"
                         android:inputType="number"
+                        android:maxLength="8"
                         tools:ignore="Autofill,LabelFor" />
 
                     <TextView
@@ -403,8 +404,8 @@
                         style="@style/EditTextForm"
                         android:layout_width="0dp"
                         android:layout_weight="1"
-                        android:maxLength="4"
                         android:inputType="number"
+                        android:maxLength="4"
                         tools:ignore="Autofill,LabelFor" />
                 </LinearLayout>
 
@@ -425,9 +426,9 @@
                         android:id="@+id/edit_text_tedad_saier"
                         style="@style/EditTextForm"
                         android:layout_width="0dp"
-                        android:maxLength="4"
                         android:layout_weight="0.75"
                         android:inputType="numberSigned"
+                        android:maxLength="4"
                         tools:ignore="Autofill,LabelFor" />
 
                     <TextView
@@ -441,9 +442,9 @@
                         android:id="@+id/edit_text_tedad_tejari"
                         style="@style/EditTextForm"
                         android:layout_width="0dp"
-                        android:maxLength="4"
                         android:layout_weight="1"
                         android:inputType="number"
+                        android:maxLength="4"
                         tools:ignore="Autofill,LabelFor" />
                 </LinearLayout>
             </RelativeLayout>
@@ -468,12 +469,12 @@
                         android:text="@string/aian_kol" />
 
                     <EditText
-                        android:maxLength="8"
                         android:id="@+id/edit_text_aian_kol"
                         style="@style/EditTextForm"
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:inputType="number"
+                        android:maxLength="8"
                         tools:ignore="Autofill,LabelFor" />
 
                     <TextView
@@ -483,12 +484,12 @@
                         android:text="@string/ayan_maskooni" />
 
                     <EditText
-                        android:maxLength="8"
                         android:id="@+id/edit_text_aian_maskooni"
                         style="@style/EditTextForm"
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:inputType="number"
+                        android:maxLength="8"
                         tools:ignore="Autofill,LabelFor" />
                 </LinearLayout>
 
@@ -509,8 +510,8 @@
                         style="@style/EditTextForm"
                         android:layout_width="0dp"
                         android:layout_weight="1"
-                        android:focusable="false"
                         android:cursorVisible="false"
+                        android:focusable="false"
                         android:inputType="none"
                         tools:ignore="Autofill,LabelFor" />
 
@@ -525,8 +526,8 @@
                         style="@style/EditTextForm"
                         android:layout_width="0dp"
                         android:layout_weight="1"
-                        android:maxLength="8"
                         android:inputType="number"
+                        android:maxLength="8"
                         tools:ignore="Autofill,LabelFor" />
                 </LinearLayout>
 
@@ -566,20 +567,20 @@
         </RelativeLayout>
     </ScrollView>
 
-        <Button
-            android:layout_marginTop="@dimen/medium_dp"
-            android:layout_marginBottom="@dimen/medium_dp"
-            android:layout_alignParentBottom="true"
-            android:id="@+id/button_pre"
-            style="@style/Button.Negative"
-            android:text="@string/previous" />
+    <Button
+        android:id="@+id/button_pre"
+        style="@style/Button.Negative"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/medium_dp"
+        android:layout_marginBottom="@dimen/medium_dp"
+        android:text="@string/previous" />
 
-        <Button
-            android:layout_marginTop="@dimen/medium_dp"
-            android:layout_marginBottom="@dimen/medium_dp"
-            android:layout_alignParentBottom="true"
-            android:id="@+id/button_submit"
-            style="@style/Button.Positive"
-            android:layout_alignParentEnd="true"
-            android:text="@string/second_info" />
+    <Button
+        android:id="@+id/button_submit"
+        style="@style/Button.Positive"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/medium_dp"
+        android:layout_marginBottom="@dimen/medium_dp"
+        android:text="@string/second_info" />
 </RelativeLayout>

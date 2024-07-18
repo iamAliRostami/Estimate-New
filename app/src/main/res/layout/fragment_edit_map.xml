@@ -13,10 +13,11 @@
 
     <com.kyanogen.signatureview.SignatureView xmlns:sign="http://schemas.android.com/apk/res-auto"
         android:id="@+id/signature_view"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_above="@id/relative_layout"
+        android:layout_above="@id/button_submit"
         android:layout_below="@id/image_view_color_blue"
+        android:layout_centerHorizontal="true"
         android:layout_margin="@dimen/medium_dp"
         android:padding="@dimen/low_dp"
         sign:penColor="#000000" />
@@ -74,23 +75,21 @@
         android:src="@drawable/color_red"
         tools:ignore="ContentDescription" />
 
-    <RelativeLayout
-        android:id="@+id/relative_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+
+    <Button
+        android:id="@+id/button_pre"
+        style="@style/Button.Negative"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="@dimen/medium_dp"
-        android:layout_marginBottom="@dimen/medium_dp">
+        android:layout_marginBottom="@dimen/medium_dp"
+        android:text="@string/previous" />
 
-        <Button
-            android:id="@+id/button_pre"
-            style="@style/Button.Negative"
-            android:text="@string/previous" />
-
-        <Button
-            android:id="@+id/button_submit"
-            style="@style/Button.Positive"
-            android:layout_alignParentEnd="true"
-            android:text="@string/save_info" />
-    </RelativeLayout>
+    <Button
+        android:id="@+id/button_submit"
+        style="@style/Button.Positive"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/medium_dp"
+        android:layout_marginBottom="@dimen/medium_dp"
+        android:text="@string/save_info" />
 </RelativeLayout>

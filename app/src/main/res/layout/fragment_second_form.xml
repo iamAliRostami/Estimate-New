@@ -18,9 +18,9 @@
         android:layout_below="@id/text_view_title">
 
         <RelativeLayout
-            android:background="@drawable/border_white_1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_white_1">
 
             <RelativeLayout
                 android:id="@id/relative_layout_1"

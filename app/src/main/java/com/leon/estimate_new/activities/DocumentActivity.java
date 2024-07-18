@@ -26,14 +26,16 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.leon.estimate_new.BuildConfig;
 import com.leon.estimate_new.R;
+import com.leon.estimate_new.adapters.ImageViewAdapter;
+import com.leon.estimate_new.adapters.SpinnerCustomAdapter;
 import com.leon.estimate_new.databinding.ActivityDocumentBinding;
 import com.leon.estimate_new.di.view_model.HttpClientWrapper;
 import com.leon.estimate_new.fragments.documents.BrightnessContrastFragment;
@@ -65,6 +67,8 @@ public class DocumentActivity extends AppCompatActivity implements TakePhotoFrag
     private boolean isNew, close;
     private Bitmap bitmap;
     private int selected;
+    private ImageViewAdapter imageViewAdapter;
+    private SpinnerCustomAdapter spinnerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,19 +78,12 @@ public class DocumentActivity extends AppCompatActivity implements TakePhotoFrag
         checkPermissions();
         addOnBackPressed();
     }
-    private void checkPermissions(){
+
+    private void checkPermissions() {
         if (!checkCameraPermission(getApplicationContext())) {
             askPermission();
         } else {
             initialize();
-        }
-    }
-
-    private void getExtra() {
-        if (getIntent().getExtras() != null) {
-            billId = getIntent().getExtras().getString(BILL_ID.getValue());
-            trackNumber = getIntent().getExtras().getString(TRACK_NUMBER.getValue());
-            isNew = getIntent().getExtras().getBoolean(NEW_ENSHEAB.getValue());
         }
     }
 
@@ -100,13 +97,23 @@ public class DocumentActivity extends AppCompatActivity implements TakePhotoFrag
         }
     }
 
+    private void getExtra() {
+        if (getIntent().getExtras() != null) {
+            billId = getIntent().getExtras().getString(BILL_ID.getValue());
+            trackNumber = getIntent().getExtras().getString(TRACK_NUMBER.getValue());
+            isNew = getIntent().getExtras().getBoolean(NEW_ENSHEAB.getValue());
+        }
+    }
+
     public void successLogin() {
         new ImageTitles(this, this).execute(this);
     }
 
     private void displayView(int position) {
         final String tag = Integer.toString(position);
-        if (getFragmentManager().findFragmentByTag(tag) != null && getFragmentManager().findFragmentByTag(tag).isVisible()) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment fragment = fragmentManager.findFragmentByTag(tag);
+        if (fragment != null && fragment.isVisible()) {
             return;
         }
         final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -176,10 +183,12 @@ public class DocumentActivity extends AppCompatActivity implements TakePhotoFrag
                     .setGotoSettingButtonText(getString(R.string.allow_permission))
                     .setPermissions(PHOTO_PERMISSIONS).check();
     }
+
     private final ActivityResultLauncher<Intent> allFileResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(), result -> checkPermissions());
     private final ActivityResultLauncher<Intent> settingResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(), result -> checkPermissions());
+
     @Override
     public void setTakenBitmap(Bitmap bitmap) {
         this.bitmap = bitmap;
@@ -296,6 +305,26 @@ public class DocumentActivity extends AppCompatActivity implements TakePhotoFrag
     public void cancelEditing() {
         bitmap = null;
         displayView(TAKE_PHOTO_FRAGMENT);
+    }
+
+    @Override
+    public SpinnerCustomAdapter getSpinnerAdapter() {
+        return spinnerAdapter;
+    }
+
+    @Override
+    public void setSpinnerAdapter(SpinnerCustomAdapter spinnerAdapter) {
+        this.spinnerAdapter = spinnerAdapter;
+    }
+
+    @Override
+    public ImageViewAdapter getImageViewAdapter() {
+        return imageViewAdapter;
+    }
+
+    @Override
+    public void setImageViewAdapter(ImageViewAdapter imageViewAdapter) {
+        this.imageViewAdapter = imageViewAdapter;
     }
 
     private void addOnBackPressed() {

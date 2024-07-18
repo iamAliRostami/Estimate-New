@@ -41,7 +41,7 @@ public class MainActivity extends BaseActivity  {
         final View childLayout = binding.getRoot();
         final ConstraintLayout parentLayout = findViewById(R.id.base_Content);
         parentLayout.addView(childLayout);
-        displayView(HOME_FRAGMENT/*DUTIES_FRAGMENT*/);
+        displayView(/*HOME_FRAGMENT*/DUTIES_FRAGMENT);
         setOnDrawerItemClick();
     }
     public void displayView(int position) {
