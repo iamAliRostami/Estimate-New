@@ -22,7 +22,10 @@ public class BrightnessContrastFragment extends Fragment implements SeekBar.OnSe
         View.OnClickListener {
     private FragmentBrightnessContrastBinding binding;
     private Callback documentActivity;
+    private boolean contrastOrBrightness;
     private Bitmap bitmapTemp;
+    private float contrast = 1.7F;
+    private int brightness;
 
     public static BrightnessContrastFragment newInstance() {
         return new BrightnessContrastFragment();
@@ -47,7 +50,7 @@ public class BrightnessContrastFragment extends Fragment implements SeekBar.OnSe
         binding.seekBarBrightness.setOnSeekBarChangeListener(this);
 
         binding.seekBarContrast.setMax(100);
-        binding.seekBarContrast.setProgress(50);
+        binding.seekBarContrast.setProgress(17);
         binding.seekBarContrast.setOnSeekBarChangeListener(this);
 
         binding.buttonAccepted.setOnClickListener(this);
@@ -60,15 +63,17 @@ public class BrightnessContrastFragment extends Fragment implements SeekBar.OnSe
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         final int id = seekBar.getId();
         if (id == R.id.seekBar_contrast) {
-            final float contrast = (float) (progress) / 10;
-            bitmapTemp = contrastController(bitmapTemp, contrast,
-                    binding.seekBarBrightness.getProgress() - 250);
-            binding.imageView.setImageBitmap(bitmapTemp);
+            contrastOrBrightness = true;
+            contrast = (float) (progress) / 10;
+            binding.imageView.setImageBitmap(contrastController(brightnessController(bitmapTemp,
+                    brightness), contrast, brightness));
             binding.textViewContrast.setText(getString(R.string.contrast).concat(String.valueOf(contrast)));
         } else if (id == R.id.seekBar_brightness) {
-            final int brightness = progress - 150;
-            bitmapTemp = brightnessController(bitmapTemp, brightness);
-            binding.imageView.setImageBitmap(bitmapTemp);
+            contrastOrBrightness = false;
+            brightness = progress - 150;
+//            binding.imageView.setImageBitmap(brightnessController(bitmapTemp, brightness));
+            binding.imageView.setImageBitmap(brightnessController(contrastController(bitmapTemp,
+                    contrast, brightness), brightness));
             binding.textViewBrightness.setText(getString(R.string.brightness).concat(String.valueOf(brightness)));
         }
     }
@@ -85,7 +90,13 @@ public class BrightnessContrastFragment extends Fragment implements SeekBar.OnSe
     public void onClick(View view) {
         int id = view.getId();
         if (id == R.id.button_accepted) {
-            documentActivity.setFinalBitmap(bitmapTemp);
+            if (contrastOrBrightness && contrast != 1.7F)
+                documentActivity.setFinalBitmap(contrastController(brightnessController(bitmapTemp,
+                        brightness), contrast, brightness));
+            else if (!contrastOrBrightness && brightness != 0)
+                documentActivity.setFinalBitmap(brightnessController(contrastController(bitmapTemp,
+                        contrast, brightness), brightness));
+            else documentActivity.setFinalBitmap(bitmapTemp);
         } else if (id == R.id.button_close) {
             documentActivity.cancelEditing();
         }
