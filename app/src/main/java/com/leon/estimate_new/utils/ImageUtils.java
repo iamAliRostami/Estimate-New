@@ -96,19 +96,6 @@ public class ImageUtils {
         if (isMap) {
             small = 30;
             tPaint.setTextSize(small);
-
-//            if (examinerDuties.getMapDescription().length() <= 50) {
-//                yCoordinate = (float) bitmap.getHeight() * 10 / 144;
-//                cs.drawText(examinerDuties.getMapDescription(), xCoordinate, yCoordinate, tPaint);
-//            } else {
-//                for (int i = 0; i <= examinerDuties.getMapDescription().length() / 50; i++) {
-//                    yCoordinate = (float) bitmap.getHeight() * (10 + 5 * i) / 144;
-//                    if (i == examinerDuties.getMapDescription().length() / 50) {
-//                        cs.drawText(examinerDuties.getMapDescription().substring(i * 50), xCoordinate, yCoordinate, tPaint);
-//                    } else
-//                        cs.drawText(examinerDuties.getMapDescription().substring(i * 50, 50 * (i + 1)), xCoordinate, yCoordinate, tPaint);
-//                }
-//            }
             if (x > 0 || y > 0) {
                 small = 40;
                 yCoordinate = (float) bitmap.getHeight() * 140 / 144;

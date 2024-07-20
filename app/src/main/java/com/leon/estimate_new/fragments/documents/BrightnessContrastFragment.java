@@ -71,7 +71,6 @@ public class BrightnessContrastFragment extends Fragment implements SeekBar.OnSe
         } else if (id == R.id.seekBar_brightness) {
             contrastOrBrightness = false;
             brightness = progress - 150;
-//            binding.imageView.setImageBitmap(brightnessController(bitmapTemp, brightness));
             binding.imageView.setImageBitmap(brightnessController(contrastController(bitmapTemp,
                     contrast, brightness), brightness));
             binding.textViewBrightness.setText(getString(R.string.brightness).concat(String.valueOf(brightness)));

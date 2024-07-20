@@ -105,7 +105,7 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
             examinerDuty = new Gson().fromJson(json, ExaminerDuties.class);
         }
         new GetDBData(this, examinerDuty.zoneId, examinerDuty.trackNumber, this).execute(this);
-        displayView(/*PERSONAL_FRAGMENT*/MAP_DESCRIPTION_FRAGMENT);
+        displayView(PERSONAL_FRAGMENT/*MAP_DESCRIPTION_FRAGMENT*/);
     }
 
     public void setData(Arzeshdaraei arzeshdaraei,
