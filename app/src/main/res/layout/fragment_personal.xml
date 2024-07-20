@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.forms.PersonalFragment">
 
     <TextView
@@ -350,8 +352,13 @@
                         android:maxLines="10"
                         tools:ignore="Autofill,LabelFor" />
                 </LinearLayout>
-
+                <com.leon.estimate_new.utils.custom_views.TitleEditTextView
+                    app:max_length="10"
+                    app:input_text="text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
             </RelativeLayout>
+
         </RelativeLayout>
     </ScrollView>
 
