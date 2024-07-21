@@ -4,11 +4,13 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.text.InputFilter;
 import android.util.AttributeSet;
-import android.util.TypedValue;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
+import android.widget.TextView;
 
+import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -22,17 +24,10 @@ import java.util.regex.Pattern;
 public class TitleEditTextView extends ConstraintLayout {
     private TextInputLayout textInputLayout;
     private TextInputEditText textInputEditText;
-    private ConstraintLayout constraintLayout;
     private final View view;
     private final Context context;
+    private int nextId;
     private final Pattern MOBILE_REGEX = Pattern.compile("^((\\+98|0)9\\d{9})$");
-
-    public TitleEditTextView(Context context) {
-        super(context);
-        view = inflate(context, R.layout.title_edit_text, this);
-        this.context = context;
-//        initializeViews();
-    }
 
     public TitleEditTextView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -42,7 +37,6 @@ public class TitleEditTextView extends ConstraintLayout {
     }
 
     private void initializeViews(@Nullable AttributeSet attrs) {
-        constraintLayout = view.findViewById(R.id.constraint_layout);
         textInputLayout = view.findViewById(R.id.text_input_layout);
         textInputEditText = view.findViewById(R.id.text_input_edit_text);
 
@@ -60,11 +54,29 @@ public class TitleEditTextView extends ConstraintLayout {
             } else if (attr == R.styleable.TitleEditTextView_android_maxLength) {
                 textInputEditText.setFilters(new InputFilter[]{
                         new InputFilter.LengthFilter(a.getInt(attr, 100))});
+            } else if (attr == R.styleable.TitleEditTextView_nextFocus) {
+                nextId = textInputEditText.getId();
+                Log.e("id 1", String.valueOf(nextId));
+                setNextFocus(a.getResourceId(attr, nextId));
             }
         }
+        textInputEditText.setOnEditorActionListener((textView, i, keyEvent) -> {
+            if (i==EditorInfo.IME_ACTION_NEXT){
+                TextInputEditText viewTemp = view.findViewById(nextId);
+                viewTemp.requestFocus();
+            }
+            return false;
+        });
         a.recycle();
+    }
 
-
+    public void setNextFocus(@IdRes int id) {
+        Log.e("id 2", String.valueOf(id));
+        textInputEditText.setNextFocusUpId(id);
+        textInputEditText.setNextFocusDownId(id);
+        textInputEditText.setNextFocusForwardId(id);
+        textInputEditText.setNextFocusLeftId(id);
+        textInputEditText.setNextFocusRightId(id);
     }
 
     public void setLayoutTitle(String title) {
@@ -81,12 +93,19 @@ public class TitleEditTextView extends ConstraintLayout {
 
     public String getInputText() {
         if (textInputEditText.getText() == null) {
-            textInputEditText.setError(context.getString(R.string.error_empty));
-            textInputEditText.requestFocus();
             return "";
         }
         return textInputEditText.getText().toString();
 
+    }
+
+    public boolean validation() {
+        if (textInputEditText.getText() == null || textInputEditText.getText().toString().isEmpty()) {
+            textInputEditText.setError(context.getString(R.string.error_empty));
+            textInputEditText.requestFocus();
+            return false;
+        }
+        return true;
     }
 
     public boolean postalCodeValidation() {
@@ -127,10 +146,5 @@ public class TitleEditTextView extends ConstraintLayout {
 
     public TextInputEditText getTextInputEditText() {
         return textInputEditText;
-    }
-
-
-    public ConstraintLayout getConstraintLayout() {
-        return constraintLayout;
     }
 }

@@ -3,6 +3,7 @@ package com.leon.estimate_new.fragments.forms;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,6 @@ import androidx.fragment.app.Fragment;
 
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.databinding.FragmentPersonalBinding;
-import com.leon.estimate_new.tables.CalculationUserInput;
 import com.leon.estimate_new.tables.ExaminerDuties;
 
 public class PersonalFragment extends Fragment implements View.OnClickListener {
@@ -62,13 +62,16 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initializeEditText() {
-        binding.editTextName.setText(examinerDuties.firstName.trim());
-        binding.editTextFamily.setText(examinerDuties.sureName.trim());
+        binding.titleEditTextName.setInputText(examinerDuties.firstName.trim());
+
+        binding.titleEditTextFamily.setInputText(examinerDuties.sureName.trim());
+
+        Log.e("id 3", String.valueOf(binding.titleEditTextFamily.getId()));
 
         binding.editTextFatherName.setText(examinerDuties.fatherName.trim());
         binding.editTextShenasname.setText(examinerDuties.shenasname);
         if (examinerDuties.nationalId.trim().length() == 10)
-            binding.editTextNationNumber.setText(examinerDuties.nationalId.trim());
+            binding.editTextNationalCode.setText(examinerDuties.nationalId.trim());
         if (examinerDuties.postalCode.trim().length() == 10)
             binding.editTextPostalCode.setText(examinerDuties.postalCode.trim());
 
@@ -81,7 +84,6 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
         binding.editTextAddress.setText(examinerDuties.address.trim());
         binding.editTextDescription.setText(examinerDuties.description.trim());
     }
-
 
 
     @Override
@@ -97,10 +99,10 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
     }
 
     private boolean checkForm() {
-        return checkIsNoEmpty(binding.editTextName)
-                && checkIsNoEmpty(binding.editTextFamily)
+        return binding.titleEditTextName.validation()
+                && binding.titleEditTextFamily.validation()
                 /* && checkIsNoEmpty(binding.editTextFatherName)*/
-                && checkIsNoEmpty(binding.editTextNationNumber)
+                && checkIsNoEmpty(binding.editTextNationalCode)
                 && checkIsNoEmpty(binding.editTextAddress)
                 && checkOtherIsNoEmpty();
     }
@@ -118,9 +120,9 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
 
     private boolean checkOtherIsNoEmpty() {
         final View focusView;
-        if (binding.editTextNationNumber.getText().toString().length() < 10) {
-            binding.editTextNationNumber.setError(getString(R.string.error_format));
-            focusView = binding.editTextNationNumber;
+        if (binding.editTextNationalCode.getText().toString().length() < 10) {
+            binding.editTextNationalCode.setError(getString(R.string.error_format));
+            focusView = binding.editTextNationalCode;
             focusView.requestFocus();
             return false;
         } else if (!binding.editTextPostalCode.getText().toString().isEmpty() &&
@@ -139,9 +141,11 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
     }
 
     private ExaminerDuties prepareOutput() {
-        examinerDuties.nationalId = binding.editTextNationNumber.getText().toString();
-        examinerDuties.firstName = binding.editTextName.getText().toString();
-        examinerDuties.sureName = binding.editTextFamily.getText().toString();
+        examinerDuties.firstName = binding.titleEditTextName.getInputText();
+        examinerDuties.sureName = binding.titleEditTextFamily.getInputText();
+
+
+        examinerDuties.nationalId = binding.editTextNationalCode.getText().toString();
         examinerDuties.fatherName = binding.editTextFatherName.getText().toString();
         examinerDuties.postalCode = binding.editTextPostalCode.getText().toString();
         examinerDuties.radif = binding.editTextRadif.getText().toString();
@@ -152,6 +156,7 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
         examinerDuties.shenasname = binding.editTextShenasname.getText().toString();
         return examinerDuties;
     }
+
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);

@@ -101,35 +101,23 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <TextView
-                        style="@style/TitleSmall"
+                    <com.leon.estimate_new.utils.custom_views.TitleEditTextView
+                        android:id="@+id/title_edit_text_name"
                         android:layout_width="0dp"
-                        android:layout_weight="0.75"
-                        android:text="@string/name" />
-
-                    <EditText
-                        android:id="@+id/edit_text_name"
-                        style="@style/EditTextForm"
-                        android:layout_width="0dp"
-                        android:layout_weight="2"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:inputType="text"
-                        android:nextFocusDown="@id/edit_text_family"
-                        tools:ignore="Autofill,LabelFor" />
+                        custom:nextFocus="@id/title_edit_text_family"
+                        custom:title_text="@string/name" />
 
-                    <TextView
-                        style="@style/TitleSmall"
+                    <com.leon.estimate_new.utils.custom_views.TitleEditTextView
+                        android:id="@+id/title_edit_text_family"
                         android:layout_width="0dp"
-                        android:layout_weight="1.25"
-                        android:text="@string/family" />
-
-                    <EditText
-                        android:id="@+id/edit_text_family"
-                        style="@style/EditTextForm"
-                        android:layout_width="0dp"
-                        android:layout_weight="2"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:inputType="text"
-                        android:nextFocusDown="@id/edit_text_father_name"
-                        tools:ignore="Autofill,LabelFor" />
+                        custom:nextFocus="@id/edit_text_father_name"
+                        custom:title_text="@string/family" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -182,7 +170,7 @@
                         android:text="@string/nation_code" />
 
                     <EditText
-                        android:id="@+id/edit_text_nation_number"
+                        android:id="@+id/edit_text_national_code"
                         style="@style/EditTextForm"
                         android:layout_width="0dp"
                         android:layout_weight="2"
