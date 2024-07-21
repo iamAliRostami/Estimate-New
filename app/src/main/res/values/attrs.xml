@@ -3,8 +3,20 @@
     <declare-styleable name="TitleEditTextView">
         <attr name="title_text" format="string" />
         <attr name="input_text" format="string" />
-        <attr name="max_length" format="integer" />
+        <attr name="android:maxLength" format="integer" />
+        <attr name="android:inputType" />
 
+
+        <!--        <attr name="input_type" format="integer" />-->
+        <!--        <attr name="input_type">-->
+        <!--            <flag name="text" value="text" />-->
+        <!--            <flag name="phone" value="phone" />-->
+        <!--            <flag name="national_code" value="nation_code" />-->
+        <!--            <flag name="postal_code" value="postal_code" />-->
+        <!--        </attr>-->
     </declare-styleable>
 
+    <declare-styleable name="CustomTextInputLayout" >
+        <attr name="mainHintTextSize" format="dimension" />
+    </declare-styleable>
 </resources>

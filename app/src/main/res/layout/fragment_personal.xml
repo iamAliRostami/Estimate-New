@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -220,10 +219,20 @@
                 android:background="@drawable/border_gray_1"
                 android:padding="@dimen/low_dp">
 
+                <com.leon.estimate_new.utils.custom_views.TitleEditTextView
+                    android:id="@+id/test"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone"
+                    android:maxLength="3"
+                    custom:input_text="123"
+                    custom:title_text="سلام۱" />
+
                 <LinearLayout
                     android:id="@+id/linear_layout_4"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/test">
 
                     <TextView
                         style="@style/TitleSmall"
@@ -353,11 +362,6 @@
                         tools:ignore="Autofill,LabelFor" />
                 </LinearLayout>
 
-                <com.leon.estimate_new.utils.custom_views.TitleEditTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    app:max_length="10"
-                    custom:title_text="text" />
             </RelativeLayout>
 
         </RelativeLayout>
