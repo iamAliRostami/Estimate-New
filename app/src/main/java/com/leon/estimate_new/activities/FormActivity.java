@@ -40,6 +40,7 @@ import com.leon.estimate_new.fragments.forms.BaseInfoFragment;
 import com.leon.estimate_new.fragments.forms.EditMapFragment;
 import com.leon.estimate_new.fragments.forms.MapDescriptionFragment;
 import com.leon.estimate_new.fragments.forms.PersonalFragment;
+import com.leon.estimate_new.fragments.forms.PersonalViewModel;
 import com.leon.estimate_new.fragments.forms.SecondFormFragment;
 import com.leon.estimate_new.fragments.forms.ServicesFragment;
 import com.leon.estimate_new.tables.Arzeshdaraei;
@@ -52,6 +53,7 @@ import com.leon.estimate_new.tables.RequestDictionary;
 import com.leon.estimate_new.tables.TaxfifDictionary;
 import com.leon.estimate_new.tables.Tejariha;
 import com.leon.estimate_new.utils.estimating.GetDBData;
+import com.leon.estimate_new.utils.mapper.CustomMapper;
 
 import org.jetbrains.annotations.NotNull;
 import org.osmdroid.util.GeoPoint;
@@ -62,7 +64,7 @@ import java.util.Arrays;
 public class FormActivity extends AppCompatActivity implements PersonalFragment.Callback,
         ServicesFragment.Callback, BaseInfoFragment.Callback, SecondFormFragment.Callback,
         MapDescriptionFragment.Callback, EditMapFragment.Callback {
-    private final CalculationUserInput calculationUserInput = new CalculationUserInput();
+    private CalculationUserInput calculationUserInput = new CalculationUserInput();
     private final ArrayList<Integer> values = new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0, 0, 0, 0));
     private final ArrayList<RequestDictionary> requestDictionaries = new ArrayList<>();
     private final ArrayList<NoeVagozariDictionary> noeVagozariDictionaries = new ArrayList<>();
@@ -201,10 +203,9 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
     }
 
     @Override
-    public void setPersonalInfo(ExaminerDuties examinerDutyTemp) {
-        examinerDuty = examinerDutyTemp;
-        calculationUserInput.updatePersonal(examinerDuty);
-
+    public void setPersonalInfo(PersonalViewModel personalViewModel) {
+        CustomMapper.INSTANCE.updateExaminerDutyPersonalVM(personalViewModel, examinerDuty);
+        calculationUserInput = CustomMapper.INSTANCE.personalVMToCalculationUserInput(personalViewModel);
         prepareToSend();
         displayView(SERVICES_FRAGMENT);
     }

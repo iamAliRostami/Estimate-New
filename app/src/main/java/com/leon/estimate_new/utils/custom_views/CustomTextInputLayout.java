@@ -16,7 +16,7 @@ import com.leon.estimate_new.R;
 
 public class CustomTextInputLayout extends TextInputLayout {
 
-    private float mainHintTextSize;
+    private final float mainHintTextSize;
     private float editTextSize;
 
     public CustomTextInputLayout(Context context) {
@@ -51,8 +51,6 @@ public class CustomTextInputLayout extends TextInputLayout {
             getEditText().setTextSize(TypedValue.COMPLEX_UNIT_PX, editTextSize);
         }
     }
-
-    // Units are pixels.
 
     public float getMainHintTextSize() {
         return mainHintTextSize;

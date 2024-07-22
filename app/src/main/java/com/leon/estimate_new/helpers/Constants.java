@@ -7,6 +7,8 @@ import android.graphics.Bitmap;
 import com.leon.estimate_new.di.component.ActivityComponent;
 import com.leon.estimate_new.di.component.ApplicationComponent;
 
+import java.util.regex.Pattern;
+
 public class Constants {
     public static final int EXIT_POSITION = 6;
     public static final int GPS_CODE = 1231;
@@ -52,4 +54,6 @@ public class Constants {
     public static ActivityComponent activityComponent;
     public static boolean exit = false;
     public static int POSITION = 0;
+
+    public static final Pattern MOBILE_REGEX = Pattern.compile("^((\\+98|0)9\\d{9})$");
 }

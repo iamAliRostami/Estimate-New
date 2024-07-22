@@ -3,7 +3,6 @@ package com.leon.estimate_new.fragments.forms;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +14,13 @@ import androidx.fragment.app.Fragment;
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.databinding.FragmentPersonalBinding;
 import com.leon.estimate_new.tables.ExaminerDuties;
+import com.leon.estimate_new.utils.mapper.CustomMapper;
 
 public class PersonalFragment extends Fragment implements View.OnClickListener {
     private FragmentPersonalBinding binding;
-    private Callback formActivity;
     private ExaminerDuties examinerDuties;
+    private PersonalViewModel personalVM;
+    private Callback formActivity;
 
     public PersonalFragment() {
     }
@@ -38,12 +39,19 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentPersonalBinding.inflate(inflater, container, false);
+        examinerDuties = formActivity.getExaminerDuty();
+        personalVM = CustomMapper.INSTANCE.examinerDutyToPersonalVM(examinerDuties);
+        binding.setPersonalVM(personalVM);
         initialize();
         return binding.getRoot();
     }
 
     private void initialize() {
-        examinerDuties = formActivity.getExaminerDuty();
+        binding.titleEditTextName.setOnTextChangeListener(s -> personalVM.setFirstName(s));
+        binding.titleEditTextFamily.setOnTextChangeListener(s -> personalVM.setSureName(s));
+        binding.titleEditTextFatherName.setOnTextChangeListener(s -> personalVM.setFatherName(s));
+        binding.titleEditTextShenasname.setOnTextChangeListener(s -> personalVM.setShenasname(s));
+
         initializeEditText();
         initializeTextViews();
         binding.buttonClose.setOnClickListener(this);
@@ -62,16 +70,8 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initializeEditText() {
-        binding.titleEditTextName.setInputText(examinerDuties.firstName.trim());
-
-        binding.titleEditTextFamily.setInputText(examinerDuties.sureName.trim());
-
-        Log.e("id 3", String.valueOf(binding.titleEditTextFamily.getId()));
-
-        binding.editTextFatherName.setText(examinerDuties.fatherName.trim());
-        binding.editTextShenasname.setText(examinerDuties.shenasname);
         if (examinerDuties.nationalId.trim().length() == 10)
-            binding.editTextNationalCode.setText(examinerDuties.nationalId.trim());
+            binding.editTextNationalId.setText(examinerDuties.nationalId.trim());
         if (examinerDuties.postalCode.trim().length() == 10)
             binding.editTextPostalCode.setText(examinerDuties.postalCode.trim());
 
@@ -93,7 +93,7 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
             requireActivity().finish();
         } else if (id == R.id.button_submit) {
             if (checkForm()) {
-                formActivity.setPersonalInfo(prepareOutput());
+                formActivity.setPersonalInfo(personalVM);
             }
         }
     }
@@ -102,7 +102,7 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
         return binding.titleEditTextName.validation()
                 && binding.titleEditTextFamily.validation()
                 /* && checkIsNoEmpty(binding.editTextFatherName)*/
-                && checkIsNoEmpty(binding.editTextNationalCode)
+                && checkIsNoEmpty(binding.editTextNationalId)
                 && checkIsNoEmpty(binding.editTextAddress)
                 && checkOtherIsNoEmpty();
     }
@@ -120,9 +120,9 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
 
     private boolean checkOtherIsNoEmpty() {
         final View focusView;
-        if (binding.editTextNationalCode.getText().toString().length() < 10) {
-            binding.editTextNationalCode.setError(getString(R.string.error_format));
-            focusView = binding.editTextNationalCode;
+        if (binding.editTextNationalId.getText().toString().length() < 10) {
+            binding.editTextNationalId.setError(getString(R.string.error_format));
+            focusView = binding.editTextNationalId;
             focusView.requestFocus();
             return false;
         } else if (!binding.editTextPostalCode.getText().toString().isEmpty() &&
@@ -138,23 +138,6 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
             return false;
         }
         return true;
-    }
-
-    private ExaminerDuties prepareOutput() {
-        examinerDuties.firstName = binding.titleEditTextName.getInputText();
-        examinerDuties.sureName = binding.titleEditTextFamily.getInputText();
-
-
-        examinerDuties.nationalId = binding.editTextNationalCode.getText().toString();
-        examinerDuties.fatherName = binding.editTextFatherName.getText().toString();
-        examinerDuties.postalCode = binding.editTextPostalCode.getText().toString();
-        examinerDuties.radif = binding.editTextRadif.getText().toString();
-        examinerDuties.phoneNumber = binding.editTextPhone.getText().toString();
-        examinerDuties.mobile = binding.editTextMobile.getText().toString();
-        examinerDuties.address = binding.editTextAddress.getText().toString();
-        examinerDuties.description = binding.editTextDescription.getText().toString();
-        examinerDuties.shenasname = binding.editTextShenasname.getText().toString();
-        return examinerDuties;
     }
 
     @Override
@@ -175,7 +158,7 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
 
         void setTitle(String title, boolean showMenu);
 
-        void setPersonalInfo(ExaminerDuties examinerDuties);
+        void setPersonalInfo(PersonalViewModel personalViewModel);
 
         ExaminerDuties getExaminerDuty();
     }

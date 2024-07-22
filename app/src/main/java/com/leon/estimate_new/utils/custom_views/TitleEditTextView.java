@@ -1,53 +1,63 @@
 package com.leon.estimate_new.utils.custom_views;
 
+import static com.leon.estimate_new.helpers.Constants.MOBILE_REGEX;
+
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.text.Editable;
 import android.text.InputFilter;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.TextView;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.databinding.BindingAdapter;
+import androidx.databinding.InverseBindingAdapter;
+import androidx.databinding.InverseBindingListener;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.leon.estimate_new.R;
 
-import java.util.regex.Pattern;
-
 public class TitleEditTextView extends ConstraintLayout {
-    private TextInputLayout textInputLayout;
     private TextInputEditText textInputEditText;
-    private final View view;
+    private TextInputLayout textInputLayout;
     private final Context context;
+    private final View view;
     private int nextId;
-    private final Pattern MOBILE_REGEX = Pattern.compile("^((\\+98|0)9\\d{9})$");
 
     public TitleEditTextView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         view = inflate(context, R.layout.title_edit_text, this);
         this.context = context;
-        initializeViews(attrs);
+        initializeViews();
+        initializeAttribute(attrs);
     }
 
-    private void initializeViews(@Nullable AttributeSet attrs) {
+    private void initializeViews() {
         textInputLayout = view.findViewById(R.id.text_input_layout);
         textInputEditText = view.findViewById(R.id.text_input_edit_text);
+        textInputEditText.setOnEditorActionListener((textView, i, keyEvent) -> {
+            if (i == EditorInfo.IME_ACTION_NEXT) {
+                TextInputEditText viewTemp = view.findViewById(nextId);
+                viewTemp.requestFocus();
+            }
+            return false;
+        });
+    }
 
+    private void initializeAttribute(@Nullable AttributeSet attrs) {
         TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.TitleEditTextView);
-
         int n = a.getIndexCount();
         for (int i = 0; i < n; i++) {
             int attr = a.getIndex(i);
             if (attr == R.styleable.TitleEditTextView_title_text) {
                 setLayoutTitle(a.getString(attr));
-            } else if (attr == R.styleable.TitleEditTextView_input_text) {
+            } else if (attr == R.styleable.TitleEditTextView_android_text) {
                 setInputText(a.getString(attr));
             } else if (attr == R.styleable.TitleEditTextView_android_inputType) {
                 textInputEditText.setInputType(a.getInt(attr, EditorInfo.TYPE_TEXT_VARIATION_NORMAL));
@@ -56,31 +66,68 @@ public class TitleEditTextView extends ConstraintLayout {
                         new InputFilter.LengthFilter(a.getInt(attr, 100))});
             } else if (attr == R.styleable.TitleEditTextView_nextFocus) {
                 nextId = textInputEditText.getId();
-                Log.e("id 1", String.valueOf(nextId));
                 setNextFocus(a.getResourceId(attr, nextId));
+            } else if (attr == R.styleable.TitleEditTextView_lines) {
+                textInputEditText.setLines(a.getInt(attr, 1));
+                textInputEditText.setMaxLines(a.getInt(attr, 1));
             }
         }
-        textInputEditText.setOnEditorActionListener((textView, i, keyEvent) -> {
-            if (i==EditorInfo.IME_ACTION_NEXT){
-                TextInputEditText viewTemp = view.findViewById(nextId);
-                viewTemp.requestFocus();
-            }
-            return false;
-        });
         a.recycle();
     }
 
+    public void setLayoutTitle(String title) {
+        textInputLayout.setHint(title);
+    }
+
+    @BindingAdapter("android:text")
+    public static void setInputText(TitleEditTextView view, String inputText) {
+        if (!view.getInputText().equals(inputText)) {
+            view.setInputText(inputText);
+        }
+    }
+
+    @InverseBindingAdapter(attribute = "android:text")
+    public static String getInputText(TitleEditTextView view) {
+        return view.getInputText();
+    }
+
+    @BindingAdapter("android:textAttrChanged")
+    public static void setListeners(TitleEditTextView view, InverseBindingListener attrChange) {
+        view.getTextInputEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                attrChange.onChange();
+                onTextChangeListener.onTextChangeListener(editable.toString());
+            }
+        });
+    }
+
+    private static OnTextChangeListener onTextChangeListener;
+
+    public void setOnTextChangeListener(OnTextChangeListener onTextChangeListener) {
+        TitleEditTextView.onTextChangeListener = onTextChangeListener;
+    }
+
+    public interface OnTextChangeListener {
+        void onTextChangeListener(String s);
+    }
+
     public void setNextFocus(@IdRes int id) {
-        Log.e("id 2", String.valueOf(id));
         textInputEditText.setNextFocusUpId(id);
         textInputEditText.setNextFocusDownId(id);
         textInputEditText.setNextFocusForwardId(id);
         textInputEditText.setNextFocusLeftId(id);
         textInputEditText.setNextFocusRightId(id);
-    }
-
-    public void setLayoutTitle(String title) {
-        textInputLayout.setHint(title);
     }
 
     public void setInputText(String inputText) {
@@ -148,3 +195,5 @@ public class TitleEditTextView extends ConstraintLayout {
         return textInputEditText;
     }
 }
+
+

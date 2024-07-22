@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="TitleEditTextView">
-        <attr name="title_text" format="string" />
-        <attr name="input_text" format="string" />
-        <attr name="nextFocus" format="reference" />
+        <attr name="android:text" format="string" />
         <attr name="android:maxLength" format="integer" />
         <attr name="android:inputType" />
+        <attr name="title_text" format="string" />
+        <attr name="nextFocus" format="reference" />
+        <attr name="lines" format="integer" />
     </declare-styleable>
 
     <declare-styleable name="CustomTextInputLayout">
