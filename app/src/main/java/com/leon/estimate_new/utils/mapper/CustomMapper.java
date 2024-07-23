@@ -13,10 +13,14 @@ public interface CustomMapper {
     CustomMapper INSTANCE = Mappers.getMapper(CustomMapper.class);
 
     PersonalViewModel examinerDutyToPersonalVM(ExaminerDuties examinerDuty);
+    PersonalViewModel examinerDutyToPersonalVM1(ExaminerDuties examinerDuty);
 
     ExaminerDuties personalVMToExaminerDuty(PersonalViewModel personalVM);
 
-    ExaminerDuties updateExaminerDutyPersonalVM(PersonalViewModel personalVM,@MappingTarget ExaminerDuties examinerDuty);
-
     CalculationUserInput personalVMToCalculationUserInput(PersonalViewModel personalVM);
+
+    void updateExaminerDutyPersonalVM(PersonalViewModel personalVM,
+                                      @MappingTarget ExaminerDuties examinerDuty);
+    void updateToCalculationUserInputFromPersonVM(PersonalViewModel personalVM,
+                                                  @MappingTarget CalculationUserInput calculationUserInput);
 }

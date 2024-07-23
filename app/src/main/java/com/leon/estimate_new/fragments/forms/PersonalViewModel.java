@@ -22,6 +22,8 @@ public class PersonalViewModel extends BaseObservable {
 
     @Bindable
     private String radif;
+    @Bindable
+    private String eshterak;
 
     @Bindable
     private String phoneNumber;
@@ -37,6 +39,12 @@ public class PersonalViewModel extends BaseObservable {
 
     @Bindable
     private String shenasname;
+
+    @Bindable
+    private String zoneTitle;
+
+    @Bindable
+    private String trackNumber;
 
     public String getFirstName() {
         return firstName.trim();
@@ -57,7 +65,7 @@ public class PersonalViewModel extends BaseObservable {
     }
 
     public String getNationalId() {
-        return nationalId;
+        return nationalId.trim();
     }
 
     public void setNationalId(String nationalId) {
@@ -75,7 +83,7 @@ public class PersonalViewModel extends BaseObservable {
     }
 
     public String getPostalCode() {
-        return postalCode;
+        return postalCode.trim();
     }
 
     public void setPostalCode(String postalCode) {
@@ -84,7 +92,7 @@ public class PersonalViewModel extends BaseObservable {
     }
 
     public String getRadif() {
-        return radif;
+        return radif.trim();
     }
 
     public void setRadif(String radif) {
@@ -92,8 +100,17 @@ public class PersonalViewModel extends BaseObservable {
         notifyPropertyChanged(BR.radif);
     }
 
+    public String getEshterak() {
+        return eshterak.trim();
+    }
+
+    public void setEshterak(String eshterak) {
+        this.eshterak = eshterak;
+        notifyPropertyChanged(BR.eshterak);
+    }
+
     public String getPhoneNumber() {
-        return phoneNumber;
+        return phoneNumber.trim();
     }
 
     public void setPhoneNumber(String phoneNumber) {
@@ -102,7 +119,7 @@ public class PersonalViewModel extends BaseObservable {
     }
 
     public String getMobile() {
-        return mobile;
+        return mobile.trim();
     }
 
     public void setMobile(String mobile) {
@@ -111,7 +128,7 @@ public class PersonalViewModel extends BaseObservable {
     }
 
     public String getAddress() {
-        return address;
+        return address.trim();
     }
 
     public void setAddress(String address) {
@@ -120,7 +137,7 @@ public class PersonalViewModel extends BaseObservable {
     }
 
     public String getDescription() {
-        return description;
+        return description.trim();
     }
 
     public void setDescription(String description) {
@@ -135,6 +152,24 @@ public class PersonalViewModel extends BaseObservable {
     public void setShenasname(String shenasname) {
         this.shenasname = shenasname;
         notifyPropertyChanged(BR.shenasname);
+    }
+
+    public String getZoneTitle() {
+        return zoneTitle;
+    }
+
+    public String getTrackNumber() {
+        return trackNumber;
+    }
+
+    public void setZoneTitle(String zoneTitle) {
+        this.zoneTitle = zoneTitle;
+        notifyPropertyChanged(BR.zoneTitle);
+    }
+
+    public void setTrackNumber(String trackNumber) {
+        this.trackNumber = trackNumber;
+        notifyPropertyChanged(BR.trackNumber);
     }
 }
 

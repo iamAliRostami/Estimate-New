@@ -64,7 +64,7 @@ import java.util.Arrays;
 public class FormActivity extends AppCompatActivity implements PersonalFragment.Callback,
         ServicesFragment.Callback, BaseInfoFragment.Callback, SecondFormFragment.Callback,
         MapDescriptionFragment.Callback, EditMapFragment.Callback {
-    private CalculationUserInput calculationUserInput = new CalculationUserInput();
+    private final CalculationUserInput calculationUserInput = new CalculationUserInput();
     private final ArrayList<Integer> values = new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0, 0, 0, 0));
     private final ArrayList<RequestDictionary> requestDictionaries = new ArrayList<>();
     private final ArrayList<NoeVagozariDictionary> noeVagozariDictionaries = new ArrayList<>();
@@ -205,7 +205,8 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
     @Override
     public void setPersonalInfo(PersonalViewModel personalViewModel) {
         CustomMapper.INSTANCE.updateExaminerDutyPersonalVM(personalViewModel, examinerDuty);
-        calculationUserInput = CustomMapper.INSTANCE.personalVMToCalculationUserInput(personalViewModel);
+        CustomMapper.INSTANCE.updateToCalculationUserInputFromPersonVM(personalViewModel, calculationUserInput);
+
         prepareToSend();
         displayView(SERVICES_FRAGMENT);
     }
@@ -240,6 +241,7 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
 
     @Override
     public void setMapDescription() {
+        prepareToSend();
         displayView(EDIT_MAP_FRAGMENT);
     }
 
@@ -250,13 +252,11 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
         intent.putExtra(BILL_ID.getValue(), examinerDuty.billId != null ?
                 examinerDuty.billId : examinerDuty.neighbourBillId);
         intent.putExtra(NEW_ENSHEAB.getValue(), examinerDuty.isNewEnsheab);
-//        prepareToSend();
         finish();
         startActivity(intent);
     }
 
     private void prepareToSend() {
-//        getApplicationComponent().MyDatabase().calculationUserInputDao().deleteByTrackNumber(examinerDuty.trackNumber);
         getApplicationComponent().MyDatabase().calculationUserInputDao().insert(calculationUserInput);
         getApplicationComponent().MyDatabase().examinerDutiesDao().insert(examinerDuty);
     }

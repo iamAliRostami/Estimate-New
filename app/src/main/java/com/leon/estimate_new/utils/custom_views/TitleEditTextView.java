@@ -8,6 +8,7 @@ import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 
@@ -70,6 +71,12 @@ public class TitleEditTextView extends ConstraintLayout {
             } else if (attr == R.styleable.TitleEditTextView_lines) {
                 textInputEditText.setLines(a.getInt(attr, 1));
                 textInputEditText.setMaxLines(a.getInt(attr, 1));
+            } else if (attr == R.styleable.TitleEditTextView_android_enabled) {
+                textInputEditText.setEnabled(a.getBoolean(attr, true));
+            } else if (attr == R.styleable.TitleEditTextView_android_gravity) {
+                textInputEditText.setGravity(a.getInt(attr, Gravity.CENTER));
+            } else if (attr == R.styleable.TitleEditTextView_android_imeOptions) {
+                textInputEditText.setImeOptions(a.getInt(attr, EditorInfo.IME_ACTION_NEXT));
             }
         }
         a.recycle();
@@ -107,19 +114,8 @@ public class TitleEditTextView extends ConstraintLayout {
             @Override
             public void afterTextChanged(Editable editable) {
                 attrChange.onChange();
-                onTextChangeListener.onTextChangeListener(editable.toString());
             }
         });
-    }
-
-    private static OnTextChangeListener onTextChangeListener;
-
-    public void setOnTextChangeListener(OnTextChangeListener onTextChangeListener) {
-        TitleEditTextView.onTextChangeListener = onTextChangeListener;
-    }
-
-    public interface OnTextChangeListener {
-        void onTextChangeListener(String s);
     }
 
     public void setNextFocus(@IdRes int id) {
@@ -156,7 +152,9 @@ public class TitleEditTextView extends ConstraintLayout {
     }
 
     public boolean postalCodeValidation() {
-        if (textInputEditText.getText() == null || textInputEditText.getText().toString().length() < 10) {
+        if (textInputEditText.getText() != null &&
+                !textInputEditText.getText().toString().isEmpty() &&
+                textInputEditText.getText().toString().length() < 10) {
             textInputEditText.setError(context.getString(R.string.error_format));
             textInputEditText.requestFocus();
             return false;
@@ -164,8 +162,12 @@ public class TitleEditTextView extends ConstraintLayout {
         return true;
     }
 
-    public boolean nationalCodeValidation() {
-        if (textInputEditText.getText() == null || textInputEditText.getText().toString().length() < 10) {
+    public boolean nationalIdValidation() {
+        if (textInputEditText.getText() == null || textInputEditText.getText().toString().isEmpty()) {
+            textInputEditText.setError(context.getString(R.string.error_empty));
+            textInputEditText.requestFocus();
+            return false;
+        } else if (textInputEditText.getText().toString().length() < 10) {
             textInputEditText.setError(context.getString(R.string.error_format));
             textInputEditText.requestFocus();
             return false;
