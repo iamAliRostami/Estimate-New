@@ -1,15 +1,23 @@
 package com.leon.estimate_new.fragments.forms;
 
+import static com.leon.estimate_new.utils.Validator.checkEmpty;
+import static com.leon.estimate_new.utils.Validator.mobileValidation;
+import static com.leon.estimate_new.utils.Validator.nationalIdValidation;
+import static com.leon.estimate_new.utils.Validator.postalCodeValidation;
+
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.databinding.FragmentPersonalBinding;
 import com.leon.estimate_new.tables.ExaminerDuties;
@@ -30,6 +38,7 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.e("here","4");
         formActivity.setTitle(getString(R.string.app_name).concat(" / ").concat("صفحه اول"), false);
     }
 
@@ -37,10 +46,16 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentPersonalBinding.inflate(inflater, container, false);
-        personalVM = CustomMapper.INSTANCE.examinerDutyToPersonalVM(formActivity.getExaminerDuty());
+        personalVM = CustomMapper.INSTANCE.examinerDutyToPersonalViewModel(formActivity.getExaminerDuty());
         binding.setPersonalVM(personalVM);
         initialize();
         return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Log.e("here","10");
     }
 
     private void initialize() {
@@ -72,14 +87,13 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
     }
 
     private boolean checkForm() {
-        return binding.titleEditTextName.validation()
-                && binding.titleEditTextFamily.validation()
-                && binding.titleEditTextNationalId.nationalIdValidation()
-                && binding.titleEditTextPostalCode.postalCodeValidation()
-                && binding.titleEditTextMobile.mobileValidation()
-                && binding.titleEditTextAddress.validation();
+        return checkEmpty(binding.editTextName,requireContext())
+                && checkEmpty(binding.editTextFamily,requireContext())
+                && nationalIdValidation(binding.editTextNationalId,requireContext())
+                && postalCodeValidation(binding.editTextPostalCode,requireContext())
+                && mobileValidation(binding.editTextMobile,requireContext())
+                && checkEmpty(binding.editTextAddress,requireContext());
     }
-
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);

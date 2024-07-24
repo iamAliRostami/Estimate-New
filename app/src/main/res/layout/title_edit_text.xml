@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/text_input_layout"
     style="@style/TextInputLayout"
+    android:layout_width="match_parent"
     app:hintTextAppearance="@style/TextHelper"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent">

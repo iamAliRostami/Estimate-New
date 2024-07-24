@@ -6,6 +6,7 @@ import static com.leon.estimate_new.helpers.Constants.SERVICES_FRAGMENT;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ import com.leon.estimate_new.tables.QotrEnsheabDictionary;
 import com.leon.estimate_new.tables.TaxfifDictionary;
 import com.leon.estimate_new.tables.Tejariha;
 import com.leon.estimate_new.utils.estimating.GetArzeshdaraei;
+import com.leon.estimate_new.utils.mapper.CustomMapper;
 import com.sardari.daterangepicker.customviews.DateRangeCalendarView;
 import com.sardari.daterangepicker.dialog.DatePickerDialog;
 
@@ -40,6 +42,7 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
     private Arzeshdaraei arzeshdaraei;
     private Callback formActivity;
     private String block, arz;
+    private BaseInfoViewModel baseInfoVM;
 
     public static BaseInfoFragment newInstance() {
         return new BaseInfoFragment();
@@ -55,6 +58,8 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentBaseInfoBinding.inflate(inflater, container, false);
+        baseInfoVM = CustomMapper.INSTANCE.examinerDutyBaseInfoViewModel(formActivity.getExaminerDuty());
+        binding.setBaseInfoVM(baseInfoVM);
         initialize();
         return binding.getRoot();
     }
@@ -95,8 +100,8 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
     }
 
     private void initializeField() {
-        binding.editTextSifoon100.setText(String.valueOf(examinerDuty.sifoon100));
-        binding.editTextSifoon125.setText(String.valueOf(examinerDuty.sifoon125));
+//        binding.editTextSifoon100.setText(String.valueOf(examinerDuty.sifoon100));
+//        binding.editTextSifoon125.setText(String.valueOf(examinerDuty.sifoon125));
         binding.editTextSifoon150.setText(String.valueOf(examinerDuty.sifoon150));
         binding.editTextSifoon200.setText(String.valueOf(examinerDuty.sifoon150));
         binding.editTextArse.setText(examinerDuty.arseNew != null ?
@@ -275,8 +280,8 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
 
     private boolean checkForm() {
         return checkAian()
-                && checkIsNoEmpty(binding.editTextSifoon100)
-                && checkIsNoEmpty(binding.editTextSifoon125)
+                && binding.titleEditSifoon100.validation()
+                && binding.titleEditSifoon125.validation()
                 && checkIsNoEmpty(binding.editTextSifoon150)
                 && checkIsNoEmpty(binding.editTextSifoon200)
                 && checkIsNoEmpty(binding.editTextArse)
@@ -303,8 +308,10 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
     private ExaminerDuties prepareOutput() {
         examinerDuty.block = block;
         examinerDuty.arz = arz;
-        examinerDuty.sifoon100 = Integer.parseInt(binding.editTextSifoon100.getText().toString());
-        examinerDuty.sifoon125 = Integer.parseInt(binding.editTextSifoon125.getText().toString());
+
+
+        CustomMapper.INSTANCE.updateExaminerDutyBaseInfoViewModel(baseInfoVM, examinerDuty);
+
         examinerDuty.sifoon150 = Integer.parseInt(binding.editTextSifoon150.getText().toString());
         examinerDuty.sifoon200 = Integer.parseInt(binding.editTextSifoon200.getText().toString());
         examinerDuty.arseNew = binding.editTextArse.getText().toString().isEmpty() ? 0 :

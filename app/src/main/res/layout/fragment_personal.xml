@@ -9,7 +9,7 @@
     </data>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:custom="http://schemas.android.com/apk/res-auto"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -33,11 +33,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/border_white_1"
-                custom:layout_constraintBottom_toBottomOf="parent"
-                custom:layout_constraintEnd_toEndOf="parent"
-                custom:layout_constraintStart_toEndOf="@id/relative_layout_bill_id"
-                custom:layout_constraintTop_toTopOf="parent"
-                custom:layout_constraintWidth_percent="0.3">
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/relative_layout_bill_id"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.3">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/text_view_track_number_title"
@@ -58,11 +58,11 @@
                 android:layout_marginTop="@dimen/low_dp"
                 android:layout_marginBottom="@dimen/low_dp"
                 android:background="@drawable/border_white_1"
-                custom:layout_constraintBottom_toBottomOf="parent"
-                custom:layout_constraintEnd_toStartOf="@id/relative_layout_track"
-                custom:layout_constraintStart_toEndOf="@id/relative_layout_zone"
-                custom:layout_constraintTop_toTopOf="parent"
-                custom:layout_constraintWidth_percent="0.35">
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/relative_layout_track"
+                app:layout_constraintStart_toEndOf="@id/relative_layout_zone"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.35">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/text_view_bill_id_title"
@@ -80,18 +80,18 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/border_white_1"
-                custom:layout_constraintBottom_toBottomOf="parent"
-                custom:layout_constraintEnd_toStartOf="@id/relative_layout_bill_id"
-                custom:layout_constraintStart_toStartOf="parent"
-                custom:layout_constraintTop_toTopOf="parent"
-                custom:layout_constraintWidth_percent="0.3">
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/relative_layout_bill_id"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.3">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/text_view_zone_title"
                     style="@style/BaseTitleForm"
                     android:text="@string/zone" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/text_view_zone"
                     style="@style/BaseForm"
                     android:layout_below="@id/text_view_zone_title"
@@ -120,81 +120,105 @@
                     android:padding="@dimen/low_dp">
 
 
-                    <com.leon.estimate_new.utils.custom_views.TitleEditTextView
-                        android:id="@+id/title_edit_text_name"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:inputType="text"
-                        android:text="@={personalVM.firstName}"
-                        custom:layout_constraintEnd_toEndOf="parent"
-                        custom:layout_constraintTop_toTopOf="parent"
-                        custom:layout_constraintWidth_percent="0.5"
-                        custom:nextFocus="@id/title_edit_text_family"
-                        custom:title_text="@string/name" />
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_name"
+                        style="@style/TextInputLayout"
+                        android:hint="@string/name"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintWidth_percent="0.48">
 
-                    <com.leon.estimate_new.utils.custom_views.TitleEditTextView
-                        android:id="@+id/title_edit_text_family"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:inputType="text"
-                        android:text="@={personalVM.sureName}"
-                        custom:layout_constraintStart_toStartOf="parent"
-                        custom:layout_constraintTop_toTopOf="parent"
-                        custom:layout_constraintWidth_percent="0.5"
-                        custom:nextFocus="@id/title_edit_text_father_name"
-                        custom:title_text="@string/family" />
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_text_name"
+                            style="@style/TextInput"
+                            android:inputType="text"
+                            android:nextFocusDown="@id/edit_text_family"
+                            android:text="@={personalVM.firstName}" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_family"
+                        style="@style/TextInputLayout"
+                        android:hint="@string/family"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintWidth_percent="0.48">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_text_family"
+                            style="@style/TextInput"
+                            android:inputType="text"
+                            android:nextFocusDown="@id/edit_text_father_name"
+                            android:text="@={personalVM.sureName}" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_father_name"
+                        style="@style/TextInputLayout"
+                        android:hint="@string/father_name"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/layout_name"
+                        app:layout_constraintWidth_percent="0.48">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_text_father_name"
+                            style="@style/TextInput"
+                            android:inputType="text"
+                            android:nextFocusDown="@id/edit_text_shenasname"
+                            android:text="@={personalVM.fatherName}" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_shenasname"
+                        style="@style/TextInputLayout"
+                        android:hint="@string/shenasname"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/layout_family"
+                        app:layout_constraintWidth_percent="0.48">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_text_shenasname"
+                            style="@style/TextInput"
+                            android:inputType="number"
+                            android:maxLength="10"
+                            android:nextFocusDown="@id/edit_text_national_id"
+                            android:text="@={personalVM.shenasname}" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
 
-                    <com.leon.estimate_new.utils.custom_views.TitleEditTextView
-                        android:id="@+id/title_edit_text_father_name"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:inputType="text"
-                        android:text="@={personalVM.fatherName}"
-                        custom:layout_constraintEnd_toEndOf="parent"
-                        custom:layout_constraintTop_toBottomOf="@id/title_edit_text_name"
-                        custom:layout_constraintWidth_percent="0.5"
-                        custom:nextFocus="@id/title_edit_text_shenasname"
-                        custom:title_text="@string/father_name" />
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_national_id"
+                        style="@style/TextInputLayout"
+                        android:hint="@string/national_id"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/layout_father_name"
+                        app:layout_constraintWidth_percent="0.48">
 
-                    <com.leon.estimate_new.utils.custom_views.TitleEditTextView
-                        android:id="@+id/title_edit_text_shenasname"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:text="@={personalVM.shenasname}"
-                        custom:layout_constraintStart_toStartOf="parent"
-                        custom:layout_constraintTop_toBottomOf="@id/title_edit_text_family"
-                        custom:layout_constraintWidth_percent="0.5"
-                        custom:nextFocus="@id/title_edit_text_family"
-                        custom:title_text="@string/shenasname" />
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_text_national_id"
+                            style="@style/TextInput"
+                            android:inputType="number"
+                            android:maxLength="10"
+                            android:nextFocusDown="@id/edit_text_postal_code"
+                            android:text="@={personalVM.nationalId}" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_postal_code"
+                        style="@style/TextInputLayout"
+                        android:hint="@string/postal_code"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/layout_shenasname"
+                        app:layout_constraintWidth_percent="0.48">
 
-                    <com.leon.estimate_new.utils.custom_views.TitleEditTextView
-                        android:id="@+id/title_edit_text_national_id"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:maxLength="10"
-                        android:text="@={personalVM.nationalId}"
-                        custom:layout_constraintEnd_toEndOf="parent"
-                        custom:layout_constraintTop_toBottomOf="@id/title_edit_text_father_name"
-                        custom:layout_constraintWidth_percent="0.5"
-                        custom:nextFocus="@id/title_edit_text_postal_code"
-                        custom:title_text="@string/nation_id" />
-
-                    <com.leon.estimate_new.utils.custom_views.TitleEditTextView
-                        android:id="@+id/title_edit_text_postal_code"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:maxLength="10"
-                        android:text="@={personalVM.postalCode}"
-                        custom:layout_constraintStart_toStartOf="parent"
-                        custom:layout_constraintTop_toBottomOf="@id/title_edit_text_shenasname"
-                        custom:layout_constraintWidth_percent="0.5"
-                        custom:nextFocus="@id/edit_text_mobile"
-                        custom:title_text="@string/postal_code" />
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_text_postal_code"
+                            style="@style/TextInput"
+                            android:inputType="number"
+                            android:maxLength="10"
+                            android:nextFocusDown="@id/edit_text_mobile"
+                            android:text="@={personalVM.postalCode}" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -206,86 +230,110 @@
                     android:background="@drawable/border_gray_1"
                     android:padding="@dimen/low_dp">
 
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_radif"
+                        style="@style/TextInputLayout"
+                        android:hint="@string/radif"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintWidth_percent="0.48">
 
-                    <com.leon.estimate_new.utils.custom_views.TitleEditTextView
-                        android:id="@+id/title_edit_text_radif"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:inputType="number"
-                        android:text="@={personalVM.radif}"
-                        custom:layout_constraintEnd_toEndOf="parent"
-                        custom:layout_constraintTop_toTopOf="parent"
-                        custom:layout_constraintWidth_percent="0.5"
-                        custom:nextFocus="@id/edit_text_eshterak"
-                        custom:title_text="@string/radif" />
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_text_radif"
+                            style="@style/TextInput"
+                            android:enabled="false"
+                            android:text="@={personalVM.radif}" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.leon.estimate_new.utils.custom_views.TitleEditTextView
-                        android:id="@+id/title_edit_text_eshterak"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:inputType="number"
-                        android:text="@={personalVM.eshterak}"
-                        custom:layout_constraintStart_toStartOf="parent"
-                        custom:layout_constraintTop_toTopOf="parent"
-                        custom:layout_constraintWidth_percent="0.5"
-                        custom:nextFocus="@id/edit_text_mobile"
-                        custom:title_text="@string/eshterak" />
 
-                    <com.leon.estimate_new.utils.custom_views.TitleEditTextView
-                        android:id="@+id/title_edit_text_mobile"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:inputType="phone"
-                        android:maxLength="11"
-                        android:text="@={personalVM.mobile}"
-                        custom:layout_constraintEnd_toEndOf="parent"
-                        custom:layout_constraintTop_toBottomOf="@id/title_edit_text_radif"
-                        custom:layout_constraintWidth_percent="0.5"
-                        custom:nextFocus="@id/title_edit_text_phone"
-                        custom:title_text="@string/mobile_number" />
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_eshterak"
+                        style="@style/TextInputLayout"
+                        android:hint="@string/eshterak"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintWidth_percent="0.48">
 
-                    <com.leon.estimate_new.utils.custom_views.TitleEditTextView
-                        android:id="@+id/title_edit_text_phone"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:inputType="phone"
-                        android:maxLength="8"
-                        android:text="@={personalVM.phoneNumber}"
-                        custom:layout_constraintStart_toStartOf="parent"
-                        custom:layout_constraintTop_toBottomOf="@id/title_edit_text_eshterak"
-                        custom:layout_constraintWidth_percent="0.5"
-                        custom:nextFocus="@id/edit_text_address"
-                        custom:title_text="@string/phone" />
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_text_eshterak"
+                            style="@style/TextInput"
+                            android:enabled="false"
+                            android:text="@={personalVM.eshterak}" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.leon.estimate_new.utils.custom_views.TitleEditTextView
-                        android:id="@+id/title_edit_text_address"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_mobile"
+                        style="@style/TextInputLayout"
+                        android:hint="@string/mobile_number"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/layout_radif"
+                        app:layout_constraintWidth_percent="0.48">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_text_mobile"
+                            style="@style/TextInput"
+                            android:inputType="phone"
+                            android:maxLength="11"
+                            android:text="@={personalVM.mobile}" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_phone"
+                        style="@style/TextInputLayout"
+                        android:hint="@string/phone"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/layout_eshterak"
+                        app:layout_constraintWidth_percent="0.48">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_text_phone"
+                            style="@style/TextInput"
+                            android:inputType="phone"
+                            android:maxLength="8"
+                            android:text="@={personalVM.phoneNumber}" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_address"
+                        style="@style/TextInputLayout"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="top"
-                        android:text="@={personalVM.address}"
-                        custom:layout_constraintEnd_toEndOf="parent"
-                        custom:layout_constraintTop_toBottomOf="@id/title_edit_text_mobile"
-                        custom:layout_constraintWidth_percent="0.5"
-                        custom:lines="2"
-                        custom:nextFocus="@id/title_edit_text_description"
-                        custom:title_text="@string/address" />
+                        android:hint="@string/address"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/layout_phone">
 
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_text_address"
+                            style="@style/TextInput"
+                            android:gravity="top"
+                            android:imeOptions="actionNext"
+                            android:inputType="textMultiLine"
+                            android:lines="2"
+                            android:maxLines="2"
+                            android:nextFocusDown="@id/edit_text_description"
+                            android:nextFocusForward="@id/edit_text_description"
+                            android:text="@={personalVM.address}" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.leon.estimate_new.utils.custom_views.TitleEditTextView
-                        android:id="@+id/title_edit_text_description"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_description"
+                        style="@style/TextInputLayout"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="top"
-                        android:imeOptions="actionDone"
-                        android:text="@={personalVM.description}"
-                        custom:layout_constraintStart_toStartOf="parent"
-                        custom:layout_constraintTop_toBottomOf="@id/title_edit_text_address"
-                        custom:layout_constraintWidth_percent="0.5"
-                        custom:lines="4"
-                        custom:title_text="@string/description" />
+                        android:hint="@string/description"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/layout_address">
 
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_text_description"
+                            style="@style/TextInput"
+                            android:gravity="top"
+                            android:imeOptions="actionDone"
+                            android:inputType="textMultiLine"
+                            android:lines="4"
+                            android:maxLength="1400"
+                            android:maxLines="4"
+                            android:text="@={personalVM.description}" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

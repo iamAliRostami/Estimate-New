@@ -19,6 +19,7 @@ import static com.leon.estimate_new.helpers.MyApplication.setActivityComponent;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.window.OnBackInvokedDispatcher;
@@ -34,6 +35,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.databinding.ActivityFormBinding;
+import com.leon.estimate_new.fragments.BlankFragment;
 import com.leon.estimate_new.fragments.dialog.EnterBillFragment;
 import com.leon.estimate_new.fragments.dialog.ShowDocumentFragment;
 import com.leon.estimate_new.fragments.forms.BaseInfoFragment;
@@ -60,10 +62,11 @@ import org.osmdroid.util.GeoPoint;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class FormActivity extends AppCompatActivity implements PersonalFragment.Callback,
         ServicesFragment.Callback, BaseInfoFragment.Callback, SecondFormFragment.Callback,
-        MapDescriptionFragment.Callback, EditMapFragment.Callback {
+        MapDescriptionFragment.Callback, EditMapFragment.Callback,BlankFragment.Callback {
     private final CalculationUserInput calculationUserInput = new CalculationUserInput();
     private final ArrayList<Integer> values = new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0, 0, 0, 0));
     private final ArrayList<RequestDictionary> requestDictionaries = new ArrayList<>();
@@ -103,7 +106,7 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
 
     private void initialize() {
         if (getIntent().getExtras() != null) {
-            final String json = getIntent().getExtras().getString(EXAMINER_DUTY.getValue());
+            String json = getIntent().getExtras().getString(EXAMINER_DUTY.getValue());
             examinerDuty = new Gson().fromJson(json, ExaminerDuties.class);
         }
         new GetDBData(this, examinerDuty.zoneId, examinerDuty.trackNumber, this).execute(this);
@@ -135,8 +138,8 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
             return;
         }
         final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.setCustomAnimations(R.animator.enter, R.animator.exit,
-                R.animator.pop_enter, R.animator.pop_exit);
+//        fragmentTransaction.setCustomAnimations(R.animator.enter, R.animator.exit,
+//                R.animator.pop_enter, R.animator.pop_exit);
         fragmentTransaction.replace(binding.containerBody.getId(), getFragment(position), tag);
         if (position != 0) {
             fragmentTransaction.addToBackStack(null);
@@ -144,17 +147,37 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
         fragmentTransaction.commitAllowingStateLoss();
 //TODO        fragmentManager.executePendingTransactions();
     }
+    private final HashMap<Integer, Fragment> fragmentCache = new HashMap<>();
 
     private Fragment getFragment(int position) {
-        return switch (position) {
+        Fragment cachedFragment = fragmentCache.get(position);
+        if (cachedFragment != null) {
+            return cachedFragment;
+        }
+
+        Fragment newFragment = switch (position) {
             case SERVICES_FRAGMENT -> ServicesFragment.newInstance();
             case BASE_FRAGMENT -> BaseInfoFragment.newInstance();
             case SECOND_FRAGMENT -> SecondFormFragment.newInstance();
             case MAP_DESCRIPTION_FRAGMENT -> MapDescriptionFragment.newInstance();
             case EDIT_MAP_FRAGMENT -> EditMapFragment.newInstance();
             default -> PersonalFragment.newInstance();
+//            default -> BlankFragment.newInstance();
         };
+
+        fragmentCache.put(position, newFragment);
+        return newFragment;
     }
+//    private Fragment getFragment(int position) {
+//        return switch (position) {
+//            case SERVICES_FRAGMENT -> ServicesFragment.newInstance();
+//            case BASE_FRAGMENT -> BaseInfoFragment.newInstance();
+//            case SECOND_FRAGMENT -> SecondFormFragment.newInstance();
+//            case MAP_DESCRIPTION_FRAGMENT -> MapDescriptionFragment.newInstance();
+//            case EDIT_MAP_FRAGMENT -> EditMapFragment.newInstance();
+//            default -> PersonalFragment.newInstance();
+//        };
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(@NonNull Menu menu) {
@@ -204,8 +227,8 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
 
     @Override
     public void setPersonalInfo(PersonalViewModel personalViewModel) {
-        CustomMapper.INSTANCE.updateExaminerDutyPersonalVM(personalViewModel, examinerDuty);
-        CustomMapper.INSTANCE.updateToCalculationUserInputFromPersonVM(personalViewModel, calculationUserInput);
+        CustomMapper.INSTANCE.updateExaminerDutyPersonalViewModel(personalViewModel, examinerDuty);
+        CustomMapper.INSTANCE.updateToCalculationUserInputFromPersonalViewModel(personalViewModel, calculationUserInput);
 
         prepareToSend();
         displayView(SERVICES_FRAGMENT);
@@ -265,17 +288,6 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
     public void setWaterLocation(GeoPoint point) {
         examinerDuty.x1 = calculationUserInput.x1 = point.getLongitude();
         examinerDuty.y1 = calculationUserInput.y1 = point.getLatitude();
-
-//        final Point currentPoint = new Point(getLocationTracker(this).getLongitude(),
-//                getLocationTracker(this).getLatitude(), SpatialReferences.getWgs84());
-//        final String[] s = CoordinateFormatter.toUtm(currentPoint, LATITUDE_BAND_INDICATORS,
-//                true).split(" ");
-//        final Point currentPoint = new Point(getLocationTracker(this).getLongitude(),
-//                getLocationTracker(this).getLatitude(), SpatialReferences.getWgs84());
-//        final String[] s = CoordinateFormatter.toUtm(currentPoint, LATITUDE_BAND_INDICATORS,
-//                true).split(" ");
-//        examinerDuty.x2 = Double.parseDouble(s[1]);
-//        examinerDuty.y2 = Double.parseDouble(s[2]);
     }
 
     @Override

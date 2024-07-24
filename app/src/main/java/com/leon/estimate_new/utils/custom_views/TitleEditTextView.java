@@ -9,7 +9,9 @@ import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 
 import androidx.annotation.IdRes;
@@ -24,16 +26,19 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.leon.estimate_new.R;
 
-public class TitleEditTextView extends ConstraintLayout {
+public class TitleEditTextView extends CustomTextInputLayout {
     private TextInputEditText textInputEditText;
     private TextInputLayout textInputLayout;
     private final Context context;
     private final View view;
-    private int nextId;
+//    private int nextId;
+private TitleEditTextView nextView;
 
     public TitleEditTextView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        view = inflate(context, R.layout.title_edit_text, this);
+        LayoutInflater inflater = LayoutInflater.from(context);
+        view = inflater.inflate(R.layout.title_edit_text, this, true);
+//        view = inflate(context, R.layout.title_edit_text, this);
         this.context = context;
         initializeViews();
         initializeAttribute(attrs);
@@ -43,9 +48,12 @@ public class TitleEditTextView extends ConstraintLayout {
         textInputLayout = view.findViewById(R.id.text_input_layout);
         textInputEditText = view.findViewById(R.id.text_input_edit_text);
         textInputEditText.setOnEditorActionListener((textView, i, keyEvent) -> {
-            if (i == EditorInfo.IME_ACTION_NEXT) {
-                TextInputEditText viewTemp = view.findViewById(nextId);
-                viewTemp.requestFocus();
+//            if (i == EditorInfo.IME_ACTION_NEXT) {
+//                TextInputEditText viewTemp = view.findViewById(nextId);
+//                viewTemp.requestFocus();
+//            }
+            if (i == EditorInfo.IME_ACTION_NEXT && nextView != null) {
+                nextView.getTextInputEditText().requestFocus();
             }
             return false;
         });
@@ -53,34 +61,81 @@ public class TitleEditTextView extends ConstraintLayout {
 
     private void initializeAttribute(@Nullable AttributeSet attrs) {
         TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.TitleEditTextView);
-        int n = a.getIndexCount();
-        for (int i = 0; i < n; i++) {
-            int attr = a.getIndex(i);
-            if (attr == R.styleable.TitleEditTextView_title_text) {
-                setLayoutTitle(a.getString(attr));
-            } else if (attr == R.styleable.TitleEditTextView_android_text) {
-                setInputText(a.getString(attr));
-            } else if (attr == R.styleable.TitleEditTextView_android_inputType) {
-                textInputEditText.setInputType(a.getInt(attr, EditorInfo.TYPE_TEXT_VARIATION_NORMAL));
-            } else if (attr == R.styleable.TitleEditTextView_android_maxLength) {
-                textInputEditText.setFilters(new InputFilter[]{
-                        new InputFilter.LengthFilter(a.getInt(attr, 100))});
-            } else if (attr == R.styleable.TitleEditTextView_nextFocus) {
-                nextId = textInputEditText.getId();
-                setNextFocus(a.getResourceId(attr, nextId));
-            } else if (attr == R.styleable.TitleEditTextView_lines) {
-                textInputEditText.setLines(a.getInt(attr, 1));
-                textInputEditText.setMaxLines(a.getInt(attr, 1));
-            } else if (attr == R.styleable.TitleEditTextView_android_enabled) {
-                textInputEditText.setEnabled(a.getBoolean(attr, true));
-            } else if (attr == R.styleable.TitleEditTextView_android_gravity) {
-                textInputEditText.setGravity(a.getInt(attr, Gravity.CENTER));
-            } else if (attr == R.styleable.TitleEditTextView_android_imeOptions) {
-                textInputEditText.setImeOptions(a.getInt(attr, EditorInfo.IME_ACTION_NEXT));
+
+        if (a.hasValue(R.styleable.TitleEditTextView_title_text)) {
+            setLayoutTitle(a.getString(R.styleable.TitleEditTextView_title_text));
+        }
+        if (a.hasValue(R.styleable.TitleEditTextView_android_text)) {
+            setInputText(a.getString(R.styleable.TitleEditTextView_android_text));
+        }
+        if (a.hasValue(R.styleable.TitleEditTextView_android_inputType)) {
+            textInputEditText.setInputType(a.getInt(R.styleable.TitleEditTextView_android_inputType,
+                    EditorInfo.TYPE_TEXT_VARIATION_NORMAL));
+        }
+        if (a.hasValue(R.styleable.TitleEditTextView_android_maxLength)) {
+            textInputEditText.setFilters(new InputFilter[]{
+                    new InputFilter.LengthFilter(a.getInt(R.styleable.TitleEditTextView_android_maxLength, 100))
+            });
+        }
+        if (a.hasValue(R.styleable.TitleEditTextView_nextFocus)) {
+//            nextId = textInputEditText.getId();
+//            setNextFocus(a.getResourceId(R.styleable.TitleEditTextView_nextFocus, nextId));
+            int nextFocusId = a.getResourceId(R.styleable.TitleEditTextView_nextFocus, -1);
+            if (nextFocusId != -1) {
+                ViewGroup parent = (ViewGroup) getParent();
+                if (parent != null) {
+                    nextView = parent.findViewById(nextFocusId);
+                }
             }
         }
+        if (a.hasValue(R.styleable.TitleEditTextView_lines)) {
+            int lines = a.getInt(R.styleable.TitleEditTextView_lines, 1);
+            textInputEditText.setLines(lines);
+            textInputEditText.setMaxLines(lines);
+        }
+        if (a.hasValue(R.styleable.TitleEditTextView_android_enabled)) {
+            textInputEditText.setEnabled(a.getBoolean(R.styleable.TitleEditTextView_android_enabled, true));
+        }
+        if (a.hasValue(R.styleable.TitleEditTextView_android_gravity)) {
+            textInputEditText.setGravity(a.getInt(R.styleable.TitleEditTextView_android_gravity,Gravity.CENTER));
+        }
+        if (a.hasValue(R.styleable.TitleEditTextView_android_imeOptions)) {
+            textInputEditText.setImeOptions(a.getInt(R.styleable.TitleEditTextView_android_imeOptions,
+                    EditorInfo.IME_ACTION_NEXT));
+        }
+
         a.recycle();
     }
+//    private void initializeAttribute(@Nullable AttributeSet attrs) {
+//        TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.TitleEditTextView);
+//        int n = a.getIndexCount();
+//        for (int i = 0; i < n; i++) {
+//            int attr = a.getIndex(i);
+//            if (attr == R.styleable.TitleEditTextView_title_text) {
+//                setLayoutTitle(a.getString(attr));
+//            } else if (attr == R.styleable.TitleEditTextView_android_text) {
+//                setInputText(a.getString(attr));
+//            } else if (attr == R.styleable.TitleEditTextView_android_inputType) {
+//                textInputEditText.setInputType(a.getInt(attr, EditorInfo.TYPE_TEXT_VARIATION_NORMAL));
+//            } else if (attr == R.styleable.TitleEditTextView_android_maxLength) {
+//                textInputEditText.setFilters(new InputFilter[]{
+//                        new InputFilter.LengthFilter(a.getInt(attr, 100))});
+//            } else if (attr == R.styleable.TitleEditTextView_nextFocus) {
+//                nextId = textInputEditText.getId();
+//                setNextFocus(a.getResourceId(attr, nextId));
+//            } else if (attr == R.styleable.TitleEditTextView_lines) {
+//                textInputEditText.setLines(a.getInt(attr, 1));
+//                textInputEditText.setMaxLines(a.getInt(attr, 1));
+//            } else if (attr == R.styleable.TitleEditTextView_android_enabled) {
+//                textInputEditText.setEnabled(a.getBoolean(attr, true));
+//            } else if (attr == R.styleable.TitleEditTextView_android_gravity) {
+//                textInputEditText.setGravity(a.getInt(attr, Gravity.CENTER));
+//            } else if (attr == R.styleable.TitleEditTextView_android_imeOptions) {
+//                textInputEditText.setImeOptions(a.getInt(attr, EditorInfo.IME_ACTION_NEXT));
+//            }
+//        }
+//        a.recycle();
+//    }
 
     public void setLayoutTitle(String title) {
         textInputLayout.setHint(title);

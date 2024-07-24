@@ -1,5 +1,6 @@
 package com.leon.estimate_new.utils.mapper;
 
+import com.leon.estimate_new.fragments.forms.BaseInfoViewModel;
 import com.leon.estimate_new.fragments.forms.PersonalViewModel;
 import com.leon.estimate_new.tables.CalculationUserInput;
 import com.leon.estimate_new.tables.ExaminerDuties;
@@ -12,15 +13,20 @@ import org.mapstruct.factory.Mappers;
 public interface CustomMapper {
     CustomMapper INSTANCE = Mappers.getMapper(CustomMapper.class);
 
-    PersonalViewModel examinerDutyToPersonalVM(ExaminerDuties examinerDuty);
-    PersonalViewModel examinerDutyToPersonalVM1(ExaminerDuties examinerDuty);
+    PersonalViewModel examinerDutyToPersonalViewModel(ExaminerDuties examinerDuty);
 
-    ExaminerDuties personalVMToExaminerDuty(PersonalViewModel personalVM);
+    BaseInfoViewModel examinerDutyBaseInfoViewModel(ExaminerDuties examinerDuty);
 
-    CalculationUserInput personalVMToCalculationUserInput(PersonalViewModel personalVM);
+    void updateExaminerDutyPersonalViewModel(PersonalViewModel personalViewModel,
+                                             @MappingTarget ExaminerDuties examinerDuty);
 
-    void updateExaminerDutyPersonalVM(PersonalViewModel personalVM,
-                                      @MappingTarget ExaminerDuties examinerDuty);
-    void updateToCalculationUserInputFromPersonVM(PersonalViewModel personalVM,
-                                                  @MappingTarget CalculationUserInput calculationUserInput);
+    void updateToCalculationUserInputFromPersonalViewModel(PersonalViewModel personalVM,
+                                                           @MappingTarget CalculationUserInput calculationUserInput);
+
+    void updateExaminerDutyBaseInfoViewModel(BaseInfoViewModel baseInfoViewModel,
+                                             @MappingTarget ExaminerDuties examinerDuty);
+
+    void updateCalculationUserInputBaseInfoViewModel(BaseInfoViewModel baseInfoViewModel,
+                                                     @MappingTarget CalculationUserInput calculationUserInput);
+
 }
