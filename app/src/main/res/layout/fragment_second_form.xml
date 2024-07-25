@@ -133,10 +133,10 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@id/relative_layout_2"
+                android:id="@+id/relative_layout_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/relative_layout_1"
+                android:layout_below="@+id/relative_layout_1"
                 android:layout_margin="@dimen/medium_dp"
                 android:background="@drawable/border_gray_1"
                 android:padding="@dimen/medium_dp">
@@ -224,7 +224,7 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@id/relative_layout_3"
+                android:id="@+id/relative_layout_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/relative_layout_2"

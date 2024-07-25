@@ -132,6 +132,7 @@
                             android:id="@+id/edit_text_name"
                             style="@style/TextInput"
                             android:inputType="text"
+
                             android:nextFocusDown="@id/edit_text_family"
                             android:text="@={personalVM.firstName}" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -226,8 +227,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/relative_layout_base_info"
-                    android:layout_margin="@dimen/low_dp"
                     android:background="@drawable/border_gray_1"
+                    android:layout_margin="@dimen/low_dp"
                     android:padding="@dimen/low_dp">
 
                     <com.google.android.material.textfield.TextInputLayout

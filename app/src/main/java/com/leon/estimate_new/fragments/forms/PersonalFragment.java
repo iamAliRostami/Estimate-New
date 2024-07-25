@@ -17,7 +17,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.material.textfield.TextInputEditText;
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.databinding.FragmentPersonalBinding;
 import com.leon.estimate_new.tables.ExaminerDuties;
@@ -38,7 +37,6 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.e("here","4");
         formActivity.setTitle(getString(R.string.app_name).concat(" / ").concat("صفحه اول"), false);
     }
 
@@ -55,7 +53,7 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.e("here","10");
+        Log.e("here", "10");
     }
 
     private void initialize() {
@@ -87,13 +85,14 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
     }
 
     private boolean checkForm() {
-        return checkEmpty(binding.editTextName,requireContext())
-                && checkEmpty(binding.editTextFamily,requireContext())
-                && nationalIdValidation(binding.editTextNationalId,requireContext())
-                && postalCodeValidation(binding.editTextPostalCode,requireContext())
-                && mobileValidation(binding.editTextMobile,requireContext())
-                && checkEmpty(binding.editTextAddress,requireContext());
+        return checkEmpty(binding.editTextName, requireContext())
+                && checkEmpty(binding.editTextFamily, requireContext())
+                && nationalIdValidation(binding.editTextNationalId, requireContext())
+                && postalCodeValidation(binding.editTextPostalCode, requireContext())
+                && mobileValidation(binding.editTextMobile, requireContext())
+                && checkEmpty(binding.editTextAddress, requireContext());
     }
+
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
