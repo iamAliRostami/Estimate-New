@@ -46,6 +46,11 @@ public class PersonalViewModel extends BaseObservable {
     @Bindable
     private String trackNumber;
 
+    private boolean newEnsheab;
+
+    private String neighbourBillId;
+    private String billId;
+
     public String getFirstName() {
         return firstName.trim();
     }
@@ -170,6 +175,35 @@ public class PersonalViewModel extends BaseObservable {
     public void setTrackNumber(String trackNumber) {
         this.trackNumber = trackNumber;
         notifyPropertyChanged(BR.trackNumber);
+    }
+
+    public boolean isNewEnsheab() {
+        return newEnsheab;
+    }
+
+    public void setNewEnsheab(boolean isNewEnsheab) {
+        this.newEnsheab = isNewEnsheab;
+    }
+
+    public String getNeighbourBillId() {
+        return neighbourBillId;
+    }
+
+    public void setNeighbourBillId(String neighbourBillId) {
+        this.neighbourBillId = neighbourBillId;
+    }
+
+    public String getBillId() {
+        return billId;
+    }
+
+    public void setBillId(String billId) {
+        this.billId = billId;
+    }
+
+    @Bindable
+    public String getTempBillId() {
+        return (isNewEnsheab() ? getNeighbourBillId() : getBillId()).trim();
     }
 }
 

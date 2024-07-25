@@ -114,11 +114,12 @@
     </style>
 
     <style name="TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginStart">@dimen/low_dp</item>
         <item name="android:layout_marginEnd">@dimen/low_dp</item>
         <item name="helperTextEnabled">true</item>
+        <item name="errorEnabled">true</item>
         <item name="counterEnabled">false</item>
         <item name="boxStrokeColor">@color/egyptian</item>
         <item name="hintTextColor">@color/blue</item>

@@ -6,6 +6,7 @@ import com.leon.estimate_new.tables.CalculationUserInput;
 import com.leon.estimate_new.tables.ExaminerDuties;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 
@@ -13,6 +14,7 @@ import org.mapstruct.factory.Mappers;
 public interface CustomMapper {
     CustomMapper INSTANCE = Mappers.getMapper(CustomMapper.class);
 
+    @Mapping(source = "isNewEnsheab",target = "newEnsheab")
     PersonalViewModel examinerDutyToPersonalViewModel(ExaminerDuties examinerDuty);
 
     BaseInfoViewModel examinerDutyBaseInfoViewModel(ExaminerDuties examinerDuty);

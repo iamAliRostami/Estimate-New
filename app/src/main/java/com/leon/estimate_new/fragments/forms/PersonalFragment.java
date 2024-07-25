@@ -3,12 +3,12 @@ package com.leon.estimate_new.fragments.forms;
 import static com.leon.estimate_new.utils.Validator.checkEmpty;
 import static com.leon.estimate_new.utils.Validator.mobileValidation;
 import static com.leon.estimate_new.utils.Validator.nationalIdValidation;
+import static com.leon.estimate_new.utils.Validator.phoneValidation;
 import static com.leon.estimate_new.utils.Validator.postalCodeValidation;
 
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +53,6 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.e("here", "10");
     }
 
     private void initialize() {
@@ -63,11 +62,7 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initializeTextViews() {
-        if (formActivity.getExaminerDuty().billId != null &&
-                !formActivity.getExaminerDuty().billId.isEmpty())
-            binding.textViewBillId.setText(formActivity.getExaminerDuty().billId.trim());
-        else {
-            binding.textViewBillId.setText(formActivity.getExaminerDuty().neighbourBillId.trim());
+        if (formActivity.getExaminerDuty().isNewEnsheab) {
             binding.textViewBillIdTitle.setText(getString(R.string.neighbour_bill_id));
         }
     }
@@ -79,6 +74,11 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
             requireActivity().finish();
         } else if (id == R.id.button_submit) {
             if (checkForm()) {
+                personalVM.setFirstName(binding.editTextName.getText().toString());
+                personalVM.setSureName(binding.editTextFamily.getText().toString());
+                personalVM.setFatherName(binding.editTextFatherName.getText().toString());
+                personalVM.setAddress(binding.editTextAddress.getText().toString());
+                personalVM.setDescription(binding.editTextDescription.getText().toString());
                 formActivity.setPersonalInfo(personalVM);
             }
         }
@@ -90,6 +90,7 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
                 && nationalIdValidation(binding.editTextNationalId, requireContext())
                 && postalCodeValidation(binding.editTextPostalCode, requireContext())
                 && mobileValidation(binding.editTextMobile, requireContext())
+                && phoneValidation(binding.editTextPhone, requireContext())
                 && checkEmpty(binding.editTextAddress, requireContext());
     }
 

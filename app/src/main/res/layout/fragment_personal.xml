@@ -37,7 +37,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/relative_layout_bill_id"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent="0.3">
+                app:layout_constraintWidth_percent="0.28">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/text_view_track_number_title"
@@ -62,7 +62,7 @@
                 app:layout_constraintEnd_toStartOf="@id/relative_layout_track"
                 app:layout_constraintStart_toEndOf="@id/relative_layout_zone"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent="0.35">
+                app:layout_constraintWidth_percent="0.37">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/text_view_bill_id_title"
@@ -72,6 +72,7 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/text_view_bill_id"
                     style="@style/BaseForm"
+                    android:text="@{personalVM.tempBillId}"
                     android:layout_below="@id/text_view_bill_id_title" />
             </RelativeLayout>
 
@@ -111,7 +112,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/border_white_1">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <RelativeLayout
                     android:id="@+id/relative_layout_base_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -119,63 +120,65 @@
                     android:background="@drawable/border_gray_1"
                     android:padding="@dimen/low_dp">
 
+                    <View
+                        android:id="@+id/view_center_1"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_centerHorizontal="true" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_name"
                         style="@style/TextInputLayout"
-                        android:hint="@string/name"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintWidth_percent="0.48">
+                        android:layout_alignParentStart="true"
+                        android:layout_toStartOf="@id/view_center_1"
+                        android:hint="@string/name">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edit_text_name"
                             style="@style/TextInput"
                             android:inputType="text"
-
                             android:nextFocusDown="@id/edit_text_family"
-                            android:text="@={personalVM.firstName}" />
+                            android:text="@{personalVM.firstName}" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_family"
                         style="@style/TextInputLayout"
-                        android:hint="@string/family"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintWidth_percent="0.48">
+                        android:layout_alignParentEnd="true"
+                        android:layout_toEndOf="@id/view_center_1"
+                        android:hint="@string/family">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edit_text_family"
                             style="@style/TextInput"
                             android:inputType="text"
                             android:nextFocusDown="@id/edit_text_father_name"
-                            android:text="@={personalVM.sureName}" />
+                            android:text="@{personalVM.sureName}" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_father_name"
                         style="@style/TextInputLayout"
-                        android:hint="@string/father_name"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/layout_name"
-                        app:layout_constraintWidth_percent="0.48">
+                        android:layout_below="@id/layout_name"
+                        android:layout_alignParentStart="true"
+                        android:layout_toStartOf="@id/view_center_1"
+                        android:hint="@string/father_name">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edit_text_father_name"
                             style="@style/TextInput"
                             android:inputType="text"
                             android:nextFocusDown="@id/edit_text_shenasname"
-                            android:text="@={personalVM.fatherName}" />
+                            android:text="@{personalVM.fatherName}" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_shenasname"
                         style="@style/TextInputLayout"
-                        android:hint="@string/shenasname"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/layout_family"
-                        app:layout_constraintWidth_percent="0.48">
+                        android:layout_below="@id/layout_family"
+                        android:layout_alignParentEnd="true"
+                        android:layout_toEndOf="@id/view_center_1"
+                        android:hint="@string/shenasname">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edit_text_shenasname"
@@ -190,10 +193,11 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_national_id"
                         style="@style/TextInputLayout"
+                        android:layout_below="@id/layout_father_name"
+                        android:layout_alignParentStart="true"
+                        android:layout_toStartOf="@id/view_center_1"
                         android:hint="@string/national_id"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/layout_father_name"
-                        app:layout_constraintWidth_percent="0.48">
+                        app:counterEnabled="true">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edit_text_national_id"
@@ -207,10 +211,11 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_postal_code"
                         style="@style/TextInputLayout"
+                        android:layout_below="@id/layout_shenasname"
+                        android:layout_alignParentEnd="true"
+                        android:layout_toEndOf="@id/view_center_1"
                         android:hint="@string/postal_code"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/layout_shenasname"
-                        app:layout_constraintWidth_percent="0.48">
+                        app:counterEnabled="true">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edit_text_postal_code"
@@ -221,23 +226,28 @@
                             android:text="@={personalVM.postalCode}" />
                     </com.google.android.material.textfield.TextInputLayout>
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                </RelativeLayout>
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/relative_layout_base_info"
-                    android:background="@drawable/border_gray_1"
                     android:layout_margin="@dimen/low_dp"
+                    android:background="@drawable/border_gray_1"
                     android:padding="@dimen/low_dp">
+
+                    <View
+                        android:id="@+id/view_center_2"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_centerHorizontal="true" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_radif"
                         style="@style/TextInputLayout"
-                        android:hint="@string/radif"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintWidth_percent="0.48">
+                        android:layout_alignParentStart="true"
+                        android:layout_toStartOf="@id/view_center_2"
+                        android:hint="@string/radif">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edit_text_radif"
@@ -250,10 +260,9 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_eshterak"
                         style="@style/TextInputLayout"
-                        android:hint="@string/eshterak"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintWidth_percent="0.48">
+                        android:layout_alignParentEnd="true"
+                        android:layout_toEndOf="@id/view_center_2"
+                        android:hint="@string/eshterak">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edit_text_eshterak"
@@ -265,10 +274,11 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_mobile"
                         style="@style/TextInputLayout"
-                        android:hint="@string/mobile_number"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/layout_radif"
-                        app:layout_constraintWidth_percent="0.48">
+                        android:layout_below="@id/layout_eshterak"
+                        android:layout_alignParentStart="true"
+                        app:counterEnabled="true"
+                        android:layout_toStartOf="@id/view_center_2"
+                        android:hint="@string/mobile_number">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edit_text_mobile"
@@ -281,10 +291,11 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_phone"
                         style="@style/TextInputLayout"
-                        android:hint="@string/phone"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/layout_eshterak"
-                        app:layout_constraintWidth_percent="0.48">
+                        android:layout_below="@id/layout_eshterak"
+                        android:layout_alignParentEnd="true"
+                        app:counterEnabled="true"
+                        android:layout_toEndOf="@id/view_center_2"
+                        android:hint="@string/phone">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edit_text_phone"
@@ -299,9 +310,8 @@
                         android:id="@+id/layout_address"
                         style="@style/TextInputLayout"
                         android:layout_width="match_parent"
-                        android:hint="@string/address"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/layout_phone">
+                        android:layout_below="@id/layout_mobile"
+                        android:hint="@string/address">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edit_text_address"
@@ -313,16 +323,15 @@
                             android:maxLines="2"
                             android:nextFocusDown="@id/edit_text_description"
                             android:nextFocusForward="@id/edit_text_description"
-                            android:text="@={personalVM.address}" />
+                            android:text="@{personalVM.address}" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_description"
                         style="@style/TextInputLayout"
                         android:layout_width="match_parent"
-                        android:hint="@string/description"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/layout_address">
+                        android:layout_below="@id/layout_address"
+                        android:hint="@string/description">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edit_text_description"
@@ -333,10 +342,10 @@
                             android:lines="4"
                             android:maxLength="1400"
                             android:maxLines="4"
-                            android:text="@={personalVM.description}" />
+                            android:text="@{personalVM.description}" />
                     </com.google.android.material.textfield.TextInputLayout>
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                </RelativeLayout>
 
             </RelativeLayout>
         </ScrollView>
