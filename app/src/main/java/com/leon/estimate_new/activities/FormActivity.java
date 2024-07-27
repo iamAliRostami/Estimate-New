@@ -110,7 +110,7 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
             examinerDuty = new Gson().fromJson(json, ExaminerDuties.class);
         }
         new GetDBData(this, examinerDuty.zoneId, examinerDuty.trackNumber, this).execute(this);
-        displayView(PERSONAL_FRAGMENT/*MAP_DESCRIPTION_FRAGMENT*/);
+//        displayView(PERSONAL_FRAGMENT/*TODO MAP_DESCRIPTION_FRAGMENT*/);
     }
 
     public void setData(Arzeshdaraei arzeshdaraei,
@@ -128,6 +128,7 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
         this.taxfifDictionaries.addAll(taxfifDictionaries);
         this.tejarihas.addAll(tejariha);
         this.arzeshdaraei = arzeshdaraei;
+        displayView(PERSONAL_FRAGMENT/*TODO MAP_DESCRIPTION_FRAGMENT*/);
     }
 
     private void displayView(int position) {
@@ -138,14 +139,15 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
             return;
         }
         final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//        fragmentTransaction.setCustomAnimations(R.animator.enter, R.animator.exit,
-//                R.animator.pop_enter, R.animator.pop_exit);
+        fragmentTransaction.setCustomAnimations(R.animator.enter, R.animator.exit,
+                R.animator.pop_enter, R.animator.pop_exit);
         fragmentTransaction.replace(binding.containerBody.getId(), getFragment(position), tag);
         if (position != 0) {
             fragmentTransaction.addToBackStack(null);
         }
         fragmentTransaction.commitAllowingStateLoss();
-//TODO        fragmentManager.executePendingTransactions();
+        //TODO    fragmentManager.executePendingTransactions();
+
     }
     private final HashMap<Integer, Fragment> fragmentCache = new HashMap<>();
 
@@ -161,8 +163,8 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
             case SECOND_FRAGMENT -> SecondFormFragment.newInstance();
             case MAP_DESCRIPTION_FRAGMENT -> MapDescriptionFragment.newInstance();
             case EDIT_MAP_FRAGMENT -> EditMapFragment.newInstance();
-//            default -> BlankFragment.newInstance();
-            default -> PersonalFragment.newInstance();
+            default -> BaseInfoFragment.newInstance();
+//            default -> PersonalFragment.newInstance();
         };
 
         fragmentCache.put(position, newFragment);

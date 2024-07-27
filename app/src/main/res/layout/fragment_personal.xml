@@ -72,8 +72,8 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/text_view_bill_id"
                     style="@style/BaseForm"
-                    android:text="@{personalVM.tempBillId}"
-                    android:layout_below="@id/text_view_bill_id_title" />
+                    android:layout_below="@id/text_view_bill_id_title"
+                    android:text="@{personalVM.tempBillId}" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -105,12 +105,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@id/button_submit"
-            android:layout_below="@id/linear_layout_title">
+            android:layout_below="@id/linear_layout_title"
+            android:background="@drawable/border_white_1">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/border_white_1">
+                android:layout_height="wrap_content">
 
                 <RelativeLayout
                     android:id="@+id/relative_layout_base_info"
@@ -276,9 +276,9 @@
                         style="@style/TextInputLayout"
                         android:layout_below="@id/layout_eshterak"
                         android:layout_alignParentStart="true"
-                        app:counterEnabled="true"
                         android:layout_toStartOf="@id/view_center_2"
-                        android:hint="@string/mobile_number">
+                        android:hint="@string/mobile_number"
+                        app:counterEnabled="true">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edit_text_mobile"
@@ -293,9 +293,9 @@
                         style="@style/TextInputLayout"
                         android:layout_below="@id/layout_eshterak"
                         android:layout_alignParentEnd="true"
-                        app:counterEnabled="true"
                         android:layout_toEndOf="@id/view_center_2"
-                        android:hint="@string/phone">
+                        android:hint="@string/phone"
+                        app:counterEnabled="true">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edit_text_phone"
@@ -350,21 +350,17 @@
             </RelativeLayout>
         </ScrollView>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_close"
             style="@style/Button.Negative"
             android:layout_alignParentBottom="true"
-            android:layout_marginTop="@dimen/medium_dp"
-            android:layout_marginBottom="@dimen/medium_dp"
             android:text="@string/close" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_submit"
             style="@style/Button.Positive"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginTop="@dimen/medium_dp"
-            android:layout_marginBottom="@dimen/medium_dp"
             android:text="@string/services" />
     </RelativeLayout>
 </layout>

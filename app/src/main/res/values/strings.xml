@@ -121,7 +121,7 @@
     <string name="sifoon_200">سیفون 200</string>
     <string name="sifoon_125">سیفون 125</string>
     <string name="sifoon_150">سیفون 150</string>
-    <string name="ayan_maskooni">اعیان مسکونی</string>
+    <string name="aian_maskooni">اعیان مسکونی</string>
     <string name="number_maskooni">تعداد واحد مسکونی</string>
     <string name="zarfiat_qaradadi">ظرفیت قراردادی</string>
     <string name="adam_taxfif_ab">عدم تخفیف آب</string>
@@ -136,14 +136,14 @@
     <string name="arse_kol">عرصه کل</string>
     <string name="bill_id">شناسه قبض</string>
     <string name="neighbour_bill_id">ش. قبض همسایه</string>
-    <string name="other_number">تعداد واحد سایر</string>
+    <string name="tedad_saier">تعداد واحد سایر</string>
     <string name="postal_code">کد پستی</string>
     <string name="canceled">عملیات متوقف شد.</string>
     <string name="waiting">لطفا صبر کنید…</string>
     <string name="waiting_for_routing">لطفا صبر کنید، در حال مسیریابی…</string>
     <string name="turn_internet_on">اینترنت وصل نیست، اینترنت وایفای یا همراه خود را روشن کنید.</string>
     <string name="access_denialed">مجوز رد شد \n</string>
-    <string name="taxfif_number">تعداد تخفیف</string>
+    <string name="tedad_taxfif">تعداد تخفیف</string>
     <string name="not_found">موردی یافت نشد!</string>
     <string name="next">بعدی</string>
     <string name="previous">قبلی</string>
@@ -467,9 +467,9 @@
     <string name="download_failed">بارگیری با خطا مواجه شد</string>
     <string name="download_started">بارگیری آغاز شد</string>
     <string name="no_tiles_selected">ناحیه ای انتخاب نشده است</string>
-    <string name="ensheab_type">نوع انشعاب</string>
+    <string name="noe_ensheab">نوع انشعاب</string>
     <string name="ezhar_bahre">اظهار نظر واحد بهره برداری</string>
     <string name="form_preview">پیش نمایش فرم</string>
     <string name="qaradad_amade">قرارداد آماده سازی</string>
-    <string name="mojavez_adam_tavali">مجوز عدم تولی</string>
+    <string name="adam_license">مجوز عدم تولی</string>
 </resources>

@@ -1,6 +1,8 @@
 package com.leon.estimate_new.fragments.forms;
 
 import static com.leon.estimate_new.fragments.dialog.ShowFragmentDialog.ShowFragmentDialogOnce;
+import static com.leon.estimate_new.helpers.Constants.SERVICES_FRAGMENT;
+import static com.leon.estimate_new.utils.Validator.checkEmpty;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,10 +15,8 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
 
@@ -32,12 +32,16 @@ import com.leon.estimate_new.tables.NoeVagozariDictionary;
 import com.leon.estimate_new.tables.QotrEnsheabDictionary;
 import com.leon.estimate_new.tables.TaxfifDictionary;
 import com.leon.estimate_new.tables.Tejariha;
+import com.leon.estimate_new.utils.estimating.GetArzeshdaraei;
 import com.leon.estimate_new.utils.mapper.CustomMapper;
+import com.sardari.daterangepicker.customviews.DateRangeCalendarView;
+import com.sardari.daterangepicker.dialog.DatePickerDialog;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
-public class BaseInfoFragment extends Fragment implements ValueFragment.Callback,
+public class BaseInfoFragment extends Fragment implements ValueFragment.Callback, View.OnLongClickListener,
         TejarihaSayerFragment.Callback, View.OnClickListener, View.OnFocusChangeListener {
     private FragmentBaseInfoBinding binding;
     private ExaminerDuties examinerDuty;
@@ -45,6 +49,21 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
     private Callback formActivity;
     private String block, arz;
     private BaseInfoViewModel baseInfoVM;
+    private final HashMap<String, Integer> karbariMap = new HashMap<>();
+    private final ArrayList<String> karbariTitles = new ArrayList<>();
+
+    private final HashMap<String, Integer> noeVagozariMap = new HashMap<>();
+    private final ArrayList<String> noeVagozariTitles = new ArrayList<>();
+
+    private final HashMap<String, Integer> qotrEnsheabMap = new HashMap<>();
+    private final ArrayList<String> qotrEnsheabTitles = new ArrayList<>();
+
+    private final HashMap<String, Integer> taxfifMap = new HashMap<>();
+    private final ArrayList<String> taxfifTitles = new ArrayList<>();
+
+
+    private final ArrayList<String> qotrFazelabTitles = new ArrayList<>(Arrays.asList("0", "100", "125", "150", "200"));
+    private final ArrayList<String> noeEnsheabTitles = new ArrayList<>(Arrays.asList("مشخص نشده", "انشعاب خاص", "انشعاب عادی"));
 
     public static BaseInfoFragment newInstance() {
         return new BaseInfoFragment();
@@ -71,170 +90,142 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
         arzeshdaraei = formActivity.getArzeshdaraei();
         block = examinerDuty.block != null ? examinerDuty.block : "-";
         arz = examinerDuty.arz != null ? examinerDuty.arz : "-";
-        initializeSpinner();
-        initializeField();
+        initializeArrays();
         setOnClickListener();
         setOnFocusChangeListener();
     }
 
+    private void initializeArrays() {
+        initializeKarbari();
+        initializeNoeVagozari();
+        initializeQotrEnsheab();
+        initializeTaxfif();
+    }
+
+    private void initializeKarbari() {
+        ArrayList<KarbariDictionary> dictionary = formActivity.getKarbariDictionary();
+        for (int i = 0, dictionarySize = dictionary.size(); i < dictionarySize; i++) {
+            KarbariDictionary karbariDictionary = dictionary.get(i);
+            karbariTitles.add(karbariDictionary.title);
+            karbariMap.put(karbariDictionary.title, karbariDictionary.id);
+            if (baseInfoVM.getKarbariS() == null || baseInfoVM.getKarbariS().isEmpty()) {
+                if (baseInfoVM.karbariId == karbariDictionary.id) {
+                    baseInfoVM.setKarbariS(karbariDictionary.title);
+                }
+            }
+        }
+    }
+
+    private void initializeNoeVagozari() {
+        ArrayList<NoeVagozariDictionary> noeVagozariDictionaries = formActivity.getNoeVagozariDictionaries();
+        for (int i = 0; i < noeVagozariDictionaries.size(); i++) {
+            NoeVagozariDictionary noeVagozariDictionary = noeVagozariDictionaries.get(i);
+            noeVagozariTitles.add(noeVagozariDictionary.title);
+            noeVagozariMap.put(noeVagozariDictionary.title, noeVagozariDictionary.id);
+            if (baseInfoVM.getNoeVagozariS() == null || baseInfoVM.getNoeVagozariS().isEmpty()) {
+                if (baseInfoVM.getNoeVagozariId() == noeVagozariDictionary.id)
+                    baseInfoVM.setNoeVagozariS(noeVagozariDictionary.title);
+            }
+        }
+    }
+
+    private void initializeQotrEnsheab() {
+        ArrayList<QotrEnsheabDictionary> qotrEnsheabDictionaries = formActivity.getQotrEnsheabDictionary();
+        for (int i = 0; i < qotrEnsheabDictionaries.size(); i++) {
+            QotrEnsheabDictionary qotrEnsheabDictionary = qotrEnsheabDictionaries.get(i);
+            qotrEnsheabTitles.add(qotrEnsheabDictionary.title);
+            qotrEnsheabMap.put(qotrEnsheabDictionary.title, qotrEnsheabDictionary.id);
+            if (baseInfoVM.getQotrEnsheabS() == null || baseInfoVM.getQotrEnsheabS().isEmpty()) {
+                if (baseInfoVM.getQotrEnsheabId() == qotrEnsheabDictionary.id)
+                    baseInfoVM.setQotrEnsheabS(qotrEnsheabDictionary.title);
+            }
+        }
+
+    }
+
+    private void initializeTaxfif() {
+        ArrayList<TaxfifDictionary> dictionary = formActivity.getTaxfifDictionary();
+        for (int i = 0, dictionarySize = dictionary.size(); i < dictionarySize; i++) {
+            TaxfifDictionary taxfifDictionary = dictionary.get(i);
+            taxfifTitles.add(taxfifDictionary.title);
+            taxfifMap.put(taxfifDictionary.title, taxfifDictionary.id);
+            if (baseInfoVM.getTaxfifS() == null || baseInfoVM.getTaxfifS().isEmpty()) {
+                if (taxfifDictionary.id == baseInfoVM.getTaxfifId()) {
+                    baseInfoVM.setTaxfifS(taxfifDictionary.title);
+                }
+            }
+        }
+    }
+
     private void setOnFocusChangeListener() {
-//        binding.editTextTedadSaier.setOnFocusChangeListener(this);
-//        binding.editTextTedadTejari.setOnFocusChangeListener(this);
+        binding.editTextTedadSaier.setOnFocusChangeListener(this);
+        binding.editTextTedadTejari.setOnFocusChangeListener(this);
     }
 
     private void setOnClickListener() {
-        binding.textView1.setOnClickListener(this);
-//        binding.editTextSodurDate.setOnClickListener(this);
-//        binding.textViewArzeshMelk.setOnClickListener(this);
-//
-//        binding.buttonSubmit.setOnClickListener(this);
-//        binding.buttonPre.setOnClickListener(this);
-//        binding.textViewTedadTejari.setOnClickListener(this);
-//        binding.textViewTedadSaier.setOnClickListener(this);
-//
-//        if ((examinerDuty.tedadSaierNew != null && examinerDuty.tedadSaierNew > 0)
-//                || (examinerDuty.tedadTejariNew != null && examinerDuty.tedadTejariNew > 0)) {
-//            binding.textViewTedadSaier.setEnabled(true);
-//            binding.textViewTedadTejari.setEnabled(true);
-//        } else {
-//            binding.textViewTedadSaier.setEnabled(false);
-//            binding.textViewTedadTejari.setEnabled(false);
-//        }
+        binding.textViewKarbari.setOnClickListener(this);
+        binding.textViewNoeVagozari.setOnClickListener(this);
+        binding.textViewQotrEnsheab.setOnClickListener(this);
+        binding.textViewQotrFazelab.setOnClickListener(this);
+        binding.textViewNoeEnsheab.setOnClickListener(this);
+        binding.textViewNoeTakhfif.setOnClickListener(this);
+        binding.editTextSodurDate.setOnClickListener(this);
+        binding.layoutArzeshMelk.setOnClickListener(this);
+        binding.editTextArzeshMelk.setOnClickListener(this);
+
+        binding.buttonSubmit.setOnClickListener(this);
+        binding.buttonPre.setOnClickListener(this);
+
+        binding.layoutTedadTejari.setOnLongClickListener(this);
+        binding.layoutTedadSaier.setOnLongClickListener(this);
+        binding.editTextTedadTejari.setOnLongClickListener(this);
+        binding.editTextTedadSaier.setOnLongClickListener(this);
     }
 
-    private void initializeField() {
-//        binding.editTextSifoon100.setText(String.valueOf(examinerDuty.sifoon100));
-//        binding.editTextSifoon125.setText(String.valueOf(examinerDuty.sifoon125));
-//        binding.editTextSifoon150.setText(String.valueOf(examinerDuty.sifoon150));
-//        binding.editTextSifoon200.setText(String.valueOf(examinerDuty.sifoon150));
-//        binding.editTextArse.setText(examinerDuty.arseNew != null ?
-//                String.valueOf(examinerDuty.arseNew) : String.valueOf(examinerDuty.arse));
-//        binding.editTextAianKol.setText(examinerDuty.aianKolNew != null ?
-//                String.valueOf(examinerDuty.aianKolNew) : String.valueOf(examinerDuty.aianKol));
-//        binding.editTextAianMaskooni.setText(examinerDuty.aianMaskooniNew != null ?
-//                String.valueOf(examinerDuty.aianMaskooniNew) : String.valueOf(examinerDuty.aianMaskooni));
-//        binding.editTextAianNonMaskooni.setText(examinerDuty.aianNonMaskooniNew != null ?
-//                String.valueOf(examinerDuty.aianNonMaskooniNew) : String.valueOf(examinerDuty.aianNonMaskooni));
-//        binding.editTextTedadMaskooni.setText(examinerDuty.tedadMaskooniNew != null ?
-//                String.valueOf(examinerDuty.tedadMaskooniNew) : String.valueOf(examinerDuty.tedadMaskooni));
-//        binding.editTextTedadTejari.setText(examinerDuty.tedadTejariNew != null ?
-//                String.valueOf(examinerDuty.tedadTejariNew) : String.valueOf(examinerDuty.tedadTejari));
-//        binding.editTextTedadSaier.setText(examinerDuty.tedadSaierNew != null ?
-//                String.valueOf(examinerDuty.tedadSaierNew) : String.valueOf(examinerDuty.tedadSaier));
-//        binding.editTextTedadTakhfif.setText(String.valueOf(examinerDuty.tedadTaxfif));
-//        binding.editTextZarfiatQaradadi.setText(examinerDuty.zarfiatQarardadiNew != null ?
-//                String.valueOf(examinerDuty.zarfiatQarardadiNew) : String.valueOf(examinerDuty.zarfiatQarardadi));
-//        binding.editTextLicenceNumber.setText(examinerDuty.licenceNumber);
-//        /*binding.editTextCodeKaf.setText(examinerDuty.codeKaf);*/
-//        binding.editTextSanadNumber.setText(String.valueOf(examinerDuty.sanadNumber));
-//        binding.editTextQarardad.setText(examinerDuty.qaradadNumber);
-////        binding.editTextSodurDate.setText(examinerDuty.getExaminationDay());
-//        binding.editTextPelak.setText(String.valueOf(examinerDuty.pelak));
-//
-//        binding.textViewArzeshMelk.setText(String.valueOf(examinerDuty.arzeshMelk));
-//
-//        binding.checkbox1.setChecked(examinerDuty.isEnsheabQeirDaem);
-//        binding.checkbox6.setChecked(examinerDuty.adamLicence);
-//        binding.checkbox7.setChecked(examinerDuty.qaradad);
-    }
-
-    private void initializeSpinner() {
-//        initializeKarbariSpinner();
-        initializeNoeVagozariSpinner();
-        initializeQotrEnsheabSpinner();
-        initializeQotrFazelabSpinner();
-        initializeNoeEnsheabSpinner();
-        initializeTaxfifSpinner();
-    }
-
-
-    private void initializeKarbariSpinner() {
-        final ArrayList<String> titles = new ArrayList<>();
-        int selected = 0, counter = 0;
-        for (KarbariDictionary karbariDictionary : formActivity.getKarbariDictionary()) {
-            titles.add(karbariDictionary.title);
-            if (karbariDictionary.id == examinerDuty.karbariId) {
-                selected = counter;
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        if (id == R.id.text_view_karbari) {
+            showMenu(binding.textViewKarbari, karbariTitles);
+        } else if (id == R.id.text_view_noe_vagozari) {
+            showMenu(binding.textViewNoeVagozari, noeVagozariTitles);
+        } else if (id == R.id.text_view_qotr_ensheab) {
+            showMenu(binding.textViewQotrEnsheab, qotrEnsheabTitles);
+        } else if (id == R.id.text_view_qotr_fazelab) {
+            showMenu(binding.textViewQotrFazelab, qotrFazelabTitles);
+        } else if (id == R.id.text_view_noe_ensheab) {
+            showMenu(binding.textViewNoeEnsheab, noeEnsheabTitles);
+        } else if (id == R.id.text_view_noe_takhfif) {
+            showMenu(binding.textViewNoeTakhfif, taxfifTitles);
+        } else if (id == R.id.edit_text_sodur_date) {
+            DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext());
+            datePickerDialog.setSelectionMode(DateRangeCalendarView.SelectionMode.Single);
+            datePickerDialog.setDisableDaysAgo(false);
+            datePickerDialog.setTextSizeTitle(10.0f);
+            datePickerDialog.setTextSizeWeek(12.0f);
+            datePickerDialog.setTextSizeDate(14.0f);
+            datePickerDialog.setCanceledOnTouchOutside(true);
+            datePickerDialog.setOnSingleDateSelectedListener(date ->
+                    binding.editTextSodurDate.setText(date.getPersianShortDate()));
+            datePickerDialog.showDialog();
+        }
+        if (id == R.id.layout_arzesh_melk || id == R.id.edit_text_arzesh_melk) {
+            if (arzeshdaraei != null && !arzeshdaraei.blocks.isEmpty() && !arzeshdaraei.formulas.isEmpty() && !arzeshdaraei.zaribs.isEmpty()) {
+                ShowFragmentDialogOnce(requireContext(), "VALUE_FRAGMENT", ValueFragment.newInstance(this));
+            } else {
+                new GetArzeshdaraei(requireContext(), examinerDuty.zoneId, this).execute(requireActivity());
             }
-            counter = counter + 1;
+        } else if (id == R.id.button_pre) {
+            formActivity.setOnPreClickListener(SERVICES_FRAGMENT);
+        } else if (id == R.id.button_submit) {
+            if (checkForm())
+                formActivity.setBaseInfo(prepareOutput());
         }
-        showMenu(binding.textView1, titles);
-//        binding.spinner1.setAdapter(new SpinnerCustomAdapter(requireContext(), titles));
-//        binding.textView1.setSelection(selected);
     }
 
-    private void initializeNoeVagozariSpinner() {
-        final ArrayList<String> spinnerArrayList = new ArrayList<>();
-        for (NoeVagozariDictionary noeVagozariDictionary : formActivity.getNoeVagozariDictionaries()) {
-            spinnerArrayList.add(noeVagozariDictionary.title);
-        }
-//        binding.spinner2.setAdapter(new SpinnerCustomAdapter(requireContext(), spinnerArrayList));
-//        binding.spinner2.setSelection(examinerDuty.noeVagozariId);
-    }
-
-    private void initializeQotrEnsheabSpinner() {
-        final ArrayList<String> spinnerArrayList = new ArrayList<>();
-        int counter = 0, selectedA = 0;
-        for (QotrEnsheabDictionary qotrEnsheabDictionary : formActivity.getQotrEnsheabDictionary()) {
-            spinnerArrayList.add(qotrEnsheabDictionary.title);
-            if (examinerDuty.qotrEnsheabId == qotrEnsheabDictionary.id) selectedA = counter;
-            counter = counter + 1;
-        }
-//        binding.spinner3.setAdapter(new SpinnerCustomAdapter(requireContext(), spinnerArrayList));
-//        binding.spinner3.setSelection(selectedA);
-
-    }
-    private void initializeQotrFazelabSpinner() {
-        final ArrayList<String> spinnerArrayList = new ArrayList<>(Arrays.asList("0", "100", "125", "150", "200"));
-//        binding.spinner4.setAdapter(new SpinnerCustomAdapter(requireContext(), spinnerArrayList));
-//        for (int i = 0; i < spinnerArrayList.size(); i++) {
-//            if (examinerDuty.qotrEnsheabFS != null &&
-//                    examinerDuty.qotrEnsheabFS.equals(spinnerArrayList.get(i))) {
-//                binding.spinner4.setSelection(i);
-//            }
-//        }
-    }
-
-    private void initializeNoeEnsheabSpinner() {
-        ArrayList<String> spinnerArrayList = new ArrayList<>();
-        spinnerArrayList.add("مشخص نشده");
-        spinnerArrayList.add("انشعاب خاص");
-        spinnerArrayList.add("انشعاب عادی");
-//        binding.spinner5.setAdapter(new SpinnerCustomAdapter(requireContext(), spinnerArrayList));
-    }
-
-    private void initializeTaxfifSpinner() {
-        final ArrayList<String> spinnerArrayList = new ArrayList<>();
-        int selected = 0, counter = 0;
-        for (TaxfifDictionary taxfifDictionary : formActivity.getTaxfifDictionary()) {
-            spinnerArrayList.add(taxfifDictionary.title);
-            if (taxfifDictionary.id == examinerDuty.taxfifId) {
-                selected = counter;
-            }
-            counter = counter + 1;
-        }
-//        binding.spinner6.setAdapter(new SpinnerCustomAdapter(requireContext(), spinnerArrayList));
-//        binding.spinner6.setSelection(selected);
-    }
 
     private void showMenu(MaterialAutoCompleteTextView editText, ArrayList<String> titles) {
         final PopupMenu popup = new PopupMenu(requireActivity(), editText, Gravity.TOP);
-        for (int i = 0; i < titles.size(); i++)
-            popup.getMenu().add(titles.get(i));
-//        if (popup.getMenu() instanceof MenuBuilder) {
-//            final MenuBuilder menuBuilder = (MenuBuilder) popup.getMenu();
-//            //noinspection RestrictedApi
-//            menuBuilder.setOptionalIconsVisible(true);
-//            //noinspection RestrictedApi
-//            for (MenuItem item : menuBuilder.getVisibleItems()) {
-//                final int iconMarginPx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-//                        R.dimen.small_dp, getResources().getDisplayMetrics());
-//                if (item.getIcon() != null) {
-//                    item.setIcon(new InsetDrawable(item.getIcon(), iconMarginPx, 0, iconMarginPx, 0));
-//                }
-//            }
-//        }
-
         for (int i = 0; i < titles.size(); i++) {
             MenuItem item = popup.getMenu().add(titles.get(i));
             if (item.getIcon() != null) {
@@ -246,7 +237,6 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
             }
         }
         popup.setOnMenuItemClickListener(menuItem -> {
-//TODO            menuItem.getMenuInfo() position
             editText.setText(menuItem.getTitle());
             return true;
         });
@@ -254,51 +244,31 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
     }
 
     @Override
-    public void onClick(View v) {
-        int id = v.getId();
-        if (id == R.id.text_view_1) {
-            initializeKarbariSpinner();
+    public boolean onLongClick(View view) {
+        int id = view.getId();
+        if (id == R.id.layout_tedad_tejari || id == R.id.layout_tedad_saier ||
+                id == R.id.edit_text_tedad_saier || id == R.id.edit_text_tedad_tejari) {
+            if (checkTejariha())
+                showTejariha();
         }
-//        if (id == R.id.text_view_arzesh_melk) {
-//            if (arzeshdaraei != null && !arzeshdaraei.blocks.isEmpty() && !arzeshdaraei.formulas.isEmpty() && !arzeshdaraei.zaribs.isEmpty()) {
-//                ShowFragmentDialogOnce(requireContext(), "VALUE_FRAGMENT", ValueFragment.newInstance(this));
-//            } else {
-//                new GetArzeshdaraei(requireContext(), examinerDuty.zoneId, this).execute(requireActivity());
-//            }
-//        } else if (id == R.id.edit_text_sodur_date) {
-//            DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext());
-//            datePickerDialog.setSelectionMode(DateRangeCalendarView.SelectionMode.Single);
-//            datePickerDialog.setDisableDaysAgo(false);
-//            datePickerDialog.setTextSizeTitle(10.0f);
-//            datePickerDialog.setTextSizeWeek(12.0f);
-//            datePickerDialog.setTextSizeDate(14.0f);
-//            datePickerDialog.setCanceledOnTouchOutside(true);
-//            datePickerDialog.setOnSingleDateSelectedListener(date ->
-//                    binding.editTextSodurDate.setText(date.getPersianShortDate()));
-//            datePickerDialog.showDialog();
-//        } else if (id == R.id.text_view_tedad_tejari || id == R.id.text_view_tedad_saier) {
-//            showTejariha();
-//        } else if (id == R.id.button_pre) {
-//            formActivity.setOnPreClickListener(SERVICES_FRAGMENT);
-//        } else if (id == R.id.button_submit) {
-//            if (checkForm())
-//                formActivity.setBaseInfo(prepareOutput());
-//        }
+        return false;
     }
 
     @Override
     public void onFocusChange(View view, boolean b) {
         if (!b) {
-//            int saier, tejari;
-//            saier = !binding.editTextTedadSaier.getText().toString().isEmpty() ?
-//                    Integer.parseInt(binding.editTextTedadSaier.getText().toString()) : 0;
-//            tejari = !binding.editTextTedadTejari.getText().toString().isEmpty() ?
-//                    Integer.parseInt(binding.editTextTedadTejari.getText().toString()) : 0;
-//            binding.textViewTedadSaier.setEnabled(saier > 0 || tejari > 0);
-//            binding.textViewTedadTejari.setEnabled(saier > 0 || tejari > 0);
-//            if (saier > 0 || tejari > 0)
-//                showTejariha();
+            if (checkTejariha())
+                showTejariha();
         }
+    }
+
+    private boolean checkTejariha() {
+        int saier, tejari;
+        saier = !baseInfoVM.getTedadSaierNew().isEmpty() ?
+                Integer.parseInt(baseInfoVM.getTedadSaierNew()) : 0;
+        tejari = !baseInfoVM.getTedadTejari().isEmpty() ?
+                Integer.parseInt(baseInfoVM.getTedadTejari()) : 0;
+        return saier > 0 || tejari > 0;
     }
 
     private void showTejariha() {
@@ -307,100 +277,54 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
     }
 
     private boolean checkAian() {
-//        examinerDuty.aianMaskooniNew = binding.editTextAianMaskooni.getText().toString().isEmpty() ? 0 :
-//                Integer.parseInt(binding.editTextAianMaskooni.getText().toString());
-//        examinerDuty.aianNonMaskooniNew = binding.editTextAianNonMaskooni.getText().toString().isEmpty() ? 0 :
-//                Integer.parseInt(binding.editTextAianNonMaskooni.getText().toString());
-//        examinerDuty.aianKolNew = binding.editTextAianKol.getText().toString().isEmpty() ? 0 :
-//                Integer.parseInt(binding.editTextAianKol.getText().toString());
-//        if (examinerDuty.aianKolNew < examinerDuty.aianMaskooniNew + examinerDuty.aianNonMaskooniNew) {
-//            binding.editTextAianKol.setError("اعیان کل از مجموع اعیان مسکونی و تجاری کوچک تر است");
-//            binding.editTextAianKol.requestFocus();
-//            return false;
-//        }
+        if (Integer.parseInt(baseInfoVM.getAianKolNew()) <
+                Integer.parseInt(baseInfoVM.getAianMaskooniNew()) +
+                        Integer.parseInt(baseInfoVM.getAianNonMaskooniNew())) {
+            binding.editTextAianKol.setError("اعیان کل از مجموع اعیان مسکونی و تجاری کوچک تر است");
+            binding.editTextAianKol.requestFocus();
+            return false;
+        }
         return true;
     }
 
     private boolean checkForm() {
-        return checkAian()
-                /*&& binding.titleEditSifoon100.validation()
-                && binding.titleEditSifoon125.validation()
-                && checkIsNoEmpty(binding.editTextSifoon150)
-                && checkIsNoEmpty(binding.editTextSifoon200)
-                && checkIsNoEmpty(binding.editTextArse)
-                && checkIsNoEmpty(binding.editTextAianKol)
-                && checkIsNoEmpty(binding.editTextAianMaskooni)
-                && checkIsNoEmpty(binding.editTextAianNonMaskooni)
-                && checkIsNoEmpty(binding.editTextTedadMaskooni)
-                && checkIsNoEmpty(binding.editTextTedadTejari)
-                && checkIsNoEmpty(binding.editTextTedadSaier)
-                && checkIsNoEmpty(binding.editTextTedadTakhfif)
-                && checkIsNoEmpty(binding.editTextZarfiatQaradadi)
-                && checkIsNoEmpty(binding.textViewArzeshMelk)*/;
-    }
-
-    private boolean checkIsNoEmpty(EditText editText) {
-        if (editText.getText().toString().isEmpty()) {
-            editText.setError(getString(R.string.error_empty));
-            editText.requestFocus();
-            return false;
-        }
-        return true;
+        return checkAian() &&
+                checkEmpty(binding.editTextSifoon100, requireContext())
+                && checkEmpty(binding.editTextSifoon125, requireContext())
+                && checkEmpty(binding.editTextSifoon150, requireContext())
+                && checkEmpty(binding.editTextSifoon200, requireContext())
+                && checkEmpty(binding.editTextArseKol, requireContext())
+                && checkEmpty(binding.editTextAianKol, requireContext())
+                && checkEmpty(binding.editTextAianMaskooni, requireContext())
+                && checkEmpty(binding.editTextAianNonMaskooni, requireContext())
+                && checkEmpty(binding.editTextTedadMaskooni, requireContext())
+                && checkEmpty(binding.editTextTedadTejari, requireContext())
+                && checkEmpty(binding.editTextTedadSaier, requireContext())
+                && checkEmpty(binding.editTextZarfiat, requireContext())
+                && checkEmpty(binding.editTextArzeshMelk, requireContext())
+                && checkEmpty(binding.editTextTedadTaxfif,requireContext());
     }
 
     private ExaminerDuties prepareOutput() {
         examinerDuty.block = block;
         examinerDuty.arz = arz;
 
+        Integer karbari = karbariMap.get(baseInfoVM.getKarbariS());
+        if (karbari != null)
+            baseInfoVM.setKarbariId(karbari);
+
+        Integer noeVagozari = noeVagozariMap.get(baseInfoVM.getNoeVagozariS());
+        if (noeVagozari != null)
+            baseInfoVM.setKarbariId(noeVagozari);
+
+        Integer qotrEnsheab = qotrEnsheabMap.get(baseInfoVM.getQotrEnsheabS());
+        if (qotrEnsheab != null)
+            baseInfoVM.setQotrEnsheabId(qotrEnsheab);
+
 
         CustomMapper.INSTANCE.updateExaminerDutyBaseInfoViewModel(baseInfoVM, examinerDuty);
 
-//        examinerDuty.sifoon150 = Integer.parseInt(binding.editTextSifoon150.getText().toString());
-//        examinerDuty.sifoon200 = Integer.parseInt(binding.editTextSifoon200.getText().toString());
-//        examinerDuty.arseNew = binding.editTextArse.getText().toString().isEmpty() ? 0 :
-//                Integer.parseInt(binding.editTextArse.getText().toString());
-//        examinerDuty.tedadMaskooniNew = binding.editTextTedadMaskooni.getText().toString().isEmpty() ? 0 :
-//                Integer.parseInt(binding.editTextTedadMaskooni.getText().toString());
-//        examinerDuty.tedadTejariNew = binding.editTextTedadTejari.getText().toString().isEmpty() ? 0 :
-//                Integer.parseInt(binding.editTextTedadTejari.getText().toString());
-//        examinerDuty.tedadSaierNew = binding.editTextTedadSaier.getText().toString().isEmpty() ? 0 :
-//                Integer.parseInt(binding.editTextTedadSaier.getText().toString());
-//
-//        examinerDuty.arzeshMelk = Integer.parseInt(binding.textViewArzeshMelk.getText().toString());
 //        examinerDuty.tedadTaxfif = Integer.parseInt(binding.editTextTedadTakhfif.getText().toString());
-//        examinerDuty.zarfiatQarardadiNew = binding.editTextZarfiatQaradadi.getText().toString().isEmpty() ? 0 :
-//                Integer.parseInt(binding.editTextZarfiatQaradadi.getText().toString());
-//        examinerDuty.licenceNumber = binding.editTextLicenceNumber.getText().toString();
-//
-//        examinerDuty.karbariId = formActivity.getKarbariDictionary()
-//                .get(binding.spinner1.getSelectedItemPosition()).id;
-//        examinerDuty.karbariS = binding.spinner1.getSelectedItem().toString();
-//
-//        examinerDuty.noeVagozariId = formActivity.getNoeVagozariDictionaries()
-//                .get(binding.spinner2.getSelectedItemPosition()).id;
-//        examinerDuty.noeVagozariS = binding.spinner2.getSelectedItem().toString();
-//
-//        examinerDuty.qotrEnsheabId = formActivity.getQotrEnsheabDictionary()
-//                .get(binding.spinner3.getSelectedItemPosition()).id;
-//        examinerDuty.qotrEnsheabS = binding.spinner3.getSelectedItem().toString();
-//
-//        examinerDuty.qotrEnsheabFS = binding.spinner4.getSelectedItem().toString();
-//
-//        examinerDuty.ensheabType = binding.spinner5.getSelectedItem().toString();
-//
-//        examinerDuty.taxfifId = formActivity.getTaxfifDictionary()
-//                .get(binding.spinner6.getSelectedItemPosition()).id;
-//        examinerDuty.taxfifS = binding.spinner6.getSelectedItem().toString();
-//
-//        examinerDuty.isEnsheabQeirDaem = binding.checkbox1.isChecked();
-//
-//        examinerDuty.adamLicence = binding.checkbox6.isChecked();
-//        examinerDuty.qaradad = binding.checkbox7.isChecked();
-//        examinerDuty.qaradadNumber = binding.editTextQarardad.getText().toString();
-//        examinerDuty.pelak = binding.editTextPelak.getText().toString().isEmpty() ? 0 :
-//                Integer.parseInt(binding.editTextPelak.getText().toString());
-//        examinerDuty.sanadNumber = Integer.parseInt(binding.editTextSanadNumber.getText().toString());
-//        examinerDuty.sodurDate = binding.editTextSodurDate.getText().toString();
         return examinerDuty;
     }
 
@@ -423,7 +347,7 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
 
     @Override
     public void setValue(ArrayList<Integer> values, int value, String block, String arz) {
-//        binding.textViewArzeshMelk.setText(String.valueOf(value));
+        baseInfoVM.setArzeshMelk(String.valueOf(value));
         this.arz = arz;
         this.block = block;
         formActivity.setValues(values);

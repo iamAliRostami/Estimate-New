@@ -12,8 +12,7 @@ public class Validator {
 
     public static boolean checkEmpty(TextInputEditText editText, Context context) {
         if (editText.getText() == null || editText.getText().toString().isEmpty()) {
-            ((TextInputLayout) editText.getParent().getParent()).setError(context.getString(R.string.error_empty));
-            editText.requestFocus();
+            setError(editText,context.getString(R.string.error_empty));
             return false;
         }
         return true;
@@ -22,12 +21,10 @@ public class Validator {
 
     public static boolean nationalIdValidation(TextInputEditText editText, Context context) {
         if (editText.getText() == null || editText.getText().toString().isEmpty()) {
-            ((TextInputLayout) editText.getParent().getParent()).setError(context.getString(R.string.error_empty));
-            editText.requestFocus();
+            setError(editText, context.getString(R.string.error_empty));
             return false;
         } else if (editText.getText().toString().length() < 10) {
-            ((TextInputLayout) editText.getParent().getParent()).setError(context.getString(R.string.error_format));
-            editText.requestFocus();
+            setError(editText, context.getString(R.string.error_format));
             return false;
         }
         return true;
@@ -35,13 +32,10 @@ public class Validator {
 
     public static boolean mobileValidation(TextInputEditText editText, Context context) {
         if (editText.getText() == null) {
-            new CustomToast().warning(context.getString(R.string.error_empty));
-            ((TextInputLayout) editText.getParent().getParent()).setError(context.getString(R.string.error_empty));
-            editText.requestFocus();
+            setError(editText, context.getString(R.string.error_empty));
             return false;
         } else if (!MOBILE_REGEX.matcher(editText.getText().toString()).matches()) {
-            ((TextInputLayout) editText.getParent().getParent()).setError(context.getString(R.string.error_format));
-            editText.requestFocus();
+            setError(editText, context.getString(R.string.error_format));
             return false;
         }
         return true;
@@ -50,8 +44,7 @@ public class Validator {
     public static boolean phoneValidation(TextInputEditText editText, Context context) {
         if (editText.getText() != null && !editText.getText().toString().isEmpty() &&
                 editText.getText().toString().length() < 8) {
-            ((TextInputLayout) editText.getParent().getParent()).setError(context.getString(R.string.error_format));
-            editText.requestFocus();
+            setError(editText, context.getString(R.string.error_format));
             return false;
         }
         return true;
@@ -60,10 +53,14 @@ public class Validator {
     public static boolean postalCodeValidation(TextInputEditText editText, Context context) {
         if (editText.getText() != null && !editText.getText().toString().isEmpty() &&
                 editText.getText().toString().length() < 10) {
-            ((TextInputLayout) editText.getParent().getParent()).setError(context.getString(R.string.error_format));
-            editText.requestFocus();
+            setError(editText, context.getString(R.string.error_format));
             return false;
         }
         return true;
+    }
+
+    private static void setError(TextInputEditText editText, String error) {
+        ((TextInputLayout) editText.getParent().getParent()).setError(error);
+        editText.requestFocus();
     }
 }

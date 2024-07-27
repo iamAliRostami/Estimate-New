@@ -14,9 +14,10 @@ import org.mapstruct.factory.Mappers;
 public interface CustomMapper {
     CustomMapper INSTANCE = Mappers.getMapper(CustomMapper.class);
 
-    @Mapping(source = "isNewEnsheab",target = "newEnsheab")
+    @Mapping(source = "isNewEnsheab", target = "newEnsheab")
     PersonalViewModel examinerDutyToPersonalViewModel(ExaminerDuties examinerDuty);
 
+    @Mapping(source = "isEnsheabQeirDaem", target = "ensheabQeirDaem")
     BaseInfoViewModel examinerDutyBaseInfoViewModel(ExaminerDuties examinerDuty);
 
     void updateExaminerDutyPersonalViewModel(PersonalViewModel personalViewModel,
@@ -25,9 +26,9 @@ public interface CustomMapper {
     void updateToCalculationUserInputFromPersonalViewModel(PersonalViewModel personalVM,
                                                            @MappingTarget CalculationUserInput calculationUserInput);
 
+    @Mapping(source = "ensheabQeirDaem", target = "isEnsheabQeirDaem")
     void updateExaminerDutyBaseInfoViewModel(BaseInfoViewModel baseInfoViewModel,
                                              @MappingTarget ExaminerDuties examinerDuty);
-
     void updateCalculationUserInputBaseInfoViewModel(BaseInfoViewModel baseInfoViewModel,
                                                      @MappingTarget CalculationUserInput calculationUserInput);
 

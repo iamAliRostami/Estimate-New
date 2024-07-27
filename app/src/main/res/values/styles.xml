@@ -32,26 +32,28 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Button">
+    <style name="Button" parent="ThemeOverlay.Material3.Button.ElevatedButton">
         <item name="android:textStyle">bold</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:textColor">@color/text_color_light</item>
         <item name="android:textSize">@dimen/text_size_medium</item>
         <item name="android:layout_margin">@dimen/medium_dp</item>
-        <item name="android:padding">@dimen/medium_dp</item>
+        <item name="android:paddingStart">@dimen/huge_dp</item>
+        <item name="android:paddingEnd">@dimen/huge_dp</item>
+        <item name="android:paddingTop">@dimen/low_dp</item>
+        <item name="android:paddingBottom">@dimen/low_dp</item>
     </style>
 
     <style name="Button.Positive">
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:background">@drawable/border_green_2</item>
-        <!--        <item name="colorPrimary">@color/green</item>-->
-        <!--        <item name="background">@drawable/border_green_2</item>-->
+        <item name="android:background">@drawable/border_green_1</item>
     </style>
 
     <style name="Button.Negative">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:background">@drawable/border_yellow_2</item>
+        <item name="android:textColor">@color/yellow</item>
         <!--        <item name="background">@drawable/border_yellow_2</item>-->
         <!--        <item name="android:layout_alignParentBottom">true</item>-->
     </style>
@@ -113,8 +115,13 @@
         <item name="maxLines">1</item>
     </style>
 
+    <style name="TextInput.DropDownInput">
+        <item name="android:inputType">none</item>
+        <!--        <item name="android:gravity">center</item>-->
+    </style>
+
     <style name="TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginStart">@dimen/low_dp</item>
         <item name="android:layout_marginEnd">@dimen/low_dp</item>
@@ -140,6 +147,20 @@
         <item name="boxBackgroundMode">outline</item>
         <item name="hintTextColor">@color/blue</item>
         <item name="boxStrokeColor">@color/egyptian</item>
+        <item name="android:layout_margin">@dimen/low_dp</item>
+        <item name="hintTextAppearance">@style/TextHelper</item>
+    </style>
+
+    <style name="CheckBox" parent="Widget.Material3.CompoundButton.CheckBox">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textColor">@color/text_color_dark</item>
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginStart">@dimen/low_dp</item>
+        <item name="android:layout_marginEnd">@dimen/low_dp</item>
+        <item name="android:layoutDirection">ltr</item>
+        <item name="buttonTint">@color/egyptian</item>
     </style>
 
     <style name="Title">
@@ -270,13 +291,6 @@
         <item name="android:layout_margin">@dimen/low_dp</item>
     </style>
 
-    <style name="CheckBox">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:textColor">@color/text_color_dark</item>
-        <item name="android:textSize">@dimen/text_size_medium</item>
-        <item name="android:textStyle">bold</item>
-    </style>
 
     <style name="CheckBox.Possible">
         <item name="android:layout_margin">@dimen/low_dp</item>
