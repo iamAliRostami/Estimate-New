@@ -44,11 +44,9 @@ import java.util.HashMap;
 public class BaseInfoFragment extends Fragment implements ValueFragment.Callback, View.OnLongClickListener,
         TejarihaSayerFragment.Callback, View.OnClickListener, View.OnFocusChangeListener {
     private FragmentBaseInfoBinding binding;
-    private ExaminerDuties examinerDuty;
-    private Arzeshdaraei arzeshdaraei;
     private Callback formActivity;
-    private String block, arz;
     private BaseInfoViewModel baseInfoVM;
+
     private final HashMap<String, Integer> karbariMap = new HashMap<>();
     private final ArrayList<String> karbariTitles = new ArrayList<>();
 
@@ -60,7 +58,6 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
 
     private final HashMap<String, Integer> taxfifMap = new HashMap<>();
     private final ArrayList<String> taxfifTitles = new ArrayList<>();
-
 
     private final ArrayList<String> qotrFazelabTitles = new ArrayList<>(Arrays.asList("0", "100", "125", "150", "200"));
     private final ArrayList<String> noeEnsheabTitles = new ArrayList<>(Arrays.asList("مشخص نشده", "انشعاب خاص", "انشعاب عادی"));
@@ -86,10 +83,8 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
     }
 
     private void initialize() {
-        examinerDuty = formActivity.getExaminerDuty();
-        arzeshdaraei = formActivity.getArzeshdaraei();
-        block = examinerDuty.block != null ? examinerDuty.block : "-";
-        arz = examinerDuty.arz != null ? examinerDuty.arz : "-";
+        baseInfoVM.setBlock(formActivity.getExaminerDuty().block != null ? formActivity.getExaminerDuty().block : "-");
+        baseInfoVM.setArz(formActivity.getExaminerDuty().arz != null ? formActivity.getExaminerDuty().arz : "-");
         initializeArrays();
         setOnClickListener();
         setOnFocusChangeListener();
@@ -210,10 +205,11 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
             datePickerDialog.showDialog();
         }
         if (id == R.id.layout_arzesh_melk || id == R.id.edit_text_arzesh_melk) {
-            if (arzeshdaraei != null && !arzeshdaraei.blocks.isEmpty() && !arzeshdaraei.formulas.isEmpty() && !arzeshdaraei.zaribs.isEmpty()) {
+            if (formActivity.getArzeshdaraei() != null && !formActivity.getArzeshdaraei().blocks.isEmpty()
+                    && !formActivity.getArzeshdaraei().formulas.isEmpty() && !formActivity.getArzeshdaraei().zaribs.isEmpty()) {
                 ShowFragmentDialogOnce(requireContext(), "VALUE_FRAGMENT", ValueFragment.newInstance(this));
             } else {
-                new GetArzeshdaraei(requireContext(), examinerDuty.zoneId, this).execute(requireActivity());
+                new GetArzeshdaraei(requireContext(), getExaminerDuty().zoneId, this).execute(requireActivity());
             }
         } else if (id == R.id.button_pre) {
             formActivity.setOnPreClickListener(SERVICES_FRAGMENT);
@@ -302,13 +298,10 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
                 && checkEmpty(binding.editTextTedadSaier, requireContext())
                 && checkEmpty(binding.editTextZarfiat, requireContext())
                 && checkEmpty(binding.editTextArzeshMelk, requireContext())
-                && checkEmpty(binding.editTextTedadTaxfif,requireContext());
+                && checkEmpty(binding.editTextTedadTaxfif, requireContext());
     }
 
-    private ExaminerDuties prepareOutput() {
-        examinerDuty.block = block;
-        examinerDuty.arz = arz;
-
+    private BaseInfoViewModel prepareOutput() {
         Integer karbari = karbariMap.get(baseInfoVM.getKarbariS());
         if (karbari != null)
             baseInfoVM.setKarbariId(karbari);
@@ -321,11 +314,11 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
         if (qotrEnsheab != null)
             baseInfoVM.setQotrEnsheabId(qotrEnsheab);
 
+        Integer taxfif = taxfifMap.get(baseInfoVM.getTaxfifS());
+        if (taxfif != null)
+            baseInfoVM.setTaxfifId(taxfif);
 
-        CustomMapper.INSTANCE.updateExaminerDutyBaseInfoViewModel(baseInfoVM, examinerDuty);
-
-//        examinerDuty.tedadTaxfif = Integer.parseInt(binding.editTextTedadTakhfif.getText().toString());
-        return examinerDuty;
+        return baseInfoVM;
     }
 
     @Override
@@ -338,18 +331,18 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
 
     @Override
     public Arzeshdaraei getArzeshdaraei() {
-        return arzeshdaraei;
+        return formActivity.getArzeshdaraei();
     }
 
     public void setArzeshDaraei(Arzeshdaraei arzeshdaraei) {
-        this.arzeshdaraei = arzeshdaraei;
+        formActivity.setArzeshdaraei(arzeshdaraei);
     }
 
     @Override
     public void setValue(ArrayList<Integer> values, int value, String block, String arz) {
         baseInfoVM.setArzeshMelk(String.valueOf(value));
-        this.arz = arz;
-        this.block = block;
+        baseInfoVM.setArz(arz);
+        baseInfoVM.setBlock(block);
         formActivity.setValues(values);
     }
 
@@ -381,7 +374,7 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
 
     @Override
     public ExaminerDuties getExaminerDuty() {
-        return examinerDuty;
+        return formActivity.getExaminerDuty();
     }
 
     public interface Callback {
@@ -389,7 +382,7 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
 
         void setTitle(String title, boolean showMenu);
 
-        void setBaseInfo(ExaminerDuties examinerDuties);
+        void setBaseInfo(BaseInfoViewModel baseInfoViewModel);
 
         ExaminerDuties getExaminerDuty();
 
@@ -410,5 +403,6 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
         void setValues(ArrayList<Integer> values);
 
         Arzeshdaraei getArzeshdaraei();
+        void setArzeshdaraei(Arzeshdaraei arzeshdaraei);
     }
 }

@@ -12,12 +12,22 @@ public class Validator {
 
     public static boolean checkEmpty(TextInputEditText editText, Context context) {
         if (editText.getText() == null || editText.getText().toString().isEmpty()) {
-            setError(editText,context.getString(R.string.error_empty));
+            setError(editText, context.getString(R.string.error_empty));
             return false;
         }
         return true;
     }
 
+    public static boolean billIdValidation(TextInputEditText editText, Context context) {
+        if (editText.getText() == null || editText.getText().toString().isEmpty()) {
+            setError(editText, context.getString(R.string.error_empty));
+            return false;
+        } else if (editText.getText().toString().length() < 6) {
+            setError(editText, context.getString(R.string.error_format));
+            return false;
+        }
+        return true;
+    }
 
     public static boolean nationalIdValidation(TextInputEditText editText, Context context) {
         if (editText.getText() == null || editText.getText().toString().isEmpty()) {

@@ -19,7 +19,6 @@ import static com.leon.estimate_new.helpers.MyApplication.setActivityComponent;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.window.OnBackInvokedDispatcher;
@@ -39,12 +38,14 @@ import com.leon.estimate_new.fragments.BlankFragment;
 import com.leon.estimate_new.fragments.dialog.EnterBillFragment;
 import com.leon.estimate_new.fragments.dialog.ShowDocumentFragment;
 import com.leon.estimate_new.fragments.forms.BaseInfoFragment;
+import com.leon.estimate_new.fragments.forms.BaseInfoViewModel;
 import com.leon.estimate_new.fragments.forms.EditMapFragment;
 import com.leon.estimate_new.fragments.forms.MapDescriptionFragment;
 import com.leon.estimate_new.fragments.forms.PersonalFragment;
 import com.leon.estimate_new.fragments.forms.PersonalViewModel;
-import com.leon.estimate_new.fragments.forms.SecondFormFragment;
 import com.leon.estimate_new.fragments.forms.ServicesFragment;
+import com.leon.estimate_new.fragments.forms.TechnicalInfoFragment;
+import com.leon.estimate_new.fragments.forms.TechnicalInfoViewModel;
 import com.leon.estimate_new.tables.Arzeshdaraei;
 import com.leon.estimate_new.tables.CalculationUserInput;
 import com.leon.estimate_new.tables.ExaminerDuties;
@@ -65,8 +66,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 public class FormActivity extends AppCompatActivity implements PersonalFragment.Callback,
-        ServicesFragment.Callback, BaseInfoFragment.Callback, SecondFormFragment.Callback,
-        MapDescriptionFragment.Callback, EditMapFragment.Callback,BlankFragment.Callback {
+        ServicesFragment.Callback, BaseInfoFragment.Callback, TechnicalInfoFragment.Callback,
+        MapDescriptionFragment.Callback, EditMapFragment.Callback, BlankFragment.Callback {
+    private final HashMap<Integer, Fragment> fragmentCache = new HashMap<>();
     private final CalculationUserInput calculationUserInput = new CalculationUserInput();
     private final ArrayList<Integer> values = new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0, 0, 0, 0));
     private final ArrayList<RequestDictionary> requestDictionaries = new ArrayList<>();
@@ -110,7 +112,7 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
             examinerDuty = new Gson().fromJson(json, ExaminerDuties.class);
         }
         new GetDBData(this, examinerDuty.zoneId, examinerDuty.trackNumber, this).execute(this);
-//        displayView(PERSONAL_FRAGMENT/*TODO MAP_DESCRIPTION_FRAGMENT*/);
+//        displayView(PERSONAL_FRAGMENT);
     }
 
     public void setData(Arzeshdaraei arzeshdaraei,
@@ -128,7 +130,7 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
         this.taxfifDictionaries.addAll(taxfifDictionaries);
         this.tejarihas.addAll(tejariha);
         this.arzeshdaraei = arzeshdaraei;
-        displayView(PERSONAL_FRAGMENT/*TODO MAP_DESCRIPTION_FRAGMENT*/);
+        displayView(PERSONAL_FRAGMENT);
     }
 
     private void displayView(int position) {
@@ -149,7 +151,6 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
         //TODO    fragmentManager.executePendingTransactions();
 
     }
-    private final HashMap<Integer, Fragment> fragmentCache = new HashMap<>();
 
     private Fragment getFragment(int position) {
         Fragment cachedFragment = fragmentCache.get(position);
@@ -160,26 +161,16 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
         Fragment newFragment = switch (position) {
             case SERVICES_FRAGMENT -> ServicesFragment.newInstance();
             case BASE_FRAGMENT -> BaseInfoFragment.newInstance();
-            case SECOND_FRAGMENT -> SecondFormFragment.newInstance();
+            case SECOND_FRAGMENT -> TechnicalInfoFragment.newInstance();
             case MAP_DESCRIPTION_FRAGMENT -> MapDescriptionFragment.newInstance();
             case EDIT_MAP_FRAGMENT -> EditMapFragment.newInstance();
-            default -> BaseInfoFragment.newInstance();
+            default -> TechnicalInfoFragment.newInstance();
 //            default -> PersonalFragment.newInstance();
         };
 
         fragmentCache.put(position, newFragment);
         return newFragment;
     }
-//    private Fragment getFragment(int position) {
-//        return switch (position) {
-//            case SERVICES_FRAGMENT -> ServicesFragment.newInstance();
-//            case BASE_FRAGMENT -> BaseInfoFragment.newInstance();
-//            case SECOND_FRAGMENT -> SecondFormFragment.newInstance();
-//            case MAP_DESCRIPTION_FRAGMENT -> MapDescriptionFragment.newInstance();
-//            case EDIT_MAP_FRAGMENT -> EditMapFragment.newInstance();
-//            default -> PersonalFragment.newInstance();
-//        };
-//    }
 
     @Override
     public boolean onCreateOptionsMenu(@NonNull Menu menu) {
@@ -250,16 +241,17 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
 
 
     @Override
-    public void setBaseInfo(ExaminerDuties examinerDutyTemp) {
-        examinerDuty = examinerDutyTemp;
-        calculationUserInput.updateBaseInfo(examinerDuty);
+    public void setBaseInfo(BaseInfoViewModel baseInfoViewModel) {
+        CustomMapper.INSTANCE.updateExaminerDutyBaseInfoViewModel(baseInfoViewModel, examinerDuty);
+        CustomMapper.INSTANCE.updateCalculationUserInputBaseInfoViewModel(baseInfoViewModel, calculationUserInput);
         prepareToSend();
         displayView(SECOND_FRAGMENT);
     }
 
     @Override
-    public void setSecondForm(ExaminerDuties examinerDutyTemp) {
-        examinerDuty = examinerDutyTemp;
+    public void setTechnicalForm(TechnicalInfoViewModel technicalInfoViewModel) {
+        //TODO
+        CustomMapper.INSTANCE.updateExaminerDutyTechnicalInfoViewModel(technicalInfoViewModel, examinerDuty);
         prepareToSend();
         displayView(MAP_DESCRIPTION_FRAGMENT);
     }
@@ -337,6 +329,11 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
     @Override
     public Arzeshdaraei getArzeshdaraei() {
         return arzeshdaraei;
+    }
+
+    @Override
+    public void setArzeshdaraei(Arzeshdaraei arzeshdaraei) {
+        this.arzeshdaraei = arzeshdaraei;
     }
 
     @Override

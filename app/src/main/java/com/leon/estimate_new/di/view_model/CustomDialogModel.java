@@ -27,9 +27,7 @@ public class CustomDialogModel {
                              String top, String buttonText, Inline... inline) {
         this.context = context;
         lovelyStandardDialog = getActivityComponent().LovelyStandardDialog();
-        lovelyStandardDialog.setTitle(title)
-                .setMessage(message)
-                .setTopTitle(top);
+        lovelyStandardDialog.setTitle(title).setMessage(message).setTopTitle(top);
         if (choose == DialogType.Green)
             CustomGreenDialog(buttonText);
         else if (choose == DialogType.Yellow)

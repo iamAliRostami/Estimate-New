@@ -83,7 +83,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edit_text_sifoon100"
                             style="@style/TextInput"
-                            android:inputType="number"
+                            android:inputType="numberSigned"
                             android:maxLength="4"
                             android:nextFocusDown="@id/edit_text_sifoon125"
                             android:text="@={baseInfoVM.sifoon100}" />
@@ -100,7 +100,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edit_text_sifoon125"
                             style="@style/TextInput"
-                            android:inputType="number"
+                            android:inputType="numberSigned"
                             android:maxLength="4"
                             android:nextFocusDown="@id/edit_text_sifoon150"
                             android:text="@={baseInfoVM.sifoon125}" />
@@ -118,7 +118,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edit_text_sifoon150"
                             style="@style/TextInput"
-                            android:inputType="number"
+                            android:inputType="numberSigned"
                             android:maxLength="4"
                             android:nextFocusDown="@id/edit_text_sifoon200"
                             android:text="@={baseInfoVM.sifoon150}" />
@@ -135,7 +135,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edit_text_sifoon200"
                             style="@style/TextInput"
-                            android:inputType="number"
+                            android:inputType="numberSigned"
                             android:maxLength="4"
                             android:nextFocusDown="@id/edit_text_zarfiat"
                             android:text="@={baseInfoVM.sifoon200}" />
@@ -181,7 +181,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edit_text_zarfiat"
                             style="@style/TextInput"
-                            android:inputType="number"
+                            android:inputType="numberSigned"
                             android:maxLength="8"
                             android:nextFocusDown="@id/edit_text_licence_number"
                             android:text="@={baseInfoVM.zarfiatQarardadiNew}" />
@@ -203,7 +203,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:id="@id/relative_layout_2"
+                    android:id="@+id/relative_layout_2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/relative_layout_1"
@@ -244,7 +244,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edit_text_licence_number"
                             style="@style/TextInput"
-                            android:inputType="number"
+                            android:inputType="numberSigned"
                             android:maxLength="8"
                             android:nextFocusDown="@id/edit_text_pelak"
                             android:text="@={baseInfoVM.licenceNumber}" />
@@ -272,10 +272,10 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edit_text_pelak"
                             style="@style/TextInput"
-                            android:inputType="number"
+                            android:inputType="numberSigned"
                             android:maxLength="8"
                             android:nextFocusDown="@id/edit_text_sanad_number"
-                            android:text="@={baseInfoVM.licenceNumber}" />
+                            android:text="@={baseInfoVM.pelak}" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.checkbox.MaterialCheckBox
@@ -299,7 +299,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edit_text_sanad_number"
                             style="@style/TextInput"
-                            android:inputType="number"
+                            android:inputType="numberSigned"
                             android:maxLength="8"
                             android:nextFocusDown="@id/edit_text_qarardad"
                             android:text="@={baseInfoVM.sanadNumber}" />
@@ -327,7 +327,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edit_text_qarardad"
                             style="@style/TextInput"
-                            android:inputType="number"
+                            android:inputType="numberSigned"
                             android:maxLength="8"
                             android:nextFocusDown="@id/edit_text_arse_kol"
                             android:text="@={baseInfoVM.qaradadNumber}" />
@@ -359,7 +359,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edit_text_arse_kol"
                             style="@style/TextInput"
-                            android:inputType="number"
+                            android:inputType="numberSigned"
                             android:maxLength="8"
                             android:nextFocusDown="@id/edit_text_tedad_maskooni"
                             android:text="@={baseInfoVM.arseNew}" />
@@ -375,7 +375,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edit_text_tedad_maskooni"
                             style="@style/TextInput"
-                            android:inputType="number"
+                            android:inputType="numberSigned"
                             android:maxLength="4"
                             android:nextFocusDown="@id/edit_text_tedad_saier"
                             android:text="@={baseInfoVM.tedadMaskooniNew}" />
@@ -393,7 +393,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edit_text_tedad_saier"
                             style="@style/TextInput"
-                            android:inputType="number"
+                            android:inputType="numberSigned"
                             android:maxLength="4"
                             android:nextFocusDown="@id/edit_text_tedad_tejari"
                             android:text="@={baseInfoVM.tedadSaierNew}" />
@@ -410,7 +410,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edit_text_tedad_tejari"
                             style="@style/TextInput"
-                            android:inputType="number"
+                            android:inputType="numberSigned"
                             android:maxLength="4"
                             android:nextFocusDown="@id/edit_text_aian_kol"
                             android:text="@={baseInfoVM.tedadTejariNew}" />
@@ -442,7 +442,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edit_text_aian_kol"
                             style="@style/TextInput"
-                            android:inputType="number"
+                            android:inputType="numberSigned"
                             android:maxLength="8"
                             android:nextFocusDown="@id/edit_text_aian_maskooni"
                             android:text="@={baseInfoVM.aianKolNew}" />
@@ -458,7 +458,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edit_text_aian_maskooni"
                             style="@style/TextInput"
-                            android:inputType="number"
+                            android:inputType="numberSigned"
                             android:maxLength="4"
                             android:nextFocusDown="@id/edit_text_aian_non_maskooni"
                             android:text="@={baseInfoVM.aianMaskooniNew}" />
@@ -476,9 +476,9 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edit_text_aian_non_maskooni"
                             style="@style/TextInput"
-                            android:inputType="number"
+                            android:inputType="numberSigned"
                             android:maxLength="8"
-                            android:nextFocusDown="@id/edit_text_aian_maskooni"
+                            android:nextFocusDown="@id/edit_text_tedad_taxfif"
                             android:text="@={baseInfoVM.aianNonMaskooniNew}" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -527,7 +527,7 @@
                             android:id="@+id/edit_text_tedad_taxfif"
                             style="@style/TextInput"
                             android:imeOptions="actionDone"
-                            android:inputType="number"
+                            android:inputType="numberSigned"
                             android:maxLength="4"
                             android:text="@={baseInfoVM.tedadTaxfif}" />
                     </com.google.android.material.textfield.TextInputLayout>

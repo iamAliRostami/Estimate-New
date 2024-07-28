@@ -22,20 +22,17 @@
         android:numColumns="2"
         tools:listitem="@layout/item_check_box" />
 
-    <Button
+
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_pre"
         style="@style/Button.Negative"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="@dimen/medium_dp"
-        android:layout_marginBottom="@dimen/medium_dp"
         android:text="@string/previous" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_submit"
         style="@style/Button.Positive"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="@dimen/medium_dp"
-        android:layout_marginBottom="@dimen/medium_dp"
         android:text="@string/moshakhasat_melk" />
 </RelativeLayout>

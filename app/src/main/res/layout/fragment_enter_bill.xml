@@ -1,35 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/border_white_1"
     tools:context=".fragments.dialog.EnterBillFragment">
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_tedad_taxfif"
+        style="@style/TextInputLayout"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@id/button_search"
+        android:hint="@string/bill_id">
 
-    <TextView
-        style="@style/SearchTextView"
-        android:layout_weight="0.5"
-        android:text="@string/bill_id" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_text_search"
+            style="@style/TextInput"
+            android:inputType="number"
+            android:maxLength="13" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <EditText
-        android:id="@+id/edit_text_search"
-        style="@style/SearchEditText"
-        android:inputType="number"
-        android:lines="1"
-        android:maxLength="13"
-        android:maxLines="1"
-        android:padding="@dimen/medium_dp"
-        android:singleLine="true"
-        tools:ignore="Autofill,LabelFor" />
-
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/low_dp"
-        android:background="@drawable/border_green_2"
-        android:text="@string/search"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_size_medium" />
-</LinearLayout>
+        style="@style/Button.Positive"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="@dimen/large_dp"
+        android:background="@drawable/border_blue_3"
+        android:text="@string/search" />
+</RelativeLayout>

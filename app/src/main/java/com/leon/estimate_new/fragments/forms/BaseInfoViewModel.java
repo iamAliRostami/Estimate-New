@@ -35,6 +35,8 @@ public class BaseInfoViewModel extends BaseObservable {
     @Bindable
     private String sodurDate;
     @Bindable
+    private String pelak;
+    @Bindable
     private boolean qaradad;
     @Bindable
     private boolean ensheabQeirDaem;
@@ -448,5 +450,14 @@ public class BaseInfoViewModel extends BaseObservable {
     public void setArzeshMelk(String arzeshMelk) {
         this.arzeshMelk = arzeshMelk;
         notifyPropertyChanged(BR.arzeshMelk);
+    }
+
+    public String getPelak() {
+        return pelak;
+    }
+
+    public void setPelak(String pelak) {
+        this.pelak = pelak;
+        notifyPropertyChanged(BR.pelak);
     }
 }

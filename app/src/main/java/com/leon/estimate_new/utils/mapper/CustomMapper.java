@@ -2,6 +2,7 @@ package com.leon.estimate_new.utils.mapper;
 
 import com.leon.estimate_new.fragments.forms.BaseInfoViewModel;
 import com.leon.estimate_new.fragments.forms.PersonalViewModel;
+import com.leon.estimate_new.fragments.forms.TechnicalInfoViewModel;
 import com.leon.estimate_new.tables.CalculationUserInput;
 import com.leon.estimate_new.tables.ExaminerDuties;
 
@@ -31,5 +32,11 @@ public interface CustomMapper {
                                              @MappingTarget ExaminerDuties examinerDuty);
     void updateCalculationUserInputBaseInfoViewModel(BaseInfoViewModel baseInfoViewModel,
                                                      @MappingTarget CalculationUserInput calculationUserInput);
+
+    void updateExaminerDutyTechnicalInfoViewModel(TechnicalInfoViewModel technicalInfoViewModel,
+                                                     @MappingTarget ExaminerDuties examinerDuties);
+
+    @Mapping(source = "isNewEnsheab", target = "newEnsheab")
+    TechnicalInfoViewModel examinerDutyToTechnicalInfoViewModel(ExaminerDuties examinerDuty);
 
 }
