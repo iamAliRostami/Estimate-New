@@ -19,7 +19,7 @@ public class Constants {
     public static final int TOAST_TEXT_SIZE = 20;
 
     public static final String FONT_NAME = "fonts/font_1.ttf";
-    public static final String DATABASE_NAME = "MyDatabase_12";
+    public static final String DATABASE_NAME = "MyDatabase_13";
     public static final String PDF_FONT_NAME = "assets/fonts/pdf_font.ttf";
     public static final String PDF_FONT_NAME_FA = "assets/fonts/pdf_font_fa.ttf";
 

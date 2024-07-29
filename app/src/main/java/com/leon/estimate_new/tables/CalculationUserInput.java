@@ -26,7 +26,7 @@ public class CalculationUserInput {
     public String notificationMobile;
     public String selectedServicesString;
     public int qotrEnsheabId;
-    public int qotrEnsheabS;
+    public String qotrEnsheabS;
     public int noeVagozariId;
     public int taxfifId;
     public String phoneNumber;

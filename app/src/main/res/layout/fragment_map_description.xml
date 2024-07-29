@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".fragments.forms.MapDescriptionFragment">
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@id/text_view_title"
         style="@style/Title"
         android:layout_centerHorizontal="true"
@@ -20,7 +20,7 @@
         android:background="@drawable/border_gray_2"
         android:padding="@dimen/medium_dp">
 
-        <LinearLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/linear_layout_map"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -35,9 +35,9 @@
                 android:id="@+id/map_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
-        </LinearLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/image_view_show_layer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
             android:src="@drawable/img_user_location"
             tools:ignore="ContentDescription" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/image_view_my_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
             android:src="@drawable/img_my_location"
             tools:ignore="ContentDescription" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/image_view_refresh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -75,7 +75,7 @@
             android:layout_margin="@dimen/low_dp" />
     </RelativeLayout>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_pre"
         style="@style/Button.Negative"
         android:layout_alignParentBottom="true"
@@ -83,7 +83,7 @@
         android:layout_marginBottom="@dimen/medium_dp"
         android:text="@string/previous" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_edit_crooki"
         style="@style/Button.Positive"
         android:layout_alignParentEnd="true"

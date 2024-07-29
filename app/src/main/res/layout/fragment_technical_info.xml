@@ -343,8 +343,8 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edit_text_omq_zirzamin"
                             style="@style/TextInput"
+                            android:imeOptions="actionDone"
                             android:inputType="numberSigned"
-                            android:nextFocusDown="@id/edit_text_asphalt_fazelab"
                             android:text="@={technicalInfoVM.omqeZirzamin}" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -352,8 +352,8 @@
                     <com.google.android.material.checkbox.MaterialCheckBox
                         android:id="@+id/checkbox_chah_ab_baran"
                         style="@style/CheckBox"
-                        android:layout_marginTop="@dimen/large_dp"
                         android:layout_alignParentEnd="true"
+                        android:layout_marginTop="@dimen/large_dp"
                         android:layout_toEndOf="@id/view_center_4"
                         android:checked="@={technicalInfoVM.chahAbBaran}"
                         android:text="@string/chah_ab_baran" />
