@@ -20,6 +20,7 @@ import androidx.annotation.Nullable;
 import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Lifecycle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -59,7 +60,6 @@ public class DutiesListFragment extends Fragment implements SearchFragment.Callb
                              Bundle savedInstanceState) {
         binding = FragmentDutiesListBinding.inflate(inflater, container, false);
         initialize();
-//        setHasOptionsMenu(false);
         return binding.getRoot();
     }
 
@@ -127,7 +127,7 @@ public class DutiesListFragment extends Fragment implements SearchFragment.Callb
                 }
                 return false;
             }
-        });
+        }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
     }
 
     @SuppressLint("NotifyDataSetChanged")

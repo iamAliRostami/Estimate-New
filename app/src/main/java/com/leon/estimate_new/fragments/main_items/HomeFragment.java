@@ -1,7 +1,10 @@
 package com.leon.estimate_new.fragments.main_items;
 
+import static com.leon.estimate_new.enums.SharedReferenceKeys.TRACK_NUMBER;
 import static com.leon.estimate_new.fragments.dialog.ShowFragmentDialog.ShowFragmentDialogOnce;
+import static com.leon.estimate_new.helpers.Constants.DUTIES_FRAGMENT;
 import static com.leon.estimate_new.helpers.MyApplication.getLocationTracker;
+import static com.leon.estimate_new.helpers.MyApplication.getPreferenceManager;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,10 +18,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Lifecycle;
 
 import com.leon.estimate_new.BuildConfig;
+import com.leon.estimate_new.R;
 import com.leon.estimate_new.databinding.FragmentHomeBinding;
+import com.leon.estimate_new.fragments.dialog.SearchFragment;
 import com.leon.estimate_new.utils.CustomOnlineTileSource;
 
 import org.jetbrains.annotations.NotNull;
@@ -95,23 +104,40 @@ public class HomeFragment extends Fragment {
 
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        requireActivity().addMenuProvider(new MenuProvider() {
+            @Override
+            public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
+                menu.add(0, MENU_OFFLINE_MAP, Menu.NONE, "نقشه آفلاین");
+            }
+
+            @Override
+            public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
+                if (menuItem.getItemId() == MENU_OFFLINE_MAP) {
+                    ShowFragmentDialogOnce(requireContext(), "OFFLINE_MAP",OfflineMapFragment.newInstance());
+                }
+
+                return false;
+            }
+        }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
+    }
     private final int MENU_OFFLINE_MAP = 0;
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, @NonNull MenuInflater inflater) {
-        menu.add(0, MENU_OFFLINE_MAP, Menu.NONE, "نقشه آفلاین");
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == MENU_OFFLINE_MAP) {
-//            callback.displayView(OFFLINE_MAP_FRAGMENT);
-            ShowFragmentDialogOnce(requireContext(), "OFFLINE_MAP",
-                    OfflineMapFragment.newInstance());
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public void onCreateOptionsMenu(Menu menu, @NonNull MenuInflater inflater) {
+//        menu.add(0, MENU_OFFLINE_MAP, Menu.NONE, "نقشه آفلاین");
+//        super.onCreateOptionsMenu(menu, inflater);
+//    }
+//    @Override
+//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+//        if (item.getItemId() == MENU_OFFLINE_MAP) {
+////            callback.displayView(OFFLINE_MAP_FRAGMENT);
+//            ShowFragmentDialogOnce(requireContext(), "OFFLINE_MAP",OfflineMapFragment.newInstance());
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 
     @Override
     public void onResume() {
