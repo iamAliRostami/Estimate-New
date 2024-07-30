@@ -32,6 +32,7 @@
                 android:id="@id/edit_text_bill_id"
                 style="@style/TextInput"
                 android:inputType="numberSigned"
+                android:maxLength="13"
                 android:nextFocusDown="@id/edit_text_track_number"
                 android:text="@={searchVM.billId}" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -62,7 +63,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@id/edit_text_name"
                 style="@style/TextInput"
-                android:inputType="numberSigned"
+                android:inputType="text"
                 android:nextFocusDown="@id/edit_text_family"
                 android:text="@={searchVM.name}" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -78,7 +79,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@id/edit_text_family"
                 style="@style/TextInput"
-                android:inputType="numberSigned"
+                android:inputType="text"
                 android:nextFocusDown="@id/edit_text_national_id"
                 android:text="@={searchVM.family}" />
         </com.google.android.material.textfield.TextInputLayout>
