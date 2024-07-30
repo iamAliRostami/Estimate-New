@@ -3,11 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/border_white_1"
     android:padding="@dimen/medium_dp"
     tools:context=".fragments.dialog.ValueFragment">
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@id/text_view_title"
         style="@style/Title"
         android:layout_centerHorizontal="true"
@@ -21,171 +22,147 @@
         android:layout_marginBottom="@dimen/medium_dp"
         android:background="@drawable/border_gray_1">
 
-        <LinearLayout
-            android:id="@+id/linear_layout_1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <View
+            android:id="@+id/view_center_1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_centerHorizontal="true" />
 
-            <TextView
-                style="@style/TitleSmall"
-                android:layout_width="0dp"
-                android:layout_weight="0.5"
-                android:text="@string/block" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_block"
+            style="@style/MenuLayout"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@id/view_center_1"
+            android:hint="@string/block">
 
-            <Spinner
-                android:id="@+id/spinner_1"
-                style="@style/Spinner"
-                android:layout_width="0dp"
-                android:layout_weight="1" />
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:id="@+id/text_view_block"
+                style="@style/TextInput.DropDownInput" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                style="@style/TitleSmall"
-                android:layout_width="0dp"
-                android:layout_weight="0.5"
-                android:text="@string/gozar" />
 
-            <Spinner
-                android:id="@+id/spinner_2"
-                style="@style/Spinner"
-                android:layout_width="0dp"
-                android:layout_weight="1" />
-        </LinearLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_gozar"
+            style="@style/MenuLayout"
+            android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@id/view_center_1"
+            android:hint="@string/gozar">
 
-        <LinearLayout
-            android:id="@+id/linear_layout_2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/linear_layout_1">
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:id="@+id/text_view_gozar"
+                style="@style/TextInput.DropDownInput" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                style="@style/TitleSmall"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:text="@string/maskooni" />
-
-            <TextView
-                style="@style/TitleSmall"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:text="@string/tejari" />
-
-            <TextView
-                style="@style/TitleSmall"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:text="@string/edari_dolati" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linear_layout_3"
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@id/linear_layout_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/linear_layout_2">
+            android:layout_below="@id/layout_block"
+            android:baselineAligned="false">
 
-            <EditText
-                android:id="@+id/edit_text_maskooni"
-                style="@style/EditTextForm"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_maskooni"
+                style="@style/TextInputLayout"
                 android:layout_width="0dp"
-                android:layout_margin="@dimen/small_dp"
                 android:layout_weight="1"
-                android:hint="@string/zero"
-                android:inputType="numberSigned"
-                tools:ignore="Autofill,LabelFor" />
+                android:hint="@string/maskooni">
 
-            <EditText
-                android:id="@+id/edit_text_tejari"
-                style="@style/EditTextForm"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_text_maskooni"
+                    style="@style/TextInput"
+                    android:inputType="numberSigned"
+                    android:nextFocusDown="@id/edit_text_tejari" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_tejari"
+                style="@style/TextInputLayout"
                 android:layout_width="0dp"
-                android:layout_margin="@dimen/small_dp"
                 android:layout_weight="1"
-                android:hint="@string/zero"
-                android:inputType="numberSigned"
-                tools:ignore="Autofill,LabelFor" />
+                android:hint="@string/maskooni">
 
-            <EditText
-                android:id="@+id/edit_text_edari"
-                style="@style/EditTextForm"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_text_tejari"
+                    style="@style/TextInput"
+                    android:inputType="numberSigned"
+                    android:nextFocusDown="@id/edit_text_edari" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_edari"
+                style="@style/TextInputLayout"
                 android:layout_width="0dp"
-                android:layout_margin="@dimen/small_dp"
                 android:layout_weight="1"
-                android:hint="@string/zero"
-                android:inputType="numberSigned"
-                tools:ignore="Autofill,LabelFor" />
+                android:hint="@string/edari_dolati">
 
-        </LinearLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_text_edari"
+                    style="@style/TextInput"
+                    android:inputType="numberSigned"
+                    android:nextFocusDown="@id/edit_text_omumi" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <LinearLayout
-            android:id="@+id/linear_layout_4"
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/linear_layout_3">
+            android:layout_below="@id/linear_layout_1"
+            android:baselineAligned="false">
 
-            <TextView
-                style="@style/TitleSmall"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_omumi"
+                style="@style/TextInputLayout"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:text="@string/omoumi" />
+                android:hint="@string/omoumi">
 
-            <TextView
-                style="@style/TitleSmall"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_text_omumi"
+                    style="@style/TextInput"
+                    android:inputType="numberSigned"
+                    android:nextFocusDown="@id/edit_text_sanati" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_sanati"
+                style="@style/TextInputLayout"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:text="@string/sanati" />
+                android:hint="@string/sanati">
 
-            <TextView
-                style="@style/TitleSmall"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_text_sanati"
+                    style="@style/TextInput"
+                    android:inputType="numberSigned"
+                    android:nextFocusDown="@id/edit_text_hotel" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_hotel"
+                style="@style/TextInputLayout"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:text="@string/hotel" />
-        </LinearLayout>
+                android:hint="@string/hotel">
 
-        <LinearLayout
-            android:id="@+id/linear_layout_5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/linear_layout_4">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_text_hotel"
+                    style="@style/TextInput"
+                    android:imeOptions="actionDone"
+                    android:inputType="numberSigned" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <EditText
-                android:id="@+id/edit_text_omumi"
-                style="@style/EditTextForm"
-                android:layout_width="0dp"
-                android:layout_margin="@dimen/small_dp"
-                android:layout_weight="1"
-                android:hint="@string/zero"
-                android:inputType="numberSigned"
-                tools:ignore="Autofill,LabelFor" />
-
-            <EditText
-                android:id="@+id/edit_text_sanati"
-                style="@style/EditTextForm"
-                android:layout_width="0dp"
-                android:layout_margin="@dimen/small_dp"
-                android:layout_weight="1"
-                android:hint="@string/zero"
-                android:inputType="numberSigned"
-                tools:ignore="Autofill,LabelFor" />
-
-            <EditText
-                android:id="@+id/edit_text_hotel"
-                style="@style/EditTextForm"
-                android:layout_width="0dp"
-                android:layout_margin="@dimen/small_dp"
-                android:layout_weight="1"
-                android:hint="@string/zero"
-                android:inputType="numberSigned"
-                tools:ignore="Autofill,LabelFor" />
-        </LinearLayout>
     </RelativeLayout>
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/text_view_count"
         style="@style/TitleSmall"
         android:layout_below="@id/relative_layout"
         android:layout_marginEnd="@dimen/medium_dp"
-        android:layout_toStartOf="@id/button_counting" />
+        android:layout_toStartOf="@id/button_count" />
 
-    <Button
-        android:id="@+id/button_counting"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_count"
         style="@style/Button.Positive"
         android:layout_below="@id/relative_layout"
         android:layout_alignParentEnd="true"

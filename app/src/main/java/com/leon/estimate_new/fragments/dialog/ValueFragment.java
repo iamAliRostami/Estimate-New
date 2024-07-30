@@ -1,20 +1,26 @@
 package com.leon.estimate_new.fragments.dialog;
 
+import static com.leon.estimate_new.utils.Validator.checkEmpty;
+
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.InsetDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.DialogFragment;
 
+import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.leon.estimate_new.R;
-import com.leon.estimate_new.adapters.SpinnerCustomAdapter;
 import com.leon.estimate_new.databinding.FragmentValueBinding;
 import com.leon.estimate_new.fragments.forms.BaseInfoFragment;
 import com.leon.estimate_new.tables.Arzeshdaraei;
@@ -24,37 +30,17 @@ import com.leon.estimate_new.utils.CustomToast;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class ValueFragment extends DialogFragment {
-    final ArrayList<String> blockTitles = new ArrayList<>(), gozarTitles = new ArrayList<>();
+public class ValueFragment extends DialogFragment implements TextWatcher, View.OnClickListener {
     private final Arzeshdaraei arzeshdaraei;
     private final Callback baseInfoFragment;
     private final ArrayList<Integer> values = new ArrayList<>();
+    private final ArrayList<String> blockTitles = new ArrayList<>();
+    private final ArrayList<String> gozarTitles = new ArrayList<>();
+    private final HashMap<String, Integer> gozarMap = new HashMap<>();
+    private final HashMap<String, Integer> blockMap = new HashMap<>();
     private FragmentValueBinding binding;
-    private final TextWatcher textWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            counting(false);
-        }
-    };
-    private final AdapterView.OnItemSelectedListener onItemSelectedListener = new AdapterView.OnItemSelectedListener() {
-        @Override
-        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            counting(false);
-        }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> parent) {
-        }
-    };
 
     public ValueFragment(final BaseInfoFragment baseInfoFragment) {
         this.baseInfoFragment = baseInfoFragment;
@@ -79,40 +65,26 @@ public class ValueFragment extends DialogFragment {
     }
 
     private void initialize() {
-        initializeSpinners();
+        initializeArrays();
         initializeEditText();
         editTextsChangedListener();
-        onButtonCountingClickListener();
+        setOnClickListener();
     }
 
-    private void onButtonCountingClickListener() {
-        binding.buttonCounting.setOnClickListener(v -> {
-            if (checkIsNoEmpty(binding.editTextMaskooni) || checkIsNoEmpty(binding.editTextEdari)
-                    || checkIsNoEmpty(binding.editTextHotel) || checkIsNoEmpty(binding.editTextOmumi)
-                    || checkIsNoEmpty(binding.editTextSanati) || checkIsNoEmpty(binding.editTextTejari)) {
-                counting(true);
-            } else
-                new CustomToast().warning(getString(R.string.at_least_enter_one));
-        });
+    private void setOnClickListener() {
+        binding.buttonCount.setOnClickListener(this);
+        binding.textViewBlock.setOnClickListener(this);
+        binding.textViewGozar.setOnClickListener(this);
 
-    }
-
-    private boolean checkIsNoEmpty(EditText editText) {
-        if (editText.getText().toString().isEmpty()) {
-            editText.setError(getString(R.string.error_empty));
-            editText.requestFocus();
-            return false;
-        }
-        return true;
     }
 
     private void editTextsChangedListener() {
-        binding.editTextMaskooni.addTextChangedListener(textWatcher);
-        binding.editTextTejari.addTextChangedListener(textWatcher);
-        binding.editTextEdari.addTextChangedListener(textWatcher);
-        binding.editTextOmumi.addTextChangedListener(textWatcher);
-        binding.editTextSanati.addTextChangedListener(textWatcher);
-        binding.editTextHotel.addTextChangedListener(textWatcher);
+        binding.editTextMaskooni.addTextChangedListener(this);
+        binding.editTextTejari.addTextChangedListener(this);
+        binding.editTextEdari.addTextChangedListener(this);
+        binding.editTextOmumi.addTextChangedListener(this);
+        binding.editTextSanati.addTextChangedListener(this);
+        binding.editTextHotel.addTextChangedListener(this);
     }
 
     private void counting(boolean dis) {
@@ -130,10 +102,12 @@ public class ValueFragment extends DialogFragment {
             values.set(5, Integer.parseInt(binding.editTextHotel.getText().toString()));
         if (values.get(0) > 0 || values.get(1) > 0 || values.get(2) > 0 || values.get(3) > 0 ||
                 values.get(4) > 0 || values.get(5) > 0) {
+            Integer gozarPosition = gozarMap.get(binding.textViewGozar.getText().toString());
+            Integer blockPosition = blockMap.get(binding.textViewBlock.getText().toString());
             double countMaskooni = 20000, countEdariDolati = 20000, countTejari = 20000,
                     countSanati = 20000, countKhadamati = 20000, countSayer = 20000;
-            values.set(6, binding.spinner1.getSelectedItemPosition());
-            values.set(7, binding.spinner2.getSelectedItemPosition());
+            values.set(6, blockPosition);
+            values.set(7, gozarPosition);
             final Block block = arzeshdaraei.blocks.get(values.get(6));
             final Formula formula = arzeshdaraei.formulas.get(values.get(7));
 
@@ -168,11 +142,13 @@ public class ValueFragment extends DialogFragment {
             count = count * 1000;
             binding.textViewCount.setText(String.valueOf(count));
             if (dis) {
-                baseInfoFragment.setValue(values, count,
-                        blockTitles.get(binding.spinner1.getSelectedItemPosition()),
-                        MessageFormat.format("{0} - {1}", (int) arzeshdaraei.formulas.get(binding.spinner2.getSelectedItemPosition()).gozarTo,
-                                (int) arzeshdaraei.formulas.get(binding.spinner2.getSelectedItemPosition()).gozarFrom));
-                dismiss();
+                if (gozarPosition != null) {
+                    baseInfoFragment.setValue(values, count, binding.textViewBlock.getText().toString(),
+                            MessageFormat.format("{0} - {1}",
+                                    (int) arzeshdaraei.formulas.get(gozarPosition).gozarTo,
+                                    (int) arzeshdaraei.formulas.get(gozarPosition).gozarFrom));
+                    dismiss();
+                }
             }
         } else {
             binding.textViewCount.setText(getString(R.string.zero));
@@ -191,35 +167,90 @@ public class ValueFragment extends DialogFragment {
         binding.editTextHotel.setText(String.valueOf(values.get(5)));
     }
 
-    private void initializeSpinners() {
-        initializeSpinnerBlock();
-        initializeSpinnerGozar();
-        binding.spinner1.setOnItemSelectedListener(onItemSelectedListener);
-        binding.spinner2.setOnItemSelectedListener(onItemSelectedListener);
+    private void initializeArrays() {
+        initializeBlock();
+        initializeGozar();
     }
 
 
-    private void initializeSpinnerGozar() {
+    private void initializeGozar() {
         gozarTitles.clear();
-        for (Formula formula : arzeshdaraei.formulas) {
+        ArrayList<Formula> formulas = arzeshdaraei.formulas;
+        for (int i = 0; i < formulas.size(); i++) {
+            Formula formula = formulas.get(i);
             gozarTitles.add(formula.gozarTitle);
+            gozarMap.put(formula.gozarTitle, i);
         }
-        binding.spinner2.setAdapter(new SpinnerCustomAdapter(requireContext(), gozarTitles));
-        binding.spinner2.setSelection(values.get(7));
     }
 
-    private void initializeSpinnerBlock() {
+    private void initializeBlock() {
         blockTitles.clear();
-        for (Block block : arzeshdaraei.blocks) {
+        ArrayList<Block> blocks = arzeshdaraei.blocks;
+        for (int i = 0; i < blocks.size(); i++) {
+            Block block = blocks.get(i);
             blockTitles.add(block.blockId);
+            blockMap.put(block.blockId, i);
         }
-        binding.spinner1.setAdapter(new SpinnerCustomAdapter(requireContext(), blockTitles));
-        binding.spinner1.setSelection(values.get(6));
+    }
+
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        if (id == R.id.button_count) {
+            if (checkEmpty(binding.editTextMaskooni, requireContext()) ||
+                    checkEmpty(binding.editTextEdari, requireContext()) ||
+                    checkEmpty(binding.editTextHotel, requireContext()) ||
+                    checkEmpty(binding.editTextOmumi, requireContext()) ||
+                    checkEmpty(binding.editTextSanati, requireContext()) ||
+                    checkEmpty(binding.editTextTejari, requireContext())) {
+                counting(true);
+            } else
+                new CustomToast().warning(getString(R.string.at_least_enter_one));
+        } else if (id == R.id.text_view_block) {
+            showMenu(binding.textViewBlock, blockTitles);
+        } else if (id == R.id.text_view_gozar) {
+            showMenu(binding.textViewGozar, gozarTitles);
+        }
+    }
+
+    private void showMenu(MaterialAutoCompleteTextView editText, ArrayList<String> titles) {
+        final PopupMenu popup = new PopupMenu(requireActivity(), editText, Gravity.TOP);
+        for (int i = 0; i < titles.size(); i++) {
+            MenuItem item = popup.getMenu().add(titles.get(i));
+            if (item.getIcon() != null) {
+                Drawable icon = item.getIcon();
+                int iconMarginPx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                        R.dimen.small_dp, getResources().getDisplayMetrics());
+                InsetDrawable insetDrawable = new InsetDrawable(icon, iconMarginPx, 0, iconMarginPx, 0);
+                item.setIcon(insetDrawable);
+            }
+        }
+        popup.setOnMenuItemClickListener(menuItem -> {
+            editText.setText(menuItem.getTitle());
+            counting(false);
+            return true;
+        });
+        popup.show();
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable editable) {
+        counting(false);
     }
 
     @Override
     public void onResume() {
-        if (getDialog() != null) {
+        if (getDialog() != null && getDialog().getWindow() != null) {
             WindowManager.LayoutParams params = getDialog().getWindow().getAttributes();
             params.width = ViewGroup.LayoutParams.WRAP_CONTENT;
             params.height = ViewGroup.LayoutParams.WRAP_CONTENT;

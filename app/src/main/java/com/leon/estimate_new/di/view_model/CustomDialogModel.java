@@ -50,7 +50,7 @@ public class CustomDialogModel {
         lovelyStandardDialog
                 .setTopColorRes(R.color.green)
                 .setTopTitleColor(ContextCompat.getColor(context, R.color.text_color_light))
-                .setButtonsBackground(R.drawable.border_green_1)
+                .setButtonsBackground(R.drawable.background_submit_button)
                 .setPositiveButton(ButtonText, v -> {
                     Intent intent = new Intent(context, MainActivity.class);
                     context.startActivity(intent);
@@ -80,7 +80,7 @@ public class CustomDialogModel {
         lovelyStandardDialog
                 .setTopColorRes(R.color.green)
                 .setTopTitleColor(ContextCompat.getColor(context, R.color.text_color_light))
-                .setButtonsBackground(R.drawable.border_green_1)
+                .setButtonsBackground(R.drawable.background_submit_button)
                 .setPositiveButton(ButtonText, v -> lovelyStandardDialog.dismiss())
                 .show();
     }

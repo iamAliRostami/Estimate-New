@@ -141,7 +141,7 @@
             android:layout_gravity="center"
             android:layout_margin="@dimen/low_dp"
             android:layout_weight="1"
-            android:background="@drawable/border_green_1"
+            android:background="@drawable/background_submit_button"
             android:gravity="center"
             android:text="@string/confirm"
             android:textColor="@color/text_color_light"

@@ -1,10 +1,9 @@
 <resources>
 
     <style name="Theme.EstimateNew" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <!--    <style name="Theme.EstimateNew" parent="Theme.MaterialComponents.DayNight.DarkActionBar">-->
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryDark">@color/primary_variant</item>
+        <item name="colorPrimaryDark">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/primary_variant</item>
         <item name="colorOnPrimary">@android:color/white</item>
         <!-- Secondary brand color. -->
@@ -15,8 +14,8 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
 
-        <item name="android:textColor">@color/text_color_dark</item>
-        <item name="android:textColorSecondary">@color/text_color_light</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textColorSecondary">@android:color/white</item>
         <item name="font">@font/font_1</item>
         <item name="fontFamily">@font/font_1</item>
         <item name="android:fontFamily">@font/font_1</item>
@@ -25,6 +24,48 @@
         <item name="android:layoutDirection">rtl</item>
         <item name="bottomSheetDialogTheme">@style/BottomSheetDialogTheme</item>
 
+    </style>
+
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <!--    <style name="AppTheme.AppBarOverlay" parent="Theme.MaterialComponents.Light" />-->
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
+        <!--    <style name="AppTheme.PopupOverlay" parent="Theme.MaterialComponents.Light">-->
+        <!--        <item name="backgroundColor">?colorPrimary</item>-->
+        <!--        <item name="android:background">?colorPrimary</item>-->
+        <item name="android:actionOverflowButtonStyle">@style/OverFlowButton</item>
+        <item name="android:drawablePadding">2dp</item>
+    </style>
+
+    <style name="OverFlowButton">
+        <item name="android:layout_margin">3dp</item>
+    </style>
+
+    <style name="bottomView">
+        <item name="android:padding">@dimen/small_dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">?colorPrimaryVariant</item>
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_marginBottom">0dp</item>
+    </style>
+
+    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="backgroundColor">?colorPrimaryDark</item>
+        <item name="background">?colorPrimary</item>
+    </style>
+
+    <style name="MyActionBar.MenuTextStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/milky</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/text_size_medium</item>
     </style>
 
     <style name="Theme.EstimateNew.NoActionBar">
@@ -47,7 +88,7 @@
 
     <style name="Button.Positive">
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:background">@drawable/border_green_1</item>
+        <item name="android:background">@drawable/background_submit_button</item>
     </style>
 
     <style name="Button.Negative">
@@ -63,14 +104,15 @@
         <item name="android:background">@drawable/border_blue_3</item>
     </style>
 
-    <style name="ButtonLogin">
+    <style name="Button.Login">
 
         <item name="android:textStyle">bold</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:textColor">@color/text_color_light</item>
         <item name="android:textSize">@dimen/text_size_medium</item>
-        <item name="android:padding">@dimen/medium_dp</item>
+        <item name="android:paddingStart">@dimen/medium_dp</item>
+        <item name="android:paddingEnd">@dimen/medium_dp</item>
         <item name="android:layout_marginEnd">@dimen/_50sdp</item>
         <item name="android:layout_marginStart">@dimen/_50sdp</item>
         <item name="android:layout_marginTop">@dimen/medium_dp</item>
@@ -128,9 +170,9 @@
         <item name="helperTextEnabled">true</item>
         <item name="errorEnabled">true</item>
         <item name="counterEnabled">false</item>
-        <item name="boxStrokeColor">@color/egyptian</item>
-        <item name="hintTextColor">@color/blue</item>
-        <item name="boxBackgroundColor">@color/white</item>
+        <item name="boxStrokeColor">?colorPrimaryDark</item>
+        <item name="hintTextColor">?colorPrimaryDark</item>
+        <item name="boxBackgroundColor">@android:color/white</item>
         <item name="boxBackgroundMode">outline</item>
         <item name="hintTextAppearance">@style/TextHelper</item>
     </style>
@@ -143,10 +185,10 @@
     <style name="MenuLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="boxBackgroundColor">@color/white</item>
+        <item name="boxBackgroundColor">@android:color/white</item>
         <item name="boxBackgroundMode">outline</item>
-        <item name="hintTextColor">@color/blue</item>
-        <item name="boxStrokeColor">@color/egyptian</item>
+        <item name="hintTextColor">?colorPrimaryDark</item>
+        <item name="boxStrokeColor">?colorPrimaryDark</item>
         <item name="android:layout_margin">@dimen/low_dp</item>
         <item name="hintTextAppearance">@style/TextHelper</item>
     </style>
@@ -156,11 +198,12 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:textColor">@color/text_color_dark</item>
         <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:background">@drawable/border_white_2</item>
         <item name="android:textStyle">bold</item>
         <item name="android:layout_marginStart">@dimen/low_dp</item>
         <item name="android:layout_marginEnd">@dimen/low_dp</item>
         <item name="android:layoutDirection">ltr</item>
-        <item name="buttonTint">@color/egyptian</item>
+        <item name="buttonTint">?colorPrimary</item>
     </style>
 
     <style name="Title">
@@ -168,7 +211,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:textSize">@dimen/text_size_huge</item>
         <item name="android:layout_margin">@dimen/large_dp</item>
-        <item name="android:textColor">@color/blue</item>
+        <item name="android:textColor">?colorPrimaryVariant</item>
         <item name="android:textStyle">bold</item>
         <item name="android:layout_gravity">top|center_horizontal</item>
         <item name="android:gravity">center</item>
@@ -221,46 +264,8 @@
         <item name="android:background">@android:color/transparent</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
-        <item name="backgroundColor">?colorPrimary</item>
-        <item name="background">?colorPrimary</item>
-        <item name="android:actionOverflowButtonStyle">@style/OverFlowButton</item>
-        <item name="android:drawablePadding">2dp</item>
-    </style>
-
-    <style name="OverFlowButton">
-        <item name="android:layout_margin">3dp</item>
-    </style>
-
-    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
-        <item name="android:textSize">@dimen/text_size_small</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/text_color_light</item>
-        <item name="backgroundColor">?colorPrimaryDark</item>
-        <item name="background">?colorPrimary</item>
-    </style>
-
-    <style name="MyActionBar.MenuTextStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
-        <item name="android:textColor">@color/milky</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textSize">@dimen/text_size_medium</item>
-    </style>
-
     <style name="TitleText" parent="Toolbar.TitleText">
         <item name="android:textColor">?colorAccent</item>
-    </style>
-
-    <style name="bottomView">
-        <item name="android:padding">@dimen/small_dp</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_gravity">center_horizontal</item>
-        <item name="android:gravity">center</item>
-        <item name="android:background">?colorPrimaryDark</item>
-        <item name="android:layout_alignParentBottom">true</item>
-        <item name="android:layout_marginBottom">0dp</item>
     </style>
 
     <style name="ButtonSubmit">
@@ -275,8 +280,8 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
-        <item name="background">@drawable/border_green_1</item>
-        <item name="android:background">@drawable/border_green_1</item>
+        <item name="background">@drawable/background_submit_button</item>
+        <item name="android:background">@drawable/background_submit_button</item>
         <item name="android:padding">@dimen/low_dp</item>
         <item name="android:layout_margin">@dimen/low_dp</item>
     </style>
