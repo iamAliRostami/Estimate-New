@@ -45,7 +45,7 @@ public class DownloadFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         if (SystemClock.elapsedRealtime() - lastClickTime < 1000) return;
         lastClickTime = SystemClock.elapsedRealtime();
-        final int id = v.getId();
+        int id = v.getId();
         if (id == R.id.button_download) {
             new DownloadData(requireContext(), false).execute(requireActivity());
         }
