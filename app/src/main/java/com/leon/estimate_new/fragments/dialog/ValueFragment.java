@@ -42,7 +42,7 @@ public class ValueFragment extends DialogFragment implements TextWatcher, View.O
     private final HashMap<String, Integer> blockMap = new HashMap<>();
     private FragmentValueBinding binding;
 
-    public ValueFragment(final BaseInfoFragment baseInfoFragment) {
+    public ValueFragment(BaseInfoFragment baseInfoFragment) {
         this.baseInfoFragment = baseInfoFragment;
         arzeshdaraei = this.baseInfoFragment.getArzeshdaraei();
         values.addAll(this.baseInfoFragment.getValue());

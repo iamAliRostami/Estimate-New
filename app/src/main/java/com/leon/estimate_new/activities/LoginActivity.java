@@ -5,7 +5,9 @@ import static com.leon.estimate_new.utils.DifferentCompanyManager.getCompanyName
 import static com.leon.estimate_new.utils.PermissionManager.isNetworkAvailable;
 import static com.leon.estimate_new.utils.Validator.checkEmpty;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Debug;
 import android.os.SystemClock;
@@ -25,8 +27,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private LoginViewModel loginVM;
     private long lastClickTime = 0;
 
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         loginVM = new LoginViewModel(getString(R.string.version));
@@ -80,12 +84,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
-    protected void onDestroy() {
-        binding = null;
-        super.onDestroy();
-    }
-
-    @Override
     protected void onStop() {
         Debug.getNativeHeapAllocatedSize();
         System.runFinalization();
@@ -95,5 +93,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Runtime.getRuntime().gc();
         System.gc();
         super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        binding = null;
+        super.onDestroy();
     }
 }

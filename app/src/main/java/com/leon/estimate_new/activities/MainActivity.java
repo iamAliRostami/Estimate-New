@@ -11,6 +11,8 @@ import static com.leon.estimate_new.helpers.Constants.UPLOAD_FRAGMENT;
 import static com.leon.estimate_new.helpers.Constants.exit;
 import static com.leon.estimate_new.helpers.MyApplication.getContext;
 
+import android.annotation.SuppressLint;
+import android.content.pm.ActivityInfo;
 import android.view.View;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -35,8 +37,10 @@ import com.leon.estimate_new.fragments.main_items.UploadFragment;
 public class MainActivity extends BaseActivity  {
     private ActivityMainBinding binding;
 
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void initialize() {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         final View childLayout = binding.getRoot();
         final ConstraintLayout parentLayout = findViewById(R.id.base_Content);

@@ -42,7 +42,7 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/text_view_track_number_title"
                     style="@style/BaseTitleForm"
-                    android:text="@string/shomare_peygiri" />
+                    android:text="@string/track_number" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/text_view_track_number"

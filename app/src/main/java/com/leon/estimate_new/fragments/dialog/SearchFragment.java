@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 
 import com.leon.estimate_new.databinding.FragmentSearchBinding;
 import com.leon.estimate_new.fragments.main_items.DutiesListFragment;
@@ -17,14 +18,15 @@ import org.jetbrains.annotations.NotNull;
 
 public class SearchFragment extends DialogFragment {
     private final Callback dutiesListFragment;
+    private final SearchViewModel searchVM = new SearchViewModel();
     private FragmentSearchBinding binding;
 
     public SearchFragment(DutiesListFragment dutiesListFragment) {
         this.dutiesListFragment = dutiesListFragment;
     }
 
-    public static SearchFragment newInstance(DutiesListFragment dutiesListFragment) {
-        return new SearchFragment(dutiesListFragment);
+    public static SearchFragment newInstance(Fragment dutiesListFragment) {
+        return new SearchFragment((DutiesListFragment) dutiesListFragment);
     }
 
     @Override
@@ -36,6 +38,7 @@ public class SearchFragment extends DialogFragment {
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentSearchBinding.inflate(inflater, container, false);
+        binding.setSearchVM(searchVM);
         initialize();
         return binding.getRoot();
     }
@@ -47,13 +50,9 @@ public class SearchFragment extends DialogFragment {
 
     private void setOnButtonSearchClickListener() {
         binding.buttonSearch.setOnClickListener(v -> {
-            dutiesListFragment.filter(binding.editTextBillId.getText().toString(),
-                    binding.editTextTrackNumber.getText().toString(),
-                    binding.editTextName.getText().toString(),
-                    binding.editTextFamily.getText().toString(),
-                    binding.editTextNationNumber.getText().toString(),
-                    binding.editTextMobile.getText().toString(),
-                    binding.textViewStartDate.getText().toString());
+            dutiesListFragment.filter(searchVM.getBillId(), searchVM.getTrackNumber(),
+                    searchVM.getName(), searchVM.getFamily(), searchVM.getNationalId(),
+                    searchVM.getMobile(), searchVM.getStartDate());
             dismiss();
         });
     }
@@ -75,7 +74,7 @@ public class SearchFragment extends DialogFragment {
 
     @Override
     public void onResume() {
-        if (getDialog() != null) {
+        if (getDialog() != null && getDialog().getWindow() != null) {
             WindowManager.LayoutParams params = getDialog().getWindow().getAttributes();
             params.width = ViewGroup.LayoutParams.MATCH_PARENT;
             params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -87,4 +86,5 @@ public class SearchFragment extends DialogFragment {
     public interface Callback {
         void filter(String... s);
     }
+
 }

@@ -7,6 +7,8 @@ import static com.leon.estimate_new.enums.BundleEnum.TRACK_NUMBER;
 import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponent;
 import static com.leon.estimate_new.helpers.MyApplication.setActivityComponent;
 
+import android.annotation.SuppressLint;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -41,8 +43,10 @@ public class FinalReportActivity extends AppCompatActivity implements View.OnCli
     private int pageNumber = 0, maxNumber = 2, imageNumber = 0, licenceTitle, estimateTitle, crookiTitle;
     private List<String[]> licenceRows;
 
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
         binding = ActivityFinalReportBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

@@ -53,7 +53,7 @@
 
         <TextView
             style="@style/SearchTextView"
-            android:text="@string/shomare_peygiri" />
+            android:text="@string/track_number" />
 
         <TextView
             android:id="@+id/edit_text_track_number"
@@ -63,7 +63,7 @@
 
         <Button
             android:id="@+id/button_send"
-            style="@style/ButtonSubmit.Fragment"
+            style="@style/Button.Fragment"
             android:layout_gravity="center"
             android:layout_margin="0dp"
             android:background="@drawable/border_green_2"
