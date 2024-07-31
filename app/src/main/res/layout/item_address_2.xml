@@ -39,6 +39,7 @@
 
     <TextView
         android:id="@+id/text_view_peymayesh"
+
         style="@style/ListItemTextView.Blue"
         android:layout_below="@id/view_11"
         android:layout_alignParentEnd="true"

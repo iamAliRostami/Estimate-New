@@ -7,8 +7,8 @@
         android:left="@dimen/small_dp"
         android:right="@dimen/small_dp"
         android:top="@dimen/small_dp" />
-    <solid android:color="@android:color/transparent" />
+    <solid android:color="@android:color/white" />
     <stroke
         android:width="@dimen/small_dp"
-        android:color="@color/blue" />
+        android:color="?colorPrimary" />
 </shape>

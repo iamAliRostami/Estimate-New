@@ -5,17 +5,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.textview.MaterialTextView;
 import com.leon.estimate_new.R;
 
 public class ViewHolderTejariha extends RecyclerView.ViewHolder {
-    public final TextView textViewKarbari;
-    public final TextView textViewTedadVahed;
-    public final TextView textViewVahedMohasebe;
-    public final TextView textViewNoeShoql;
-    public final TextView textViewA2;
-    public final ImageView imageViewMinus;
+    public final MaterialTextView textViewKarbari;
+    public final MaterialTextView textViewTedadVahed;
+    public final MaterialTextView textViewVahedMohasebe;
+    public final MaterialTextView textViewNoeShoql;
+    public final MaterialTextView textViewA2;
+    public final AppCompatImageView imageViewMinus;
 
     public ViewHolderTejariha(@NonNull View itemView) {
         super(itemView);

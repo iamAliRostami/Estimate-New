@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         tools:context=".fragments.forms.BaseInfoFragment">
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@id/text_view_title"
             style="@style/Title"
             android:layout_centerHorizontal="true"
@@ -191,6 +191,7 @@
                         android:id="@+id/layout_noe_ensheab"
                         style="@style/MenuLayout"
                         android:layout_below="@id/layout_qotr_fazelab"
+                        android:layout_alignBaseline="@id/layout_zarfiat"
                         android:layout_alignParentEnd="true"
                         android:layout_toEndOf="@id/view_center_1"
                         android:hint="@string/noe_ensheab">
@@ -254,8 +255,8 @@
                         android:id="@+id/checkbox_qaradad_amade"
                         style="@style/CheckBox"
                         android:layout_below="@id/layout_sodur_date"
+                        android:layout_alignBaseline="@id/layout_pelak"
                         android:layout_alignParentStart="true"
-                        android:layout_marginTop="@dimen/large_dp"
                         android:layout_toStartOf="@id/view_center_2"
                         android:checked="@={baseInfoVM.qaradad}"
                         android:text="@string/qaradad_amade" />
@@ -282,8 +283,8 @@
                         android:id="@+id/checkbox_gheire_daem"
                         style="@style/CheckBox"
                         android:layout_below="@id/layout_pelak"
+                        android:layout_alignBaseline="@id/layout_sanad_number"
                         android:layout_alignParentStart="true"
-                        android:layout_marginTop="@dimen/large_dp"
                         android:layout_toStartOf="@id/view_center_2"
                         android:checked="@={baseInfoVM.ensheabQeirDaem}"
                         android:text="@string/ensheab_gheire_daem" />
@@ -310,8 +311,8 @@
                         android:id="@+id/checkbox_adam_license"
                         style="@style/CheckBox"
                         android:layout_below="@id/layout_sanad_number"
+                        android:layout_alignBaseline="@id/layout_qarardad"
                         android:layout_alignParentStart="true"
-                        android:layout_marginTop="@dimen/large_dp"
                         android:layout_toStartOf="@id/view_center_2"
                         android:checked="@={baseInfoVM.adamLicence}"
                         android:text="@string/adam_license" />
@@ -504,6 +505,7 @@
                         android:id="@+id/layout_noe_takhfif"
                         style="@style/MenuLayout"
                         android:layout_below="@id/layout_aian_non_maskooni"
+                        android:layout_alignBaseline="@id/layout_tedad_taxfif"
                         android:layout_alignParentStart="true"
                         android:layout_toStartOf="@id/view_center_4"
                         android:hint="@string/noe_takhfif">
@@ -517,7 +519,6 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_tedad_taxfif"
                         style="@style/TextInputLayout"
-                        android:layout_marginTop="@dimen/low_dp"
                         android:layout_below="@id/layout_arzesh_melk"
                         android:layout_alignParentEnd="true"
                         android:layout_toEndOf="@id/view_center_4"
@@ -535,13 +536,13 @@
             </RelativeLayout>
         </ScrollView>
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/button_pre"
             style="@style/Button.Negative"
             android:layout_alignParentBottom="true"
             android:text="@string/previous" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/button_submit"
             style="@style/Button.Positive"
             android:layout_alignParentEnd="true"

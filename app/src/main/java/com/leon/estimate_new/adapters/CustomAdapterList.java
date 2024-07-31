@@ -38,7 +38,7 @@ public class CustomAdapterList extends RecyclerView.Adapter<ViewHolderList> {
 
     public CustomAdapterList(Context context, ArrayList<ExaminerDuties> examinerDuties) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//            examinerDuties.sort(Comparator.comparing(ExaminerDuties::isPeymayesh).thenComparing(ExaminerDuties::getExaminationDay));
+            examinerDuties.sort(Comparator.comparing(ExaminerDuties::isPeymayesh).thenComparing(ExaminerDuties::getExaminationDay));
         } else {
             Collections.sort(examinerDuties, Comparator.comparing(ExaminerDuties::getExaminationDay));
         }

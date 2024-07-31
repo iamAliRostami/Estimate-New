@@ -18,8 +18,7 @@
     <color name="smoked">#464646</color>
     <color name="red">#FF5252</color>
     <color name="yellow">#F4511E</color>
-    <color name="forrest">#172e17</color>
-    <color name="green">#2e4e16</color>
-    <color name="blue">#4658CE</color>
-<!--    <color name="egyptian">#6200EA</color>-->
+    <color name="green">#65A498</color>
+    <color name="blue">#6200EA</color>
+    <!--    <color name="egyptian">#6200EA</color>-->
 </resources>

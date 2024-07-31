@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.material.button.MaterialButton;
 import com.leon.estimate_new.R;
 
 
@@ -22,9 +23,9 @@ public class LovelyStandardDialog extends AbsLovelyDialog<LovelyStandardDialog> 
     public static final int NEGATIVE_BUTTON = R.id.button_no;
     public static final int NEUTRAL_BUTTON = R.id.button_neutral;
 
-    private final Button positiveButton;
-    private final Button negativeButton;
-    private final Button neutralButton;
+    private final MaterialButton positiveButton;
+    private final MaterialButton negativeButton;
+    private final MaterialButton neutralButton;
     private final Context context;
 
     {

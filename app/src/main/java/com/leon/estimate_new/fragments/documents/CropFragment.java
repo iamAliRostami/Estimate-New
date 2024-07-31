@@ -153,7 +153,7 @@ public class CropFragment extends Fragment implements View.OnClickListener {
                             tempBitmap.getHeight() + 2 * padding);
             layoutParams.gravity = Gravity.CENTER;
             binding.polygonView.setLayoutParams(layoutParams);
-            binding.polygonView.setPointColor(ContextCompat.getColor(requireContext(), R.color.blue));
+            binding.polygonView.setPointColor(ContextCompat.getColor(requireContext(), R.color.primary));
         } catch (Exception e) {
             e.printStackTrace();
         }

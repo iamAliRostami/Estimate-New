@@ -73,7 +73,9 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Button" parent="ThemeOverlay.Material3.Button.ElevatedButton">
+    <!--    <style name="Button" parent="ThemeOverlay.Material3.Button.ElevatedButton">-->
+    <!--    <style name="Button" parent="Widget.Material3.Button.OutlinedButton">-->
+    <style name="Button" parent="Widget.MaterialComponents.Button">
         <item name="android:textStyle">bold</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
@@ -89,14 +91,23 @@
     <style name="Button.Positive">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:background">@drawable/background_submit_button</item>
+        <item name="backgroundTint">?colorPrimaryVariant</item>
     </style>
 
-    <style name="Button.Negative">
-        <item name="android:layout_width">wrap_content</item>
+    <style name="Button.Negative" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="android:background">@drawable/border_yellow_2</item>
-        <item name="android:textColor">@color/yellow</item>
-        <!--        <item name="background">@drawable/border_yellow_2</item>-->
-        <!--        <item name="android:layout_alignParentBottom">true</item>-->
+        <item name="strokeColor">@color/yellow</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="backgroundTint">@color/yellow</item>
+        <item name="android:textColor">@color/gray_1</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:layout_margin">@dimen/medium_dp</item>
+        <item name="android:paddingStart">@dimen/huge_dp</item>
+        <item name="android:paddingEnd">@dimen/huge_dp</item>
+        <item name="android:paddingTop">@dimen/low_dp</item>
+        <item name="android:paddingBottom">@dimen/low_dp</item>
     </style>
 
     <style name="Button.Neutral">
@@ -370,7 +381,7 @@
     </style>
 
     <style name="ListItemTextView.Blue">
-        <item name="android:textColor">@color/blue</item>
+        <item name="android:textColor">?colorPrimary</item>
     </style>
 
     <style name="ListItemViewHorizontal">
@@ -380,7 +391,7 @@
     </style>
 
     <style name="ListItemViewHorizontal.Blue">
-        <item name="android:background">@color/blue</item>
+        <item name="android:background">?colorPrimary</item>
     </style>
 
     <style name="ListItemLine">
@@ -397,7 +408,7 @@
     </style>
 
     <style name="ListItemViewVertical.Blue">
-        <item name="android:background">@color/blue</item>
+        <item name="android:background">?colorPrimary</item>
     </style>
 
     <style name="SearchLinearLayout">

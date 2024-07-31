@@ -11,14 +11,14 @@
         style="@style/ListItemViewVertical"
         android:layout_above="@id/text_view_address" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/text_view_name"
         style="@style/ListItemTextView"
         android:layout_alignParentStart="true"
         android:layout_toStartOf="@id/view_10" />
 
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/text_view_examination_day"
         style="@style/ListItemTextView"
         android:layout_alignParentEnd="true"
@@ -29,14 +29,14 @@
         style="@style/ListItemViewHorizontal"
         android:layout_below="@+id/text_view_name" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/text_view_service_group"
         style="@style/ListItemTextView"
         android:layout_below="@id/view_11"
         android:layout_alignParentStart="true"
         android:layout_toStartOf="@id/view_10" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/text_view_peymayesh"
         style="@style/ListItemTextView"
         android:layout_below="@id/view_11"
@@ -48,14 +48,14 @@
         style="@style/ListItemViewHorizontal"
         android:layout_below="@+id/text_view_peymayesh" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/text_view_notification_mobile"
         style="@style/ListItemTextView"
         android:layout_below="@id/view_12"
         android:layout_alignParentEnd="true"
         android:layout_toEndOf="@id/view_10" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/text_view_moshtarak_mobile"
         style="@style/ListItemTextView"
         android:layout_below="@id/view_12"
@@ -67,7 +67,7 @@
         style="@style/ListItemViewHorizontal"
         android:layout_below="@id/text_view_notification_mobile" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/text_view_address"
         style="@style/ListItemTextView"
         android:layout_width="match_parent"
@@ -83,7 +83,7 @@
         style="@style/ListItemViewHorizontal"
         android:layout_below="@id/text_view_address" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/text_view_radif_title"
         style="@style/ListItemTextView"
         android:layout_below="@id/view_21"
@@ -91,7 +91,7 @@
         android:layout_toStartOf="@id/view_20"
         android:text="@string/radif" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/text_view_radif"
         style="@style/ListItemTextView"
         android:layout_below="@id/view_21"
@@ -103,7 +103,7 @@
         style="@style/ListItemViewHorizontal"
         android:layout_below="@id/text_view_radif_title" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/text_view_track_number_title"
         style="@style/ListItemTextView"
         android:layout_below="@id/view_22"
@@ -111,7 +111,7 @@
         android:layout_toStartOf="@id/view_20"
         android:text="@string/track_number" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/text_view_track_number"
         style="@style/ListItemTextView"
         android:layout_below="@id/view_22"
@@ -123,7 +123,7 @@
         style="@style/ListItemViewHorizontal"
         android:layout_below="@id/text_view_track_number_title" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/text_view_bill_id_title"
         style="@style/ListItemTextView"
         android:layout_below="@id/view_23"
@@ -131,11 +131,11 @@
         android:layout_toStartOf="@id/view_20"
         android:text="@string/bill_id" />
 
-    <TextView
-        android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@id/view_20"
-        android:layout_below="@id/view_23"
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/text_view_bill_id"
-        style="@style/ListItemTextView" />
+        style="@style/ListItemTextView"
+        android:layout_below="@id/view_23"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@id/view_20" />
 
 </RelativeLayout>
