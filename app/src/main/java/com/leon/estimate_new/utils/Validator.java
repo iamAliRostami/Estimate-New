@@ -4,6 +4,7 @@ import static com.leon.estimate_new.helpers.Constants.MOBILE_REGEX;
 
 import android.content.Context;
 
+import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.leon.estimate_new.R;
@@ -13,6 +14,14 @@ public class Validator {
     public static boolean checkEmpty(TextInputEditText editText, Context context) {
         if (editText.getText() == null || editText.getText().toString().isEmpty()) {
             setError(editText, context.getString(R.string.error_empty));
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean checkEmpty(MaterialAutoCompleteTextView textView, Context context) {
+        if (textView.getText() == null || textView.getText().toString().isEmpty()) {
+            setError(textView, context.getString(R.string.error_empty));
             return false;
         }
         return true;
@@ -72,5 +81,10 @@ public class Validator {
     private static void setError(TextInputEditText editText, String error) {
         ((TextInputLayout) editText.getParent().getParent()).setError(error);
         editText.requestFocus();
+    }
+
+    private static void setError(MaterialAutoCompleteTextView textView, String error) {
+        ((TextInputLayout) textView.getParent().getParent()).setError(error);
+        textView.requestFocus();
     }
 }

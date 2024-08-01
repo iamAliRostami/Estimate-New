@@ -298,6 +298,13 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
                 && checkEmpty(binding.editTextTedadSaier, requireContext())
                 && checkEmpty(binding.editTextZarfiat, requireContext())
                 && checkEmpty(binding.editTextArzeshMelk, requireContext())
+
+                && checkEmpty(binding.textViewKarbari, requireContext())
+                && checkEmpty(binding.textViewNoeVagozari, requireContext())
+                && checkEmpty(binding.textViewQotrEnsheab, requireContext())
+                && checkEmpty(binding.textViewQotrFazelab, requireContext())
+                && checkEmpty(binding.textViewNoeEnsheab, requireContext())
+
                 && checkEmpty(binding.editTextTedadTaxfif, requireContext());
     }
 
@@ -403,6 +410,7 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
         void setValues(ArrayList<Integer> values);
 
         Arzeshdaraei getArzeshdaraei();
+
         void setArzeshdaraei(Arzeshdaraei arzeshdaraei);
     }
 }

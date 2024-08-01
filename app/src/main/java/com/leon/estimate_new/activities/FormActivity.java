@@ -36,7 +36,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.databinding.ActivityFormBinding;
-import com.leon.estimate_new.fragments.BlankFragment;
 import com.leon.estimate_new.fragments.dialog.EnterBillFragment;
 import com.leon.estimate_new.fragments.dialog.ShowDocumentFragment;
 import com.leon.estimate_new.fragments.forms.BaseInfoFragment;
@@ -69,7 +68,7 @@ import java.util.HashMap;
 
 public class FormActivity extends AppCompatActivity implements PersonalFragment.Callback,
         ServicesFragment.Callback, BaseInfoFragment.Callback, TechnicalInfoFragment.Callback,
-        MapDescriptionFragment.Callback, EditMapFragment.Callback, BlankFragment.Callback {
+        MapDescriptionFragment.Callback, EditMapFragment.Callback {
     private final HashMap<Integer, Fragment> fragmentCache = new HashMap<>();
     private final CalculationUserInput calculationUserInput = new CalculationUserInput();
     private final ArrayList<Integer> values = new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0, 0, 0, 0));
@@ -168,8 +167,8 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
             case SECOND_FRAGMENT -> TechnicalInfoFragment.newInstance();
             case MAP_DESCRIPTION_FRAGMENT -> MapDescriptionFragment.newInstance();
             case EDIT_MAP_FRAGMENT -> EditMapFragment.newInstance();
-//            default -> TechnicalInfoFragment.newInstance();
-            default -> PersonalFragment.newInstance();
+            default -> TechnicalInfoFragment.newInstance();
+//            default -> PersonalFragment.newInstance();
         };
 
         fragmentCache.put(position, newFragment);

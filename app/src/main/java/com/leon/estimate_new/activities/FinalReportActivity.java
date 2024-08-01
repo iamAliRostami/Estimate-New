@@ -6,20 +6,27 @@ import static com.leon.estimate_new.enums.BundleEnum.TITLE;
 import static com.leon.estimate_new.enums.BundleEnum.TRACK_NUMBER;
 import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponent;
 import static com.leon.estimate_new.helpers.MyApplication.setActivityComponent;
+import static com.leon.estimate_new.utils.Validator.checkEmpty;
 
 import android.annotation.SuppressLint;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.InsetDrawable;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.util.TypedValue;
+import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.PopupMenu;
 
+import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.gson.GsonBuilder;
 import com.leon.estimate_new.R;
-import com.leon.estimate_new.adapters.SpinnerCustomAdapter;
 import com.leon.estimate_new.databinding.ActivityFinalReportBinding;
 import com.leon.estimate_new.tables.ExaminerDuties;
 import com.leon.estimate_new.tables.RequestDictionary;
@@ -31,11 +38,14 @@ import com.leon.estimate_new.utils.estimating.UploadNavigated;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class FinalReportActivity extends AppCompatActivity implements View.OnClickListener {
     private final ArrayList<ResultDictionary> resultDictionaries = new ArrayList<>();
     private final ArrayList<Bitmap> bitmaps = new ArrayList<>();
+    private final ArrayList<String> resultTitle = new ArrayList<>();
+    private final HashMap<String, Integer> resultMap = new HashMap<>();
     private ActivityFinalReportBinding binding;
     private long lastClickTime = 0;
     private ExaminerDuties examinerDuty;
@@ -74,27 +84,29 @@ public class FinalReportActivity extends AppCompatActivity implements View.OnCli
             }
         }
         createOutputImage();
-        initializeSpinner();
+        initializeArrays();
         setOnClickListener();
         binding.imageButtonPrevious.setVisibility(View.GONE);
     }
 
 
-    private void initializeSpinner() {
-        final ArrayList<String> items = new ArrayList<>();
+    private void initializeArrays() {
         resultDictionaries.addAll(getApplicationComponent().MyDatabase().resultDictionaryDao().getResults());
-        for (ResultDictionary resultDictionary : resultDictionaries)
-            items.add(resultDictionary.title);
-        binding.spinner.setAdapter(new SpinnerCustomAdapter(getApplicationContext(), items));
+        for (int i = 0; i < resultDictionaries.size(); i++) {
+            ResultDictionary resultDictionary = resultDictionaries.get(i);
+            resultTitle.add(resultDictionary.title);
+            resultMap.put(resultDictionary.title, resultDictionary.id);
+        }
     }
 
     private void setOnClickListener() {
         binding.imageViewRefresh1.setOnClickListener(this);
         binding.imageViewRefresh2.setOnClickListener(this);
-        binding.buttonDenial.setOnClickListener(this);
         binding.imageButtonNext.setOnClickListener(this);
-        binding.buttonAccepted.setOnClickListener(this);
         binding.imageButtonPrevious.setOnClickListener(this);
+        binding.buttonAccepted.setOnClickListener(this);
+        binding.buttonDenial.setOnClickListener(this);
+        binding.textViewResult.setOnClickListener(this);
     }
 
     @Override
@@ -121,8 +133,29 @@ public class FinalReportActivity extends AppCompatActivity implements View.OnCli
         } else if (id == R.id.button_accepted) {
             if (binding.signatureView1.isBitmapEmpty() || binding.signatureView2.isBitmapEmpty())
                 new CustomToast().warning(getString(R.string.request_sign), Toast.LENGTH_LONG);
-            else addImageSign();
+            else if (checkEmpty(binding.textViewResult, this)) addImageSign();
+        } else if (id == R.id.text_view_result) {
+            showMenu(binding.textViewResult, resultTitle);
         }
+    }
+
+    private void showMenu(MaterialAutoCompleteTextView editText, ArrayList<String> titles) {
+        final PopupMenu popup = new PopupMenu(this, editText, Gravity.TOP);
+        for (int i = 0; i < titles.size(); i++) {
+            MenuItem item = popup.getMenu().add(titles.get(i));
+            if (item.getIcon() != null) {
+                Drawable icon = item.getIcon();
+                int iconMarginPx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                        R.dimen.small_dp, getResources().getDisplayMetrics());
+                InsetDrawable insetDrawable = new InsetDrawable(icon, iconMarginPx, 0, iconMarginPx, 0);
+                item.setIcon(insetDrawable);
+            }
+        }
+        popup.setOnMenuItemClickListener(menuItem -> {
+            editText.setText(menuItem.getTitle());
+            return true;
+        });
+        popup.show();
     }
 
     private void addImageSign() {
@@ -165,11 +198,14 @@ public class FinalReportActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void finalSubmit() {
-        if (sent)
-            new UploadNavigated(examinerDuty,
-                    resultDictionaries.get(binding.spinner.getSelectedItemPosition()).id, this).execute(this);
-        else
-            getApplicationComponent().MyDatabase().examinerDutiesDao().updateExaminationByPeymayesh(true, examinerDuty.trackNumber);
+        Integer result = resultMap.get(binding.textViewResult.getText().toString());
+        if (result != null) {
+            if (sent)
+                new UploadNavigated(examinerDuty, result, this).execute(this);
+            else
+                getApplicationComponent().MyDatabase().examinerDutiesDao()
+                        .updateExaminationByPeymayesh(true, examinerDuty.trackNumber);
+        }
         finish();
     }
 

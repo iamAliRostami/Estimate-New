@@ -563,6 +563,9 @@ public class PDFUtility {
         mapTable.addCell(pdfPCellTemp);
 
         final Image map = getImageFromBitmap(MAP_SELECTED);
+        if (map != null) {
+            map.scaleToFit(200,200 );
+        }
         PdfPCell mapCell = new PdfPCell(map);
         mapCell.setHorizontalAlignment(Element.ALIGN_CENTER);
         mapCell.setBorder(PdfPCell.NO_BORDER);
@@ -1037,7 +1040,10 @@ public class PDFUtility {
 
         if (bitmaps != null && bitmaps.length > 0) {
             final Image sign = getImageFromBitmap(bitmaps[1]);
-            if (sign != null) sign.setAlignment(Element.ALIGN_CENTER);
+            if (sign != null) {
+                sign.scaleToFit(200,80);
+                sign.setAlignment(Element.ALIGN_CENTER);
+            }
             final PdfPCell signCell = new PdfPCell(sign);
             signCell.setHorizontalAlignment(Element.ALIGN_CENTER);
             signCell.setBorder(PdfPCell.NO_BORDER);
@@ -1156,7 +1162,7 @@ public class PDFUtility {
         try {
             Image image = Image.getInstance(stream.toByteArray());
             image.setAlignment(Element.ALIGN_RIGHT);
-            image.scaleToFit(200, 300);
+            image.scaleToFit(200, 200);
             return image;
         } catch (DocumentException | IOException e) {
             e.printStackTrace();
