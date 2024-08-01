@@ -39,17 +39,10 @@
                     android:background="@drawable/border_gray_1"
                     android:padding="@dimen/low_dp">
 
-                    <View
-                        android:id="@+id/view_center_1"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_centerHorizontal="true" />
-
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_karbari"
                         style="@style/MenuLayout"
-                        android:layout_alignParentStart="true"
-                        android:layout_toStartOf="@id/view_center_1"
+                        android:layout_width="match_parent"
                         android:hint="@string/user_type">
 
                         <com.google.android.material.textfield.MaterialAutoCompleteTextView
@@ -62,8 +55,8 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_noe_vagozari"
                         style="@style/MenuLayout"
-                        android:layout_alignParentEnd="true"
-                        android:layout_toEndOf="@id/view_center_1"
+                        android:layout_width="match_parent"
+                        android:layout_below="@id/layout_karbari"
                         android:hint="@string/noe_vagozari">
 
                         <com.google.android.material.textfield.MaterialAutoCompleteTextView
@@ -75,9 +68,8 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_sifoon100"
                         style="@style/TextInputLayout"
-                        android:layout_below="@id/layout_karbari"
-                        android:layout_alignParentStart="true"
-                        android:layout_toStartOf="@id/view_center_1"
+                        android:layout_width="match_parent"
+                        android:layout_below="@id/layout_noe_vagozari"
                         android:hint="@string/sifoon_100">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -92,9 +84,8 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_sifoon125"
                         style="@style/TextInputLayout"
-                        android:layout_below="@id/layout_noe_vagozari"
-                        android:layout_alignParentEnd="true"
-                        android:layout_toEndOf="@id/view_center_1"
+                        android:layout_width="match_parent"
+                        android:layout_below="@id/layout_sifoon100"
                         android:hint="@string/sifoon_125">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -110,9 +101,8 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_sifoon150"
                         style="@style/TextInputLayout"
-                        android:layout_below="@id/layout_sifoon100"
-                        android:layout_alignParentStart="true"
-                        android:layout_toStartOf="@id/view_center_1"
+                        android:layout_width="match_parent"
+                        android:layout_below="@id/layout_sifoon125"
                         android:hint="@string/sifoon_150">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -127,9 +117,8 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_sifoon200"
                         style="@style/TextInputLayout"
-                        android:layout_below="@id/layout_sifoon125"
-                        android:layout_alignParentEnd="true"
-                        android:layout_toEndOf="@id/view_center_1"
+                        android:layout_width="match_parent"
+                        android:layout_below="@id/layout_sifoon150"
                         android:hint="@string/sifoon_200">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -144,9 +133,8 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_qotr_ensheab"
                         style="@style/MenuLayout"
-                        android:layout_below="@id/layout_sifoon150"
-                        android:layout_alignParentStart="true"
-                        android:layout_toStartOf="@id/view_center_1"
+                        android:layout_width="match_parent"
+                        android:layout_below="@id/layout_sifoon200"
                         android:hint="@string/qotre_ensheab">
 
                         <com.google.android.material.textfield.MaterialAutoCompleteTextView
@@ -159,9 +147,8 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_qotr_fazelab"
                         style="@style/MenuLayout"
-                        android:layout_below="@id/layout_sifoon200"
-                        android:layout_alignParentEnd="true"
-                        android:layout_toEndOf="@id/view_center_1"
+                        android:layout_width="match_parent"
+                        android:layout_below="@id/layout_qotr_ensheab"
                         android:hint="@string/qotr_fazelab">
 
                         <com.google.android.material.textfield.MaterialAutoCompleteTextView
@@ -173,9 +160,8 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_zarfiat"
                         style="@style/TextInputLayout"
-                        android:layout_below="@id/layout_qotr_ensheab"
-                        android:layout_alignParentStart="true"
-                        android:layout_toStartOf="@id/view_center_1"
+                        android:layout_width="match_parent"
+                        android:layout_below="@id/layout_qotr_fazelab"
                         android:hint="@string/zarfiat_qaradadi">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -190,10 +176,8 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_noe_ensheab"
                         style="@style/MenuLayout"
-                        android:layout_below="@id/layout_qotr_fazelab"
-                        android:layout_alignBaseline="@id/layout_zarfiat"
-                        android:layout_alignParentEnd="true"
-                        android:layout_toEndOf="@id/view_center_1"
+                        android:layout_width="match_parent"
+                        android:layout_below="@id/layout_zarfiat"
                         android:hint="@string/noe_ensheab">
 
                         <com.google.android.material.textfield.MaterialAutoCompleteTextView
@@ -212,17 +196,10 @@
                     android:background="@drawable/border_gray_1"
                     android:padding="@dimen/low_dp">
 
-                    <View
-                        android:id="@+id/view_center_2"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_centerHorizontal="true" />
-
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_sodur_date"
                         style="@style/TextInputLayout"
-                        android:layout_alignParentStart="true"
-                        android:layout_toStartOf="@id/view_center_2"
+                        android:layout_width="match_parent"
                         android:hint="@string/sodur_date">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -238,8 +215,8 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_licence_number"
                         style="@style/TextInputLayout"
-                        android:layout_alignParentEnd="true"
-                        android:layout_toEndOf="@id/view_center_2"
+                        android:layout_width="match_parent"
+                        android:layout_below="@id/layout_sodur_date"
                         android:hint="@string/parvane_number">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -254,10 +231,7 @@
                     <com.google.android.material.checkbox.MaterialCheckBox
                         android:id="@+id/checkbox_qaradad_amade"
                         style="@style/CheckBox"
-                        android:layout_below="@id/layout_sodur_date"
-                        android:layout_alignBaseline="@id/layout_pelak"
-                        android:layout_alignParentStart="true"
-                        android:layout_toStartOf="@id/view_center_2"
+                        android:layout_below="@id/layout_licence_number"
                         android:checked="@={baseInfoVM.qaradad}"
                         android:text="@string/qaradad_amade" />
 
@@ -265,9 +239,8 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_pelak"
                         style="@style/TextInputLayout"
-                        android:layout_below="@id/layout_licence_number"
-                        android:layout_alignParentEnd="true"
-                        android:layout_toEndOf="@id/view_center_2"
+                        android:layout_width="match_parent"
+                        android:layout_below="@id/checkbox_qaradad_amade"
                         android:hint="@string/pelak">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -283,18 +256,14 @@
                         android:id="@+id/checkbox_gheire_daem"
                         style="@style/CheckBox"
                         android:layout_below="@id/layout_pelak"
-                        android:layout_alignBaseline="@id/layout_sanad_number"
-                        android:layout_alignParentStart="true"
-                        android:layout_toStartOf="@id/view_center_2"
                         android:checked="@={baseInfoVM.ensheabQeirDaem}"
                         android:text="@string/ensheab_gheire_daem" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_sanad_number"
                         style="@style/TextInputLayout"
-                        android:layout_below="@id/layout_pelak"
-                        android:layout_alignParentEnd="true"
-                        android:layout_toEndOf="@id/view_center_2"
+                        android:layout_width="match_parent"
+                        android:layout_below="@id/checkbox_gheire_daem"
                         android:hint="@string/sanad_number">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -311,18 +280,14 @@
                         android:id="@+id/checkbox_adam_license"
                         style="@style/CheckBox"
                         android:layout_below="@id/layout_sanad_number"
-                        android:layout_alignBaseline="@id/layout_qarardad"
-                        android:layout_alignParentStart="true"
-                        android:layout_toStartOf="@id/view_center_2"
                         android:checked="@={baseInfoVM.adamLicence}"
                         android:text="@string/adam_license" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_qarardad"
                         style="@style/TextInputLayout"
-                        android:layout_below="@id/layout_sanad_number"
-                        android:layout_alignParentEnd="true"
-                        android:layout_toEndOf="@id/view_center_2"
+                        android:layout_width="match_parent"
+                        android:layout_below="@id/checkbox_adam_license"
                         android:hint="@string/qarardad">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -344,17 +309,10 @@
                     android:background="@drawable/border_gray_1"
                     android:padding="@dimen/low_dp">
 
-                    <View
-                        android:id="@+id/view_center_3"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_centerHorizontal="true" />
-
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_arse_kol"
                         style="@style/TextInputLayout"
-                        android:layout_alignParentStart="true"
-                        android:layout_toStartOf="@id/view_center_3"
+                        android:layout_width="match_parent"
                         android:hint="@string/arse_kol">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -369,8 +327,8 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_tedad_maskooni"
                         style="@style/TextInputLayout"
-                        android:layout_alignParentEnd="true"
-                        android:layout_toEndOf="@id/view_center_3"
+                        android:layout_width="match_parent"
+                        android:layout_below="@id/layout_arse_kol"
                         android:hint="@string/number_maskooni">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -386,9 +344,8 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_tedad_saier"
                         style="@style/TextInputLayout"
-                        android:layout_below="@id/layout_arse_kol"
-                        android:layout_alignParentStart="true"
-                        android:layout_toStartOf="@id/view_center_3"
+                        android:layout_width="match_parent"
+                        android:layout_below="@id/layout_tedad_maskooni"
                         android:hint="@string/tedad_saier">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -403,9 +360,8 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_tedad_tejari"
                         style="@style/TextInputLayout"
-                        android:layout_below="@id/layout_tedad_maskooni"
-                        android:layout_alignParentEnd="true"
-                        android:layout_toEndOf="@id/view_center_3"
+                        android:layout_width="match_parent"
+                        android:layout_below="@id/layout_tedad_saier"
                         android:hint="@string/tedad_tejari">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -426,18 +382,11 @@
                     android:background="@drawable/border_gray_1"
                     android:padding="@dimen/low_dp">
 
-                    <View
-                        android:id="@+id/view_center_4"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_centerHorizontal="true" />
-
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_aian_kol"
                         style="@style/TextInputLayout"
-                        android:layout_alignParentStart="true"
-                        android:layout_toStartOf="@id/view_center_4"
+                        android:layout_width="match_parent"
                         android:hint="@string/aian_kol">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -452,8 +401,8 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_aian_maskooni"
                         style="@style/TextInputLayout"
-                        android:layout_alignParentEnd="true"
-                        android:layout_toEndOf="@id/view_center_4"
+                        android:layout_width="match_parent"
+                        android:layout_below="@id/layout_aian_kol"
                         android:hint="@string/aian_maskooni">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -469,9 +418,8 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_aian_non_maskooni"
                         style="@style/TextInputLayout"
-                        android:layout_below="@id/layout_aian_kol"
-                        android:layout_alignParentStart="true"
-                        android:layout_toStartOf="@id/view_center_4"
+                        android:layout_width="match_parent"
+                        android:layout_below="@id/layout_aian_maskooni"
                         android:hint="@string/aian_non_maskouni">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -486,9 +434,8 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_arzesh_melk"
                         style="@style/TextInputLayout"
-                        android:layout_below="@id/layout_aian_maskooni"
-                        android:layout_alignParentEnd="true"
-                        android:layout_toEndOf="@id/view_center_4"
+                        android:layout_width="match_parent"
+                        android:layout_below="@id/layout_aian_non_maskooni"
                         android:hint="@string/arzesh_mantaghe">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -504,10 +451,8 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_noe_takhfif"
                         style="@style/MenuLayout"
-                        android:layout_below="@id/layout_aian_non_maskooni"
-                        android:layout_alignBaseline="@id/layout_tedad_taxfif"
-                        android:layout_alignParentStart="true"
-                        android:layout_toStartOf="@id/view_center_4"
+                        android:layout_width="match_parent"
+                        android:layout_below="@id/layout_arzesh_melk"
                         android:hint="@string/noe_takhfif">
 
                         <com.google.android.material.textfield.MaterialAutoCompleteTextView
@@ -519,9 +464,8 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_tedad_taxfif"
                         style="@style/TextInputLayout"
-                        android:layout_below="@id/layout_arzesh_melk"
-                        android:layout_alignParentEnd="true"
-                        android:layout_toEndOf="@id/view_center_4"
+                        android:layout_width="match_parent"
+                        android:layout_below="@id/layout_noe_takhfif"
                         android:hint="@string/tedad_taxfif">
 
                         <com.google.android.material.textfield.TextInputEditText

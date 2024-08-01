@@ -19,7 +19,6 @@
         android:layout_below="@id/text_view_title"
         android:background="@drawable/border_gray_2"
         android:nestedScrollingEnabled="true"
-        android:numColumns="2"
         tools:listitem="@layout/item_check_box" />
 
 
