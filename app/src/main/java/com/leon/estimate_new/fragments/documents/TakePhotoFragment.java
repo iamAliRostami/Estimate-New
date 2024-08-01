@@ -17,9 +17,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.InsetDrawable;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.provider.MediaStore;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -34,11 +38,14 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Lifecycle;
 
+import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.leon.estimate_new.BuildConfig;
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.activities.FinalReportActivity;
@@ -62,6 +69,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import okhttp3.ResponseBody;
 
@@ -111,7 +119,6 @@ public class TakePhotoFragment extends Fragment implements View.OnClickListener 
                              Bundle savedInstanceState) {
         binding = FragmentTakePhotoBinding.inflate(inflater, container, false);
         initialize();
-//        setHasOptionsMenu(true);
         return binding.getRoot();
     }
 
@@ -133,7 +140,7 @@ public class TakePhotoFragment extends Fragment implements View.OnClickListener 
                 }
                 return false;
             }
-        });
+        }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
     }
 
     private void initialize() {
@@ -143,26 +150,18 @@ public class TakePhotoFragment extends Fragment implements View.OnClickListener 
         }
         if (documentActivity.getImages().isEmpty()) {
             documentActivity.setImages();
-            new ImageThumbnailList(requireContext(), documentActivity.getKey(),
-                    this).execute(requireActivity());
+            new ImageThumbnailList(requireContext(), documentActivity.getKey(),this)
+                    .execute(requireActivity());
         } else binding.progressBar.setVisibility(View.GONE);
         initializeImageAdapter();
-        initializeTitleSpinner();
         setOnClickListener();
-    }
-
-    private void initializeTitleSpinner() {
-        if (documentActivity.getSpinnerAdapter() == null)
-            documentActivity.setSpinnerAdapter(new SpinnerCustomAdapter(requireContext(),
-                    documentActivity.getTitles()));
-        binding.spinnerTitle.setAdapter(documentActivity.getSpinnerAdapter());
-        binding.spinnerTitle.setSelection(documentActivity.getSelected());
     }
 
     private void setOnClickListener() {
         binding.buttonPick.setOnClickListener(this);
         binding.buttonUpload.setOnClickListener(this);
         binding.buttonAccepted.setOnClickListener(this);
+        binding.textViewImageTitle.setOnClickListener(this);
     }
 
     public void setOldThumbnails(ImageDataThumbnail thumbnails) {
@@ -192,11 +191,11 @@ public class TakePhotoFragment extends Fragment implements View.OnClickListener 
     }
 
     public void saveBitmap() {
-        saveTempBitmap(documentActivity.getBitmap(), requireContext(), documentActivity.getBillId(),
-                documentActivity.getTrackNumber(),
-                documentActivity.getDataTitle(binding.spinnerTitle.getSelectedItemPosition()).id,
-                documentActivity.getDataTitle(binding.spinnerTitle.getSelectedItemPosition()).title,
-                documentActivity.isNew());
+        Integer imageId = documentActivity.getTitleMap().get(binding.textViewImageTitle.getText().toString());
+        if (imageId != null)
+            saveTempBitmap(documentActivity.getBitmap(), requireContext(), documentActivity.getBillId(),
+                    documentActivity.getTrackNumber(), imageId,
+                    binding.textViewImageTitle.getText().toString(), documentActivity.isNew());
     }
 
     public void addUploadedImage() {
@@ -206,11 +205,12 @@ public class TakePhotoFragment extends Fragment implements View.OnClickListener 
     }
 
     private Images createImageObject() {
-        return new Images(IMAGE_FILE_NAME, documentActivity.getBillId(),
-                documentActivity.getTrackNumber(),
-                documentActivity.getDataTitle(binding.spinnerTitle.getSelectedItemPosition()).id,
-                documentActivity.getDataTitle(binding.spinnerTitle.getSelectedItemPosition()).title,
-                documentActivity.getBitmap());
+        Integer imageId = documentActivity.getTitleMap().get(binding.textViewImageTitle.getText().toString());
+        if (imageId != null)
+            return new Images(IMAGE_FILE_NAME, documentActivity.getBillId(),
+                    documentActivity.getTrackNumber(), imageId,
+                    binding.textViewImageTitle.getText().toString(), documentActivity.getBitmap());
+        return null;
     }
 
     private void initializeImageAdapter(Images... image) {
@@ -243,7 +243,28 @@ public class TakePhotoFragment extends Fragment implements View.OnClickListener 
             pickImage();
         } else if (id == R.id.button_accepted) {
             accept();
+        } else if (id == R.id.text_view_image_title) {
+            showMenu(binding.textViewImageTitle, documentActivity.getTitles());
         }
+    }
+
+    private void showMenu(MaterialAutoCompleteTextView editText, ArrayList<String> titles) {
+        final PopupMenu popup = new PopupMenu(requireActivity(), editText, Gravity.TOP);
+        for (int i = 0; i < titles.size(); i++) {
+            MenuItem item = popup.getMenu().add(titles.get(i));
+            if (item.getIcon() != null) {
+                Drawable icon = item.getIcon();
+                int iconMarginPx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                        R.dimen.small_dp, getResources().getDisplayMetrics());
+                InsetDrawable insetDrawable = new InsetDrawable(icon, iconMarginPx, 0, iconMarginPx, 0);
+                item.setIcon(insetDrawable);
+            }
+        }
+        popup.setOnMenuItemClickListener(menuItem -> {
+            editText.setText(menuItem.getTitle());
+            return true;
+        });
+        popup.show();
     }
 
     private void upload() {
@@ -251,10 +272,11 @@ public class TakePhotoFragment extends Fragment implements View.OnClickListener 
             binding.buttonUpload.setVisibility(View.GONE);
             binding.imageView.setImageDrawable(ContextCompat.getDrawable(requireContext(),
                     R.drawable.icon_finder_camera));
-            new UploadImages(this, documentActivity.isNew() ?
-                    documentActivity.getTrackNumber() : documentActivity.getBillId(),
-                    documentActivity.getDataTitle(binding.spinnerTitle.getSelectedItemPosition()).id,
-                    documentActivity.isNew()).execute(requireActivity());
+            Integer imageId = documentActivity.getTitleMap().get(binding.textViewImageTitle.getText().toString());
+            if (imageId != null)
+                new UploadImages(this, documentActivity.isNew() ?
+                        documentActivity.getTrackNumber() : documentActivity.getBillId(), imageId,
+                        documentActivity.isNew()).execute(requireActivity());
         }
     }
 
@@ -331,7 +353,6 @@ public class TakePhotoFragment extends Fragment implements View.OnClickListener 
     }
 
     public interface Callback {
-        int getSelected();
 
         boolean isNew();
 
@@ -342,8 +363,6 @@ public class TakePhotoFragment extends Fragment implements View.OnClickListener 
         String getTrackNumber();
 
         String getBillId();
-
-        DataTitle getDataTitle(int position);
 
         ArrayList<String> getTitles();
 
@@ -363,13 +382,11 @@ public class TakePhotoFragment extends Fragment implements View.OnClickListener 
 
         void addImage(Images images);
 
-        void setSpinnerAdapter(SpinnerCustomAdapter spinnerAdapter);
-
-        SpinnerCustomAdapter getSpinnerAdapter();
-
         void setImageViewAdapter(ImageViewAdapter imageViewAdapter);
 
         ImageViewAdapter getImageViewAdapter();
+
+        HashMap<String, Integer> getTitleMap();
     }
 
     class ShowDialogue implements CustomDialogModel.Inline {

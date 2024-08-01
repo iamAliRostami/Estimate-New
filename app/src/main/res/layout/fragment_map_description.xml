@@ -90,6 +90,6 @@
         android:layout_alignParentBottom="true"
         android:layout_marginTop="@dimen/medium_dp"
         android:layout_marginBottom="@dimen/medium_dp"
-        android:text="@string/crooki" />
+        android:text="@string/edit_crooki" />
 
 </RelativeLayout>

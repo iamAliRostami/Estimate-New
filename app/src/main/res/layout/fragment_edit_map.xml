@@ -10,7 +10,7 @@
         android:id="@id/text_view_title"
         style="@style/Title"
         android:layout_centerHorizontal="true"
-        android:text="@string/crooki" />
+        android:text="@string/edit_crooki" />
 
     <com.kyanogen.signatureview.SignatureView
         android:id="@+id/signature_view"

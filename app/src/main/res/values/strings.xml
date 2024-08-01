@@ -13,7 +13,7 @@
     <string name="document_received">مدارکی که تا کنون دریافت شده است:</string>
     <string name="to_continue">جهت ادامه یکی از عملیات های زیر را انتخاب کنید:</string>
     <string name="open_camera">بازکردن دوربین</string>
-    <string name="pick_an_image">برگزیدن عکس</string>
+    <string name="pick_an_image">برگزیدن</string>
     <string name="download">بارگیری</string>
     <string name="upload">بارگذاری</string>
     <string name="upload_image">بارگذاری عکس</string>
@@ -95,7 +95,7 @@
     <string name="error_preparing">مشکلی در فرآیند آماده سازی روی داده است</string>
     <string name="error_android_version">نسخه اندروید شما این ویژگی را پشتیبانی نمی کند</string>
     <string name="location">کروکی</string>
-    <string name="crooki">ویرایش کروکی</string>
+    <string name="edit_crooki">ویرایش کروکی</string>
     <string name="setting">تنظیمات برنامه</string>
     <string name="setting_">تنظیمات</string>
     <string name="setting_gps">تنظیمات جی پی اس</string>
@@ -469,7 +469,8 @@
     <string name="no_tiles_selected">ناحیه ای انتخاب نشده است</string>
     <string name="noe_ensheab">نوع انشعاب</string>
     <string name="ezhar_bahre">اظهار نظر واحد بهره برداری</string>
-    <string name="form_preview">پیش نمایش فرم</string>
+    <string name="form_preview">پیش نمایش</string>
     <string name="qaradad_amade">قرارداد آماده سازی</string>
     <string name="adam_license">مجوز عدم تولی</string>
+    <string name="crooki">کروکی</string>
 </resources>
