@@ -23,9 +23,9 @@ public class LovelyStandardDialog extends AbsLovelyDialog<LovelyStandardDialog> 
     public static final int NEGATIVE_BUTTON = R.id.button_no;
     public static final int NEUTRAL_BUTTON = R.id.button_neutral;
 
-    private final MaterialButton positiveButton;
-    private final MaterialButton negativeButton;
-    private final MaterialButton neutralButton;
+    private final Button positiveButton;
+    private final Button negativeButton;
+    private final Button neutralButton;
     private final Context context;
 
     {
@@ -70,7 +70,7 @@ public class LovelyStandardDialog extends AbsLovelyDialog<LovelyStandardDialog> 
         return setNegativeButton(string(text), listener);
     }
 
-    private LovelyStandardDialog setNegativeButton(String text, @Nullable View.OnClickListener listener) {
+    public LovelyStandardDialog setNegativeButton(String text, @Nullable View.OnClickListener listener) {
         negativeButton.setVisibility(VISIBLE);
         negativeButton.setText(text);
         negativeButton.setOnClickListener(new ClickListenerDecorator(listener, true));
@@ -89,14 +89,14 @@ public class LovelyStandardDialog extends AbsLovelyDialog<LovelyStandardDialog> 
         return setNeutralButton(string(text), listener);
     }
 
-    private LovelyStandardDialog setNeutralButton(String text, @Nullable View.OnClickListener listener) {
+    public LovelyStandardDialog setNeutralButton(String text, @Nullable View.OnClickListener listener) {
         neutralButton.setVisibility(VISIBLE);
         neutralButton.setText(text);
         neutralButton.setOnClickListener(new ClickListenerDecorator(listener, true));
         return this;
     }
 
-    private LovelyStandardDialog setButtonsColor(@ColorInt int color) {
+    public LovelyStandardDialog setButtonsColor(@ColorInt int color) {
         positiveButton.setBackgroundColor(color);
         negativeButton.setBackgroundColor(color);
         neutralButton.setBackgroundColor(color);

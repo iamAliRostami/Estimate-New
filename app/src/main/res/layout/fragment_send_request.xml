@@ -128,6 +128,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@id/edit_text_name"
                         style="@style/TextInput"
+                        android:inputType="text"
                         android:nextFocusDown="@id/edit_text_family"
                         android:text="@={request.firstName}" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -144,6 +145,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@id/edit_text_family"
                         style="@style/TextInput"
+                        android:inputType="text"
                         android:nextFocusDown="@id/edit_text_address"
                         android:text="@={request.sureName}" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -153,20 +155,18 @@
                     style="@style/TextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_below="@id/layout_name"
-                    android:visibility="@{request.visibility}"
-                    android:hint="@string/address">
+                    android:hint="@string/address"
+                    android:visibility="@{request.visibility}">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edit_text_address"
                         style="@style/TextInput"
                         android:gravity="top"
-                        android:imeOptions="actionNext"
                         android:inputType="textMultiLine"
                         android:lines="2"
                         android:maxLines="2"
-                        android:nextFocusDown="@id/edit_text_description"
-                        android:nextFocusForward="@id/layout_national_id"
-                        android:text="@{request.address}" />
+                        android:nextFocusForward="@id/edit_text_national_id"
+                        android:text="@={request.address}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
