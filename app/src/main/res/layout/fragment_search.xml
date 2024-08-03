@@ -121,14 +121,14 @@
                 android:text="@={searchVM.mobile}" />
         </com.google.android.material.textfield.TextInputLayout>
 
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout_start_date"
             style="@style/TextInputLayout"
             android:layout_below="@id/layout_national_id"
             android:layout_alignParentStart="true"
             android:layout_toStartOf="@id/button_search"
-            android:hint="@string/start_date">
+            android:hint="@string/start_date"
+            app:errorEnabled="false">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/text_view_start_date"
@@ -140,7 +140,7 @@
                 android:text="@={searchVM.startDate}" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/button_search"
             style="@style/Button.Fragment"
             android:layout_below="@id/layout_mobile"

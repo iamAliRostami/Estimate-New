@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".fragments.forms.EditMapFragment">
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@id/text_view_title"
         style="@style/Title"
         android:layout_centerHorizontal="true"
@@ -76,13 +76,13 @@
         tools:ignore="ContentDescription" />
 
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/button_pre"
         style="@style/Button.Negative"
         android:layout_alignParentBottom="true"
         android:text="@string/previous" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/button_submit"
         style="@style/Button.Positive"
         android:layout_alignParentEnd="true"

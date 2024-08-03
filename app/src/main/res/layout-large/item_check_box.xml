@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/low_dp">
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/checkbox"
+        style="@style/CheckBox"
+        android:padding="@dimen/medium_dp"
+        android:text="@string/services" />
+</RelativeLayout>

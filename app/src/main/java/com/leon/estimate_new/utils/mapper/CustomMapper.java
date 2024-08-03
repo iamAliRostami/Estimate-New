@@ -1,5 +1,6 @@
 package com.leon.estimate_new.utils.mapper;
 
+import com.leon.estimate_new.fragments.dialog.AddDocumentViewModel;
 import com.leon.estimate_new.fragments.dialog.TejarihaSayerViewModel;
 import com.leon.estimate_new.fragments.forms.BaseInfoViewModel;
 import com.leon.estimate_new.fragments.forms.PersonalViewModel;
@@ -43,5 +44,8 @@ public interface CustomMapper {
 
     @Mapping(source = "isNewEnsheab", target = "newEnsheab")
     TechnicalInfoViewModel examinerDutyToTechnicalInfoViewModel(ExaminerDuties examinerDuty);
+
+
+    AddDocumentViewModel examinerDutyToAddDocumentViewModel(ExaminerDuties examinerDuty);
 
 }

@@ -167,7 +167,6 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
             case SECOND_FRAGMENT -> TechnicalInfoFragment.newInstance();
             case MAP_DESCRIPTION_FRAGMENT -> MapDescriptionFragment.newInstance();
             case EDIT_MAP_FRAGMENT -> EditMapFragment.newInstance();
-//            default -> TechnicalInfoFragment.newInstance();
             default -> PersonalFragment.newInstance();
         };
 

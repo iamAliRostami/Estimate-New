@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         tools:context=".fragments.forms.TechnicalInfoFragment">
 
-        <com.google.android.material.textview.MaterialTextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@id/text_view_title"
             style="@style/Title"
             android:layout_centerHorizontal="true"
@@ -35,6 +35,7 @@
                     android:id="@+id/layout_eshterak"
                     style="@style/TextInputLayout"
                     android:layout_width="match_parent"
+                    android:layout_centerHorizontal="true"
                     android:layout_margin="@dimen/low_dp"
                     android:background="@drawable/border_gray_1"
                     android:hint="@string/eshterak"
@@ -64,7 +65,13 @@
                     android:background="@drawable/border_gray_1"
                     android:padding="@dimen/low_dp">
 
-                    <com.google.android.material.textview.MaterialTextView
+                    <View
+                        android:id="@+id/view_center_1"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_centerHorizontal="true" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/text_view_title_1"
                         style="@style/BaseTitleForm"
                         android:layout_width="wrap_content"
@@ -76,8 +83,9 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_khaki"
                         style="@style/TextInputLayout"
-                        android:layout_width="match_parent"
                         android:layout_below="@id/text_view_title_1"
+                        android:layout_alignParentStart="true"
+                        android:layout_toStartOf="@id/view_center_1"
                         android:hint="@string/khaki">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -91,8 +99,9 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_asphalt"
                         style="@style/TextInputLayout"
-                        android:layout_width="match_parent"
-                        android:layout_below="@id/layout_khaki"
+                        android:layout_below="@id/text_view_title_1"
+                        android:layout_alignParentEnd="true"
+                        android:layout_toEndOf="@id/view_center_1"
                         android:hint="@string/asphalt">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -107,8 +116,9 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_sang"
                         style="@style/TextInputLayout"
-                        android:layout_width="match_parent"
-                        android:layout_below="@id/layout_asphalt"
+                        android:layout_below="@id/layout_khaki"
+                        android:layout_alignParentStart="true"
+                        android:layout_toStartOf="@id/view_center_1"
                         android:hint="@string/sang">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -122,8 +132,9 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_other"
                         style="@style/TextInputLayout"
-                        android:layout_width="match_parent"
-                        android:layout_below="@id/layout_sang"
+                        android:layout_below="@id/layout_asphalt"
+                        android:layout_alignParentEnd="true"
+                        android:layout_toEndOf="@id/view_center_1"
                         android:hint="@string/other">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -137,8 +148,9 @@
                     <com.google.android.material.checkbox.MaterialCheckBox
                         android:id="@+id/checkbox_vahed_ab"
                         style="@style/CheckBox"
-                        android:layout_width="match_parent"
-                        android:layout_below="@id/layout_other"
+                        android:layout_below="@id/layout_sang"
+                        android:layout_alignParentStart="true"
+                        android:layout_toStartOf="@id/view_center_1"
                         android:checked="@={technicalInfoVM.ezharNazarA}"
                         android:text="@string/ezhar_ab" />
                 </RelativeLayout>
@@ -152,7 +164,13 @@
                     android:background="@drawable/border_gray_1"
                     android:padding="@dimen/low_dp">
 
-                    <com.google.android.material.textview.MaterialTextView
+                    <View
+                        android:id="@+id/view_center_2"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_centerHorizontal="true" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/text_view_title_2"
                         style="@style/BaseTitleForm"
                         android:layout_width="wrap_content"
@@ -164,8 +182,9 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_khaki_fazelab"
                         style="@style/TextInputLayout"
-                        android:layout_width="match_parent"
                         android:layout_below="@id/text_view_title_2"
+                        android:layout_alignParentStart="true"
+                        android:layout_toStartOf="@id/view_center_2"
                         android:hint="@string/khaki">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -179,8 +198,9 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_asphalt_fazelab"
                         style="@style/TextInputLayout"
-                        android:layout_width="match_parent"
-                        android:layout_below="@id/layout_khaki_fazelab"
+                        android:layout_below="@id/text_view_title_2"
+                        android:layout_alignParentEnd="true"
+                        android:layout_toEndOf="@id/view_center_2"
                         android:hint="@string/asphalt">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -195,8 +215,9 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_sang_fazelab"
                         style="@style/TextInputLayout"
-                        android:layout_width="match_parent"
-                        android:layout_below="@id/layout_asphalt_fazelab"
+                        android:layout_below="@id/layout_khaki_fazelab"
+                        android:layout_alignParentStart="true"
+                        android:layout_toStartOf="@id/view_center_2"
                         android:hint="@string/sang">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -210,8 +231,9 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_other_fazelab"
                         style="@style/TextInputLayout"
-                        android:layout_width="match_parent"
-                        android:layout_below="@id/layout_sang_fazelab"
+                        android:layout_below="@id/layout_asphalt_fazelab"
+                        android:layout_alignParentEnd="true"
+                        android:layout_toEndOf="@id/view_center_2"
                         android:hint="@string/other">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -233,8 +255,13 @@
                     android:background="@drawable/border_gray_1"
                     android:padding="@dimen/low_dp">
 
+                    <View
+                        android:id="@+id/view_center_3"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_centerHorizontal="true" />
 
-                    <com.google.android.material.textview.MaterialTextView
+                    <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/text_view_title_3"
                         style="@style/BaseTitleForm"
                         android:layout_width="wrap_content"
@@ -245,8 +272,9 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_qotr"
                         style="@style/MenuLayout"
-                        android:layout_width="match_parent"
                         android:layout_below="@id/text_view_title_3"
+                        android:layout_alignParentStart="true"
+                        android:layout_toStartOf="@id/view_center_3"
                         android:hint="@string/qotr_loole">
 
                         <com.google.android.material.textfield.MaterialAutoCompleteTextView
@@ -259,8 +287,9 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_jens"
                         style="@style/MenuLayout"
-                        android:layout_width="match_parent"
-                        android:layout_below="@id/layout_qotr"
+                        android:layout_below="@id/text_view_title_3"
+                        android:layout_alignParentEnd="true"
+                        android:layout_toEndOf="@id/view_center_3"
                         android:hint="@string/jens_loole">
 
                         <com.google.android.material.textfield.MaterialAutoCompleteTextView
@@ -273,18 +302,18 @@
                     <com.google.android.material.checkbox.MaterialCheckBox
                         android:id="@+id/checkbox_loole_ab"
                         style="@style/CheckBox"
-                        android:layout_marginTop="@dimen/medium_dp"
-                        android:layout_marginBottom="@dimen/medium_dp"
-                        android:layout_width="match_parent"
-                        android:layout_below="@id/layout_jens"
+                        android:layout_below="@id/layout_qotr"
+                        android:layout_alignParentStart="true"
+                        android:layout_toStartOf="@id/view_center_3"
                         android:checked="@={technicalInfoVM.looleA}"
                         android:text="@string/loole_ab" />
 
                     <com.google.android.material.checkbox.MaterialCheckBox
                         android:id="@+id/checkbox_loole_fazelab"
                         style="@style/CheckBox"
-                        android:layout_width="match_parent"
-                        android:layout_below="@id/checkbox_loole_ab"
+                        android:layout_below="@id/layout_jens"
+                        android:layout_alignParentEnd="true"
+                        android:layout_toEndOf="@id/view_center_3"
                         android:checked="@={technicalInfoVM.looleF}"
                         android:text="@string/loole_fazelab" />
                 </RelativeLayout>
@@ -298,10 +327,17 @@
                     android:background="@drawable/border_gray_1"
                     android:padding="@dimen/low_dp">
 
+                    <View
+                        android:id="@+id/view_center_4"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_centerHorizontal="true" />
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_omq_zirzamin"
                         style="@style/TextInputLayout"
-                        android:layout_width="match_parent"
+                        android:layout_alignParentStart="true"
+                        android:layout_toStartOf="@id/view_center_4"
                         android:hint="@string/omq_zirzamin">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -316,8 +352,9 @@
                     <com.google.android.material.checkbox.MaterialCheckBox
                         android:id="@+id/checkbox_chah_ab_baran"
                         style="@style/CheckBox"
-                        android:layout_width="match_parent"
-                        android:layout_below="@id/layout_omq_zirzamin"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="@dimen/large_dp"
+                        android:layout_toEndOf="@id/view_center_4"
                         android:checked="@={technicalInfoVM.chahAbBaran}"
                         android:text="@string/chah_ab_baran" />
                 </RelativeLayout>

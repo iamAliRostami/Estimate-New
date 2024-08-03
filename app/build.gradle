@@ -102,8 +102,8 @@ android {
         applicationId "com.leon.estimate_new"
         minSdk 23
         targetSdk 35
-        versionCode 17
-        versionName "2.03.04.31"
+        versionCode 18
+        versionName "2.03.05.13"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
