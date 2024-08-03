@@ -21,91 +21,94 @@
             android:layout_centerHorizontal="true"
             android:text="@string/moshakhasat_malek" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/linear_layout_title"
+        <RelativeLayout
+            android:id="@+id/relative_layout_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/text_view_title"
-            android:background="@drawable/border_gray_1">
+            android:background="@drawable/border_gray_1"
+            android:padding="@dimen/medium_dp">
 
-            <RelativeLayout
-                android:id="@+id/relative_layout_track"
-                android:layout_width="0dp"
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/linear_layout_track"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/border_white_1"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/relative_layout_bill_id"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent="0.28">
+                android:padding="@dimen/low_dp">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/text_view_track_number_title"
                     style="@style/BaseTitleForm"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
                     android:text="@string/track_number" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/text_view_track_number"
                     style="@style/BaseForm"
-                    android:layout_below="@id/text_view_track_number_title"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="end"
                     android:text="@{personalVM.trackNumber}" />
-            </RelativeLayout>
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <RelativeLayout
-                android:id="@+id/relative_layout_bill_id"
-                android:layout_width="0dp"
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/linear_layout_bill_id"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/linear_layout_track"
                 android:layout_marginTop="@dimen/low_dp"
                 android:layout_marginBottom="@dimen/low_dp"
                 android:background="@drawable/border_white_1"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/relative_layout_track"
-                app:layout_constraintStart_toEndOf="@id/relative_layout_zone"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent="0.37">
+                android:padding="@dimen/low_dp">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/text_view_bill_id_title"
                     style="@style/BaseTitleForm"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
                     android:text="@string/bill_id" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/text_view_bill_id"
                     style="@style/BaseForm"
-                    android:layout_below="@id/text_view_bill_id_title"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="end"
                     android:text="@{personalVM.tempBillId}" />
-            </RelativeLayout>
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <RelativeLayout
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/relative_layout_zone"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/linear_layout_bill_id"
                 android:background="@drawable/border_white_1"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/relative_layout_bill_id"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent="0.3">
+                android:padding="@dimen/low_dp">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/text_view_zone_title"
                     style="@style/BaseTitleForm"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
                     android:text="@string/zone" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/text_view_zone"
                     style="@style/BaseForm"
-                    android:layout_below="@id/text_view_zone_title"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="end"
                     android:text="@{personalVM.zoneTitle}" />
-            </RelativeLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </RelativeLayout>
 
         <ScrollView
             android:id="@+id/scroll_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@id/button_submit"
-            android:layout_below="@id/linear_layout_title"
+            android:layout_below="@id/relative_layout_title"
             android:background="@drawable/border_white_1">
 
             <RelativeLayout
@@ -120,17 +123,10 @@
                     android:background="@drawable/border_gray_1"
                     android:padding="@dimen/low_dp">
 
-                    <View
-                        android:id="@+id/view_center_1"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_centerHorizontal="true" />
-
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_name"
                         style="@style/TextInputLayout"
-                        android:layout_alignParentStart="true"
-                        android:layout_toStartOf="@id/view_center_1"
+                        android:layout_width="match_parent"
                         android:hint="@string/name">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -144,8 +140,8 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_family"
                         style="@style/TextInputLayout"
-                        android:layout_alignParentEnd="true"
-                        android:layout_toEndOf="@id/view_center_1"
+                        android:layout_width="match_parent"
+                        android:layout_below="@id/layout_name"
                         android:hint="@string/family">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -159,9 +155,8 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_father_name"
                         style="@style/TextInputLayout"
-                        android:layout_below="@id/layout_name"
-                        android:layout_alignParentStart="true"
-                        android:layout_toStartOf="@id/view_center_1"
+                        android:layout_width="match_parent"
+                        android:layout_below="@id/layout_family"
                         android:hint="@string/father_name">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -175,9 +170,8 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_shenasname"
                         style="@style/TextInputLayout"
-                        android:layout_below="@id/layout_family"
-                        android:layout_alignParentEnd="true"
-                        android:layout_toEndOf="@id/view_center_1"
+                        android:layout_width="match_parent"
+                        android:layout_below="@id/layout_father_name"
                         android:hint="@string/shenasname">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -193,9 +187,8 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_national_id"
                         style="@style/TextInputLayout"
-                        android:layout_below="@id/layout_father_name"
-                        android:layout_alignParentStart="true"
-                        android:layout_toStartOf="@id/view_center_1"
+                        android:layout_width="match_parent"
+                        android:layout_below="@id/layout_shenasname"
                         android:hint="@string/national_id"
                         app:counterEnabled="true">
 
@@ -211,9 +204,8 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_postal_code"
                         style="@style/TextInputLayout"
-                        android:layout_below="@id/layout_shenasname"
-                        android:layout_alignParentEnd="true"
-                        android:layout_toEndOf="@id/view_center_1"
+                        android:layout_width="match_parent"
+                        android:layout_below="@id/layout_national_id"
                         android:hint="@string/postal_code"
                         app:counterEnabled="true">
 
@@ -236,17 +228,10 @@
                     android:background="@drawable/border_gray_1"
                     android:padding="@dimen/low_dp">
 
-                    <View
-                        android:id="@+id/view_center_2"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_centerHorizontal="true" />
-
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_radif"
-                        style="@style/TextInputLayout"
-                        android:layout_alignParentStart="true"
-                        android:layout_toStartOf="@id/view_center_2"
+                        style="@style/TextInputLayout"                        
+                        android:layout_width="match_parent"
                         android:hint="@string/radif">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -260,8 +245,8 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_eshterak"
                         style="@style/TextInputLayout"
-                        android:layout_alignParentEnd="true"
-                        android:layout_toEndOf="@id/view_center_2"
+                        android:layout_below="@id/layout_radif"
+                        android:layout_width="match_parent"
                         android:hint="@string/eshterak">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -275,8 +260,7 @@
                         android:id="@+id/layout_mobile"
                         style="@style/TextInputLayout"
                         android:layout_below="@id/layout_eshterak"
-                        android:layout_alignParentStart="true"
-                        android:layout_toStartOf="@id/view_center_2"
+                        android:layout_width="match_parent"
                         android:hint="@string/mobile_number"
                         app:counterEnabled="true">
 
@@ -284,6 +268,7 @@
                             android:id="@+id/edit_text_mobile"
                             style="@style/TextInput"
                             android:inputType="phone"
+                            android:nextFocusForward="@id/edit_text_phone"
                             android:maxLength="11"
                             android:text="@={personalVM.mobile}" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -291,9 +276,8 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_phone"
                         style="@style/TextInputLayout"
-                        android:layout_below="@id/layout_eshterak"
-                        android:layout_alignParentEnd="true"
-                        android:layout_toEndOf="@id/view_center_2"
+                        android:layout_below="@id/layout_mobile"
+                        android:layout_width="match_parent"
                         android:hint="@string/phone"
                         app:counterEnabled="true">
 
@@ -302,6 +286,7 @@
                             style="@style/TextInput"
                             android:inputType="phone"
                             android:maxLength="8"
+                            android:nextFocusForward="@id/edit_text_address"
                             android:text="@={personalVM.phoneNumber}" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -310,7 +295,7 @@
                         android:id="@+id/layout_address"
                         style="@style/TextInputLayout"
                         android:layout_width="match_parent"
-                        android:layout_below="@id/layout_mobile"
+                        android:layout_below="@id/layout_phone"
                         android:hint="@string/address">
 
                         <com.google.android.material.textfield.TextInputEditText
