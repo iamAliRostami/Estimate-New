@@ -1,5 +1,11 @@
 package com.leon.estimate_new.di.view_model;
 
+import static com.leon.estimate_new.enums.DialogType.Green;
+import static com.leon.estimate_new.enums.DialogType.GreenRedirect;
+import static com.leon.estimate_new.enums.DialogType.Red;
+import static com.leon.estimate_new.enums.DialogType.RedRedirect;
+import static com.leon.estimate_new.enums.DialogType.Yellow;
+import static com.leon.estimate_new.enums.DialogType.YellowRedirect;
 import static com.leon.estimate_new.helpers.MyApplication.getActivityComponent;
 
 import android.content.Context;
@@ -28,17 +34,17 @@ public class CustomDialogModel {
         this.context = context;
         lovelyStandardDialog = getActivityComponent().LovelyStandardDialog();
         lovelyStandardDialog.setTitle(title).setMessage(message).setTopTitle(top);
-        if (choose == DialogType.Green)
+        if (choose == Green)
             CustomGreenDialog(buttonText);
-        else if (choose == DialogType.Yellow)
+        else if (choose == Yellow)
             CustomYellowDialog(buttonText);
-        else if (choose == DialogType.Red)
+        else if (choose == Red)
             CustomRedDialog(buttonText);
-        else if (choose == DialogType.GreenRedirect)
+        else if (choose == GreenRedirect)
             CustomGreenDialogRedirect(buttonText);
-        else if (choose == DialogType.YellowRedirect)
+        else if (choose == YellowRedirect)
             CustomYellowDialogRedirect(buttonText, inline);
-        else if (choose == DialogType.RedRedirect)
+        else if (choose == RedRedirect)
             CustomRedDialogRedirect(buttonText);
     }
 
@@ -48,7 +54,7 @@ public class CustomDialogModel {
 
     public void CustomGreenDialogRedirect(String ButtonText) {
         lovelyStandardDialog
-                .setTopColorRes(R.color.green)
+                .setTopColorRes(R.color.primary_variant)
                 .setTopTitleColor(ContextCompat.getColor(context, R.color.text_color_light))
                 .setButtonsBackground(R.drawable.background_submit_button)
                 .setPositiveButton(ButtonText, v -> {
@@ -79,7 +85,7 @@ public class CustomDialogModel {
 
     public void CustomGreenDialog(String ButtonText) {
         lovelyStandardDialog
-                .setTopColorRes(R.color.green)
+                .setTopColorRes(R.color.primary_variant)
                 .setTopTitleColor(ContextCompat.getColor(context, R.color.text_color_light))
                 .setButtonsBackground(R.drawable.background_submit_button)
                 .setPositiveButton(ButtonText, v -> lovelyStandardDialog.dismiss())

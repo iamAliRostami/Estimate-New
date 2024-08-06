@@ -25,9 +25,9 @@
 
         <View
             android:id="@+id/view_line"
-            android:background="?attr/colorPrimary"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_10sdp"
+            android:background="?attr/colorPrimary"
             app:layout_constraintTop_toBottomOf="@id/view_top" />
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -120,6 +120,7 @@
             android:id="@+id/text_view_version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="@{loginVm.version}"
             android:textColor="@color/text_color_dark"
             app:layout_constraintBottom_toTopOf="@id/layout"

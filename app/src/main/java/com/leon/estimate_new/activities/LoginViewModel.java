@@ -5,6 +5,9 @@ import static com.leon.estimate_new.enums.SharedReferenceKeys.USERNAME;
 import static com.leon.estimate_new.helpers.MyApplication.getAndroidVersion;
 import static com.leon.estimate_new.helpers.MyApplication.getPreferenceManager;
 
+import android.os.Build;
+import android.util.Log;
+
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
@@ -23,8 +26,8 @@ public class LoginViewModel extends BaseObservable {
     private boolean save;
 
     public LoginViewModel(String version) {
-        this.version = version.concat(" ").concat(getAndroidVersion()).concat(" *** ")
-                .concat(BuildConfig.VERSION_NAME);
+        this.version = version.concat(" ").concat(BuildConfig.VERSION_NAME).concat("\n").
+                concat(getAndroidVersion()).concat(" *** Arch: ").concat(Build.SUPPORTED_ABIS[0]);
         setSave(true);
         if (getPreferenceManager().checkIsNotEmpty(USERNAME.getValue()) &&
                 getPreferenceManager().checkIsNotEmpty(PASSWORD.getValue())) {

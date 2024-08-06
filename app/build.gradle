@@ -5,89 +5,98 @@ plugins {
 android {
     splits {
         abi {
-            exclude 'x86'
-            exclude 'x86_64'
-            exclude 'mips'
-            //TODO
-            exclude 'mips64'
-            exclude 'armeabi'
-            exclude 'armeabi-v7a'
+            enable true
+
+            reset()
+
+            include 'x86', 'x86_64', 'mips', 'mips64', 'armeabi', 'armeabi-v7a', 'armeabi-v8a'
+
+            universalApk false
+
+
+//            exclude 'x86'
+//            exclude 'x86_64'
+//            exclude 'mips'
+//            //TODO
+//            exclude 'mips64'
+//            exclude 'armeabi'
+//            exclude 'armeabi-v7a'
 //            exclude 'armeabi-v8a'
         }
     }
-    packagingOptions {
-        jniLibs {
-            useLegacyPackaging false
-            excludes += [
-                    'lib/x86/libopencv_java3.so',
-                    'lib/x86_64/libopencv_java3.so',
-                    'lib/mips/libopencv_java3.so',
-                    'lib/mips64/libopencv_java3.so',
-                    'lib/armeabi/libopencv_java3.so',
-                    'lib/armeabi-v7a/libopencv_java3.so',
-//                    'lib/arm64-v8a/libopencv_java3.so',
-                    'lib/x86/libruntimecore.so',
-                    'lib/x86_64/libruntimecore.so',
-                    'lib/mips/libruntimecore.so',
-                    'lib/mips64/libruntimecore.so',
-                    'lib/armeabi/libruntimecore.so',
-                    'lib/armeabi-v7a/libruntimecore.so',
-//                    'lib/arm64-v8a/libruntimecore.so',
-                    'lib/x86/libc++_shared.so',
-                    'lib/x86_64/libc++_shared.so',
-                    'lib/mips/libc++_shared.so',
-                    'lib/mips64/libc++_shared.so',
-                    'lib/armeabi/libc++_shared.so',
-                    'lib/armeabi-v7a/libc++_shared.so',
-//                    'lib/arm64-v8a/libc++_shared.so',
-                    'lib/x86/libruntimecore_java.so',
-                    'lib/x86_64/libruntimecore_java.so',
-                    'lib/mips/libruntimecore_java.so',
-                    'lib/mips64/libruntimecore_java.so',
-                    'lib/armeabi/libruntimecore_java.so',
-                    'lib/armeabi-v7a/libruntimecore_java.so',
-//                    'lib/arm64-v8a/libruntimecore_java.so',
-                    'lib/x86/libfilament-jni.so',
-                    'lib/x86_64/libfilament-jni.so',
-                    'lib/mips/libfilament-jni.so',
-                    'lib/mips64/libfilament-jni.so',
-                    'lib/armeabi/libfilament-jni.so',
-                    'lib/armeabi-v7a/libfilament-jni.so',
-//                    'lib/arm64-v8a/libfilament_jni.so',
-                    'lib/x86/libsceneform_animation.so',
-                    'lib/x86_64/libsceneform_animation.so',
-                    'lib/mips/libsceneform_animation.so',
-                    'lib/mips64/libsceneform_animation.so',
-                    'lib/armeabi/libsceneform_animation.so',
-                    'lib/armeabi-v7a/libsceneform_animation.so',
-//                    'lib/arm64-v8a/libsceneform_animation.so',
-                    'lib/x86/libarsceneview_jni.so',
-                    'lib/x86_64/libarsceneview_jni.so',
-                    'lib/mips/libarsceneview_jni.so',
-                    'lib/mips64/libarsceneview_jni.so',
-                    'lib/armeabi/libarsceneview_jni.so',
-                    'lib/armeabi-v7a/libarsceneview_jni.so',
-//                    'lib/arm64-v8a/libarsceneview_jni.so',
-                    'lib/x86/libarcore_sdk_jni.so',
-                    'lib/x86_64/libarcore_sdk_jni.so',
-                    'lib/mips/libarcore_sdk_jni.so',
-                    'lib/mips64/libarcore_sdk_jni.so',
-                    'lib/armeabi/libarcore_sdk_jni.so',
-                    'lib/armeabi-v7a/libarcore_sdk_jni.so',
-//                    'lib/arm64-v8a/libarcore_sdk_jni.so',
-                    'lib/x86/libarcore_sdk_c.so',
-                    'lib/x86_64/libarcore_sdk_c.so',
-                    'lib/mips/libarcore_sdk_c.so',
-                    'lib/mips64/libarcore_sdk_c.so',
-                    'lib/armeabi/libarcore_sdk_c.so',
-                    'lib/armeabi-v7a/libarcore_sdk_c.so'
-//                    ,'lib/arm64-v8a/libarcore_sdk_c.so'
-            ]
-        }
-        resources {
-            excludes += ['AndroidManifest.xml']
-        }
-    }
+//    packagingOptions {
+//        jniLibs {
+//            useLegacyPackaging false
+//            excludes += [
+//                    'lib/x86/libopencv_java3.so',
+//                    'lib/x86_64/libopencv_java3.so',
+//                    'lib/mips/libopencv_java3.so',
+//                    'lib/mips64/libopencv_java3.so',
+//                    'lib/armeabi/libopencv_java3.so',
+//                    'lib/armeabi-v7a/libopencv_java3.so',
+////                    'lib/arm64-v8a/libopencv_java3.so',
+//                    'lib/x86/libruntimecore.so',
+//                    'lib/x86_64/libruntimecore.so',
+//                    'lib/mips/libruntimecore.so',
+//                    'lib/mips64/libruntimecore.so',
+//                    'lib/armeabi/libruntimecore.so',
+//                    'lib/armeabi-v7a/libruntimecore.so',
+////                    'lib/arm64-v8a/libruntimecore.so',
+//                    'lib/x86/libc++_shared.so',
+//                    'lib/x86_64/libc++_shared.so',
+//                    'lib/mips/libc++_shared.so',
+//                    'lib/mips64/libc++_shared.so',
+//                    'lib/armeabi/libc++_shared.so',
+//                    'lib/armeabi-v7a/libc++_shared.so',
+////                    'lib/arm64-v8a/libc++_shared.so',
+//                    'lib/x86/libruntimecore_java.so',
+//                    'lib/x86_64/libruntimecore_java.so',
+//                    'lib/mips/libruntimecore_java.so',
+//                    'lib/mips64/libruntimecore_java.so',
+//                    'lib/armeabi/libruntimecore_java.so',
+//                    'lib/armeabi-v7a/libruntimecore_java.so',
+////                    'lib/arm64-v8a/libruntimecore_java.so',
+//                    'lib/x86/libfilament-jni.so',
+//                    'lib/x86_64/libfilament-jni.so',
+//                    'lib/mips/libfilament-jni.so',
+//                    'lib/mips64/libfilament-jni.so',
+//                    'lib/armeabi/libfilament-jni.so',
+//                    'lib/armeabi-v7a/libfilament-jni.so',
+////                    'lib/arm64-v8a/libfilament_jni.so',
+//                    'lib/x86/libsceneform_animation.so',
+//                    'lib/x86_64/libsceneform_animation.so',
+//                    'lib/mips/libsceneform_animation.so',
+//                    'lib/mips64/libsceneform_animation.so',
+//                    'lib/armeabi/libsceneform_animation.so',
+//                    'lib/armeabi-v7a/libsceneform_animation.so',
+////                    'lib/arm64-v8a/libsceneform_animation.so',
+//                    'lib/x86/libarsceneview_jni.so',
+//                    'lib/x86_64/libarsceneview_jni.so',
+//                    'lib/mips/libarsceneview_jni.so',
+//                    'lib/mips64/libarsceneview_jni.so',
+//                    'lib/armeabi/libarsceneview_jni.so',
+//                    'lib/armeabi-v7a/libarsceneview_jni.so',
+////                    'lib/arm64-v8a/libarsceneview_jni.so',
+//                    'lib/x86/libarcore_sdk_jni.so',
+//                    'lib/x86_64/libarcore_sdk_jni.so',
+//                    'lib/mips/libarcore_sdk_jni.so',
+//                    'lib/mips64/libarcore_sdk_jni.so',
+//                    'lib/armeabi/libarcore_sdk_jni.so',
+//                    'lib/armeabi-v7a/libarcore_sdk_jni.so',
+////                    'lib/arm64-v8a/libarcore_sdk_jni.so',
+//                    'lib/x86/libarcore_sdk_c.so',
+//                    'lib/x86_64/libarcore_sdk_c.so',
+//                    'lib/mips/libarcore_sdk_c.so',
+//                    'lib/mips64/libarcore_sdk_c.so',
+//                    'lib/armeabi/libarcore_sdk_c.so',
+//                    'lib/armeabi-v7a/libarcore_sdk_c.so'
+////                    ,'lib/arm64-v8a/libarcore_sdk_c.so'
+//            ]
+//        }
+//        resources {
+//            excludes += ['AndroidManifest.xml']
+//        }
+//    }
     compileSdk 35
 //    buildToolsVersion '34.0.0'
     signingConfigs {
@@ -102,8 +111,8 @@ android {
         applicationId "com.leon.estimate_new"
         minSdk 23
         targetSdk 35
-        versionCode 18
-        versionName "2.03.05.13"
+        versionCode 19
+        versionName "2.03.05.15"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {

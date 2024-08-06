@@ -6,7 +6,6 @@ import static com.leon.estimate_new.utils.PermissionManager.isNetworkAvailable;
 import static com.leon.estimate_new.utils.Validator.checkEmpty;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Debug;
@@ -53,7 +52,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         lastClickTime = SystemClock.elapsedRealtime();
         final int id = v.getId();
         if (id == R.id.button_login) {
-            attempt();
+            attempt(true);
         }
     }
 
@@ -63,20 +62,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         lastClickTime = SystemClock.elapsedRealtime();
         final int id = v.getId();
         if (id == R.id.button_login) {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            finish();
+            attempt(false);
         }
         return false;
     }
 
-    private void attempt() {
-
+    private void attempt(boolean online) {
         if (checkEmpty(binding.editTextUsername, this) &&
                 checkEmpty(binding.editTextPassword, this)) {
             if (isNetworkAvailable(getApplicationContext())) {
-                new AttemptLogin(loginVM.getUsername(), loginVM.getPassword(), loginVM.isSave())
-                        .execute(this);
+                if (online)
+                    new AttemptLogin(loginVM.getUsername(), loginVM.getPassword(), loginVM.isSave())
+                            .execute(this);
+                else
+                    new AttemptLogin(loginVM.getUsername(), loginVM.getPassword(), loginVM.isSave(),
+                            false).execute(this);
             } else {
                 new CustomToast().warning(getString(R.string.turn_internet_on));
             }

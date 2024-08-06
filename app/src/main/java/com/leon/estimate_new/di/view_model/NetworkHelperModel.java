@@ -28,6 +28,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public final class NetworkHelperModel {
     private static final TimeUnit TIME_UNIT = TimeUnit.SECONDS;
     private static final boolean RETRY_ENABLED = false;
+    private static boolean ONLINE = true;
     private static final long READ_TIMEOUT = 120;
     private static final long WRITE_TIMEOUT = 60;
     private static final long CONNECT_TIMEOUT = 10;
@@ -58,7 +59,8 @@ public final class NetworkHelperModel {
 //                .addInterceptor(new HttpLoggingInterceptor()
 //                        .setLevel(HttpLoggingInterceptor.Level.BODY))
                 .cache(cache).build();
-        return new Retrofit.Builder().baseUrl(getBaseUrl(getActiveCompanyName())).client(client)
+        return new Retrofit.Builder().baseUrl(ONLINE ? getBaseUrl(getActiveCompanyName()) :
+                        getLocalBaseUrl(getActiveCompanyName())).client(client)
                 .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().setLenient()
                         .create())).build();
     }
@@ -137,14 +139,21 @@ public final class NetworkHelperModel {
     }
 
     @Inject
+    public Retrofit getInstance(String... s) {
+        return getInstance(ONLINE, 1, s);
+    }
+
+    @Inject
+    public Retrofit getInstance(boolean b, String... s) {
+        ONLINE = b;
+        return getInstance(ONLINE, 1, s);
+    }
+
+    @Inject
     public Retrofit getInstance(int denominator, String... s) {
         return getInstance(true, denominator, s);
     }
 
-    @Inject
-    public Retrofit getInstance(String... s) {
-        return getInstance(true, 1, s);
-    }
 
     @Inject
     public Retrofit getInstance(boolean b, String s, int readTimeout, int writeTimeout, int connectTimeout) {
