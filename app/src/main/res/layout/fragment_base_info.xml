@@ -231,6 +231,7 @@
                     <com.google.android.material.checkbox.MaterialCheckBox
                         android:id="@+id/checkbox_qaradad_amade"
                         style="@style/CheckBox"
+                        android:layout_marginBottom="@dimen/medium_dp"
                         android:layout_below="@id/layout_licence_number"
                         android:checked="@={baseInfoVM.qaradad}"
                         android:text="@string/qaradad_amade" />
@@ -255,6 +256,7 @@
                     <com.google.android.material.checkbox.MaterialCheckBox
                         android:id="@+id/checkbox_gheire_daem"
                         style="@style/CheckBox"
+                        android:layout_marginBottom="@dimen/medium_dp"
                         android:layout_below="@id/layout_pelak"
                         android:checked="@={baseInfoVM.ensheabQeirDaem}"
                         android:text="@string/ensheab_gheire_daem" />
@@ -279,6 +281,7 @@
                     <com.google.android.material.checkbox.MaterialCheckBox
                         android:id="@+id/checkbox_adam_license"
                         style="@style/CheckBox"
+                        android:layout_marginBottom="@dimen/medium_dp"
                         android:layout_below="@id/layout_sanad_number"
                         android:checked="@={baseInfoVM.adamLicence}"
                         android:text="@string/adam_license" />

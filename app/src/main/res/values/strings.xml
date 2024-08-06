@@ -10,7 +10,7 @@
     <string name="final_accepted">تایید نهایی</string>
     <string name="close">بستن</string>
 
-    <string name="document_received">مدارکی که تا کنون دریافت شده است:</string>
+    <string name="document_received">مدارکی که تاکنون دریافت شده است:</string>
     <string name="to_continue">جهت ادامه یکی از عملیات های زیر را انتخاب کنید:</string>
     <string name="open_camera">بازکردن دوربین</string>
     <string name="pick_an_image">برگزیدن</string>

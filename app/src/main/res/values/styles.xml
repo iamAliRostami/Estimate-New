@@ -210,9 +210,11 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="boxBackgroundColor">@android:color/white</item>
         <item name="boxBackgroundMode">outline</item>
+        <item name="errorEnabled">true</item>
         <item name="hintTextColor">?colorPrimaryDark</item>
         <item name="boxStrokeColor">?colorPrimaryDark</item>
-        <item name="android:layout_margin">@dimen/low_dp</item>
+        <item name="android:layout_marginStart">@dimen/low_dp</item>
+        <item name="android:layout_marginEnd">@dimen/low_dp</item>
         <item name="hintTextAppearance">@style/TextHelper</item>
     </style>
 

@@ -31,6 +31,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Lifecycle;
 
 import com.leon.estimate_new.BuildConfig;
 import com.leon.estimate_new.R;
@@ -122,7 +123,7 @@ public class MapDescriptionFragment extends Fragment implements View.OnClickList
 //                return super.onOptionsItemSelected(item);
                 return false;
             }
-        });
+        }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
     }
 
     private void initialize() {

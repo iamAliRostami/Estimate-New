@@ -165,8 +165,6 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
         binding.textViewNoeEnsheab.setOnClickListener(this);
         binding.textViewNoeTakhfif.setOnClickListener(this);
         binding.editTextSodurDate.setOnClickListener(this);
-        binding.layoutArzeshMelk.setOnClickListener(this);
-        binding.editTextArzeshMelk.setOnClickListener(this);
 
         binding.buttonSubmit.setOnClickListener(this);
         binding.buttonPre.setOnClickListener(this);
@@ -175,6 +173,8 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
         binding.layoutTedadSaier.setOnLongClickListener(this);
         binding.editTextTedadTejari.setOnLongClickListener(this);
         binding.editTextTedadSaier.setOnLongClickListener(this);
+        binding.layoutArzeshMelk.setOnClickListener(this);
+        binding.editTextArzeshMelk.setOnClickListener(this);
     }
 
     @Override

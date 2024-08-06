@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="@dimen/medium_dp"
     tools:context=".fragments.documents.TakePhotoFragment">
 
@@ -53,8 +54,7 @@
             android:layout_margin="@dimen/low_dp"
             android:layout_weight="1"
             android:src="@drawable/icon_finder_camera"
-            android:visibility="gone"
-            tools:ignore="ContentDescription" />
+            android:visibility="gone" />
 
         <RelativeLayout
             android:layout_width="0dp"
@@ -63,12 +63,12 @@
             android:layout_weight="1">
 
             <RelativeLayout
-                android:id="@+id/linear_layout_take_photo"
+                android:id="@+id/relative_layout_take_photo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/medium_dp"
                 android:background="@drawable/border_white_1"
-                android:padding="@dimen/low_dp"
-                android:visibility="gone">
+                android:padding="@dimen/low_dp">
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/button_pick"
@@ -96,14 +96,16 @@
                     android:layout_width="match_parent"
                     android:layout_below="@id/layout_image_title"
                     android:text="@string/upload"
-                    android:visibility="visible" />
+                    app:backgroundTint="@color/green"
+                    android:visibility="gone" />
             </RelativeLayout>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_accepted"
                 style="@style/Button.Neutral"
                 android:layout_width="match_parent"
-                android:layout_below="@id/linear_layout_take_photo"
+                android:layout_below="@id/relative_layout_take_photo"
+                android:layout_margin="0dp"
                 android:text="@string/form_preview" />
         </RelativeLayout>
     </androidx.appcompat.widget.LinearLayoutCompat>
