@@ -472,4 +472,8 @@
     <string name="adam_license">مجوز عدم تولی</string>
     <string name="crooki">کروکی</string>
     <string name="result">نتیجه</string>
+    <string name="ip">آدرس</string>
+    <string name="map_ip">آدرس نقشه</string>
+    <string name="set_ip">ثبت آدرس</string>
+    <string name="document_ip">آدرس مدارک</string>
 </resources>

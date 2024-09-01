@@ -107,8 +107,8 @@ class RequestIncomplete implements ICallbackIncomplete<SimpleMessage> {
                 }
             }
         } else {
-            final CustomErrorHandling errorHandling = new CustomErrorHandling(activity);
-            message = errorHandling.getErrorMessageDefault(response);
+            final CustomErrorHandling error = new CustomErrorHandling(activity);
+            message = error.getErrorMessageDefault(response);
         }
         String finalMessage = message;
         activity.runOnUiThread(() ->
@@ -121,7 +121,7 @@ class RequestIncomplete implements ICallbackIncomplete<SimpleMessage> {
 class GetError implements ICallbackError {
     @Override
     public void executeError(Throwable t) {
-        final CustomErrorHandling errorHandling = new CustomErrorHandling(getContext());
-        new CustomToast().error(errorHandling.getErrorMessageTotal(t), Toast.LENGTH_LONG);
+        final CustomErrorHandling error = new CustomErrorHandling(getContext());
+        new CustomToast().error(error.getErrorMessageTotal(t), Toast.LENGTH_LONG);
     }
 }

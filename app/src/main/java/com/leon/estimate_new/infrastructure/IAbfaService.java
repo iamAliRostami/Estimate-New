@@ -44,6 +44,8 @@ public interface IAbfaService {
     @POST("/MoshtarakinApi/Gis/V1/GetXy/jesuschrist/{billId}")
     Call<Place> getXY(@Path("billId") String billId);
 
+
+    //TODO Document
     @POST("/MoshtarakinApi/SepanoDMS/V1/GetDoc/{token}")
     Call<ResponseBody> getDoc(@Path("token") String token, @Body Uri uri);
 
@@ -72,7 +74,7 @@ public interface IAbfaService {
 
     @POST("/MoshtarakinApi/SepanoDMS/V1/Add/{token}")
     Call<AddDocument> addDocument(@Path("token") String token, @Body AddDocument addDocument);
-
+    //TODO Document
 
     @PATCH("/Auth/Account/UpdateDeviceId")
     Call<SimpleMessage> signSerial(@Query("deviceId") String deviceId);

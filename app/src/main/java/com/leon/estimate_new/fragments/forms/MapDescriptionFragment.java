@@ -10,6 +10,8 @@ import static com.leon.estimate_new.helpers.Constants.MAP_SELECTED;
 import static com.leon.estimate_new.helpers.Constants.SECOND_FRAGMENT;
 import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponent;
 import static com.leon.estimate_new.helpers.MyApplication.getLocationTracker;
+import static com.leon.estimate_new.utils.DifferentCompanyManager.getActiveCompanyName;
+import static com.leon.estimate_new.utils.DifferentCompanyManager.getMapUrl;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -40,17 +42,17 @@ import com.leon.estimate_new.enums.MapLayerType;
 import com.leon.estimate_new.tables.CalculationUserInput;
 import com.leon.estimate_new.tables.ExaminerDuties;
 import com.leon.estimate_new.tables.Place;
-import com.leon.estimate_new.utils.CustomOnlineTileSource;
 import com.leon.estimate_new.utils.gis.GetGisPoint;
 import com.leon.estimate_new.utils.gis.GetGisToken;
 import com.leon.estimate_new.utils.gis.GetGisXY;
 
-import org.jetbrains.annotations.NotNull;
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.events.MapEventsReceiver;
+import org.osmdroid.tileprovider.tilesource.OnlineTileSourceBase;
 import org.osmdroid.tileprovider.tilesource.XYTileSource;
 import org.osmdroid.util.GeoPoint;
+import org.osmdroid.util.MapTileIndex;
 import org.osmdroid.views.CustomZoomButtonsController;
 import org.osmdroid.views.overlay.MapEventsOverlay;
 import org.osmdroid.views.overlay.Marker;
@@ -209,7 +211,17 @@ public class MapDescriptionFragment extends Fragment implements View.OnClickList
 
     private void initializeBaseMap() {
         Configuration.getInstance().load(requireContext(), PreferenceManager.getDefaultSharedPreferences(requireContext()));
-        binding.mapView.setTileSource(new CustomOnlineTileSource());
+//        binding.mapView.setTileSource(new CustomOnlineTileSource());
+        final OnlineTileSourceBase custom = new OnlineTileSourceBase("custom",
+                0, 19, 256, ".png", new String[]{
+                getMapUrl(getActiveCompanyName())}) {
+            @Override
+            public String getTileURLString(long aTile) {
+                return getBaseUrl() + MapTileIndex.getZoom(aTile) + "/" + MapTileIndex.getX(aTile)
+                        + "/" + MapTileIndex.getY(aTile) + mImageFilenameEnding;
+            }
+        };
+        binding.mapView.setTileSource(custom);
 //        binding.mapView.setBuiltInZoomControls(true);
         binding.mapView.getZoomController().
                 setVisibility(CustomZoomButtonsController.Visibility.SHOW_AND_FADEOUT);

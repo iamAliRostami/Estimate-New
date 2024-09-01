@@ -4,6 +4,8 @@ import static com.leon.estimate_new.enums.DialogType.Yellow;
 import static com.leon.estimate_new.enums.ProgressType.NOT_SHOW;
 import static com.leon.estimate_new.enums.SharedReferenceKeys.TOKEN_FOR_FILE;
 import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponent;
+import static com.leon.estimate_new.utils.DifferentCompanyManager.getActiveCompanyName;
+import static com.leon.estimate_new.utils.DifferentCompanyManager.getDocumentUrl;
 
 import android.app.Activity;
 import android.content.Context;
@@ -46,7 +48,8 @@ public class ImageThumbnail extends BaseAsync {
 
     @Override
     public void backgroundTask(Activity activity) {
-        final Retrofit retrofit = getApplicationComponent().Retrofit();
+        final Retrofit retrofit = getApplicationComponent().NetworkHelperModel()
+                .getInstance(getDocumentUrl(getActiveCompanyName()), 1);
         final IAbfaService abfaService = retrofit.create(IAbfaService.class);
         final Call<ResponseBody> call = abfaService.getDoc(getApplicationComponent().SharedPreferenceModel()
                 .getStringData(TOKEN_FOR_FILE.getValue()), new Uri(uri));

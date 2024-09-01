@@ -8,17 +8,25 @@
   "variantName": "release",
   "elements": [
     {
+      "type": "UNIVERSAL",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 20,
+      "versionName": "2.03.06.03",
+      "outputFile": "app-universal-release.apk"
+    },
+    {
       "type": "ONE_OF_MANY",
       "filters": [
         {
           "filterType": "ABI",
-          "value": "mips64"
+          "value": "x86_64"
         }
       ],
       "attributes": [],
-      "versionCode": 19,
-      "versionName": "2.03.05.15",
-      "outputFile": "app-mips64-release.apk"
+      "versionCode": 20,
+      "versionName": "2.03.06.03",
+      "outputFile": "app-x86_64-release.apk"
     },
     {
       "type": "ONE_OF_MANY",
@@ -29,8 +37,8 @@
         }
       ],
       "attributes": [],
-      "versionCode": 19,
-      "versionName": "2.03.05.15",
+      "versionCode": 20,
+      "versionName": "2.03.06.03",
       "outputFile": "app-armeabi-release.apk"
     },
     {
@@ -42,8 +50,8 @@
         }
       ],
       "attributes": [],
-      "versionCode": 19,
-      "versionName": "2.03.05.15",
+      "versionCode": 20,
+      "versionName": "2.03.06.03",
       "outputFile": "app-mips-release.apk"
     },
     {
@@ -55,9 +63,22 @@
         }
       ],
       "attributes": [],
-      "versionCode": 19,
-      "versionName": "2.03.05.15",
+      "versionCode": 20,
+      "versionName": "2.03.06.03",
       "outputFile": "app-armeabi-v7a-release.apk"
+    },
+    {
+      "type": "ONE_OF_MANY",
+      "filters": [
+        {
+          "filterType": "ABI",
+          "value": "mips64"
+        }
+      ],
+      "attributes": [],
+      "versionCode": 20,
+      "versionName": "2.03.06.03",
+      "outputFile": "app-mips64-release.apk"
     },
     {
       "type": "ONE_OF_MANY",
@@ -68,22 +89,9 @@
         }
       ],
       "attributes": [],
-      "versionCode": 19,
-      "versionName": "2.03.05.15",
+      "versionCode": 20,
+      "versionName": "2.03.06.03",
       "outputFile": "app-x86-release.apk"
-    },
-    {
-      "type": "ONE_OF_MANY",
-      "filters": [
-        {
-          "filterType": "ABI",
-          "value": "x86_64"
-        }
-      ],
-      "attributes": [],
-      "versionCode": 19,
-      "versionName": "2.03.05.15",
-      "outputFile": "app-x86_64-release.apk"
     }
   ],
   "elementType": "File",

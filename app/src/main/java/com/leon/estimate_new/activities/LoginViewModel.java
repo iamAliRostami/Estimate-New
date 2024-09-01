@@ -1,12 +1,18 @@
 package com.leon.estimate_new.activities;
 
+import static com.leon.estimate_new.enums.SharedReferenceKeys.ADDRESS;
+import static com.leon.estimate_new.enums.SharedReferenceKeys.DOCUMENT_ADDRESS;
+import static com.leon.estimate_new.enums.SharedReferenceKeys.MAP_ADDRESS;
 import static com.leon.estimate_new.enums.SharedReferenceKeys.PASSWORD;
 import static com.leon.estimate_new.enums.SharedReferenceKeys.USERNAME;
 import static com.leon.estimate_new.helpers.MyApplication.getAndroidVersion;
 import static com.leon.estimate_new.helpers.MyApplication.getPreferenceManager;
+import static com.leon.estimate_new.utils.DifferentCompanyManager.getActiveCompanyName;
+import static com.leon.estimate_new.utils.DifferentCompanyManager.getBaseUrl;
+import static com.leon.estimate_new.utils.DifferentCompanyManager.getDocumentUrl;
+import static com.leon.estimate_new.utils.DifferentCompanyManager.getMapUrl;
 
 import android.os.Build;
-import android.util.Log;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
@@ -24,6 +30,12 @@ public class LoginViewModel extends BaseObservable {
     private String password;
     @Bindable
     private boolean save;
+    @Bindable
+    private String address;
+    @Bindable
+    private String mapAddress;
+    @Bindable
+    private String documentAddress;
 
     public LoginViewModel(String version) {
         this.version = version.concat(" ").concat(BuildConfig.VERSION_NAME).concat("\n").
@@ -33,6 +45,21 @@ public class LoginViewModel extends BaseObservable {
                 getPreferenceManager().checkIsNotEmpty(PASSWORD.getValue())) {
             setUsername(getPreferenceManager().getStringData(USERNAME.getValue()));
             setPassword(Crypto.decrypt(getPreferenceManager().getStringData(PASSWORD.getValue())));
+        }
+        if (getPreferenceManager().checkIsNotEmpty(ADDRESS.getValue())) {
+            setAddress(getPreferenceManager().getStringData(ADDRESS.getValue()));
+        } else {
+            setAddress(getBaseUrl(getActiveCompanyName()));
+        }
+        if (getPreferenceManager().checkIsNotEmpty(MAP_ADDRESS.getValue())) {
+            setMapAddress(getPreferenceManager().getStringData(MAP_ADDRESS.getValue()));
+        } else {
+            setMapAddress(getMapUrl(getActiveCompanyName()));
+        }
+        if (getPreferenceManager().checkIsNotEmpty(DOCUMENT_ADDRESS.getValue())) {
+            setDocumentAddress(getPreferenceManager().getStringData(DOCUMENT_ADDRESS.getValue()));
+        } else {
+            setDocumentAddress(getDocumentUrl(getActiveCompanyName()));
         }
     }
 
@@ -70,5 +97,32 @@ public class LoginViewModel extends BaseObservable {
     public void setSave(boolean save) {
         this.save = save;
         notifyPropertyChanged(BR.save);
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+        notifyPropertyChanged(BR.address);
+    }
+
+    public String getMapAddress() {
+        return mapAddress;
+    }
+
+    public void setMapAddress(String mapAddress) {
+        this.mapAddress = mapAddress;
+        notifyPropertyChanged(BR.mapAddress);
+    }
+
+    public String getDocumentAddress() {
+        return documentAddress;
+    }
+
+    public void setDocumentAddress(String documentAddress) {
+        this.documentAddress = documentAddress;
+        notifyPropertyChanged(BR.documentAddress);
     }
 }

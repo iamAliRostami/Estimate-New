@@ -77,13 +77,67 @@
                 android:text="@={loginVm.password}" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_proxy"
+            style="@style/TextInputLayout"
+            android:visibility="gone"
+            android:layout_width="0dp"
+            android:hint="@string/ip"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_password"
+            app:layout_constraintWidth_percent="0.75">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_text_proxy"
+                style="@style/TextInput"
+                android:text="@={loginVm.address}"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_map_proxy"
+            style="@style/TextInputLayout"
+            android:visibility="gone"
+            android:layout_width="0dp"
+            android:hint="@string/map_ip"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_proxy"
+            app:layout_constraintWidth_percent="0.75">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_text_map_proxy"
+                style="@style/TextInput"
+                android:text="@={loginVm.mapAddress}"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_document_proxy"
+            style="@style/TextInputLayout"
+            android:visibility="gone"
+            android:layout_width="0dp"
+            android:hint="@string/document_ip"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_map_proxy"
+            app:layout_constraintWidth_percent="0.75">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_text_document_proxy"
+                style="@style/TextInput"
+                android:text="@={loginVm.documentAddress}"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/linear_layout_login"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="@dimen/medium_dp"
-            app:layout_constraintEnd_toEndOf="@id/layout_password"
-            app:layout_constraintTop_toBottomOf="@id/layout_password"
+            app:layout_constraintTop_toBottomOf="@id/layout_document_proxy"
             app:layout_constraintWidth_percent="0.75">
 
             <androidx.appcompat.widget.AppCompatCheckBox
@@ -104,8 +158,16 @@
                 android:layout_margin="0dp"
                 android:layout_weight="1"
                 android:text="@string/login" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
 
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/image_view_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="@dimen/medium_dp"
+                android:src="@android:drawable/ic_dialog_info"
+                android:tint="@color/primary" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/image_view_logo"
@@ -113,9 +175,10 @@
             android:layout_height="0dp"
             android:layout_marginBottom="@dimen/huge_dp"
             android:src="@drawable/img_login_logo"
-            app:layout_constraintBottom_toTopOf="@id/text_view_version"
-            app:layout_constraintTop_toBottomOf="@id/linear_layout_login" />
+            app:layout_constraintTop_toBottomOf="@id/linear_layout_login"
+            app:layout_constraintBottom_toTopOf="@id/text_view_version"/>
 
+<!--        app:layout_constraintTop_toBottomOf="@id/linear_layout_login"-->
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_view_version"
             android:layout_width="wrap_content"

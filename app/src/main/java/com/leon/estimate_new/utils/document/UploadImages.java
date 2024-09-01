@@ -5,6 +5,8 @@ import static com.leon.estimate_new.enums.ProgressType.SHOW_CANCELABLE;
 import static com.leon.estimate_new.enums.SharedReferenceKeys.TOKEN_FOR_FILE;
 import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponent;
 import static com.leon.estimate_new.utils.CustomFile.bitmapToFile;
+import static com.leon.estimate_new.utils.DifferentCompanyManager.getActiveCompanyName;
+import static com.leon.estimate_new.utils.DifferentCompanyManager.getDocumentUrl;
 
 import android.app.Activity;
 import android.content.Context;
@@ -54,7 +56,8 @@ public class UploadImages extends BaseAsync {
 
     @Override
     public void backgroundTask(Activity activity) {
-        final Retrofit retrofit = getApplicationComponent().Retrofit();
+        final Retrofit retrofit = getApplicationComponent().NetworkHelperModel()
+                .getInstance(getDocumentUrl(getActiveCompanyName()), 1);
         final IAbfaService abfaService = retrofit.create(IAbfaService.class);
         final MultipartBody.Part body = bitmapToFile(((TakePhotoFragment) fragment)
                 .documentActivity.getBitmap(), activity);

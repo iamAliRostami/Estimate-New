@@ -11,7 +11,7 @@ android {
 
             include 'x86', 'x86_64', 'mips', 'mips64', 'armeabi', 'armeabi-v7a', 'armeabi-v8a'
 
-            universalApk false
+            universalApk true
 
 
 //            exclude 'x86'
@@ -111,8 +111,8 @@ android {
         applicationId "com.leon.estimate_new"
         minSdk 23
         targetSdk 35
-        versionCode 19
-        versionName "2.03.05.15"
+        versionCode 20
+        versionName "2.03.06.03"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {

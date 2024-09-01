@@ -9,7 +9,10 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.leon.estimate_new.R;
 
+import java.util.regex.Pattern;
+
 public class Validator {
+    public static final Pattern ADDRESS_PATTERN = Pattern.compile("\\bhttps?://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]");
 
     public static boolean checkEmpty(TextInputEditText editText, Context context) {
         if (editText.getText() == null || editText.getText().toString().isEmpty()) {
@@ -72,6 +75,14 @@ public class Validator {
     public static boolean postalCodeValidation(TextInputEditText editText, Context context) {
         if (editText.getText() != null && !editText.getText().toString().isEmpty() &&
                 editText.getText().toString().length() < 10) {
+            setError(editText, context.getString(R.string.error_format));
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean proxyValidation(TextInputEditText editText, Context context) {
+        if (editText.getText() != null && !ADDRESS_PATTERN.matcher(editText.getText().toString()).matches()) {
             setError(editText, context.getString(R.string.error_format));
             return false;
         }

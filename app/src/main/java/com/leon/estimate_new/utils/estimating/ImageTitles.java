@@ -3,6 +3,8 @@ package com.leon.estimate_new.utils.estimating;
 import static com.leon.estimate_new.enums.ProgressType.NOT_SHOW;
 import static com.leon.estimate_new.enums.SharedReferenceKeys.TOKEN_FOR_FILE;
 import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponent;
+import static com.leon.estimate_new.utils.DifferentCompanyManager.getActiveCompanyName;
+import static com.leon.estimate_new.utils.DifferentCompanyManager.getDocumentUrl;
 
 import android.app.Activity;
 import android.content.Context;
@@ -42,7 +44,8 @@ public class ImageTitles extends BaseAsync {
 
     @Override
     public void backgroundTask(Activity activity) {
-        final Retrofit retrofit = getApplicationComponent().NetworkHelperModel().getInstance();
+        final Retrofit retrofit = getApplicationComponent().NetworkHelperModel()
+                .getInstance(getDocumentUrl(getActiveCompanyName()), 1);
         final IAbfaService abfaService = retrofit.create(IAbfaService.class);
         final Call<ImageDataTitle> call = abfaService.getTitle(getApplicationComponent()
                 .SharedPreferenceModel().getStringData(TOKEN_FOR_FILE.getValue()));
