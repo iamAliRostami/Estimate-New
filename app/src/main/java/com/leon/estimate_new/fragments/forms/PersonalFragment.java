@@ -37,7 +37,6 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        formActivity.setTitle(getString(R.string.app_name).concat(" / ").concat("صفحه اول"), false);
     }
 
     @Override
@@ -53,6 +52,7 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        formActivity.setTitle(getString(R.string.app_name).concat(" / ").concat("صفحه اول"), false);
     }
 
     private void initialize() {

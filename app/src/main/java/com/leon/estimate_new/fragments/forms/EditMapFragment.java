@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.leon.estimate_new.R;
@@ -36,12 +37,6 @@ public class EditMapFragment extends Fragment implements View.OnClickListener {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        formActivity.setTitle(getString(R.string.app_name).concat(" / ").concat("صفحه ششم"), false);
-    }
-
-    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentEditMapBinding.inflate(inflater, container, false);
@@ -49,6 +44,11 @@ public class EditMapFragment extends Fragment implements View.OnClickListener {
         return binding.getRoot();
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        formActivity.setTitle(getString(R.string.app_name).concat(" / ").concat("صفحه ششم"), false);
+    }
     private void initialize() {
         binding.buttonPre.setOnClickListener(this);
         binding.buttonSubmit.setOnClickListener(this);

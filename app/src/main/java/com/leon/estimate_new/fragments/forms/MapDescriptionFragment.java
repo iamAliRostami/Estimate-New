@@ -82,7 +82,6 @@ public class MapDescriptionFragment extends Fragment implements View.OnClickList
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        formActivity.setTitle(getString(R.string.app_name).concat(" / ").concat("صفحه پنجم"), false);
     }
 
     @Override
@@ -90,13 +89,13 @@ public class MapDescriptionFragment extends Fragment implements View.OnClickList
                              Bundle savedInstanceState) {
         binding = FragmentMapDescriptionBinding.inflate(inflater, container, false);
         initialize();
-//        setHasOptionsMenu(true);
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        formActivity.setTitle(getString(R.string.app_name).concat(" / ").concat("صفحه پنجم"), false);
         requireActivity().addMenuProvider(new MenuProvider() {
             @Override
             public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
@@ -122,7 +121,6 @@ public class MapDescriptionFragment extends Fragment implements View.OnClickList
                     initializeBaseMap();
                     return true;
                 }
-//                return super.onOptionsItemSelected(item);
                 return false;
             }
         }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);

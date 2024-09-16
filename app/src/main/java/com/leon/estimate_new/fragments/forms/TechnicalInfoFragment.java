@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
 
@@ -45,12 +46,6 @@ public class TechnicalInfoFragment extends Fragment implements View.OnClickListe
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        formActivity.setTitle(getString(R.string.app_name).concat(" / ").concat("صفحه چهارم"), false);
-    }
-
-    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentTechnicalInfoBinding.inflate(inflater, container, false);
@@ -58,6 +53,12 @@ public class TechnicalInfoFragment extends Fragment implements View.OnClickListe
         binding.setTechnicalInfoVM(technicalInfoVM);
         initialize();
         return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        formActivity.setTitle(getString(R.string.app_name).concat(" / ").concat("صفحه چهارم"), false);
     }
 
     private void initialize() {
@@ -90,8 +91,8 @@ public class TechnicalInfoFragment extends Fragment implements View.OnClickListe
         }
     }
 
-    private void showMenu(MaterialAutoCompleteTextView editText, ArrayList<String> titles) {
-        final PopupMenu popup = new PopupMenu(requireActivity(), editText, Gravity.TOP);
+    private void showMenu(MaterialAutoCompleteTextView textView, ArrayList<String> titles) {
+        final PopupMenu popup = new PopupMenu(requireActivity(), textView, Gravity.TOP);
         for (int i = 0; i < titles.size(); i++) {
             MenuItem item = popup.getMenu().add(titles.get(i));
             if (item.getIcon() != null) {
@@ -103,7 +104,7 @@ public class TechnicalInfoFragment extends Fragment implements View.OnClickListe
             }
         }
         popup.setOnMenuItemClickListener(menuItem -> {
-            editText.setText(menuItem.getTitle());
+            textView.setText(menuItem.getTitle());
             return true;
         });
         popup.show();
@@ -119,6 +120,8 @@ public class TechnicalInfoFragment extends Fragment implements View.OnClickListe
                 checkEmpty(binding.editTextSangFazelab, requireContext()) &&
                 checkEmpty(binding.editTextOtherFazelab, requireContext()) &&
                 checkEmpty(binding.editTextOmqZirzamin, requireContext()) &&
+                checkEmpty(binding.textViewQotr, requireContext()) &&
+                checkEmpty(binding.textViewJens, requireContext()) &&
                 (!technicalInfoVM.isNewEnsheab() || checkEmpty(binding.editTextEshterak, requireContext()));
     }
 

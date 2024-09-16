@@ -53,6 +53,7 @@ public class TechnicalInfoViewModel extends BaseObservable {
 
     public void setFaseleKhakiA(String faseleKhakiA) {
         this.faseleKhakiA = faseleKhakiA;
+        notifyPropertyChanged(BR.faseleKhakiA);
     }
 
     public String getFaseleKhakiF() {
@@ -61,6 +62,7 @@ public class TechnicalInfoViewModel extends BaseObservable {
 
     public void setFaseleKhakiF(String faseleKhakiF) {
         this.faseleKhakiF = faseleKhakiF;
+        notifyPropertyChanged(BR.faseleKhakiF);
     }
 
     public String getFaseleAsphaltA() {
@@ -69,6 +71,7 @@ public class TechnicalInfoViewModel extends BaseObservable {
 
     public void setFaseleAsphaltA(String faseleAsphaltA) {
         this.faseleAsphaltA = faseleAsphaltA;
+        notifyPropertyChanged(BR.faseleAsphaltA);
     }
 
     public String getFaseleAsphaltF() {
@@ -77,6 +80,7 @@ public class TechnicalInfoViewModel extends BaseObservable {
 
     public void setFaseleAsphaltF(String faseleAsphaltF) {
         this.faseleAsphaltF = faseleAsphaltF;
+        notifyPropertyChanged(BR.faseleAsphaltF);
     }
 
     public String getFaseleSangA() {
@@ -85,6 +89,7 @@ public class TechnicalInfoViewModel extends BaseObservable {
 
     public void setFaseleSangA(String faseleSangA) {
         this.faseleSangA = faseleSangA;
+        notifyPropertyChanged(BR.faseleSangA);
     }
 
     public String getFaseleSangF() {
@@ -93,6 +98,7 @@ public class TechnicalInfoViewModel extends BaseObservable {
 
     public void setFaseleSangF(String faseleSangF) {
         this.faseleSangF = faseleSangF;
+        notifyPropertyChanged(BR.faseleSangF);
     }
 
     public String getFaseleOtherA() {
@@ -101,6 +107,7 @@ public class TechnicalInfoViewModel extends BaseObservable {
 
     public void setFaseleOtherA(String faseleOtherA) {
         this.faseleOtherA = faseleOtherA;
+        notifyPropertyChanged(BR.faseleOtherA);
     }
 
     public String getFaseleOtherF() {
@@ -109,6 +116,7 @@ public class TechnicalInfoViewModel extends BaseObservable {
 
     public void setFaseleOtherF(String faseleOtherF) {
         this.faseleOtherF = faseleOtherF;
+        notifyPropertyChanged(BR.faseleOtherF);
     }
 
     public String getOmqeZirzamin() {
@@ -117,6 +125,7 @@ public class TechnicalInfoViewModel extends BaseObservable {
 
     public void setOmqeZirzamin(String omqeZirzamin) {
         this.omqeZirzamin = omqeZirzamin;
+        notifyPropertyChanged(BR.omqeZirzamin);
     }
 
     public boolean isChahAbBaran() {
@@ -125,6 +134,7 @@ public class TechnicalInfoViewModel extends BaseObservable {
 
     public void setChahAbBaran(boolean chahAbBaran) {
         this.chahAbBaran = chahAbBaran;
+        notifyPropertyChanged(BR.chahAbBaran);
     }
 
     public int getQotrLooleI() {
@@ -133,6 +143,7 @@ public class TechnicalInfoViewModel extends BaseObservable {
 
     public void setQotrLooleI(int qotrLooleI) {
         this.qotrLooleI = qotrLooleI;
+        notifyPropertyChanged(BR.qotrLooleI);
     }
 
     public int getJensLooleI() {
@@ -141,6 +152,7 @@ public class TechnicalInfoViewModel extends BaseObservable {
 
     public void setJensLooleI(int jensLooleI) {
         this.jensLooleI = jensLooleI;
+        notifyPropertyChanged(BR.jensLooleI);
     }
 
     public String getQotrLooleS() {
@@ -149,6 +161,7 @@ public class TechnicalInfoViewModel extends BaseObservable {
 
     public void setQotrLooleS(String qotrLooleS) {
         this.qotrLooleS = qotrLooleS;
+        notifyPropertyChanged(BR.qotrLooleS);
     }
 
     public String getJensLooleS() {
@@ -157,6 +170,7 @@ public class TechnicalInfoViewModel extends BaseObservable {
 
     public void setJensLooleS(String jensLooleS) {
         this.jensLooleS = jensLooleS;
+        notifyPropertyChanged(BR.jensLooleS);
     }
 
     public boolean isLooleA() {
@@ -165,6 +179,7 @@ public class TechnicalInfoViewModel extends BaseObservable {
 
     public void setLooleA(boolean looleA) {
         this.looleA = looleA;
+        notifyPropertyChanged(BR.looleA);
     }
 
     public boolean isLooleF() {
@@ -173,6 +188,7 @@ public class TechnicalInfoViewModel extends BaseObservable {
 
     public void setLooleF(boolean looleF) {
         this.looleF = looleF;
+        notifyPropertyChanged(BR.looleF);
     }
 
     public String getEshterak() {
@@ -181,6 +197,7 @@ public class TechnicalInfoViewModel extends BaseObservable {
 
     public void setEshterak(String eshterak) {
         this.eshterak = eshterak;
+        notifyPropertyChanged(BR.eshterak);
     }
 
     public String getBlock() {
@@ -189,6 +206,7 @@ public class TechnicalInfoViewModel extends BaseObservable {
 
     public void setBlock(String block) {
         this.block = block;
+        notifyPropertyChanged(BR.block);
     }
 
     public String getArz() {
@@ -197,6 +215,7 @@ public class TechnicalInfoViewModel extends BaseObservable {
 
     public void setArz(String arz) {
         this.arz = arz;
+        notifyPropertyChanged(BR.arz);
     }
 
     public boolean isNewEnsheab() {

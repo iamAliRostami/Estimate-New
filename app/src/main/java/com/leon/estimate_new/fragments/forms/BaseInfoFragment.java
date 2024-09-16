@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
 
@@ -67,12 +68,6 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        formActivity.setTitle(getString(R.string.app_name).concat(" / ").concat("صفحه سوم"), false);
-    }
-
-    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentBaseInfoBinding.inflate(inflater, container, false);
@@ -80,6 +75,12 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
         binding.setBaseInfoVM(baseInfoVM);
         initialize();
         return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        formActivity.setTitle(getString(R.string.app_name).concat(" / ").concat("صفحه سوم"), false);
     }
 
     private void initialize() {
@@ -220,8 +221,8 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
     }
 
 
-    private void showMenu(MaterialAutoCompleteTextView editText, ArrayList<String> titles) {
-        final PopupMenu popup = new PopupMenu(requireActivity(), editText, Gravity.TOP);
+    private void showMenu(MaterialAutoCompleteTextView textView, ArrayList<String> titles) {
+        final PopupMenu popup = new PopupMenu(requireActivity(), textView, Gravity.TOP);
         for (int i = 0; i < titles.size(); i++) {
             MenuItem item = popup.getMenu().add(titles.get(i));
             if (item.getIcon() != null) {
@@ -233,7 +234,7 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
             }
         }
         popup.setOnMenuItemClickListener(menuItem -> {
-            editText.setText(menuItem.getTitle());
+            textView.setText(menuItem.getTitle());
             return true;
         });
         popup.show();
@@ -298,13 +299,11 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
                 && checkEmpty(binding.editTextTedadSaier, requireContext())
                 && checkEmpty(binding.editTextZarfiat, requireContext())
                 && checkEmpty(binding.editTextArzeshMelk, requireContext())
-
                 && checkEmpty(binding.textViewKarbari, requireContext())
                 && checkEmpty(binding.textViewNoeVagozari, requireContext())
                 && checkEmpty(binding.textViewQotrEnsheab, requireContext())
                 && checkEmpty(binding.textViewQotrFazelab, requireContext())
                 && checkEmpty(binding.textViewNoeEnsheab, requireContext())
-
                 && checkEmpty(binding.editTextTedadTaxfif, requireContext());
     }
 
