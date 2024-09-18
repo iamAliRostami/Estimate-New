@@ -11,7 +11,7 @@ import static com.leon.estimate_new.helpers.Constants.BASE_FRAGMENT;
 import static com.leon.estimate_new.helpers.Constants.EDIT_MAP_FRAGMENT;
 import static com.leon.estimate_new.helpers.Constants.MAP_DESCRIPTION_FRAGMENT;
 import static com.leon.estimate_new.helpers.Constants.PERSONAL_FRAGMENT;
-import static com.leon.estimate_new.helpers.Constants.SECOND_FRAGMENT;
+import static com.leon.estimate_new.helpers.Constants.TECHNICAL_INFO_FRAGMENT;
 import static com.leon.estimate_new.helpers.Constants.SERVICES_FRAGMENT;
 import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponent;
 import static com.leon.estimate_new.helpers.MyApplication.setActivityComponent;
@@ -133,6 +133,14 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
         this.taxfifDictionaries.addAll(taxfifDictionaries);
         this.tejarihas.addAll(tejariha);
         this.arzeshdaraei = arzeshdaraei;
+
+//        fragmentCache.put(PERSONAL_FRAGMENT,PersonalFragment.newInstance());
+//        fragmentCache.put(SERVICES_FRAGMENT,ServicesFragment.newInstance());
+//        fragmentCache.put(BASE_FRAGMENT,BaseInfoFragment.newInstance());
+//        fragmentCache.put(SECOND_FRAGMENT,TechnicalInfoFragment.newInstance());
+//        fragmentCache.put(MAP_DESCRIPTION_FRAGMENT,MapDescriptionFragment.newInstance());
+//        fragmentCache.put(EDIT_MAP_FRAGMENT,EditMapFragment.newInstance());
+
         displayView(PERSONAL_FRAGMENT);
     }
 
@@ -152,7 +160,6 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
         }
         fragmentTransaction.commitAllowingStateLoss();
         //TODO    fragmentManager.executePendingTransactions();
-
     }
 
     private Fragment getFragment(int position) {
@@ -164,7 +171,7 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
         Fragment newFragment = switch (position) {
             case SERVICES_FRAGMENT -> ServicesFragment.newInstance();
             case BASE_FRAGMENT -> BaseInfoFragment.newInstance();
-            case SECOND_FRAGMENT -> TechnicalInfoFragment.newInstance();
+            case TECHNICAL_INFO_FRAGMENT -> TechnicalInfoFragment.newInstance();
             case MAP_DESCRIPTION_FRAGMENT -> MapDescriptionFragment.newInstance();
             case EDIT_MAP_FRAGMENT -> EditMapFragment.newInstance();
             default -> PersonalFragment.newInstance();
@@ -247,7 +254,7 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
         CustomMapper.INSTANCE.updateExaminerDutyBaseInfoViewModel(baseInfoViewModel, examinerDuty);
         CustomMapper.INSTANCE.updateCalculationUserInputBaseInfoViewModel(baseInfoViewModel, calculationUserInput);
         prepareToSend();
-        displayView(SECOND_FRAGMENT);
+        displayView(TECHNICAL_INFO_FRAGMENT);
     }
 
     @Override

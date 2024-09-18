@@ -476,4 +476,6 @@
     <string name="map_ip">آدرس نقشه</string>
     <string name="set_ip">ثبت آدرس</string>
     <string name="document_ip">آدرس مدارک</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

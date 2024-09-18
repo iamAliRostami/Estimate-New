@@ -57,7 +57,7 @@
         android:preserveLegacyExternalStorage="true"
         android:usesCleartextTraffic="true"
         android:requestLegacyExternalStorage="true"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:screenOrientation="portrait"
         android:theme="@style/Theme.EstimateNew"

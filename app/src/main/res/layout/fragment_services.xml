@@ -21,7 +21,6 @@
         android:nestedScrollingEnabled="true"
         tools:listitem="@layout/item_check_box" />
 
-
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_pre"
         style="@style/Button.Negative"

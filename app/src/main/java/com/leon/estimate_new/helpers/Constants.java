@@ -34,7 +34,7 @@ public class Constants {
     public static final int PERSONAL_FRAGMENT = 7;
     public static final int SERVICES_FRAGMENT = 8;
     public static final int BASE_FRAGMENT = 9;
-    public static final int SECOND_FRAGMENT = 10;
+    public static final int TECHNICAL_INFO_FRAGMENT = 10;
     public static final int MAP_DESCRIPTION_FRAGMENT = 11;
     public static final int EDIT_MAP_FRAGMENT = 12;
 

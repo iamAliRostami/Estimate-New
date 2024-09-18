@@ -6,14 +6,9 @@ android {
     splits {
         abi {
             enable true
-
             reset()
-
             include 'x86', 'x86_64', 'mips', 'mips64', 'armeabi', 'armeabi-v7a', 'armeabi-v8a'
-
             universalApk true
-
-
 //            exclude 'x86'
 //            exclude 'x86_64'
 //            exclude 'mips'
@@ -98,7 +93,6 @@ android {
 //        }
 //    }
     compileSdk 35
-//    buildToolsVersion '34.0.0'
     signingConfigs {
         config {
             keyAlias 'ali_angel'
@@ -111,8 +105,8 @@ android {
         applicationId "com.leon.estimate_new"
         minSdk 23
         targetSdk 35
-        versionCode 21
-        versionName "2.03.06.25"
+        versionCode 22
+        versionName "2.03.06.26"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
@@ -155,7 +149,7 @@ android {
 dependencies {
 
     def arch_version = '1.1.1'
-    def dagger_version = '2.51.1'
+    def dagger_version = '2.52'
     def okhttp3_version = '4.12.0'
     def retrofit2_version = '2.11.0'
 //    implementation "androidx.activity:activity:1.5.0"
@@ -176,7 +170,7 @@ dependencies {
 //    implementation 'com.esri.arcgisruntime:arcgis-android-toolkit:100.11.0'
 //    implementation 'com.esri.arcgisruntime:arcgis-android:100.13.0'
 
-    implementation 'org.osmdroid:osmdroid-android:6.1.18'
+    implementation 'org.osmdroid:osmdroid-android:6.1.20'
     implementation 'com.github.MKergall:osmbonuspack:6.9.0'
 
     implementation "com.squareup.retrofit2:retrofit:$retrofit2_version"
@@ -185,7 +179,6 @@ dependencies {
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit2_version"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp3_version"
     implementation "com.squareup.okhttp3:okhttp:$okhttp3_version"
-
 
     implementation "android.arch.persistence.room:runtime:$arch_version"
     annotationProcessor "android.arch.persistence.room:compiler:$arch_version"
@@ -215,10 +208,9 @@ dependencies {
 
     implementation 'com.yandex.android:mobmetricalib:5.3.0'
 
+    implementation 'org.mapstruct:mapstruct:1.6.1'
 
-    implementation 'org.mapstruct:mapstruct:1.5.5.Final'
-
-    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.1'
 
     implementation project(':openCVLibrary')
     constraints {

@@ -7,7 +7,7 @@ import static com.leon.estimate_new.enums.MapLayerType.GIS_WATER_TRANSFER;
 import static com.leon.estimate_new.enums.SharedReferenceKeys.MAP_TYPE;
 import static com.leon.estimate_new.enums.SharedReferenceKeys.TOKEN_FOR_GIS;
 import static com.leon.estimate_new.helpers.Constants.MAP_SELECTED;
-import static com.leon.estimate_new.helpers.Constants.SECOND_FRAGMENT;
+import static com.leon.estimate_new.helpers.Constants.TECHNICAL_INFO_FRAGMENT;
 import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponent;
 import static com.leon.estimate_new.helpers.MyApplication.getLocationTracker;
 import static com.leon.estimate_new.utils.DifferentCompanyManager.getActiveCompanyName;
@@ -330,7 +330,7 @@ public class MapDescriptionFragment extends Fragment implements View.OnClickList
         } else if (id == R.id.image_view_show_layer) {
             getXY();
         } else if (id == R.id.button_pre) {
-            formActivity.setOnPreClickListener(SECOND_FRAGMENT);
+            formActivity.setOnPreClickListener(TECHNICAL_INFO_FRAGMENT);
         } else if (id == R.id.button_edit_crooki) {
             captureScreenshotAsync();
             clearMap();
