@@ -36,7 +36,7 @@ public class SendRequest extends BaseAsync {
     private final RequestToSend request;
 
     public SendRequest(Context context, RequestToSend request, Object... o) {
-        super(context, false,  null);
+        super(context, false, null);
         this.request = request;
         object = o[0];
     }
@@ -65,11 +65,11 @@ public class SendRequest extends BaseAsync {
 }
 
 class RequestSuccess implements ICallback<SimpleMessage> {
-    private final Context context;
+    private final Activity activity;
     private final Object object;
 
-    public RequestSuccess(Context context, Object object) {
-        this.context = context;
+    public RequestSuccess(Activity activity, Object object) {
+        this.activity = activity;
         this.object = object;
     }
 
@@ -77,19 +77,21 @@ class RequestSuccess implements ICallback<SimpleMessage> {
     public void execute(Response<SimpleMessage> response) {
         ((SendRequestFragment) object).afterRequest();
         if (response.body() != null) {
-            new CustomDialogModel(Green, context, response.body().message, context.getString(R.string.dear_user),
-                    context.getString(R.string.request), context.getString(R.string.accepted));
+            activity.runOnUiThread(() ->
+                    new CustomDialogModel(Green, activity, response.body().message, activity.getString(R.string.dear_user),
+                            activity.getString(R.string.request), activity.getString(R.string.accepted)));
+
         }
-        new DownloadData(context, true).execute(((SendRequestFragment) object).requireActivity());
+        new DownloadData(activity, true).execute(((SendRequestFragment) object).requireActivity());
     }
 }
 
 class RequestIncomplete implements ICallbackIncomplete<SimpleMessage> {
 
-    private final Context context;
+    private final Activity activity;
 
-    public RequestIncomplete(Context context) {
-        this.context = context;
+    public RequestIncomplete(Activity activity) {
+        this.activity = activity;
     }
 
     @Override
@@ -105,18 +107,21 @@ class RequestIncomplete implements ICallbackIncomplete<SimpleMessage> {
                 }
             }
         } else {
-            final CustomErrorHandling errorHandling = new CustomErrorHandling(context);
-            message = errorHandling.getErrorMessageDefault(response);
+            final CustomErrorHandling error = new CustomErrorHandling(activity);
+            message = error.getErrorMessageDefault(response);
         }
-        new CustomDialogModel(Yellow, context, message, context.getString(R.string.dear_user),
-                context.getString(R.string.request), context.getString(R.string.accepted));
+        String finalMessage = message;
+        activity.runOnUiThread(() ->
+                new CustomDialogModel(Yellow, activity, finalMessage, activity.getString(R.string.dear_user),
+                        activity.getString(R.string.request), activity.getString(R.string.accepted)));
+
     }
 }
 
 class GetError implements ICallbackError {
     @Override
     public void executeError(Throwable t) {
-        final CustomErrorHandling errorHandling = new CustomErrorHandling(getContext());
-        new CustomToast().error(errorHandling.getErrorMessageTotal(t), Toast.LENGTH_LONG);
+        final CustomErrorHandling error = new CustomErrorHandling(getContext());
+        new CustomToast().error(error.getErrorMessageTotal(t), Toast.LENGTH_LONG);
     }
 }

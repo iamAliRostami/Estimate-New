@@ -7,6 +7,8 @@ import android.graphics.Bitmap;
 import com.leon.estimate_new.di.component.ActivityComponent;
 import com.leon.estimate_new.di.component.ApplicationComponent;
 
+import java.util.regex.Pattern;
+
 public class Constants {
     public static final int EXIT_POSITION = 6;
     public static final int GPS_CODE = 1231;
@@ -17,7 +19,7 @@ public class Constants {
     public static final int TOAST_TEXT_SIZE = 20;
 
     public static final String FONT_NAME = "fonts/font_1.ttf";
-    public static final String DATABASE_NAME = "MyDatabase_12";
+    public static final String DATABASE_NAME = "MyDatabase_13";
     public static final String PDF_FONT_NAME = "assets/fonts/pdf_font.ttf";
     public static final String PDF_FONT_NAME_FA = "assets/fonts/pdf_font_fa.ttf";
 
@@ -32,7 +34,7 @@ public class Constants {
     public static final int PERSONAL_FRAGMENT = 7;
     public static final int SERVICES_FRAGMENT = 8;
     public static final int BASE_FRAGMENT = 9;
-    public static final int SECOND_FRAGMENT = 10;
+    public static final int TECHNICAL_INFO_FRAGMENT = 10;
     public static final int MAP_DESCRIPTION_FRAGMENT = 11;
     public static final int EDIT_MAP_FRAGMENT = 12;
 
@@ -52,4 +54,6 @@ public class Constants {
     public static ActivityComponent activityComponent;
     public static boolean exit = false;
     public static int POSITION = 0;
+
+    public static final Pattern MOBILE_REGEX = Pattern.compile("^((\\+98|0)9\\d{9})$");
 }

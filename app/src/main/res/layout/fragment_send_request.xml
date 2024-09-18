@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -8,7 +8,7 @@
             type="com.leon.estimate_new.tables.Request" />
     </data>
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,11 +17,13 @@
         <TextView
             android:id="@id/text_view_title"
             style="@style/Title"
+            android:layout_centerHorizontal="true"
             android:text="@string/request" />
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/text_view_title"
             android:layout_gravity="center"
             android:background="@drawable/border_white_1"
             android:fillViewport="true">
@@ -33,182 +35,169 @@
                 android:background="@drawable/border_gray_1"
                 android:padding="@dimen/medium_dp">
 
-                <LinearLayout
-                    android:id="@+id/linear_layout_1"
-                    android:layout_width="match_parent"
+                <View
+                    android:id="@id/view_center_1"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_centerHorizontal="true" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/text_view_request"
+                    style="@style/TitleSmall"
+                    android:layout_above="@id/layout_bill_id"
+                    android:layout_alignParentTop="true"
+                    android:text="@string/request_type" />
+
+                <RadioGroup
+                    android:id="@+id/radio_group_request_type"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true">
+                    android:layout_alignParentEnd="true"
+                    android:layout_margin="@dimen/low_dp"
+                    android:layout_toEndOf="@id/text_view_request"
+                    android:checkedButton="@id/radio_button_new"
+                    android:onCheckedChanged="@{request::onSplitTypeChanged}"
+                    android:orientation="horizontal">
 
-                    <TextView
-                        style="@style/TitleSmall"
-                        android:text="@string/request_type" />
-
-                    <RadioGroup
-                        android:id="@+id/radio_group_request_type"
-                        android:layout_width="0dp"
+                    <RadioButton
+                        android:id="@+id/radio_button_new"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/low_dp"
                         android:layout_weight="1"
-                        android:checkedButton="@id/radio_button_new"
-                        android:onCheckedChanged="@{request::onSplitTypeChanged}"
-                        android:orientation="horizontal">
+                        android:checked="@={request.newRequest}"
+                        android:text="@string/sale_new"
+                        android:textSize="@dimen/text_size_small"
+                        android:textStyle="bold" />
 
-                        <RadioButton
-                            android:id="@+id/radio_button_new"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:checked="@={request.newRequest}"
-                            android:text="@string/sale_new"
-                            android:textSize="@dimen/text_size_small"
-                            android:textStyle="bold" />
-
-                        <RadioButton
-                            android:id="@+id/radio_button_after_sale"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:checked="@={!request.newRequest}"
-                            android:text="@string/after_sale_services"
-                            android:textSize="@dimen/text_size_small"
-                            android:textStyle="bold" />
-
-                    </RadioGroup>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@id/linear_layout_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/linear_layout_1"
-                    android:layout_marginBottom="@dimen/medium_dp">
-
-                    <TextView
-                        android:id="@+id/text_view_bill_id"
-                        style="@style/TitleSmall"
-                        android:layout_width="0dp"
+                    <RadioButton
+                        android:id="@+id/radio_button_after_sale"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/bill_id" />
+                        android:checked="@={!request.newRequest}"
+                        android:text="@string/after_sale_services"
+                        android:textSize="@dimen/text_size_small"
+                        android:textStyle="bold" />
 
-                    <EditText
+                </RadioGroup>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_bill_id"
+                    style="@style/TextInputLayout"
+                    android:layout_below="@id/radio_group_request_type"
+                    android:layout_alignParentStart="true"
+                    android:layout_toStartOf="@id/view_center_1"
+                    android:hint="@string/bill_id">
+
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edit_text_bill_id"
-                        style="@style/EditTextForm"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:inputType="number"
+                        style="@style/TextInput"
+                        android:inputType="numberSigned"
                         android:maxLength="13"
-                        android:text="@={request.billId}"
-                        tools:ignore="Autofill,LabelFor" />
+                        android:nextFocusDown="@id/edit_text_mobile"
+                        android:text="@={request.billId}" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                    <TextView
-                        style="@style/TitleSmall"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:text="@string/mobile_number" />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_mobile"
+                    style="@style/TextInputLayout"
+                    android:layout_below="@id/radio_group_request_type"
+                    android:layout_alignParentEnd="true"
+                    android:layout_toEndOf="@id/view_center_1"
+                    android:hint="@string/mobile_number"
+                    app:counterEnabled="true">
 
-                    <EditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edit_text_mobile"
-                        style="@style/EditTextForm"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
+                        style="@style/TextInput"
+                        android:imeOptions="actionDone"
                         android:inputType="phone"
                         android:maxLength="11"
-                        android:text="@={request.mobile}"
-                        tools:ignore="Autofill,LabelFor" />
-                </LinearLayout>
+                        android:text="@={request.mobile}" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <LinearLayout
-                    android:id="@+id/linear_layout_3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/linear_layout_2"
-                    android:layout_marginBottom="@dimen/medium_dp"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_name"
+                    style="@style/TextInputLayout"
+                    android:layout_below="@id/layout_bill_id"
+                    android:layout_alignParentStart="true"
+                    android:layout_toStartOf="@id/view_center_1"
+                    android:hint="@string/name"
                     android:visibility="@{request.visibility}">
 
-                    <TextView
-                        style="@style/TitleSmall"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:text="@string/name" />
-
-                    <EditText
-                        android:id="@+id/edit_text_name"
-                        style="@style/EditTextForm"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@id/edit_text_name"
+                        style="@style/TextInput"
                         android:inputType="text"
-                        android:text="@={request.firstName}"
-                        tools:ignore="Autofill,LabelFor" />
+                        android:nextFocusDown="@id/edit_text_family"
+                        android:text="@={request.firstName}" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                    <TextView
-                        style="@style/TitleSmall"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:text="@string/family" />
-
-                    <EditText
-                        android:id="@+id/edit_text_family"
-                        style="@style/EditTextForm"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:inputType="text"
-                        android:text="@={request.sureName}"
-                        tools:ignore="Autofill,LabelFor" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/linear_layout_nation"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/linear_layout_3"
-                    android:layout_marginBottom="@dimen/medium_dp"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_family"
+                    style="@style/TextInputLayout"
+                    android:layout_below="@id/layout_bill_id"
+                    android:layout_alignParentEnd="true"
+                    android:layout_toEndOf="@id/view_center_1"
+                    android:hint="@string/family"
                     android:visibility="@{request.visibility}">
 
-                    <TextView
-                        style="@style/TitleSmall"
-                        android:layout_width="0dp"
-                        android:layout_gravity="center|top"
-                        android:layout_weight="1"
-                        android:text="@string/nation_number" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@id/edit_text_family"
+                        style="@style/TextInput"
+                        android:inputType="text"
+                        android:nextFocusDown="@id/edit_text_address"
+                        android:text="@={request.sureName}" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                    <EditText
-                        android:id="@+id/edit_text_nation_number"
-                        style="@style/EditTextForm"
-                        android:layout_width="0dp"
-                        android:layout_gravity="center|top"
-                        android:layout_weight="1"
-                        android:inputType="numberSigned"
-                        android:maxLength="10"
-                        android:text="@={request.nationalId}"
-                        tools:ignore="Autofill,LabelFor" />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_address"
+                    style="@style/TextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_below="@id/layout_name"
+                    android:hint="@string/address"
+                    android:visibility="@{request.visibility}">
 
-                    <TextView
-                        style="@style/TitleSmall"
-                        android:layout_width="0dp"
-                        android:layout_gravity="center|top"
-                        android:layout_weight="0.75"
-                        android:text="@string/address" />
-
-                    <EditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edit_text_address"
-                        style="@style/EditTextForm"
-                        android:layout_width="0dp"
-                        android:layout_weight="1.25"
-                        android:gravity="start|top"
+                        style="@style/TextInput"
+                        android:gravity="top"
                         android:inputType="textMultiLine"
-                        android:lines="7"
-                        android:text="@={request.address}"
-                        tools:ignore="Autofill,LabelFor" />
-                </LinearLayout>
+                        android:lines="2"
+                        android:maxLines="2"
+                        android:nextFocusForward="@id/edit_text_national_id"
+                        android:text="@={request.address}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_national_id"
+                    style="@style/TextInputLayout"
+                    android:layout_below="@id/layout_address"
+                    android:layout_alignParentStart="true"
+                    android:layout_toStartOf="@id/view_center_1"
+                    android:hint="@string/national_id"
+                    android:visibility="@{request.visibility}"
+                    app:counterEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_text_national_id"
+                        style="@style/TextInput"
+                        android:imeOptions="actionDone"
+                        android:inputType="number"
+                        android:maxLength="10"
+                        android:text="@={request.nationalId}" />
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <Button
                     android:id="@+id/button_send_request"
                     style="@style/Button.Positive"
-                    android:layout_below="@id/linear_layout_nation"
+                    android:layout_below="@id/layout_address"
+                    android:layout_alignBaseline="@id/layout_national_id"
                     android:layout_alignParentEnd="true"
                     android:layout_margin="0dp"
+                    android:layout_toEndOf="@id/view_center_1"
                     android:text="@string/send_request" />
             </RelativeLayout>
         </ScrollView>
-    </FrameLayout>
+    </RelativeLayout>
 </layout>

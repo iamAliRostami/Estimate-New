@@ -114,7 +114,8 @@ public class PrepareOutputImage extends BaseAsync {
         temp.add(rowString);
 
         rowString = new String[]{examinerDuty.billId != null ? examinerDuty.billId :
-                examinerDuty.neighbourBillId, "شناسه قبض", examinerDuty.licenceNumber, "شماره پروانه",
+                examinerDuty.neighbourBillId, "شناسه قبض", examinerDuty.licenceNumber != null ?
+                examinerDuty.licenceNumber : "-", "شماره پروانه",
                 String.valueOf(examinerDuty.sanadNumber), "شماره سند"};
         temp.add(rowString);
 
@@ -181,8 +182,8 @@ public class PrepareOutputImage extends BaseAsync {
                 String.valueOf(examinerDuty.tedadSaier), "تعداد واحد سایر"};
         temp.add(rowString);
 
-        rowString = new String[]{examinerDuty.qaradadNumber, "شماره قرارداد",
-                examinerDuty.zarfiatQarardadiNew != null ? String.valueOf(examinerDuty.zarfiatQarardadiNew) : "-",
+        rowString = new String[]{examinerDuty.qaradadNumber != null ? examinerDuty.qaradadNumber : "-", "شماره قرارداد",
+                String.valueOf(examinerDuty.zarfiatQarardadiNew),
                 String.valueOf(examinerDuty.zarfiatQarardadi), "ظرفیت قراردادی"};
         temp.add(rowString);
 
@@ -207,7 +208,7 @@ public class PrepareOutputImage extends BaseAsync {
                 examinerDuty.looleA ? "دارد" : "ندارد", "امکان فنی آب:"};
         temp.add(rowString);
 
-        rowString = new String[]{examinerDuty.ezharNazarA ?  "دارد" : "ندارد", "اظهار نظر بهره برداری:"};
+        rowString = new String[]{examinerDuty.ezharNazarA ? "دارد" : "ندارد", "اظهار نظر بهره برداری:"};
         temp.add(rowString);
 
         rowString = new String[]{String.valueOf(examinerDuty.faseleOtherA), "سایر:",
@@ -261,9 +262,11 @@ public class PrepareOutputImage extends BaseAsync {
         rowString = new String[]{examinerDuty.address};
         temp.add(rowString);
 
-        rowString = new String[]{examinerDuty.nameAndFamily, examinerDuty.radif, examinerDuty.eshterak,
-                examinerDuty.phoneNumber, examinerDuty.mobile != null ? examinerDuty.mobile :
-                examinerDuty.moshtarakMobile, examinerDuty.postalCode};
+        rowString = new String[]{examinerDuty.nameAndFamily != null ? examinerDuty.nameAndFamily :
+                examinerDuty.firstName.concat(" ").concat(examinerDuty.sureName),
+                examinerDuty.radif, examinerDuty.eshterak, examinerDuty.phoneNumber,
+                examinerDuty.mobile != null ? examinerDuty.mobile : examinerDuty.moshtarakMobile,
+                examinerDuty.postalCode};
         temp.add(rowString);
 
         rowString = new String[]{examinerDuty.examinerName};
@@ -285,10 +288,12 @@ public class PrepareOutputImage extends BaseAsync {
                     examinerDuty.billId : examinerDuty.neighbourBillId, examinerDuty.trackNumber};
             licenceRows.add(rowString);
 
-            rowString = new String[]{examinerDuty.nameAndFamily, examinerDuty.fatherName,
-                    examinerDuty.nationalId, examinerDuty.mobile != null ? examinerDuty.mobile :
-                    examinerDuty.moshtarakMobile, examinerDuty.operation, examinerDuty.licenceNumber,
-                    examinerDuty.sodurDate};
+            rowString = new String[]{examinerDuty.nameAndFamily != null ? examinerDuty.nameAndFamily :
+                    examinerDuty.firstName.concat(" ").concat(examinerDuty.sureName),
+                    examinerDuty.fatherName, examinerDuty.nationalId, examinerDuty.mobile != null ?
+                    examinerDuty.mobile : examinerDuty.moshtarakMobile, examinerDuty.operation,
+                    examinerDuty.licenceNumber != null ? examinerDuty.licenceNumber : "-",
+                    examinerDuty.sodurDate != null ? examinerDuty.sodurDate : "-"};
             licenceRows.add(rowString);
 
             rowString = new String[]{examinerDuty.zoneTitle, examinerDuty.address, String.valueOf(examinerDuty.pelak)};

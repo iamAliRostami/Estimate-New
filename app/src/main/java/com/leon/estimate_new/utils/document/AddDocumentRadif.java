@@ -5,6 +5,8 @@ import static com.leon.estimate_new.enums.DialogType.YellowRedirect;
 import static com.leon.estimate_new.enums.ProgressType.NOT_SHOW;
 import static com.leon.estimate_new.enums.SharedReferenceKeys.TOKEN_FOR_FILE;
 import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponent;
+import static com.leon.estimate_new.utils.DifferentCompanyManager.getActiveCompanyName;
+import static com.leon.estimate_new.utils.DifferentCompanyManager.getDocumentUrl;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,12 +17,12 @@ import com.leon.estimate_new.R;
 import com.leon.estimate_new.base_items.BaseAsync;
 import com.leon.estimate_new.di.view_model.CustomDialogModel;
 import com.leon.estimate_new.di.view_model.HttpClientWrapper;
+import com.leon.estimate_new.fragments.dialog.AddDocumentViewModel;
 import com.leon.estimate_new.infrastructure.IAbfaService;
 import com.leon.estimate_new.infrastructure.ICallback;
 import com.leon.estimate_new.infrastructure.ICallbackError;
 import com.leon.estimate_new.infrastructure.ICallbackIncomplete;
 import com.leon.estimate_new.tables.AddDocument;
-import com.leon.estimate_new.tables.ExaminerDuties;
 import com.leon.estimate_new.utils.CustomErrorHandling;
 import com.leon.estimate_new.utils.CustomToast;
 
@@ -29,11 +31,11 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class AddDocumentRadif extends BaseAsync {
-    private final ExaminerDuties examinerDuty;
+    private final AddDocumentViewModel addDocument;
 
-    public AddDocumentRadif(Context context, ExaminerDuties examinerDuty, Object... view) {
+    public AddDocumentRadif(Context context, AddDocumentViewModel addDocument, Object... view) {
         super(context, false, view);
-        this.examinerDuty = examinerDuty;
+        this.addDocument = addDocument;
     }
 
     @Override
@@ -48,12 +50,13 @@ public class AddDocumentRadif extends BaseAsync {
 
     @Override
     public void backgroundTask(Activity activity) {
-        final Retrofit retrofit = getApplicationComponent().Retrofit();
+        final Retrofit retrofit = getApplicationComponent().NetworkHelperModel()
+                .getInstance(getDocumentUrl(getActiveCompanyName()), 1);
         final IAbfaService iAbfaService = retrofit.create(IAbfaService.class);
         final Call<AddDocument> call = iAbfaService.addDocument(getApplicationComponent()
                         .SharedPreferenceModel().getStringData(TOKEN_FOR_FILE.getValue()),
-                new AddDocument(examinerDuty.trackNumber, examinerDuty.firstName,
-                        examinerDuty.sureName, examinerDuty.address, examinerDuty.zoneId));
+                new AddDocument(addDocument.getTrackNumber(), addDocument.getFirstName(),
+                        addDocument.getSureName(), addDocument.getAddress(), addDocument.getZoneId()));
         HttpClientWrapper.callHttpAsync(call, NOT_SHOW.getValue(), activity,
                 new AddDocumentSuccess(activity), new AddDocumentIncomplete(activity), new GetError(activity));
     }

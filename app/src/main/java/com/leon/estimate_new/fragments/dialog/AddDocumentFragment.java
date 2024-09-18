@@ -11,21 +11,23 @@ import android.view.WindowManager;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
+import com.leon.estimate_new.R;
 import com.leon.estimate_new.databinding.FragmentAddDocumentBinding;
-import com.leon.estimate_new.tables.ExaminerDuties;
 import com.leon.estimate_new.utils.document.AddDocumentRadif;
+import com.leon.estimate_new.utils.mapper.CustomMapper;
 
 
-public class AddDocumentFragment extends DialogFragment {
+public class AddDocumentFragment extends DialogFragment implements View.OnClickListener {
     private FragmentAddDocumentBinding binding;
-    private ExaminerDuties examinerDuty;
+    private AddDocumentViewModel addDocumentVM;
 
     public AddDocumentFragment() {
     }
 
     public AddDocumentFragment(String trackNumber) {
-        this.examinerDuty = getApplicationComponent().MyDatabase().examinerDutiesDao()
-                .examinerDutiesByTrackNumber(trackNumber);
+        addDocumentVM = CustomMapper.INSTANCE.examinerDutyToAddDocumentViewModel(
+                getApplicationComponent().MyDatabase().examinerDutiesDao().
+                        examinerDutiesByTrackNumber(trackNumber));
     }
 
     public static AddDocumentFragment newInstance(String trackNumber) {
@@ -43,31 +45,25 @@ public class AddDocumentFragment extends DialogFragment {
                              Bundle savedInstanceState) {
 
         binding = FragmentAddDocumentBinding.inflate(inflater, container, false);
-        initialize();
+        binding.setAddDocumentVM(addDocumentVM);
+        binding.buttonAdd.setOnClickListener(this);
         return binding.getRoot();
     }
 
-    private void initialize() {
-        binding.editTextAddress.setText(examinerDuty.address);
-        binding.editTextFamily.setText(examinerDuty.sureName);
-        binding.editTextName.setText(examinerDuty.firstName);
-        binding.editTextTrackNumber.setText(examinerDuty.trackNumber);
-        setButtonSendClickListener();
-    }
-
-    void setButtonSendClickListener() {
-        binding.buttonSend.setOnClickListener(v -> {
-            new AddDocumentRadif(requireContext(), examinerDuty, binding.buttonSend).execute(requireActivity());
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        if (id == R.id.button_add) {
+            new AddDocumentRadif(requireContext(), addDocumentVM, binding.buttonAdd).execute(requireActivity());
             dismiss();
-        });
+        }
     }
-
 
     @Override
     public void onResume() {
-        if (getDialog() != null) {
+        if (getDialog() != null && getDialog().getWindow() != null) {
             WindowManager.LayoutParams params = getDialog().getWindow().getAttributes();
-            params.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+            params.width = ViewGroup.LayoutParams.MATCH_PARENT;
             params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
             getDialog().getWindow().setAttributes(params);
         }

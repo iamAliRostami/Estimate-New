@@ -11,12 +11,14 @@ import static com.leon.estimate_new.helpers.Constants.BASE_FRAGMENT;
 import static com.leon.estimate_new.helpers.Constants.EDIT_MAP_FRAGMENT;
 import static com.leon.estimate_new.helpers.Constants.MAP_DESCRIPTION_FRAGMENT;
 import static com.leon.estimate_new.helpers.Constants.PERSONAL_FRAGMENT;
-import static com.leon.estimate_new.helpers.Constants.SECOND_FRAGMENT;
+import static com.leon.estimate_new.helpers.Constants.TECHNICAL_INFO_FRAGMENT;
 import static com.leon.estimate_new.helpers.Constants.SERVICES_FRAGMENT;
 import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponent;
 import static com.leon.estimate_new.helpers.MyApplication.setActivityComponent;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
@@ -37,11 +39,14 @@ import com.leon.estimate_new.databinding.ActivityFormBinding;
 import com.leon.estimate_new.fragments.dialog.EnterBillFragment;
 import com.leon.estimate_new.fragments.dialog.ShowDocumentFragment;
 import com.leon.estimate_new.fragments.forms.BaseInfoFragment;
+import com.leon.estimate_new.fragments.forms.BaseInfoViewModel;
 import com.leon.estimate_new.fragments.forms.EditMapFragment;
 import com.leon.estimate_new.fragments.forms.MapDescriptionFragment;
 import com.leon.estimate_new.fragments.forms.PersonalFragment;
-import com.leon.estimate_new.fragments.forms.SecondFormFragment;
+import com.leon.estimate_new.fragments.forms.PersonalViewModel;
 import com.leon.estimate_new.fragments.forms.ServicesFragment;
+import com.leon.estimate_new.fragments.forms.TechnicalInfoFragment;
+import com.leon.estimate_new.fragments.forms.TechnicalInfoViewModel;
 import com.leon.estimate_new.tables.Arzeshdaraei;
 import com.leon.estimate_new.tables.CalculationUserInput;
 import com.leon.estimate_new.tables.ExaminerDuties;
@@ -52,16 +57,19 @@ import com.leon.estimate_new.tables.RequestDictionary;
 import com.leon.estimate_new.tables.TaxfifDictionary;
 import com.leon.estimate_new.tables.Tejariha;
 import com.leon.estimate_new.utils.estimating.GetDBData;
+import com.leon.estimate_new.utils.mapper.CustomMapper;
 
 import org.jetbrains.annotations.NotNull;
 import org.osmdroid.util.GeoPoint;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class FormActivity extends AppCompatActivity implements PersonalFragment.Callback,
-        ServicesFragment.Callback, BaseInfoFragment.Callback, SecondFormFragment.Callback,
+        ServicesFragment.Callback, BaseInfoFragment.Callback, TechnicalInfoFragment.Callback,
         MapDescriptionFragment.Callback, EditMapFragment.Callback {
+    private final HashMap<Integer, Fragment> fragmentCache = new HashMap<>();
     private final CalculationUserInput calculationUserInput = new CalculationUserInput();
     private final ArrayList<Integer> values = new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0, 0, 0, 0));
     private final ArrayList<RequestDictionary> requestDictionaries = new ArrayList<>();
@@ -74,8 +82,10 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
     private Arzeshdaraei arzeshdaraei;
     private ExaminerDuties examinerDuty;
 
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
         binding = ActivityFormBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -101,11 +111,11 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
 
     private void initialize() {
         if (getIntent().getExtras() != null) {
-            final String json = getIntent().getExtras().getString(EXAMINER_DUTY.getValue());
+            String json = getIntent().getExtras().getString(EXAMINER_DUTY.getValue());
             examinerDuty = new Gson().fromJson(json, ExaminerDuties.class);
         }
         new GetDBData(this, examinerDuty.zoneId, examinerDuty.trackNumber, this).execute(this);
-        displayView(PERSONAL_FRAGMENT/*MAP_DESCRIPTION_FRAGMENT*/);
+//        displayView(PERSONAL_FRAGMENT);
     }
 
     public void setData(Arzeshdaraei arzeshdaraei,
@@ -123,6 +133,15 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
         this.taxfifDictionaries.addAll(taxfifDictionaries);
         this.tejarihas.addAll(tejariha);
         this.arzeshdaraei = arzeshdaraei;
+
+//        fragmentCache.put(PERSONAL_FRAGMENT,PersonalFragment.newInstance());
+//        fragmentCache.put(SERVICES_FRAGMENT,ServicesFragment.newInstance());
+//        fragmentCache.put(BASE_FRAGMENT,BaseInfoFragment.newInstance());
+//        fragmentCache.put(SECOND_FRAGMENT,TechnicalInfoFragment.newInstance());
+//        fragmentCache.put(MAP_DESCRIPTION_FRAGMENT,MapDescriptionFragment.newInstance());
+//        fragmentCache.put(EDIT_MAP_FRAGMENT,EditMapFragment.newInstance());
+
+        displayView(PERSONAL_FRAGMENT);
     }
 
     private void displayView(int position) {
@@ -140,18 +159,26 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
             fragmentTransaction.addToBackStack(null);
         }
         fragmentTransaction.commitAllowingStateLoss();
-//TODO        fragmentManager.executePendingTransactions();
+        //TODO    fragmentManager.executePendingTransactions();
     }
 
     private Fragment getFragment(int position) {
-        return switch (position) {
+        Fragment cachedFragment = fragmentCache.get(position);
+        if (cachedFragment != null) {
+            return cachedFragment;
+        }
+
+        Fragment newFragment = switch (position) {
             case SERVICES_FRAGMENT -> ServicesFragment.newInstance();
             case BASE_FRAGMENT -> BaseInfoFragment.newInstance();
-            case SECOND_FRAGMENT -> SecondFormFragment.newInstance();
+            case TECHNICAL_INFO_FRAGMENT -> TechnicalInfoFragment.newInstance();
             case MAP_DESCRIPTION_FRAGMENT -> MapDescriptionFragment.newInstance();
             case EDIT_MAP_FRAGMENT -> EditMapFragment.newInstance();
             default -> PersonalFragment.newInstance();
         };
+
+        fragmentCache.put(position, newFragment);
+        return newFragment;
     }
 
     @Override
@@ -201,9 +228,9 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
     }
 
     @Override
-    public void setPersonalInfo(ExaminerDuties examinerDutyTemp) {
-        examinerDuty = examinerDutyTemp;
-        calculationUserInput.updatePersonal(examinerDuty);
+    public void setPersonalInfo(PersonalViewModel personalViewModel) {
+        CustomMapper.INSTANCE.updateExaminerDutyPersonalViewModel(personalViewModel, examinerDuty);
+        CustomMapper.INSTANCE.updateToCalculationUserInputFromPersonalViewModel(personalViewModel, calculationUserInput);
 
         prepareToSend();
         displayView(SERVICES_FRAGMENT);
@@ -223,22 +250,24 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
 
 
     @Override
-    public void setBaseInfo(ExaminerDuties examinerDutyTemp) {
-        examinerDuty = examinerDutyTemp;
-        calculationUserInput.updateBaseInfo(examinerDuty);
+    public void setBaseInfo(BaseInfoViewModel baseInfoViewModel) {
+        CustomMapper.INSTANCE.updateExaminerDutyBaseInfoViewModel(baseInfoViewModel, examinerDuty);
+        CustomMapper.INSTANCE.updateCalculationUserInputBaseInfoViewModel(baseInfoViewModel, calculationUserInput);
         prepareToSend();
-        displayView(SECOND_FRAGMENT);
+        displayView(TECHNICAL_INFO_FRAGMENT);
     }
 
     @Override
-    public void setSecondForm(ExaminerDuties examinerDutyTemp) {
-        examinerDuty = examinerDutyTemp;
+    public void setTechnicalForm(TechnicalInfoViewModel technicalInfoViewModel) {
+        //TODO
+        CustomMapper.INSTANCE.updateExaminerDutyTechnicalInfoViewModel(technicalInfoViewModel, examinerDuty);
         prepareToSend();
         displayView(MAP_DESCRIPTION_FRAGMENT);
     }
 
     @Override
     public void setMapDescription() {
+        prepareToSend();
         displayView(EDIT_MAP_FRAGMENT);
     }
 
@@ -249,13 +278,11 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
         intent.putExtra(BILL_ID.getValue(), examinerDuty.billId != null ?
                 examinerDuty.billId : examinerDuty.neighbourBillId);
         intent.putExtra(NEW_ENSHEAB.getValue(), examinerDuty.isNewEnsheab);
-//        prepareToSend();
         finish();
         startActivity(intent);
     }
 
     private void prepareToSend() {
-//        getApplicationComponent().MyDatabase().calculationUserInputDao().deleteByTrackNumber(examinerDuty.trackNumber);
         getApplicationComponent().MyDatabase().calculationUserInputDao().insert(calculationUserInput);
         getApplicationComponent().MyDatabase().examinerDutiesDao().insert(examinerDuty);
     }
@@ -264,17 +291,6 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
     public void setWaterLocation(GeoPoint point) {
         examinerDuty.x1 = calculationUserInput.x1 = point.getLongitude();
         examinerDuty.y1 = calculationUserInput.y1 = point.getLatitude();
-
-//        final Point currentPoint = new Point(getLocationTracker(this).getLongitude(),
-//                getLocationTracker(this).getLatitude(), SpatialReferences.getWgs84());
-//        final String[] s = CoordinateFormatter.toUtm(currentPoint, LATITUDE_BAND_INDICATORS,
-//                true).split(" ");
-//        final Point currentPoint = new Point(getLocationTracker(this).getLongitude(),
-//                getLocationTracker(this).getLatitude(), SpatialReferences.getWgs84());
-//        final String[] s = CoordinateFormatter.toUtm(currentPoint, LATITUDE_BAND_INDICATORS,
-//                true).split(" ");
-//        examinerDuty.x2 = Double.parseDouble(s[1]);
-//        examinerDuty.y2 = Double.parseDouble(s[2]);
     }
 
     @Override
@@ -322,6 +338,11 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
     @Override
     public Arzeshdaraei getArzeshdaraei() {
         return arzeshdaraei;
+    }
+
+    @Override
+    public void setArzeshdaraei(Arzeshdaraei arzeshdaraei) {
+        this.arzeshdaraei = arzeshdaraei;
     }
 
     @Override

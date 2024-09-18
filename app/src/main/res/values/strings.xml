@@ -10,10 +10,10 @@
     <string name="final_accepted">تایید نهایی</string>
     <string name="close">بستن</string>
 
-    <string name="document_received">مدارکی که تا کنون دریافت شده است:</string>
+    <string name="document_received">مدارکی که تاکنون دریافت شده است:</string>
     <string name="to_continue">جهت ادامه یکی از عملیات های زیر را انتخاب کنید:</string>
     <string name="open_camera">بازکردن دوربین</string>
-    <string name="pick_an_image">برگزیدن عکس</string>
+    <string name="pick_an_image">برگزیدن</string>
     <string name="download">بارگیری</string>
     <string name="upload">بارگذاری</string>
     <string name="upload_image">بارگذاری عکس</string>
@@ -52,7 +52,7 @@
     <string name="loading_getting_info">ارتباط با سرویس دهنده</string>
     <string name="loading_connecting">ارتباط با سرور</string>
     <string name="company_site">AbfaIsfahan.ir</string>
-    <string name="copy_right">شبکه تارنما سپاهان</string>
+    <string name="copy_right">هیوا پرداز اطلس</string>
     <string name="version">نسخه</string>
     <string name="ex_msg_dialog_choice_confirm">Confirm button is only for multi choice lists. You must call setMultiChoiceItems first</string>
     <string name="ex_msg_dialog_view_not_set">You must call method setView before calling configureView.</string>
@@ -78,7 +78,7 @@
     <!--    <string name="error_in_format">فرمت وارد نشده نادرست است</string>-->
     <string name="error_not_update1">همکار گرامی لطفا نسخه به روز شده اپلیکیشن را از منوی تنظیمات  بخش به روز رسانی دریافت نمایید</string>
     <string name="error_call_backup">همکار گرامی مشکلی در دریافت اطلاعات این بخش به وجود آمد، با پشتیبان بخش اسناد تماس حاصل فرمایید.</string>
-    <string name="error_not_auth">ممجوزهای دسترسی به شما اعطا نشده است، با پشتیبان تماس گرفته و از برنامه خارج و مجددا وارد شوید.</string>
+    <string name="error_not_auth">مجوزهای دسترسی به شما اعطا نشده است، با پشتیبان تماس گرفته و از برنامه خارج و مجددا وارد شوید.</string>
     <string name="error_bill_id">شناسه قبض صحیح نمیباشد.</string>
     <string name="error_disconnected">برقراری ارتباط حین جابجایی اطلاعات با خطا مواجه شد</string>
     <string name="error_connection">خطا در جابجایی اطلاعات، اتصالات خود را بررسی و مجدد تلاش کنید.</string>
@@ -95,7 +95,7 @@
     <string name="error_preparing">مشکلی در فرآیند آماده سازی روی داده است</string>
     <string name="error_android_version">نسخه اندروید شما این ویژگی را پشتیبانی نمی کند</string>
     <string name="location">کروکی</string>
-    <string name="crooki">ویرایش کروکی</string>
+    <string name="edit_crooki">ویرایش کروکی</string>
     <string name="setting">تنظیمات برنامه</string>
     <string name="setting_">تنظیمات</string>
     <string name="setting_gps">تنظیمات جی پی اس</string>
@@ -121,29 +121,29 @@
     <string name="sifoon_200">سیفون 200</string>
     <string name="sifoon_125">سیفون 125</string>
     <string name="sifoon_150">سیفون 150</string>
-    <string name="ayan_maskooni">اعیان مسکونی</string>
+    <string name="aian_maskooni">اعیان مسکونی</string>
     <string name="number_maskooni">تعداد واحد مسکونی</string>
     <string name="zarfiat_qaradadi">ظرفیت قراردادی</string>
     <string name="adam_taxfif_ab">عدم تخفیف آب</string>
     <string name="phone">تلفن ثابت</string>
-    <string name="nation_code">کد ملی</string>
+    <string name="national_id">کد ملی</string>
     <string name="name">نام</string>
     <string name="father_name">نام پدر</string>
     <string name="eshterak">اشتراک</string>
     <string name="sms_phone">شماره پیامک ها</string>
-    <string name="shomare_peygiri">شماره پیگیری</string>
+    <string name="track_number">شماره پیگیری</string>
     <string name="noe_vagozari">نوع واگذاری</string>
     <string name="arse_kol">عرصه کل</string>
     <string name="bill_id">شناسه قبض</string>
     <string name="neighbour_bill_id">ش. قبض همسایه</string>
-    <string name="other_number">تعداد واحد سایر</string>
+    <string name="tedad_saier">تعداد واحد سایر</string>
     <string name="postal_code">کد پستی</string>
     <string name="canceled">عملیات متوقف شد.</string>
     <string name="waiting">لطفا صبر کنید…</string>
     <string name="waiting_for_routing">لطفا صبر کنید، در حال مسیریابی…</string>
     <string name="turn_internet_on">اینترنت وصل نیست، اینترنت وایفای یا همراه خود را روشن کنید.</string>
     <string name="access_denialed">مجوز رد شد \n</string>
-    <string name="taxfif_number">تعداد تخفیف</string>
+    <string name="tedad_taxfif">تعداد تخفیف</string>
     <string name="not_found">موردی یافت نشد!</string>
     <string name="next">بعدی</string>
     <string name="previous">قبلی</string>
@@ -205,7 +205,7 @@
     <string name="have">دارد</string>
     <string name="have_n">ندارد</string>
     <string name="noe_shoql">نوع شغل</string>
-    <string name="tedad_vahed">واحد</string>
+    <string name="vahed">واحد</string>
     <string name="vahed_mohasebe">واحد م</string>
     <string name="a_2">مقدار</string>
     <string name="sign_arziab">محل امضای ارزیاب</string>
@@ -400,8 +400,6 @@
     <string name="contact_us">ارتباط با ما</string>
     <string name="receive_information">دریافت اطلاعات</string>
     <string name="recording">در حال ضبط صدا…</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="dynamic_navigation">پیمایش پویا</string>
     <string name="none">هیچکدام</string>
     <string name="not_respond">پاسخی دریافت نشد.</string>
@@ -467,9 +465,17 @@
     <string name="download_failed">بارگیری با خطا مواجه شد</string>
     <string name="download_started">بارگیری آغاز شد</string>
     <string name="no_tiles_selected">ناحیه ای انتخاب نشده است</string>
-    <string name="ensheab_type">نوع انشعاب</string>
+    <string name="noe_ensheab">نوع انشعاب</string>
     <string name="ezhar_bahre">اظهار نظر واحد بهره برداری</string>
-    <string name="form_preview">پیش نمایش فرم</string>
+    <string name="form_preview">پیش نمایش</string>
     <string name="qaradad_amade">قرارداد آماده سازی</string>
-    <string name="mojavez_adam_tavali">مجوز عدم تولی</string>
+    <string name="adam_license">مجوز عدم تولی</string>
+    <string name="crooki">کروکی</string>
+    <string name="result">نتیجه</string>
+    <string name="ip">آدرس</string>
+    <string name="map_ip">آدرس نقشه</string>
+    <string name="set_ip">ثبت آدرس</string>
+    <string name="document_ip">آدرس مدارک</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

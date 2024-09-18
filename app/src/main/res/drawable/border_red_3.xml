@@ -9,7 +9,7 @@
         android:top="@dimen/small_dp" />
     <gradient
         android:angle="45"
-        android:centerColor="@color/gray_2"
-        android:endColor="@color/white"
-        android:startColor="@color/red" />
+        android:centerColor="@color/red"
+        android:endColor="@android:color/white"
+        android:startColor="?colorPrimary" />
 </shape>

@@ -7,9 +7,11 @@ import static com.leon.estimate_new.enums.MapLayerType.GIS_WATER_TRANSFER;
 import static com.leon.estimate_new.enums.SharedReferenceKeys.MAP_TYPE;
 import static com.leon.estimate_new.enums.SharedReferenceKeys.TOKEN_FOR_GIS;
 import static com.leon.estimate_new.helpers.Constants.MAP_SELECTED;
-import static com.leon.estimate_new.helpers.Constants.SECOND_FRAGMENT;
+import static com.leon.estimate_new.helpers.Constants.TECHNICAL_INFO_FRAGMENT;
 import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponent;
 import static com.leon.estimate_new.helpers.MyApplication.getLocationTracker;
+import static com.leon.estimate_new.utils.DifferentCompanyManager.getActiveCompanyName;
+import static com.leon.estimate_new.utils.DifferentCompanyManager.getMapUrl;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -31,6 +33,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Lifecycle;
 
 import com.leon.estimate_new.BuildConfig;
 import com.leon.estimate_new.R;
@@ -39,17 +42,17 @@ import com.leon.estimate_new.enums.MapLayerType;
 import com.leon.estimate_new.tables.CalculationUserInput;
 import com.leon.estimate_new.tables.ExaminerDuties;
 import com.leon.estimate_new.tables.Place;
-import com.leon.estimate_new.utils.CustomOnlineTileSource;
 import com.leon.estimate_new.utils.gis.GetGisPoint;
 import com.leon.estimate_new.utils.gis.GetGisToken;
 import com.leon.estimate_new.utils.gis.GetGisXY;
 
-import org.jetbrains.annotations.NotNull;
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.events.MapEventsReceiver;
+import org.osmdroid.tileprovider.tilesource.OnlineTileSourceBase;
 import org.osmdroid.tileprovider.tilesource.XYTileSource;
 import org.osmdroid.util.GeoPoint;
+import org.osmdroid.util.MapTileIndex;
 import org.osmdroid.views.CustomZoomButtonsController;
 import org.osmdroid.views.overlay.MapEventsOverlay;
 import org.osmdroid.views.overlay.Marker;
@@ -79,7 +82,6 @@ public class MapDescriptionFragment extends Fragment implements View.OnClickList
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        formActivity.setTitle(getString(R.string.app_name).concat(" / ").concat("صفحه پنجم"), false);
     }
 
     @Override
@@ -87,13 +89,13 @@ public class MapDescriptionFragment extends Fragment implements View.OnClickList
                              Bundle savedInstanceState) {
         binding = FragmentMapDescriptionBinding.inflate(inflater, container, false);
         initialize();
-//        setHasOptionsMenu(true);
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        formActivity.setTitle(getString(R.string.app_name).concat(" / ").concat("صفحه پنجم"), false);
         requireActivity().addMenuProvider(new MenuProvider() {
             @Override
             public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
@@ -119,10 +121,9 @@ public class MapDescriptionFragment extends Fragment implements View.OnClickList
                     initializeBaseMap();
                     return true;
                 }
-//                return super.onOptionsItemSelected(item);
                 return false;
             }
-        });
+        }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
     }
 
     private void initialize() {
@@ -208,7 +209,17 @@ public class MapDescriptionFragment extends Fragment implements View.OnClickList
 
     private void initializeBaseMap() {
         Configuration.getInstance().load(requireContext(), PreferenceManager.getDefaultSharedPreferences(requireContext()));
-        binding.mapView.setTileSource(new CustomOnlineTileSource());
+//        binding.mapView.setTileSource(new CustomOnlineTileSource());
+        final OnlineTileSourceBase custom = new OnlineTileSourceBase("custom",
+                0, 19, 256, ".png", new String[]{
+                getMapUrl(getActiveCompanyName())}) {
+            @Override
+            public String getTileURLString(long aTile) {
+                return getBaseUrl() + MapTileIndex.getZoom(aTile) + "/" + MapTileIndex.getX(aTile)
+                        + "/" + MapTileIndex.getY(aTile) + mImageFilenameEnding;
+            }
+        };
+        binding.mapView.setTileSource(custom);
 //        binding.mapView.setBuiltInZoomControls(true);
         binding.mapView.getZoomController().
                 setVisibility(CustomZoomButtonsController.Visibility.SHOW_AND_FADEOUT);
@@ -319,7 +330,7 @@ public class MapDescriptionFragment extends Fragment implements View.OnClickList
         } else if (id == R.id.image_view_show_layer) {
             getXY();
         } else if (id == R.id.button_pre) {
-            formActivity.setOnPreClickListener(SECOND_FRAGMENT);
+            formActivity.setOnPreClickListener(TECHNICAL_INFO_FRAGMENT);
         } else if (id == R.id.button_edit_crooki) {
             captureScreenshotAsync();
             clearMap();

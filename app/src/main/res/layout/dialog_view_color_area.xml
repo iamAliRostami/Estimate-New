@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ld_color_area"
     android:layout_width="match_parent"
@@ -9,14 +9,14 @@
     android:paddingBottom="@dimen/low_dp"
     tools:ignore="UseCompoundDrawables">
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ld_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         tools:ignore="ContentDescription" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/ld_top_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,4 +26,4 @@
         android:textSize="18sp"
         android:visibility="gone" />
 
-</LinearLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>

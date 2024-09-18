@@ -13,7 +13,7 @@
         android:layout_above="@id/linear_layout_1"
         android:layout_alignParentTop="true"
         android:layout_gravity="center"
-        android:background="@drawable/border_2"
+        android:background="@drawable/darker_gray_30"
         android:padding="@dimen/medium_dp"
         tools:ignore="ContentDescription" />
 

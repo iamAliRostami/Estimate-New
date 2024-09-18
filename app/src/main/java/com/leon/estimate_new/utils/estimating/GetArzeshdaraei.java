@@ -12,7 +12,6 @@ import com.leon.estimate_new.R;
 import com.leon.estimate_new.base_items.BaseAsync;
 import com.leon.estimate_new.di.view_model.CustomDialogModel;
 import com.leon.estimate_new.di.view_model.HttpClientWrapper;
-import com.leon.estimate_new.di.view_model.NetworkHelperModel;
 import com.leon.estimate_new.fragments.dialog.ValueFragment;
 import com.leon.estimate_new.fragments.forms.BaseInfoFragment;
 import com.leon.estimate_new.infrastructure.IAbfaService;
@@ -45,7 +44,7 @@ public class GetArzeshdaraei extends BaseAsync {
 
     @Override
     public void backgroundTask(Activity activity) {
-        final Retrofit retrofit = NetworkHelperModel.getInstance(activity);
+        final Retrofit retrofit = getApplicationComponent().NetworkHelperModel().getInstance(activity);
         final IAbfaService arzeshdaraei = retrofit.create(IAbfaService.class);
         final Call<Arzeshdaraei> call = arzeshdaraei.getArzeshDaraii(Integer.parseInt(zoneId));
         HttpClientWrapper.callHttpAsync(call, NOT_SHOW.getValue(), activity,

@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.material.button.MaterialButton;
 import com.leon.estimate_new.R;
 
 
@@ -69,7 +70,7 @@ public class LovelyStandardDialog extends AbsLovelyDialog<LovelyStandardDialog> 
         return setNegativeButton(string(text), listener);
     }
 
-    private LovelyStandardDialog setNegativeButton(String text, @Nullable View.OnClickListener listener) {
+    public LovelyStandardDialog setNegativeButton(String text, @Nullable View.OnClickListener listener) {
         negativeButton.setVisibility(VISIBLE);
         negativeButton.setText(text);
         negativeButton.setOnClickListener(new ClickListenerDecorator(listener, true));
@@ -88,14 +89,14 @@ public class LovelyStandardDialog extends AbsLovelyDialog<LovelyStandardDialog> 
         return setNeutralButton(string(text), listener);
     }
 
-    private LovelyStandardDialog setNeutralButton(String text, @Nullable View.OnClickListener listener) {
+    public LovelyStandardDialog setNeutralButton(String text, @Nullable View.OnClickListener listener) {
         neutralButton.setVisibility(VISIBLE);
         neutralButton.setText(text);
         neutralButton.setOnClickListener(new ClickListenerDecorator(listener, true));
         return this;
     }
 
-    private LovelyStandardDialog setButtonsColor(@ColorInt int color) {
+    public LovelyStandardDialog setButtonsColor(@ColorInt int color) {
         positiveButton.setBackgroundColor(color);
         negativeButton.setBackgroundColor(color);
         neutralButton.setBackgroundColor(color);

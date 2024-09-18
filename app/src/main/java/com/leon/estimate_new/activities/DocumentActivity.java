@@ -51,20 +51,20 @@ import com.leon.estimate_new.utils.document.ImageTitles;
 import com.leon.estimate_new.utils.document.LoginDocument;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class DocumentActivity extends AppCompatActivity implements TakePhotoFragment.Callback,
         CropFragment.Callback, BrightnessContrastFragment.Callback {
     private ActivityDocumentBinding binding;
+    private final ArrayList<Images> images = new ArrayList<>();
     private final ArrayList<ImageData> dataThumbnail = new ArrayList<>();
     private final ArrayList<String> dataThumbnailUri = new ArrayList<>();
     private final ArrayList<String> titles = new ArrayList<>();
-    private final ArrayList<Images> images = new ArrayList<>();
+    private final HashMap<String, Integer> titleMap = new HashMap<>();
     private final int TAKE_PHOTO_FRAGMENT = 0;
     private final int CROP_FRAGMENT = 1;
     private final int BRIGHTNESS_CONTRAST_FRAGMENT = 2;
-    private int selected;
     private boolean isNew, close;
-    private SpinnerCustomAdapter spinnerAdapter;
     private ImageViewAdapter imageViewAdapter;
     private ImageDataTitle imageDataTitle;
     private String trackNumber, billId;
@@ -203,16 +203,10 @@ public class DocumentActivity extends AppCompatActivity implements TakePhotoFrag
     public void setTitles(ImageDataTitle body) {
         imageDataTitle = body;
         for (int i = 0; i < imageDataTitle.data.size(); i++) {
-            if (imageDataTitle.data.get(i).title.equals("کروکی"))
-                selected = i;
             titles.add(imageDataTitle.data.get(i).title);
+            titleMap.put(imageDataTitle.data.get(i).title, imageDataTitle.data.get(i).id);
         }
         displayView(TAKE_PHOTO_FRAGMENT);
-    }
-
-    @Override
-    public int getSelected() {
-        return selected;
     }
 
     @Override
@@ -233,11 +227,6 @@ public class DocumentActivity extends AppCompatActivity implements TakePhotoFrag
     @Override
     public boolean isNew() {
         return isNew;
-    }
-
-    @Override
-    public DataTitle getDataTitle(int position) {
-        return imageDataTitle.data.get(position);
     }
 
     @Override
@@ -308,16 +297,6 @@ public class DocumentActivity extends AppCompatActivity implements TakePhotoFrag
     }
 
     @Override
-    public SpinnerCustomAdapter getSpinnerAdapter() {
-        return spinnerAdapter;
-    }
-
-    @Override
-    public void setSpinnerAdapter(SpinnerCustomAdapter spinnerAdapter) {
-        this.spinnerAdapter = spinnerAdapter;
-    }
-
-    @Override
     public ImageViewAdapter getImageViewAdapter() {
         return imageViewAdapter;
     }
@@ -325,6 +304,11 @@ public class DocumentActivity extends AppCompatActivity implements TakePhotoFrag
     @Override
     public void setImageViewAdapter(ImageViewAdapter imageViewAdapter) {
         this.imageViewAdapter = imageViewAdapter;
+    }
+
+    @Override
+    public HashMap<String, Integer> getTitleMap() {
+        return titleMap;
     }
 
     private void addOnBackPressed() {

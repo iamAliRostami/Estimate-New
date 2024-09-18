@@ -18,7 +18,7 @@ public class DrawerItemHolder extends RecyclerView.ViewHolder {
     public DrawerItemHolder(View viewItem) {
         super(viewItem);
         this.textViewTitle = viewItem.findViewById(R.id.text_view_title);
-        this.imageViewIcon = viewItem.findViewById(R.id.image_view_icon);
-        this.relativeLayout = viewItem.findViewById(R.id.relative_layout_background);
+        this.imageViewIcon = viewItem.findViewById(R.id.image_view);
+        this.relativeLayout = viewItem.findViewById(R.id.relative_layout);
     }
 }

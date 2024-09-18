@@ -5,6 +5,8 @@ import static com.leon.estimate_new.enums.SharedReferenceKeys.PASSWORD_TEMP;
 import static com.leon.estimate_new.enums.SharedReferenceKeys.TOKEN_FOR_FILE;
 import static com.leon.estimate_new.enums.SharedReferenceKeys.USERNAME_TEMP;
 import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponent;
+import static com.leon.estimate_new.utils.DifferentCompanyManager.getActiveCompanyName;
+import static com.leon.estimate_new.utils.DifferentCompanyManager.getDocumentUrl;
 
 import android.app.Activity;
 import android.content.Context;
@@ -46,7 +48,8 @@ public class LoginDocument extends BaseAsync {
 
     @Override
     public void backgroundTask(Activity activity) {
-        final Retrofit retrofit = getApplicationComponent().NetworkHelperModel().getInstance();
+        final Retrofit retrofit = getApplicationComponent().NetworkHelperModel()
+                .getInstance(getDocumentUrl(getActiveCompanyName()), 1);
         final IAbfaService abfaService = retrofit.create(IAbfaService.class);
         final Call<Login> call = abfaService.login2(getApplicationComponent().SharedPreferenceModel()
                 .getStringData(USERNAME_TEMP.getValue()), Crypto.decrypt(getApplicationComponent()

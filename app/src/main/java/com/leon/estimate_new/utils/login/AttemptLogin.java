@@ -1,5 +1,13 @@
 package com.leon.estimate_new.utils.login;
 
+import static com.leon.estimate_new.enums.ProgressType.SHOW;
+import static com.leon.estimate_new.enums.SharedReferenceKeys.PASSWORD;
+import static com.leon.estimate_new.enums.SharedReferenceKeys.PASSWORD_TEMP;
+import static com.leon.estimate_new.enums.SharedReferenceKeys.REFRESH_TOKEN;
+import static com.leon.estimate_new.enums.SharedReferenceKeys.TOKEN;
+import static com.leon.estimate_new.enums.SharedReferenceKeys.USERNAME;
+import static com.leon.estimate_new.enums.SharedReferenceKeys.USERNAME_TEMP;
+import static com.leon.estimate_new.enums.SharedReferenceKeys.XSRF;
 import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponent;
 import static com.leon.estimate_new.helpers.MyApplication.getPreferenceManager;
 
@@ -11,8 +19,6 @@ import android.widget.Toast;
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.activities.MainActivity;
 import com.leon.estimate_new.di.view_model.HttpClientWrapper;
-import com.leon.estimate_new.enums.ProgressType;
-import com.leon.estimate_new.enums.SharedReferenceKeys;
 import com.leon.estimate_new.infrastructure.IAbfaService;
 import com.leon.estimate_new.infrastructure.ICallback;
 import com.leon.estimate_new.tables.LoginFeedBack;
@@ -27,6 +33,7 @@ public class AttemptLogin extends AsyncTask<Activity, Activity, Void> {
     private final String username;
     private final String password;
     private final boolean isChecked;
+    private boolean online = true;
 
     public AttemptLogin(String username, String password, boolean isChecked) {
         super();
@@ -35,13 +42,21 @@ public class AttemptLogin extends AsyncTask<Activity, Activity, Void> {
         this.isChecked = isChecked;
     }
 
+    public AttemptLogin(String username, String password, boolean isChecked, boolean online) {
+        super();
+        this.online = online;
+        this.username = username;
+        this.password = password;
+        this.isChecked = isChecked;
+    }
+
     @Override
     protected Void doInBackground(Activity... activities) {
-        Retrofit retrofit = getApplicationComponent().NetworkHelperModel().getInstance();
+        Retrofit retrofit = getApplicationComponent().NetworkHelperModel().getInstance(online);
         final IAbfaService iAbfaService = retrofit.create(IAbfaService.class);
         Call<LoginFeedBack> call = iAbfaService.login(username, password);
         activities[0].runOnUiThread(() ->
-                HttpClientWrapper.callHttpAsync(call, ProgressType.SHOW.getValue(), activities[0],
+                HttpClientWrapper.callHttpAsync(call, SHOW.getValue(), activities[0],
                         new LoginCompleted(activities[0], isChecked, username, password),
                         new Incomplete(activities[0]),
                         new Error(activities[0])));
@@ -89,14 +104,14 @@ class LoginCompleted implements ICallback<LoginFeedBack> {
 //                .putData(SharedReferenceKeys.DISPLAY_NAME.getValue(), loginFeedBack.displayName);
 //        sharedPreferenceManager
 //                .putData(SharedReferenceKeys.USER_CODE.getValue(), loginFeedBack.userCode);
-        getPreferenceManager().putData(SharedReferenceKeys.TOKEN.getValue(), loginFeedBack.access_token);
-        getPreferenceManager().putData(SharedReferenceKeys.REFRESH_TOKEN.getValue(), loginFeedBack.refresh_token);
-        getPreferenceManager().putData(SharedReferenceKeys.XSRF.getValue(), loginFeedBack.XSRFToken);
-        getPreferenceManager().putData(SharedReferenceKeys.USERNAME_TEMP.getValue(), username);
-        getPreferenceManager().putData(SharedReferenceKeys.PASSWORD_TEMP.getValue(), Crypto.encrypt(password));
+        getPreferenceManager().putData(TOKEN.getValue(), loginFeedBack.access_token);
+        getPreferenceManager().putData(REFRESH_TOKEN.getValue(), loginFeedBack.refresh_token);
+        getPreferenceManager().putData(XSRF.getValue(), loginFeedBack.XSRFToken);
+        getPreferenceManager().putData(USERNAME_TEMP.getValue(), username);
+        getPreferenceManager().putData(PASSWORD_TEMP.getValue(), Crypto.encrypt(password));
         if (isChecked) {
-            getPreferenceManager().putData(SharedReferenceKeys.USERNAME.getValue(), username);
-            getPreferenceManager().putData(SharedReferenceKeys.PASSWORD.getValue(), Crypto.encrypt(password));
+            getPreferenceManager().putData(USERNAME.getValue(), username);
+            getPreferenceManager().putData(PASSWORD.getValue(), Crypto.encrypt(password));
         }
     }
 }

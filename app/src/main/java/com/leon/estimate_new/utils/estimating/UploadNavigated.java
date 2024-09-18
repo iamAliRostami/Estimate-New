@@ -52,7 +52,8 @@ public class UploadNavigated extends BaseAsync {
     public void backgroundTask(Activity activity) {
         //TODO
         getApplicationComponent().MyDatabase().examinerDutiesDao().updateExaminationByPeymayesh(true, examinerDuty.trackNumber);
-        final CalculationUserInput calculationUserInput = getApplicationComponent().MyDatabase().calculationUserInputDao().getCalculationUserInput(examinerDuty.trackNumber);
+        final CalculationUserInput calculationUserInput =
+                getApplicationComponent().MyDatabase().calculationUserInputDao().getCalculationUserInput(examinerDuty.trackNumber);
         calculationUserInput.accuracy = getLocationTracker(activity).getAccuracy();
         calculationUserInput.y2 = getLocationTracker(activity).getLatitude();
         calculationUserInput.x2 = getLocationTracker(activity).getLongitude();
@@ -65,11 +66,12 @@ public class UploadNavigated extends BaseAsync {
         final ArrayList<CalculationUserInputSend> calculationUserInputSends = new ArrayList<>();
         calculationUserInputSends.add(new CalculationUserInputSend(calculationUserInput, examinerDuty));
 
-        final Retrofit retrofit = NetworkHelperModel.getInstance(activity);
+        final Retrofit retrofit = getApplicationComponent().Retrofit();
         final IAbfaService abfaService = retrofit.create(IAbfaService.class);
         Call<SimpleMessage> call = abfaService.setExaminationInfo(calculationUserInputSends);
         HttpClientWrapper.callHttpAsync(call, SHOW.getValue(), activity,
-                new Calculation(examinerDuty.trackNumber, object), new CalculationIncomplete(activity), new GetError());
+                new Calculation(examinerDuty.trackNumber, object),
+                new CalculationIncomplete(activity), new GetError());
     }
 
     @Override
@@ -107,8 +109,5 @@ class CalculationIncomplete implements ICallbackIncomplete<SimpleMessage> {
     public void executeIncomplete(Response<SimpleMessage> response) {
         final CustomErrorHandling errorHandling = new CustomErrorHandling(context);
         new CustomToast().error(errorHandling.getErrorMessageDefault(response), Toast.LENGTH_LONG);
-//        new CustomDialogModel(Yellow, context, errorHandling.getErrorMessageDefault(response),
-//                context.getString(R.string.dear_user), context.getString(R.string.login),
-//                context.getString(R.string.accepted));
     }
 }

@@ -2,6 +2,7 @@ package com.leon.estimate_new.fragments.main_items;
 
 import static com.leon.estimate_new.enums.SharedReferenceKeys.TRACK_NUMBER;
 import static com.leon.estimate_new.fragments.dialog.ShowFragmentDialog.ShowFragmentDialogOnce;
+import static com.leon.estimate_new.helpers.Constants.DUTIES_FRAGMENT;
 import static com.leon.estimate_new.helpers.MyApplication.getPreferenceManager;
 
 import android.annotation.SuppressLint;
@@ -15,7 +16,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Lifecycle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -55,12 +60,10 @@ public class DutiesListFragment extends Fragment implements SearchFragment.Callb
                              Bundle savedInstanceState) {
         binding = FragmentDutiesListBinding.inflate(inflater, container, false);
         initialize();
-        setHasOptionsMenu(false);
         return binding.getRoot();
     }
 
     private void initialize() {
-        setHasOptionsMenu(false);
         new PrepareListData(requireContext(), this).execute(requireActivity());
     }
 
@@ -71,7 +74,6 @@ public class DutiesListFragment extends Fragment implements SearchFragment.Callb
                 binding.textViewEmpty.setVisibility(View.VISIBLE);
             });
         } else {
-            setHasOptionsMenu(true);
             initializeRecyclerView(examinerDuties);
         }
     }
@@ -99,23 +101,33 @@ public class DutiesListFragment extends Fragment implements SearchFragment.Callb
     }
 
     @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.search_menu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        requireActivity().addMenuProvider(new MenuProvider() {
+            @Override
+            public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
+                menuInflater.inflate(R.menu.search_menu, menu);
+            }
 
-    @Override
-    public boolean onOptionsItemSelected(@NotNull MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.menu_search) {
-            ShowFragmentDialogOnce(requireContext(), "SEARCH_DIALOG", SearchFragment.newInstance(this));
-        } else if (id == R.id.menu_clear) {
-            filter("", "", "", "", "", "", "");
-        } else if (id == R.id.menu_last) {
-            filter("", getPreferenceManager().getStringData(TRACK_NUMBER.getValue()),
-                    "", "", "", "", "");
-        }
-        return super.onOptionsItemSelected(item);
+            @Override
+            public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
+                int id = menuItem.getItemId();
+                if (id == R.id.menu_search) {
+                    final String tag = Integer.toString(DUTIES_FRAGMENT);
+                    FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                    Fragment fragment = fragmentManager.findFragmentByTag(tag);
+                    if (fragment != null && fragment.isVisible()) {
+                        ShowFragmentDialogOnce(requireContext(), "SEARCH_DIALOG", SearchFragment.newInstance(fragment));
+                    }
+                } else if (id == R.id.menu_clear) {
+                    filter("", "", "", "", "", "", "");
+                } else if (id == R.id.menu_last) {
+                    filter("", getPreferenceManager().getStringData(TRACK_NUMBER.getValue()),
+                            "", "", "", "", "");
+                }
+                return false;
+            }
+        }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -217,6 +229,7 @@ public class DutiesListFragment extends Fragment implements SearchFragment.Callb
         super.onResume();
         if (resume) new PrepareListData(requireContext(), this).execute(requireActivity());
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

@@ -2,11 +2,14 @@ package com.leon.estimate_new.fragments.main_items;
 
 import static com.leon.estimate_new.fragments.dialog.ShowFragmentDialog.ShowFragmentDialogOnce;
 import static com.leon.estimate_new.helpers.MyApplication.getLocationTracker;
+import static com.leon.estimate_new.utils.DifferentCompanyManager.getActiveCompanyName;
+import static com.leon.estimate_new.utils.DifferentCompanyManager.getMapUrl;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,16 +18,20 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Lifecycle;
 
 import com.leon.estimate_new.BuildConfig;
 import com.leon.estimate_new.databinding.FragmentHomeBinding;
-import com.leon.estimate_new.utils.CustomOnlineTileSource;
 
 import org.jetbrains.annotations.NotNull;
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
+import org.osmdroid.tileprovider.tilesource.OnlineTileSourceBase;
 import org.osmdroid.util.GeoPoint;
+import org.osmdroid.util.MapTileIndex;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
@@ -59,13 +66,25 @@ public class HomeFragment extends Fragment {
     }
 
     private void initialize() {
-        setHasOptionsMenu(true);
+//        setHasOptionsMenu(true);
         initializeMap();
     }
 
     private void initializeMap() {
         Configuration.getInstance().load(requireContext(), PreferenceManager.getDefaultSharedPreferences(requireContext()));
-        binding.mapView.setTileSource(new CustomOnlineTileSource());
+//        binding.mapView.setTileSource(new CustomOnlineTileSource());
+        final OnlineTileSourceBase custom = new OnlineTileSourceBase("custom",
+                0, 19, 256, ".png", new String[]{
+                getMapUrl(getActiveCompanyName())}) {
+            @Override
+            public String getTileURLString(long aTile) {
+                Log.e("url",getBaseUrl() + MapTileIndex.getZoom(aTile) + "/" + MapTileIndex.getX(aTile)
+                        + "/" + MapTileIndex.getY(aTile) + mImageFilenameEnding);
+                return getBaseUrl() + MapTileIndex.getZoom(aTile) + "/" + MapTileIndex.getX(aTile)
+                        + "/" + MapTileIndex.getY(aTile) + mImageFilenameEnding;
+            }
+        };
+        binding.mapView.setTileSource(custom);
         binding.mapView.setBuiltInZoomControls(true);
         binding.mapView.setMultiTouchControls(true);
         showCurrentLocation();
@@ -73,6 +92,9 @@ public class HomeFragment extends Fragment {
     }
 
     private void showCurrentLocation() {
+
+
+
         final IMapController mapController = binding.mapView.getController();
         mapController.setZoom(16.5);
 
@@ -95,23 +117,41 @@ public class HomeFragment extends Fragment {
 
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        requireActivity().addMenuProvider(new MenuProvider() {
+            @Override
+            public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
+                menu.add(0, MENU_OFFLINE_MAP, Menu.NONE, "نقشه آفلاین");
+            }
+
+            @Override
+            public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
+                if (menuItem.getItemId() == MENU_OFFLINE_MAP) {
+                    ShowFragmentDialogOnce(requireContext(), "OFFLINE_MAP", OfflineMapFragment.newInstance());
+                }
+
+                return false;
+            }
+        }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
+    }
+
     private final int MENU_OFFLINE_MAP = 0;
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, @NonNull MenuInflater inflater) {
-        menu.add(0, MENU_OFFLINE_MAP, Menu.NONE, "نقشه آفلاین");
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == MENU_OFFLINE_MAP) {
-//            callback.displayView(OFFLINE_MAP_FRAGMENT);
-            ShowFragmentDialogOnce(requireContext(), "OFFLINE_MAP",
-                    OfflineMapFragment.newInstance());
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public void onCreateOptionsMenu(Menu menu, @NonNull MenuInflater inflater) {
+//        menu.add(0, MENU_OFFLINE_MAP, Menu.NONE, "نقشه آفلاین");
+//        super.onCreateOptionsMenu(menu, inflater);
+//    }
+//    @Override
+//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+//        if (item.getItemId() == MENU_OFFLINE_MAP) {
+////            callback.displayView(OFFLINE_MAP_FRAGMENT);
+//            ShowFragmentDialogOnce(requireContext(), "OFFLINE_MAP",OfflineMapFragment.newInstance());
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 
     @Override
     public void onResume() {

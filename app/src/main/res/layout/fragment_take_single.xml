@@ -43,7 +43,7 @@
             android:id="@+id/button_edit_crooki"
             style="@style/Button.Positive"
             android:layout_alignParentEnd="true"
-            android:text="@string/crooki" />
+            android:text="@string/edit_crooki" />
     </RelativeLayout>
 
 </RelativeLayout>

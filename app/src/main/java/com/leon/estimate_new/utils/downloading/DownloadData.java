@@ -64,11 +64,11 @@ public class DownloadData extends BaseAsync {
 }
 
 class Download implements ICallback<Input> {
-    private final Context context;
+    private final Activity activity;
     private final boolean toast;
 
-    public Download(Context context, boolean toast) {
-        this.context = context;
+    public Download(Activity activity, boolean toast) {
+        this.activity = activity;
         this.toast = toast;
     }
 
@@ -87,9 +87,13 @@ class Download implements ICallback<Input> {
             if (toast)
                 new CustomToast().success(message, Toast.LENGTH_LONG);
             else
-                new CustomDialogModel(Green, context, message, context.getString(R.string.dear_user), context.getString(R.string.receive), context.getString(R.string.accepted));
+                activity.runOnUiThread(() ->
+                        new CustomDialogModel(Green, activity, message,
+                                activity.getString(R.string.dear_user),
+                                activity.getString(R.string.receive),
+                                activity.getString(R.string.accepted)));
         } else {
-            new CustomToast().warning(context.getString(R.string.empty_download), Toast.LENGTH_LONG);
+            new CustomToast().warning(activity.getString(R.string.empty_download), Toast.LENGTH_LONG);
         }
     }
 
@@ -138,14 +142,14 @@ class DownloadIncomplete implements ICallbackIncomplete<Input> {
 
     @Override
     public void executeIncomplete(Response<Input> response) {
-        final String error;
+        final String message;
         if (response.code() == 400) {
-            error = context.getString(R.string.there_is_nothing_for_download);
+            message = context.getString(R.string.there_is_nothing_for_download);
         } else {
-            final CustomErrorHandling customErrorHandlingNew = new CustomErrorHandling(context);
-            error = customErrorHandlingNew.getErrorMessageDefault(response);
+            final CustomErrorHandling error = new CustomErrorHandling(context);
+            message = error.getErrorMessageDefault(response);
         }
-        new CustomDialogModel(Yellow, context, error,
+        new CustomDialogModel(Yellow, context, message,
                 context.getString(R.string.dear_user),
                 context.getString(R.string.download),
                 context.getString(R.string.accepted));
@@ -155,7 +159,7 @@ class DownloadIncomplete implements ICallbackIncomplete<Input> {
 class GetError implements ICallbackError {
     @Override
     public void executeError(Throwable t) {
-        final CustomErrorHandling customErrorHandlingNew = new CustomErrorHandling(getContext());
-        new CustomToast().error(customErrorHandlingNew.getErrorMessageTotal(t), Toast.LENGTH_LONG);
+        final CustomErrorHandling custom = new CustomErrorHandling(getContext());
+        new CustomToast().error(custom.getErrorMessageTotal(t), Toast.LENGTH_LONG);
     }
 }

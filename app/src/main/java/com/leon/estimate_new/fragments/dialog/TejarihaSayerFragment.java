@@ -1,24 +1,30 @@
 package com.leon.estimate_new.fragments.dialog;
 
 import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponent;
+import static com.leon.estimate_new.utils.Validator.checkEmpty;
 
 import android.annotation.SuppressLint;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.InsetDrawable;
 import android.os.Bundle;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.leon.estimate_new.R;
-import com.leon.estimate_new.adapters.SpinnerCustomAdapter;
 import com.leon.estimate_new.adapters.TejariSayerAdapter;
 import com.leon.estimate_new.databinding.FragmentTejarihaSayerBinding;
 import com.leon.estimate_new.fragments.forms.BaseInfoFragment;
@@ -26,14 +32,17 @@ import com.leon.estimate_new.tables.ExaminerDuties;
 import com.leon.estimate_new.tables.KarbariDictionary;
 import com.leon.estimate_new.tables.Tejariha;
 import com.leon.estimate_new.utils.CustomToast;
+import com.leon.estimate_new.utils.mapper.CustomMapper;
 
 import java.util.ArrayList;
 
-public class TejarihaSayerFragment extends DialogFragment {
+public class TejarihaSayerFragment extends DialogFragment implements View.OnClickListener {
     private final Callback baseInfoFragment;
     private final ArrayList<Tejariha> tejariha = new ArrayList<>();
     private TejariSayerAdapter adapter;
     private FragmentTejarihaSayerBinding binding;
+    private TejarihaSayerViewModel tejarihaSayerVM;
+    private final ArrayList<String> karbariTitles = new ArrayList<>();
 
     public TejarihaSayerFragment(final BaseInfoFragment baseInfoFragment) {
         this.baseInfoFragment = baseInfoFragment;
@@ -55,24 +64,19 @@ public class TejarihaSayerFragment extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentTejarihaSayerBinding.inflate(inflater, container, false);
+        tejarihaSayerVM = new TejarihaSayerViewModel(baseInfoFragment.getExaminerDuty().trackNumber,
+                baseInfoFragment.getExaminerDuty().karbariS);
+        binding.setTejarihaSayerVM(tejarihaSayerVM);
         initialize();
         return binding.getRoot();
     }
 
     private void initialize() {
-        setOnImageViewPlusClickListener();
-        initializeKarbariSpinner();
+        binding.imageViewPlus.setOnClickListener(this);
+        binding.buttonSubmit.setOnClickListener(this);
+        binding.textViewKarbari.setOnClickListener(this);
+        initializeKarbari();
         initializeRecyclerView();
-        setOnSubmitButtonClickListener();
-    }
-
-    private void setOnSubmitButtonClickListener() {
-        binding.buttonSubmit.setOnClickListener(v -> {
-            getApplicationComponent().MyDatabase().tejarihaDao().delete();
-            getApplicationComponent().MyDatabase().tejarihaDao().insertTejariha(adapter.getTejarihas());
-            baseInfoFragment.setTejariha(adapter.getTejarihas());
-            dismiss();
-        });
     }
 
     private void initializeRecyclerView() {
@@ -88,70 +92,83 @@ public class TejarihaSayerFragment extends DialogFragment {
         });
     }
 
-    private void setOnImageViewPlusClickListener() {
-        binding.imageViewPlus.setOnClickListener(v -> {
-            if (checkIsNoEmpty(binding.editTextNoeShoql) && checkIsNoEmpty(binding.editTextCapacity)
-                    && checkIsNoEmpty(binding.editTextVahed) && checkIsNoEmpty(binding.editTextA2)
-                    && checkIsNoEmpty(binding.editTextVahedMohasebe)) {
-                if (tejariha.size() == 8) {
-                    new CustomToast().warning(getString(R.string.tejari_over_flow), Toast.LENGTH_LONG);
-                    return;
-                }
-                addItem();
-                emptyForm();
-            }
-        });
-    }
 
     @SuppressLint("NotifyDataSetChanged")
     private void addItem() {
         //TODO
-        tejariha.add(new Tejariha(baseInfoFragment.getKarbariDictionary()
-                .get(binding.spinner1.getSelectedItemPosition()).title,
+        CustomMapper.INSTANCE.tejarihaToTejarihaViewModel(tejarihaSayerVM);
+        tejariha.add(CustomMapper.INSTANCE.tejarihaToTejarihaViewModel(tejarihaSayerVM)
+                /*new Tejariha(baseInfoFragment.getKarbariDictionary().get(binding.spinner1.getSelectedItemPosition()).title,
                 binding.editTextNoeShoql.getText().toString(),
                 Integer.parseInt(binding.editTextVahed.getText().toString()),
                 binding.editTextVahedMohasebe.getText().toString(),
                 binding.editTextA2.getText().toString(),
                 Integer.parseInt(binding.editTextCapacity.getText().toString()),
-                baseInfoFragment.getExaminerDuty().trackNumber));
+                baseInfoFragment.getExaminerDuty().trackNumber)*/
+        );
         adapter.notifyDataSetChanged();
     }
 
-    private void emptyForm() {
-        binding.editTextA2.setText("");
-        binding.editTextVahed.setText("");
-        binding.editTextNoeShoql.setText("");
-        binding.editTextCapacity.setText("");
-        binding.editTextVahedMohasebe.setText("");
+    private void initializeKarbari() {
+        ArrayList<KarbariDictionary> dictionary = baseInfoFragment.getKarbariDictionary();
+        for (int i = 0, dictionarySize = dictionary.size(); i < dictionarySize; i++) {
+            KarbariDictionary karbariDictionary = dictionary.get(i);
+            karbariTitles.add(karbariDictionary.title);
+        }
+//        binding.spinner1.setAdapter(new SpinnerCustomAdapter(requireContext(), karbariTitles));
+//        binding.spinner1.setSelection(selected);
     }
 
-    private boolean checkIsNoEmpty(EditText editText) {
-        if (editText.getText().toString().isEmpty()) {
-            editText.setError(getString(R.string.error_empty));
-            editText.requestFocus();
-            return false;
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        if (id == R.id.image_view_plus) {
+            if (checkEmpty(binding.editTextNoeShoql, requireContext()) &&
+                    checkEmpty(binding.editTextCapacity, requireContext()) &&
+                    checkEmpty(binding.editTextVahed, requireContext()) &&
+                    checkEmpty(binding.editTextA2, requireContext()) &&
+                    checkEmpty(binding.editTextVahedMohasebe, requireContext())) {
+                if (tejariha.size() == 8) {
+                    new CustomToast().warning(getString(R.string.tejari_over_flow), Toast.LENGTH_LONG);
+                    return;
+                }
+                addItem();
+                tejarihaSayerVM = new TejarihaSayerViewModel(true);
+            }
+        } else if (id == R.id.button_submit) {
+            getApplicationComponent().MyDatabase().tejarihaDao().delete();
+            getApplicationComponent().MyDatabase().tejarihaDao().insertTejariha(adapter.getTejarihas());
+            baseInfoFragment.setTejariha(adapter.getTejarihas());
+            dismiss();
+        } else if (id == R.id.text_view_karbari) {
+            showMenu(binding.textViewKarbari, karbariTitles);
         }
-        return true;
     }
 
-    private void initializeKarbariSpinner() {
-        final ArrayList<String> spinnerItems = new ArrayList<>();
-        int selected = 0, counter = 0;
-        for (KarbariDictionary karbariDictionary : baseInfoFragment.getKarbariDictionary()) {
-            spinnerItems.add(karbariDictionary.title);
-            if (karbariDictionary.id == baseInfoFragment.getExaminerDuty().karbariId)
-                selected = counter;
-            counter = counter + 1;
+    private void showMenu(MaterialAutoCompleteTextView editText, ArrayList<String> titles) {
+        final PopupMenu popup = new PopupMenu(requireActivity(), editText, Gravity.TOP);
+        for (int i = 0; i < titles.size(); i++) {
+            MenuItem item = popup.getMenu().add(titles.get(i));
+            if (item.getIcon() != null) {
+                Drawable icon = item.getIcon();
+                int iconMarginPx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                        R.dimen.small_dp, getResources().getDisplayMetrics());
+                InsetDrawable insetDrawable = new InsetDrawable(icon, iconMarginPx, 0, iconMarginPx, 0);
+                item.setIcon(insetDrawable);
+            }
         }
-        binding.spinner1.setAdapter(new SpinnerCustomAdapter(requireContext(), spinnerItems));
-        binding.spinner1.setSelection(selected);
+        popup.setOnMenuItemClickListener(menuItem -> {
+            editText.setText(menuItem.getTitle());
+            return true;
+        });
+        popup.show();
     }
 
     @Override
     public void onResume() {
-        if (getDialog() != null) {
+        if (getDialog() != null && getDialog().getWindow() != null) {
             WindowManager.LayoutParams params = getDialog().getWindow().getAttributes();
-            params.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+            params.width = ViewGroup.LayoutParams.MATCH_PARENT;
             params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
             getDialog().getWindow().setAttributes(params);
         }

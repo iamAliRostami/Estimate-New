@@ -26,7 +26,7 @@ public class CalculationUserInput {
     public String notificationMobile;
     public String selectedServicesString;
     public int qotrEnsheabId;
-    public int qotrEnsheabS;
+    public String qotrEnsheabS;
     public int noeVagozariId;
     public int taxfifId;
     public String phoneNumber;
@@ -99,20 +99,7 @@ public class CalculationUserInput {
         trackNumber = examinerDuty.trackNumber;
         sent = false;
     }
-    public void updatePersonal(ExaminerDuties examinerDuty) {
-        nationalId = examinerDuty.nationalId;
-        firstName = examinerDuty.firstName;
-        sureName = examinerDuty.sureName;
-        fatherName = examinerDuty.fatherName;
-        postalCode = examinerDuty.postalCode;
-        radif = examinerDuty.radif;
-        phoneNumber = examinerDuty.phoneNumber;
-        mobile = examinerDuty.mobile;
-        address = examinerDuty.address;
-        description = examinerDuty.description;
-        shenasname = examinerDuty.shenasname;
-        zoneId = Integer.parseInt(examinerDuty.zoneId);;
-    }
+
     public void updateBaseInfo(ExaminerDuties examinerDuty) {
         sifoon100 = examinerDuty.sifoon100;
         sifoon125 = examinerDuty.sifoon125;

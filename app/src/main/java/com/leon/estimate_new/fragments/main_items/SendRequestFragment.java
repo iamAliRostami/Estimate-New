@@ -1,11 +1,15 @@
 package com.leon.estimate_new.fragments.main_items;
 
+import static com.leon.estimate_new.utils.Validator.billIdValidation;
+import static com.leon.estimate_new.utils.Validator.checkEmpty;
+import static com.leon.estimate_new.utils.Validator.mobileValidation;
+import static com.leon.estimate_new.utils.Validator.nationalIdValidation;
+
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -60,43 +64,24 @@ public class SendRequestFragment extends Fragment implements View.OnClickListene
         lastClickTime = SystemClock.elapsedRealtime();
         final int id = v.getId();
         if (id == R.id.button_send_request) {
-            boolean cancel = false;
-            if (request.getBillId().length() < 6) cancel = checkFormat(binding.editTextBillId);
-            if (!cancel && request.getMobile().length() < 11)
-                cancel = checkFormat(binding.editTextMobile);
-            if (!cancel && request.isNewRequest()) {
-                if ((checkIsNoEmpty(binding.editTextAddress) ||
-                        checkIsNoEmpty(binding.editTextFamily) ||
-                        checkIsNoEmpty(binding.editTextName))) cancel = true;
-                if (!cancel && request.getNationalId().length() < 10)
-                    cancel = checkFormat(binding.editTextNationNumber);
-            }
-            if (!cancel) {
+            if (billIdValidation(binding.editTextBillId, requireContext()) &&
+                    mobileValidation(binding.editTextMobile, requireContext())) {
                 if (request.isNewRequest()) {
-                    new SendRequest(requireContext(), new RequestToSend(request.getSelectedServices(),
-                            request.getBillId(), request.getMobile(), request.getFirstName(), request.getSureName(),
-                            request.getNationalId(), request.getAddress()), this).execute(requireActivity());
+                    if (checkEmpty(binding.editTextAddress, requireContext()) &&
+                            checkEmpty(binding.editTextName, requireContext()) &&
+                            checkEmpty(binding.editTextFamily, requireContext()) &&
+                            nationalIdValidation(binding.editTextNationalId, requireContext())) {
+                        new SendRequest(requireContext(), new RequestToSend(request.getSelectedServices(),
+                                request.getBillId(), request.getMobile(), request.getFirstName(), request.getSureName(),
+                                request.getNationalId(), request.getAddress()), this).execute(requireActivity());
+                    }
                 } else {
                     new SendRequest(requireContext(), new RequestToSend(request.getSelectedServices(),
                             request.getBillId(), request.getMobile()), this).execute(requireActivity());
                 }
+
             }
         }
-    }
-
-    private boolean checkFormat(final EditText editText) {
-        editText.setError(getString(R.string.error_format));
-        editText.requestFocus();
-        return true;
-    }
-
-    private boolean checkIsNoEmpty(EditText editText) {
-        if (editText.getText().toString().isEmpty()) {
-            editText.setError(getString(R.string.error_empty));
-            editText.requestFocus();
-            return true;
-        }
-        return false;
     }
 
     public void afterRequest() {

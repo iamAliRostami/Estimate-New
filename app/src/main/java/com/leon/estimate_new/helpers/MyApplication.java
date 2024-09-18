@@ -49,7 +49,7 @@ public class MyApplication extends Application {
     public static String getAndroidVersion() {
         String release = Build.VERSION.RELEASE;
         int sdkVersion = Build.VERSION.SDK_INT;
-        return "Android SDK: " + sdkVersion + " (" + release + ")";
+        return "SDK: " + sdkVersion + " (" + release + ")";
     }
 
     public static ApplicationComponent getApplicationComponent() {

@@ -6,7 +6,7 @@
     android:padding="@dimen/huge_dp"
     tools:context=".fragments.main_items.UploadFragment">
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/image_view_download"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,7 +22,7 @@
         android:layout_margin="@dimen/medium_dp"
         android:orientation="horizontal">
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/text_view_eshterak_title"
             style="@style/HomeTitles"
             android:layout_width="0dp"
@@ -31,7 +31,7 @@
             android:gravity="start"
             android:text="@string/unuploaded_eshterak" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/text_view_eshterak"
             style="@style/HomeTitles"
             android:layout_width="wrap_content"
@@ -46,7 +46,7 @@
         android:layout_above="@id/button_upload"
         android:layout_margin="@dimen/medium_dp">
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/text_view_image_title"
             style="@style/HomeTitles"
             android:layout_width="0dp"
@@ -55,7 +55,7 @@
             android:gravity="start"
             android:text="@string/unuploaded_image" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/text_view_image"
             style="@style/HomeTitles"
             android:layout_width="wrap_content"
@@ -63,9 +63,9 @@
             android:text="@string/zero" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/button_upload"
-        style="@style/Button.Negative"
+        style="@style/Button.Positive"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

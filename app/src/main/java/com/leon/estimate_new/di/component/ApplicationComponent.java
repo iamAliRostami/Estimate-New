@@ -14,9 +14,9 @@ import com.leon.estimate_new.helpers.MyApplication;
 import com.leon.estimate_new.utils.MyDatabase;
 
 import dagger.Component;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 
-//@Singleton
 @Component(modules = {FlashModule.class, MyDatabaseModule.class, SharedPreferenceModule.class,
         NetworkModule.class, CustomProgressModule.class})
 public interface ApplicationComponent {
@@ -32,6 +32,8 @@ public interface ApplicationComponent {
     Gson Gson();
 
     Retrofit Retrofit();
+
+    HttpLoggingInterceptor HttpLoggingInterceptor();
 
     NetworkHelperModel NetworkHelperModel();
 

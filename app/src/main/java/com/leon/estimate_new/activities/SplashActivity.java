@@ -2,6 +2,7 @@ package com.leon.estimate_new.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Debug;
 import android.view.Window;
@@ -18,13 +19,14 @@ public class SplashActivity extends AppCompatActivity {
     private ActivitySplashBinding binding;
     private boolean splashLoaded = false;
 
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-//        MyApplication.setActivityComponent(this);
         if (!splashLoaded) {
             binding = ActivitySplashBinding.inflate(getLayoutInflater());
             setContentView(binding.getRoot());
