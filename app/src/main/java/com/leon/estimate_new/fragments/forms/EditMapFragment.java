@@ -58,6 +58,15 @@ public class EditMapFragment extends Fragment implements View.OnClickListener {
         binding.imageViewColorYellow.setOnClickListener(this);
         binding.signatureView.setPenColor(YELLOW);
 
+//        if (MAP_SELECTED != null) {
+//            bitmapTemp = MAP_SELECTED.copy(MAP_SELECTED.getConfig(), true);
+//            binding.signatureView.setBitmap(bitmapTemp.copy(bitmapTemp.getConfig(), true));
+//        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         if (MAP_SELECTED != null) {
             bitmapTemp = MAP_SELECTED.copy(MAP_SELECTED.getConfig(), true);
             binding.signatureView.setBitmap(bitmapTemp.copy(bitmapTemp.getConfig(), true));

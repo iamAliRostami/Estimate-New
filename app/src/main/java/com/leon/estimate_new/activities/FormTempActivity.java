@@ -11,12 +11,11 @@ import static com.leon.estimate_new.helpers.Constants.BASE_FRAGMENT;
 import static com.leon.estimate_new.helpers.Constants.EDIT_MAP_FRAGMENT;
 import static com.leon.estimate_new.helpers.Constants.MAP_DESCRIPTION_FRAGMENT;
 import static com.leon.estimate_new.helpers.Constants.PERSONAL_FRAGMENT;
-import static com.leon.estimate_new.helpers.Constants.TECHNICAL_INFO_FRAGMENT;
 import static com.leon.estimate_new.helpers.Constants.SERVICES_FRAGMENT;
+import static com.leon.estimate_new.helpers.Constants.TECHNICAL_INFO_FRAGMENT;
 import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponent;
 import static com.leon.estimate_new.helpers.MyApplication.setActivityComponent;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Build;
@@ -29,13 +28,12 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.leon.estimate_new.R;
-import com.leon.estimate_new.databinding.ActivityFormBinding;
+import com.leon.estimate_new.adapters.ViewPagerStateAdapter;
+import com.leon.estimate_new.databinding.ActivityFormTempBinding;
 import com.leon.estimate_new.fragments.dialog.EnterBillFragment;
 import com.leon.estimate_new.fragments.dialog.ShowDocumentFragment;
 import com.leon.estimate_new.fragments.forms.BaseInfoFragment;
@@ -56,7 +54,7 @@ import com.leon.estimate_new.tables.QotrEnsheabDictionary;
 import com.leon.estimate_new.tables.RequestDictionary;
 import com.leon.estimate_new.tables.TaxfifDictionary;
 import com.leon.estimate_new.tables.Tejariha;
-import com.leon.estimate_new.utils.estimating.GetDBData;
+import com.leon.estimate_new.utils.estimating.GetDBDataTemp;
 import com.leon.estimate_new.utils.mapper.CustomMapper;
 
 import org.jetbrains.annotations.NotNull;
@@ -66,9 +64,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-public class FormActivity extends AppCompatActivity implements PersonalFragment.Callback,
+public class FormTempActivity extends AppCompatActivity implements PersonalFragment.Callback,
         ServicesFragment.Callback, BaseInfoFragment.Callback, TechnicalInfoFragment.Callback,
-        MapDescriptionFragment.Callback, EditMapFragment.Callback {
+        MapDescriptionFragment.Callback, EditMapFragment.Callback, GetDBDataTemp.ICallback {
+    private ActivityFormTempBinding binding;
     private final HashMap<Integer, Fragment> fragmentCache = new HashMap<>();
     private final CalculationUserInput calculationUserInput = new CalculationUserInput();
     private final ArrayList<Integer> values = new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0, 0, 0, 0));
@@ -78,35 +77,24 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
     private final ArrayList<KarbariDictionary> karbariDictionaries = new ArrayList<>();
     private final ArrayList<TaxfifDictionary> taxfifDictionaries = new ArrayList<>();
     private final ArrayList<Tejariha> tejarihas = new ArrayList<>();
-    private ActivityFormBinding binding;
+
+    private final HashMap<Integer, Integer> fragmentPosition = new HashMap<>();
+
+
     private Arzeshdaraei arzeshdaraei;
     private ExaminerDuties examinerDuty;
 
-    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
         super.onCreate(savedInstanceState);
-        binding = ActivityFormBinding.inflate(getLayoutInflater());
+
+        binding = ActivityFormTempBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        setActivityComponent(this);
+
+//        setActivityComponent(this);
         initialize();
         addOnBackPressed();
-    }
-
-    private void addOnBackPressed() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            getOnBackInvokedDispatcher().registerOnBackInvokedCallback(
-                    OnBackInvokedDispatcher.PRIORITY_DEFAULT, () -> {
-
-                    });
-        } else {
-            getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
-                @Override
-                public void handleOnBackPressed() {
-                }
-            });
-        }
     }
 
     private void initialize() {
@@ -114,9 +102,17 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
             String json = getIntent().getExtras().getString(EXAMINER_DUTY.getValue());
             examinerDuty = new Gson().fromJson(json, ExaminerDuties.class);
         }
-        new GetDBData(this, examinerDuty.zoneId, examinerDuty.trackNumber, this).execute(this);
+        fragmentPosition.put(PERSONAL_FRAGMENT, 0);
+        fragmentPosition.put(SERVICES_FRAGMENT, 1);
+        fragmentPosition.put(BASE_FRAGMENT, 2);
+        fragmentPosition.put(TECHNICAL_INFO_FRAGMENT, 3);
+        fragmentPosition.put(MAP_DESCRIPTION_FRAGMENT, 4);
+        fragmentPosition.put(EDIT_MAP_FRAGMENT, 5);
+
+        new GetDBDataTemp(this, examinerDuty.zoneId, examinerDuty.trackNumber, this, this).execute(this);
     }
 
+    @Override
     public void setData(Arzeshdaraei arzeshdaraei,
                         ArrayList<NoeVagozariDictionary> noeVagozariDictionaries,
                         ArrayList<QotrEnsheabDictionary> qotrEnsheabDictionaries,
@@ -133,51 +129,25 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
         this.tejarihas.addAll(tejariha);
         this.arzeshdaraei = arzeshdaraei;
 
-//        fragmentCache.put(PERSONAL_FRAGMENT,PersonalFragment.newInstance());
-//        fragmentCache.put(SERVICES_FRAGMENT,ServicesFragment.newInstance());
-//        fragmentCache.put(BASE_FRAGMENT,BaseInfoFragment.newInstance());
-//        fragmentCache.put(SECOND_FRAGMENT,TechnicalInfoFragment.newInstance());
-//        fragmentCache.put(MAP_DESCRIPTION_FRAGMENT,MapDescriptionFragment.newInstance());
-//        fragmentCache.put(EDIT_MAP_FRAGMENT,EditMapFragment.newInstance());
-
-        displayView(PERSONAL_FRAGMENT);
+        ViewPagerStateAdapter adapter = new ViewPagerStateAdapter(this);
+        binding.viewPager.setAdapter(adapter);
+        binding.viewPager.setUserInputEnabled(false);
+        binding.viewPager.setOffscreenPageLimit(6);
     }
 
-    private void displayView(int position) {
-        final String tag = Integer.toString(position);
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment fragment = fragmentManager.findFragmentByTag(tag);
-        if (fragment != null && fragment.isVisible()) {
-            return;
-        }
-        final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.setCustomAnimations(R.animator.enter, R.animator.exit,
-                R.animator.pop_enter, R.animator.pop_exit);
-        fragmentTransaction.replace(binding.containerBody.getId(), getFragment(position), tag);
-        if (position != 0) {
-            fragmentTransaction.addToBackStack(null);
-        }
-        fragmentTransaction.commitAllowingStateLoss();
-        //TODO    fragmentManager.executePendingTransactions();
-    }
+    private void addOnBackPressed() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            getOnBackInvokedDispatcher().registerOnBackInvokedCallback(
+                    OnBackInvokedDispatcher.PRIORITY_DEFAULT, () -> {
 
-    private Fragment getFragment(int position) {
-        Fragment cachedFragment = fragmentCache.get(position);
-        if (cachedFragment != null) {
-            return cachedFragment;
+                    });
+        } else {
+            getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+                @Override
+                public void handleOnBackPressed() {
+                }
+            });
         }
-
-        Fragment newFragment = switch (position) {
-            case SERVICES_FRAGMENT -> ServicesFragment.newInstance();
-            case BASE_FRAGMENT -> BaseInfoFragment.newInstance();
-            case TECHNICAL_INFO_FRAGMENT -> TechnicalInfoFragment.newInstance();
-            case MAP_DESCRIPTION_FRAGMENT -> MapDescriptionFragment.newInstance();
-            case EDIT_MAP_FRAGMENT -> EditMapFragment.newInstance();
-            default -> PersonalFragment.newInstance();
-        };
-
-        fragmentCache.put(position, newFragment);
-        return newFragment;
     }
 
     @Override
@@ -205,7 +175,6 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
         }
         return super.onOptionsItemSelected(item);
     }
-
 
     @Override
     public void setOnPreClickListener(int position) {
@@ -269,6 +238,13 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
     public void setMapDescription() {
         prepareToSend();
         displayView(EDIT_MAP_FRAGMENT);
+    }
+
+    //TODO
+    private void displayView(int key) {
+        Integer position = fragmentPosition.get(key);
+        if (position != null)
+            binding.viewPager.setCurrentItem(position);
     }
 
     @Override
@@ -360,4 +336,5 @@ public class FormActivity extends AppCompatActivity implements PersonalFragment.
     public ArrayList<RequestDictionary> getServiceDictionaries() {
         return requestDictionaries;
     }
+
 }

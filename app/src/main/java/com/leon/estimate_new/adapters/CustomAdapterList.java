@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.gson.Gson;
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.activities.FormActivity;
+import com.leon.estimate_new.activities.FormTempActivity;
 import com.leon.estimate_new.adapters.holders.ViewHolderList;
 import com.leon.estimate_new.helpers.MyApplication;
 import com.leon.estimate_new.tables.ExaminerDuties;
@@ -62,7 +63,8 @@ public class CustomAdapterList extends RecyclerView.Adapter<ViewHolderList> {
                         .updateExaminationByEdit(true, examinerDutiesTemp.get(i).trackNumber);
                 final String json = new Gson().toJson(examinerDutiesTemp.get(i));
                 getPreferenceManager().putData(TRACK_NUMBER.getValue(), examinerDutiesTemp.get(i).trackNumber);
-                final Intent intent = new Intent(context, FormActivity.class);
+//                final Intent intent = new Intent(context, FormActivity.class);
+                final Intent intent = new Intent(context, FormTempActivity.class);
                 intent.putExtra(EXAMINER_DUTY.getValue(), json);
                 context.startActivity(intent);
             }

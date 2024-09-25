@@ -77,6 +77,8 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
         return binding.getRoot();
     }
 
+
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -84,6 +86,7 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
     }
 
     private void initialize() {
+//        binding.checkboxQaradadAmade.setChecked(baseInfoVM.isQaradad());
         baseInfoVM.setBlock(formActivity.getExaminerDuty().block != null ? formActivity.getExaminerDuty().block : "-");
         baseInfoVM.setArz(formActivity.getExaminerDuty().arz != null ? formActivity.getExaminerDuty().arz : "-");
         initializeArrays();
