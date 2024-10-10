@@ -14,8 +14,8 @@ import static com.leon.estimate_new.helpers.Constants.PERSONAL_FRAGMENT;
 import static com.leon.estimate_new.helpers.Constants.SERVICES_FRAGMENT;
 import static com.leon.estimate_new.helpers.Constants.TECHNICAL_INFO_FRAGMENT;
 import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponent;
-import static com.leon.estimate_new.helpers.MyApplication.setActivityComponent;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Build;
@@ -79,14 +79,16 @@ public class FormTempActivity extends AppCompatActivity implements PersonalFragm
     private final ArrayList<Tejariha> tejarihas = new ArrayList<>();
 
     private final HashMap<Integer, Integer> fragmentPosition = new HashMap<>();
+    private final HashMap<Integer, String> fragmentTitle = new HashMap<>();
 
 
     private Arzeshdaraei arzeshdaraei;
     private ExaminerDuties examinerDuty;
 
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
 
         binding = ActivityFormTempBinding.inflate(getLayoutInflater());
@@ -108,6 +110,17 @@ public class FormTempActivity extends AppCompatActivity implements PersonalFragm
         fragmentPosition.put(TECHNICAL_INFO_FRAGMENT, 3);
         fragmentPosition.put(MAP_DESCRIPTION_FRAGMENT, 4);
         fragmentPosition.put(EDIT_MAP_FRAGMENT, 5);
+
+        fragmentTitle.put(PERSONAL_FRAGMENT, getString(R.string.app_name).concat(" / ").concat("صفحه نخست"));
+        fragmentTitle.put(SERVICES_FRAGMENT, getString(R.string.app_name).concat(" / ").concat("صفحه دوم"));
+        fragmentTitle.put(BASE_FRAGMENT, getString(R.string.app_name).concat(" / ").concat("صفحه سوم"));
+        fragmentTitle.put(TECHNICAL_INFO_FRAGMENT, getString(R.string.app_name).concat(" / ").concat("صفحه چهارم"));
+        fragmentTitle.put(MAP_DESCRIPTION_FRAGMENT, getString(R.string.app_name).concat(" / ").concat("صفحه پنجم"));
+        fragmentTitle.put(EDIT_MAP_FRAGMENT, getString(R.string.app_name).concat(" / ").concat("صفحه ششم"));
+
+
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setTitle(fragmentTitle.get(PERSONAL_FRAGMENT));
 
         new GetDBDataTemp(this, examinerDuty.zoneId, examinerDuty.trackNumber, this, this).execute(this);
     }
@@ -243,6 +256,8 @@ public class FormTempActivity extends AppCompatActivity implements PersonalFragm
     //TODO
     private void displayView(int key) {
         Integer position = fragmentPosition.get(key);
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setTitle(fragmentTitle.get(key));
         if (position != null)
             binding.viewPager.setCurrentItem(position);
     }

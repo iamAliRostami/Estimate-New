@@ -99,7 +99,8 @@ public class HomeFragment extends Fragment {
         mapController.setZoom(16.5);
 
         AsyncTask.execute(() -> {
-            while (getLocationTracker(requireActivity()).getLocation() == null)
+            while (getLocationTracker(requireActivity()).getLocation() == null||
+                    getLocationTracker(requireActivity()).getLatitude() == 0)
                 binding.progressBar.setVisibility(View.VISIBLE);
             double latitude = getLocationTracker(requireActivity()).getLatitude();
             double longitude = getLocationTracker(requireActivity()).getLongitude();

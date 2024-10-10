@@ -72,17 +72,17 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
                              Bundle savedInstanceState) {
         binding = FragmentBaseInfoBinding.inflate(inflater, container, false);
         baseInfoVM = CustomMapper.INSTANCE.examinerDutyBaseInfoViewModel(formActivity.getExaminerDuty());
+        baseInfoVM.fillEmpty();
         binding.setBaseInfoVM(baseInfoVM);
         initialize();
         return binding.getRoot();
     }
 
 
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        formActivity.setTitle(getString(R.string.app_name).concat(" / ").concat("صفحه سوم"), false);
+//        formActivity.setTitle(getString(R.string.app_name).concat(" / ").concat("صفحه سوم"), false);
     }
 
     private void initialize() {
@@ -288,8 +288,7 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
     }
 
     private boolean checkForm() {
-        return checkAian() &&
-                checkEmpty(binding.editTextSifoon100, requireContext())
+        return checkEmpty(binding.editTextSifoon100, requireContext())
                 && checkEmpty(binding.editTextSifoon125, requireContext())
                 && checkEmpty(binding.editTextSifoon150, requireContext())
                 && checkEmpty(binding.editTextSifoon200, requireContext())
@@ -307,7 +306,8 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
                 && checkEmpty(binding.textViewQotrEnsheab, requireContext())
                 && checkEmpty(binding.textViewQotrFazelab, requireContext())
                 && checkEmpty(binding.textViewNoeEnsheab, requireContext())
-                && checkEmpty(binding.editTextTedadTaxfif, requireContext());
+                && checkEmpty(binding.editTextTedadTaxfif, requireContext())
+                && checkAian();
     }
 
     private BaseInfoViewModel prepareOutput() {

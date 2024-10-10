@@ -79,7 +79,7 @@
                 style="@style/TextInputLayout"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:hint="@string/maskooni">
+                android:hint="@string/tejari">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_text_tejari"

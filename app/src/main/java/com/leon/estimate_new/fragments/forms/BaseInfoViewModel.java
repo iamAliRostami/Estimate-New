@@ -87,6 +87,25 @@ public class BaseInfoViewModel extends BaseObservable {
     @Bindable
     private String arzeshMelk;
 
+    public void fillEmpty() {
+        if (arseNew == null || arseNew.isEmpty())
+            arseNew = arse;
+        if (tedadMaskooniNew == null || tedadMaskooniNew.isEmpty())
+            tedadMaskooniNew = tedadMaskooni;
+        if (tedadSaierNew == null || tedadSaierNew.isEmpty())
+            tedadSaierNew = tedadSaier;
+        if (tedadTejariNew == null || tedadTejariNew.isEmpty())
+            tedadTejariNew = tedadTejari;
+        if (aianKolNew == null || aianKolNew.isEmpty())
+            aianKolNew = aianKol;
+        if (aianMaskooniNew == null || aianMaskooniNew.isEmpty())
+            aianMaskooniNew = aianMaskooni;
+        if (aianNonMaskooniNew == null || aianNonMaskooniNew.isEmpty())
+            aianNonMaskooniNew = aianNonMaskooni;
+        if (zarfiatQarardadiNew == null || zarfiatQarardadiNew.isEmpty())
+            zarfiatQarardadiNew = zarfiatQarardadi;
+    }
+
     public String getSifoon100() {
         return sifoon100;
     }
@@ -192,7 +211,7 @@ public class BaseInfoViewModel extends BaseObservable {
     }
 
     public String getZarfiatQarardadiNew() {
-        return (zarfiatQarardadiNew == null || zarfiatQarardadiNew.isEmpty()) ? zarfiatQarardadi : zarfiatQarardadiNew;
+        return zarfiatQarardadiNew;
     }
 
     public void setZarfiatQarardadiNew(String zarfiatQarardadiNew) {
@@ -281,7 +300,7 @@ public class BaseInfoViewModel extends BaseObservable {
     }
 
     public String getArseNew() {
-        return (arseNew == null || arseNew.isEmpty()) ? arse : arseNew;
+        return arseNew;
     }
 
     public void setArseNew(String arseNew) {
@@ -299,7 +318,7 @@ public class BaseInfoViewModel extends BaseObservable {
     }
 
     public String getAianKolNew() {
-        return (aianKolNew == null || aianKolNew.isEmpty()) ? aianKol : aianKolNew;
+        return aianKolNew;
     }
 
     public void setAianKolNew(String aianKolNew) {
@@ -317,7 +336,7 @@ public class BaseInfoViewModel extends BaseObservable {
     }
 
     public String getAianMaskooniNew() {
-        return (aianMaskooniNew == null || aianMaskooniNew.isEmpty()) ? aianMaskooni : aianMaskooniNew;
+        return aianMaskooniNew;
     }
 
     public void setAianMaskooniNew(String aianMaskooniNew) {
@@ -335,7 +354,7 @@ public class BaseInfoViewModel extends BaseObservable {
     }
 
     public String getAianNonMaskooniNew() {
-        return (aianNonMaskooniNew == null || aianNonMaskooniNew.isEmpty()) ? aianNonMaskooni : aianNonMaskooniNew;
+        return aianNonMaskooniNew;
     }
 
     public void setAianNonMaskooniNew(String aianNonMaskooniNew) {
@@ -372,7 +391,7 @@ public class BaseInfoViewModel extends BaseObservable {
     }
 
     public String getTedadMaskooniNew() {
-        return (tedadMaskooniNew == null || tedadMaskooniNew.isEmpty()) ? tedadMaskooni : tedadMaskooniNew;
+        return tedadMaskooniNew;
     }
 
     public void setTedadMaskooniNew(String tedadMaskooniNew) {
@@ -390,7 +409,7 @@ public class BaseInfoViewModel extends BaseObservable {
     }
 
     public String getTedadTejariNew() {
-        return (tedadTejariNew == null || tedadTejariNew.isEmpty()) ? tedadTejari : tedadTejariNew;
+        return tedadTejariNew;
     }
 
     public void setTedadTejariNew(String tedadTejariNew) {
@@ -408,7 +427,7 @@ public class BaseInfoViewModel extends BaseObservable {
     }
 
     public String getTedadSaierNew() {
-        return (tedadSaierNew == null || tedadSaierNew.isEmpty()) ? tedadSaier : tedadSaierNew;
+        return tedadSaierNew;
     }
 
     public void setTedadSaierNew(String tedadSaierNew) {

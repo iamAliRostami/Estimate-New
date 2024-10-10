@@ -54,10 +54,10 @@ public class AttemptLogin extends AsyncTask<Activity, Activity, Void> {
     protected Void doInBackground(Activity... activities) {
         Retrofit retrofit = getApplicationComponent().NetworkHelperModel().getInstance(online);
         final IAbfaService iAbfaService = retrofit.create(IAbfaService.class);
-        Call<LoginFeedBack> call = iAbfaService.login(username, password);
+        Call<LoginFeedBack> call = iAbfaService.login(username, password.trim());
         activities[0].runOnUiThread(() ->
                 HttpClientWrapper.callHttpAsync(call, SHOW.getValue(), activities[0],
-                        new LoginCompleted(activities[0], isChecked, username, password),
+                        new LoginCompleted(activities[0], isChecked, username.trim(), password),
                         new Incomplete(activities[0]),
                         new Error(activities[0])));
         return null;

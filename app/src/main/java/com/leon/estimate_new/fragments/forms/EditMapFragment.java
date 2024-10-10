@@ -47,7 +47,7 @@ public class EditMapFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        formActivity.setTitle(getString(R.string.app_name).concat(" / ").concat("صفحه ششم"), false);
+//        formActivity.setTitle(getString(R.string.app_name).concat(" / ").concat("صفحه ششم"), false);
     }
     private void initialize() {
         binding.buttonPre.setOnClickListener(this);

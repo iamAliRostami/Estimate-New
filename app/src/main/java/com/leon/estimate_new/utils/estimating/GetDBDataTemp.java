@@ -6,7 +6,6 @@ import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponen
 import android.app.Activity;
 import android.content.Context;
 
-import com.leon.estimate_new.activities.FormActivity;
 import com.leon.estimate_new.base_items.BaseAsync;
 import com.leon.estimate_new.tables.Arzeshdaraei;
 import com.leon.estimate_new.tables.Block;
@@ -31,7 +30,7 @@ public class GetDBDataTemp extends BaseAsync {
     private Arzeshdaraei arzeshdaraei;
     private final ICallback callback;
 
-    public GetDBDataTemp(Context context, String zoneId, String trackNumber,ICallback callback, Object... view) {
+    public GetDBDataTemp(Context context, String zoneId, String trackNumber, ICallback callback, Object... view) {
         super(context, view);
         this.zoneId = Integer.parseInt(zoneId);
         this.trackNumber = trackNumber;
@@ -69,7 +68,8 @@ public class GetDBDataTemp extends BaseAsync {
     public void backgroundTask(Context context) {
 
     }
-    public interface ICallback{
+
+    public interface ICallback {
         void setData(Arzeshdaraei arzeshdaraei,
                      ArrayList<NoeVagozariDictionary> noeVagozariDictionaries,
                      ArrayList<QotrEnsheabDictionary> qotrEnsheabDictionaries,

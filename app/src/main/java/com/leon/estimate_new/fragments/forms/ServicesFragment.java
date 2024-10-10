@@ -44,7 +44,7 @@ public class ServicesFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        formActivity.setTitle(getString(R.string.app_name).concat(" / ").concat("صفحه دوم"), false);
+//        formActivity.setTitle(getString(R.string.app_name).concat(" / ").concat("صفحه دوم"), false);
     }
 
     private void initialize() {

@@ -20,10 +20,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 import com.leon.estimate_new.R;
-import com.leon.estimate_new.activities.FormActivity;
 import com.leon.estimate_new.activities.FormTempActivity;
 import com.leon.estimate_new.adapters.holders.ViewHolderList;
-import com.leon.estimate_new.helpers.MyApplication;
 import com.leon.estimate_new.tables.ExaminerDuties;
 import com.leon.estimate_new.utils.CustomToast;
 
@@ -82,10 +80,10 @@ public class CustomAdapterList extends RecyclerView.Adapter<ViewHolderList> {
         if (examinerDuties.isPeymayesh()) {
             viewHolder.textViewPeymayesh.setText("پیمایش شده");
             viewHolder.textViewPeymayesh.setBackground(ContextCompat.getDrawable(context, R.drawable.border_green_2));
-        } else if (examinerDuties.isEdited){
+        } else if (examinerDuties.isEdited) {
             viewHolder.textViewPeymayesh.setText("ویرایش شده");
             viewHolder.textViewPeymayesh.setBackground(ContextCompat.getDrawable(context, R.drawable.border_red_3));
-        }else {
+        } else {
             viewHolder.textViewPeymayesh.setText("پیمایش نشده");
             viewHolder.textViewPeymayesh.setBackground(ContextCompat.getDrawable(context, R.drawable.border_red_2));
         }

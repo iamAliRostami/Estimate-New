@@ -58,7 +58,7 @@ public class TechnicalInfoFragment extends Fragment implements View.OnClickListe
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        formActivity.setTitle(getString(R.string.app_name).concat(" / ").concat("صفحه چهارم"), false);
+//        formActivity.setTitle(getString(R.string.app_name).concat(" / ").concat("صفحه چهارم"), false);
     }
 
     private void initialize() {
