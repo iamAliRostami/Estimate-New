@@ -74,7 +74,7 @@ public class MainActivity extends BaseActivity  {
             case REQUEST_FRAGMENT -> SendRequestFragment.newInstance();
             case UPLOAD_FRAGMENT -> UploadFragment.newInstance();
             case HELP_FRAGMENT -> HelpFragment.newInstance();
-            default -> DutiesListFragment.newInstance();
+            default -> HomeFragment.newInstance();
         };
     }
 

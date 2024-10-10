@@ -266,8 +266,8 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
         int saier, tejari;
         saier = !baseInfoVM.getTedadSaierNew().isEmpty() ?
                 Integer.parseInt(baseInfoVM.getTedadSaierNew()) : 0;
-        tejari = !baseInfoVM.getTedadTejari().isEmpty() ?
-                Integer.parseInt(baseInfoVM.getTedadTejari()) : 0;
+        tejari = !baseInfoVM.getTedadTejariNew().isEmpty() ?
+                Integer.parseInt(baseInfoVM.getTedadTejariNew()) : 0;
         return saier > 0 || tejari > 0;
     }
 

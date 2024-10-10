@@ -133,7 +133,8 @@ public class TejarihaSayerFragment extends DialogFragment implements View.OnClic
                     return;
                 }
                 addItem();
-                tejarihaSayerVM = new TejarihaSayerViewModel(true);
+                tejarihaSayerVM = new TejarihaSayerViewModel();
+                binding.setTejarihaSayerVM(tejarihaSayerVM);
             }
         } else if (id == R.id.button_submit) {
             getApplicationComponent().MyDatabase().tejarihaDao().delete();

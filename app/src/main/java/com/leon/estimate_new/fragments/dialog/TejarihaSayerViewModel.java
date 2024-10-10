@@ -30,7 +30,7 @@ public class TejarihaSayerViewModel extends BaseObservable {
         this.trackNumber = trackNumber;
     }
 
-    public TejarihaSayerViewModel(boolean karbari) {
+    public TejarihaSayerViewModel() {
         noeShoql = "";
         tedadVahed = "";
         capacity = "";
