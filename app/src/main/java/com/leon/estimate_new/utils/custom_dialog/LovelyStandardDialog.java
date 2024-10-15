@@ -19,10 +19,6 @@ import com.leon.estimate_new.R;
 
 public class LovelyStandardDialog extends AbsLovelyDialog<LovelyStandardDialog> {
 
-    public static final int POSITIVE_BUTTON = R.id.button_yes;
-    public static final int NEGATIVE_BUTTON = R.id.button_no;
-    public static final int NEUTRAL_BUTTON = R.id.button_neutral;
-
     private final Button positiveButton;
     private final Button negativeButton;
     private final Button neutralButton;
@@ -52,8 +48,6 @@ public class LovelyStandardDialog extends AbsLovelyDialog<LovelyStandardDialog> 
     public LovelyStandardDialog setPositiveButton(String text, @Nullable View.OnClickListener listener) {
         positiveButton.setVisibility(VISIBLE);
         positiveButton.setText(text);
-        positiveButton.setTextColor(ContextCompat.getColor(context, android.R.color.white));
-//        positiveButton.setTextSize(context.getResources().getDimension(R.dimen.textSizeMedium));
         positiveButton.setOnClickListener(new ClickListenerDecorator(listener, true));
         return this;
     }
@@ -129,6 +123,12 @@ public class LovelyStandardDialog extends AbsLovelyDialog<LovelyStandardDialog> 
         positiveButton.setOnClickListener(clickHandler);
         neutralButton.setOnClickListener(clickHandler);
         negativeButton.setOnClickListener(clickHandler);
+        return this;
+    }
+    public LovelyStandardDialog hideAllButtons(){
+        positiveButton.setVisibility(View.GONE);
+        negativeButton.setVisibility(View.GONE);
+        neutralButton.setVisibility(View.GONE);
         return this;
     }
 

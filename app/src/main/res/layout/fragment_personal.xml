@@ -134,7 +134,7 @@
                             style="@style/TextInput"
                             android:inputType="text"
                             android:nextFocusDown="@id/edit_text_family"
-                            android:text="@{personalVM.firstName}" />
+                            android:text="@={personalVM.firstName}" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -149,7 +149,7 @@
                             style="@style/TextInput"
                             android:inputType="text"
                             android:nextFocusDown="@id/edit_text_father_name"
-                            android:text="@{personalVM.sureName}" />
+                            android:text="@={personalVM.sureName}" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -164,7 +164,7 @@
                             style="@style/TextInput"
                             android:inputType="text"
                             android:nextFocusDown="@id/edit_text_shenasname"
-                            android:text="@{personalVM.fatherName}" />
+                            android:text="@={personalVM.fatherName}" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -308,7 +308,7 @@
                             android:maxLines="2"
                             android:nextFocusDown="@id/edit_text_description"
                             android:nextFocusForward="@id/edit_text_description"
-                            android:text="@{personalVM.address}" />
+                            android:text="@={personalVM.address}" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -327,7 +327,7 @@
                             android:lines="4"
                             android:maxLength="1400"
                             android:maxLines="4"
-                            android:text="@{personalVM.description}" />
+                            android:text="@={personalVM.description}" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                 </RelativeLayout>

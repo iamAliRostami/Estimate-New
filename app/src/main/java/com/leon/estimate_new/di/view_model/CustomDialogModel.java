@@ -70,7 +70,6 @@ public class CustomDialogModel {
                 .setButtonsBackground(R.drawable.border_yellow_1)
                 .setTopColorRes(R.color.yellow)
                 .setNegativeButton(buttonText, v -> inlines[0].inline())
-//                .setPositiveButton(buttonText, v -> inlines[0].inline())
                 .show();
     }
 
@@ -83,12 +82,13 @@ public class CustomDialogModel {
                 .show();
     }
 
-    public void CustomGreenDialog(String ButtonText) {
+    public void CustomGreenDialog(String buttonText) {
         lovelyStandardDialog
                 .setTopColorRes(R.color.primary_variant)
                 .setTopTitleColor(ContextCompat.getColor(context, R.color.text_color_light))
+                .hideAllButtons()
                 .setButtonsBackground(R.drawable.background_submit_button)
-                .setPositiveButton(ButtonText, v -> lovelyStandardDialog.dismiss())
+                .setPositiveButton(buttonText, v -> lovelyStandardDialog.dismiss())
                 .show();
     }
 
@@ -96,6 +96,7 @@ public class CustomDialogModel {
         lovelyStandardDialog
                 .setTopTitleColor(ContextCompat.getColor(context, R.color.text_color_light))
                 .setTopColorRes(R.color.yellow)
+                .hideAllButtons()
                 .setButtonsBackground(R.drawable.border_yellow_1)
                 .setNegativeButton(buttonText, v -> lovelyStandardDialog.dismiss())
                 .show();

@@ -74,11 +74,6 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
             requireActivity().finish();
         } else if (id == R.id.button_submit) {
             if (checkForm()) {
-                personalVM.setFirstName(binding.editTextName.getText().toString());
-                personalVM.setSureName(binding.editTextFamily.getText().toString());
-                personalVM.setFatherName(binding.editTextFatherName.getText().toString());
-                personalVM.setAddress(binding.editTextAddress.getText().toString());
-                personalVM.setDescription(binding.editTextDescription.getText().toString());
                 formActivity.setPersonalInfo(personalVM);
             }
         }

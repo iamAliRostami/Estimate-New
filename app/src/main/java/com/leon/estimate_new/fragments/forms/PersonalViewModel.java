@@ -52,16 +52,16 @@ public class PersonalViewModel extends BaseObservable {
     private String billId;
 
     public String getFirstName() {
-        return firstName.trim();
+        return firstName;
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName.trim();
+        this.firstName = firstName;
         notifyPropertyChanged(BR.firstName);
     }
 
     public String getSureName() {
-        return sureName.trim();
+        return sureName;
     }
 
     public void setSureName(String sureName) {
@@ -79,7 +79,7 @@ public class PersonalViewModel extends BaseObservable {
     }
 
     public String getFatherName() {
-        return fatherName.trim();
+        return fatherName;
     }
 
     public void setFatherName(String fatherName) {
@@ -133,7 +133,7 @@ public class PersonalViewModel extends BaseObservable {
     }
 
     public String getAddress() {
-        return address.trim();
+        return address;
     }
 
     public void setAddress(String address) {
@@ -142,7 +142,7 @@ public class PersonalViewModel extends BaseObservable {
     }
 
     public String getDescription() {
-        return description.trim();
+        return description;
     }
 
     public void setDescription(String description) {
