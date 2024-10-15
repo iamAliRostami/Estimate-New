@@ -17,15 +17,15 @@ import androidx.fragment.app.Fragment;
 
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.databinding.FragmentSendRequestBinding;
-import com.leon.estimate_new.tables.Request;
 import com.leon.estimate_new.tables.RequestToSend;
+import com.leon.estimate_new.tables.RequestViewModel;
 import com.leon.estimate_new.utils.request.SendRequest;
 
 import org.jetbrains.annotations.NotNull;
 
 public class SendRequestFragment extends Fragment implements View.OnClickListener {
     private FragmentSendRequestBinding binding;
-    private Request request = new Request(true);
+    private RequestViewModel requestVM = new RequestViewModel(true);
     private long lastClickTime = 0;
 
     public SendRequestFragment() {
@@ -44,7 +44,7 @@ public class SendRequestFragment extends Fragment implements View.OnClickListene
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentSendRequestBinding.inflate(inflater, container, false);
-        binding.setRequest(request);
+        binding.setRequestViewModel(requestVM);
         return binding.getRoot();
     }
 
@@ -66,18 +66,18 @@ public class SendRequestFragment extends Fragment implements View.OnClickListene
         if (id == R.id.button_send_request) {
             if (billIdValidation(binding.editTextBillId, requireContext()) &&
                     mobileValidation(binding.editTextMobile, requireContext())) {
-                if (request.isNewRequest()) {
+                if (requestVM.isNewRequest()) {
                     if (checkEmpty(binding.editTextAddress, requireContext()) &&
                             checkEmpty(binding.editTextName, requireContext()) &&
                             checkEmpty(binding.editTextFamily, requireContext()) &&
                             nationalIdValidation(binding.editTextNationalId, requireContext())) {
-                        new SendRequest(requireContext(), new RequestToSend(request.getSelectedServices(),
-                                request.getBillId(), request.getMobile(), request.getFirstName(), request.getSureName(),
-                                request.getNationalId(), request.getAddress()), this).execute(requireActivity());
+                        new SendRequest(requireContext(), new RequestToSend(requestVM.getSelectedServices(),
+                                requestVM.getBillId(), requestVM.getMobile(), requestVM.getFirstName(), requestVM.getSureName(),
+                                requestVM.getNationalId(), requestVM.getAddress()), this).execute(requireActivity());
                     }
                 } else {
-                    new SendRequest(requireContext(), new RequestToSend(request.getSelectedServices(),
-                            request.getBillId(), request.getMobile()), this).execute(requireActivity());
+                    new SendRequest(requireContext(), new RequestToSend(requestVM.getSelectedServices(),
+                            requestVM.getBillId(), requestVM.getMobile()), this).execute(requireActivity());
                 }
 
             }
@@ -85,8 +85,8 @@ public class SendRequestFragment extends Fragment implements View.OnClickListene
     }
 
     public void afterRequest() {
-        request = new Request(request.isNewRequest());
-        binding.setRequest(request);
+        requestVM = new RequestViewModel(requestVM.isNewRequest());
+        binding.setRequestViewModel(requestVM);
     }
 
     @Override

@@ -12,7 +12,7 @@ import com.leon.estimate_new.R;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Request extends BaseObservable {
+public class RequestViewModel extends BaseObservable {
     private String billId;
     private String address;
     private String mobile;
@@ -23,7 +23,7 @@ public class Request extends BaseObservable {
     private boolean newRequest;
     private ArrayList<Integer> selectedServices;
 
-    public Request(boolean newRequest) {
+    public RequestViewModel(boolean newRequest) {
         setNewRequest(newRequest);
         setSelectedServices(new ArrayList<>(7));
         setMobile("");

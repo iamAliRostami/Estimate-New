@@ -4,8 +4,8 @@
     <data>
 
         <variable
-            name="request"
-            type="com.leon.estimate_new.tables.Request" />
+            name="requestViewModel"
+            type="com.leon.estimate_new.tables.RequestViewModel" />
     </data>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -56,7 +56,7 @@
                     android:layout_margin="@dimen/low_dp"
                     android:layout_toEndOf="@id/text_view_request"
                     android:checkedButton="@id/radio_button_new"
-                    android:onCheckedChanged="@{request::onSplitTypeChanged}"
+                    android:onCheckedChanged="@{requestViewModel::onSplitTypeChanged}"
                     android:orientation="horizontal">
 
                     <RadioButton
@@ -64,7 +64,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:checked="@={request.newRequest}"
+                        android:checked="@={requestViewModel.newRequest}"
                         android:text="@string/sale_new"
                         android:textSize="@dimen/text_size_small"
                         android:textStyle="bold" />
@@ -74,7 +74,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:checked="@={!request.newRequest}"
+                        android:checked="@={!requestViewModel.newRequest}"
                         android:text="@string/after_sale_services"
                         android:textSize="@dimen/text_size_small"
                         android:textStyle="bold" />
@@ -95,7 +95,7 @@
                         android:inputType="numberSigned"
                         android:maxLength="13"
                         android:nextFocusDown="@id/edit_text_mobile"
-                        android:text="@={request.billId}" />
+                        android:text="@={requestViewModel.billId}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -113,7 +113,7 @@
                         android:imeOptions="actionDone"
                         android:inputType="phone"
                         android:maxLength="11"
-                        android:text="@={request.mobile}" />
+                        android:text="@={requestViewModel.mobile}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -123,14 +123,14 @@
                     android:layout_alignParentStart="true"
                     android:layout_toStartOf="@id/view_center_1"
                     android:hint="@string/name"
-                    android:visibility="@{request.visibility}">
+                    android:visibility="@{requestViewModel.visibility}">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@id/edit_text_name"
                         style="@style/TextInput"
                         android:inputType="text"
                         android:nextFocusDown="@id/edit_text_family"
-                        android:text="@={request.firstName}" />
+                        android:text="@={requestViewModel.firstName}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -140,14 +140,14 @@
                     android:layout_alignParentEnd="true"
                     android:layout_toEndOf="@id/view_center_1"
                     android:hint="@string/family"
-                    android:visibility="@{request.visibility}">
+                    android:visibility="@{requestViewModel.visibility}">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@id/edit_text_family"
                         style="@style/TextInput"
                         android:inputType="text"
                         android:nextFocusDown="@id/edit_text_address"
-                        android:text="@={request.sureName}" />
+                        android:text="@={requestViewModel.sureName}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -156,7 +156,7 @@
                     android:layout_width="match_parent"
                     android:layout_below="@id/layout_name"
                     android:hint="@string/address"
-                    android:visibility="@{request.visibility}">
+                    android:visibility="@{requestViewModel.visibility}">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edit_text_address"
@@ -166,7 +166,7 @@
                         android:lines="2"
                         android:maxLines="2"
                         android:nextFocusForward="@id/edit_text_national_id"
-                        android:text="@={request.address}" />
+                        android:text="@={requestViewModel.address}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -176,7 +176,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_toStartOf="@id/view_center_1"
                     android:hint="@string/national_id"
-                    android:visibility="@{request.visibility}"
+                    android:visibility="@{requestViewModel.visibility}"
                     app:counterEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -185,7 +185,7 @@
                         android:imeOptions="actionDone"
                         android:inputType="number"
                         android:maxLength="10"
-                        android:text="@={request.nationalId}" />
+                        android:text="@={requestViewModel.nationalId}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Button

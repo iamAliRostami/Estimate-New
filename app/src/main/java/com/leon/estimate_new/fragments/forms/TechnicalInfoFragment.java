@@ -62,6 +62,10 @@ public class TechnicalInfoFragment extends Fragment implements View.OnClickListe
     }
 
     private void initialize() {
+        binding.checkboxChahAbBaran.setChecked(technicalInfoVM.isChahAbBaran());
+        binding.checkboxLooleAb.setChecked(technicalInfoVM.isLooleA());
+        binding.checkboxLooleFazelab.setChecked(technicalInfoVM.isLooleF());
+        binding.checkboxVahedAb.setChecked(technicalInfoVM.isEzharNazarA());
         initializeArrays();
         binding.buttonPre.setOnClickListener(this);
         binding.buttonSubmit.setOnClickListener(this);

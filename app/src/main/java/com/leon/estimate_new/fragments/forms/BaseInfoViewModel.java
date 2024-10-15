@@ -250,8 +250,10 @@ public class BaseInfoViewModel extends BaseObservable {
     }
 
     public void setQaradad(boolean qaradad) {
-        this.qaradad = qaradad;
-        notifyPropertyChanged(BR.qaradad);
+//        if (this.qaradad != qaradad) {
+            this.qaradad = qaradad;
+            notifyPropertyChanged(BR.qaradad);
+//        }
     }
 
     public boolean isEnsheabQeirDaem() {

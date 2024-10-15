@@ -86,7 +86,9 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
     }
 
     private void initialize() {
-//        binding.checkboxQaradadAmade.setChecked(baseInfoVM.isQaradad());
+        binding.checkboxQaradadAmade.setChecked(baseInfoVM.isQaradad());
+        binding.checkboxAdamLicense.setChecked(baseInfoVM.isAdamLicence());
+        binding.checkboxGheireDaem.setChecked(baseInfoVM.isEnsheabQeirDaem());
         baseInfoVM.setBlock(formActivity.getExaminerDuty().block != null ? formActivity.getExaminerDuty().block : "-");
         baseInfoVM.setArz(formActivity.getExaminerDuty().arz != null ? formActivity.getExaminerDuty().arz : "-");
         initializeArrays();
