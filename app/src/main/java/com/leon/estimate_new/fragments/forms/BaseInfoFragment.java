@@ -1,7 +1,9 @@
 package com.leon.estimate_new.fragments.forms;
 
+import static com.leon.estimate_new.enums.SharedReferenceKeys.MAP_TYPE;
 import static com.leon.estimate_new.fragments.dialog.ShowFragmentDialog.ShowFragmentDialogOnce;
 import static com.leon.estimate_new.helpers.Constants.SERVICES_FRAGMENT;
+import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponent;
 import static com.leon.estimate_new.utils.Validator.checkEmpty;
 
 import android.app.Activity;
@@ -12,6 +14,8 @@ import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,13 +23,16 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Lifecycle;
 
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.databinding.FragmentBaseInfoBinding;
 import com.leon.estimate_new.fragments.dialog.TejarihaSayerFragment;
 import com.leon.estimate_new.fragments.dialog.ValueFragment;
+import com.leon.estimate_new.fragments.dialog.ValueHelpFragment;
 import com.leon.estimate_new.tables.Arzeshdaraei;
 import com.leon.estimate_new.tables.ExaminerDuties;
 import com.leon.estimate_new.tables.KarbariDictionary;
@@ -83,6 +90,23 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 //        formActivity.setTitle(getString(R.string.app_name).concat(" / ").concat("صفحه سوم"), false);
+        requireActivity().addMenuProvider(new MenuProvider() {
+            @Override
+            public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
+                menuInflater.inflate(R.menu.value_menu, menu);
+            }
+
+            @Override
+            public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
+                menuItem.setChecked(!menuItem.isChecked());
+                final int itemId = menuItem.getItemId();
+                if (itemId == R.id.menu_help) {
+                    ShowFragmentDialogOnce(requireContext(), "VALUE_HELP_FRAGMENT", ValueHelpFragment.newInstance());
+                    return true;
+                }
+                return false;
+            }
+        }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
     }
 
     private void initialize() {

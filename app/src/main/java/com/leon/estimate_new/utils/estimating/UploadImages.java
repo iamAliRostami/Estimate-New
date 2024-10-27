@@ -68,8 +68,8 @@ public class UploadImages extends BaseAsync {
             call = abfaService.uploadDoc(getApplicationComponent().SharedPreferenceModel()
                     .getStringData(TOKEN_FOR_FILE.getValue()), body, docId, billId);
         HttpClientWrapper.callHttpAsync(call, SHOW.getValue(), activity,
-                new UploadImageDoc(object, activity, docId, trackNumber, billId, isNew),
-                new UploadImageIncomplete(object, docId, trackNumber, billId, isNew, activity),
+                new UploadImageDoc(activity, object, docId, trackNumber, billId, isNew),
+                new UploadImageIncomplete(activity, object, docId, trackNumber, billId, isNew),
                 new UploadImageError(activity, object, docId, trackNumber, billId, isNew));
     }
 
@@ -83,13 +83,13 @@ class UploadImageDoc implements ICallback<UploadImage> {
     private final int docId;
     private final Object object;
     private final boolean isNew;
-    private final Context context;
+    private final Activity activity;
     private final String trackNumber, billId;
 
-    UploadImageDoc(Object object, Context context, int docId, String trackNumber, String billId,
+    UploadImageDoc(Activity activity, Object object, int docId, String trackNumber, String billId,
                    boolean isNew) {
         this.object = object;
-        this.context = context;
+        this.activity = activity;
         this.docId = docId;
         this.trackNumber = trackNumber;
         this.billId = billId;
@@ -99,14 +99,18 @@ class UploadImageDoc implements ICallback<UploadImage> {
     @Override
     public void execute(Response<UploadImage> response) {
         if (response.body() != null && response.body().success) {
-            new CustomToast().success(context.getString(R.string.upload_success), Toast.LENGTH_LONG);
+            new CustomToast().success(activity.getString(R.string.upload_success), Toast.LENGTH_LONG);
         } else {
-            //TODO
-            new CustomDialogModel(Yellow, context, context.getString(R.string.error_upload)
-                    .concat("\n").concat(response.body().error), context.getString(R.string.dear_user),
-                    context.getString(R.string.upload_image), context.getString(R.string.accepted));
+            activity.runOnUiThread(() ->
+                    new CustomDialogModel(Yellow, activity,
+                            activity.getString(R.string.error_upload)
+                            .concat("\n").concat(response.body().error),
+                            activity.getString(R.string.dear_user),
+                            activity.getString(R.string.upload_image),
+                            activity.getString(R.string.accepted)));
+
             saveTempBitmap(((FinalReportActivity) object).getBitmap(),
-                    context, billId, trackNumber, docId, "فرم ارزیابی", isNew);
+                    activity, billId, trackNumber, docId, "فرم ارزیابی", isNew);
         }
         ((FinalReportActivity) object).sendImages();
     }
@@ -116,26 +120,27 @@ class UploadImageIncomplete implements ICallbackIncomplete<UploadImage> {
     private final int docId;
     private final Object object;
     private final boolean isNew;
-    private final Context context;
+    private final Activity activity;
     private final String trackNumber, billId;
 
-    UploadImageIncomplete(Object object, int docId, String trackNumber, String billId,
-                          boolean isNew, Context context) {
+    UploadImageIncomplete(Activity activity, Object object, int docId, String trackNumber,
+                          String billId, boolean isNew) {
         this.object = object;
+        this.activity = activity;
         this.docId = docId;
         this.trackNumber = trackNumber;
         this.billId = billId;
         this.isNew = isNew;
-        this.context = context;
     }
 
     @Override
     public void executeIncomplete(Response<UploadImage> response) {
-        final CustomErrorHandling errorHandling = new CustomErrorHandling(context);
+        final CustomErrorHandling errorHandling = new CustomErrorHandling(activity);
         final String error = errorHandling.getErrorMessageDefault(response);
-        new CustomDialogModel(Yellow, context, error, context.getString(R.string.dear_user),
-                context.getString(R.string.upload_image), context.getString(R.string.accepted));
-        saveTempBitmap(((FinalReportActivity) object).getBitmap(), context, billId, trackNumber,
+        activity.runOnUiThread(() ->
+                new CustomDialogModel(Yellow, activity, error, activity.getString(R.string.dear_user),
+                        activity.getString(R.string.upload_image), activity.getString(R.string.accepted)));
+        saveTempBitmap(((FinalReportActivity) object).getBitmap(), activity, billId, trackNumber,
                 docId, "فرم ارزیابی", isNew);
         ((FinalReportActivity) object).setSent(false);
         ((FinalReportActivity) object).sendImages();
@@ -146,12 +151,12 @@ class UploadImageError implements ICallbackError {
     private final int docId;
     private final Object object;
     private final boolean isNew;
-    private final Context context;
+    private final Activity activity;
     private final String trackNumber, billId;
 
-    public UploadImageError(Context context, Object object, int docId, String trackNumber,
+    public UploadImageError(Activity activity, Object object, int docId, String trackNumber,
                             String billId, boolean isNew) {
-        this.context = context;
+        this.activity = activity;
         this.object = object;
         this.docId = docId;
         this.trackNumber = trackNumber;
@@ -161,10 +166,10 @@ class UploadImageError implements ICallbackError {
 
     @Override
     public void executeError(Throwable t) {
-        final CustomErrorHandling errorHandling = new CustomErrorHandling(context);
+        final CustomErrorHandling errorHandling = new CustomErrorHandling(activity);
         final String error = errorHandling.getErrorMessageTotal(t);
-        new CustomToast().error(error, Toast.LENGTH_LONG);
-        saveTempBitmap(((FinalReportActivity) object).getBitmap(), context, billId,
+        activity.runOnUiThread(() -> new CustomToast().error(error, Toast.LENGTH_LONG));
+        saveTempBitmap(((FinalReportActivity) object).getBitmap(), activity, billId,
                 trackNumber, docId, "فرم ارزیابی", isNew);
         ((FinalReportActivity) object).setSent(false);
         ((FinalReportActivity) object).sendImages();

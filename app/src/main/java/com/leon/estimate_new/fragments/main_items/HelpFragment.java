@@ -22,8 +22,8 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class HelpFragment extends Fragment {
-    private final int maxNumber = 23;
     private FragmentHelpBinding binding;
+    private final int maxNumber = 23;
     private int pageNumber = 0;
 
     public HelpFragment() {
