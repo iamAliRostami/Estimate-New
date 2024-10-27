@@ -44,7 +44,7 @@ import java.util.List;
 public class FinalReportActivity extends AppCompatActivity implements View.OnClickListener {
     private final ArrayList<ResultDictionary> resultDictionaries = new ArrayList<>();
     private final ArrayList<Bitmap> bitmaps = new ArrayList<>();
-    private final ArrayList<String> resultTitle = new ArrayList<>();
+    private String[] resultTitle;
     private final HashMap<String, Integer> resultMap = new HashMap<>();
     private ActivityFinalReportBinding binding;
     private long lastClickTime = 0;
@@ -92,11 +92,13 @@ public class FinalReportActivity extends AppCompatActivity implements View.OnCli
 
     private void initializeArrays() {
         resultDictionaries.addAll(getApplicationComponent().MyDatabase().resultDictionaryDao().getResults());
+        resultTitle = new String[resultDictionaries.size()];
         for (int i = 0; i < resultDictionaries.size(); i++) {
             ResultDictionary resultDictionary = resultDictionaries.get(i);
-            resultTitle.add(resultDictionary.title);
+            resultTitle[i] = resultDictionary.title;
             resultMap.put(resultDictionary.title, resultDictionary.id);
         }
+        binding.textViewResult.setSimpleItems(resultTitle);
     }
 
     private void setOnClickListener() {
@@ -106,7 +108,7 @@ public class FinalReportActivity extends AppCompatActivity implements View.OnCli
         binding.imageButtonPrevious.setOnClickListener(this);
         binding.buttonAccepted.setOnClickListener(this);
         binding.buttonDenial.setOnClickListener(this);
-        binding.textViewResult.setOnClickListener(this);
+//        binding.textViewResult.setOnClickListener(this);
     }
 
     @Override
@@ -139,10 +141,10 @@ public class FinalReportActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
-    private void showMenu(MaterialAutoCompleteTextView editText, ArrayList<String> titles) {
+    private void showMenu(MaterialAutoCompleteTextView editText, String[] titles) {
         final PopupMenu popup = new PopupMenu(this, editText, Gravity.TOP);
-        for (int i = 0; i < titles.size(); i++) {
-            MenuItem item = popup.getMenu().add(titles.get(i));
+        for (String title : titles) {
+            MenuItem item = popup.getMenu().add(title);
             if (item.getIcon() != null) {
                 Drawable icon = item.getIcon();
                 int iconMarginPx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,

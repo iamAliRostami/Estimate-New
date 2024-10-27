@@ -50,7 +50,6 @@ import com.leon.estimate_new.BuildConfig;
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.activities.FinalReportActivity;
 import com.leon.estimate_new.adapters.ImageViewAdapter;
-import com.leon.estimate_new.adapters.SpinnerCustomAdapter;
 import com.leon.estimate_new.databinding.FragmentTakePhotoBinding;
 import com.leon.estimate_new.di.view_model.CustomDialogModel;
 import com.leon.estimate_new.di.view_model.HttpClientWrapper;
@@ -150,18 +149,19 @@ public class TakePhotoFragment extends Fragment implements View.OnClickListener 
         }
         if (documentActivity.getImages().isEmpty()) {
             documentActivity.setImages();
-            new ImageThumbnailList(requireContext(), documentActivity.getKey(),this)
+            new ImageThumbnailList(requireContext(), documentActivity.getKey(), this)
                     .execute(requireActivity());
         } else binding.progressBar.setVisibility(View.GONE);
         initializeImageAdapter();
         setOnClickListener();
+        binding.textViewImageTitle.setSimpleItems(documentActivity.getTitles());
     }
 
     private void setOnClickListener() {
         binding.buttonPick.setOnClickListener(this);
         binding.buttonUpload.setOnClickListener(this);
         binding.buttonAccepted.setOnClickListener(this);
-        binding.textViewImageTitle.setOnClickListener(this);
+//        binding.textViewImageTitle.setOnClickListener(this);
     }
 
     public void setOldThumbnails(ImageDataThumbnail thumbnails) {
@@ -248,10 +248,10 @@ public class TakePhotoFragment extends Fragment implements View.OnClickListener 
         }
     }
 
-    private void showMenu(MaterialAutoCompleteTextView editText, ArrayList<String> titles) {
+    private void showMenu(MaterialAutoCompleteTextView editText, String[] titles) {
         final PopupMenu popup = new PopupMenu(requireActivity(), editText, Gravity.TOP);
-        for (int i = 0; i < titles.size(); i++) {
-            MenuItem item = popup.getMenu().add(titles.get(i));
+        for (String title : titles) {
+            MenuItem item = popup.getMenu().add(title);
             if (item.getIcon() != null) {
                 Drawable icon = item.getIcon();
                 int iconMarginPx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
@@ -364,7 +364,7 @@ public class TakePhotoFragment extends Fragment implements View.OnClickListener 
 
         String getBillId();
 
-        ArrayList<String> getTitles();
+        String[] getTitles();
 
         ArrayList<DataTitle> getDataTitle();
 

@@ -35,7 +35,6 @@ import com.gun0912.tedpermission.TedPermission;
 import com.leon.estimate_new.BuildConfig;
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.adapters.ImageViewAdapter;
-import com.leon.estimate_new.adapters.SpinnerCustomAdapter;
 import com.leon.estimate_new.databinding.ActivityDocumentBinding;
 import com.leon.estimate_new.di.view_model.HttpClientWrapper;
 import com.leon.estimate_new.fragments.documents.BrightnessContrastFragment;
@@ -59,7 +58,7 @@ public class DocumentActivity extends AppCompatActivity implements TakePhotoFrag
     private final ArrayList<Images> images = new ArrayList<>();
     private final ArrayList<ImageData> dataThumbnail = new ArrayList<>();
     private final ArrayList<String> dataThumbnailUri = new ArrayList<>();
-    private final ArrayList<String> titles = new ArrayList<>();
+    private String[] titles;
     private final HashMap<String, Integer> titleMap = new HashMap<>();
     private final int TAKE_PHOTO_FRAGMENT = 0;
     private final int CROP_FRAGMENT = 1;
@@ -196,14 +195,15 @@ public class DocumentActivity extends AppCompatActivity implements TakePhotoFrag
     }
 
     @Override
-    public ArrayList<String> getTitles() {
+    public String[] getTitles() {
         return titles;
     }
 
     public void setTitles(ImageDataTitle body) {
         imageDataTitle = body;
+        titles = new String[imageDataTitle.data.size()];
         for (int i = 0; i < imageDataTitle.data.size(); i++) {
-            titles.add(imageDataTitle.data.get(i).title);
+            titles[i] = imageDataTitle.data.get(i).title;
             titleMap.put(imageDataTitle.data.get(i).title, imageDataTitle.data.get(i).id);
         }
         displayView(TAKE_PHOTO_FRAGMENT);
