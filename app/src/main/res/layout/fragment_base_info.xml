@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -8,8 +9,7 @@
             type="com.leon.estimate_new.fragments.forms.BaseInfoViewModel" />
     </data>
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".fragments.forms.BaseInfoFragment">
@@ -231,8 +231,8 @@
                     <com.google.android.material.checkbox.MaterialCheckBox
                         android:id="@+id/checkbox_qaradad_amade"
                         style="@style/CheckBox"
-                        android:layout_marginBottom="@dimen/medium_dp"
                         android:layout_below="@id/layout_licence_number"
+                        android:layout_marginBottom="@dimen/medium_dp"
                         android:checked="@={baseInfoVM.qaradad}"
                         android:text="@string/qaradad_amade" />
 
@@ -256,8 +256,8 @@
                     <com.google.android.material.checkbox.MaterialCheckBox
                         android:id="@+id/checkbox_gheire_daem"
                         style="@style/CheckBox"
-                        android:layout_marginBottom="@dimen/medium_dp"
                         android:layout_below="@id/layout_pelak"
+                        android:layout_marginBottom="@dimen/medium_dp"
                         android:checked="@={baseInfoVM.ensheabQeirDaem}"
                         android:text="@string/ensheab_gheire_daem" />
 
@@ -281,8 +281,8 @@
                     <com.google.android.material.checkbox.MaterialCheckBox
                         android:id="@+id/checkbox_adam_license"
                         style="@style/CheckBox"
-                        android:layout_marginBottom="@dimen/medium_dp"
                         android:layout_below="@id/layout_sanad_number"
+                        android:layout_marginBottom="@dimen/medium_dp"
                         android:checked="@={baseInfoVM.adamLicence}"
                         android:text="@string/adam_license" />
 
@@ -439,7 +439,8 @@
                         style="@style/TextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_below="@id/layout_aian_non_maskooni"
-                        android:hint="@string/arzesh_mantaghe">
+                        android:hint="@string/arzesh_mantaghe"
+                        android:visibility="gone">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edit_text_arzesh_melk"
@@ -452,10 +453,22 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/layout_noe_takhfif"
+                        android:id="@+id/layout_value"
                         style="@style/MenuLayout"
                         android:layout_width="match_parent"
                         android:layout_below="@id/layout_arzesh_melk"
+                        android:hint="@string/arzesh_mantaghe">
+
+                        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                            android:id="@+id/text_view_value"
+                            style="@style/TextInput.DropDownInput" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_noe_takhfif"
+                        style="@style/MenuLayout"
+                        android:layout_width="match_parent"
+                        android:layout_below="@id/layout_value"
                         android:hint="@string/noe_takhfif">
 
                         <com.google.android.material.textfield.MaterialAutoCompleteTextView

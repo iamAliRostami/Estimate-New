@@ -63,6 +63,8 @@ public class BaseInfoViewModel extends BaseObservable {
     @Bindable
     private String aianNonMaskooniNew;
     @Bindable
+    private String blockId;
+    @Bindable
     private String block;
     @Bindable
     private String arz;
@@ -104,6 +106,8 @@ public class BaseInfoViewModel extends BaseObservable {
             aianNonMaskooniNew = aianNonMaskooni;
         if (zarfiatQarardadiNew == null || zarfiatQarardadiNew.isEmpty())
             zarfiatQarardadiNew = zarfiatQarardadi;
+        if (blockId == null)
+            blockId = "";
     }
 
     public String getSifoon100() {
@@ -251,8 +255,8 @@ public class BaseInfoViewModel extends BaseObservable {
 
     public void setQaradad(boolean qaradad) {
 //        if (this.qaradad != qaradad) {
-            this.qaradad = qaradad;
-            notifyPropertyChanged(BR.qaradad);
+        this.qaradad = qaradad;
+        notifyPropertyChanged(BR.qaradad);
 //        }
     }
 
@@ -480,5 +484,14 @@ public class BaseInfoViewModel extends BaseObservable {
     public void setPelak(String pelak) {
         this.pelak = pelak;
         notifyPropertyChanged(BR.pelak);
+    }
+
+    public String getBlockId() {
+        return blockId;
+    }
+
+    public void setBlockId(String blockId) {
+        this.blockId = blockId;
+        notifyPropertyChanged(BR.blockId);
     }
 }

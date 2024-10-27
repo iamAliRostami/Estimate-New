@@ -1,9 +1,7 @@
 package com.leon.estimate_new.fragments.forms;
 
-import static com.leon.estimate_new.enums.SharedReferenceKeys.MAP_TYPE;
 import static com.leon.estimate_new.fragments.dialog.ShowFragmentDialog.ShowFragmentDialogOnce;
 import static com.leon.estimate_new.helpers.Constants.SERVICES_FRAGMENT;
-import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponent;
 import static com.leon.estimate_new.utils.Validator.checkEmpty;
 
 import android.app.Activity;
@@ -46,7 +44,6 @@ import com.sardari.daterangepicker.customviews.DateRangeCalendarView;
 import com.sardari.daterangepicker.dialog.DatePickerDialog;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 public class BaseInfoFragment extends Fragment implements ValueFragment.Callback, View.OnLongClickListener,
@@ -56,19 +53,19 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
     private BaseInfoViewModel baseInfoVM;
 
     private final HashMap<String, Integer> karbariMap = new HashMap<>();
-    private final ArrayList<String> karbariTitles = new ArrayList<>();
+    private String[] karbariTitles;
 
     private final HashMap<String, Integer> noeVagozariMap = new HashMap<>();
-    private final ArrayList<String> noeVagozariTitles = new ArrayList<>();
+    private String[] noeVagozariTitles;
 
     private final HashMap<String, Integer> qotrEnsheabMap = new HashMap<>();
-    private final ArrayList<String> qotrEnsheabTitles = new ArrayList<>();
+    private String[] qotrEnsheabTitles;
 
     private final HashMap<String, Integer> taxfifMap = new HashMap<>();
-    private final ArrayList<String> taxfifTitles = new ArrayList<>();
+    private String[] taxfifTitles;
 
-    private final ArrayList<String> qotrFazelabTitles = new ArrayList<>(Arrays.asList("0", "100", "125", "150", "200"));
-    private final ArrayList<String> noeEnsheabTitles = new ArrayList<>(Arrays.asList("مشخص نشده", "انشعاب خاص", "انشعاب عادی"));
+    private final String[] qotrFazelabTitles = new String[]{"0", "100", "125", "150", "200"};
+    private final String[] noeEnsheabTitles = new String[]{"مشخص نشده", "انشعاب خاص", "انشعاب عادی"};
 
     public static BaseInfoFragment newInstance() {
         return new BaseInfoFragment();
@@ -125,13 +122,24 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
         initializeNoeVagozari();
         initializeQotrEnsheab();
         initializeTaxfif();
+        initializeValue();
+
+        binding.textViewQotrFazelab.setSimpleItems(qotrFazelabTitles);
+        if (baseInfoVM.getQotrEnsheabFS() != null)
+            binding.textViewQotrFazelab.setText(baseInfoVM.getQotrEnsheabFS(), false);
+
+        binding.textViewNoeEnsheab.setSimpleItems(noeEnsheabTitles);
+        if (baseInfoVM.getEnsheabType() != null)
+            binding.textViewNoeEnsheab.setText(baseInfoVM.getEnsheabType(), false);
     }
+
 
     private void initializeKarbari() {
         ArrayList<KarbariDictionary> dictionary = formActivity.getKarbariDictionary();
+        karbariTitles = new String[dictionary.size()];
         for (int i = 0, dictionarySize = dictionary.size(); i < dictionarySize; i++) {
             KarbariDictionary karbariDictionary = dictionary.get(i);
-            karbariTitles.add(karbariDictionary.title);
+            karbariTitles[i] = karbariDictionary.title;
             karbariMap.put(karbariDictionary.title, karbariDictionary.id);
             if (baseInfoVM.getKarbariS() == null || baseInfoVM.getKarbariS().isEmpty()) {
                 if (baseInfoVM.karbariId == karbariDictionary.id) {
@@ -139,46 +147,80 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
                 }
             }
         }
+        binding.textViewKarbari.setSimpleItems(karbariTitles);
+        if (baseInfoVM.getKarbariS() != null)
+            binding.textViewKarbari.setText(baseInfoVM.getKarbariS(), false);
     }
 
     private void initializeNoeVagozari() {
         ArrayList<NoeVagozariDictionary> noeVagozariDictionaries = formActivity.getNoeVagozariDictionaries();
+        noeVagozariTitles = new String[noeVagozariDictionaries.size()];
         for (int i = 0; i < noeVagozariDictionaries.size(); i++) {
             NoeVagozariDictionary noeVagozariDictionary = noeVagozariDictionaries.get(i);
-            noeVagozariTitles.add(noeVagozariDictionary.title);
+            noeVagozariTitles[i] = noeVagozariDictionary.title;
             noeVagozariMap.put(noeVagozariDictionary.title, noeVagozariDictionary.id);
             if (baseInfoVM.getNoeVagozariS() == null || baseInfoVM.getNoeVagozariS().isEmpty()) {
                 if (baseInfoVM.getNoeVagozariId() == noeVagozariDictionary.id)
                     baseInfoVM.setNoeVagozariS(noeVagozariDictionary.title);
             }
         }
+        binding.textViewNoeVagozari.setSimpleItems(noeVagozariTitles);
+        if (baseInfoVM.getNoeVagozariS() != null)
+            binding.textViewNoeVagozari.setText(baseInfoVM.getNoeVagozariS(), false);
     }
 
     private void initializeQotrEnsheab() {
         ArrayList<QotrEnsheabDictionary> qotrEnsheabDictionaries = formActivity.getQotrEnsheabDictionary();
+        qotrEnsheabTitles = new String[qotrEnsheabDictionaries.size()];
         for (int i = 0; i < qotrEnsheabDictionaries.size(); i++) {
             QotrEnsheabDictionary qotrEnsheabDictionary = qotrEnsheabDictionaries.get(i);
-            qotrEnsheabTitles.add(qotrEnsheabDictionary.title);
+            qotrEnsheabTitles[i] = qotrEnsheabDictionary.title;
             qotrEnsheabMap.put(qotrEnsheabDictionary.title, qotrEnsheabDictionary.id);
             if (baseInfoVM.getQotrEnsheabS() == null || baseInfoVM.getQotrEnsheabS().isEmpty()) {
                 if (baseInfoVM.getQotrEnsheabId() == qotrEnsheabDictionary.id)
                     baseInfoVM.setQotrEnsheabS(qotrEnsheabDictionary.title);
             }
         }
-
+        binding.textViewQotrEnsheab.setSimpleItems(qotrEnsheabTitles);
+        if (baseInfoVM.getQotrEnsheabS() != null)
+            binding.textViewQotrEnsheab.setText(baseInfoVM.getQotrEnsheabS(), false);
     }
 
     private void initializeTaxfif() {
         ArrayList<TaxfifDictionary> dictionary = formActivity.getTaxfifDictionary();
+        taxfifTitles = new String[dictionary.size()];
         for (int i = 0, dictionarySize = dictionary.size(); i < dictionarySize; i++) {
             TaxfifDictionary taxfifDictionary = dictionary.get(i);
-            taxfifTitles.add(taxfifDictionary.title);
+            taxfifTitles[i] = taxfifDictionary.title;
             taxfifMap.put(taxfifDictionary.title, taxfifDictionary.id);
             if (baseInfoVM.getTaxfifS() == null || baseInfoVM.getTaxfifS().isEmpty()) {
                 if (taxfifDictionary.id == baseInfoVM.getTaxfifId()) {
                     baseInfoVM.setTaxfifS(taxfifDictionary.title);
                 }
             }
+        }
+        binding.textViewNoeTakhfif.setSimpleItems(taxfifTitles);
+        if (baseInfoVM.getQotrEnsheabS() != null)
+            binding.textViewNoeTakhfif.setText(baseInfoVM.getTaxfifS(), false);
+    }
+
+    private void initializeValue() {
+        if (getExaminerDuty().zoneId.equals("131301") ||
+                getExaminerDuty().zoneId.equals("131302") ||
+                getExaminerDuty().zoneId.equals("131303") ||
+                getExaminerDuty().zoneId.equals("131304") ||
+                getExaminerDuty().zoneId.equals("131305") ||
+                getExaminerDuty().zoneId.equals("131811") ||
+                getExaminerDuty().zoneId.equals("134311") ||
+                getExaminerDuty().zoneId.equals("141304") ||
+                getExaminerDuty().zoneId.equals("141811") ||
+                getExaminerDuty().zoneId.equals("144311")) {
+            String[] values = new String[]{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N"};
+            binding.textViewValue.setSimpleItems(values);
+            if (getExaminerDuty().blockId != null)
+                binding.textViewValue.setText(getExaminerDuty().blockId, false);
+        } else {
+            binding.layoutValue.setVisibility(View.GONE);
         }
     }
 
@@ -188,12 +230,12 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
     }
 
     private void setOnClickListener() {
-        binding.textViewKarbari.setOnClickListener(this);
-        binding.textViewNoeVagozari.setOnClickListener(this);
-        binding.textViewQotrEnsheab.setOnClickListener(this);
-        binding.textViewQotrFazelab.setOnClickListener(this);
-        binding.textViewNoeEnsheab.setOnClickListener(this);
-        binding.textViewNoeTakhfif.setOnClickListener(this);
+//        binding.textViewKarbari.setOnClickListener(this);
+//        binding.textViewNoeVagozari.setOnClickListener(this);
+//        binding.textViewQotrEnsheab.setOnClickListener(this);
+//        binding.textViewQotrFazelab.setOnClickListener(this);
+//        binding.textViewNoeEnsheab.setOnClickListener(this);
+//        binding.textViewNoeTakhfif.setOnClickListener(this);
         binding.editTextSodurDate.setOnClickListener(this);
 
         binding.buttonSubmit.setOnClickListener(this);
@@ -250,10 +292,10 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
     }
 
 
-    private void showMenu(MaterialAutoCompleteTextView textView, ArrayList<String> titles) {
+    private void showMenu(MaterialAutoCompleteTextView textView, String[] titles) {
         final PopupMenu popup = new PopupMenu(requireActivity(), textView, Gravity.TOP);
-        for (int i = 0; i < titles.size(); i++) {
-            MenuItem item = popup.getMenu().add(titles.get(i));
+        for (String title : titles) {
+            MenuItem item = popup.getMenu().add(title);
             if (item.getIcon() != null) {
                 Drawable icon = item.getIcon();
                 int iconMarginPx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,

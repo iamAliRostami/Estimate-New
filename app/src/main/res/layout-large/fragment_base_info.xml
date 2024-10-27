@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout>
 
     <data>
 
@@ -489,7 +489,8 @@
                         android:layout_below="@id/layout_aian_maskooni"
                         android:layout_alignParentEnd="true"
                         android:layout_toEndOf="@id/view_center_4"
-                        android:hint="@string/arzesh_mantaghe">
+                        android:hint="@string/arzesh_mantaghe"
+                        android:visibility="gone">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edit_text_arzesh_melk"
@@ -499,6 +500,20 @@
                             android:inputType="none"
                             android:nextFocusDown="@id/edit_text_tedad_saier"
                             android:text="@={baseInfoVM.arzeshMelk}" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_value"
+                        style="@style/MenuLayout"
+                        android:layout_below="@id/layout_aian_maskooni"
+                        android:layout_alignParentEnd="true"
+                        android:layout_toEndOf="@id/view_center_4"
+                        android:hint="@string/arzesh_mantaghe">
+
+                        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                            android:id="@+id/text_view_value"
+                            style="@style/TextInput.DropDownInput"
+                            android:text="@={baseInfoVM.blockId}" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -519,7 +534,7 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_tedad_taxfif"
                         style="@style/TextInputLayout"
-                        android:layout_below="@id/layout_arzesh_melk"
+                        android:layout_below="@id/layout_aian_non_maskooni"
                         android:layout_alignParentEnd="true"
                         android:layout_toEndOf="@id/view_center_4"
                         android:hint="@string/tedad_taxfif">

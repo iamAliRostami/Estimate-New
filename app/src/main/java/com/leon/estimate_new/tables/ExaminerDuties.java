@@ -62,6 +62,7 @@ public class ExaminerDuties {
     public Integer zarfiatQarardadiNew;
     public int arzeshMelk;
 
+    public String blockId;
     public String block;
     public String arz;
     public int tedadMaskooni;
