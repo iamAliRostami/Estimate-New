@@ -70,6 +70,8 @@ public class CalculationUserInputSend {
     public final int faseleOtherA;
     public final int faseleOtherF;
 
+    public String blockId;
+
     public CalculationUserInputSend(CalculationUserInput calculationUserInput, ExaminerDuties examinerDuties) {
         this.eshterak = examinerDuties.eshterak;
         this.omqeZirzamin = examinerDuties.omqeZirzamin;
@@ -126,6 +128,7 @@ public class CalculationUserInputSend {
         this.y1 = String.valueOf(calculationUserInput.y1);
         this.y2 = String.valueOf(calculationUserInput.y2);
         this.accuracy = calculationUserInput.accuracy;
+        this.blockId = calculationUserInput.blockId;
         hasMap = true;
         setSelectedServices(calculationUserInput);
     }

@@ -508,7 +508,7 @@
                         android:layout_below="@id/layout_aian_maskooni"
                         android:layout_alignParentEnd="true"
                         android:layout_toEndOf="@id/view_center_4"
-                        android:hint="@string/arzesh_mantaghe">
+                        android:hint="@string/block_11">
 
                         <com.google.android.material.textfield.MaterialAutoCompleteTextView
                             android:id="@+id/text_view_value"

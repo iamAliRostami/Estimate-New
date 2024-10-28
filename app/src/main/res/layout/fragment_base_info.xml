@@ -457,7 +457,7 @@
                         style="@style/MenuLayout"
                         android:layout_width="match_parent"
                         android:layout_below="@id/layout_arzesh_melk"
-                        android:hint="@string/arzesh_mantaghe">
+                        android:hint="@string/block_11">
 
                         <com.google.android.material.textfield.MaterialAutoCompleteTextView
                             android:id="@+id/text_view_value"

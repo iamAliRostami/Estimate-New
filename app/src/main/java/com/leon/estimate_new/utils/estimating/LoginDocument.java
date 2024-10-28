@@ -97,7 +97,7 @@ class LoginIncomplete implements ICallbackIncomplete<Login> {
     public void executeIncomplete(Response<Login> response) {
         final CustomErrorHandling errorHandling = new CustomErrorHandling(getContext());
         final String error = errorHandling.getErrorMessageDefault(response);
-        new CustomToast().error(error, Toast.LENGTH_LONG);
+        new CustomToast().error(getContext().getString(R.string.error_doc).concat(error), Toast.LENGTH_LONG);
         ((ShowDocumentFragment) object).dismiss();
     }
 }

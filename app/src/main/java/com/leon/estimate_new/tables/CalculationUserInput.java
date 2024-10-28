@@ -80,6 +80,8 @@ public class CalculationUserInput {
     public String adamLicence;
     public String qaradad;
     public String qaradadNumber;
+
+    public String blockId;
     @Ignore
     public ArrayList<RequestDictionary> selectedServicesObject;
 

@@ -5,6 +5,7 @@ import static com.leon.estimate_new.enums.SharedReferenceKeys.PASSWORD_TEMP;
 import static com.leon.estimate_new.enums.SharedReferenceKeys.TOKEN_FOR_FILE;
 import static com.leon.estimate_new.enums.SharedReferenceKeys.USERNAME_TEMP;
 import static com.leon.estimate_new.helpers.MyApplication.getApplicationComponent;
+import static com.leon.estimate_new.helpers.MyApplication.getContext;
 import static com.leon.estimate_new.utils.DifferentCompanyManager.getActiveCompanyName;
 import static com.leon.estimate_new.utils.DifferentCompanyManager.getDocumentUrl;
 
@@ -87,6 +88,6 @@ class LoginIncomplete implements ICallbackIncomplete<Login> {
     public void executeIncomplete(Response<Login> response) {
         final CustomErrorHandling errorHandling = new CustomErrorHandling(context);
         final String error = errorHandling.getErrorMessageDefault(response);
-        new CustomToast().error(error, Toast.LENGTH_LONG);
+        new CustomToast().error(getContext().getString(R.string.error_doc).concat(error), Toast.LENGTH_LONG);
     }
 }
