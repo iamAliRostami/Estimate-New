@@ -88,8 +88,6 @@ public class CalculationUserInput {
     public CalculationUserInput() {
     }
 
-
-
     public void updateConstField(ExaminerDuties examinerDuty) {
         trackingId = examinerDuty.trackingId;
         requestType = Integer.parseInt(examinerDuty.requestType);
@@ -100,31 +98,5 @@ public class CalculationUserInput {
         identityCode = examinerDuty.identityCode;
         trackNumber = examinerDuty.trackNumber;
         sent = false;
-    }
-
-    public void updateBaseInfo(ExaminerDuties examinerDuty) {
-        sifoon100 = examinerDuty.sifoon100;
-        sifoon125 = examinerDuty.sifoon125;
-        sifoon150 = examinerDuty.sifoon150;
-        sifoon200 = examinerDuty.sifoon200;
-        arse = examinerDuty.arseNew;
-        aianKol = examinerDuty.aianKolNew;
-        aianMaskooni = examinerDuty.aianMaskooniNew;
-        aianTejari = examinerDuty.aianNonMaskooniNew;
-        tedadMaskooni = examinerDuty.tedadMaskooniNew;
-        tedadTejari = examinerDuty.tedadTejariNew;
-        tedadSaier = examinerDuty.tedadSaierNew;
-        arzeshMelk = examinerDuty.arzeshMelk;
-        tedadTaxfif = examinerDuty.tedadTaxfif;
-        zarfiatQarardadi = examinerDuty.zarfiatQarardadiNew;
-        licenceNumber = examinerDuty.licenceNumber;
-        karbariId = examinerDuty.karbariId;
-        noeVagozariId = examinerDuty.noeVagozariId;
-        qotrEnsheabId = examinerDuty.qotrEnsheabId;
-        taxfifId = examinerDuty.taxfifId;
-        ensheabQeireDaem = examinerDuty.isEnsheabQeirDaem;
-        adamTaxfifAb = examinerDuty.adamTaxfifAb;
-        adamTaxfifFazelab = examinerDuty.adamTaxfifFazelab;
-        pelak = examinerDuty.pelak;
     }
 }

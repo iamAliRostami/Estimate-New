@@ -99,17 +99,19 @@ public class HomeFragment extends Fragment {
         mapController.setZoom(16.5);
 
         AsyncTask.execute(() -> {
-            while (getLocationTracker(requireActivity()).getLocation() == null||
-                    getLocationTracker(requireActivity()).getLatitude() == 0)
-                binding.progressBar.setVisibility(View.VISIBLE);
-            double latitude = getLocationTracker(requireActivity()).getLatitude();
-            double longitude = getLocationTracker(requireActivity()).getLongitude();
+//            while (getLocationTracker(requireActivity()).getLocation() == null||
+//                    getLocationTracker(requireActivity()).getLatitude() == 0)
+//                binding.progressBar.setVisibility(View.VISIBLE);
+            if (getLocationTracker(requireActivity()).getLocation() != null) {
+                double latitude = getLocationTracker(requireActivity()).getLatitude();
+                double longitude = getLocationTracker(requireActivity()).getLongitude();
 
-            GeoPoint startPoint = new GeoPoint(latitude, longitude);
-            requireActivity().runOnUiThread(() -> {
-                mapController.setCenter(startPoint);
-                binding.progressBar.setVisibility(View.GONE);
-            });
+                GeoPoint startPoint = new GeoPoint(latitude, longitude);
+                requireActivity().runOnUiThread(() -> {
+                    mapController.setCenter(startPoint);
+                    binding.progressBar.setVisibility(View.GONE);
+                });
+            }
         });
         MyLocationNewOverlay locationOverlay =
                 new MyLocationNewOverlay(new GpsMyLocationProvider(requireContext()), binding.mapView);
@@ -139,20 +141,6 @@ public class HomeFragment extends Fragment {
     }
 
     private final int MENU_OFFLINE_MAP = 0;
-
-//    @Override
-//    public void onCreateOptionsMenu(Menu menu, @NonNull MenuInflater inflater) {
-//        menu.add(0, MENU_OFFLINE_MAP, Menu.NONE, "نقشه آفلاین");
-//        super.onCreateOptionsMenu(menu, inflater);
-//    }
-//    @Override
-//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-//        if (item.getItemId() == MENU_OFFLINE_MAP) {
-////            callback.displayView(OFFLINE_MAP_FRAGMENT);
-//            ShowFragmentDialogOnce(requireContext(), "OFFLINE_MAP",OfflineMapFragment.newInstance());
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
 
     @Override
     public void onResume() {

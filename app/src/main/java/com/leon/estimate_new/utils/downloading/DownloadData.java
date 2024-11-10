@@ -36,7 +36,7 @@ public class DownloadData extends BaseAsync {
     private final boolean toast;
 
     public DownloadData(Context context, boolean toast) {
-        super(context, false,  null);
+        super(context, false, null);
         this.toast = toast;
     }
 
@@ -142,11 +142,12 @@ class DownloadIncomplete implements ICallbackIncomplete<Input> {
 
     @Override
     public void executeIncomplete(Response<Input> response) {
-        final String message;
+        String message;
+        final CustomErrorHandling error = new CustomErrorHandling(context);
         if (response.code() == 400) {
-            message = context.getString(R.string.there_is_nothing_for_download);
+            CustomErrorHandling.APIError apiError = error.parseError(response);
+            message = apiError.message();
         } else {
-            final CustomErrorHandling error = new CustomErrorHandling(context);
             message = error.getErrorMessageDefault(response);
         }
         new CustomDialogModel(Yellow, context, message,

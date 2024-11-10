@@ -82,7 +82,7 @@ public class PDFUtility {
 
         Document document = new Document();
         document.setMargins(PAGE_MARGIN, PAGE_MARGIN, PAGE_MARGIN, PAGE_MARGIN);
-        final Rectangle CUSTOM_PAGE_SIZE = new Rectangle(1000,1600);
+        final Rectangle CUSTOM_PAGE_SIZE = new Rectangle(1000, 1600);
 
         document.setPageSize(isPortrait ? CUSTOM_PAGE_SIZE : CUSTOM_PAGE_SIZE.rotate());
         new FileOutputStream(PDF_ADDRESS);
@@ -564,7 +564,7 @@ public class PDFUtility {
 
         final Image map = getImageFromBitmap(MAP_SELECTED);
         if (map != null) {
-            map.scaleToFit(200,200 );
+            map.scaleToFit(200, 200);
         }
         PdfPCell mapCell = new PdfPCell(map);
         mapCell.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -841,7 +841,7 @@ public class PDFUtility {
                     new float[]{BORDER, BORDER, BORDER, BORDER, PdfPCell.NO_BORDER},
                     new BaseColor[]{BaseColor.WHITE, BaseColor.WHITE, BaseColor.WHITE,
                             BaseColor.WHITE, BaseColor.WHITE}, dataTable.get(6 + i),
-                    FONT_TEXT, FONT_TITLE, FONT_TEXT, FONT_TEXT, FONT_TITLE));
+                    i == 0 ? FONT_EN : FONT_TEXT, FONT_TITLE, FONT_TEXT, FONT_TEXT, FONT_TITLE));
         }
         table.addCell(tableBordered);
 
@@ -1041,7 +1041,7 @@ public class PDFUtility {
         if (bitmaps != null && bitmaps.length > 0) {
             final Image sign = getImageFromBitmap(bitmaps[1]);
             if (sign != null) {
-                sign.scaleToFit(200,80);
+                sign.scaleToFit(200, 80);
                 sign.setAlignment(Element.ALIGN_CENTER);
             }
             final PdfPCell signCell = new PdfPCell(sign);

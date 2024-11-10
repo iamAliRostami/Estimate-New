@@ -192,7 +192,7 @@ public class TechnicalInfoViewModel extends BaseObservable {
     }
 
     public String getEshterak() {
-        return eshterak;
+        return eshterak.trim();
     }
 
     public void setEshterak(String eshterak) {

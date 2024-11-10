@@ -21,7 +21,6 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -232,13 +231,16 @@ public class MapDescriptionFragment extends Fragment implements View.OnClickList
     private void showCurrentLocation() {
         IMapController mapController = binding.mapView.getController();
         mapController.setZoom(19.5);
-        double latitude = getLocationTracker(requireActivity()).getLatitude();
-        double longitude = getLocationTracker(requireActivity()).getLongitude();
 
-        GeoPoint startPoint = new GeoPoint(latitude, longitude);
-        mapController.setCenter(startPoint);
+        if (getLocationTracker(requireActivity()).getLocation() != null) {
+            double latitude = getLocationTracker(requireActivity()).getLatitude();
+            double longitude = getLocationTracker(requireActivity()).getLongitude();
 
-        formActivity.setCurrentLocation(startPoint);
+            GeoPoint startPoint = new GeoPoint(latitude, longitude);
+            mapController.setCenter(startPoint);
+
+            formActivity.setCurrentLocation(startPoint);
+        }
 
         MyLocationNewOverlay locationOverlay =
                 new MyLocationNewOverlay(new GpsMyLocationProvider(requireContext()), binding.mapView);

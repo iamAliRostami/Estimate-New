@@ -79,8 +79,8 @@ class LoginSuccess implements ICallback<Login> {
                     response.body().data.token);
             ((ShowDocumentFragment) object).successLogin();
         } else {
-            new CustomToast().warning(((ShowDocumentFragment) object).requireContext()
-                    .getString(R.string.error_not_auth), Toast.LENGTH_LONG);
+            new CustomToast().warning(getContext().getString(R.string.error_doc).concat(((ShowDocumentFragment) object).requireContext()
+                    .getString(R.string.error_not_auth)), Toast.LENGTH_LONG);
             ((ShowDocumentFragment) object).dismiss();
         }
     }

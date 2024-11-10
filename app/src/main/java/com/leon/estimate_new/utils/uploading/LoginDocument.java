@@ -73,7 +73,7 @@ class LoginSuccess implements ICallback<Login> {
                     response.body().data.token);
             new UploadDocuments(activity).execute(activity);
         } else
-            new CustomToast().warning(activity.getString(R.string.error_not_auth), Toast.LENGTH_LONG);
+            new CustomToast().warning(getContext().getString(R.string.error_doc).concat(activity.getString(R.string.error_not_auth)), Toast.LENGTH_LONG);
     }
 }
 

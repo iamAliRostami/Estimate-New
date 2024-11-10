@@ -14,7 +14,6 @@ public class ExaminerDuties {
     public String trackNumber;
     public String examinationId;
     public int karbariId;
-    //    @Ignore
     public String karbariS;
     public String radif;
     public String billId;
@@ -118,8 +117,6 @@ public class ExaminerDuties {
     public boolean isEdited;
 
     public double x1, x2, y1, y2;
-    //TODO
-//    public double x1, x2, x3, y1, y2, y3;
     public String sodurDate;
     @Ignore
     public String operation;
@@ -132,20 +129,5 @@ public class ExaminerDuties {
 
     public String getExaminationDay() {
         return examinationDay;
-    }
-
-    public void preparePersonal(CalculationUserInput calculationUserInput) {
-        this.nationalId = calculationUserInput.nationalId;
-        this.firstName = calculationUserInput.firstName;
-        this.sureName = calculationUserInput.sureName;
-        this.nameAndFamily = calculationUserInput.firstName.concat(" ")
-                .concat(calculationUserInput.sureName);
-        this.fatherName = calculationUserInput.fatherName;
-        this.postalCode = calculationUserInput.postalCode;
-        this.phoneNumber = calculationUserInput.phoneNumber;
-        this.mobile = calculationUserInput.mobile;
-        this.address = calculationUserInput.address;
-        this.description = calculationUserInput.description;
-        this.shenasname = calculationUserInput.shenasname;
     }
 }

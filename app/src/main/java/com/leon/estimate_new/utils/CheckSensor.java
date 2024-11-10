@@ -14,13 +14,6 @@ public class CheckSensor {
     public static boolean checkGooglePlayServices(Context context) {
         final GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
         final int resultCode = apiAvailability.isGooglePlayServicesAvailable(context);
-        //            final String message;
-        //            if (apiAvailability.isUserResolvableError(resultCode)) {
-        //                message = context.getString(R.string.google_is_available_but_not_installed);
-        //            } else {
-        //                message = context.getString(R.string.google_is_not_available);
-        //            }
-        //            new CustomToast().warning(message);
         return resultCode == ConnectionResult.SUCCESS;
     }
 }

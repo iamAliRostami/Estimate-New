@@ -461,6 +461,7 @@
 
                         <com.google.android.material.textfield.MaterialAutoCompleteTextView
                             android:id="@+id/text_view_value"
+                            android:text="@={baseInfoVM.blockId}"
                             style="@style/TextInput.DropDownInput" />
                     </com.google.android.material.textfield.TextInputLayout>
 

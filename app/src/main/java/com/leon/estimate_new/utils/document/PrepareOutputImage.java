@@ -141,8 +141,12 @@ public class PrepareOutputImage extends BaseAsync {
         int aianMaskooniNew = examinerDuty.aianMaskooniNew != null ? examinerDuty.aianMaskooniNew : 0;
         int aianNonMaskooniNew = examinerDuty.aianNonMaskooniNew != null ? examinerDuty.aianNonMaskooniNew : 0;
 
-        rowString = new String[]{(examinerDuty.block == null || examinerDuty.block.isEmpty()) ? "-" :
+        /*rowString = new String[]{(examinerDuty.block == null || examinerDuty.block.isEmpty()) ? "-" :
                 examinerDuty.block, "بلوک",
+                examinerDuty.arseNew != null ? String.valueOf(examinerDuty.arseNew) : "-",
+                String.valueOf(examinerDuty.arse), "عرصه"};*/
+        rowString = new String[]{(examinerDuty.blockId == null || examinerDuty.blockId.isEmpty()) ? "-" :
+                examinerDuty.blockId, "بلوک",
                 examinerDuty.arseNew != null ? String.valueOf(examinerDuty.arseNew) : "-",
                 String.valueOf(examinerDuty.arse), "عرصه"};
         temp.add(rowString);
