@@ -11,22 +11,9 @@
       "type": "UNIVERSAL",
       "filters": [],
       "attributes": [],
-      "versionCode": 29,
-      "versionName": "2.03.08.15",
+      "versionCode": 30,
+      "versionName": "2.03.08.21",
       "outputFile": "app-universal-release.apk"
-    },
-    {
-      "type": "ONE_OF_MANY",
-      "filters": [
-        {
-          "filterType": "ABI",
-          "value": "x86_64"
-        }
-      ],
-      "attributes": [],
-      "versionCode": 29,
-      "versionName": "2.03.08.15",
-      "outputFile": "app-x86_64-release.apk"
     },
     {
       "type": "ONE_OF_MANY",
@@ -37,22 +24,9 @@
         }
       ],
       "attributes": [],
-      "versionCode": 29,
-      "versionName": "2.03.08.15",
+      "versionCode": 30,
+      "versionName": "2.03.08.21",
       "outputFile": "app-armeabi-release.apk"
-    },
-    {
-      "type": "ONE_OF_MANY",
-      "filters": [
-        {
-          "filterType": "ABI",
-          "value": "x86"
-        }
-      ],
-      "attributes": [],
-      "versionCode": 29,
-      "versionName": "2.03.08.15",
-      "outputFile": "app-x86-release.apk"
     },
     {
       "type": "ONE_OF_MANY",
@@ -63,22 +37,9 @@
         }
       ],
       "attributes": [],
-      "versionCode": 29,
-      "versionName": "2.03.08.15",
+      "versionCode": 30,
+      "versionName": "2.03.08.21",
       "outputFile": "app-armeabi-v7a-release.apk"
-    },
-    {
-      "type": "ONE_OF_MANY",
-      "filters": [
-        {
-          "filterType": "ABI",
-          "value": "mips64"
-        }
-      ],
-      "attributes": [],
-      "versionCode": 29,
-      "versionName": "2.03.08.15",
-      "outputFile": "app-mips64-release.apk"
     },
     {
       "type": "ONE_OF_MANY",
@@ -89,9 +50,48 @@
         }
       ],
       "attributes": [],
-      "versionCode": 29,
-      "versionName": "2.03.08.15",
+      "versionCode": 30,
+      "versionName": "2.03.08.21",
       "outputFile": "app-mips-release.apk"
+    },
+    {
+      "type": "ONE_OF_MANY",
+      "filters": [
+        {
+          "filterType": "ABI",
+          "value": "x86"
+        }
+      ],
+      "attributes": [],
+      "versionCode": 30,
+      "versionName": "2.03.08.21",
+      "outputFile": "app-x86-release.apk"
+    },
+    {
+      "type": "ONE_OF_MANY",
+      "filters": [
+        {
+          "filterType": "ABI",
+          "value": "x86_64"
+        }
+      ],
+      "attributes": [],
+      "versionCode": 30,
+      "versionName": "2.03.08.21",
+      "outputFile": "app-x86_64-release.apk"
+    },
+    {
+      "type": "ONE_OF_MANY",
+      "filters": [
+        {
+          "filterType": "ABI",
+          "value": "mips64"
+        }
+      ],
+      "attributes": [],
+      "versionCode": 30,
+      "versionName": "2.03.08.21",
+      "outputFile": "app-mips64-release.apk"
     }
   ],
   "elementType": "File",
