@@ -121,9 +121,17 @@ public class OfflineMapFragment extends BottomSheetDialogFragment implements Vie
 
     private void showCurrentLocation() {
         IMapController mapController = binding.mapView.getController();
-        mapController.setZoom(17.5);
-        double latitude = getLocationTracker(requireActivity()).getLatitude();
-        double longitude = getLocationTracker(requireActivity()).getLongitude();
+        double latitude;
+        double longitude;
+        if (getLocationTracker(requireActivity()).getLocation() != null) {
+            mapController.setZoom(17.5);
+            latitude = getLocationTracker(requireActivity()).getLatitude();
+            longitude = getLocationTracker(requireActivity()).getLongitude();
+        } else {
+            mapController.setZoom(8.5);
+            latitude = 32.65;
+            longitude = 51.66;
+        }
         mapController.setCenter(new GeoPoint(latitude, longitude));
         MyLocationNewOverlay locationOverlay =
                 new MyLocationNewOverlay(new GpsMyLocationProvider(requireContext()), binding.mapView);
