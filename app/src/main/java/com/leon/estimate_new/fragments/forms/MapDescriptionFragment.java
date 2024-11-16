@@ -230,17 +230,22 @@ public class MapDescriptionFragment extends Fragment implements View.OnClickList
 
     private void showCurrentLocation() {
         IMapController mapController = binding.mapView.getController();
-        mapController.setZoom(19.5);
-
+        double latitude;
+        double longitude;
+        GeoPoint startPoint;
         if (getLocationTracker(requireActivity()).getLocation() != null) {
-            double latitude = getLocationTracker(requireActivity()).getLatitude();
-            double longitude = getLocationTracker(requireActivity()).getLongitude();
-
-            GeoPoint startPoint = new GeoPoint(latitude, longitude);
-            mapController.setCenter(startPoint);
-
+            mapController.setZoom(19.5);
+            latitude = getLocationTracker(requireActivity()).getLatitude();
+            longitude = getLocationTracker(requireActivity()).getLongitude();
+            startPoint = new GeoPoint(latitude, longitude);
             formActivity.setCurrentLocation(startPoint);
+        } else {
+            mapController.setZoom(8.5);
+            latitude = 32.65;
+            longitude = 51.66;
+            startPoint = new GeoPoint(latitude, longitude);
         }
+        mapController.setCenter(startPoint);
 
         MyLocationNewOverlay locationOverlay =
                 new MyLocationNewOverlay(new GpsMyLocationProvider(requireContext()), binding.mapView);

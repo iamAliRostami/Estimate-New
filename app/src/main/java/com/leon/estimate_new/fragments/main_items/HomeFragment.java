@@ -32,6 +32,7 @@ import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.OnlineTileSourceBase;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.util.MapTileIndex;
+import org.osmdroid.views.CustomZoomButtonsController;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
@@ -78,14 +79,15 @@ public class HomeFragment extends Fragment {
                 getMapUrl(getActiveCompanyName())}) {
             @Override
             public String getTileURLString(long aTile) {
-                Log.e("url",getBaseUrl() + MapTileIndex.getZoom(aTile) + "/" + MapTileIndex.getX(aTile)
+                Log.e("url", getBaseUrl() + MapTileIndex.getZoom(aTile) + "/" + MapTileIndex.getX(aTile)
                         + "/" + MapTileIndex.getY(aTile) + mImageFilenameEnding);
                 return getBaseUrl() + MapTileIndex.getZoom(aTile) + "/" + MapTileIndex.getX(aTile)
                         + "/" + MapTileIndex.getY(aTile) + mImageFilenameEnding;
             }
         };
         binding.mapView.setTileSource(custom);
-        binding.mapView.setBuiltInZoomControls(true);
+//        binding.mapView.setBuiltInZoomControls(true);
+        binding.mapView.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.SHOW_AND_FADEOUT);
         binding.mapView.setMultiTouchControls(true);
         showCurrentLocation();
         requireActivity().runOnUiThread(() -> binding.progressBar.setVisibility(View.GONE));
@@ -94,24 +96,28 @@ public class HomeFragment extends Fragment {
     private void showCurrentLocation() {
 
 
-
         final IMapController mapController = binding.mapView.getController();
-        mapController.setZoom(16.5);
 
         AsyncTask.execute(() -> {
 //            while (getLocationTracker(requireActivity()).getLocation() == null||
 //                    getLocationTracker(requireActivity()).getLatitude() == 0)
 //                binding.progressBar.setVisibility(View.VISIBLE);
+            double latitude;
+            double longitude;
             if (getLocationTracker(requireActivity()).getLocation() != null) {
-                double latitude = getLocationTracker(requireActivity()).getLatitude();
-                double longitude = getLocationTracker(requireActivity()).getLongitude();
-
-                GeoPoint startPoint = new GeoPoint(latitude, longitude);
-                requireActivity().runOnUiThread(() -> {
-                    mapController.setCenter(startPoint);
-                    binding.progressBar.setVisibility(View.GONE);
-                });
+                mapController.setZoom(16.5);
+                latitude = getLocationTracker(requireActivity()).getLatitude();
+                longitude = getLocationTracker(requireActivity()).getLongitude();
+            } else {
+                mapController.setZoom(8.5);
+                latitude = 32.65;
+                longitude = 51.66;
             }
+            GeoPoint startPoint = new GeoPoint(latitude, longitude);
+            requireActivity().runOnUiThread(() -> {
+                mapController.setCenter(startPoint);
+                binding.progressBar.setVisibility(View.GONE);
+            });
         });
         MyLocationNewOverlay locationOverlay =
                 new MyLocationNewOverlay(new GpsMyLocationProvider(requireContext()), binding.mapView);
