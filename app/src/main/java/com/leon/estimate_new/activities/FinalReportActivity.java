@@ -118,10 +118,10 @@ public class FinalReportActivity extends AppCompatActivity implements View.OnCli
         final int id = v.getId();
         if (id == R.id.button_denial) {
             finish();
-        } else if (id == R.id.image_view_refresh_1) {
-            binding.signatureView1.clearCanvas();
         } else if (id == R.id.image_view_refresh_2) {
-            binding.signatureView2.clearCanvas();
+            binding.signatureView2.clear();
+        } else if (id == R.id.image_view_refresh_1) {
+            binding.signatureView1.clear();
         } else if (id == R.id.image_button_next) {
             binding.imageButtonPrevious.setVisibility(View.VISIBLE);
             pageNumber++;
@@ -133,7 +133,7 @@ public class FinalReportActivity extends AppCompatActivity implements View.OnCli
             if (pageNumber == 0) binding.imageButtonPrevious.setVisibility(View.GONE);
             binding.imageViewOutput.setImageBitmap(bitmaps.get(pageNumber));
         } else if (id == R.id.button_accepted) {
-            if (binding.signatureView1.isBitmapEmpty() || binding.signatureView2.isBitmapEmpty())
+            if (binding.signatureView2.isEmpty() || binding.signatureView1.isEmpty())
                 new CustomToast().warning(getString(R.string.request_sign), Toast.LENGTH_LONG);
             else if (checkEmpty(binding.textViewResult, this)) addImageSign();
         } else if (id == R.id.text_view_result) {
@@ -166,7 +166,7 @@ public class FinalReportActivity extends AppCompatActivity implements View.OnCli
         binding.signatureView1.setVisibility(View.GONE);
         binding.signatureView2.setVisibility(View.GONE);
         finalSubmit = true;
-        createOutputImage(bitmap1, bitmap2);
+        createOutputImage(bitmap2, bitmap1);
     }
 
     private void createOutputImage(Bitmap... tempBitmaps) {
@@ -196,19 +196,7 @@ public class FinalReportActivity extends AppCompatActivity implements View.OnCli
             licenceRows = (List<String[]>) objects[1];
         }
         //TODO
-        if (finalSubmit) sendImages();
-    }
-
-    private void finalSubmit() {
-        Integer result = resultMap.get(binding.textViewResult.getText().toString());
-        if (result != null) {
-            if (sent)
-                new UploadNavigated(examinerDuty, result, this).execute(this);
-            else
-                getApplicationComponent().MyDatabase().examinerDutiesDao()
-                        .updateExaminationByPeymayesh(true, examinerDuty.trackNumber);
-        }
-        finish();
+//        if (finalSubmit) sendImages();
     }
 
     public void sendImages() {
@@ -226,6 +214,19 @@ public class FinalReportActivity extends AppCompatActivity implements View.OnCli
         }
         setImageNumber();
     }
+
+    private void finalSubmit() {
+        Integer result = resultMap.get(binding.textViewResult.getText().toString());
+        if (result != null) {
+            if (sent)
+                new UploadNavigated(examinerDuty, result, this).execute(this);
+            else
+                getApplicationComponent().MyDatabase().examinerDutiesDao()
+                        .updateExaminationByPeymayesh(true, examinerDuty.trackNumber);
+        }
+        finish();
+    }
+
 
     private void setImageNumber() {
         imageNumber++;

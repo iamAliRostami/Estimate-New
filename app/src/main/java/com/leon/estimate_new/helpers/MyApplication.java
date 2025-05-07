@@ -15,7 +15,6 @@ import android.os.Build;
 
 import androidx.multidex.MultiDex;
 
-import com.leon.estimate_new.BuildConfig;
 import com.leon.estimate_new.di.component.ActivityComponent;
 import com.leon.estimate_new.di.component.ApplicationComponent;
 import com.leon.estimate_new.di.component.DaggerActivityComponent;
@@ -30,9 +29,6 @@ import com.leon.estimate_new.di.module.SharedPreferenceModule;
 import com.leon.estimate_new.enums.SharedReferenceNames;
 import com.leon.estimate_new.infrastructure.ILocationTracking;
 import com.leon.estimate_new.infrastructure.ISharedPreferenceManager;
-import com.leon.estimate_new.utils.CheckSensor;
-import com.yandex.metrica.YandexMetrica;
-import com.yandex.metrica.YandexMetricaConfig;
 
 import es.dmoral.toasty.Toasty;
 
@@ -107,13 +103,5 @@ public class MyApplication extends Application {
                 .sharedPreferenceModule(new SharedPreferenceModule(appContext, SharedReferenceNames.ACCOUNT))
                 .build();
         applicationComponent.inject(this);
-    }
-
-    protected void setupYandex() {
-        final String YANDEX_API_KEY = "647638bc-39d8-4aed-a537-748cf1f0fd35";
-        final YandexMetricaConfig config = YandexMetricaConfig.newConfigBuilder(YANDEX_API_KEY)
-                .withLogs().withAppVersion(BuildConfig.VERSION_NAME).build();
-        YandexMetrica.activate(appContext, config);
-        YandexMetrica.enableActivityAutoTracking(this);
     }
 }

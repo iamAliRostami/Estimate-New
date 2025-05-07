@@ -16,12 +16,15 @@ import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.core.app.ActivityCompat;
 import androidx.core.location.LocationManagerCompat;
 
+//import com.gun0912.tedpermission.PermissionListener;
+//import com.gun0912.tedpermission.TedPermission;
 import com.gun0912.tedpermission.PermissionListener;
-import com.gun0912.tedpermission.TedPermission;
+import com.gun0912.tedpermission.normal.TedPermission;
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.helpers.Constants;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class PermissionManager {
@@ -54,11 +57,11 @@ public class PermissionManager {
             }
 
             @Override
-            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+            public void onPermissionDenied(List<String> deniedPermissions) {
                 forceClose(activity);
             }
         };
-        new TedPermission(activity)
+        TedPermission.create()
                 .setPermissionListener(permissionlistener)
                 .setRationaleMessage(activity.getString(R.string.confirm_permission))
                 .setRationaleConfirmText(activity.getString(R.string.allow_permission))
@@ -70,6 +73,7 @@ public class PermissionManager {
                         Manifest.permission.READ_EXTERNAL_STORAGE,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE
                 ).check();
+
     }
 
 //    public static boolean checkCameraPermission(Context context) {
@@ -116,11 +120,11 @@ public class PermissionManager {
             }
 
             @Override
-            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+            public void onPermissionDenied(List<String> deniedPermissions) {
                 forceClose(activity);
             }
         };
-        new TedPermission(activity)
+        TedPermission.create()
                 .setPermissionListener(permissionlistener)
                 .setRationaleMessage(activity.getString(R.string.confirm_permission))
                 .setRationaleConfirmText(activity.getString(R.string.allow_permission))
@@ -159,11 +163,11 @@ public class PermissionManager {
             }
 
             @Override
-            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+            public void onPermissionDenied(List<String> deniedPermissions) {
                 forceClose(activity);
             }
         };
-        new TedPermission(activity)
+        TedPermission.create()
                 .setPermissionListener(permissionlistener)
                 .setRationaleMessage(activity.getString(R.string.confirm_permission))
                 .setRationaleConfirmText(activity.getString(R.string.allow_permission))
@@ -201,11 +205,11 @@ public class PermissionManager {
             }
 
             @Override
-            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
-                PermissionManager.forceClose(activity);
+            public void onPermissionDenied(List<String> deniedPermissions) {
+                forceClose(activity);
             }
         };
-        new TedPermission(activity)
+        TedPermission.create()
                 .setPermissionListener(permissionlistener)
                 .setRationaleMessage(activity.getString(R.string.confirm_permission))
                 .setRationaleConfirmText(activity.getString(R.string.allow_permission))

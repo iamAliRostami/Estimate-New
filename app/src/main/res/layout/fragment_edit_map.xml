@@ -12,16 +12,16 @@
         android:layout_centerHorizontal="true"
         android:text="@string/edit_crooki" />
 
-    <com.kyanogen.signatureview.SignatureView
-        android:id="@+id/signature_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_above="@id/button_submit"
-        android:layout_below="@id/image_view_color_blue"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="@dimen/medium_dp"
-        android:padding="@dimen/low_dp"
-        sign:penColor="#000000" />
+        <com.github.gcacace.signaturepad.views.SignaturePad
+            android:id="@+id/signature_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_above="@id/button_submit"
+            android:layout_below="@id/image_view_color_blue"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/medium_dp"
+            android:padding="@dimen/low_dp"
+            sign:penColor="#000000" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/image_view_refresh"
@@ -74,7 +74,6 @@
         android:paddingEnd="@dimen/medium_dp"
         android:src="@drawable/color_red"
         tools:ignore="ContentDescription" />
-
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_pre"

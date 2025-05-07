@@ -38,7 +38,6 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.languages.ArabicLigaturizer;
 import com.itextpdf.text.pdf.languages.LanguageProcessor;
 import com.leon.estimate_new.R;
-import com.sardari.daterangepicker.utils.PersianCalendar;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -49,6 +48,9 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+
+import ir.hamsaa.persiandatepicker.api.PersianPickerDate;
+import ir.hamsaa.persiandatepicker.util.PersianCalendar;
 
 public class PDFUtility {
     public static final String PDF_ADDRESS = getContext().getExternalFilesDir(null)
@@ -991,7 +993,7 @@ public class PDFUtility {
         pdfPCellTemp.setPadding(4f);
         tableTemp.addCell(pdfPCellTemp);
 
-        final PersianCalendar persianCalendar = new PersianCalendar();
+        PersianCalendar persianCalendar = new PersianCalendar();
         text = persianCalendar.getPersianLongDate();
         text = text.concat(" - ").concat((new SimpleDateFormat("HH:mm:ss")).format(new Date()));
         text = "تاریخ: ".concat(text);

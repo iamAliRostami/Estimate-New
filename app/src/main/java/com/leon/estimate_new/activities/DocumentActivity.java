@@ -31,7 +31,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.gun0912.tedpermission.PermissionListener;
-import com.gun0912.tedpermission.TedPermission;
+import com.gun0912.tedpermission.normal.TedPermission;
 import com.leon.estimate_new.BuildConfig;
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.adapters.ImageViewAdapter;
@@ -51,6 +51,7 @@ import com.leon.estimate_new.utils.document.LoginDocument;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class DocumentActivity extends AppCompatActivity implements TakePhotoFragment.Callback,
         CropFragment.Callback, BrightnessContrastFragment.Callback {
@@ -147,7 +148,7 @@ public class DocumentActivity extends AppCompatActivity implements TakePhotoFrag
             }
 
             @Override
-            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+            public void onPermissionDenied(List<String> deniedPermissions) {
                 new CustomToast().error("مجوز رد شد \n" +
                         deniedPermissions.toString(), Toast.LENGTH_LONG);
                 finish();
@@ -163,7 +164,7 @@ public class DocumentActivity extends AppCompatActivity implements TakePhotoFrag
                 settingResultLauncher.launch(new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS, uri));
             } else if (ActivityCompat.checkSelfPermission(this,
                     Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                new TedPermission(this)
+                TedPermission.create()
                         .setPermissionListener(permissionlistener)
                         .setRationaleMessage(getString(R.string.confirm_permission))
                         .setRationaleConfirmText(getString(R.string.allow_permission))
@@ -173,7 +174,7 @@ public class DocumentActivity extends AppCompatActivity implements TakePhotoFrag
                         .setPermissions(Manifest.permission.CAMERA).check();
             }
         } else
-            new TedPermission(this)
+            TedPermission.create()
                     .setPermissionListener(permissionlistener)
                     .setRationaleMessage(getString(R.string.confirm_permission))
                     .setRationaleConfirmText(getString(R.string.allow_permission))

@@ -371,7 +371,7 @@
         <item name="android:textSize">@dimen/text_size_medium</item>
         <item name="android:textStyle">bold</item>
         <item name="android:gravity">center</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@android:color/white</item>
         <!--        <item name="android:layout_margin">@dimen/medium_dp</item>-->
         <item name="android:layout_marginTop">@dimen/medium_dp</item>
         <item name="android:layout_marginBottom">@dimen/medium_dp</item>
@@ -401,7 +401,7 @@
     <style name="ListItemViewHorizontal">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/small_dp</item>
-        <item name="android:background">@color/white</item>
+        <item name="android:background">@android:color/white</item>
     </style>
 
     <style name="ListItemViewHorizontal.Blue">
@@ -418,7 +418,7 @@
         <item name="android:layout_centerInParent">true</item>
         <item name="android:layout_width">@dimen/small_dp</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:background">@color/white</item>
+        <item name="android:background">@android:color/white</item>
     </style>
 
     <style name="ListItemViewVertical.Blue">

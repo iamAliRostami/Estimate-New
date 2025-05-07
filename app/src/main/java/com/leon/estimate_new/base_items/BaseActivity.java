@@ -49,7 +49,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.material.navigation.NavigationView;
 import com.gun0912.tedpermission.PermissionListener;
-import com.gun0912.tedpermission.TedPermission;
+import com.gun0912.tedpermission.normal.TedPermission;
 import com.leon.estimate_new.BuildConfig;
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.adapters.NavigationDrawerAdapter;
@@ -63,7 +63,6 @@ import com.leon.estimate_new.infrastructure.ISharedPreferenceManager;
 import com.leon.estimate_new.utils.CustomToast;
 import com.leon.estimate_new.utils.PermissionManager;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class BaseActivity extends AppCompatActivity implements
@@ -110,7 +109,7 @@ public abstract class BaseActivity extends AppCompatActivity implements
             }
 
             @Override
-            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+            public void onPermissionDenied(List<String> deniedPermissions) {
                 PermissionManager.forceClose(activity);
             }
         };
@@ -123,7 +122,7 @@ public abstract class BaseActivity extends AppCompatActivity implements
                 settingResultLauncher.launch(new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS, uri));
             } else if (ActivityCompat.checkSelfPermission(activity,
                     Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                new TedPermission(this)
+                TedPermission.create()
                         .setPermissionListener(permissionlistener)
                         .setRationaleMessage(getString(R.string.confirm_permission))
                         .setRationaleConfirmText(getString(R.string.allow_permission))
@@ -133,7 +132,7 @@ public abstract class BaseActivity extends AppCompatActivity implements
                         .setPermissions(Manifest.permission.CAMERA).check();
             }
         } else
-            new TedPermission(this)
+            TedPermission.create()
                     .setPermissionListener(permissionlistener)
                     .setRationaleMessage(getString(R.string.confirm_permission))
                     .setRationaleConfirmText(getString(R.string.allow_permission))
@@ -160,11 +159,11 @@ public abstract class BaseActivity extends AppCompatActivity implements
             }
 
             @Override
-            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+            public void onPermissionDenied(List<String> deniedPermissions) {
                 PermissionManager.forceClose(activity);
             }
         };
-        new TedPermission(this)
+        TedPermission.create()
                 .setPermissionListener(permissionlistener)
                 .setRationaleMessage(getString(R.string.confirm_permission))
                 .setRationaleConfirmText(getString(R.string.allow_permission))

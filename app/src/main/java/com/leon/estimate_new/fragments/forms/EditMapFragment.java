@@ -49,6 +49,7 @@ public class EditMapFragment extends Fragment implements View.OnClickListener {
         super.onViewCreated(view, savedInstanceState);
 //        formActivity.setTitle(getString(R.string.app_name).concat(" / ").concat("صفحه ششم"), false);
     }
+
     private void initialize() {
         binding.buttonPre.setOnClickListener(this);
         binding.buttonSubmit.setOnClickListener(this);
@@ -57,19 +58,16 @@ public class EditMapFragment extends Fragment implements View.OnClickListener {
         binding.imageViewColorBlue.setOnClickListener(this);
         binding.imageViewColorYellow.setOnClickListener(this);
         binding.signatureView.setPenColor(YELLOW);
-
-//        if (MAP_SELECTED != null) {
-//            bitmapTemp = MAP_SELECTED.copy(MAP_SELECTED.getConfig(), true);
-//            binding.signatureView.setBitmap(bitmapTemp.copy(bitmapTemp.getConfig(), true));
-//        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (MAP_SELECTED != null) {
-            bitmapTemp = MAP_SELECTED.copy(MAP_SELECTED.getConfig(), true);
-            binding.signatureView.setBitmap(bitmapTemp.copy(bitmapTemp.getConfig(), true));
+        Bitmap.Config conf = MAP_SELECTED.getConfig();
+        if (MAP_SELECTED != null && conf != null) {
+            bitmapTemp = MAP_SELECTED.copy(conf, true);
+//            binding.signatureView.setBitmap(bitmapTemp.copy(bitmapTemp.getConfig(), true));
+            binding.signatureView.setSignatureBitmap(bitmapTemp.copy(conf, true));
         }
     }
 
@@ -77,9 +75,10 @@ public class EditMapFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         final int id = v.getId();
         if (id == R.id.image_view_refresh) {
-            binding.signatureView.clearCanvas();
-            if (bitmapTemp != null) {
-                binding.signatureView.setBitmap(bitmapTemp.copy(bitmapTemp.getConfig(), true));
+            Bitmap.Config conf = bitmapTemp.getConfig();
+            binding.signatureView.clear();
+            if (bitmapTemp != null && conf != null) {
+                binding.signatureView.setSignatureBitmap(bitmapTemp.copy(conf, true));
             }
         } else if (id == R.id.image_view_color_blue) {
             binding.signatureView.setPenColor(BLUE);

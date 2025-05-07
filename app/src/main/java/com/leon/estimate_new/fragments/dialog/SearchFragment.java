@@ -1,6 +1,8 @@
 package com.leon.estimate_new.fragments.dialog;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,12 +11,16 @@ import android.view.WindowManager;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.textfield.TextInputEditText;
+import com.leon.estimate_new.R;
 import com.leon.estimate_new.databinding.FragmentSearchBinding;
 import com.leon.estimate_new.fragments.main_items.DutiesListFragment;
-import com.sardari.daterangepicker.customviews.DateRangeCalendarView;
-import com.sardari.daterangepicker.dialog.DatePickerDialog;
 
 import org.jetbrains.annotations.NotNull;
+
+import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
+import ir.hamsaa.persiandatepicker.api.PersianPickerDate;
+import ir.hamsaa.persiandatepicker.api.PersianPickerListener;
 
 public class SearchFragment extends DialogFragment {
     private final Callback dutiesListFragment;
@@ -58,18 +64,35 @@ public class SearchFragment extends DialogFragment {
     }
 
     private void setOnTextViewStartDateClickListener() {
-        binding.textViewStartDate.setOnClickListener(v -> {
-            DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity());
-            datePickerDialog.setSelectionMode(DateRangeCalendarView.SelectionMode.Single);
-            datePickerDialog.setDisableDaysAgo(false);
-            datePickerDialog.setTextSizeTitle(10.0f);
-            datePickerDialog.setTextSizeWeek(12.0f);
-            datePickerDialog.setTextSizeDate(14.0f);
-            datePickerDialog.setCanceledOnTouchOutside(true);
-            datePickerDialog.setOnSingleDateSelectedListener(date ->
-                    binding.textViewStartDate.setText(date.getPersianShortDate()));
-            datePickerDialog.showDialog();
-        });
+        binding.textViewStartDate.setOnClickListener(v ->
+                new PersianDatePickerDialog(getActivity())
+                        .setPositiveButtonString(getString(R.string.confirm))
+                        .setNegativeButton(getString(R.string.cancel))
+                        .setTodayButton(getString(R.string.today))
+                        .setMinYear(1300)
+                        .setTodayButtonVisible(true)
+                        .setActionTextColor(Color.GRAY)
+                        .setTitleType(PersianDatePickerDialog.WEEKDAY_DAY_MONTH_YEAR)
+                        .setShowInBottomSheet(true)
+                        .setListener(new PersianPickerListener() {
+                            @Override
+                            public void onDateSelected(@NotNull PersianPickerDate persianPickerDate) {
+                                String month = persianPickerDate.getPersianMonth() > 10 ?
+                                        String.valueOf(persianPickerDate.getPersianMonth()) :
+                                        "0" + persianPickerDate.getPersianMonth();
+                                String day = persianPickerDate.getPersianDay() > 10 ?
+                                        String.valueOf(persianPickerDate.getPersianDay()) :
+                                        "0" + persianPickerDate.getPersianDay();
+                                String date = persianPickerDate.getPersianYear() + "/" + month + "/" +
+                                        day;
+                                ((TextInputEditText) v).setText(date);
+                            }
+
+                            @Override
+                            public void onDismissed() {
+
+                            }
+                        }).show());
     }
 
     @Override

@@ -136,7 +136,6 @@
             android:layout_above="@id/recycler_view_tejariha"
             android:layout_below="@id/layout_vahed_mohasebe"
             android:layout_alignParentEnd="true"
-            android:layout_gravity="center"
             android:padding="@dimen/low_dp"
             android:src="@drawable/image_plus" />
 

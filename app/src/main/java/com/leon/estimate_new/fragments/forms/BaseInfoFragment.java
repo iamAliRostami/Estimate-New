@@ -6,6 +6,7 @@ import static com.leon.estimate_new.utils.Validator.checkEmpty;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.InsetDrawable;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Lifecycle;
 
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
+import com.google.android.material.textfield.TextInputEditText;
 import com.leon.estimate_new.R;
 import com.leon.estimate_new.databinding.FragmentBaseInfoBinding;
 import com.leon.estimate_new.fragments.dialog.TejarihaSayerFragment;
@@ -40,11 +42,15 @@ import com.leon.estimate_new.tables.TaxfifDictionary;
 import com.leon.estimate_new.tables.Tejariha;
 import com.leon.estimate_new.utils.estimating.GetArzeshdaraei;
 import com.leon.estimate_new.utils.mapper.CustomMapper;
-import com.sardari.daterangepicker.customviews.DateRangeCalendarView;
-import com.sardari.daterangepicker.dialog.DatePickerDialog;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
+import ir.hamsaa.persiandatepicker.api.PersianPickerDate;
+import ir.hamsaa.persiandatepicker.api.PersianPickerListener;
 
 public class BaseInfoFragment extends Fragment implements ValueFragment.Callback, View.OnLongClickListener,
         TejarihaSayerFragment.Callback, View.OnClickListener, View.OnFocusChangeListener {
@@ -265,16 +271,7 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
         } else if (id == R.id.text_view_noe_takhfif) {
             showMenu(binding.textViewNoeTakhfif, taxfifTitles);
         } else if (id == R.id.edit_text_sodur_date) {
-            DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext());
-            datePickerDialog.setSelectionMode(DateRangeCalendarView.SelectionMode.Single);
-            datePickerDialog.setDisableDaysAgo(false);
-            datePickerDialog.setTextSizeTitle(10.0f);
-            datePickerDialog.setTextSizeWeek(12.0f);
-            datePickerDialog.setTextSizeDate(14.0f);
-            datePickerDialog.setCanceledOnTouchOutside(true);
-            datePickerDialog.setOnSingleDateSelectedListener(date ->
-                    binding.editTextSodurDate.setText(date.getPersianShortDate()));
-            datePickerDialog.showDialog();
+            selectDate(v);
         }
         if (id == R.id.layout_arzesh_melk || id == R.id.edit_text_arzesh_melk) {
             if (formActivity.getArzeshdaraei() != null && !formActivity.getArzeshdaraei().blocks.isEmpty()
@@ -291,6 +288,36 @@ public class BaseInfoFragment extends Fragment implements ValueFragment.Callback
         }
     }
 
+    private void selectDate(View view) {
+        new PersianDatePickerDialog(getActivity())
+                .setPositiveButtonString(getString(R.string.confirm))
+                .setNegativeButton(getString(R.string.cancel))
+                .setTodayButton(getString(R.string.today))
+                .setMinYear(1300)
+                .setTodayButtonVisible(true)
+                .setActionTextColor(Color.GRAY)
+                .setTitleType(PersianDatePickerDialog.WEEKDAY_DAY_MONTH_YEAR)
+                .setShowInBottomSheet(true)
+                .setListener(new PersianPickerListener() {
+                    @Override
+                    public void onDateSelected(@NotNull PersianPickerDate persianPickerDate) {
+                        String month = persianPickerDate.getPersianMonth() > 10 ?
+                                String.valueOf(persianPickerDate.getPersianMonth()) :
+                                "0" + persianPickerDate.getPersianMonth();
+                        String day = persianPickerDate.getPersianDay() > 10 ?
+                                String.valueOf(persianPickerDate.getPersianDay()) :
+                                "0" + persianPickerDate.getPersianDay();
+                        String date = persianPickerDate.getPersianYear() + "/" + month + "/" +
+                                day;
+                        ((TextInputEditText) view).setText(date);
+                    }
+
+                    @Override
+                    public void onDismissed() {
+
+                    }
+                }).show();
+    }
 
     private void showMenu(MaterialAutoCompleteTextView textView, String[] titles) {
         final PopupMenu popup = new PopupMenu(requireActivity(), textView, Gravity.TOP);
