@@ -196,7 +196,7 @@ public class FinalReportActivity extends AppCompatActivity implements View.OnCli
             licenceRows = (List<String[]>) objects[1];
         }
         //TODO
-//        if (finalSubmit) sendImages();
+        if (finalSubmit) sendImages();
     }
 
     public void sendImages() {
@@ -226,7 +226,6 @@ public class FinalReportActivity extends AppCompatActivity implements View.OnCli
         }
         finish();
     }
-
 
     private void setImageNumber() {
         imageNumber++;

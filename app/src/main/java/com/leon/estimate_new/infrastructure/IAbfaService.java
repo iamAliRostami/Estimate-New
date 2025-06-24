@@ -35,7 +35,7 @@ import retrofit2.http.Query;
 
 
 public interface IAbfaService {
-    @POST("MoshtarakinApi/SepanoDMS/V1/Auth/Login/{userName}/{password}")
+    @POST("/MoshtarakinApi/SepanoDMS/V1/Auth/Login/{userName}/{password}")
     Call<LoginFeedBack> login(@Path("userName") String username, @Path("password") String password);
 
     @POST("/MoshtarakinApi/SepanoDMS/V1/Login/{username}/{password}")
@@ -43,7 +43,6 @@ public interface IAbfaService {
 
     @POST("/MoshtarakinApi/Gis/V1/GetXy/jesuschrist/{billId}")
     Call<Place> getXY(@Path("billId") String billId);
-
 
     //TODO Document
     @POST("/MoshtarakinApi/SepanoDMS/V1/GetDoc/{token}")
