@@ -44,6 +44,7 @@ public class PersonalFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         binding = FragmentPersonalBinding.inflate(inflater, container, false);
         personalVM = CustomMapper.INSTANCE.examinerDutyToPersonalViewModel(formActivity.getExaminerDuty());
+        personalVM.setDescription(personalVM.getDescription().trim());
         binding.setPersonalVM(personalVM);
         initialize();
         return binding.getRoot();

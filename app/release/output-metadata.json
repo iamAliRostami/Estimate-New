@@ -11,9 +11,35 @@
       "type": "UNIVERSAL",
       "filters": [],
       "attributes": [],
-      "versionCode": 34,
-      "versionName": "2.04.04.021",
+      "versionCode": 36,
+      "versionName": "2.04.04.25",
       "outputFile": "app-universal-release.apk"
+    },
+    {
+      "type": "ONE_OF_MANY",
+      "filters": [
+        {
+          "filterType": "ABI",
+          "value": "mips"
+        }
+      ],
+      "attributes": [],
+      "versionCode": 36,
+      "versionName": "2.04.04.25",
+      "outputFile": "app-mips-release.apk"
+    },
+    {
+      "type": "ONE_OF_MANY",
+      "filters": [
+        {
+          "filterType": "ABI",
+          "value": "armeabi"
+        }
+      ],
+      "attributes": [],
+      "versionCode": 36,
+      "versionName": "2.04.04.25",
+      "outputFile": "app-armeabi-release.apk"
     },
     {
       "type": "ONE_OF_MANY",
@@ -24,8 +50,8 @@
         }
       ],
       "attributes": [],
-      "versionCode": 34,
-      "versionName": "2.04.04.021",
+      "versionCode": 36,
+      "versionName": "2.04.04.25",
       "outputFile": "app-x86_64-release.apk"
     },
     {
@@ -37,22 +63,9 @@
         }
       ],
       "attributes": [],
-      "versionCode": 34,
-      "versionName": "2.04.04.021",
+      "versionCode": 36,
+      "versionName": "2.04.04.25",
       "outputFile": "app-x86-release.apk"
-    },
-    {
-      "type": "ONE_OF_MANY",
-      "filters": [
-        {
-          "filterType": "ABI",
-          "value": "armeabi"
-        }
-      ],
-      "attributes": [],
-      "versionCode": 34,
-      "versionName": "2.04.04.021",
-      "outputFile": "app-armeabi-release.apk"
     },
     {
       "type": "ONE_OF_MANY",
@@ -63,22 +76,9 @@
         }
       ],
       "attributes": [],
-      "versionCode": 34,
-      "versionName": "2.04.04.021",
+      "versionCode": 36,
+      "versionName": "2.04.04.25",
       "outputFile": "app-mips64-release.apk"
-    },
-    {
-      "type": "ONE_OF_MANY",
-      "filters": [
-        {
-          "filterType": "ABI",
-          "value": "mips"
-        }
-      ],
-      "attributes": [],
-      "versionCode": 34,
-      "versionName": "2.04.04.021",
-      "outputFile": "app-mips-release.apk"
     },
     {
       "type": "ONE_OF_MANY",
@@ -89,8 +89,8 @@
         }
       ],
       "attributes": [],
-      "versionCode": 34,
-      "versionName": "2.04.04.021",
+      "versionCode": 36,
+      "versionName": "2.04.04.25",
       "outputFile": "app-armeabi-v7a-release.apk"
     }
   ],

@@ -144,10 +144,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 checkEmpty(binding.editTextPassword, this)) {
             if (isNetworkAvailable(getApplicationContext())) {
                 if (online)
-                    new AttemptLogin(loginVM.getUsername(), loginVM.getPassword(), loginVM.isSave())
+                    new AttemptLogin(loginVM.getUsername().trim(), loginVM.getPassword(), loginVM.isSave())
                             .execute(this);
                 else
-                    new AttemptLogin(loginVM.getUsername(), loginVM.getPassword(), loginVM.isSave(),
+                    new AttemptLogin(loginVM.getUsername().trim(), loginVM.getPassword(), loginVM.isSave(),
                             false).execute(this);
             } else {
                 new CustomToast().warning(getString(R.string.turn_internet_on));

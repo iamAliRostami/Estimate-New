@@ -65,6 +65,13 @@ public class MyApplication extends Application {
     }
 
     public static ILocationTracking getLocationTracker(Activity activity) {
+        if (activityComponent == null) {
+            activityComponent = DaggerActivityComponent
+                    .builder()
+                    .customDialogModule(new CustomDialogModule(activity))
+                    .locationTrackingModule(new LocationTrackingModule(activity))
+                    .build();
+        }
         return /*CheckSensor.checkSensor(activity) ?
                 activityComponent.LocationTrackingGoogle() :*/
                 activityComponent.LocationTrackingGps();

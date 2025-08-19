@@ -93,7 +93,7 @@ public class DifferentCompanyManager {
                 return proxy;
         }
         return switch (companyNames) {
-            case ESF -> "http://172.18.12.242:8080/tile/";
+            case ESF -> "http://172.18.12.242/tile/";
             default -> throw new UnsupportedOperationException();
         };
     }

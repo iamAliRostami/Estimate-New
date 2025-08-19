@@ -99,9 +99,9 @@ public class MapDescriptionFragment extends Fragment implements View.OnClickList
         requireActivity().addMenuProvider(new MenuProvider() {
             @Override
             public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
-                menuInflater.inflate(R.menu.map_menu, menu);
-                menu.getItem(getApplicationComponent().SharedPreferenceModel()
-                        .getIntData(MAP_TYPE.getValue())).setChecked(true);
+//                menuInflater.inflate(R.menu.map_menu, menu);
+//                menu.getItem(getApplicationComponent().SharedPreferenceModel()
+//                        .getIntData(MAP_TYPE.getValue())).setChecked(true);
             }
 
             @Override

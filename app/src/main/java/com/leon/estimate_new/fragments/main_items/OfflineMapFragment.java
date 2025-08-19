@@ -1,11 +1,14 @@
 package com.leon.estimate_new.fragments.main_items;
 
 import static com.leon.estimate_new.helpers.MyApplication.getLocationTracker;
+import static com.leon.estimate_new.utils.DifferentCompanyManager.getActiveCompanyName;
+import static com.leon.estimate_new.utils.DifferentCompanyManager.getMapUrl;
 
 import android.app.Dialog;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +30,9 @@ import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.events.MapEventsReceiver;
 import org.osmdroid.tileprovider.cachemanager.CacheManager;
+import org.osmdroid.tileprovider.tilesource.OnlineTileSourceBase;
 import org.osmdroid.util.GeoPoint;
+import org.osmdroid.util.MapTileIndex;
 import org.osmdroid.views.CustomZoomButtonsController;
 import org.osmdroid.views.overlay.MapEventsOverlay;
 import org.osmdroid.views.overlay.Marker;
@@ -110,7 +115,19 @@ public class OfflineMapFragment extends BottomSheetDialogFragment implements Vie
 
     private void initializeMap() {
         Configuration.getInstance().load(requireContext(), PreferenceManager.getDefaultSharedPreferences(requireContext()));
-        binding.mapView.setTileSource(new CustomOnlineTileSource());
+        final OnlineTileSourceBase custom = new OnlineTileSourceBase("custom",
+                0, 19, 256, ".png", new String[]{
+                getMapUrl(getActiveCompanyName())}) {
+            @Override
+            public String getTileURLString(long aTile) {
+                Log.e("url", getBaseUrl() + MapTileIndex.getZoom(aTile) + "/" + MapTileIndex.getX(aTile)
+                        + "/" + MapTileIndex.getY(aTile) + mImageFilenameEnding);
+                return getBaseUrl() + MapTileIndex.getZoom(aTile) + "/" + MapTileIndex.getX(aTile)
+                        + "/" + MapTileIndex.getY(aTile) + mImageFilenameEnding;
+            }
+        };
+        binding.mapView.setTileSource(custom);
+//        binding.mapView.setTileSource(new CustomOnlineTileSource());
         binding.mapView.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.NEVER);
         binding.mapView.setMultiTouchControls(true);
         binding.mapView.getOverlays().add(new MapEventsOverlay(this));

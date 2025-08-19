@@ -94,10 +94,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void showCurrentLocation() {
-
-
         final IMapController mapController = binding.mapView.getController();
-
         AsyncTask.execute(() -> {
 //            while (getLocationTracker(requireActivity()).getLocation() == null||
 //                    getLocationTracker(requireActivity()).getLatitude() == 0)
