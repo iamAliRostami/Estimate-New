@@ -3,6 +3,7 @@ package com.leon.estimate_new.helpers;
 import android.Manifest;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.net.Uri;
 
 import com.leon.estimate_new.di.component.ActivityComponent;
 import com.leon.estimate_new.di.component.ApplicationComponent;
@@ -46,6 +47,7 @@ public class Constants {
     public static final String[] LOCATION_PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION};
     public static Bitmap MAP_SELECTED;
+    public static Uri MAP_URI;
     public static String IMAGE_FILE_NAME;
     public static final String[] NECESSARY_IMAGES = {"124", "125"};
 

@@ -19,3 +19,7 @@
 local.properties
 *.zip
 *.apk
+/dbnavigator.xml
+/planningMode.xml
+/gradle.xml
+/deploymentTargetSelector.xml

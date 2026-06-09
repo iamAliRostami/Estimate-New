@@ -13,8 +13,6 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Build;
 
-import androidx.multidex.MultiDex;
-
 import com.leon.estimate_new.di.component.ActivityComponent;
 import com.leon.estimate_new.di.component.ApplicationComponent;
 import com.leon.estimate_new.di.component.DaggerActivityComponent;
@@ -92,12 +90,6 @@ public class MyApplication extends Application {
                 .setTextSize(TOAST_TEXT_SIZE)
                 .allowQueue(true).apply();
         setApplicationComponent();
-    }
-
-    @Override
-    protected void attachBaseContext(Context base) {
-        super.attachBaseContext(base);
-        MultiDex.install(this);
     }
 
     public void setApplicationComponent() {

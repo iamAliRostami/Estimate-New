@@ -19,3 +19,8 @@ local.properties
 # Project exclude paths
 /openCVLibrary/build/
 /openCVLibrary/build/intermediates/javac/release/classes/
+/.idea/dbnavigator.xml
+/.idea/planningMode.xml
+/.idea
+/.idea/gradle.xml
+/.idea/deploymentTargetSelector.xml

@@ -1,0 +1,74 @@
+[versions]
+activity = "1.13.0"
+agp = "9.2.1"
+androiddocumentscanner = "1.4"
+appcompat = "1.7.1"
+constraintlayout = "2.2.1"
+dagger = "2.59.2"
+geojson = "1.0.1"
+gson = "2.14.0"
+itextpdf = "5.5.13.5"
+javaxAnnotationApi = "1.3.2"
+junit = "4.13.2"
+jwtdecode = "2.0.2"
+mapstruct = "1.6.3"
+material = "1.14.0"
+multidex = "2.0.1"
+okhttp3 = "5.4.0"
+osmbonuspack = "6.9.0"
+osmdroidAndroid = "6.1.20"
+persianDatePickerDialog = "1.8.0"
+photoview = "2.3.0"
+playServicesLocation = "21.3.0"
+retrofit2 = "3.0.0"
+retrofit2Version = "3.0.0"
+room = "2.6.1"
+rxandroid = "2.1.1"
+sdpAndroid = "1.1.1"
+shimmer = "0.5.0"
+signaturePad = "0.2.0"
+signaturePadVersion = "1.3.1"
+tedpermissionNormal = "3.4.2"
+toasty = "1.5.0"
+
+[libraries]
+activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+adapter-rxjava2 = { group = "com.squareup.retrofit2", name = "adapter-rxjava2", version.ref = "retrofit2" }
+androiddocumentscanner = { group = "com.github.mayuce", name = "AndroidDocumentScanner", version.ref = "androiddocumentscanner" }
+appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit2Version" }
+converter-scalars = { group = "com.squareup.retrofit2", name = "converter-scalars", version.ref = "retrofit2" }
+dagger = { group = "com.google.dagger", name = "dagger", version.ref = "dagger" }
+dagger-android = { group = "com.google.dagger", name = "dagger-android", version.ref = "dagger" }
+geojson = { group = "com.cocoahero.android", name = "geojson", version.ref = "geojson" }
+gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
+itextpdf = { group = "com.itextpdf", name = "itextpdf", version.ref = "itextpdf" }
+javax-annotation-api = { group = "javax.annotation", name = "javax.annotation-api", version.ref = "javaxAnnotationApi" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+jwtdecode = { group = "com.auth0.android", name = "jwtdecode", version.ref = "jwtdecode" }
+logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp3" }
+mapstruct = { group = "org.mapstruct", name = "mapstruct", version.ref = "mapstruct" }
+mapstruct-processor = { group = "org.mapstruct", name = "mapstruct-processor", version.ref = "mapstruct" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+multidex = { group = "androidx.multidex", name = "multidex", version.ref = "multidex" }
+okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp3" }
+osmbonuspack = { group = "com.github.MKergall", name = "osmbonuspack", version.ref = "osmbonuspack" }
+osmdroid-android = { group = "org.osmdroid", name = "osmdroid-android", version.ref = "osmdroidAndroid" }
+persian-date-picker-dialog = { group = "com.github.aliab", name = "Persian-Date-Picker-Dialog", version.ref = "persianDatePickerDialog" }
+photoview = { group = "com.github.chrisbanes", name = "PhotoView", version.ref = "photoview" }
+play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "playServicesLocation" }
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit2Version" }
+runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+rxandroid = { group = "io.reactivex.rxjava2", name = "rxandroid", version.ref = "rxandroid" }
+sdp-android = { group = "com.intuit.sdp", name = "sdp-android", version.ref = "sdpAndroid" }
+se-signature-pad = { group = "se.warting.signature", name = "signature-pad", version.ref = "signaturePad" }
+shimmer = { group = "com.facebook.shimmer", name = "shimmer", version.ref = "shimmer" }
+signature-pad = { group = "com.github.gcacace", name = "signature-pad", version.ref = "signaturePadVersion" }
+tedpermission-normal = { group = "io.github.ParkSangGwon", name = "tedpermission-normal", version.ref = "tedpermissionNormal" }
+toasty = { group = "com.github.GrenderG", name = "Toasty", version.ref = "toasty" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }

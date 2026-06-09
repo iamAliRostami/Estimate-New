@@ -6,7 +6,9 @@ import static org.opencv.android.Utils.bitmapToMat;
 import static org.opencv.android.Utils.matToBitmap;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorMatrix;
@@ -16,15 +18,23 @@ import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.graphics.Typeface;
+import android.net.Uri;
+import android.os.Environment;
 
+import com.leon.estimate_new.R;
 import com.leon.estimate_new.helpers.Constants;
 
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import ir.hamsaa.persiandatepicker.util.PersianCalendar;
@@ -106,5 +116,40 @@ public class ImageUtils {
             }
         }
         return dest;
+    }
+
+    public static Uri saveBitmapToInternalCache(Context context, Bitmap bitmap) {
+        if (bitmap == null) {
+            return null;
+        }
+        File cacheDir = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES), "cacheDir"); // Gets the internal cache directory
+        String timeStamp = new SimpleDateFormat(context.getString(R.string.save_format_name), Locale.getDefault()).format(new Date());
+        String imageFileName = timeStamp + ".jpg";
+        File imageFile = new File(cacheDir, imageFileName);
+
+        try (FileOutputStream fos = new FileOutputStream(imageFile)) {
+            //            bitmap.compress(format, quality, fos);
+            return Uri.fromFile(imageFile); // Get Uri from the file
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static Bitmap restoreBitmapFromUri(Context context, Uri imageUri) {
+        if (imageUri == null) {
+            return null;
+        }
+
+        try (InputStream inputStream = context.getContentResolver().openInputStream(imageUri)) {
+            if (inputStream != null) {
+                return BitmapFactory.decodeStream(inputStream);
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

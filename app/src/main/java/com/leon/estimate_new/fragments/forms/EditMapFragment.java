@@ -115,8 +115,8 @@ public class EditMapFragment extends Fragment implements View.OnClickListener {
 
         void setTitle(String title, boolean showMenu);
 
-        ExaminerDuties getExaminerDuty();
-
         void setEditMap();
+
+        ExaminerDuties getExaminerDuty();
     }
 }
